@@ -13,12 +13,70 @@ import { pipeline } from "node:stream/promises";
 import { Transform } from "node:stream";
 import { createReadStream } from "node:fs";
 import { Readable } from "node:stream";
+import winston from "winston";
 
 const execAsync = promisify(exec);
 
+// Configure structured logging
+const logger = winston.createLogger({
+  level: process.env.LOG_LEVEL || 'info',
+  format: winston.format.combine(
+    winston.format.timestamp(),
+    winston.format.errors({ stack: true }),
+    winston.format.json()
+  ),
+  transports: [
+    new winston.transports.Console({
+      format: winston.format.simple()
+    })
+  ]
+});
+
+// Environment configuration validation
+const config = {
+  allowedRoot: process.env.ALLOWED_ROOT || "",
+  webAllowlist: process.env.WEB_ALLOWLIST || "",
+  procAllowlist: process.env.PROC_ALLOWLIST || "",
+  extraPath: process.env.EXTRA_PATH || "",
+  logLevel: process.env.LOG_LEVEL || "info",
+  maxFileSize: parseInt(process.env.MAX_FILE_SIZE || "1000000"),
+  timeout: parseInt(process.env.COMMAND_TIMEOUT || "30000"),
+  enableSecurityChecks: process.env.ENABLE_SECURITY_CHECKS !== "false"
+};
+
+logger.info("MCP Server starting", { 
+  config: { 
+    ...config, 
+    allowedRoot: config.allowedRoot ? "configured" : "unrestricted",
+    webAllowlist: config.webAllowlist ? "configured" : "unrestricted",
+    procAllowlist: config.procAllowlist ? "configured" : "unrestricted"
+  } 
+});
+
+// Security: Command sanitization utility
+function sanitizeCommand(command: string, args: string[]): { command: string; args: string[] } {
+  // Remove any command injection attempts
+  const sanitizedCommand = command.replace(/[;&|`$(){}[\]]/g, '');
+  const sanitizedArgs = args.map(arg => arg.replace(/[;&|`$(){}[\]]/g, ''));
+  
+  return { command: sanitizedCommand, args: sanitizedArgs };
+}
+
+// Security: Validate against dangerous commands
+function isDangerousCommand(command: string): boolean {
+  const dangerousCommands = [
+    'format', 'del', 'rmdir', 'shutdown', 'taskkill', 'rm', 'dd',
+    'diskpart', 'reg', 'sc', 'wmic', 'powershell', 'cmd'
+  ];
+  
+  return dangerousCommands.some(cmd => 
+    command.toLowerCase().includes(cmd.toLowerCase())
+  );
+}
+
 // Universal access - allow all drives and paths
-const ALLOWED_ROOTS = process.env.ALLOWED_ROOT 
-  ? process.env.ALLOWED_ROOT.split(",").map(s => path.resolve(s.trim())).filter(Boolean)
+const ALLOWED_ROOTS = config.allowedRoot
+  ? config.allowedRoot.split(",").map(s => path.resolve(s.trim())).filter(Boolean)
   : [];
 
 // Get all available drives on Windows
@@ -38,7 +96,7 @@ function getAllDrives(): string[] {
       }
     }
   } catch (error) {
-    console.warn("Could not enumerate drives:", error);
+    logger.warn("Could not enumerate drives", { error: error instanceof Error ? error.message : String(error) });
   }
   return drives;
 }
@@ -53,10 +111,10 @@ if (ALLOWED_ROOTS_ARRAY.length === 0) {
   ALLOWED_ROOTS_ARRAY.push(process.cwd());
 }
 
-const MAX_BYTES = 1_000_000;
+const MAX_BYTES = config.maxFileSize;
 // Remove web restrictions - allow all hosts
 const WEB_ALLOWLIST: string[] = []; // Empty array means no restrictions
-const PROC_ALLOWLIST_RAW = process.env.PROC_ALLOWLIST ?? "";
+const PROC_ALLOWLIST_RAW = config.procAllowlist;
 const PROC_ALLOWLIST = PROC_ALLOWLIST_RAW === "" ? [] : PROC_ALLOWLIST_RAW.split(",").map(s => s.trim()).filter(Boolean);
 
 function ensureInsideRoot(p: string) {
@@ -208,10 +266,17 @@ server.registerTool("proc_run", {
     throw new Error(`Command not allowed: ${command}. Allowed: ${PROC_ALLOWLIST.join(", ")}`);
   }
   
+  // Security: Check for dangerous commands if security checks are enabled
+  if (config.enableSecurityChecks && isDangerousCommand(command)) {
+    logger.warn("Potentially dangerous command attempted", { command, args });
+    throw new Error(`Potentially dangerous command detected: ${command}. Use with caution.`);
+  }
+  
   const workingDir = cwd ? ensureInsideRoot(path.resolve(cwd)) : process.cwd();
   
   try {
-    const { stdout, stderr } = await execAsync(`${command} ${args.join(" ")}`, { cwd: workingDir });
+    const { command: sanitizedCommand, args: sanitizedArgs } = sanitizeCommand(command, args);
+    const { stdout, stderr } = await execAsync(`${sanitizedCommand} ${sanitizedArgs.join(" ")}`, { cwd: workingDir });
     return { 
       content: [], 
       structuredContent: { 
@@ -221,14 +286,20 @@ server.registerTool("proc_run", {
         exitCode: 0
       } 
     };
-  } catch (error: any) {
+  } catch (error: unknown) {
+    const errorMessage = error instanceof Error ? error.message : String(error);
+    const stdout = (error as any)?.stdout || undefined;
+    const stderr = (error as any)?.stderr || undefined;
+    const exitCode = (error as any)?.code || -1;
+    
     return { 
       content: [], 
       structuredContent: { 
         success: false, 
-        stdout: error.stdout || undefined, 
-        stderr: error.stderr || undefined,
-        exitCode: error.code || -1
+        stdout, 
+        stderr,
+        exitCode,
+        error: errorMessage
       } 
     };
   }
@@ -906,6 +977,6 @@ async function main() {
 }
 
 main().catch((err) => {
-  console.error("Server error:", err);
+  logger.error("Server error", { error: err instanceof Error ? err.message : String(err), stack: err instanceof Error ? err.stack : undefined });
   process.exit(1);
 });

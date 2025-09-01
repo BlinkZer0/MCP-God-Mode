@@ -1,7 +1,7 @@
 import { Client as McpClient } from "@modelcontextprotocol/sdk/client/index.js";
 import { StdioClientTransport } from "@modelcontextprotocol/sdk/client/stdio.js";
 
-const serverJs = "./dev/dist/server.js";
+const serverJs = "./dist/server.js";
 const transport = new StdioClientTransport({
   command: process.execPath,
   args: [serverJs],

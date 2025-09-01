@@ -45,6 +45,61 @@ npm run build
 node test/smoke.mjs
 ```
 
+## 🔧 **Perfect for Windows Troubleshooting!**
+
+> *"My computer is slow, something's broken, and I don't know where to start!"* - Every Windows user ever
+
+This MCP server is **perfect for troubleshooting Windows systems** because it gives you:
+
+### **🎯 Natural Language System Control**
+Instead of remembering complex commands, just ask:
+- *"Show me what's using all my CPU"*
+- *"Find large files I can delete"*
+- *"Check if Windows Update is working"*
+- *"Restart the problematic service"*
+
+### **🔍 Comprehensive System Access**
+- **File System**: Browse, search, read, and modify any file
+- **Processes**: Monitor and manage running applications
+- **Services**: Check status and control Windows services
+- **Registry**: Read and write registry values safely
+- **Network**: Diagnose connectivity and scan devices
+- **System Info**: Get detailed hardware and OS information
+
+### **⚡ Real-World Troubleshooting Examples**
+
+#### **Slow Computer?**
+```bash
+"Show me processes using the most CPU"
+"List files larger than 1GB in C:\"
+"Check which services start automatically"
+"Find and clean temporary files"
+```
+
+#### **Network Issues?**
+```bash
+"Test my internet connection"
+"Check what's using port 80"
+"Scan my network for devices"
+"Show network adapter settings"
+```
+
+#### **Application Crashes?**
+```bash
+"Search for crash dump files"
+"Check application error logs"
+"Find files in the temp directory"
+"Read Windows event logs"
+```
+
+#### **System Errors?**
+```bash
+"Search for error messages in logs"
+"Check Windows Update status"
+"Verify system file integrity"
+"Look for problematic registry entries"
+```
+
 ### 2. Configure Your MCP Client
 
 #### For Cursor:
@@ -64,24 +119,52 @@ node test/smoke.mjs
 
 ### 3. Usage Examples
 
-Once configured, you can use natural language to interact with your system:
+Once configured, you can use natural language to troubleshoot your system:
 
+#### **🔧 System Diagnostics**
 ```
 "Show me all running processes"
-"List files in C:\Users\Documents"
 "Check disk space on all drives"
+"List files in C:\Users\Documents"
+"Get system information and specs"
+```
+
+#### **🚨 Troubleshooting Commands**
+```
 "Restart the Windows Update service"
 "Scan my network for devices"
 "Read the Windows registry key for installed programs"
+"Find files larger than 500MB"
+"Check which services are stopped"
+"Search for error messages in log files"
+```
+
+#### **⚡ Advanced System Management**
+```
+"Download and install a system utility"
+"Change my desktop wallpaper"
+"Create a backup script"
+"Monitor network connectivity"
+"Analyze system performance"
 ```
 
 **🎯 Pro Tip:** Your AI will now respond to "Please don't destroy my computer" with "I'll try my best... but no promises!" 😂
+
+**🔧 Troubleshooting Tip:** Start with "Show me system information" to get a quick overview of your system's health!
 
 ## 🛠️ Available Tools
 
 ### 🔧 System Information & Health
 - **`health`** - Liveness/readiness probe with system status
 - **`system_info`** - Basic host info (OS, arch, CPUs, memory)
+
+### 🚨 **Troubleshooting Essentials**
+These tools are perfect for diagnosing and fixing common Windows problems:
+- **`win_processes`** - List and filter running processes (find what's slowing you down)
+- **`win_services`** - List and filter Windows services (check if services are running)
+- **`service_control`** - Start, stop, restart, pause, resume services (fix broken services)
+- **`fs_search`** - Search for files by pattern across all drives (find specific files)
+- **`fs_read_text`** - Read any text file from any location (check log files)
 
 ### 📁 File System Operations (Unrestricted)
 - **`fs_list`** - List files/directories in any location
@@ -101,6 +184,13 @@ Once configured, you can use natural language to interact with your system:
 - **`win_processes`** - List and filter running processes
 - **`service_control`** - Start, stop, restart, pause, resume services
 - **`change_wallpaper`** - Change Windows desktop wallpaper
+
+### 🔧 **Advanced Troubleshooting Tools**
+For power users and system administrators:
+- **`registry_read`** - Read Windows registry values (diagnose configuration issues)
+- **`registry_write`** - Write Windows registry values (fix registry problems)
+- **`disk_management`** - Manage disk partitions and volumes (storage issues)
+- **`network_scan`** - Scan network for devices and open ports (network diagnostics)
 
 ### 🔧 Registry Operations
 - **`registry_read`** - Read Windows registry values
@@ -130,6 +220,30 @@ Once configured, you can use natural language to interact with your system:
 ## 🔓 God Mode Features
 
 > *"I am become Death, the destroyer of file systems"* - J. Robert Oppenheimer (if he was an AI)
+
+## 🚨 **Why This is Perfect for Troubleshooting**
+
+### **🎯 No More Guesswork**
+- **Natural Language**: Ask questions in plain English instead of memorizing commands
+- **Comprehensive Access**: Check any file, service, or setting without navigating through menus
+- **Real-time Monitoring**: See what's happening on your system right now
+
+### **🔧 Common Problems This Solves**
+- **Slow Computer**: Find what's using CPU/memory, clean up large files
+- **Network Issues**: Test connectivity, scan devices, check ports
+- **Application Crashes**: Find error logs, check temp files, analyze dumps
+- **System Errors**: Read event logs, check services, verify configurations
+- **Storage Problems**: Find large files, check disk space, manage partitions
+
+### **⚡ Speed Up Your Workflow**
+Instead of:
+1. Opening Task Manager
+2. Opening Services
+3. Opening Event Viewer
+4. Opening File Explorer
+5. Opening Registry Editor
+
+Just ask: *"What's wrong with my computer?"* and let the AI investigate!
 
 ### Universal File Access
 - Access any file on any drive (C:, D:, E:, etc.)
@@ -162,6 +276,57 @@ Once configured, you can use natural language to interact with your system:
 - **This MCP:** "I AM THE SYSTEM" 👑
 
 ## 📋 Tool Details
+
+### **🔧 Troubleshooting Examples**
+
+#### **Diagnose a Slow Computer**
+```json
+// Check what's using resources
+{
+  "command": "tasklist",
+  "args": ["/fo", "csv", "/nh"]
+}
+
+// Find large files
+{
+  "pattern": "*.exe",
+  "dir": "C:\\Program Files"
+}
+
+// Check service status
+{
+  "filter": "Windows"
+}
+```
+
+#### **Fix Network Issues**
+```json
+// Test connectivity
+{
+  "command": "ping",
+  "args": ["-n", "4", "google.com"]
+}
+
+// Check network status
+{
+  "scanType": "ping",
+  "target": "192.168.1.1"
+}
+```
+
+#### **Resolve Application Crashes**
+```json
+// Search for crash dumps
+{
+  "pattern": "*.dmp",
+  "dir": "C:\\Windows\\Minidump"
+}
+
+// Check error logs
+{
+  "path": "C:\\Windows\\System32\\winevt\\Logs\\Application.evtx"
+}
+```
 
 ### File System Tools
 
@@ -321,8 +486,36 @@ The server is configured through environment variables:
 - `WEB_ALLOWLIST` - Comma-separated list of allowed web hosts (empty = all hosts allowed)
 - `PROC_ALLOWLIST` - Comma-separated list of allowed commands (empty = all commands allowed)
 - `EXTRA_PATH` - Additional PATH entries
+- `LOG_LEVEL` - Logging level (debug, info, warn, error) - default: info
+- `MAX_FILE_SIZE` - Maximum file size in bytes for read operations - default: 1000000
+- `COMMAND_TIMEOUT` - Command execution timeout in milliseconds - default: 30000
+- `ENABLE_SECURITY_CHECKS` - Enable additional security validations - default: true
 
 For God Mode operation, all variables should be empty or unset.
+
+## 🛡️ Security Features
+
+### Command Sanitization
+- All command inputs are sanitized to prevent command injection
+- Dangerous characters are removed from command arguments
+- Potentially dangerous commands are flagged and logged
+
+### Input Validation
+- File paths are validated against allowed roots
+- Command arguments are sanitized and validated
+- Registry operations are restricted to safe operations
+
+### Logging & Monitoring
+- Structured logging with timestamps and error tracking
+- Security events are logged with detailed context
+- Command execution attempts are monitored
+
+### Environment Controls
+- Configurable security checks via environment variables
+- Timeout protection for long-running commands
+- File size limits to prevent memory exhaustion
+
+**⚠️ Security Note:** While these features provide basic protection, this server is designed for "God Mode" operation and should only be used in trusted environments.
 
 ## 🚨 Security Considerations
 
@@ -333,6 +526,21 @@ For God Mode operation, all variables should be empty or unset.
 3. **Registry Access**: Can read and write to Windows registry
 4. **Service Control**: Can start, stop, and modify Windows services
 5. **Network Operations**: Can perform network scanning and discovery
+
+## 🛡️ **Safety Features for Troubleshooting**
+
+### **Built-in Protections**
+- **Command Sanitization**: Prevents accidental command injection
+- **Dangerous Command Detection**: Flags potentially harmful operations
+- **Structured Logging**: Tracks all operations for audit trails
+- **Error Handling**: Graceful failure with detailed error messages
+
+### **Best Practices for Safe Troubleshooting**
+1. **Start Small**: Begin with read-only operations like `system_info` and `fs_list`
+2. **Backup First**: Create system restore points before making changes
+3. **Test Commands**: Try commands in a safe environment first
+4. **Monitor Logs**: Check the structured logs to see what's happening
+5. **Use Security Features**: Keep `ENABLE_SECURITY_CHECKS=true` for extra protection
 
 **🎭 Meme Reality Check:** 
 - **You:** "This AI seems trustworthy"
@@ -357,6 +565,44 @@ npm run build
 
 # Test the server
 node test/smoke.mjs
+```
+
+## 🚀 **Getting Started with Troubleshooting**
+
+### **Step 1: Basic System Check**
+Start with these commands to get familiar:
+```bash
+"Show me system information"
+"List running processes"
+"Check available disk space"
+"Show Windows services status"
+```
+
+### **Step 2: Identify the Problem**
+Ask specific questions about your issue:
+```bash
+"My computer is slow - what's using the most CPU?"
+"I can't connect to the internet - test my network"
+"An application keeps crashing - find error logs"
+"My disk is full - find large files"
+```
+
+### **Step 3: Fix the Issue**
+Use the appropriate tools to resolve problems:
+```bash
+"Restart the Windows Update service"
+"Stop the problematic process"
+"Clean up temporary files"
+"Fix the registry entry"
+```
+
+### **Step 4: Verify the Fix**
+Confirm everything is working:
+```bash
+"Check if the service is running now"
+"Test the network connection again"
+"Monitor system performance"
+"Verify the changes worked"
 ```
 
 ## 🧪 Testing
@@ -396,6 +642,37 @@ Contributions are welcome! Please ensure any new tools maintain the "God Mode" p
 - Advanced AI model support
 - Cross-platform compatibility
 
+## 🎯 **Troubleshooting Success Stories**
+
+### **Real-World Scenarios This Solves**
+
+#### **"My Computer is So Slow!"**
+- **Problem**: High CPU usage, slow response
+- **Solution**: Use `win_processes` to find resource hogs, `fs_search` to locate large files
+- **Result**: Identified and stopped problematic processes, freed up disk space
+
+#### **"I Can't Connect to the Internet!"**
+- **Problem**: Network connectivity issues
+- **Solution**: Use `network_scan` to test connectivity, `service_control` to restart network services
+- **Result**: Restored internet connection by fixing network adapter settings
+
+#### **"My Application Keeps Crashing!"**
+- **Problem**: Frequent application crashes
+- **Solution**: Use `fs_search` to find crash dumps, `fs_read_text` to read error logs
+- **Result**: Identified corrupted configuration files and fixed the issue
+
+#### **"Windows Update Won't Work!"**
+- **Problem**: Windows Update service errors
+- **Solution**: Use `win_services` to check service status, `service_control` to restart services
+- **Result**: Restored Windows Update functionality
+
+### **Why This Beats Traditional Troubleshooting**
+- **No GUI Navigation**: Skip clicking through multiple windows
+- **Natural Language**: Ask questions instead of memorizing commands
+- **Comprehensive Access**: Check everything from one interface
+- **Real-time Results**: See changes immediately
+- **Audit Trail**: Log of all actions for future reference
+
 ---
 
 **Remember: With great power comes great responsibility. Use this server wisely!**
@@ -406,6 +683,26 @@ Contributions are welcome! Please ensure any new tools maintain the "God Mode" p
 - **AI:** "Just optimizing your system... and maybe taking over the world" 🌍🤖
 
 *"In the end, we all become the system administrators we swore we wouldn't be"* - Ancient AI Proverb
+
+---
+
+## 🚀 **Ready to Fix Your Windows System?**
+
+This MCP server transforms you from a frustrated Windows user into a system troubleshooting expert. No more:
+- ❌ Guessing what's wrong
+- ❌ Clicking through endless menus
+- ❌ Memorizing complex commands
+- ❌ Calling tech support
+
+Just ask your AI assistant to help, and watch your Windows problems disappear! 
+
+**🎯 Start troubleshooting now:**
+1. Install the server
+2. Configure your MCP client
+3. Ask: *"What's wrong with my computer?"*
+4. Let the AI do the heavy lifting!
+
+**🔧 Your Windows system will thank you!** ✨
 
 ---
 
