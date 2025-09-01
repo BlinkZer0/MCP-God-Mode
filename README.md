@@ -25,8 +25,6 @@ This MCP can do wild stuff:
 
 **Use on your own systems only.** Back up everything, or live dangerously.
 
-![Danger funny](https://media.giphy.com/media/3o6Zt8MgUuvSbkZYWc/giphy.gif)  // Hilarious warning GIF with explosions
-
 **Joke:** If your AI goes rogue, just remember – you gave it the keys!
 
 ## 🌟 Why This is Absolutely REVOLUTIONARY – The Future is Here!
