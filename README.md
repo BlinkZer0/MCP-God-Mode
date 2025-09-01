@@ -236,6 +236,44 @@ Ask your AI: *"What can you do now that MCP God Mode is installed?"* and watch a
 
 **This is groundbreaking technology – get excited and dive in!** Your AI just became the ultimate digital assistant. Star, fork, and spread the word – the future of system administration is here! 🤖✨
 
+## 📦 Repository structure — why so many files?
+
+This MCP ships with a full dev and test harness so you can see, reproduce, and validate capabilities across Windows, Linux, and macOS. Here's what everything is for:
+
+- **Core MCP code**
+  - `src/server.ts`: The MCP server implementation.
+  - `MCPGodMode.json`: The server manifest used by MCP clients.
+  - `package.json`, `package-lock.json`, `tsconfig.json`: Build and dependency configuration.
+- **Build output**
+  - `dev/dist/server.js`: Transpiled server ready to run without TypeScript.
+- **Tests and fixtures**
+  - `test/smoke.mjs`: Basic end-to-end checks the tools load and respond.
+  - `test_elevated.mjs`: Verifies elevated operations where supported.
+  - `test_download.json`, `test_write.txt`: Small fixtures used by tests.
+- **Captured artifacts (evidence of tool runs)**
+  - `dev/monitor_*.json`: System monitor snapshots during test runs.
+  - `dev/drafts/*.json`: Draft outputs captured from content-processing tools.
+  - `dev/ocr_output_*.txt`: OCR results from sample images.
+  - `dev/screenshot_*.png`: Screenshots produced during automation tests.
+  - `dev/MCP_TOOL_TEST_REPORT.md`: Human-readable test report summarizing runs.
+- **Documentation & media**
+  - `docs/IMPLEMENTATION_COMPLETE.md`: Implementation notes and milestones.
+  - `docs/*.gif`: Local GIFs used in the README Dev section.
+- **Dependencies**
+  - `node_modules/`: Installed packages required at runtime/dev time.
+
+Why keep these in the repo?
+- **Reproducibility**: You can run the same tests and compare outputs.
+- **Cross-platform verification**: Artifacts show behavior on different OSes.
+- **Debuggability**: Logs and captures make troubleshooting straightforward.
+- **Demonstrability**: Screenshots/GIFs let readers see capabilities without running anything.
+
+Want a lean install? You can safely remove these if you only need the server:
+- `dev/drafts/`, `dev/monitor_*.json`, `dev/ocr_output_*.txt`, `dev/screenshot_*.png`, `dev/MCP_TOOL_TEST_REPORT.md`
+- `test/`, `test_elevated.mjs`, `test_download.json`, `test_write.txt`
+
+Keep: `src/`, `MCPGodMode.json`, `package.json`, `package-lock.json`, `tsconfig.json` (and `dev/dist/server.js` if you want to run the compiled build).
+
 ---
 
 ## 👨‍💻 Dev Section
