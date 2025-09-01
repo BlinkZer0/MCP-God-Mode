@@ -17,6 +17,12 @@ import winston from "winston";
 
 const execAsync = promisify(exec);
 
+// Cross-platform OS detection
+const PLATFORM = os.platform();
+const IS_WINDOWS = PLATFORM === "win32";
+const IS_LINUX = PLATFORM === "linux";
+const IS_MACOS = PLATFORM === "darwin";
+
 // Configure structured logging
 const logger = winston.createLogger({
   level: process.env.LOG_LEVEL || 'info',
@@ -45,6 +51,7 @@ const config = {
 };
 
 logger.info("MCP Server starting", { 
+  platform: PLATFORM,
   config: { 
     ...config, 
     allowedRoot: config.allowedRoot ? "configured" : "unrestricted",
@@ -52,6 +59,58 @@ logger.info("MCP Server starting", {
     procAllowlist: config.procAllowlist ? "configured" : "unrestricted"
   } 
 });
+
+// Cross-platform utility functions
+function getRootPaths(): string[] {
+  if (IS_WINDOWS) {
+    // Get all available drives on Windows
+    const drives: string[] = [];
+    try {
+      for (let i = 65; i <= 90; i++) { // ASCII A-Z
+        const driveLetter = String.fromCharCode(i) + ":\\";
+        try {
+          const stats = fsSync.statSync(driveLetter);
+          if (stats.isDirectory()) {
+            drives.push(driveLetter);
+          }
+        } catch {
+          // Drive doesn't exist or isn't accessible, skip it
+        }
+      }
+    } catch (error) {
+      logger.warn("Could not enumerate drives", { error: error instanceof Error ? error.message : String(error) });
+    }
+    return drives;
+  } else {
+    // Unix-like systems: common root paths
+    return ["/", "/home", "/usr", "/var", "/etc", "/opt"];
+  }
+}
+
+function getSystemInfo() {
+  const platform = os.platform();
+  const arch = os.arch();
+  const cpus = os.cpus().length;
+  const memGB = Math.round((os.totalmem() / (1024 ** 3)) * 10) / 10;
+  
+  let osInfo = "";
+  if (IS_WINDOWS) {
+    osInfo = "Windows";
+  } else if (IS_LINUX) {
+    try {
+      const release = fsSync.readFileSync("/etc/os-release", "utf8");
+      const lines = release.split("\n");
+      const nameLine = lines.find(line => line.startsWith("PRETTY_NAME"));
+      osInfo = nameLine ? nameLine.split("=")[1].replace(/"/g, "") : "Linux";
+    } catch {
+      osInfo = "Linux";
+    }
+  } else if (IS_MACOS) {
+    osInfo = "macOS";
+  }
+  
+  return { platform, arch, cpus, memGB, osInfo };
+}
 
 // Security: Command sanitization utility
 function sanitizeCommand(command: string, args: string[]): { command: string; args: string[] } {
@@ -66,7 +125,8 @@ function sanitizeCommand(command: string, args: string[]): { command: string; ar
 function isDangerousCommand(command: string): boolean {
   const dangerousCommands = [
     'format', 'del', 'rmdir', 'shutdown', 'taskkill', 'rm', 'dd',
-    'diskpart', 'reg', 'sc', 'wmic', 'powershell', 'cmd'
+    'diskpart', 'reg', 'sc', 'wmic', 'powershell', 'cmd',
+    'sudo', 'su', 'chmod', 'chown', 'mkfs', 'fdisk'
   ];
   
   return dangerousCommands.some(cmd => 
@@ -79,30 +139,8 @@ const ALLOWED_ROOTS = config.allowedRoot
   ? config.allowedRoot.split(",").map(s => path.resolve(s.trim())).filter(Boolean)
   : [];
 
-// Get all available drives on Windows
-function getAllDrives(): string[] {
-  const drives: string[] = [];
-  try {
-    // Get all drive letters from A to Z
-    for (let i = 65; i <= 90; i++) { // ASCII A-Z
-      const driveLetter = String.fromCharCode(i) + ":\\";
-      try {
-        const stats = fsSync.statSync(driveLetter);
-        if (stats.isDirectory()) {
-          drives.push(driveLetter);
-        }
-      } catch {
-        // Drive doesn't exist or isn't accessible, skip it
-      }
-    }
-  } catch (error) {
-    logger.warn("Could not enumerate drives", { error: error instanceof Error ? error.message : String(error) });
-  }
-  return drives;
-}
-
-// Combine environment roots with all available drives
-const ALL_DRIVES = getAllDrives();
+// Get all available root paths for the current platform
+const ALL_DRIVES = getRootPaths();
 const ALLOWED_ROOTS_SET = new Set([...ALLOWED_ROOTS, ...ALL_DRIVES]);
 const ALLOWED_ROOTS_ARRAY = Array.from(ALLOWED_ROOTS_SET);
 
@@ -120,14 +158,16 @@ const PROC_ALLOWLIST = PROC_ALLOWLIST_RAW === "" ? [] : PROC_ALLOWLIST_RAW.split
 function ensureInsideRoot(p: string) {
   const resolved = path.resolve(p);
   
-  // Allow any path that starts with a drive letter (Windows)
-  if (/^[A-Za-z]:\\/.test(resolved)) {
-    return resolved;
-  }
-  
-  // Allow any absolute path
-  if (path.isAbsolute(resolved)) {
-    return resolved;
+  if (IS_WINDOWS) {
+    // Allow any path that starts with a drive letter (Windows)
+    if (/^[A-Za-z]:\\/.test(resolved)) {
+      return resolved;
+    }
+  } else {
+    // Allow any absolute path on Unix-like systems
+    if (path.isAbsolute(resolved)) {
+      return resolved;
+    }
   }
   
   // For relative paths, check if they're within any allowed root
@@ -146,6 +186,651 @@ function limitString(s: string, max = MAX_BYTES): { text: string; truncated: boo
   if (buf.byteLength <= max) return { text: s, truncated: false };
   const sliced = buf.slice(0, max).toString("utf8");
   return { text: sliced, truncated: true };
+}
+
+// Cross-platform process management
+async function getProcesses(filter?: string): Promise<any[]> {
+  try {
+    let command = "";
+    if (IS_WINDOWS) {
+      command = "tasklist /fo csv /nh";
+      if (filter) {
+        command += ` | findstr /i "${filter}"`;
+      }
+    } else {
+      command = "ps aux";
+      if (filter) {
+        command += ` | grep -i "${filter}"`;
+      }
+    }
+    
+    const { stdout } = await execAsync(command);
+    const lines = stdout.trim().split("\n");
+    
+    if (IS_WINDOWS) {
+      return lines.map(line => {
+        const parts = line.split(",");
+        return {
+          pid: parseInt(parts[1]) || 0,
+          name: parts[0]?.replace(/"/g, "") || "Unknown",
+          memory: parts[4]?.replace(/"/g, "") || "Unknown",
+          cpu: parts[8]?.replace(/"/g, "") || "Unknown"
+        };
+      }).filter(process => process.pid > 0);
+    } else {
+      return lines.slice(1).map(line => {
+        const parts = line.trim().split(/\s+/);
+        return {
+          pid: parseInt(parts[1]) || 0,
+          name: parts[10] || "Unknown",
+          memory: parts[5] || "Unknown",
+          cpu: parts[2] || "Unknown"
+        };
+      }).filter(process => process.pid > 0);
+    }
+  } catch (error) {
+    logger.error("Error getting processes", { error: error instanceof Error ? error.message : String(error) });
+    return [];
+  }
+}
+
+// Cross-platform service management
+async function getServices(filter?: string): Promise<any[]> {
+  try {
+    if (IS_WINDOWS) {
+      let command = "wmic service get name,displayname,state,startmode /format:csv";
+      if (filter) {
+        command += ` | findstr /i "${filter}"`;
+      }
+      
+      const { stdout } = await execAsync(command);
+      const lines = stdout.trim().split("\n").slice(1); // Skip header
+      
+      return lines.map(line => {
+        const parts = line.split(",");
+        return {
+          name: parts[1] || "Unknown",
+          displayName: parts[2] || "Unknown",
+          status: parts[3] || "Unknown",
+          startupType: parts[4] || "Unknown"
+        };
+      }).filter(service => service.name !== "Unknown");
+    } else {
+      // For Unix-like systems, use systemctl or service command
+      let command = "";
+      try {
+        command = "systemctl list-units --type=service --all --no-pager";
+        if (filter) {
+          command += ` | grep -i "${filter}"`;
+        }
+        
+        const { stdout } = await execAsync(command);
+        const lines = stdout.trim().split("\n");
+        
+        return lines.map(line => {
+          const parts = line.trim().split(/\s+/);
+          if (parts.length >= 4) {
+            return {
+              name: parts[0] || "Unknown",
+              displayName: parts[0] || "Unknown",
+              status: parts[3] || "Unknown",
+              startupType: parts[2] || "Unknown"
+            };
+          }
+          return null;
+        }).filter(service => service && service.name !== "Unknown");
+      } catch {
+        // Fallback to service command
+        command = "service --status-all";
+        const { stdout } = await execAsync(command);
+        const lines = stdout.trim().split("\n");
+        
+        return lines.map(line => {
+          const match = line.match(/\[([+\-?])\]\s+(\S+)/);
+          if (match) {
+            const status = match[1] === "+" ? "running" : match[1] === "-" ? "stopped" : "unknown";
+            return {
+              name: match[2] || "Unknown",
+              displayName: match[2] || "Unknown",
+              status: status,
+              startupType: "unknown"
+            };
+          }
+          return null;
+        }).filter(service => service && service.name !== "Unknown");
+      }
+    }
+  } catch (error) {
+    logger.error("Error getting services", { error: error instanceof Error ? error.message : String(error) });
+    return [];
+  }
+}
+
+// Cross-platform service control
+async function controlService(serviceName: string, action: string): Promise<{ success: boolean; output?: string; error?: string }> {
+  try {
+    let command = "";
+    
+    if (IS_WINDOWS) {
+      command = `sc ${action} "${serviceName}"`;
+    } else {
+      // Try systemctl first, fallback to service command
+      try {
+        command = `systemctl ${action} ${serviceName}`;
+        const { stdout } = await execAsync(command);
+        return { success: true, output: stdout };
+      } catch {
+        command = `service ${serviceName} ${action}`;
+      }
+    }
+    
+    const { stdout } = await execAsync(command);
+    return { success: true, output: stdout };
+  } catch (error: any) {
+    return { success: false, error: error.message };
+  }
+}
+
+// Cross-platform disk management
+async function getDiskInfo(): Promise<any[]> {
+  try {
+    if (IS_WINDOWS) {
+      const { stdout } = await execAsync("wmic logicaldisk get size,freespace,caption /format:csv");
+      const lines = stdout.trim().split("\n").slice(1);
+      
+      return lines.map(line => {
+        const parts = line.split(",");
+        const size = parseInt(parts[1]) || 0;
+        const free = parseInt(parts[2]) || 0;
+        const used = size - free;
+        return {
+          drive: parts[0] || "Unknown",
+          total: Math.round(size / (1024 ** 3) * 100) / 100,
+          used: Math.round(used / (1024 ** 3) * 100) / 100,
+          free: Math.round(free / (1024 ** 3) * 100) / 100,
+          usage: Math.round((used / size) * 100)
+        };
+      });
+    } else {
+      const { stdout } = await execAsync("df -h");
+      const lines = stdout.trim().split("\n").slice(1);
+      
+      return lines.map(line => {
+        const parts = line.trim().split(/\s+/);
+        if (parts.length >= 5) {
+          const total = parseFloat(parts[1].replace(/[A-Za-z]/g, ""));
+          const used = parseFloat(parts[2].replace(/[A-Za-z]/g, ""));
+          const free = parseFloat(parts[3].replace(/[A-Za-z]/g, ""));
+          const usage = parseInt(parts[4].replace(/%/g, ""));
+          
+          return {
+            drive: parts[5] || "Unknown",
+            total: total,
+            used: used,
+            free: free,
+            usage: usage
+          };
+        }
+        return null;
+      }).filter(disk => disk !== null);
+    }
+  } catch (error) {
+    logger.error("Error getting disk info", { error: error instanceof Error ? error.message : String(error) });
+    return [];
+  }
+}
+
+// Cross-platform network scanning
+async function scanNetwork(target?: string, scanType: string = "ping"): Promise<any[]> {
+  try {
+    let command = "";
+    let results: any[] = [];
+    
+    switch (scanType) {
+      case "ping":
+        if (IS_WINDOWS) {
+          command = `ping -n 1 ${target || "127.0.0.1"}`;
+        } else {
+          command = `ping -c 1 ${target || "127.0.0.1"}`;
+        }
+        break;
+      case "port":
+        if (IS_WINDOWS) {
+          command = `netstat -an | findstr :${target || "80"}`;
+        } else {
+          command = `netstat -an | grep :${target || "80"}`;
+        }
+        break;
+      case "arp":
+        if (IS_WINDOWS) {
+          command = "arp -a";
+        } else {
+          command = "arp -a";
+        }
+        break;
+      case "full":
+        command = `nmap -sn ${target || "192.168.1.0/24"}`;
+        break;
+    }
+    
+    const { stdout } = await execAsync(command);
+    results.push({ command, output: stdout });
+    
+    return results;
+  } catch (error: any) {
+    return [{ error: error.message }];
+  }
+}
+
+// Cross-platform system repair
+async function performSystemRepair(repairType: string): Promise<{ success: boolean; output?: string; error?: string; elevated: boolean }> {
+  const elevated = await isProcessElevated();
+  
+  try {
+    let command = "";
+    let needsElevation = false;
+    
+    switch (repairType) {
+      case "sfc":
+        if (IS_WINDOWS) {
+          command = "sfc /scannow";
+          needsElevation = true;
+        } else {
+          command = "sudo apt-get check && sudo apt-get autoremove";
+          needsElevation = true;
+        }
+        break;
+      case "dism":
+        if (IS_WINDOWS) {
+          command = "dism /online /cleanup-image /restorehealth";
+          needsElevation = true;
+        } else {
+          command = "sudo apt-get update && sudo apt-get upgrade";
+          needsElevation = true;
+        }
+        break;
+      case "chkdsk":
+        if (IS_WINDOWS) {
+          command = "chkdsk C: /f /r";
+          needsElevation = true;
+        } else {
+          command = "sudo fsck -f /";
+          needsElevation = true;
+        }
+        break;
+      case "network_reset":
+        if (IS_WINDOWS) {
+          command = "netsh winsock reset && netsh int ip reset";
+          needsElevation = true;
+        } else {
+          command = "sudo systemctl restart NetworkManager";
+          needsElevation = true;
+        }
+        break;
+      case "windows_update_reset":
+        if (IS_WINDOWS) {
+          command = "net stop wuauserv && net stop cryptSvc && net stop bits && net stop msiserver";
+          needsElevation = true;
+        } else {
+          command = "sudo systemctl restart systemd-update-utmp";
+          needsElevation = true;
+        }
+        break;
+      case "dns_flush":
+        if (IS_WINDOWS) {
+          command = "ipconfig /flushdns";
+        } else {
+          command = "sudo systemctl restart systemd-resolved";
+          needsElevation = true;
+        }
+        break;
+      case "temp_cleanup":
+        if (IS_WINDOWS) {
+          command = "del /q /f %temp%\\* && del /q /f C:\\Windows\\Temp\\*";
+          needsElevation = true;
+        } else {
+          command = "sudo rm -rf /tmp/* && sudo rm -rf /var/tmp/*";
+          needsElevation = true;
+        }
+        break;
+      case "disk_cleanup":
+        if (IS_WINDOWS) {
+          command = "cleanmgr /sagerun:1";
+          needsElevation = true;
+        } else {
+          command = "sudo apt-get autoremove && sudo apt-get autoclean";
+          needsElevation = true;
+        }
+        break;
+    }
+    
+    if (needsElevation && !elevated) {
+      const { stdout, stderr, exitCode } = await runElevatedCommand('cmd', ['/c', command], process.cwd(), 10 * 60 * 1000);
+      return { 
+        success: exitCode === 0,
+        output: stdout || undefined,
+        error: exitCode !== 0 ? stderr : undefined,
+        elevated: false
+      };
+    } else {
+      const { stdout, stderr } = await execAsync(command, { timeout: 10 * 60 * 1000 });
+      return { 
+        success: true,
+        output: stdout || undefined,
+        error: stderr || undefined,
+        elevated: elevated
+      };
+    }
+  } catch (error: any) {
+    return { 
+      success: false,
+      error: error.message,
+      elevated: elevated
+    };
+  }
+}
+
+// Cross-platform security audit
+async function performSecurityAudit(auditType: string, target?: string): Promise<{ findings: any[]; summary: any }> {
+  const findings: any[] = [];
+  let summary: any = {};
+  
+  try {
+    switch (auditType) {
+      case "permissions":
+        const targetPath = target || (IS_WINDOWS ? "C:\\Windows\\System32" : "/etc");
+        if (IS_WINDOWS) {
+          const { stdout } = await execAsync(`icacls "${targetPath}" /T /C /L`);
+          const lines = stdout.trim().split("\n");
+          
+          lines.forEach((line: string) => {
+            if (line.includes("Everyone") || line.includes("BUILTIN\\Users")) {
+              findings.push({
+                type: "permission_issue",
+                path: line.split(" ")[0],
+                issue: "Overly permissive access",
+                details: line
+              });
+            }
+          });
+        } else {
+          const { stdout } = await execAsync(`find ${targetPath} -type f -perm -o+w -ls`);
+          const lines = stdout.trim().split("\n");
+          
+          lines.forEach((line: string) => {
+            if (line.trim()) {
+              findings.push({
+                type: "permission_issue",
+                path: line.split(/\s+/)[10] || "Unknown",
+                issue: "World-writable file",
+                details: line
+              });
+            }
+          });
+        }
+        
+        summary = {
+          totalFiles: findings.length,
+          issuesFound: findings.length
+        };
+        break;
+        
+      case "services":
+        const services = await getServices();
+        
+        services.forEach((service: any) => {
+          if (service.startupType === "Auto" && service.status === "Stopped") {
+            findings.push({
+              type: "service_issue",
+              service: service.name,
+              issue: "Auto-start service is stopped",
+              details: `Service ${service.name} is configured to start automatically but is currently stopped`
+            });
+          }
+        });
+        
+        summary = {
+          totalServices: services.length,
+          issuesFound: findings.length
+        };
+        break;
+        
+      case "updates":
+        if (IS_WINDOWS) {
+          const { stdout: updateOutput } = await execAsync("wmic qfe get hotfixid,installedon /format:csv");
+          const updateLines = updateOutput.trim().split("\n").slice(1);
+          
+          const lastUpdate = updateLines[updateLines.length - 1];
+          if (lastUpdate) {
+            const parts = lastUpdate.split(",");
+            const updateDate = parts[2];
+            const updateDateObj = new Date(updateDate);
+            const daysSinceUpdate = Math.floor((Date.now() - updateDateObj.getTime()) / (1000 * 60 * 60 * 24));
+            
+            if (daysSinceUpdate > 30) {
+              findings.push({
+                type: "update_issue",
+                issue: "System updates are outdated",
+                details: `Last update was ${daysSinceUpdate} days ago on ${updateDate}`
+              });
+            }
+          }
+          
+          summary = {
+            totalUpdates: updateLines.length,
+            issuesFound: findings.length
+          };
+        } else {
+          // For Unix-like systems, check package manager
+          try {
+            if (IS_MACOS) {
+              const { stdout } = await execAsync("softwareupdate -l");
+              if (stdout.includes("No updates available")) {
+                summary = { totalUpdates: 0, issuesFound: 0 };
+              } else {
+                findings.push({
+                  type: "update_issue",
+                  issue: "System updates available",
+                  details: "Software updates are pending installation"
+                });
+                summary = { totalUpdates: 1, issuesFound: 1 };
+              }
+            } else {
+              const { stdout } = await execAsync("apt list --upgradable");
+              const lines = stdout.trim().split("\n").slice(1);
+              if (lines.length > 0) {
+                findings.push({
+                  type: "update_issue",
+                  issue: "System updates available",
+                  details: `${lines.length} packages can be upgraded`
+                });
+              }
+              summary = { totalUpdates: lines.length, issuesFound: findings.length };
+            }
+          } catch {
+            summary = { totalUpdates: 0, issuesFound: 0 };
+          }
+        }
+        break;
+    }
+  } catch (error) {
+    logger.error("Error performing security audit", { error: error instanceof Error ? error.message : String(error) });
+  }
+  
+  return { findings, summary };
+}
+
+// Cross-platform event log analysis
+async function analyzeEventLogs(logType: string = "system", filter?: string, timeRange?: string, level: string = "error", maxEvents: number = 100): Promise<{ events: any[]; summary: any; patterns: any[] }> {
+  try {
+    let events: any[] = [];
+    
+    if (IS_WINDOWS) {
+      let command = `wevtutil qe "${logType}" /c:${maxEvents} /f:json`;
+      
+      if (level !== "all") {
+        command += ` /q:"*[System[Level=${level}]]"`;
+      }
+      
+      if (timeRange) {
+        const now = new Date();
+        let startTime: Date;
+        
+        switch (timeRange) {
+          case "1h":
+            startTime = new Date(now.getTime() - 60 * 60 * 1000);
+            break;
+          case "24h":
+            startTime = new Date(now.getTime() - 24 * 60 * 60 * 1000);
+            break;
+          case "7d":
+            startTime = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
+            break;
+          case "30d":
+            startTime = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000);
+            break;
+          default:
+            startTime = new Date(now.getTime() - 24 * 60 * 60 * 1000);
+        }
+        
+        const startTimeStr = startTime.toISOString();
+        command += ` /q:"*[System[TimeCreated[@SystemTime>='${startTimeStr}']]]"`;
+      }
+      
+      const { stdout } = await execAsync(command);
+      
+      // Parse the XML-like output
+      const lines = stdout.trim().split("\n");
+      let currentEvent: any = {};
+      let inEvent = false;
+      
+      lines.forEach((line: string) => {
+        if (line.includes("<Event ")) {
+          inEvent = true;
+          currentEvent = {};
+        } else if (line.includes("</Event>")) {
+          inEvent = false;
+          if (Object.keys(currentEvent).length > 0) {
+            events.push(currentEvent);
+          }
+        } else if (inEvent) {
+          if (line.includes("<TimeCreated SystemTime=")) {
+            const match = line.match(/SystemTime="([^"]+)"/);
+            if (match) {
+              currentEvent.timestamp = match[1];
+            }
+          } else if (line.includes("<Level>")) {
+            const match = line.match(/<Level>(\d+)<\/Level>/);
+            if (match) {
+              currentEvent.level = parseInt(match[1]);
+            }
+          } else if (line.includes("<EventID>")) {
+            const match = line.match(/<EventID>(\d+)<\/EventID>/);
+            if (match) {
+              currentEvent.eventId = parseInt(match[1]);
+            }
+          } else if (line.includes("<Source>")) {
+            const match = line.match(/<Source>([^<]+)<\/Source>/);
+            if (match) {
+              currentEvent.source = match[1];
+            }
+          } else if (line.includes("<Message>")) {
+            const match = line.match(/<Message>([^<]+)<\/Message>/);
+            if (match) {
+              currentEvent.message = match[1];
+            }
+          }
+        }
+      });
+    } else {
+      // For Unix-like systems, use journalctl
+      let command = `journalctl --no-pager -n ${maxEvents}`;
+      
+      if (level !== "all") {
+        const levelMap: { [key: string]: string } = {
+          "error": "err",
+          "warning": "warning",
+          "information": "info",
+          "critical": "crit"
+        };
+        command += ` --priority=${levelMap[level] || "err"}`;
+      }
+      
+      if (timeRange) {
+        const timeMap: { [key: string]: string } = {
+          "1h": "1 hour ago",
+          "24h": "1 day ago",
+          "7d": "1 week ago",
+          "30d": "1 month ago"
+        };
+        command += ` --since="${timeMap[timeRange] || "1 day ago"}"`;
+      }
+      
+      const { stdout } = await execAsync(command);
+      const lines = stdout.trim().split("\n");
+      
+      events = lines.map(line => {
+        const parts = line.split(" ");
+        if (parts.length >= 5) {
+          return {
+            timestamp: `${parts[0]} ${parts[1]} ${parts[2]}`,
+            source: parts[4] || "Unknown",
+            message: parts.slice(5).join(" "),
+            level: parts[3] || "Unknown"
+          };
+        }
+        return null;
+      }).filter(event => event !== null);
+    }
+    
+    // Filter events if filter is provided
+    const filteredEvents = filter 
+      ? events.filter(event => 
+          event.message?.toLowerCase().includes(filter.toLowerCase()) ||
+          event.source?.toLowerCase().includes(filter.toLowerCase())
+        )
+      : events;
+    
+    // Analyze patterns
+    const patterns: any[] = [];
+    const sourceCounts: { [key: string]: number } = {};
+    
+    filteredEvents.forEach(event => {
+      if (event.source) {
+        sourceCounts[event.source] = (sourceCounts[event.source] || 0) + 1;
+      }
+    });
+    
+    // Find most common sources
+    Object.entries(sourceCounts)
+      .sort(([,a], [,b]) => b - a)
+      .slice(0, 5)
+      .forEach(([source, count]) => {
+        patterns.push({
+          type: "common_source",
+          source,
+          count,
+          percentage: Math.round((count / filteredEvents.length) * 100)
+        });
+      });
+    
+    // Summary
+    const summary = {
+      totalEvents: filteredEvents.length,
+      logType,
+      timeRange: timeRange || "all",
+      level,
+      topSources: Object.entries(sourceCounts)
+        .sort(([,a], [,b]) => b - a)
+        .slice(0, 3)
+        .map(([source, count]) => ({ source, count }))
+    };
+    
+    return { events: filteredEvents.slice(0, maxEvents), summary, patterns };
+  } catch (error: any) {
+    logger.error("Error analyzing event logs", { error: error.message });
+    return { events: [], summary: {}, patterns: [] };
+  }
 }
 
 const server = new McpServer({ name: "windows-dev-mcp", version: "1.0.0" });
@@ -356,12 +1041,12 @@ server.registerTool("win_services", {
   }
 }, async ({ filter }) => {
   try {
-    let cmd = "wmic service get name,displayname,state,startmode /format:csv";
+    let command = "wmic service get name,displayname,state,startmode /format:csv";
     if (filter) {
-      cmd += ` | findstr /i "${filter}"`;
+      command += ` | findstr /i "${filter}"`;
     }
     
-    const { stdout } = await execAsync(cmd);
+    const { stdout } = await execAsync(command);
     const lines = stdout.trim().split("\n").slice(1); // Skip header
     
     const services = lines.map(line => {
@@ -399,12 +1084,12 @@ server.registerTool("win_processes", {
   }
 }, async ({ filter }) => {
   try {
-    let cmd = "tasklist /fo csv /nh";
+    let command = "tasklist /fo csv /nh";
     if (filter) {
-      cmd += ` | findstr /i "${filter}"`;
+      command += ` | findstr /i "${filter}"`;
     }
     
-    const { stdout } = await execAsync(cmd);
+    const { stdout } = await execAsync(command);
     const lines = stdout.trim().split("\n");
     
     const processes = lines.map(line => {
@@ -1420,49 +2105,59 @@ server.registerTool("security_audit", {
     
     switch (auditType) {
       case "permissions":
-        const targetPath = target || "C:\\Windows\\System32";
-        const { stdout } = await execAsync(`icacls "${targetPath}" /T /C /L`);
-        const lines = stdout.trim().split("\n");
-        
-        lines.forEach((line: string) => {
-          if (line.includes("Everyone") || line.includes("BUILTIN\\Users")) {
-            findings.push({
-              type: "permission_issue",
-              path: line.split(" ")[0],
-              issue: "Overly permissive access",
-              details: line
-            });
-          }
-        });
+        const targetPath = target || (IS_WINDOWS ? "C:\\Windows\\System32" : "/etc");
+        if (IS_WINDOWS) {
+          const { stdout } = await execAsync(`icacls "${targetPath}" /T /C /L`);
+          const lines = stdout.trim().split("\n");
+          
+          lines.forEach((line: string) => {
+            if (line.includes("Everyone") || line.includes("BUILTIN\\Users")) {
+              findings.push({
+                type: "permission_issue",
+                path: line.split(" ")[0],
+                issue: "Overly permissive access",
+                details: line
+              });
+            }
+          });
+        } else {
+          const { stdout } = await execAsync(`find ${targetPath} -type f -perm -o+w -ls`);
+          const lines = stdout.trim().split("\n");
+          
+          lines.forEach((line: string) => {
+            if (line.trim()) {
+              findings.push({
+                type: "permission_issue",
+                path: line.split(/\s+/)[10] || "Unknown",
+                issue: "World-writable file",
+                details: line
+              });
+            }
+          });
+        }
         
         summary = {
-          totalFiles: lines.length,
+          totalFiles: findings.length,
           issuesFound: findings.length
         };
         break;
         
       case "services":
-        const { stdout: servicesOutput } = await execAsync("wmic service get name,displayname,startmode,state /format:csv");
-        const serviceLines = servicesOutput.trim().split("\n").slice(1);
+        const services = await getServices();
         
-        serviceLines.forEach((line: string) => {
-          const parts = line.split(",");
-          const serviceName = parts[1];
-          const startMode = parts[3];
-          const state = parts[4];
-          
-          if (startMode === "Auto" && state === "Stopped") {
+        services.forEach((service: any) => {
+          if (service.startupType === "Auto" && service.status === "Stopped") {
             findings.push({
               type: "service_issue",
-              service: serviceName,
+              service: service.name,
               issue: "Auto-start service is stopped",
-              details: `Service ${serviceName} is configured to start automatically but is currently stopped`
+              details: `Service ${service.name} is configured to start automatically but is currently stopped`
             });
           }
         });
         
         summary = {
-          totalServices: serviceLines.length,
+          totalServices: services.length,
           issuesFound: findings.length
         };
         break;
