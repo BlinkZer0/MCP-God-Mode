@@ -72,17 +72,19 @@ This MCP server is designed for **unrestricted system access** and should be use
 
 #### **Before This MCP Server:**
 - ❌ **Manual troubleshooting**: Click through endless menus and windows
-- ❌ **Command memorization**: Remember complex PowerShell and CMD commands
-- ❌ **Fragmented tools**: Use different tools for different tasks
+- ❌ **Command memorization**: Remember complex PowerShell, bash, and terminal commands
+- ❌ **Fragmented tools**: Use different tools for different tasks and operating systems
 - ❌ **Reactive approach**: Fix problems only after they occur
 - ❌ **Limited access**: Restricted by user permissions and tool limitations
+- ❌ **Platform lock-in**: Different tools for Windows, Linux, and macOS
 
 #### **With This MCP Server:**
 - ✅ **Natural language control**: "Show me what's using all my CPU"
-- ✅ **AI-powered insights**: "Analyze my event logs for patterns"
-- ✅ **Unified system access**: Everything from one interface
+- ✅ **AI-powered insights**: "Analyze my system logs for patterns"
+- ✅ **Unified system access**: Everything from one interface across all platforms
 - ✅ **Proactive maintenance**: "Run a security audit and fix issues"
 - ✅ **God Mode access**: Full system control with intelligent safety features
+- ✅ **Universal compatibility**: Same powerful tools work on Windows, Linux, and macOS
 
 ### **🔮 The Future is Here**
 
