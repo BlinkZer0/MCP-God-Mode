@@ -185,6 +185,16 @@ These tools are perfect for diagnosing and fixing common Windows problems:
 - **`service_control`** - Start, stop, restart, pause, resume services
 - **`change_wallpaper`** - Change Windows desktop wallpaper
 
+### 🔒 Elevated Operations (UAC)
+Some tasks require Administrator approval. These tools will prompt via UAC and capture results when possible:
+- **`proc_run_elevated`** - Run commands with elevation (e.g., enabling features, managing drivers)
+- **`create_restore_point`** - Create a Windows Restore Point (requires System Protection enabled)
+
+Safety notes:
+- You may need to accept a UAC prompt for the action to proceed
+- Ensure System Protection is enabled for restore points
+- Logs include whether elevation was used
+
 ### 🔧 **Advanced Troubleshooting Tools**
 For power users and system administrators:
 - **`registry_read`** - Read Windows registry values (diagnose configuration issues)
@@ -594,6 +604,7 @@ Use the appropriate tools to resolve problems:
 "Stop the problematic process"
 "Clean up temporary files"
 "Fix the registry entry"
+"Create a restore point"
 ```
 
 ### **Step 4: Verify the Fix**
