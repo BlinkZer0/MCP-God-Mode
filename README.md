@@ -242,13 +242,13 @@ Ask your AI: *"What can you do now that MCP God Mode is installed?"* and watch a
 
 **Blink Zero**
 
-![Blink GIF 1](https://media.giphy.com/media/3o6ZtaO9BZHcOjmErm/giphy.gif)
-
-![Blink GIF 2](https://media.giphy.com/media/26ufnwz3wDUfck0bt/giphy.gif)
-
-![Blink GIF 3](https://media.giphy.com/media/l0MYC0LajbaPoEADu/giphy.gif)
-
-![Blink GIF 4](https://media.giphy.com/media/3o7btPCcdNniyf0ArS/giphy.gif)
+<p align="center">
+  <img src="https://media.giphy.com/media/3o6ZtaO9BZHcOjmErm/giphy.gif" alt="Blink GIF 1" width="320" />
+  <img src="https://media.giphy.com/media/26ufnwz3wDUfck0bt/giphy.gif" alt="Blink GIF 2" width="320" />
+  <img src="https://media.giphy.com/media/l0MYC0LajbaPoEADu/giphy.gif" alt="Blink GIF 3" width="320" />
+  <img src="https://media.giphy.com/media/3o7btPCcdNniyf0ArS/giphy.gif" alt="Blink GIF 4" width="320" />
+  
+</p>
 
 **Support them and listen to them on soundcloud or other platforms.**
 
