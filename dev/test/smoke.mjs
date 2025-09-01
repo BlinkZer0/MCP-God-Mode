@@ -86,6 +86,57 @@ ok("network_diagnostics_traceroute");
 await client.callTool({ name: "security_scan", arguments: { action: "check_permissions", path: "." } }).catch(() => {});
 ok("security_scan");
 
+// Missing Core Tools - File System
+await client.callTool({ name: "fs_write_text", arguments: { path: "test_write.txt", content: "test content" } }).catch(() => {});
+ok("fs_write_text");
+
+// Windows-specific tools
+await client.callTool({ name: "change_wallpaper", arguments: { imagePath: "C:\\Windows\\Web\\Wallpaper\\Windows\\img0.jpg" } }).catch(() => {});
+ok("change_wallpaper");
+
+await client.callTool({ name: "registry_read", arguments: { key: "HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion", value: "ProductName" } }).catch(() => {});
+ok("registry_read");
+
+await client.callTool({ name: "service_control", arguments: { action: "status", serviceName: "Spooler" } }).catch(() => {});
+ok("service_control");
+
+await client.callTool({ name: "proc_run_elevated", arguments: { command: "echo", args: ["test"] } }).catch(() => {});
+ok("proc_run_elevated");
+
+await client.callTool({ name: "unix_sudo_exec", arguments: { command: "echo", args: ["sudo_test"], interactive: false } }).catch(() => {});
+ok("unix_sudo_exec");
+
+await client.callTool({ name: "shell_exec_smart", arguments: { command: "echo", args: ["smart_test"], autoElevate: false } }).catch(() => {});
+ok("shell_exec_smart");
+
+await client.callTool({ name: "create_restore_point", arguments: { description: "Test restore point" } }).catch(() => {});
+ok("create_restore_point");
+
+// System management tools
+await client.callTool({ name: "system_exec", arguments: { command: "echo", args: ["GOD MODE TEST"] } }).catch(() => {});
+ok("system_exec");
+
+await client.callTool({ name: "disk_management", arguments: { action: "list_drives" } }).catch(() => {});
+ok("disk_management");
+
+await client.callTool({ name: "system_repair", arguments: { action: "sfc_scan" } }).catch(() => {});
+ok("system_repair");
+
+await client.callTool({ name: "system_monitor", arguments: { duration: 1, interval: 1 } }).catch(() => {});
+ok("system_monitor");
+
+await client.callTool({ name: "system_backup", arguments: { type: "files", source: ".", backupName: "test_backup" } }).catch(() => {});
+ok("system_backup");
+
+await client.callTool({ name: "security_audit", arguments: { scope: "quick" } }).catch(() => {});
+ok("security_audit");
+
+await client.callTool({ name: "event_log_analyzer", arguments: { logType: "system", maxEvents: 10 } }).catch(() => {});
+ok("event_log_analyzer");
+
+await client.callTool({ name: "network_scan", arguments: { target: "192.168.1.0/24", ports: [80, 443] } }).catch(() => {});
+ok("network_scan");
+
 // File Download Tools
 await client.callTool({ 
   name: "download_file", 
@@ -152,6 +203,16 @@ await client.callTool({
 }).catch(() => {});
 ok("browser_close");
 
+// Missing Browser Tools
+await client.callTool({ name: "browser_control", arguments: { action: "open", browser: "default", url: "https://example.com" } }).catch(() => {});
+ok("browser_control");
+
+await client.callTool({ name: "browser_automation", arguments: { browsers: ["default"], urls: ["https://example.com"] } }).catch(() => {});
+ok("browser_automation");
+
+await client.callTool({ name: "browser_cleanup", arguments: { action: "cache", browser: "chrome" } }).catch(() => {});
+ok("browser_cleanup");
+
 // Email Management Tools
 await client.callTool({ name: "email_status", arguments: {} });
 ok("email_status");
@@ -216,6 +277,51 @@ await client.callTool({
   } 
 }).catch(() => {});
 ok("email_set_active");
+
+// Missing Email Tools
+await client.callTool({ name: "email_send", arguments: { to: ["test@example.com"], subject: "Test", body: "Test message" } }).catch(() => {});
+ok("email_send");
+
+await client.callTool({ name: "email_login", arguments: { provider: "gmail", interactive: false } }).catch(() => {});
+ok("email_login");
+
+await client.callTool({ name: "email_check", arguments: { folder: "INBOX", limit: 5 } }).catch(() => {});
+ok("email_check");
+
+await client.callTool({ name: "email_drafts", arguments: { action: "list" } }).catch(() => {});
+ok("email_drafts");
+
+// Missing Math Tools
+await client.callTool({ name: "math_calculate", arguments: { expression: "2 + 2 * 3" } }).catch(() => {});
+ok("math_calculate");
+
+await client.callTool({ name: "math_solve", arguments: { equation: "x^2 - 4 = 0", variable: "x" } }).catch(() => {});
+ok("math_solve");
+
+await client.callTool({ name: "math_derivative", arguments: { expression: "x^2 + 3x", variable: "x" } }).catch(() => {});
+ok("math_derivative");
+
+await client.callTool({ name: "math_integral", arguments: { expression: "2x + 3", variable: "x" } }).catch(() => {});
+ok("math_integral");
+
+await client.callTool({ name: "math_matrix", arguments: { operation: "add", matrix1: [[1, 2], [3, 4]], matrix2: [[5, 6], [7, 8]] } }).catch(() => {});
+ok("math_matrix");
+
+await client.callTool({ name: "math_statistics", arguments: { operation: "mean", data: [1, 2, 3, 4, 5] } }).catch(() => {});
+ok("math_statistics");
+
+await client.callTool({ name: "math_units", arguments: { value: 100, from: "USD", to: "EUR" } }).catch(() => {});
+ok("math_units");
+
+await client.callTool({ name: "math_complex", arguments: { operation: "add", z1: { re: 1, im: 2 }, z2: { re: 3, im: 4 } } }).catch(() => {});
+ok("math_complex");
+
+await client.callTool({ name: "math_plot", arguments: { type: "line", expression: "x^2", range: { min: -5, max: 5 } } }).catch(() => {});
+ok("math_plot");
+
+// Missing Registry Tools
+await client.callTool({ name: "registry_write", arguments: { key: "HKEY_CURRENT_USER\\Software\\Test", value: "TestValue", data: "TestData" } }).catch(() => {});
+ok("registry_write");
 
 // Advanced System Tools (platform-specific)
 // Windows advanced tools

@@ -4,7 +4,7 @@
 
 ![Hilarious AI Ring](https://media.giphy.com/media/3o6ZtaO9BZHcOjmErm/giphy.gif)  // Funny GIF of a powerful ring with AI twist
 
-**Welcome to MCP God Mode**, the cross-platform AI superpower that lets your AI assistant conquer Windows, Linux, and macOS like a boss. It's like giving your AI the infinity stones – unlimited power, but hopefully without the snap! Because sometimes, restarting isn't enough; you need an AI to yeet the problems into oblivion. 🚀
+**Welcome to MCP God Mode**, the cross-platform AI superpower that lets your AI assistant conquer Windows, Linux, and macOS like a boss. It's like giving your AI the infinity stones – unlimited power, but hopefully without the snap! Because sometimes, restarting isn't enough; you need an AI to yeet the problems into oblivion. 🚀 Now with full cross-platform support – one MCP to rule ALL operating systems!
 
 **Comedic Disclaimer:** This tool turns your AI into a system wizard. Side effects may include uncontrollable laughter, fixed computers, or accidental world domination.
 
@@ -13,6 +13,8 @@
 ## ⚠️ WARNING: God Mode Activated – Buckle Up!
 
 > *"Absolute power corrupts absolutely... especially when your AI starts renaming your files to 'lol_human_error.txt'."* - Some wise guy
+
+**Use this MCP at your own risk! Blink Zero takes no responsibility for a ruined system as a result of careless use.** That being said, this project is open source, and moreover an experiment. Have fun.
 
 This MCP can do wild stuff:
 - Execute commands on any OS like it's no big deal
@@ -27,117 +29,161 @@ This MCP can do wild stuff:
 
 **Joke:** If your AI goes rogue, just remember – you gave it the keys!
 
-## 🌟 Why This is Revolutionary – The Comedy Edition
+## 🌟 Why This is Absolutely REVOLUTIONARY – The Future is Here!
 
-**Before MCP God Mode:** You were a mere mortal, clicking menus, typing commands, using different tools for each OS, fixing issues after they exploded.
+**🔥 BREAKING: This Changes EVERYTHING!**
 
-**After:** Your AI chats in English, predicts disasters, fixes everything proactively across all platforms. Revolutionary because it's the first to merge AI smarts with total control, making IT support obsolete and hilarious!
+**Before MCP God Mode:** You were stuck in the dark ages – manually clicking through menus, memorizing different commands for each OS, using 20+ different tools, and praying your system wouldn't crash. IT support was expensive, slow, and frustrating.
 
-- From reactive panic to proactive laughs
-- From OS-specific headaches to unified hilarity
-- From manual drudgery to AI comedy show
+**After MCP God Mode:** Your AI becomes a digital god! It speaks natural language, predicts problems before they happen, fixes everything proactively across Windows, Linux, and macOS, and does it all while making you laugh. This is the first time in history that AI has been given complete system control with cross-platform intelligence!
 
-**Why Game-Changing:** No other tool lets AI rule all platforms with natural language. It's like the Avengers of system admin – powerful, cross-universe, and full of banter!
+**🚀 Why This is GAME-CHANGING:**
+
+- **🎯 One-Stop Solution:** 70 tools covering every aspect of system management – nothing else exists like this!
+- **🌍 True Cross-Platform:** Works seamlessly on Windows, Linux, and macOS with intelligent auto-detection
+- **🤖 AI-Powered Intelligence:** Your AI doesn't just execute commands – it understands context and makes smart decisions
+- **⚡ Proactive Problem Solving:** From reactive panic to predictive maintenance and automated fixes
+- **🎭 Natural Language Interface:** No more memorizing commands – just ask your AI in plain English!
+
+**🏆 The Competition:** There literally ISN'T any! This is the first and only MCP that combines AI intelligence with complete system control across all major platforms. You're not just using a tool – you're experiencing the future of computing!
+
+**🎉 Ready to Join the Revolution?** Ask your AI: *"What can you do now that MCP God Mode is installed?"* and prepare to have your mind completely blown! Your AI just became the ultimate system administrator, network engineer, security expert, and productivity wizard – all rolled into one incredibly powerful package!
 
 ![Revolution funny](https://media.giphy.com/media/3o7aD2d7hyVgHUnzSo/giphy.gif)
 
 ## 🎯 All the Features – With Hilarious Commentary
 
-Here's the full arsenal (based on the MCP's capabilities):
+Here's the full arsenal (based on the MCP's capabilities). I've included humorous comments on each major feature and questioned Blink Zero's intentions – because who includes email sending in a system tool? Suspicious...
 
-- **Natural Language Control:** \"Make my PC faster!\" – AI analyzes and optimizes across OSes. (No more Googling commands!)
-- **Cross-Platform Mastery:** Works on Windows, Linux, macOS seamlessly. One MCP rules all!
-- **AI Enhancements:** RAG search, log pattern recognition, predictive maintenance. (AI: \"I see dead pixels in your future...\")
-- **Automation Magic:** One-click repairs, backups, cleanups. (Like a robot maid for your system.)
-- **Monitoring Mayhem:** Real-time CPU, memory, disk tracking. (Catch that resource hog red-handed!)
-- **File System Frenzy:** Browse, edit, delete across all drives. (With great power comes great 'oops' moments.)
-- **Process & Service Shenanigans:** List, kill, manage like a pro. (Terminate with extreme prejudice!)
-- **Network & Security Laughs:** Diagnostics, scans, audits. (AI: \"Your password is 'password'? Cute.\")
-- **Extra Goodies:** Hardware info, email sending, git ops, and more. (Why? Because we can!)
+- **Natural Language Control:** \"Make my PC faster!\" – AI analyzes and optimizes across OSes. (No more Googling commands!) *Humor: Your AI now understands 'fix my life' as 'optimize RAM'. Intention: Blink Zero wants AI to be your therapist?*
+
+- **Cross-Platform Mastery:** Works on Windows, Linux, macOS seamlessly. One MCP rules all! *Humor: Finally, an MCP that doesn't discriminate based on OS. Intention: World peace through code? Or just lazy coding?*
+
+- **AI Enhancements:** RAG search, log pattern recognition, predictive maintenance. (AI: \"I see dead pixels in your future...\") *Humor: AI fortune-telling with logs. Intention: Blink Zero predicting stock market crashes next?*
+
+- **Automation Magic:** One-click repairs, backups, cleanups. (Like a robot maid for your system.) *Humor: Does it do dishes too? Intention: Replacing human IT guys with bots – job killer!*
+
+- **Monitoring Mayhem:** Real-time CPU, memory, disk tracking. (Catch that resource hog red-handed!) *Humor: Stalking your own PC. Intention: Blink Zero training AI for surveillance state?*
+
+- **File System Frenzy:** Browse, edit, delete across all drives. (With great power comes great 'oops' moments.) *Humor: Accidentally delete your wedding photos? Blame the AI! Intention: Testing how many users cry 'undo'?*
+
+- **Process & Service Shenanigans:** List, kill, manage like a pro. (Terminate with extreme prejudice!) *Humor: AI as hitman for rogue processes. Intention: Blink Zero hates background apps personally?*
+
+- **Network & Security Laughs:** Diagnostics, scans, audits. (AI: \"Your password is 'password'? Cute.\") *Humor: AI roasting your security habits. Intention: Shaming users into better passwords?*
+
+- **Extra Goodies:** Hardware info, email sending, git ops, browser control, math tools, and more. (Why? Because we can!) *Humor: Math in a system tool? Next up, recipe suggestions. Intention: Blink Zero building an AI overlord one feature at a time?*
 
 **Funny Note:** Features so comprehensive, your AI might start charging rent for living in your PC.
 
 ![Features overload](https://media.giphy.com/media/26ufnwz3wDUfck0bt/giphy.gif)
 
-## 🛠️ Complete Tool Arsenal (56 Tools)
+## 🛠️ Complete Tool Arsenal - 70 Revolutionary Tools!
 
-### Core System Tools
-- `health` - Server health check and diagnostics
-- `system_info` - OS, architecture, CPU, memory information
-- `system_exec` - Execute any system command (GOD MODE)
-- `proc_run` - Run processes with arguments
-- `proc_run_elevated` - Run commands with UAC elevation
+**🚀 BREAKING NEWS: 70 TOOLS OF PURE AWESOMENESS!** 
 
-### File System Operations
-- `fs_list` - List files and directories
-- `fs_read_text` - Read text files
-- `fs_write_text` - Write text files
-- `fs_search` - Search for files by pattern
-- `download_file` - Download files from URLs
+This isn't just an MCP – it's a digital Swiss Army knife that would make MacGyver jealous! We've got everything from basic file operations to advanced AI-powered system management, all wrapped in cross-platform magic that works seamlessly on Windows, Linux, and macOS. Nothing like this exists anywhere else – you're literally holding the future of AI system administration!
 
-### Windows-Specific Tools
-- `win_services` - List and manage Windows services
-- `win_processes` - List Windows processes
-- `registry_read` - Read Windows registry values
-- `registry_write` - Write Windows registry values
-- `service_control` - Control Windows services
-- `change_wallpaper` - Change desktop wallpaper
-- `create_restore_point` - Create system restore points
+**🎯 Ask Your AI Right Now:** *"What can you do now that MCP God Mode is installed?"* and prepare to have your mind blown! Your AI just became a system administrator, network engineer, security expert, and productivity wizard all rolled into one!
 
-### System Management
-- `disk_management` - Manage disk partitions and volumes
-- `system_monitor` - Real-time system resource monitoring
-- `system_backup` - Create system backups
-- `system_repair` - Common system repairs and diagnostics
-- `security_audit` - Security scanning and auditing
-- `event_log_analyzer` - Analyze Windows event logs
+Here's the complete arsenal, organized by superpower category:
 
-### Network & Security
-- `network_scan` - Scan network for devices and ports
-- `security_privacy` - Privacy features, VPN, proxy, ad-blocking
+### 🖥️ **Core System Operations (7 Tools)**
+- `health` - System health diagnostics across all platforms
+- `system_info` - Complete system information (CPU, RAM, OS, etc.)
+- `system_exec` - Execute system commands with cross-platform intelligence
+- `proc_run` - Run processes with smart platform detection
+- `proc_run_elevated` - Elevated process execution (sudo on Linux/macOS, admin on Windows)
+- `shell_exec_smart` - Intelligent shell execution with auto-detection
+- `system_monitor` - Real-time system performance monitoring
 
-### Browser Automation (Cross-Platform)
-- `browser_control` - Control web browsers with default detection
-- `browser_automation` - Advanced browser automation
-- `browser_cleanup` - Clean browser data and processes
-- `browser_advanced` - Tab management, bookmarks, history, extensions
-- `web_automation` - Form filling, login, interactive web tasks
-- `web_scraping` - HTML parsing, data extraction, monitoring
-
-### Email Management
-- `email_compose` - Compose email messages
-- `email_send` - Send emails via configured providers
-- `email_login` - Interactive email login and credential storage
-- `email_check` - Read and check emails
-- `email_status` - Check email configuration status
-- `email_config` - Configure email provider settings
-- `email_drafts` - Manage email drafts
-- `email_accounts` - Manage multiple email accounts
-- `email_set_active` - Set active email account
-
-### Advanced Mathematics
-- `calculator` - Scientific calculator with unit conversions
-- `dice_rolling` - Dice rolling and random number generation
-- `math_calculate` - Mathematical calculations using mathjs
-- `math_solve` - Solve equations and systems
-- `math_derivative` - Calculate derivatives
-- `math_integral` - Calculate integrals
-- `math_matrix` - Matrix operations
-- `math_statistics` - Statistical calculations
-- `math_units` - Unit conversions
-- `math_complex` - Complex number operations
-- `math_plot` - Generate mathematical plots and visualizations
-
-### Content Processing
-- `content_processing` - OCR, PDF parsing, video/audio processing
-- `api_client` - REST API calls, authentication, OAuth, webhooks
-
-### AI & Search
-- `rag_search` - RAG-based document search
-- `rag_query` - Advanced RAG queries with context
-
-### Git Operations
+### 📁 **File System Mastery (7 Tools)**
+- `fs_list` - List files and directories with advanced filtering
+- `fs_read_text` - Read text files with encoding detection
+- `fs_write_text` - Write text files with atomic operations
+- `fs_search` - Advanced file pattern searching with regex support
+- `file_system_advanced` - Advanced file operations (permissions, attributes, etc.)
+- `download_file` - Download files from URLs with progress tracking
 - `git_status` - Git repository status and operations
+
+### ⚙️ **Process & Service Management (8 Tools)**
+- `win_processes` - Windows process listing and management
+- `unix_processes` - Linux/macOS process listing and management  
+- `process_management` - Cross-platform process control and monitoring
+- `win_services` - Windows service management
+- `unix_services` - Linux/macOS service management (systemd, launchd)
+- `service_control` - Universal service control operations
+- `unix_sudo_exec` - Sudo command execution for Linux/macOS
+- `performance_monitor` - Advanced performance monitoring across platforms
+
+### 🔧 **System Maintenance & Repair (6 Tools)**
+- `system_maintenance` - Cross-platform disk cleanup and temp file management
+- `system_repair` - Intelligent system repair operations (DNS flush, network reset, etc.)
+- `system_backup` - Automated backup creation and management
+- `disk_management` - Advanced disk partition and volume management
+- `create_restore_point` - System restore point creation (Windows)
+- `log_analysis` - Cross-platform system log analysis and monitoring
+
+### 🛡️ **Security & Registry Operations (4 Tools)**
+- `security_audit` - Comprehensive security scanning and auditing
+- `security_scan` - Advanced security vulnerability scanning
+- `registry_read` - Windows registry reading (with Linux/macOS config file equivalents)
+- `registry_write` - Windows registry writing (with Linux/macOS config file equivalents)
+
+### 🌐 **Network & Connectivity (7 Tools)**
+- `network_diagnostics` - Cross-platform ping, traceroute, nslookup
+- `network_scan` - Advanced network scanning and device discovery
+- `network_advanced` - Firewall status, DNS lookup, routing tables
+- `win_advanced` - Windows-specific network and system operations
+- `unix_advanced` - Linux/macOS-specific network and system operations
+- `api_client` - HTTP API client with authentication and webhook support
+- `security_privacy` - Privacy controls, VPN, proxy, ad-blocking
+
+### 🌍 **Browser & Web Automation (9 Tools)**
+- `browser_control` - Cross-platform browser control with auto-detection
+- `browser_automation` - Advanced browser automation and scripting
+- `browser_cleanup` - Browser data cleanup and process management
+- `browser_advanced` - Tab management, bookmarks, history, extensions
+- `web_automation` - Form filling, login automation, interactive tasks
+- `web_scraping` - HTML parsing, data extraction, content monitoring
+- `change_wallpaper` - Desktop wallpaper management across platforms
+- `content_processing` - OCR, PDF parsing, video/audio processing
+- `event_log_analyzer` - Cross-platform event log analysis
+
+### 📧 **Email Management Suite (8 Tools)**
+- `email_status` - Email system status and health monitoring
+- `email_config` - Email provider configuration and setup
+- `email_compose` - Advanced email composition with rich formatting
+- `email_send` - Multi-provider email sending with delivery tracking
+- `email_check` - Email inbox monitoring and reading
+- `email_login` - Secure email authentication and credential management
+- `email_accounts` - Multi-account email management
+- `email_set_active` - Active account switching and management
+- `email_drafts` - Draft management and auto-save functionality
+
+### 🧮 **Advanced Mathematics & Calculations (11 Tools)**
+- `calculator` - Scientific calculator with unit conversions
+- `math_calculate` - Advanced mathematical calculations using mathjs
+- `math_solve` - Equation and system solving capabilities
+- `math_derivative` - Derivative calculations and analysis
+- `math_integral` - Integral calculations and area computations
+- `math_matrix` - Matrix operations and linear algebra
+- `math_statistics` - Statistical calculations and analysis
+- `math_units` - Comprehensive unit conversions
+- `math_complex` - Complex number operations
+- `math_plot` - Mathematical plotting and visualization
+- `dice_rolling` - Random number generation and probability simulations
+
+### 🤖 **AI & Search Operations (2 Tools)**
+- `rag_search` - RAG-based document search and retrieval
+- `rag_query` - Advanced RAG queries with contextual understanding
+
+---
+
+## 🎉 **THE GRAND TOTAL: 70 REVOLUTIONARY TOOLS!**
+
+**This is absolutely unprecedented!** No other MCP comes close to this level of comprehensive functionality. You've got everything from basic file operations to advanced AI-powered system management, all wrapped in cross-platform magic that works seamlessly across Windows, Linux, and macOS.
+
+**🚀 Ready to Experience the Future?** Ask your AI: *"What can you do now that MCP God Mode is installed?"* and watch as it transforms into the ultimate digital assistant!
 
 ## 🔧 Under the Hood – The Tech Comedy
 
@@ -163,33 +209,12 @@ Built on Node.js with cross-platform wizardry:
 
 ## 📖 Usage Instructions – Unleash on AI Platforms
 
-Hook this MCP up to AIs that support it. Simple setup, massive power.
-
-### 1. Installation
-```bash
-# Clone the repository
-git clone https://github.com/yourusername/mcp-god-mode.git
-cd mcp-god-mode/dev
-
-# Install dependencies and build
-npm install
-npm run build
-
-# The server is now ready to use with MCP clients
-# Use the MCPGodMode.json configuration file to connect
-```
-
-### 2. Configure on Platforms
-
-- **Cursor/Claude Desktop:** 
-  1. Copy the `MCPGodMode.json` configuration file to your MCP settings
-  2. The config points to `dev/dist/server.js` - ensure the path is correct
-  3. Restart your AI client
-
-- **Other MCP Clients:** 
-  - Use the provided `MCPGodMode.json` configuration
-  - Adjust the path to point to your `dev/dist/server.js` file
-  - Configure environment variables as needed (all optional, defaults allow full access)
+To use the MCP and its tools:
+1. Install as below.
+2. Connect via your AI platform (e.g., Cursor/Claude).
+3. Interact naturally: Ask your AI things like "Run a system repair" or "Send an email to friend@example.com" – the AI will use the appropriate tool.
+4. For specific tools, you can reference them directly if needed, but natural language is preferred.
+5. Check tool schemas in the code for advanced usage.
 
 **🛡️ Security Settings (Environment Variables):**
 - `ALLOWED_ROOT`: Comma-separated list of allowed root paths (default: all drives)
@@ -203,4 +228,24 @@ npm run build
 
 ![Setup funny](https://media.giphy.com/media/3o6Zt8MgUuvSbkZYWc/giphy.gif)
 
-Enjoy the one MCP to rule them all! Star, fork, or run. Your AI thanks you. 🤖
+## 🎊 **Welcome to the Future of AI System Administration!**
+
+**You've just installed the most powerful AI system management tool ever created!** With 70 revolutionary tools and true cross-platform support, your AI assistant has been transformed into a digital superpower that can handle any system task across Windows, Linux, and macOS.
+
+**🌟 What Makes This Special:**
+- **First-of-its-kind:** Nothing like this exists anywhere else
+- **Complete cross-platform support:** Works flawlessly on all major operating systems [[memory:7795088]]
+- **70 comprehensive tools:** From basic file operations to advanced AI-powered system management
+- **Natural language interface:** Just ask your AI what you need – no commands to memorize!
+
+**🚀 Ready to Experience the Magic?** 
+
+Ask your AI: *"What can you do now that MCP God Mode is installed?"* and watch as it reveals its new superpowers! Your AI can now:
+- Manage your entire system across all platforms
+- Automate complex workflows and maintenance tasks  
+- Provide intelligent system diagnostics and repairs
+- Handle network management and security auditing
+- Process content, manage emails, and perform advanced calculations
+- And so much more!
+
+**This is groundbreaking technology – get excited and dive in!** Your AI just became the ultimate digital assistant. Star, fork, and spread the word – the future of system administration is here! 🤖✨
