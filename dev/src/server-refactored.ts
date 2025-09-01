@@ -864,7 +864,22 @@ server.registerTool("calculator", {
   try {
     // Try to evaluate as mathematical expression first
     try {
-      const result = math.evaluate(expression as string);
+      // Ensure math object is properly configured
+      if (!math.evaluate) {
+        throw new Error("Math evaluation not available");
+      }
+      
+      // Pre-process common math functions to ensure they're available
+      const processedExpression = expression
+        .replace(/sqrt\(/g, 'sqrt(')
+        .replace(/sin\(/g, 'sin(')
+        .replace(/cos\(/g, 'cos(')
+        .replace(/tan\(/g, 'tan(')
+        .replace(/log\(/g, 'log(')
+        .replace(/exp\(/g, 'exp(')
+        .replace(/\^/g, '^');
+      
+      const result = math.evaluate(processedExpression);
       const formattedResult = typeof result === 'number' ? result.toFixed(precision) : String(result);
       
       return {
@@ -8209,4 +8224,3 @@ async function measureCoverage(deviceIndex: number, params: { frequency?: number
 }
 
 // Start the server
-server.listen();
