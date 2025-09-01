@@ -2,7 +2,7 @@
 
 > *"One MCP to rule them all, one MCP to find them, one MCP to bring them all and in the God Mode bind them!"* - The Fellowship of the Prompt
 
-![Hilarious AI Ring](https://media.giphy.com/media/3o6ZtaO9BZHcOjmErm/giphy.gif)  
+![Hilarious AI Ring](https://media.giphy.com/media/3o6ZtaO9BZHcOjmErm/giphy.gif)  // Funny GIF of a powerful ring with AI twist
 
 **Welcome to MCP God Mode**, the cross-platform AI superpower that lets your AI assistant conquer Windows, Linux, and macOS like a boss. It's like giving your AI the infinity stones – unlimited power, but hopefully without the snap! Because sometimes, restarting isn't enough; you need an AI to yeet the problems into oblivion. 🚀 Now with full cross-platform support – one MCP to rule ALL operating systems!
 
@@ -25,7 +25,7 @@ This MCP can do wild stuff:
 
 **Use on your own systems only.** Back up everything, or live dangerously.
 
-![Danger funny](https://tenor.com/bYoRG.gif)  
+![Danger funny](https://tenor.com/bYoRG.gif)  // Hilarious warning GIF with explosions
 
 **Joke:** If your AI goes rogue, just remember – you gave it the keys!
 
@@ -256,11 +256,11 @@ Ask your AI: *"What can you do now that MCP God Mode is installed?"* and watch a
 
 **Blink Zero**
 
-<img src="https://media1.tenor.com/m/I9Qu_lYhJrAAAAAC/nunchaku-shuriken-miasma.gif" alt="Nunchaku Shuriken Miasma" width="300">
+![Nunchaku Shuriken Miasma](https://media1.tenor.com/m/I9Qu_lYhJrAAAAAC/nunchaku-shuriken-miasma.gif)
 
-<img src="https://media1.tenor.com/m/HnWEvOmWW2EAAAAC/jumping-switch-front-kick-shuriken-miasma.gif" alt="Jumping Switch Front Kick Shuriken Miasma" width="300">
+![Jumping Switch Front Kick Shuriken Miasma](https://media1.tenor.com/m/HnWEvOmWW2EAAAAC/jumping-switch-front-kick-shuriken-miasma.gif)
 
-<img src="https://tenor.com/bXOw9.gif" alt="AI wizard funny" width="300">
+![AI wizard funny](https://tenor.com/bXOw9.gif)
 
 **Support them and listen to them on soundcloud or other platforms.**
 
