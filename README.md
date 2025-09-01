@@ -51,6 +51,8 @@ node test/smoke.mjs
 
 This MCP server is **perfect for troubleshooting Windows systems** because it gives you:
 
+![Troubleshooting vibes (magnifying glass)](https://media.giphy.com/media/3o6Zt8MgUuvSbkZYWc/giphy.gif)
+
 ### **🎯 Natural Language System Control**
 Instead of remembering complex commands, just ask:
 - *"Show me what's using all my CPU"*
@@ -194,6 +196,8 @@ Safety notes:
 - You may need to accept a UAC prompt for the action to proceed
 - Ensure System Protection is enabled for restore points
 - Logs include whether elevation was used
+
+![Admin mode (shield animation)](https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.gif)
 
 ### 🔧 **Advanced Troubleshooting Tools**
 For power users and system administrators:
@@ -588,6 +592,8 @@ Start with these commands to get familiar:
 "Show Windows services status"
 ```
 
+![Toolbox ready](https://media.giphy.com/media/xT8qB7Cw0A8i13R5yM/giphy.gif)
+
 ### **Step 2: Identify the Problem**
 Ask specific questions about your issue:
 ```bash
@@ -657,6 +663,8 @@ Contributions are welcome! Please ensure any new tools maintain the "God Mode" p
 
 ### **Real-World Scenarios This Solves**
 
+![Nice, it worked (confetti)](https://media.giphy.com/media/l0MYC0LajbaPoEADu/giphy.gif)
+
 #### **"My Computer is So Slow!"**
 - **Problem**: High CPU usage, slow response
 - **Solution**: Use `win_processes` to find resource hogs, `fs_search` to locate large files
@@ -714,6 +722,8 @@ Just ask your AI assistant to help, and watch your Windows problems disappear!
 4. Let the AI do the heavy lifting!
 
 **🔧 Your Windows system will thank you!** ✨
+
+![Success check](https://media.giphy.com/media/111ebonMs90YLu/giphy.gif)
 
 ---
 
