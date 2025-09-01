@@ -256,11 +256,11 @@ Ask your AI: *"What can you do now that MCP God Mode is installed?"* and watch a
 
 **Blink Zero**
 
-![Nunchaku Shuriken Miasma](https://media1.tenor.com/m/I9Qu_lYhJrAAAAAC/nunchaku-shuriken-miasma.gif)
+<img src="https://media1.tenor.com/m/I9Qu_lYhJrAAAAAC/nunchaku-shuriken-miasma.gif" alt="Nunchaku Shuriken Miasma" width="300">
 
-![Jumping Switch Front Kick Shuriken Miasma](https://media1.tenor.com/m/HnWEvOmWW2EAAAAC/jumping-switch-front-kick-shuriken-miasma.gif)
+<img src="https://media1.tenor.com/m/HnWEvOmWW2EAAAAC/jumping-switch-front-kick-shuriken-miasma.gif" alt="Jumping Switch Front Kick Shuriken Miasma" width="300">
 
-![AI wizard funny](https://tenor.com/bXOw9.gif)
+<img src="https://tenor.com/bXOw9.gif" alt="AI wizard funny" width="300">
 
 **Support them and listen to them on soundcloud or other platforms.**
 
