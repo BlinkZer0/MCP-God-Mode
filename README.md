@@ -363,6 +363,78 @@ To use the MCP and its tools:
 - `PROC_ALLOWLIST`: Allowed processes/commands (default: unrestricted)
 - `ENABLE_SECURITY_CHECKS`: Enable dangerous command detection (default: true)
 
+## 🚨 **IMPORTANT: Guardrails Are OFF By Default!**
+
+**⚠️ CRITICAL SECURITY WARNING:** MCP God Mode ships with guardrails **DISABLED** by default to provide maximum flexibility. This means your AI has **unrestricted access** to your entire system!
+
+**🔒 How to Enable Guardrails (RECOMMENDED):**
+
+Set these environment variables to restrict access and enable security features:
+
+```bash
+# Windows (PowerShell)
+$env:ALLOWED_ROOT="C:\Users\YourUsername,C:\Projects"
+$env:WEB_ALLOWLIST="github.com,httpbin.org"
+$env:PROC_ALLOWLIST="notepad,chrome,code"
+$env:ENABLE_SECURITY_CHECKS="true"
+$env:RESTRICT_FILE_OPERATIONS="true"
+$env:BLOCK_DANGEROUS_COMMANDS="true"
+
+# Linux/macOS
+export ALLOWED_ROOT="/home/username,/opt/projects"
+export WEB_ALLOWLIST="github.com,httpbin.org"
+export PROC_ALLOWLIST="nano,chrome,code"
+export ENABLE_SECURITY_CHECKS="true"
+export RESTRICT_FILE_OPERATIONS="true"
+export BLOCK_DANGEROUS_COMMANDS="true"
+```
+
+**🛡️ Security Environment Variables Explained:**
+
+- **`ALLOWED_ROOT`**: Restrict file operations to specific directories
+  - **Example:** `"C:\Users\YourUsername,C:\Projects"` (Windows) or `"/home/username,/opt/projects"` (Linux/macOS)
+  - **Default:** All drives accessible (UNSAFE!)
+
+- **`WEB_ALLOWLIST`**: Restrict web downloads to trusted domains
+  - **Example:** `"github.com,httpbin.org,trusted-site.com"`
+  - **Default:** All domains allowed (UNSAFE!)
+
+- **`PROC_ALLOWLIST`**: Restrict which processes can be executed
+  - **Example:** `"notepad,chrome,code,python"`
+  - **Default:** All processes allowed (UNSAFE!)
+
+- **`ENABLE_SECURITY_CHECKS`**: Enable dangerous command detection
+  - **Values:** `"true"` (SAFE) or `"false"` (UNSAFE)
+  - **Default:** `"true"` (Good!)
+
+- **`RESTRICT_FILE_OPERATIONS`**: Limit file operations to safe actions
+  - **Values:** `"true"` (SAFE) or `"false"` (UNSAFE)
+  - **Default:** `"false"` (UNSAFE!)
+
+- **`BLOCK_DANGEROUS_COMMANDS`**: Block potentially harmful system commands
+  - **Values:** `"true"` (SAFE) or `"false"` (UNSAFE)
+  - **Default:** `"false"` (UNSAFE!)
+
+**🚨 Why Guardrails Are Off By Default:**
+
+1. **Maximum Flexibility:** Some users need unrestricted access for advanced automation
+2. **Testing & Development:** Developers need full system access for debugging
+3. **Trusted Environments:** Some users operate in controlled, trusted environments
+4. **Legacy Compatibility:** Ensures existing workflows continue to function
+
+**🔐 Production Security Checklist:**
+
+Before using in production, ensure you have:
+
+- ✅ **Restricted root paths** (`ALLOWED_ROOT`)
+- ✅ **Limited web access** (`WEB_ALLOWLIST`)
+- ✅ **Process restrictions** (`PROC_ALLOWLIST`)
+- ✅ **Security checks enabled** (`ENABLE_SECURITY_CHECKS="true"`)
+- ✅ **File operation restrictions** (`RESTRICT_FILE_OPERATIONS="true"`)
+- ✅ **Dangerous command blocking** (`BLOCK_DANGEROUS_COMMANDS="true"`)
+
+**💡 Pro Tip:** Start with restrictive settings and gradually loosen them as needed. It's easier to grant access than to recover from a security incident!
+
 **⚠️ Important:** This MCP has extensive system access. Use responsibly and only on systems you own.
 
 **Comedic Tip:** Start with "Hello, world" not "Delete everything."
