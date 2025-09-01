@@ -243,10 +243,10 @@ Ask your AI: *"What can you do now that MCP God Mode is installed?"* and watch a
 **Blink Zero**
 
 <p align="center">
-  <img src="https://media.giphy.com/media/3o6ZtaO9BZHcOjmErm/giphy.gif" alt="Blink GIF 1" width="320" />
-  <img src="https://media.giphy.com/media/26ufnwz3wDUfck0bt/giphy.gif" alt="Blink GIF 2" width="320" />
-  <img src="https://media.giphy.com/media/l0MYC0LajbaPoEADu/giphy.gif" alt="Blink GIF 3" width="320" />
-  <img src="https://media.giphy.com/media/3o7btPCcdNniyf0ArS/giphy.gif" alt="Blink GIF 4" width="320" />
+  <img src="docs/jumping-switch-front-kick-shuriken-miasma.gif" alt="Jumping switch front kick - Shuriken Miasma" width="320" />
+  <img src="docs/nunchaku-shuriken-miasma.gif" alt="Nunchaku - Shuriken Miasma" width="320" />
+  <img src="docs/spinning-back-kick-ground-touch.gif" alt="Spinning back kick - ground touch" width="320" />
+  <img src="docs/3section-stall-sanjiegun.gif" alt="3-section stall - Sanjiegun" width="320" />
   
 </p>
 
