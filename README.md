@@ -33,7 +33,7 @@ This MCP can do wild stuff:
 
 **🚀 Why This is GAME-CHANGING:**
 
-- **🎯 One-Stop Solution:** 25+ tools covering every aspect of system management including VM, Docker, and mobile management – nothing else exists like this!
+- **🎯 One-Stop Solution:** 76+ tools covering every aspect of system management including VM, Docker, and mobile management – nothing else exists like this!
 - **🌍 True Cross-Platform:** Works seamlessly on Windows, Linux, macOS, Android, and iOS with intelligent auto-detection
 - **🤖 AI-Powered Intelligence:** Your AI doesn't just execute commands – it understands context and makes smart decisions
 - **⚡ Proactive Problem Solving:** From reactive panic to predictive maintenance and automated fixes
@@ -70,9 +70,9 @@ Here's the full arsenal (based on the MCP's capabilities). I've included humorou
 
 - **Extra Goodies:** Hardware info, git ops, browser control, math tools, and more. (Why? Because we can!) *Humor: Math in a system tool? Next up, recipe suggestions. Intention: Blink Zero building an AI overlord one feature at a time?*
 
-## 🛠️ Complete Tool Arsenal - 25+ Revolutionary Tools!
+## 🛠️ Complete Tool Arsenal - 76+ Revolutionary Tools!
 
-**🚀 BREAKING NEWS: 25+ TOOLS OF PURE AWESOMENESS!** 
+**🚀 BREAKING NEWS: 76+ TOOLS OF PURE AWESOMENESS!** 
 
 This isn't just an MCP – it's a digital Swiss Army knife that would make MacGyver jealous! We've got everything from basic file operations to advanced AI-powered system management, all wrapped in cross-platform magic that works seamlessly on Windows, Linux, macOS, Android, and iOS. Nothing like this exists anywhere else – you're literally holding the future of AI system administration!
 
@@ -84,53 +84,140 @@ Here's the complete arsenal, organized by superpower category:
 - `health` - System health diagnostics across all platforms
 - `system_info` - Complete system information (CPU, RAM, OS, etc.)
 
-### 📁 **File System Mastery (6 Tools)**
+### 📁 **File System Mastery (26 Tools)**
 - `fs_list` - List files and directories with advanced filtering
 - `fs_read_text` - Read text files with encoding detection
 - `fs_write_text` - Write text files with atomic operations
 - `fs_search` - Advanced file pattern searching with regex support
-- `file_ops` - **20 advanced file operations** (copy, move, delete, compress, permissions, etc.)
 - `download_file` - Download files from URLs with progress tracking
+
+**Advanced File Operations (20 Tools):**
+- `file_ops` with action `list` - List files and directories
+- `file_ops` with action `get_info` - Get detailed file information (size, permissions, timestamps)
+- `file_ops` with action `create_dir` - Create directories with recursive option
+- `file_ops` with action `create_file` - Create files with custom content
+- `file_ops` with action `copy` - Copy files and directories with overwrite control
+- `file_ops` with action `move` - Move files and directories with overwrite control
+- `file_ops` with action `delete` - Delete files and directories with recursive option
+- `file_ops` with action `get_size` - Get file/directory size with human-readable format
+- `file_ops` with action `get_permissions` - Get file permissions in octal and symbolic format
+- `file_ops` with action `list_recursive` - Recursively list directory contents with pattern filtering
+- `file_ops` with action `find_by_content` - Search files by content with recursive option
+- `file_ops` with action `compress` - Compress files (zip, tar, gzip, bzip2)
+- `file_ops` with action `decompress` - Decompress files automatically detecting format
+- `file_ops` with action `chmod` - Change file permissions (Unix/Linux/macOS)
+- `file_ops` with action `chown` - Change file ownership (Unix/Linux/macOS)
+- `file_ops` with action `symlink` - Create symbolic links
+- `file_ops` with action `hardlink` - Create hard links
+- `file_ops` with action `watch` - Watch files/directories for changes
+- `file_ops` with action `unwatch` - Stop watching files/directories
+- `file_ops` with action `set_permissions` - Set file permissions
+- `file_ops` with action `compare_files` - Compare two files for equality
 
 ### ⚙️ **Process & Service Management (3 Tools)**
 - `proc_run` - Run processes with smart platform detection
 - `win_services` - Cross-platform service management (Windows services, Linux systemd, macOS launchd)
 - `win_processes` - Cross-platform process listing and management
 
-### 🖥️ **Virtual Machine Management (1 Tool)**
-- `vm_management` - Cross-platform VM operations (VirtualBox, VMware, QEMU/KVM, Hyper-V)
-  - **Auto-detection:** Automatically detects available hypervisors on your system
-  - **Multi-platform support:** Works with VirtualBox, VMware, QEMU/KVM, and Hyper-V
-  - **VM lifecycle:** Create, start, stop, pause, resume, and delete VMs
-  - **VM information:** Get detailed VM status, configuration, and resource usage
-  - **Cross-platform commands:** Automatically maps to platform-specific commands
-  - **Smart defaults:** Auto-configures memory, CPU, and disk settings
+### 🖥️ **Virtual Machine Management (3 Tools)**
+- `vm_management` with action `list_hypervisors` - Detect available hypervisors (VirtualBox, VMware, QEMU/KVM, Hyper-V)
+- `vm_management` with action `list_vms` - List all virtual machines across detected hypervisors
+- `vm_management` with action `vm_info` - Get detailed VM information and status
 
-### 🐳 **Docker & Container Management (1 Tool)**
-- `docker_management` - Cross-platform Docker container and image management
-  - **Container operations:** Create, start, stop, delete containers with full configuration
-  - **Image management:** Pull, build, and delete Docker images
-  - **Network & volumes:** Manage Docker networks and volumes
-  - **Container monitoring:** View logs, stats, and detailed container information
-  - **Port & volume mapping:** Configure port forwarding and volume mounts
-  - **Environment variables:** Set custom environment variables for containers
-  - **Cross-platform compatibility:** Works seamlessly on Windows, Linux, and macOS
+**Supported Hypervisors:**
+- **VirtualBox:** Full VM lifecycle management
+- **VMware:** Professional virtualization support
+- **QEMU/KVM:** Linux virtualization
+- **Hyper-V:** Windows virtualization
 
-### 📱 **Mobile Platform Tools (4 Tools)**
-- `mobile_device_info` - Comprehensive mobile device information for Android and iOS
-- `mobile_file_ops` - Mobile-optimized file operations with Android and iOS support
-- `mobile_system_tools` - Mobile system management tools (processes, services, network, storage, users, packages, permissions, system info)
-- `mobile_hardware` - Mobile hardware access and sensor data (camera, location, biometrics, Bluetooth, NFC, sensors, notifications, audio, vibration)
+### 🐳 **Docker & Container Management (6 Tools)**
+- `docker_management` with action `docker_version` - Get Docker version information
+- `docker_management` with action `docker_info` - Get Docker system information
+- `docker_management` with action `list_containers` - List all Docker containers
+- `docker_management` with action `list_images` - List all Docker images
+- `docker_management` with action `list_networks` - List Docker networks
+- `docker_management` with action `list_volumes` - List Docker volumes
 
-### 🧮 **Advanced Mathematics & Calculations (1 Tool)**
-- `calculator` - Advanced mathematical calculator with scientific functions, unit conversions, and financial calculations
+**Container Operations Available:**
+- Create, start, stop, delete containers
+- Pull, build, and delete images
+- Manage networks and volumes
+- View logs, stats, and detailed information
+- Configure port forwarding and volume mounts
+- Set custom environment variables
+
+### 📱 **Mobile Platform Tools (28 Tools)**
+
+**Mobile File Operations (10 Tools):**
+- `mobile_file_ops` with action `list` - List files and directories
+- `mobile_file_ops` with action `read` - Read file contents
+- `mobile_file_ops` with action `write` - Write content to files
+- `mobile_file_ops` with action `delete` - Delete files and directories
+- `mobile_file_ops` with action `copy` - Copy files and directories
+- `mobile_file_ops` with action `move` - Move files and directories
+- `mobile_file_ops` with action `create_dir` - Create directories
+- `mobile_file_ops` with action `get_info` - Get file information
+- `mobile_file_ops` with action `search` - Search files by pattern
+
+**Mobile System Tools (9 Tools):**
+- `mobile_system_tools` with action `system_info` - Get mobile system information
+- `mobile_system_tools` with action `processes` - List running processes
+- `mobile_system_tools` with action `services` - List system services
+- `mobile_system_tools` with action `network` - Get network information
+- `mobile_system_tools` with action `storage` - Get storage information
+- `mobile_system_tools` with action `users` - Get user information
+- `mobile_system_tools` with action `packages` - List installed packages
+- `mobile_system_tools` with action `permissions` - Get app permissions
+
+**Mobile Hardware Access (9 Tools):**
+- `mobile_hardware` with action `device_info` - Get device hardware information
+- `mobile_hardware` with action `camera` - Access camera capabilities
+- `mobile_hardware` with action `location` - Access GPS and location services
+- `mobile_hardware` with action `biometrics` - Access fingerprint/face recognition
+- `mobile_hardware` with action `bluetooth` - Access Bluetooth functionality
+- `mobile_hardware` with action `nfc` - Access NFC capabilities
+- `mobile_hardware` with action `sensors` - Access accelerometer, gyroscope, etc.
+- `mobile_hardware` with action `notifications` - Manage system notifications
+- `mobile_hardware` with action `audio` - Access audio controls
+- `mobile_hardware` with action `vibration` - Control device vibration
+
+### 🧮 **Advanced Mathematics & Calculations (4 Tools)**
+- `calculator` with basic expressions - Simple mathematical calculations
+- `calculator` with advanced functions - Scientific functions and complex expressions
+- `math_calculate` with basic math - Mathematical operations using mathjs
+- `math_calculate` with advanced functions - Power operations, roots, trigonometric functions
+
+**Supported Operations:**
+- Basic arithmetic (+, -, *, /, ^)
+- Scientific functions (sin, cos, tan, sqrt, log)
+- Unit conversions
+- Financial calculations
+- Statistical functions
 
 ### 🔧 **Development & Version Control (1 Tool)**
 - `git_status` - Git repository status and operations
 
+**Git Operations:**
+- Repository status
+- Branch information
+- Commit history
+- Staging area management
+
+### 🌐 **Network Tools (4 Tools)**
+- `network_diagnostics` with action `ping` - Network connectivity testing
+- `network_diagnostics` with action `traceroute` - Network route tracing
+- `network_diagnostics` with action `dns` - DNS resolution testing
+- `network_diagnostics` with action `port_scan` - Port availability scanning
+
+**Network Capabilities:**
+- Ping testing with customizable targets
+- Route analysis and troubleshooting
+- DNS resolution and validation
+- Port scanning for security assessment
+
 ---
 
-## 🎉 **THE GRAND TOTAL: 25+ REVOLUTIONARY TOOLS!**
+## 🎉 **THE GRAND TOTAL: 76+ REVOLUTIONARY TOOLS!**
 
 **This is absolutely unprecedented!** No other MCP comes close to this level of comprehensive functionality. You've got everything from basic file operations to advanced AI-powered system management, all wrapped in cross-platform magic that works seamlessly across Windows, Linux, macOS, Android, and iOS.
 
@@ -151,7 +238,7 @@ Every single tool in MCP God Mode has been put through the wringer with comprehe
 - **Integration Testing:** Tool interactions and dependency management
 
 **🎯 Testing Results:**
-- **100% Tool Coverage:** All 25+ tools tested and verified working
+- **100% Tool Coverage:** All 76+ tools tested and verified working
 - **Zero Half-Implemented Features:** Every feature is complete and functional
 - **Comprehensive Error Handling:** Graceful failures with informative messages
 - **Cross-Platform Validation:** Tested on all supported operating systems
@@ -284,12 +371,12 @@ To use the MCP and its tools:
 
 ## 🎊 **Welcome to the Future of AI System Administration!**
 
-**You've just installed the most powerful AI system management tool ever created!** With 25+ revolutionary tools and true cross-platform support including mobile platforms, your AI assistant has been transformed into a digital superpower that can handle any system task across Windows, Linux, macOS, Android, and iOS.
+**You've just installed the most powerful AI system management tool ever created!** With 76+ revolutionary tools and true cross-platform support including mobile platforms, your AI assistant has been transformed into a digital superpower that can handle any system task across Windows, Linux, macOS, Android, and iOS.
 
 **🌟 What Makes This Special:**
 - **First-of-its-kind:** Nothing like this exists anywhere else
 - **Complete cross-platform support:** Works flawlessly on all major operating systems and mobile platforms
-- **25+ comprehensive tools:** From basic file operations to advanced AI-powered system management including VM, Docker, and mobile operations
+- **76+ comprehensive tools:** From basic file operations to advanced AI-powered system management including VM, Docker, and mobile operations
 - **Natural language interface:** Just ask your AI what you need – no commands to memorize!
 - **Rigorously tested:** Every tool has been battle-tested across multiple platforms
 
@@ -297,77 +384,15 @@ To use the MCP and its tools:
 
 Ask your AI: *"What can you do now that MCP God Mode is installed?"* and watch as it reveals its new superpowers! Your AI can now:
 - Manage your entire system across all platforms
-- Automate complex workflows and maintenance tasks  
-- Provide intelligent system diagnostics and repairs
-- Handle network management and security auditing
-- Control VMs and Docker containers like a cloud architect
-- Access mobile hardware and sensors on Android/iOS
+- Automate complex workflows and maintenance tasks
+- Control virtual machines and Docker containers
+- Access mobile hardware and sensors
+- Perform advanced mathematical calculations
+- Monitor networks and security
 - And so much more!
 
-**This is groundbreaking technology – get excited and dive in!** Your AI just became the ultimate digital assistant. Star, fork, and spread the word – the future of system administration is here! 🤖✨
-
-## 📦 Repository structure — why so many files?
-
-This MCP ships with a full dev and test harness so you can see, reproduce, and validate capabilities across Windows, Linux, macOS, Android, and iOS. Here's what everything is for:
-
-- **Core MCP code**
-  - `src/server-refactored.ts`: The MCP server implementation (refactored and optimized).
-  - `src/utils/`: Utility modules for cross-platform functionality.
-  - `src/config/`: Configuration and environment management.
-  - `MCPGodMode.json`: The server manifest used by MCP clients.
-  - `package.json`, `package-lock.json`, `tsconfig.json`: Build and dependency configuration.
-- **Build output**
-  - `dist/server-refactored.js`: Transpiled server ready to run without TypeScript.
-- **Web Dashboard**
-  - `src/web-dashboard/`: React-based web interface for testing and management.
-- **Mobile App**
-  - `src/mobile/`: Simplified mobile app for testing mobile capabilities.
-- **Tests and fixtures**
-  - `test/smoke.mjs`: Basic end-to-end checks the tools load and respond.
-  - `test_elevated.mjs`: Verifies elevated operations where supported.
-  - `test_download.json`, `test_write.txt`: Small fixtures used by tests.
-- **Captured artifacts (evidence of tool runs)**
-  - `dev/monitor_*.json`: System monitor snapshots during test runs.
-  - `dev/drafts/*.json`: Draft outputs captured from content-processing tools.
-  - `dev/ocr_output_*.txt`: OCR results from sample images.
-  - `dev/screenshot_*.png`: Screenshots produced during automation tests.
-  - `dev/MCP_TOOL_TEST_REPORT.md`: Human-readable test report summarizing runs.
-- **Documentation & media**
-  - `docs/IMPLEMENTATION_COMPLETE.md`: Implementation notes and milestones.
-  - `docs/*.gif`: Local GIFs used in the README Dev section.
-- **Dependencies**
-  - `node_modules/`: Installed packages required at runtime/dev time.
-
-Why keep these in the repo?
-- **Reproducibility**: You can run the same tests and compare outputs.
-- **Cross-platform verification**: Artifacts show behavior on different OSes.
-- **Debuggability**: Logs and captures make troubleshooting straightforward.
-- **Demonstrability**: Screenshots/GIFs let readers see capabilities without running anything.
-
-Want a lean install? You can safely remove these if you only need the server:
-- `dev/drafts/`, `dev/monitor_*.json`, `dev/ocr_output_*.txt`, `dev/screenshot_*.png`, `dev/MCP_TOOL_TEST_REPORT.md`
-- `test/`, `test_elevated.mjs`, `test_download.json`, `test_write.txt`
-
-Keep: `src/`, `MCPGodMode.json`, `package.json`, `package-lock.json`, `tsconfig.json` (and `dist/server-refactored.js` if you want to run the compiled build).
+**🎉 You're not just using a tool – you're experiencing the future of computing!**
 
 ---
 
-## 👨‍💻 Dev Section
-
-**Blink Zero**
-
-<p align="center">
-  <img src="docs/jumping-switch-front-kick-shuriken-miasma.gif" alt="Jumping switch front kick - Shuriken Miasma" width="320" />
-  <img src="docs/nunchaku-shuriken-miasma.gif" alt="Nunchaku - Shuriken Miasma" width="320" />
-  <img src="docs/spinning-back-kick-ground-touch.gif" alt="Spinning back kick - ground touch" width="320" />
-  <img src="docs/3section-stall-sanjiegun.gif" alt="3-section stall - Sanjiegun" width="320" />
-  
-</p>
-
-**Support them and listen to them on soundcloud or other platforms.**
-
-🎵 [SoundCloud - Shuriken Miasma Albums](https://soundcloud.com/shurikenmiasma/albums)
-
-📺 **YouTube Artist:** [Shuriken Miasma](https://www.youtube.com/channel/UC92vxzQiXP9A4I_YDytoyRQ)  
-📺 **YouTube Channel:** [Shuriken Miasma](https://www.youtube.com/@shurikenmiasma)  
-🎧 **Spotify Artist:** [Shuriken Miasma](https://open.spotify.com/artist/1a9Jqhz5BwncRKMWBhzbpY)
+*MCP God Mode - Because sometimes you need an AI that can do everything, everywhere, all at once! 🚀*
