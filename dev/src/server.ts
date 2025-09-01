@@ -971,6 +971,144 @@ server.registerTool("network_scan", {
   }
 });
 
+// Utility: Check if current process is elevated (admin)
+async function isProcessElevated(): Promise<boolean> {
+  try {
+    // 'net session' requires admin; it returns error when not elevated
+    await execAsync("net session");
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+// Utility: Run a command elevated by generating a PowerShell script and invoking RunAs
+async function runElevatedCommand(
+  command: string,
+  args: string[],
+  workingDirectory?: string,
+  timeoutMs: number = config.timeout
+): Promise<{ stdout: string; stderr: string; exitCode: number }>{
+  const tempDir = os.tmpdir();
+  const uid = Date.now().toString(36) + Math.random().toString(36).slice(2);
+  const stdoutPath = path.join(tempDir, `mcp_elev_${uid}.out.txt`);
+  const stderrPath = path.join(tempDir, `mcp_elev_${uid}.err.txt`);
+  const exitPath = path.join(tempDir, `mcp_elev_${uid}.code.txt`);
+  const scriptPath = path.join(tempDir, `mcp_elev_${uid}.ps1`);
+
+  const cdLine = workingDirectory ? `Set-Location -Path '${workingDirectory.replace(/'/g, "''")}'` : '';
+  const psArgs = args.map(a => a.replace(/'/g, "''")).join("' ,' ");
+  const argList = args.length > 0 ? `, ${args.map(a => `'${a.replace(/'/g, "''")}'`).join(", ")}` : '';
+
+  const script = `
+$ErrorActionPreference = 'Continue'
+${cdLine}
+try {
+  & '${command.replace(/'/g, "''")}' ${args.map(a => `'${a.replace(/'/g, "''")}'`).join(' ')} 1> '${stdoutPath.replace(/'/g, "''")}' 2> '${stderrPath.replace(/'/g, "''")}'
+  $code = $LASTEXITCODE
+} catch {
+  $_ | Out-File -FilePath '${stderrPath.replace(/'/g, "''")}' -Append -Encoding utf8
+  $code = 1
+}
+Set-Content -Path '${exitPath.replace(/'/g, "''")}' -Value $code -Encoding ascii -Force
+`;
+
+  await fs.writeFile(scriptPath, script, 'utf8');
+
+  const startProcessCmd = `Start-Process PowerShell -Verb RunAs -WindowStyle Hidden -ArgumentList '-NoProfile','-ExecutionPolicy','Bypass','-File','${scriptPath.replace(/'/g, "''")}' -Wait`;
+
+  try {
+    await execAsync(`powershell -NoProfile -ExecutionPolicy Bypass -Command "${startProcessCmd}"`, { timeout: timeoutMs });
+  } catch (e) {
+    // Even if Start-Process fails (e.g., user cancels UAC), fall through to read any files
+  }
+
+  let exitCode = -1;
+  let stdout = '';
+  let stderr = '';
+  try { stdout = await fs.readFile(stdoutPath, 'utf8'); } catch {}
+  try { stderr = await fs.readFile(stderrPath, 'utf8'); } catch {}
+  try { const codeText = await fs.readFile(exitPath, 'utf8'); exitCode = parseInt(codeText.trim(), 10); } catch {}
+
+  // Cleanup
+  await Promise.all([
+    fs.unlink(scriptPath).catch(() => {}),
+    fs.unlink(stdoutPath).catch(() => {}),
+    fs.unlink(stderrPath).catch(() => {}),
+    fs.unlink(exitPath).catch(() => {}),
+  ]);
+
+  return { stdout, stderr, exitCode: Number.isFinite(exitCode) ? exitCode : -1 };
+}
+
+// Elevated process execution
+server.registerTool("proc_run_elevated", {
+  description: "Run a command with UAC elevation (will prompt). Captures stdout/stderr via temp files.",
+  inputSchema: {
+    command: z.string(),
+    args: z.array(z.string()).default([]),
+    cwd: z.string().optional(),
+    timeout: z.number().int().min(1000).max(10 * 60 * 1000).default(2 * 60 * 1000)
+  },
+  outputSchema: {
+    success: z.boolean(),
+    stdout: z.string().optional(),
+    stderr: z.string().optional(),
+    exitCode: z.number().optional(),
+    elevated: z.boolean(),
+    note: z.string().optional()
+  }
+}, async ({ command, args, cwd, timeout }) => {
+  const elevated = await isProcessElevated();
+  const workingDir = cwd ? path.resolve(cwd) : process.cwd();
+
+  if (elevated) {
+    try {
+      const { stdout, stderr } = await execAsync(`${command} ${args.join(' ')}`, { cwd: workingDir, timeout });
+      return { content: [], structuredContent: { success: true, stdout: stdout || undefined, stderr: stderr || undefined, exitCode: 0, elevated: true } };
+    } catch (error: any) {
+      return { content: [], structuredContent: { success: false, stdout: error.stdout || undefined, stderr: error.stderr || undefined, exitCode: error.code || -1, elevated: true } };
+    }
+  }
+
+  const { stdout, stderr, exitCode } = await runElevatedCommand(command, args, workingDir, timeout);
+  const success = exitCode === 0;
+  const note = success ? undefined : 'If you did not accept the UAC prompt, the command did not run.';
+  return { content: [], structuredContent: { success, stdout: stdout || undefined, stderr: stderr || undefined, exitCode, elevated: false, note } };
+});
+
+// Create a Windows Restore Point (requires System Protection enabled)
+server.registerTool("create_restore_point", {
+  description: "Create a Windows Restore Point (will request elevation).",
+  inputSchema: {
+    description: z.string().default("MCP Restore Point"),
+    restorePointType: z.enum(["APPLICATION_INSTALL", "APPLICATION_UNINSTALL", "DEVICE_DRIVER_INSTALL", "MODIFY_SETTINGS", "CANCELLED_OPERATION"]).default("MODIFY_SETTINGS")
+  },
+  outputSchema: {
+    success: z.boolean(),
+    stdout: z.string().optional(),
+    stderr: z.string().optional(),
+    elevated: z.boolean(),
+    error: z.string().optional()
+  }
+}, async ({ description, restorePointType }) => {
+  const elevated = await isProcessElevated();
+  const psCommand = `Checkpoint-Computer -Description '${description.replace(/'/g, "''")}' -RestorePointType '${restorePointType}'`;
+
+  if (elevated) {
+    try {
+      const { stdout, stderr } = await execAsync(`powershell -NoProfile -ExecutionPolicy Bypass -Command "${psCommand}"`, { timeout: 3 * 60 * 1000 });
+      return { content: [], structuredContent: { success: true, stdout: stdout || undefined, stderr: stderr || undefined, elevated: true } };
+    } catch (error: any) {
+      return { content: [], structuredContent: { success: false, stdout: error.stdout || undefined, stderr: error.stderr || undefined, elevated: true, error: error.message } };
+    }
+  }
+
+  const { stdout, stderr, exitCode } = await runElevatedCommand('powershell', ['-NoProfile', '-ExecutionPolicy', 'Bypass', '-Command', psCommand], process.cwd(), 3 * 60 * 1000);
+  const success = exitCode === 0;
+  return { content: [], structuredContent: { success, stdout: stdout || undefined, stderr: stderr || undefined, elevated: false, error: success ? undefined : 'Failed to create restore point (UAC denied, System Protection disabled, or policy restrictions).'} };
+});
+
 async function main() {
   const transport = new StdioServerTransport();
   await server.connect(transport);
