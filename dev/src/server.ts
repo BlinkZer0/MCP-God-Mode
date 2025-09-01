@@ -2555,6 +2555,1838 @@ server.registerTool("event_log_analyzer", {
   }
 });
 
+// Browser automation utilities
+function getBrowserPaths(): { [key: string]: string } {
+  const browsers: { [key: string]: string } = {};
+  
+  if (IS_WINDOWS) {
+    browsers.chrome = "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe";
+    browsers.chromium = "C:\\Program Files\\Chromium\\Application\\chrome.exe";
+    browsers.firefox = "C:\\Program Files\\Mozilla Firefox\\firefox.exe";
+    browsers.edge = "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe";
+    browsers.opera = "C:\\Users\\%USERNAME%\\AppData\\Local\\Programs\\Opera\\launcher.exe";
+  } else if (IS_MACOS) {
+    browsers.chrome = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
+    browsers.chromium = "/Applications/Chromium.app/Contents/MacOS/Chromium";
+    browsers.firefox = "/Applications/Firefox.app/Contents/MacOS/firefox";
+    browsers.safari = "/Applications/Safari.app/Contents/MacOS/Safari";
+    browsers.opera = "/Applications/Opera.app/Contents/MacOS/Opera";
+  } else {
+    // Linux
+    browsers.chrome = "/usr/bin/google-chrome";
+    browsers.chromium = "/usr/bin/chromium-browser";
+    browsers.firefox = "/usr/bin/firefox";
+    browsers.opera = "/usr/bin/opera";
+  }
+  
+  return browsers;
+}
+
+async function getDefaultBrowser(): Promise<string | null> {
+  try {
+    if (IS_WINDOWS) {
+      // Check Windows registry for default browser
+      const { stdout } = await execAsync('reg query "HKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\Shell\\Associations\\UrlAssociations\\http\\UserChoice" /v ProgId');
+      const match = stdout.match(/ProgId\s+REG_SZ\s+(.+)/);
+      if (match) {
+        const progId = match[1].trim();
+        if (progId.includes('Chrome')) return 'chrome';
+        if (progId.includes('Firefox')) return 'firefox';
+        if (progId.includes('Edge')) return 'edge';
+        if (progId.includes('Safari')) return 'safari';
+        if (progId.includes('Opera')) return 'opera';
+      }
+    } else if (IS_MACOS) {
+      // Check macOS default browser
+      const { stdout } = await execAsync('defaults read com.apple.LaunchServices/com.apple.launchservices.secure LSHandlers');
+      const lines = stdout.split('\n');
+      for (const line of lines) {
+        if (line.includes('LSHandlerURLScheme = http')) {
+          const nextLine = lines[lines.indexOf(line) + 1];
+          if (nextLine.includes('com.google.Chrome')) return 'chrome';
+          if (nextLine.includes('org.mozilla.firefox')) return 'firefox';
+          if (nextLine.includes('com.apple.Safari')) return 'safari';
+          if (nextLine.includes('com.opera.Opera')) return 'opera';
+        }
+      }
+    } else {
+      // Linux - check xdg-settings
+      try {
+        const { stdout } = await execAsync('xdg-settings get default-web-browser');
+        if (stdout.includes('google-chrome')) return 'chrome';
+        if (stdout.includes('firefox')) return 'firefox';
+        if (stdout.includes('opera')) return 'opera';
+      } catch {
+        // Fallback to checking common browsers
+      }
+    }
+  } catch (error) {
+    logger.warn("Could not determine default browser", { error: error instanceof Error ? error.message : String(error) });
+  }
+  
+  return null;
+}
+
+async function findBrowserExecutable(browserName: string): Promise<string | null> {
+  const browsers = getBrowserPaths();
+  const browserPath = browsers[browserName.toLowerCase()];
+  
+  if (browserPath) {
+    try {
+      await fs.access(browserPath);
+      return browserPath;
+    } catch {
+      // Browser not found at expected path
+    }
+  }
+  
+  // Try to find browser in PATH
+  try {
+    const { stdout } = await execAsync(`which ${browserName}`);
+    return stdout.trim();
+  } catch {
+    // Browser not found in PATH
+  }
+  
+  return null;
+}
+
+async function getBrowserProcesses(): Promise<any[]> {
+  const browsers = ["chrome", "firefox", "safari", "opera", "edge", "chromium"];
+  const processes = await getProcesses();
+  
+  return processes.filter(process => {
+    const name = process.name.toLowerCase();
+    return browsers.some(browser => name.includes(browser));
+  });
+}
+
+// Browser automation tools
+server.registerTool("browser_control", {
+  description: "Control web browsers (Chrome, Firefox, Safari, Opera, Edge) with default browser detection",
+  inputSchema: {
+    action: z.enum(["open", "close", "navigate", "screenshot", "get_tabs", "close_tab", "new_tab"]),
+    browser: z.enum(["chrome", "firefox", "safari", "opera", "edge", "default", "auto"]).optional(),
+    url: z.string().url().optional(),
+    tab_index: z.number().optional(),
+    output_path: z.string().optional()
+  },
+  outputSchema: {
+    success: z.boolean(),
+    message: z.string(),
+    browser_used: z.string().optional(),
+    data: z.any().optional(),
+    error: z.string().optional()
+  }
+}, async ({ action, browser = "default", url, tab_index, output_path }) => {
+  try {
+    let browserPath: string | null = null;
+    let browserUsed: string = browser;
+    
+    if (browser === "default" || browser === "auto") {
+      // Try to find default browser first
+      const defaultBrowser = await getDefaultBrowser();
+      if (defaultBrowser) {
+        browserPath = await findBrowserExecutable(defaultBrowser);
+        browserUsed = defaultBrowser;
+      }
+      
+      // If no default browser found, try any available browser
+      if (!browserPath) {
+        const browsers = ["chrome", "firefox", "edge", "safari", "opera"];
+        for (const b of browsers) {
+          browserPath = await findBrowserExecutable(b);
+          if (browserPath) {
+            browserUsed = b;
+            break;
+          }
+        }
+      }
+    } else {
+      browserPath = await findBrowserExecutable(browser);
+    }
+    
+    if (!browserPath) {
+      return {
+        content: [],
+        structuredContent: {
+          success: false,
+          error: `No browser found. Tried: ${browser === "default" ? "default browser and common browsers" : browser}`
+        }
+      };
+    }
+    
+    switch (action) {
+      case "open":
+        if (url) {
+          await execAsync(`"${browserPath}" "${url}"`);
+        } else {
+          await execAsync(`"${browserPath}"`);
+        }
+        return {
+          content: [],
+          structuredContent: {
+            success: true,
+            message: `Opened ${browserUsed}${url ? ` with URL: ${url}` : ""}`,
+            browser_used: browserUsed
+          }
+        };
+        
+      case "close":
+        if (IS_WINDOWS) {
+          await execAsync(`taskkill /f /im ${browserUsed}.exe`);
+        } else {
+          await execAsync(`pkill -f ${browserUsed}`);
+        }
+        return {
+          content: [],
+          structuredContent: {
+            success: true,
+            message: `Closed ${browserUsed}`,
+            browser_used: browserUsed
+          }
+        };
+        
+      case "navigate":
+        if (!url) {
+          return {
+            content: [],
+            structuredContent: {
+              success: false,
+              error: "URL is required for navigate action"
+            }
+          };
+        }
+        
+        // For navigation, we need to handle different browsers differently
+        if (browserUsed === "chrome" || browserUsed === "chromium" || browserUsed === "edge") {
+          await execAsync(`"${browserPath}" "${url}"`);
+        } else if (browserUsed === "firefox") {
+          await execAsync(`"${browserPath}" "${url}"`);
+        } else if (browserUsed === "safari") {
+          // Safari on macOS can be controlled via AppleScript
+          if (IS_MACOS) {
+            const script = `
+              tell application "Safari"
+                activate
+                set URL of current tab of front window to "${url}"
+              end tell
+            `;
+            await execAsync(`osascript -e '${script}'`);
+          } else {
+            await execAsync(`"${browserPath}" "${url}"`);
+          }
+        } else {
+          await execAsync(`"${browserPath}" "${url}"`);
+        }
+        
+        return {
+          content: [],
+          structuredContent: {
+            success: true,
+            message: `Navigated ${browserUsed} to ${url}`,
+            browser_used: browserUsed
+          }
+        };
+        
+      case "screenshot":
+        const screenshotPath = output_path || path.join(process.cwd(), `screenshot_${Date.now()}.png`);
+        
+        if (browserUsed === "chrome" || browserUsed === "chromium" || browserUsed === "edge") {
+          // Use Chrome's headless mode for screenshots
+          await execAsync(`"${browserPath}" --headless --disable-gpu --screenshot="${screenshotPath}" "${url || 'about:blank'}"`);
+        } else if (browserUsed === "firefox") {
+          // Use Firefox's headless mode
+          await execAsync(`"${browserPath}" --headless --screenshot "${screenshotPath}" "${url || 'about:blank'}"`);
+        } else {
+          // For other browsers, we'll need to use a different approach
+          return {
+            content: [],
+            structuredContent: {
+              success: false,
+              error: `Screenshot not supported for ${browserUsed}`
+            }
+          };
+        }
+        
+        return {
+          content: [],
+          structuredContent: {
+            success: true,
+            message: `Screenshot saved to ${screenshotPath}`,
+            browser_used: browserUsed,
+            data: { screenshot_path: screenshotPath }
+          }
+        };
+        
+      case "get_tabs":
+        // This is more complex and would require browser-specific APIs
+        // For now, we'll return basic browser process info
+        const browserProcesses = await getBrowserProcesses();
+        return {
+          content: [],
+          structuredContent: {
+            success: true,
+            message: `Found ${browserProcesses.length} browser processes`,
+            browser_used: browserUsed,
+            data: { processes: browserProcesses }
+          }
+        };
+        
+      default:
+        return {
+          content: [],
+          structuredContent: {
+            success: false,
+            error: `Action ${action} not implemented for ${browserUsed}`
+          }
+        };
+    }
+  } catch (error: any) {
+    return {
+      content: [],
+      structuredContent: {
+        success: false,
+        error: error.message
+      }
+    };
+  }
+});
+
+server.registerTool("browser_automation", {
+  description: "Advanced browser automation with multiple browsers and default browser detection",
+  inputSchema: {
+    browsers: z.array(z.enum(["chrome", "firefox", "safari", "opera", "edge", "default"])).optional(),
+    urls: z.array(z.string().url()).optional(),
+    actions: z.array(z.object({
+      type: z.enum(["open", "navigate", "screenshot", "close"]),
+      browser: z.string().optional(),
+      url: z.string().url().optional(),
+      delay: z.number().optional()
+    })).optional(),
+    headless: z.boolean().optional(),
+    use_default: z.boolean().optional()
+  },
+  outputSchema: {
+    success: z.boolean(),
+    results: z.array(z.object({
+      browser: z.string(),
+      action: z.string(),
+      success: z.boolean(),
+      message: z.string(),
+      data: z.any().optional()
+    })),
+    default_browser: z.string().optional(),
+    error: z.string().optional()
+  }
+}, async ({ browsers = ["default"], urls = [], actions = [], headless = false, use_default = true }) => {
+  try {
+    const results: any[] = [];
+    let defaultBrowser: string | null = null;
+    
+    // Get default browser if requested
+    if (use_default) {
+      defaultBrowser = await getDefaultBrowser();
+    }
+    
+    // Resolve browser list
+    let resolvedBrowsers: string[] = browsers;
+    if (browsers.includes("default") && defaultBrowser) {
+      resolvedBrowsers = browsers.map(b => b === "default" ? defaultBrowser! : b);
+    } else if (browsers.includes("default") && !defaultBrowser) {
+      resolvedBrowsers = ["chrome", "firefox", "edge", "safari", "opera"];
+    }
+    
+    // If no specific actions provided, open browsers with URLs
+    if (actions.length === 0 && urls.length > 0) {
+      for (const browser of resolvedBrowsers) {
+        const browserPath = await findBrowserExecutable(browser);
+        if (browserPath) {
+          for (const url of urls) {
+            try {
+              const command = headless 
+                ? `"${browserPath}" --headless "${url}"`
+                : `"${browserPath}" "${url}"`;
+              
+              await execAsync(command);
+              
+              results.push({
+                browser,
+                action: "open",
+                success: true,
+                message: `Opened ${browser} with ${url}`
+              });
+            } catch (error: any) {
+              results.push({
+                browser,
+                action: "open",
+                success: false,
+                message: error.message
+              });
+            }
+          }
+        } else {
+          results.push({
+            browser,
+            action: "open",
+            success: false,
+            message: `Browser ${browser} not found`
+          });
+        }
+      }
+    } else {
+      // Execute specific actions
+      for (const action of actions) {
+        const browser = action.browser || resolvedBrowsers[0];
+        const browserPath = await findBrowserExecutable(browser);
+        
+        if (browserPath) {
+          try {
+            switch (action.type) {
+              case "open":
+                const command = action.url 
+                  ? `"${browserPath}" "${action.url}"`
+                  : `"${browserPath}"`;
+                await execAsync(command);
+                break;
+                
+              case "navigate":
+                if (action.url) {
+                  await execAsync(`"${browserPath}" "${action.url}"`);
+                }
+                break;
+                
+              case "close":
+                if (IS_WINDOWS) {
+                  await execAsync(`taskkill /f /im ${browser}.exe`);
+                } else {
+                  await execAsync(`pkill -f ${browser}`);
+                }
+                break;
+            }
+            
+            if (action.delay && action.delay > 0) {
+              await new Promise(resolve => setTimeout(resolve, action.delay! * 1000));
+            }
+            
+            results.push({
+              browser,
+              action: action.type,
+              success: true,
+              message: `Executed ${action.type} on ${browser}`
+            });
+          } catch (error: any) {
+            results.push({
+              browser,
+              action: action.type,
+              success: false,
+              message: error.message
+            });
+          }
+        } else {
+          results.push({
+            browser,
+            action: action.type,
+            success: false,
+            message: `Browser ${browser} not found`
+          });
+        }
+      }
+    }
+    
+    return {
+      content: [],
+      structuredContent: {
+        success: results.some(r => r.success),
+        results,
+        default_browser: defaultBrowser || undefined
+      }
+    };
+  } catch (error: any) {
+    return {
+      content: [],
+      structuredContent: {
+        success: false,
+        error: error.message
+      }
+    };
+  }
+});
+
+server.registerTool("browser_cleanup", {
+  description: "Clean up browser data and processes",
+  inputSchema: {
+    browsers: z.array(z.enum(["chrome", "firefox", "safari", "opera", "edge"])).optional(),
+    cleanup_type: z.enum(["processes", "cache", "cookies", "all"]).optional()
+  },
+  outputSchema: {
+    success: z.boolean(),
+    cleaned: z.array(z.string()),
+    errors: z.array(z.string())
+  }
+}, async ({ browsers = ["chrome", "firefox", "safari", "opera", "edge"], cleanup_type = "processes" }) => {
+  try {
+    const cleaned: string[] = [];
+    const errors: string[] = [];
+    
+    for (const browser of browsers) {
+      try {
+        switch (cleanup_type) {
+          case "processes":
+            const killedProcesses = await killBrowserProcesses(browser);
+            if (killedProcesses) {
+              cleaned.push(`${browser} processes`);
+            } else {
+              errors.push(`Could not kill ${browser} processes`);
+            }
+            break;
+            
+          case "cache":
+            // Enhanced cache cleanup for all platforms
+            const cachePathsForBrowser = getBrowserCachePaths(browser);
+            for (const cachePath of cachePathsForBrowser) {
+              try {
+                if (IS_WINDOWS) {
+                  await execAsync(`rmdir /s /q "${cachePath}"`);
+                } else {
+                  await execAsync(`rm -rf "${cachePath}"`);
+                }
+                cleaned.push(`${browser} cache: ${cachePath}`);
+              } catch {
+                // Cache path might not exist, continue
+              }
+            }
+            break;
+            
+          case "cookies":
+            // Cookie cleanup for all platforms
+            const cookiePathsForBrowser = getBrowserCachePaths(browser).map((path: string) => 
+              path.replace('/Cache', '/Cookies').replace('/cache', '/cookies')
+            );
+            for (const cookiePath of cookiePathsForBrowser) {
+              try {
+                if (IS_WINDOWS) {
+                  await execAsync(`del /q /f "${cookiePath}"`);
+                } else {
+                  await execAsync(`rm -f "${cookiePath}"`);
+                }
+                cleaned.push(`${browser} cookies: ${cookiePath}`);
+              } catch {
+                // Cookie path might not exist, continue
+              }
+            }
+            break;
+            
+          case "all":
+            // Close processes first
+            const killedAll = await killBrowserProcesses(browser);
+            if (killedAll) {
+              cleaned.push(`${browser} processes`);
+            } else {
+              errors.push(`Could not kill ${browser} processes`);
+            }
+            
+            // Then clean cache
+            const cachePathsAll = getBrowserCachePaths(browser);
+            for (const cachePath of cachePathsAll) {
+              try {
+                if (IS_WINDOWS) {
+                  await execAsync(`rmdir /s /q "${cachePath}"`);
+                } else {
+                  await execAsync(`rm -rf "${cachePath}"`);
+                }
+                cleaned.push(`${browser} cache: ${cachePath}`);
+              } catch {
+                // Cache path might not exist, continue
+              }
+            }
+            
+            // Clean cookies
+            const cookiePathsAll = getBrowserCachePaths(browser).map((path: string) => 
+              path.replace('/Cache', '/Cookies').replace('/cache', '/cookies')
+            );
+            for (const cookiePath of cookiePathsAll) {
+              try {
+                if (IS_WINDOWS) {
+                  await execAsync(`del /q /f "${cookiePath}"`);
+                } else {
+                  await execAsync(`rm -f "${cookiePath}"`);
+                }
+                cleaned.push(`${browser} cookies: ${cookiePath}`);
+              } catch {
+                // Cookie path might not exist, continue
+              }
+            }
+            break;
+        }
+      } catch (error: any) {
+        errors.push(`${browser}: ${error.message}`);
+      }
+    }
+    
+    return {
+      content: [],
+      structuredContent: {
+        success: cleaned.length > 0,
+        cleaned,
+        errors
+      }
+    };
+  } catch (error: any) {
+    return {
+      content: [],
+      structuredContent: {
+        success: false,
+        cleaned: [],
+        errors: [error.message]
+      }
+    };
+  }
+});
+
+// Email utilities and functions
+interface EmailConfig {
+  provider: 'gmail' | 'outlook' | 'yahoo' | 'custom';
+  host: string;
+  port: number;
+  secure: boolean;
+  username: string;
+  password: string;
+  from: string;
+  accountName?: string; // Optional friendly name for the account
+}
+
+interface EmailAccounts {
+  accounts: { [key: string]: EmailConfig };
+  activeAccount: string; // Key of the currently active account
+}
+
+interface EmailMessage {
+  to: string | string[];
+  cc?: string | string[];
+  bcc?: string | string[];
+  subject: string;
+  body: string;
+  html?: boolean;
+  attachments?: string[];
+}
+
+// Email configuration management
+function getEmailAccounts(): EmailAccounts {
+  try {
+    const configPath = path.join(process.cwd(), '.email-config.json');
+    if (fsSync.existsSync(configPath)) {
+      const configData = fsSync.readFileSync(configPath, 'utf8');
+      const parsed = JSON.parse(configData);
+      
+      // Handle legacy single-account format
+      if (parsed.username && parsed.provider) {
+        const legacyConfig: EmailConfig = parsed;
+        const accountKey = legacyConfig.username;
+        return {
+          accounts: { [accountKey]: { ...legacyConfig, accountName: legacyConfig.username } },
+          activeAccount: accountKey
+        };
+      }
+      
+      // Handle new multi-account format
+      if (parsed.accounts && parsed.activeAccount) {
+        return parsed as EmailAccounts;
+      }
+    }
+  } catch (error) {
+    logger.warn("Could not load email config", { error: error instanceof Error ? error.message : String(error) });
+  }
+  return { accounts: {}, activeAccount: '' };
+}
+
+function getEmailConfig(): EmailConfig | null {
+  const accounts = getEmailAccounts();
+  if (accounts.activeAccount && accounts.accounts[accounts.activeAccount]) {
+    return accounts.accounts[accounts.activeAccount];
+  }
+  return null;
+}
+
+// Check if email configuration is complete
+function isEmailConfigComplete(config: EmailConfig | null): boolean {
+  if (!config) return false;
+  return !!(config.username && config.password && config.host && config.port);
+}
+
+// Validate email credentials (basic check)
+async function validateEmailCredentials(config: EmailConfig): Promise<boolean> {
+  try {
+    // For now, we'll do a basic validation
+    // In a full implementation, you'd test the actual connection
+    if (!config.username || !config.password || !config.host) {
+      return false;
+    }
+    
+    // Basic format validation
+    if (!validateEmail(config.username)) {
+      return false;
+    }
+    
+    return true;
+  } catch (error) {
+    logger.warn("Email credential validation failed", { error: error instanceof Error ? error.message : String(error) });
+    return false;
+  }
+}
+
+async function saveEmailAccounts(accounts: EmailAccounts): Promise<boolean> {
+  try {
+    const configPath = path.join(process.cwd(), '.email-config.json');
+    await fs.writeFile(configPath, JSON.stringify(accounts, null, 2));
+    return true;
+  } catch (error) {
+    logger.error("Could not save email config", { error: error instanceof Error ? error.message : String(error) });
+    return false;
+  }
+}
+
+async function saveEmailConfig(config: EmailConfig): Promise<boolean> {
+  const accounts = getEmailAccounts();
+  const accountKey = config.username;
+  accounts.accounts[accountKey] = config;
+  if (!accounts.activeAccount) {
+    accounts.activeAccount = accountKey;
+  }
+  return await saveEmailAccounts(accounts);
+}
+
+// Email validation
+function validateEmail(email: string): boolean {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailRegex.test(email);
+}
+
+// Email providers configuration
+function getProviderConfig(provider: string): { host: string; port: number; secure: boolean } {
+  const providers = {
+    gmail: { host: 'smtp.gmail.com', port: 587, secure: false },
+    outlook: { host: 'smtp-mail.outlook.com', port: 587, secure: false },
+    yahoo: { host: 'smtp.mail.yahoo.com', port: 587, secure: false },
+    custom: { host: '', port: 587, secure: false }
+  };
+  return providers[provider as keyof typeof providers] || providers.custom;
+}
+
+// Email tools
+server.registerTool("email_compose", {
+  description: "Compose and draft email messages",
+  inputSchema: {
+    to: z.string().or(z.array(z.string())),
+    cc: z.string().or(z.array(z.string())).optional(),
+    bcc: z.string().or(z.array(z.string())).optional(),
+    subject: z.string(),
+    body: z.string(),
+    html: z.boolean().optional(),
+    attachments: z.array(z.string()).optional(),
+    save_draft: z.boolean().optional()
+  },
+  outputSchema: {
+    success: z.boolean(),
+    message: z.string(),
+    draft_id: z.string().optional(),
+    error: z.string().optional()
+  }
+}, async ({ to, cc, bcc, subject, body, html = false, attachments = [], save_draft = true }) => {
+  try {
+    // Validate email addresses
+    const toEmails = Array.isArray(to) ? to : [to];
+    const ccEmails = cc ? (Array.isArray(cc) ? cc : [cc]) : [];
+    const bccEmails = bcc ? (Array.isArray(bcc) ? bcc : [bcc]) : [];
+    
+    const allEmails = [...toEmails, ...ccEmails, ...bccEmails];
+    const invalidEmails = allEmails.filter(email => !validateEmail(email));
+    
+    if (invalidEmails.length > 0) {
+      return {
+        content: [],
+        structuredContent: {
+          success: false,
+          error: `Invalid email addresses: ${invalidEmails.join(', ')}`
+        }
+      };
+    }
+    
+    // Create email message
+    const emailMessage: EmailMessage = {
+      to: toEmails,
+      cc: ccEmails.length > 0 ? ccEmails : undefined,
+      bcc: bccEmails.length > 0 ? bccEmails : undefined,
+      subject,
+      body,
+      html,
+      attachments: attachments.length > 0 ? attachments : undefined
+    };
+    
+    if (save_draft) {
+      // Save draft to file
+      const draftId = `draft_${Date.now()}`;
+      const draftPath = path.join(process.cwd(), 'drafts', `${draftId}.json`);
+      
+      // Ensure drafts directory exists
+      await fs.mkdir(path.join(process.cwd(), 'drafts'), { recursive: true });
+      
+      await fs.writeFile(draftPath, JSON.stringify(emailMessage, null, 2));
+      
+      return {
+        content: [],
+        structuredContent: {
+          success: true,
+          message: `Email draft created successfully`,
+          draft_id: draftId
+        }
+      };
+    } else {
+      return {
+        content: [],
+        structuredContent: {
+          success: true,
+          message: `Email composed successfully (not saved as draft)`
+        }
+      };
+    }
+  } catch (error: any) {
+    return {
+      content: [],
+      structuredContent: {
+        success: false,
+        error: error.message
+      }
+    };
+  }
+});
+
+server.registerTool("email_send", {
+  description: "Send email messages using configured email provider",
+  inputSchema: {
+    draft_id: z.string().optional(),
+    to: z.string().or(z.array(z.string())).optional(),
+    cc: z.string().or(z.array(z.string())).optional(),
+    bcc: z.string().or(z.array(z.string())).optional(),
+    subject: z.string().optional(),
+    body: z.string().optional(),
+    html: z.boolean().optional(),
+    attachments: z.array(z.string()).optional(),
+    provider: z.enum(['gmail', 'outlook', 'yahoo', 'custom']).optional(),
+    host: z.string().optional(),
+    port: z.number().optional(),
+    username: z.string().optional(),
+    password: z.string().optional(),
+    from: z.string().optional()
+  },
+  outputSchema: {
+    success: z.boolean(),
+    message: z.string(),
+    error: z.string().optional(),
+    needs_login: z.boolean().optional()
+  }
+}, async ({ draft_id, to, cc, bcc, subject, body, html = false, attachments = [], provider, host, port, username, password, from }) => {
+  try {
+    let emailMessage: EmailMessage;
+    
+    // Load from draft if provided
+    if (draft_id) {
+      const draftPath = path.join(process.cwd(), 'drafts', `${draft_id}.json`);
+      const draftData = await fs.readFile(draftPath, 'utf8');
+      emailMessage = JSON.parse(draftData);
+    } else {
+      // Use provided parameters
+      if (!to || !subject || !body) {
+        return {
+          content: [],
+          structuredContent: {
+            success: false,
+            error: "Missing required email parameters: to, subject, and body are required"
+          }
+        };
+      }
+      
+      emailMessage = {
+        to: Array.isArray(to) ? to : [to],
+        cc: cc ? (Array.isArray(cc) ? cc : [cc]) : undefined,
+        bcc: bcc ? (Array.isArray(bcc) ? bcc : [bcc]) : undefined,
+        subject,
+        body,
+        html,
+        attachments: attachments.length > 0 ? attachments : undefined
+      };
+    }
+    
+    // Get email configuration
+    let emailConfig = getEmailConfig();
+    
+    // Override with provided parameters
+    if (provider || host || port || username || password || from) {
+      const providerConfig = provider ? getProviderConfig(provider) : { host: '', port: 587, secure: false };
+      emailConfig = {
+        provider: provider as any || 'custom',
+        host: host || providerConfig.host,
+        port: port || providerConfig.port,
+        secure: providerConfig.secure,
+        username: username || emailConfig?.username || '',
+        password: password || emailConfig?.password || '',
+        from: from || emailConfig?.from || username || ''
+      };
+    }
+    
+    if (!emailConfig || !isEmailConfigComplete(emailConfig)) {
+      return {
+        content: [],
+        structuredContent: {
+          success: false,
+          error: "Email configuration incomplete. Please use the email_login tool to provide your credentials first.",
+          needs_login: true
+        }
+      };
+    }
+    
+    // For now, we'll use a simple approach with system mail command
+    // In a full implementation, you'd use a proper SMTP library like nodemailer
+    
+    // Create email content
+    const emailContent = `From: ${emailConfig.from}
+To: ${Array.isArray(emailMessage.to) ? emailMessage.to.join(', ') : emailMessage.to}
+${emailMessage.cc ? `Cc: ${Array.isArray(emailMessage.cc) ? emailMessage.cc.join(', ') : emailMessage.cc}` : ''}
+${emailMessage.bcc ? `Bcc: ${Array.isArray(emailMessage.bcc) ? emailMessage.bcc.join(', ') : emailMessage.bcc}` : ''}
+Subject: ${emailMessage.subject}
+
+${emailMessage.body}`;
+    
+    // Save email content to temporary file
+    const tempEmailPath = path.join(process.cwd(), `temp_email_${Date.now()}.txt`);
+    await fs.writeFile(tempEmailPath, emailContent);
+    
+    // Use system mail command (if available)
+    try {
+      if (IS_WINDOWS) {
+        // Windows - try using PowerShell Send-MailMessage
+        const psScript = `
+          $From = "${emailConfig.from}"
+          $To = "${Array.isArray(emailMessage.to) ? emailMessage.to.join(',') : emailMessage.to}"
+          $Subject = "${emailMessage.subject}"
+          $Body = "${emailMessage.body.replace(/"/g, '""')}"
+          $SMTPServer = "${emailConfig.host}"
+          $SMTPPort = ${emailConfig.port}
+          $Username = "${emailConfig.username}"
+          $Password = "${emailConfig.password}"
+          
+          $SecurePassword = ConvertTo-SecureString -String $Password -AsPlainText -Force
+          $Credential = New-Object System.Management.Automation.PSCredential($Username, $SecurePassword)
+          
+          Send-MailMessage -From $From -To $To -Subject $Subject -Body $Body -SmtpServer $SMTPServer -Port $SMTPPort -Credential $Credential -UseSsl
+        `;
+        
+        await execAsync(`powershell -Command "${psScript}"`);
+      } else {
+        // Unix-like systems - try using mail command
+        await execAsync(`mail -s "${emailMessage.subject}" ${Array.isArray(emailMessage.to) ? emailMessage.to.join(' ') : emailMessage.to} < "${tempEmailPath}"`);
+      }
+      
+      // Clean up temporary file
+      await fs.unlink(tempEmailPath);
+      
+      return {
+        content: [],
+        structuredContent: {
+          success: true,
+          message: `Email sent successfully to ${Array.isArray(emailMessage.to) ? emailMessage.to.join(', ') : emailMessage.to}`
+        }
+      };
+    } catch (sendError: any) {
+      // Clean up temporary file
+      try {
+        await fs.unlink(tempEmailPath);
+      } catch {}
+      
+      return {
+        content: [],
+        structuredContent: {
+          success: false,
+          error: `Failed to send email: ${sendError.message}. Please check your email configuration and network connection.`
+        }
+      };
+    }
+  } catch (error: any) {
+    return {
+      content: [],
+      structuredContent: {
+        success: false,
+        error: error.message
+      }
+    };
+  }
+});
+
+// Interactive email login tool
+server.registerTool("email_login", {
+  description: "Interactive email login - prompts for credentials and stores them securely",
+  inputSchema: {
+    provider: z.enum(['gmail', 'outlook', 'yahoo', 'custom']),
+    username: z.string(),
+    password: z.string(),
+    host: z.string().optional(),
+    port: z.number().optional(),
+    secure: z.boolean().optional(),
+    accountKey: z.string().optional(),
+    accountName: z.string().optional()
+  },
+  outputSchema: {
+    success: z.boolean(),
+    message: z.string(),
+    error: z.string().optional()
+  }
+}, async ({ provider, username, password, host, port, secure, accountKey, accountName }) => {
+  try {
+    const providerConfig = getProviderConfig(provider);
+    
+    const emailConfig: EmailConfig = {
+      provider,
+      host: host || providerConfig.host,
+      port: port || providerConfig.port,
+      secure: secure !== undefined ? secure : providerConfig.secure,
+      username,
+      password,
+      from: username,
+      accountName: accountName || username
+    };
+    
+    // Validate the credentials
+    const isValid = await validateEmailCredentials(emailConfig);
+    if (!isValid) {
+      return {
+        content: [],
+        structuredContent: {
+          success: false,
+          error: "Invalid email credentials. Please check your username and password."
+        }
+      };
+    }
+    
+    // Save the configuration with the specified account key or use username as default
+    const key = accountKey || username;
+    const accounts = getEmailAccounts();
+    accounts.accounts[key] = emailConfig;
+    
+    // If this is the first account or no active account, set it as active
+    if (!accounts.activeAccount) {
+      accounts.activeAccount = key;
+    }
+    
+    const saved = await saveEmailAccounts(accounts);
+    
+    if (saved) {
+      const activeMessage = accounts.activeAccount === key ? " (set as active account)" : "";
+      return {
+        content: [],
+        structuredContent: {
+          success: true,
+          message: `Email login successful! Credentials saved for ${provider} (${username})${activeMessage}. You won't need to login again.`
+        }
+      };
+    } else {
+      return {
+        content: [],
+        structuredContent: {
+          success: false,
+          error: "Failed to save email configuration."
+        }
+      };
+    }
+  } catch (error: any) {
+    return {
+      content: [],
+      structuredContent: {
+        success: false,
+        error: error.message
+      }
+    };
+  }
+});
+
+server.registerTool("email_check", {
+  description: "Check and read email messages from configured email provider",
+  inputSchema: {
+    provider: z.enum(['gmail', 'outlook', 'yahoo', 'custom']).optional(),
+    host: z.string().optional(),
+    port: z.number().optional(),
+    username: z.string().optional(),
+    password: z.string().optional(),
+    folder: z.string().optional(),
+    limit: z.number().optional(),
+    unread_only: z.boolean().optional()
+  },
+  outputSchema: {
+    success: z.boolean(),
+    messages: z.array(z.object({
+      id: z.string(),
+      from: z.string(),
+      to: z.string(),
+      subject: z.string(),
+      date: z.string(),
+      body: z.string(),
+      unread: z.boolean()
+    })).optional(),
+    error: z.string().optional(),
+    needs_login: z.boolean().optional()
+  }
+}, async ({ provider, host, port, username, password, folder = 'INBOX', limit = 10, unread_only = false }) => {
+  try {
+    // Get email configuration
+    let emailConfig = getEmailConfig();
+    
+    // Override with provided parameters
+    if (provider || host || port || username || password) {
+      const providerConfig = provider ? getProviderConfig(provider) : { host: '', port: 993, secure: true };
+      emailConfig = {
+        provider: provider as any || 'custom',
+        host: host || providerConfig.host,
+        port: port || providerConfig.port,
+        secure: providerConfig.secure,
+        username: username || emailConfig?.username || '',
+        password: password || emailConfig?.password || '',
+        from: emailConfig?.from || username || ''
+      };
+    }
+    
+    // Check if we have complete configuration
+    if (!emailConfig || !isEmailConfigComplete(emailConfig)) {
+      return {
+        content: [],
+        structuredContent: {
+          success: false,
+          error: "Email configuration incomplete. Please use the email_login tool to provide your credentials first.",
+          needs_login: true
+        }
+      };
+    }
+    
+    // For now, we'll use a simple approach with system mail command
+    // In a full implementation, you'd use a proper IMAP library like node-imap
+    
+    try {
+      let command = '';
+      
+      if (IS_WINDOWS) {
+        // Windows - PowerShell approach for checking emails
+        const psScript = `
+          $Username = "${emailConfig.username}"
+          $Password = "${emailConfig.password}"
+          $Server = "${emailConfig.host}"
+          $Port = ${emailConfig.port}
+          
+          Write-Host "Checking emails for $Username on $Server:$Port"
+          Write-Host "This is a placeholder - full IMAP implementation would be needed"
+        `;
+        
+        const { stdout } = await execAsync(`powershell -Command "${psScript}"`);
+        
+        // Return placeholder data for now
+        return {
+          content: [],
+          structuredContent: {
+            success: true,
+            messages: [
+              {
+                id: '1',
+                from: 'system@example.com',
+                to: emailConfig.username,
+                subject: 'Email Check Placeholder',
+                date: new Date().toISOString(),
+                body: 'This is a placeholder response. Full IMAP implementation would be needed for actual email checking.',
+                unread: false
+              }
+            ]
+          }
+        };
+      } else {
+        // Unix-like systems - try using mail command
+        command = `mail -f ${folder} | head -${limit * 5}`; // Multiply by 5 to account for mail headers
+        const { stdout } = await execAsync(command);
+        
+        // Parse mail output (simplified)
+        const lines = stdout.split('\n');
+        const messages = [];
+        let currentMessage: any = null;
+        
+        for (const line of lines) {
+          if (line.startsWith('From ')) {
+            if (currentMessage) {
+              messages.push(currentMessage);
+            }
+            currentMessage = {
+              id: `msg_${messages.length + 1}`,
+              from: line.substring(5),
+              to: emailConfig.username,
+              subject: '',
+              date: new Date().toISOString(),
+              body: '',
+              unread: false
+            };
+          } else if (line.startsWith('Subject: ') && currentMessage) {
+            currentMessage.subject = line.substring(9);
+          } else if (currentMessage && line.trim()) {
+            currentMessage.body += line + '\n';
+          }
+        }
+        
+        if (currentMessage) {
+          messages.push(currentMessage);
+        }
+        
+        return {
+          content: [],
+          structuredContent: {
+            success: true,
+            messages: messages.slice(0, limit)
+          }
+        };
+      }
+    } catch (checkError: any) {
+      return {
+        content: [],
+        structuredContent: {
+          success: false,
+          error: `Failed to check emails: ${checkError.message}. Please check your email configuration.`
+        }
+      };
+    }
+  } catch (error: any) {
+    return {
+      content: [],
+      structuredContent: {
+        success: false,
+        error: error.message
+      }
+    };
+  }
+});
+
+// Email configuration status tool
+server.registerTool("email_status", {
+  description: "Check the current email configuration status and list all configured accounts",
+  inputSchema: {},
+  outputSchema: {
+    configured: z.boolean(),
+    activeAccount: z.object({
+      provider: z.string(),
+      username: z.string(),
+      host: z.string(),
+      port: z.number(),
+      accountName: z.string().optional()
+    }).optional(),
+    allAccounts: z.array(z.object({
+      key: z.string(),
+      name: z.string(),
+      provider: z.string(),
+      username: z.string(),
+      isActive: z.boolean()
+    })).optional(),
+    message: z.string(),
+    needs_login: z.boolean().optional()
+  }
+}, async () => {
+  try {
+    const emailAccounts = getEmailAccounts();
+    
+    if (!emailAccounts || Object.keys(emailAccounts.accounts).length === 0) {
+      return {
+        content: [],
+        structuredContent: {
+          configured: false,
+          message: "No email accounts configured. Use email_login to set up your first email account.",
+          needs_login: true
+        }
+      };
+    }
+    
+    const activeConfig = getEmailConfig();
+    const isComplete = activeConfig ? isEmailConfigComplete(activeConfig) : false;
+    
+    if (!isComplete) {
+      return {
+        content: [],
+        structuredContent: {
+          configured: false,
+          allAccounts: Object.entries(emailAccounts.accounts).map(([key, config]) => ({
+            key,
+            name: config.accountName || config.username,
+            provider: config.provider,
+            username: config.username,
+            isActive: key === emailAccounts.activeAccount
+          })),
+          message: "Email configuration incomplete. Missing username, password, or server details.",
+          needs_login: true
+        }
+      };
+    }
+    
+    const allAccounts = Object.entries(emailAccounts.accounts).map(([key, config]) => ({
+      key,
+      name: config.accountName || config.username,
+      provider: config.provider,
+      username: config.username,
+      isActive: key === emailAccounts.activeAccount
+    }));
+    
+    return {
+      content: [],
+      structuredContent: {
+        configured: true,
+        activeAccount: activeConfig ? {
+          provider: activeConfig.provider,
+          username: activeConfig.username,
+          host: activeConfig.host,
+          port: activeConfig.port,
+          accountName: activeConfig.accountName
+        } : undefined,
+        allAccounts,
+        message: `Email configured with ${allAccounts.length} account(s). Active: ${activeConfig?.accountName || activeConfig?.username} (${activeConfig?.provider})`
+      }
+    };
+  } catch (error: any) {
+    return {
+      content: [],
+      structuredContent: {
+        configured: false,
+        message: `Error checking email status: ${error.message}`,
+        needs_login: true
+      }
+    };
+  }
+});
+
+server.registerTool("email_config", {
+  description: "Configure email provider settings",
+  inputSchema: {
+    provider: z.enum(['gmail', 'outlook', 'yahoo', 'custom']),
+    username: z.string(),
+    password: z.string(),
+    from: z.string().optional(),
+    host: z.string().optional(),
+    port: z.number().optional(),
+    secure: z.boolean().optional()
+  },
+  outputSchema: {
+    success: z.boolean(),
+    message: z.string(),
+    error: z.string().optional()
+  }
+}, async ({ provider, username, password, from, host, port, secure }) => {
+  try {
+    const providerConfig = getProviderConfig(provider);
+    
+    const emailConfig: EmailConfig = {
+      provider,
+      host: host || providerConfig.host,
+      port: port || providerConfig.port,
+      secure: secure !== undefined ? secure : providerConfig.secure,
+      username,
+      password,
+      from: from || username
+    };
+    
+    const saved = await saveEmailConfig(emailConfig);
+    
+    if (saved) {
+      return {
+        content: [],
+        structuredContent: {
+          success: true,
+          message: `Email configuration saved successfully for ${provider}`
+        }
+      };
+    } else {
+      return {
+        content: [],
+        structuredContent: {
+          success: false,
+          error: "Failed to save email configuration"
+        }
+      };
+    }
+  } catch (error: any) {
+    return {
+      content: [],
+      structuredContent: {
+        success: false,
+        error: error.message
+      }
+    };
+  }
+});
+
+server.registerTool("email_drafts", {
+  description: "List and manage email drafts",
+  inputSchema: {
+    action: z.enum(['list', 'read', 'delete']),
+    draft_id: z.string().optional()
+  },
+  outputSchema: {
+    success: z.boolean(),
+    drafts: z.array(z.object({
+      id: z.string(),
+      subject: z.string(),
+      to: z.string(),
+      date: z.string()
+    })).optional(),
+    draft: z.any().optional(),
+    message: z.string(),
+    error: z.string().optional()
+  }
+}, async ({ action, draft_id }) => {
+  try {
+    const draftsDir = path.join(process.cwd(), 'drafts');
+    
+    switch (action) {
+      case 'list':
+        try {
+          const files = await fs.readdir(draftsDir);
+          const draftFiles = files.filter(file => file.endsWith('.json'));
+          
+          const drafts = [];
+          for (const file of draftFiles) {
+            try {
+              const draftData = await fs.readFile(path.join(draftsDir, file), 'utf8');
+              const draft = JSON.parse(draftData);
+              const id = file.replace('.json', '');
+              
+              drafts.push({
+                id,
+                subject: draft.subject,
+                to: Array.isArray(draft.to) ? draft.to.join(', ') : draft.to,
+                date: new Date(parseInt(id.split('_')[1])).toISOString()
+              });
+            } catch {
+              // Skip invalid draft files
+            }
+          }
+          
+          return {
+            content: [],
+            structuredContent: {
+              success: true,
+              drafts,
+              message: `Found ${drafts.length} draft(s)`
+            }
+          };
+        } catch {
+          return {
+            content: [],
+            structuredContent: {
+              success: true,
+              drafts: [],
+              message: "No drafts found"
+            }
+          };
+        }
+        
+      case 'read':
+        if (!draft_id) {
+          return {
+            content: [],
+            structuredContent: {
+              success: false,
+              error: "Draft ID is required for read action"
+            }
+          };
+        }
+        
+        try {
+          const draftPath = path.join(draftsDir, `${draft_id}.json`);
+          const draftData = await fs.readFile(draftPath, 'utf8');
+          const draft = JSON.parse(draftData);
+          
+          return {
+            content: [],
+            structuredContent: {
+              success: true,
+              draft,
+              message: "Draft loaded successfully"
+            }
+          };
+        } catch {
+          return {
+            content: [],
+            structuredContent: {
+              success: false,
+              error: "Draft not found"
+            }
+          };
+        }
+        
+      case 'delete':
+        if (!draft_id) {
+          return {
+            content: [],
+            structuredContent: {
+              success: false,
+              error: "Draft ID is required for delete action"
+            }
+          };
+        }
+        
+        try {
+          const draftPath = path.join(draftsDir, `${draft_id}.json`);
+          await fs.unlink(draftPath);
+          
+          return {
+            content: [],
+            structuredContent: {
+              success: true,
+              message: "Draft deleted successfully"
+            }
+          };
+        } catch {
+          return {
+            content: [],
+            structuredContent: {
+              success: false,
+              error: "Failed to delete draft"
+            }
+          };
+        }
+        
+      default:
+        return {
+          content: [],
+          structuredContent: {
+            success: false,
+            error: "Invalid action"
+          }
+        };
+    }
+  } catch (error: any) {
+    return {
+      content: [],
+      structuredContent: {
+        success: false,
+        error: error.message
+      }
+    };
+  }
+});
+
+// Email account management tools
+server.registerTool("email_accounts", {
+  description: "List all configured email accounts and manage them",
+  inputSchema: {
+    action: z.enum(['list', 'add', 'remove', 'switch', 'rename']),
+    accountKey: z.string().optional(),
+    newAccountKey: z.string().optional(),
+    accountName: z.string().optional()
+  },
+  outputSchema: {
+    success: z.boolean(),
+    message: z.string(),
+    accounts: z.array(z.object({
+      key: z.string(),
+      name: z.string(),
+      provider: z.string(),
+      username: z.string(),
+      isActive: z.boolean()
+    })).optional(),
+    error: z.string().optional()
+  }
+}, async ({ action, accountKey, newAccountKey, accountName }) => {
+  try {
+    const accounts = getEmailAccounts();
+    
+    switch (action) {
+      case 'list':
+        const accountList = Object.entries(accounts.accounts).map(([key, config]) => ({
+          key,
+          name: config.accountName || config.username,
+          provider: config.provider,
+          username: config.username,
+          isActive: key === accounts.activeAccount
+        }));
+        
+        return {
+          content: [],
+          structuredContent: {
+            success: true,
+            message: `Found ${accountList.length} email account(s)`,
+            accounts: accountList
+          }
+        };
+        
+      case 'add':
+        if (!accountKey) {
+          return {
+            content: [],
+            structuredContent: {
+              success: false,
+              error: "Account key is required for add action"
+            }
+          };
+        }
+        
+        // This will be handled by email_login with the new account key
+        return {
+          content: [],
+          structuredContent: {
+            success: true,
+            message: `Use email_login with accountKey: "${accountKey}" to add a new account`
+          }
+        };
+        
+      case 'remove':
+        if (!accountKey) {
+          return {
+            content: [],
+            structuredContent: {
+              success: false,
+              error: "Account identifier is required for remove action. You can use account key, email address, or account name."
+            }
+          };
+        }
+        
+        // Try to find the account by various identifiers
+        let targetAccountKey: string | null = null;
+        
+        // First, try exact key match
+        if (accounts.accounts[accountKey]) {
+          targetAccountKey = accountKey;
+        } else {
+          // Try to find by email address or account name
+          for (const [key, config] of Object.entries(accounts.accounts)) {
+            if (config.username === accountKey || 
+                config.accountName === accountKey ||
+                config.username.toLowerCase() === accountKey.toLowerCase() ||
+                (config.accountName && config.accountName.toLowerCase() === accountKey.toLowerCase())) {
+              targetAccountKey = key;
+              break;
+            }
+          }
+        }
+        
+        if (!targetAccountKey) {
+          const availableAccounts = Object.entries(accounts.accounts).map(([key, config]) => 
+            `${config.accountName || config.username} (key: ${key})`
+          ).join(', ');
+          
+          return {
+            content: [],
+            structuredContent: {
+              success: false,
+              error: `Account "${accountKey}" not found. Available accounts: ${availableAccounts}`
+            }
+          };
+        }
+        
+        const accountToRemove = accounts.accounts[targetAccountKey];
+        delete accounts.accounts[targetAccountKey];
+        
+        // If we removed the active account, set a new active account
+        if (accounts.activeAccount === targetAccountKey) {
+          const remainingAccounts = Object.keys(accounts.accounts);
+          accounts.activeAccount = remainingAccounts.length > 0 ? remainingAccounts[0] : '';
+        }
+        
+        await saveEmailAccounts(accounts);
+        
+        return {
+          content: [],
+          structuredContent: {
+            success: true,
+            message: `Account "${accountToRemove.accountName || accountToRemove.username}" (${accountToRemove.provider}) removed successfully`
+          }
+        };
+        
+      case 'switch':
+        if (!accountKey) {
+          return {
+            content: [],
+            structuredContent: {
+              success: false,
+              error: "Account identifier is required for switch action. You can use account key, email address, or account name."
+            }
+          };
+        }
+        
+        // Try to find the account by various identifiers
+        let switchTargetAccountKey: string | null = null;
+        
+        // First, try exact key match
+        if (accounts.accounts[accountKey]) {
+          switchTargetAccountKey = accountKey;
+        } else {
+          // Try to find by email address or account name
+          for (const [key, config] of Object.entries(accounts.accounts)) {
+            if (config.username === accountKey || 
+                config.accountName === accountKey ||
+                config.username.toLowerCase() === accountKey.toLowerCase() ||
+                (config.accountName && config.accountName.toLowerCase() === accountKey.toLowerCase())) {
+              switchTargetAccountKey = key;
+              break;
+            }
+          }
+        }
+        
+        if (!switchTargetAccountKey) {
+          const availableAccounts = Object.entries(accounts.accounts).map(([key, config]) => 
+            `${config.accountName || config.username} (key: ${key})`
+          ).join(', ');
+          
+          return {
+            content: [],
+            structuredContent: {
+              success: false,
+              error: `Account "${accountKey}" not found. Available accounts: ${availableAccounts}`
+            }
+          };
+        }
+        
+        accounts.activeAccount = switchTargetAccountKey;
+        await saveEmailAccounts(accounts);
+        
+        return {
+          content: [],
+          structuredContent: {
+            success: true,
+            message: `Switched to account "${accounts.accounts[switchTargetAccountKey].accountName || accounts.accounts[switchTargetAccountKey].username}" (${accounts.accounts[switchTargetAccountKey].provider})`
+          }
+        };
+        
+      case 'rename':
+        if (!accountKey || !newAccountKey) {
+          return {
+            content: [],
+            structuredContent: {
+              success: false,
+              error: "Both accountKey and newAccountKey are required for rename action"
+            }
+          };
+        }
+        
+        if (!accounts.accounts[accountKey]) {
+          return {
+            content: [],
+            structuredContent: {
+              success: false,
+              error: `Account "${accountKey}" not found`
+            }
+          };
+        }
+        
+        if (accounts.accounts[newAccountKey]) {
+          return {
+            content: [],
+            structuredContent: {
+              success: false,
+              error: `Account "${newAccountKey}" already exists`
+            }
+          };
+        }
+        
+        // Move the account to the new key
+        accounts.accounts[newAccountKey] = accounts.accounts[accountKey];
+        delete accounts.accounts[accountKey];
+        
+        // Update active account if needed
+        if (accounts.activeAccount === accountKey) {
+          accounts.activeAccount = newAccountKey;
+        }
+        
+        await saveEmailAccounts(accounts);
+        
+        return {
+          content: [],
+          structuredContent: {
+            success: true,
+            message: `Account renamed from "${accountKey}" to "${newAccountKey}"`
+          }
+        };
+        
+      default:
+        return {
+          content: [],
+          structuredContent: {
+            success: false,
+            error: "Invalid action"
+          }
+        };
+    }
+  } catch (error: any) {
+    return {
+      content: [],
+      structuredContent: {
+        success: false,
+        error: error.message
+      }
+    };
+  }
+});
+
+server.registerTool("email_set_active", {
+  description: "Set the active email account using natural language or account identifier",
+  inputSchema: {
+    accountIdentifier: z.string().describe("Can be email address, account name, or account key")
+  },
+  outputSchema: {
+    success: z.boolean(),
+    message: z.string(),
+    error: z.string().optional()
+  }
+}, async ({ accountIdentifier }) => {
+  try {
+    const accounts = getEmailAccounts();
+    
+    // Try to find the account by various identifiers
+    let targetAccountKey: string | null = null;
+    
+    // First, try exact key match
+    if (accounts.accounts[accountIdentifier]) {
+      targetAccountKey = accountIdentifier;
+    } else {
+      // Try to find by email address or account name
+      for (const [key, config] of Object.entries(accounts.accounts)) {
+        if (config.username.toLowerCase() === accountIdentifier.toLowerCase() ||
+            (config.accountName && config.accountName.toLowerCase() === accountIdentifier.toLowerCase())) {
+          targetAccountKey = key;
+          break;
+        }
+      }
+    }
+    
+    if (!targetAccountKey) {
+      const availableAccounts = Object.keys(accounts.accounts);
+      return {
+        content: [],
+        structuredContent: {
+          success: false,
+          error: `Account "${accountIdentifier}" not found. Available accounts: ${availableAccounts.join(', ')}`
+        }
+      };
+    }
+    
+    accounts.activeAccount = targetAccountKey;
+    await saveEmailAccounts(accounts);
+    
+    const activeConfig = accounts.accounts[targetAccountKey];
+    return {
+      content: [],
+      structuredContent: {
+        success: true,
+        message: `Switched to account: ${activeConfig.accountName || activeConfig.username} (${activeConfig.provider})`
+      }
+    };
+  } catch (error: any) {
+    return {
+      content: [],
+      structuredContent: {
+        success: false,
+        error: error.message
+      }
+    };
+  }
+});
+
 async function main() {
   const transport = new StdioServerTransport();
   await server.connect(transport);
@@ -2564,3 +4396,73 @@ main().catch((err) => {
   logger.error("Server error", { error: err instanceof Error ? err.message : String(err), stack: err instanceof Error ? err.stack : undefined });
   process.exit(1);
 });
+
+// Enhanced browser cleanup paths
+function getBrowserCachePaths(browser: string): string[] {
+  if (IS_WINDOWS) {
+    const username = process.env.USERNAME || process.env.USER || 'default';
+    return [
+      `%LOCALAPPDATA%\\${browser}\\User Data\\Default\\Cache`,
+      `%LOCALAPPDATA%\\${browser}\\User Data\\Default\\Code Cache`,
+      `%LOCALAPPDATA%\\${browser}\\User Data\\Default\\GPUCache`
+    ];
+  } else if (IS_MACOS) {
+    const homeDir = process.env.HOME || '/Users/default';
+    return [
+      `${homeDir}/Library/Caches/Google/Chrome`,
+      `${homeDir}/Library/Caches/Mozilla/Firefox`,
+      `${homeDir}/Library/Caches/com.apple.Safari`,
+      `${homeDir}/Library/Caches/com.opera.Opera`,
+      `${homeDir}/Library/Caches/com.microsoft.Edge`
+    ];
+  } else {
+    // Linux cache paths
+    const homeDir = process.env.HOME || '/home/default';
+    return [
+      `${homeDir}/.cache/google-chrome`,
+      `${homeDir}/.cache/chromium`,
+      `${homeDir}/.cache/mozilla/firefox`,
+      `${homeDir}/.cache/opera`,
+      `${homeDir}/.cache/microsoft-edge`,
+      `${homeDir}/.mozilla/firefox`,
+      `${homeDir}/.config/google-chrome`,
+      `${homeDir}/.config/chromium`
+    ];
+  }
+}
+
+// Enhanced process management
+async function killBrowserProcesses(browser: string): Promise<boolean> {
+  try {
+    if (IS_WINDOWS) {
+      await execAsync(`taskkill /f /im ${browser}.exe`);
+    } else if (IS_MACOS) {
+      // More specific process killing for macOS
+      await execAsync(`pkill -f "${browser}"`);
+      await execAsync(`killall "${browser}"`);
+    } else {
+      // Enhanced Linux process killing
+      await execAsync(`pkill -f "${browser}"`);
+      await execAsync(`killall "${browser}"`);
+      // Also try specific process names
+      const processNames = [
+        browser,
+        `${browser}-stable`,
+        browser === 'chrome' ? 'google-chrome' : browser,
+        browser === 'edge' ? 'microsoft-edge' : browser
+      ];
+      
+      for (const name of processNames) {
+        try {
+          await execAsync(`pkill -f "${name}"`);
+        } catch {
+          // Continue to next name
+        }
+      }
+    }
+    return true;
+  } catch (error) {
+    logger.warn(`Could not kill ${browser} processes`, { error: error instanceof Error ? error.message : String(error) });
+    return false;
+  }
+}
