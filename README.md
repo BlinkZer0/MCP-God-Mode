@@ -8,7 +8,7 @@
 
 **Comedic Disclaimer:** This tool turns your AI into a system wizard. Side effects may include uncontrollable laughter, fixed computers, or accidental world domination.
 
-![AI wizard funny](https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.gif)
+![AI wizard funny](https://tenor.com/bXOw9.gif)
 
 ## ⚠️ WARNING: God Mode Activated – Buckle Up!
 
@@ -25,7 +25,7 @@ This MCP can do wild stuff:
 
 **Use on your own systems only.** Back up everything, or live dangerously.
 
-![Danger funny](https://media.giphy.com/media/26ufdipQqU2lhNA4w/giphy.gif)  // Hilarious warning GIF with explosions
+![Danger funny](https://tenor.com/bYoRG.gif)  // Hilarious warning GIF with explosions
 
 **Joke:** If your AI goes rogue, just remember – you gave it the keys!
 
@@ -49,7 +49,7 @@ This MCP can do wild stuff:
 
 **🎉 Ready to Join the Revolution?** Ask your AI: *"What can you do now that MCP God Mode is installed?"* and prepare to have your mind completely blown! Your AI just became the ultimate system administrator, network engineer, security expert, and productivity wizard – all rolled into one incredibly powerful package!
 
-![Revolution funny](https://media.giphy.com/media/3o7aD2d7hyVgHUnzSo/giphy.gif)
+![Revolution funny](https://tenor.com/bYoRV.gif)
 
 ## 🎯 All the Features – With Hilarious Commentary
 
