@@ -1,17 +1,55 @@
-import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
-import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
-import { z } from "zod";
-import * as path from "node:path";
-import * as os from "node:os";
-import * as fs from "node:fs/promises";
-import * as fsSync from "node:fs";
-import { exec } from "node:child_process";
-import { promisify } from "node:util";
-import simpleGit from "simple-git";
-import { createWriteStream } from "node:fs";
-import winston from "winston";
-import * as math from "mathjs";
-import * as crypto from "node:crypto";
+"use strict";
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || (function () {
+    var ownKeys = function(o) {
+        ownKeys = Object.getOwnPropertyNames || function (o) {
+            var ar = [];
+            for (var k in o) if (Object.prototype.hasOwnProperty.call(o, k)) ar[ar.length] = k;
+            return ar;
+        };
+        return ownKeys(o);
+    };
+    return function (mod) {
+        if (mod && mod.__esModule) return mod;
+        var result = {};
+        if (mod != null) for (var k = ownKeys(mod), i = 0; i < k.length; i++) if (k[i] !== "default") __createBinding(result, mod, k[i]);
+        __setModuleDefault(result, mod);
+        return result;
+    };
+})();
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const mcp_js_1 = require("@modelcontextprotocol/sdk/server/mcp.js");
+const stdio_js_1 = require("@modelcontextprotocol/sdk/server/stdio.js");
+const zod_1 = require("zod");
+const path = __importStar(require("node:path"));
+const os = __importStar(require("node:os"));
+const fs = __importStar(require("node:fs/promises"));
+const fsSync = __importStar(require("node:fs"));
+const node_child_process_1 = require("node:child_process");
+const node_util_1 = require("node:util");
+const simple_git_1 = __importDefault(require("simple-git"));
+const node_fs_1 = require("node:fs");
+const winston = require("winston");
+const math = __importStar(require("mathjs"));
+const crypto = __importStar(require("node:crypto"));
 // Global variables for enhanced features
 let browserInstance = null;
 let webSocketServer = null;
@@ -20,7 +58,7 @@ let cronJobs = new Map();
 let fileWatchers = new Map();
 let apiCache = new Map();
 let webhookEndpoints = new Map();
-const execAsync = promisify(exec);
+const execAsync = (0, node_util_1.promisify)(node_child_process_1.exec);
 // Cross-platform OS detection
 const PLATFORM = os.platform();
 const IS_WINDOWS = PLATFORM === "win32";
@@ -799,17 +837,17 @@ async function analyzeEventLogs(logType = "system", filter, timeRange, level = "
         return { events: [], summary: {}, patterns: [] };
     }
 }
-const server = new McpServer({ name: "windows-dev-mcp", version: "1.0.0" });
+const server = new mcp_js_1.McpServer({ name: "windows-dev-mcp", version: "1.0.0" });
 server.registerTool("health", {
     description: "Liveness/readiness probe",
-    outputSchema: { ok: z.boolean(), roots: z.array(z.string()), cwd: z.string() }
+    outputSchema: { ok: zod_1.z.boolean(), roots: zod_1.z.array(zod_1.z.string()), cwd: zod_1.z.string() }
 }, async () => ({
     content: [{ type: "text", text: "ok" }],
     structuredContent: { ok: true, roots: ALLOWED_ROOTS_ARRAY, cwd: process.cwd() }
 }));
 server.registerTool("system_info", {
     description: "Basic host info (OS, arch, cpus, memGB)",
-    outputSchema: { platform: z.string(), arch: z.string(), cpus: z.number(), memGB: z.number() }
+    outputSchema: { platform: zod_1.z.string(), arch: zod_1.z.string(), cpus: zod_1.z.number(), memGB: zod_1.z.number() }
 }, async () => ({
     content: [],
     structuredContent: {
@@ -821,8 +859,8 @@ server.registerTool("system_info", {
 }));
 server.registerTool("fs_list", {
     description: "List files/directories under a relative path (non-recursive)",
-    inputSchema: { dir: z.string().default(".") },
-    outputSchema: { entries: z.array(z.object({ name: z.string(), isDir: z.boolean() })) }
+    inputSchema: { dir: zod_1.z.string().default(".") },
+    outputSchema: { entries: zod_1.z.array(zod_1.z.object({ name: zod_1.z.string(), isDir: zod_1.z.boolean() })) }
 }, async ({ dir }) => {
     // Try to find the directory in one of the allowed roots
     let base;
@@ -839,8 +877,8 @@ server.registerTool("fs_list", {
 });
 server.registerTool("fs_read_text", {
     description: "Read a UTF-8 text file within the sandbox",
-    inputSchema: { path: z.string() },
-    outputSchema: { path: z.string(), content: z.string(), truncated: z.boolean() }
+    inputSchema: { path: zod_1.z.string() },
+    outputSchema: { path: zod_1.z.string(), content: zod_1.z.string(), truncated: zod_1.z.boolean() }
 }, async ({ path: relPath }) => {
     const fullPath = ensureInsideRoot(path.resolve(relPath));
     const content = await fs.readFile(fullPath, "utf8");
@@ -849,8 +887,8 @@ server.registerTool("fs_read_text", {
 });
 server.registerTool("fs_write_text", {
     description: "Write a UTF-8 text file within the sandbox",
-    inputSchema: { path: z.string(), content: z.string() },
-    outputSchema: { path: z.string(), success: z.boolean() }
+    inputSchema: { path: zod_1.z.string(), content: zod_1.z.string() },
+    outputSchema: { path: zod_1.z.string(), success: zod_1.z.boolean() }
 }, async ({ path: relPath, content }) => {
     const fullPath = ensureInsideRoot(path.resolve(relPath));
     await fs.writeFile(fullPath, content, "utf8");
@@ -858,8 +896,8 @@ server.registerTool("fs_write_text", {
 });
 server.registerTool("fs_search", {
     description: "Search for files by name pattern",
-    inputSchema: { pattern: z.string(), dir: z.string().default(".") },
-    outputSchema: { matches: z.array(z.string()) }
+    inputSchema: { pattern: zod_1.z.string(), dir: zod_1.z.string().default(".") },
+    outputSchema: { matches: zod_1.z.array(zod_1.z.string()) }
 }, async ({ pattern, dir }) => {
     const base = ensureInsideRoot(path.resolve(dir));
     const matches = [];
@@ -896,15 +934,15 @@ server.registerTool("fs_search", {
 server.registerTool("proc_run", {
     description: "Run a process with arguments",
     inputSchema: {
-        command: z.string(),
-        args: z.array(z.string()).default([]),
-        cwd: z.string().optional()
+        command: zod_1.z.string(),
+        args: zod_1.z.array(zod_1.z.string()).default([]),
+        cwd: zod_1.z.string().optional()
     },
     outputSchema: {
-        success: z.boolean(),
-        stdout: z.string().optional(),
-        stderr: z.string().optional(),
-        exitCode: z.number().optional()
+        success: zod_1.z.boolean(),
+        stdout: zod_1.z.string().optional(),
+        stderr: zod_1.z.string().optional(),
+        exitCode: zod_1.z.number().optional()
     }
 }, async ({ command, args, cwd }) => {
     // GOD MODE: Allow all commands if no restrictions are set
@@ -949,15 +987,15 @@ server.registerTool("proc_run", {
 });
 server.registerTool("git_status", {
     description: "Get git status for a repository",
-    inputSchema: { dir: z.string().default(".") },
+    inputSchema: { dir: zod_1.z.string().default(".") },
     outputSchema: {
-        status: z.string(),
-        branch: z.string().optional(),
-        changes: z.array(z.string()).optional()
+        status: zod_1.z.string(),
+        branch: zod_1.z.string().optional(),
+        changes: zod_1.z.array(zod_1.z.string()).optional()
     }
 }, async ({ dir }) => {
     const repoPath = ensureInsideRoot(path.resolve(dir));
-    const git = simpleGit(repoPath);
+    const git = (0, simple_git_1.default)(repoPath);
     try {
         const status = await git.status();
         return {
@@ -986,15 +1024,15 @@ server.registerTool("git_status", {
 });
 server.registerTool("win_services", {
     description: "List system services (cross-platform: Windows services, Linux systemd, macOS launchd)",
-    inputSchema: { filter: z.string().optional() },
+    inputSchema: { filter: zod_1.z.string().optional() },
     outputSchema: {
-        services: z.array(z.object({
-            name: z.string(),
-            displayName: z.string(),
-            status: z.string(),
-            startupType: z.string().optional()
+        services: zod_1.z.array(zod_1.z.object({
+            name: zod_1.z.string(),
+            displayName: zod_1.z.string(),
+            status: zod_1.z.string(),
+            startupType: zod_1.z.string().optional()
         })),
-        platform: z.string()
+        platform: zod_1.z.string()
     }
 }, async ({ filter }) => {
     try {
@@ -1078,15 +1116,15 @@ server.registerTool("win_services", {
 });
 server.registerTool("win_processes", {
     description: "List system processes (cross-platform: Windows, Linux, macOS)",
-    inputSchema: { filter: z.string().optional() },
+    inputSchema: { filter: zod_1.z.string().optional() },
     outputSchema: {
-        processes: z.array(z.object({
-            pid: z.number(),
-            name: z.string(),
-            memory: z.string(),
-            cpu: z.string()
+        processes: zod_1.z.array(zod_1.z.object({
+            pid: zod_1.z.number(),
+            name: zod_1.z.string(),
+            memory: zod_1.z.string(),
+            cpu: zod_1.z.string()
         })),
-        platform: z.string()
+        platform: zod_1.z.string()
     }
 }, async ({ filter }) => {
     try {
@@ -1172,13 +1210,13 @@ server.registerTool("win_processes", {
 server.registerTool("download_file", {
     description: "Download a file from URL",
     inputSchema: {
-        url: z.string().url(),
-        outputPath: z.string().optional()
+        url: zod_1.z.string().url(),
+        outputPath: zod_1.z.string().optional()
     },
     outputSchema: {
-        success: z.boolean(),
-        path: z.string().optional(),
-        error: z.string().optional()
+        success: zod_1.z.boolean(),
+        path: zod_1.z.string().optional(),
+        error: zod_1.z.string().optional()
     }
 }, async ({ url, outputPath }) => {
     try {
@@ -1190,7 +1228,7 @@ server.registerTool("download_file", {
         if (!response.ok) {
             throw new Error(`HTTP ${response.status}: ${response.statusText}`);
         }
-        const fileStream = createWriteStream(fullPath);
+        const fileStream = (0, node_fs_1.createWriteStream)(fullPath);
         const reader = response.body?.getReader();
         if (!reader) {
             throw new Error("No response body");
@@ -1223,13 +1261,13 @@ server.registerTool("download_file", {
 server.registerTool("change_wallpaper", {
     description: "Change desktop wallpaper (cross-platform: Windows, Linux, macOS)",
     inputSchema: {
-        imagePath: z.string(),
-        mode: z.enum(["center", "tile", "stretch", "fit", "fill"]).default("fill")
+        imagePath: zod_1.z.string(),
+        mode: zod_1.z.enum(["center", "tile", "stretch", "fit", "fill"]).default("fill")
     },
     outputSchema: {
-        success: z.boolean(),
-        platform: z.string(),
-        error: z.string().optional()
+        success: zod_1.z.boolean(),
+        platform: zod_1.z.string(),
+        error: zod_1.z.string().optional()
     }
 }, async ({ imagePath, mode }) => {
     try {
@@ -1328,16 +1366,16 @@ server.registerTool("change_wallpaper", {
 server.registerTool("rag_search", {
     description: "Search documents using RAG",
     inputSchema: {
-        query: z.string(),
-        documents: z.array(z.string()),
-        topK: z.number().int().min(1).max(10).default(3)
+        query: zod_1.z.string(),
+        documents: zod_1.z.array(zod_1.z.string()),
+        topK: zod_1.z.number().int().min(1).max(10).default(3)
     },
     outputSchema: {
-        results: z.array(z.object({
-            document: z.string(),
-            score: z.number()
+        results: zod_1.z.array(zod_1.z.object({
+            document: zod_1.z.string(),
+            score: zod_1.z.number()
         })),
-        error: z.string().optional()
+        error: zod_1.z.string().optional()
     }
 }, async ({ query, documents, topK }) => {
     try {
@@ -1404,14 +1442,14 @@ except Exception as e:
 server.registerTool("rag_query", {
     description: "Query documents using RAG with context",
     inputSchema: {
-        query: z.string(),
-        documents: z.array(z.string()),
-        contextLength: z.number().int().min(100).max(2000).default(500)
+        query: zod_1.z.string(),
+        documents: zod_1.z.array(zod_1.z.string()),
+        contextLength: zod_1.z.number().int().min(100).max(2000).default(500)
     },
     outputSchema: {
-        answer: z.string(),
-        context: z.array(z.string()),
-        error: z.string().optional()
+        answer: zod_1.z.string(),
+        context: zod_1.z.array(zod_1.z.string()),
+        error: zod_1.z.string().optional()
     }
 }, async ({ query, documents, contextLength }) => {
     try {
@@ -1509,17 +1547,17 @@ except Exception as e:
 server.registerTool("system_exec", {
     description: "Execute any system command with full privileges (GOD MODE)",
     inputSchema: {
-        command: z.string(),
-        args: z.array(z.string()).default([]),
-        cwd: z.string().optional(),
-        timeout: z.number().default(30000)
+        command: zod_1.z.string(),
+        args: zod_1.z.array(zod_1.z.string()).default([]),
+        cwd: zod_1.z.string().optional(),
+        timeout: zod_1.z.number().default(30000)
     },
     outputSchema: {
-        success: z.boolean(),
-        stdout: z.string().optional(),
-        stderr: z.string().optional(),
-        exitCode: z.number().optional(),
-        error: z.string().optional()
+        success: zod_1.z.boolean(),
+        stdout: zod_1.z.string().optional(),
+        stderr: zod_1.z.string().optional(),
+        exitCode: zod_1.z.number().optional(),
+        error: zod_1.z.string().optional()
     }
 }, async ({ command, args, cwd, timeout }) => {
     try {
@@ -1556,14 +1594,14 @@ server.registerTool("system_exec", {
 server.registerTool("registry_read", {
     description: "Read system configuration (Windows: Registry, Linux: config files, macOS: plist/config files)",
     inputSchema: {
-        key: z.string(),
-        value: z.string().optional()
+        key: zod_1.z.string(),
+        value: zod_1.z.string().optional()
     },
     outputSchema: {
-        success: z.boolean(),
-        data: z.any().optional(),
-        platform: z.string(),
-        error: z.string().optional()
+        success: zod_1.z.boolean(),
+        data: zod_1.z.any().optional(),
+        platform: zod_1.z.string(),
+        error: zod_1.z.string().optional()
     }
 }, async ({ key, value }) => {
     try {
@@ -1670,15 +1708,15 @@ server.registerTool("registry_read", {
 server.registerTool("registry_write", {
     description: "Write system configuration (Windows: Registry, Linux: config files, macOS: plist/config files)",
     inputSchema: {
-        key: z.string(),
-        value: z.string(),
-        data: z.string(),
-        type: z.enum(["REG_SZ", "REG_DWORD", "REG_QWORD", "REG_BINARY", "REG_MULTI_SZ", "REG_EXPAND_SZ", "string", "boolean", "integer"]).default("string")
+        key: zod_1.z.string(),
+        value: zod_1.z.string(),
+        data: zod_1.z.string(),
+        type: zod_1.z.enum(["REG_SZ", "REG_DWORD", "REG_QWORD", "REG_BINARY", "REG_MULTI_SZ", "REG_EXPAND_SZ", "string", "boolean", "integer"]).default("string")
     },
     outputSchema: {
-        success: z.boolean(),
-        platform: z.string(),
-        error: z.string().optional()
+        success: zod_1.z.boolean(),
+        platform: zod_1.z.string(),
+        error: zod_1.z.string().optional()
     }
 }, async ({ key, value, data, type }) => {
     try {
@@ -1793,14 +1831,14 @@ server.registerTool("registry_write", {
 server.registerTool("service_control", {
     description: "Control system services (cross-platform: Windows services, Linux systemd/init, macOS launchd)",
     inputSchema: {
-        serviceName: z.string(),
-        action: z.enum(["start", "stop", "restart", "pause", "resume", "status", "enable", "disable", "list"])
+        serviceName: zod_1.z.string(),
+        action: zod_1.z.enum(["start", "stop", "restart", "pause", "resume", "status", "enable", "disable", "list"])
     },
     outputSchema: {
-        success: z.boolean(),
-        output: z.string().optional(),
-        platform: z.string(),
-        error: z.string().optional()
+        success: zod_1.z.boolean(),
+        output: zod_1.z.string().optional(),
+        platform: zod_1.z.string(),
+        error: zod_1.z.string().optional()
     }
 }, async ({ serviceName, action }) => {
     try {
@@ -1919,17 +1957,17 @@ server.registerTool("service_control", {
 server.registerTool("disk_management", {
     description: "Manage disk partitions and volumes (cross-platform)",
     inputSchema: {
-        action: z.enum(["list", "create", "delete", "format", "extend", "shrink", "info"]),
-        disk: z.string().optional(),
-        partition: z.string().optional(),
-        size: z.string().optional(),
-        format: z.string().optional()
+        action: zod_1.z.enum(["list", "create", "delete", "format", "extend", "shrink", "info"]),
+        disk: zod_1.z.string().optional(),
+        partition: zod_1.z.string().optional(),
+        size: zod_1.z.string().optional(),
+        format: zod_1.z.string().optional()
     },
     outputSchema: {
-        success: z.boolean(),
-        output: z.string().optional(),
-        platform: z.string(),
-        error: z.string().optional()
+        success: zod_1.z.boolean(),
+        output: zod_1.z.string().optional(),
+        platform: zod_1.z.string(),
+        error: zod_1.z.string().optional()
     }
 }, async ({ action, disk, partition, size, format }) => {
     try {
@@ -2045,15 +2083,15 @@ EOF`;
 server.registerTool("network_scan", {
     description: "Scan network for devices and open ports (cross-platform)",
     inputSchema: {
-        target: z.string().optional(),
-        ports: z.string().optional(),
-        scanType: z.enum(["ping", "port", "arp", "full"]).default("ping")
+        target: zod_1.z.string().optional(),
+        ports: zod_1.z.string().optional(),
+        scanType: zod_1.z.enum(["ping", "port", "arp", "full"]).default("ping")
     },
     outputSchema: {
-        success: z.boolean(),
-        results: z.array(z.any()).optional(),
-        platform: z.string(),
-        error: z.string().optional()
+        success: zod_1.z.boolean(),
+        results: zod_1.z.array(zod_1.z.any()).optional(),
+        platform: zod_1.z.string(),
+        error: zod_1.z.string().optional()
     }
 }, async ({ target, ports, scanType }) => {
     try {
@@ -2232,19 +2270,19 @@ ${cdLine}
 server.registerTool("proc_run_elevated", {
     description: "Run a command with elevated privileges (Windows: UAC, Linux/macOS: sudo). May prompt for authentication.",
     inputSchema: {
-        command: z.string(),
-        args: z.array(z.string()).default([]),
-        cwd: z.string().optional(),
-        timeout: z.number().int().min(1000).max(10 * 60 * 1000).default(2 * 60 * 1000)
+        command: zod_1.z.string(),
+        args: zod_1.z.array(zod_1.z.string()).default([]),
+        cwd: zod_1.z.string().optional(),
+        timeout: zod_1.z.number().int().min(1000).max(10 * 60 * 1000).default(2 * 60 * 1000)
     },
     outputSchema: {
-        success: z.boolean(),
-        stdout: z.string().optional(),
-        stderr: z.string().optional(),
-        exitCode: z.number().optional(),
-        elevated: z.boolean(),
-        platform: z.string(),
-        note: z.string().optional()
+        success: zod_1.z.boolean(),
+        stdout: zod_1.z.string().optional(),
+        stderr: zod_1.z.string().optional(),
+        exitCode: zod_1.z.number().optional(),
+        elevated: zod_1.z.boolean(),
+        platform: zod_1.z.string(),
+        note: zod_1.z.string().optional()
     }
 }, async ({ command, args, cwd, timeout }) => {
     const elevated = await isProcessElevated();
@@ -2306,20 +2344,20 @@ server.registerTool("proc_run_elevated", {
 server.registerTool("unix_sudo_exec", {
     description: "Execute commands with sudo on Linux/macOS (equivalent to Windows PowerShell admin). Interactive sudo prompt.",
     inputSchema: {
-        command: z.string(),
-        args: z.array(z.string()).default([]),
-        cwd: z.string().optional(),
-        timeout: z.number().int().min(1000).max(10 * 60 * 1000).default(2 * 60 * 1000),
-        interactive: z.boolean().default(false)
+        command: zod_1.z.string(),
+        args: zod_1.z.array(zod_1.z.string()).default([]),
+        cwd: zod_1.z.string().optional(),
+        timeout: zod_1.z.number().int().min(1000).max(10 * 60 * 1000).default(2 * 60 * 1000),
+        interactive: zod_1.z.boolean().default(false)
     },
     outputSchema: {
-        success: z.boolean(),
-        stdout: z.string().optional(),
-        stderr: z.string().optional(),
-        exitCode: z.number().optional(),
-        platform: z.string(),
-        sudoUsed: z.boolean(),
-        note: z.string().optional()
+        success: zod_1.z.boolean(),
+        stdout: zod_1.z.string().optional(),
+        stderr: zod_1.z.string().optional(),
+        exitCode: zod_1.z.number().optional(),
+        platform: zod_1.z.string(),
+        sudoUsed: zod_1.z.boolean(),
+        note: zod_1.z.string().optional()
     }
 }, async ({ command, args, cwd, timeout, interactive }) => {
     if (IS_WINDOWS) {
@@ -2390,21 +2428,21 @@ server.registerTool("unix_sudo_exec", {
 server.registerTool("shell_exec_smart", {
     description: "Smart shell execution that automatically detects and uses appropriate elevation (UAC/sudo) when needed",
     inputSchema: {
-        command: z.string(),
-        args: z.array(z.string()).default([]),
-        cwd: z.string().optional(),
-        autoElevate: z.boolean().default(true),
-        timeout: z.number().int().min(1000).max(10 * 60 * 1000).default(2 * 60 * 1000)
+        command: zod_1.z.string(),
+        args: zod_1.z.array(zod_1.z.string()).default([]),
+        cwd: zod_1.z.string().optional(),
+        autoElevate: zod_1.z.boolean().default(true),
+        timeout: zod_1.z.number().int().min(1000).max(10 * 60 * 1000).default(2 * 60 * 1000)
     },
     outputSchema: {
-        success: z.boolean(),
-        stdout: z.string().optional(),
-        stderr: z.string().optional(),
-        exitCode: z.number().optional(),
-        platform: z.string(),
-        elevationUsed: z.boolean(),
-        elevationType: z.string().optional(),
-        note: z.string().optional()
+        success: zod_1.z.boolean(),
+        stdout: zod_1.z.string().optional(),
+        stderr: zod_1.z.string().optional(),
+        exitCode: zod_1.z.number().optional(),
+        platform: zod_1.z.string(),
+        elevationUsed: zod_1.z.boolean(),
+        elevationType: zod_1.z.string().optional(),
+        note: zod_1.z.string().optional()
     }
 }, async ({ command, args, cwd, autoElevate, timeout }) => {
     const workingDir = cwd ? path.resolve(cwd) : process.cwd();
@@ -2488,17 +2526,17 @@ server.registerTool("shell_exec_smart", {
 server.registerTool("create_restore_point", {
     description: "Create a system snapshot/restore point (Windows: Restore Point, Linux: LVM/Btrfs snapshot, macOS: Time Machine snapshot)",
     inputSchema: {
-        description: z.string().default("MCP System Snapshot"),
-        restorePointType: z.enum(["APPLICATION_INSTALL", "APPLICATION_UNINSTALL", "DEVICE_DRIVER_INSTALL", "MODIFY_SETTINGS", "CANCELLED_OPERATION"]).default("MODIFY_SETTINGS")
+        description: zod_1.z.string().default("MCP System Snapshot"),
+        restorePointType: zod_1.z.enum(["APPLICATION_INSTALL", "APPLICATION_UNINSTALL", "DEVICE_DRIVER_INSTALL", "MODIFY_SETTINGS", "CANCELLED_OPERATION"]).default("MODIFY_SETTINGS")
     },
     outputSchema: {
-        success: z.boolean(),
-        stdout: z.string().optional(),
-        stderr: z.string().optional(),
-        elevated: z.boolean(),
-        snapshotId: z.string().optional(),
-        platform: z.string(),
-        error: z.string().optional()
+        success: zod_1.z.boolean(),
+        stdout: zod_1.z.string().optional(),
+        stderr: zod_1.z.string().optional(),
+        elevated: zod_1.z.boolean(),
+        snapshotId: zod_1.z.string().optional(),
+        platform: zod_1.z.string(),
+        error: zod_1.z.string().optional()
     }
 }, async ({ description, restorePointType }) => {
     const elevated = await isProcessElevated();
@@ -2646,14 +2684,14 @@ server.registerTool("create_restore_point", {
 server.registerTool("system_repair", {
     description: "System repairs and diagnostics (cross-platform)",
     inputSchema: {
-        repairType: z.enum(["sfc", "dism", "chkdsk", "network_reset", "windows_update_reset", "dns_flush", "temp_cleanup", "disk_cleanup", "fsck", "system_update", "package_repair", "service_restart"])
+        repairType: zod_1.z.enum(["sfc", "dism", "chkdsk", "network_reset", "windows_update_reset", "dns_flush", "temp_cleanup", "disk_cleanup", "fsck", "system_update", "package_repair", "service_restart"])
     },
     outputSchema: {
-        success: z.boolean(),
-        output: z.string().optional(),
-        error: z.string().optional(),
-        elevated: z.boolean(),
-        platform: z.string()
+        success: zod_1.z.boolean(),
+        output: zod_1.z.string().optional(),
+        error: zod_1.z.string().optional(),
+        elevated: zod_1.z.boolean(),
+        platform: zod_1.z.string()
     }
 }, async ({ repairType }) => {
     const elevated = await isProcessElevated();
@@ -2867,15 +2905,15 @@ server.registerTool("system_repair", {
 server.registerTool("system_monitor", {
     description: "Monitor system resources in real-time (cross-platform)",
     inputSchema: {
-        duration: z.number().default(30),
-        metrics: z.array(z.enum(["cpu", "memory", "disk", "network", "processes"])).default(["cpu", "memory"]),
-        interval: z.number().default(2)
+        duration: zod_1.z.number().default(30),
+        metrics: zod_1.z.array(zod_1.z.enum(["cpu", "memory", "disk", "network", "processes"])).default(["cpu", "memory"]),
+        interval: zod_1.z.number().default(2)
     },
     outputSchema: {
-        success: z.boolean(),
-        data: z.array(z.any()).optional(),
-        error: z.string().optional(),
-        platform: z.string()
+        success: zod_1.z.boolean(),
+        data: zod_1.z.array(zod_1.z.any()).optional(),
+        error: zod_1.z.string().optional(),
+        platform: zod_1.z.string()
     }
 }, async ({ duration, metrics, interval }) => {
     try {
@@ -3052,16 +3090,16 @@ server.registerTool("system_monitor", {
 server.registerTool("system_backup", {
     description: "Create system backups and restore points",
     inputSchema: {
-        backupType: z.enum(["files", "registry", "services", "full", "custom"]),
-        source: z.string().optional(),
-        destination: z.string().optional(),
-        includeSystem: z.boolean().default(false)
+        backupType: zod_1.z.enum(["files", "registry", "services", "full", "custom"]),
+        source: zod_1.z.string().optional(),
+        destination: zod_1.z.string().optional(),
+        includeSystem: zod_1.z.boolean().default(false)
     },
     outputSchema: {
-        success: z.boolean(),
-        backupPath: z.string().optional(),
-        size: z.string().optional(),
-        error: z.string().optional()
+        success: zod_1.z.boolean(),
+        backupPath: zod_1.z.string().optional(),
+        size: zod_1.z.string().optional(),
+        error: zod_1.z.string().optional()
     }
 }, async ({ backupType, source, destination, includeSystem }) => {
     try {
@@ -3129,16 +3167,16 @@ server.registerTool("system_backup", {
 server.registerTool("security_audit", {
     description: "Security audit and scanning (cross-platform)",
     inputSchema: {
-        auditType: z.enum(["permissions", "services", "registry", "files", "network", "users", "firewall", "updates", "packages", "configs"]),
-        target: z.string().optional(),
-        detailed: z.boolean().default(false)
+        auditType: zod_1.z.enum(["permissions", "services", "registry", "files", "network", "users", "firewall", "updates", "packages", "configs"]),
+        target: zod_1.z.string().optional(),
+        detailed: zod_1.z.boolean().default(false)
     },
     outputSchema: {
-        success: z.boolean(),
-        findings: z.array(z.any()).optional(),
-        summary: z.any().optional(),
-        error: z.string().optional(),
-        platform: z.string()
+        success: zod_1.z.boolean(),
+        findings: zod_1.z.array(zod_1.z.any()).optional(),
+        summary: zod_1.z.any().optional(),
+        error: zod_1.z.string().optional(),
+        platform: zod_1.z.string()
     }
 }, async ({ auditType, target, detailed }) => {
     try {
@@ -3664,19 +3702,19 @@ server.registerTool("security_audit", {
 server.registerTool("event_log_analyzer", {
     description: "Analyze system logs for issues and patterns (cross-platform)",
     inputSchema: {
-        logType: z.enum(["system", "application", "security", "setup", "forwardedevents", "kernel", "auth", "syslog"]).default("system"),
-        filter: z.string().optional(),
-        timeRange: z.string().optional(),
-        level: z.enum(["error", "warning", "information", "critical", "all"]).default("error"),
-        maxEvents: z.number().default(100)
+        logType: zod_1.z.enum(["system", "application", "security", "setup", "forwardedevents", "kernel", "auth", "syslog"]).default("system"),
+        filter: zod_1.z.string().optional(),
+        timeRange: zod_1.z.string().optional(),
+        level: zod_1.z.enum(["error", "warning", "information", "critical", "all"]).default("error"),
+        maxEvents: zod_1.z.number().default(100)
     },
     outputSchema: {
-        success: z.boolean(),
-        events: z.array(z.any()).optional(),
-        summary: z.any().optional(),
-        patterns: z.array(z.any()).optional(),
-        error: z.string().optional(),
-        platform: z.string()
+        success: zod_1.z.boolean(),
+        events: zod_1.z.array(zod_1.z.any()).optional(),
+        summary: zod_1.z.any().optional(),
+        patterns: zod_1.z.array(zod_1.z.any()).optional(),
+        error: zod_1.z.string().optional(),
+        platform: zod_1.z.string()
     }
 }, async ({ logType, filter, timeRange, level, maxEvents }) => {
     try {
@@ -3951,18 +3989,18 @@ async function getBrowserProcesses() {
 server.registerTool("browser_control", {
     description: "Control web browsers (Chrome, Firefox, Safari, Opera, Edge) with default browser detection",
     inputSchema: {
-        action: z.enum(["open", "close", "navigate", "screenshot", "get_tabs", "close_tab", "new_tab"]),
-        browser: z.enum(["chrome", "firefox", "safari", "opera", "edge", "default", "auto"]).optional(),
-        url: z.string().url().optional(),
-        tab_index: z.number().optional(),
-        output_path: z.string().optional()
+        action: zod_1.z.enum(["open", "close", "navigate", "screenshot", "get_tabs", "close_tab", "new_tab"]),
+        browser: zod_1.z.enum(["chrome", "firefox", "safari", "opera", "edge", "default", "auto"]).optional(),
+        url: zod_1.z.string().url().optional(),
+        tab_index: zod_1.z.number().optional(),
+        output_path: zod_1.z.string().optional()
     },
     outputSchema: {
-        success: z.boolean(),
-        message: z.string(),
-        browser_used: z.string().optional(),
-        data: z.any().optional(),
-        error: z.string().optional()
+        success: zod_1.z.boolean(),
+        message: zod_1.z.string(),
+        browser_used: zod_1.z.string().optional(),
+        data: zod_1.z.any().optional(),
+        error: zod_1.z.string().optional()
     }
 }, async ({ action, browser = "default", url, tab_index, output_path }) => {
     try {
@@ -4138,28 +4176,28 @@ server.registerTool("browser_control", {
 server.registerTool("browser_automation", {
     description: "Advanced browser automation with multiple browsers and default browser detection",
     inputSchema: {
-        browsers: z.array(z.enum(["chrome", "firefox", "safari", "opera", "edge", "default"])).optional(),
-        urls: z.array(z.string().url()).optional(),
-        actions: z.array(z.object({
-            type: z.enum(["open", "navigate", "screenshot", "close"]),
-            browser: z.string().optional(),
-            url: z.string().url().optional(),
-            delay: z.number().optional()
+        browsers: zod_1.z.array(zod_1.z.enum(["chrome", "firefox", "safari", "opera", "edge", "default"])).optional(),
+        urls: zod_1.z.array(zod_1.z.string().url()).optional(),
+        actions: zod_1.z.array(zod_1.z.object({
+            type: zod_1.z.enum(["open", "navigate", "screenshot", "close"]),
+            browser: zod_1.z.string().optional(),
+            url: zod_1.z.string().url().optional(),
+            delay: zod_1.z.number().optional()
         })).optional(),
-        headless: z.boolean().optional(),
-        use_default: z.boolean().optional()
+        headless: zod_1.z.boolean().optional(),
+        use_default: zod_1.z.boolean().optional()
     },
     outputSchema: {
-        success: z.boolean(),
-        results: z.array(z.object({
-            browser: z.string(),
-            action: z.string(),
-            success: z.boolean(),
-            message: z.string(),
-            data: z.any().optional()
+        success: zod_1.z.boolean(),
+        results: zod_1.z.array(zod_1.z.object({
+            browser: zod_1.z.string(),
+            action: zod_1.z.string(),
+            success: zod_1.z.boolean(),
+            message: zod_1.z.string(),
+            data: zod_1.z.any().optional()
         })),
-        default_browser: z.string().optional(),
-        error: z.string().optional()
+        default_browser: zod_1.z.string().optional(),
+        error: zod_1.z.string().optional()
     }
 }, async ({ browsers = ["default"], urls = [], actions = [], headless = false, use_default = true }) => {
     try {
@@ -4294,13 +4332,13 @@ server.registerTool("browser_automation", {
 server.registerTool("browser_cleanup", {
     description: "Clean up browser data and processes",
     inputSchema: {
-        browsers: z.array(z.enum(["chrome", "firefox", "safari", "opera", "edge"])).optional(),
-        cleanup_type: z.enum(["processes", "cache", "cookies", "all"]).optional()
+        browsers: zod_1.z.array(zod_1.z.enum(["chrome", "firefox", "safari", "opera", "edge"])).optional(),
+        cleanup_type: zod_1.z.enum(["processes", "cache", "cookies", "all"]).optional()
     },
     outputSchema: {
-        success: z.boolean(),
-        cleaned: z.array(z.string()),
-        errors: z.array(z.string())
+        success: zod_1.z.boolean(),
+        cleaned: zod_1.z.array(zod_1.z.string()),
+        errors: zod_1.z.array(zod_1.z.string())
     }
 }, async ({ browsers = ["chrome", "firefox", "safari", "opera", "edge"], cleanup_type = "processes" }) => {
     try {
@@ -4520,20 +4558,20 @@ function getProviderConfig(provider) {
 server.registerTool("email_compose", {
     description: "Compose and draft email messages",
     inputSchema: {
-        to: z.string().or(z.array(z.string())),
-        cc: z.string().or(z.array(z.string())).optional(),
-        bcc: z.string().or(z.array(z.string())).optional(),
-        subject: z.string(),
-        body: z.string(),
-        html: z.boolean().optional(),
-        attachments: z.array(z.string()).optional(),
-        save_draft: z.boolean().optional()
+        to: zod_1.z.string().or(zod_1.z.array(zod_1.z.string())),
+        cc: zod_1.z.string().or(zod_1.z.array(zod_1.z.string())).optional(),
+        bcc: zod_1.z.string().or(zod_1.z.array(zod_1.z.string())).optional(),
+        subject: zod_1.z.string(),
+        body: zod_1.z.string(),
+        html: zod_1.z.boolean().optional(),
+        attachments: zod_1.z.array(zod_1.z.string()).optional(),
+        save_draft: zod_1.z.boolean().optional()
     },
     outputSchema: {
-        success: z.boolean(),
-        message: z.string(),
-        draft_id: z.string().optional(),
-        error: z.string().optional()
+        success: zod_1.z.boolean(),
+        message: zod_1.z.string(),
+        draft_id: zod_1.z.string().optional(),
+        error: zod_1.z.string().optional()
     }
 }, async ({ to, cc, bcc, subject, body, html = false, attachments = [], save_draft = true }) => {
     try {
@@ -4601,26 +4639,26 @@ server.registerTool("email_compose", {
 server.registerTool("email_send", {
     description: "Send email messages using configured email provider",
     inputSchema: {
-        draft_id: z.string().optional(),
-        to: z.string().or(z.array(z.string())).optional(),
-        cc: z.string().or(z.array(z.string())).optional(),
-        bcc: z.string().or(z.array(z.string())).optional(),
-        subject: z.string().optional(),
-        body: z.string().optional(),
-        html: z.boolean().optional(),
-        attachments: z.array(z.string()).optional(),
-        provider: z.enum(['gmail', 'outlook', 'yahoo', 'custom']).optional(),
-        host: z.string().optional(),
-        port: z.number().optional(),
-        username: z.string().optional(),
-        password: z.string().optional(),
-        from: z.string().optional()
+        draft_id: zod_1.z.string().optional(),
+        to: zod_1.z.string().or(zod_1.z.array(zod_1.z.string())).optional(),
+        cc: zod_1.z.string().or(zod_1.z.array(zod_1.z.string())).optional(),
+        bcc: zod_1.z.string().or(zod_1.z.array(zod_1.z.string())).optional(),
+        subject: zod_1.z.string().optional(),
+        body: zod_1.z.string().optional(),
+        html: zod_1.z.boolean().optional(),
+        attachments: zod_1.z.array(zod_1.z.string()).optional(),
+        provider: zod_1.z.enum(['gmail', 'outlook', 'yahoo', 'custom']).optional(),
+        host: zod_1.z.string().optional(),
+        port: zod_1.z.number().optional(),
+        username: zod_1.z.string().optional(),
+        password: zod_1.z.string().optional(),
+        from: zod_1.z.string().optional()
     },
     outputSchema: {
-        success: z.boolean(),
-        message: z.string(),
-        error: z.string().optional(),
-        needs_login: z.boolean().optional()
+        success: zod_1.z.boolean(),
+        message: zod_1.z.string(),
+        error: zod_1.z.string().optional(),
+        needs_login: zod_1.z.boolean().optional()
     }
 }, async ({ draft_id, to, cc, bcc, subject, body, html = false, attachments = [], provider, host, port, username, password, from }) => {
     try {
@@ -4754,19 +4792,19 @@ ${emailMessage.body}`;
 server.registerTool("email_login", {
     description: "Interactive email login - prompts for credentials and stores them securely",
     inputSchema: {
-        provider: z.enum(['gmail', 'outlook', 'yahoo', 'custom']),
-        username: z.string(),
-        password: z.string(),
-        host: z.string().optional(),
-        port: z.number().optional(),
-        secure: z.boolean().optional(),
-        accountKey: z.string().optional(),
-        accountName: z.string().optional()
+        provider: zod_1.z.enum(['gmail', 'outlook', 'yahoo', 'custom']),
+        username: zod_1.z.string(),
+        password: zod_1.z.string(),
+        host: zod_1.z.string().optional(),
+        port: zod_1.z.number().optional(),
+        secure: zod_1.z.boolean().optional(),
+        accountKey: zod_1.z.string().optional(),
+        accountName: zod_1.z.string().optional()
     },
     outputSchema: {
-        success: z.boolean(),
-        message: z.string(),
-        error: z.string().optional()
+        success: zod_1.z.boolean(),
+        message: zod_1.z.string(),
+        error: zod_1.z.string().optional()
     }
 }, async ({ provider, username, password, host, port, secure, accountKey, accountName }) => {
     try {
@@ -4834,28 +4872,28 @@ server.registerTool("email_login", {
 server.registerTool("email_check", {
     description: "Check and read email messages from configured email provider",
     inputSchema: {
-        provider: z.enum(['gmail', 'outlook', 'yahoo', 'custom']).optional(),
-        host: z.string().optional(),
-        port: z.number().optional(),
-        username: z.string().optional(),
-        password: z.string().optional(),
-        folder: z.string().optional(),
-        limit: z.number().optional(),
-        unread_only: z.boolean().optional()
+        provider: zod_1.z.enum(['gmail', 'outlook', 'yahoo', 'custom']).optional(),
+        host: zod_1.z.string().optional(),
+        port: zod_1.z.number().optional(),
+        username: zod_1.z.string().optional(),
+        password: zod_1.z.string().optional(),
+        folder: zod_1.z.string().optional(),
+        limit: zod_1.z.number().optional(),
+        unread_only: zod_1.z.boolean().optional()
     },
     outputSchema: {
-        success: z.boolean(),
-        messages: z.array(z.object({
-            id: z.string(),
-            from: z.string(),
-            to: z.string(),
-            subject: z.string(),
-            date: z.string(),
-            body: z.string(),
-            unread: z.boolean()
+        success: zod_1.z.boolean(),
+        messages: zod_1.z.array(zod_1.z.object({
+            id: zod_1.z.string(),
+            from: zod_1.z.string(),
+            to: zod_1.z.string(),
+            subject: zod_1.z.string(),
+            date: zod_1.z.string(),
+            body: zod_1.z.string(),
+            unread: zod_1.z.boolean()
         })).optional(),
-        error: z.string().optional(),
-        needs_login: z.boolean().optional()
+        error: zod_1.z.string().optional(),
+        needs_login: zod_1.z.boolean().optional()
     }
 }, async ({ provider, host, port, username, password, folder = 'INBOX', limit = 10, unread_only = false }) => {
     try {
@@ -4987,23 +5025,23 @@ server.registerTool("email_status", {
     description: "Check the current email configuration status and list all configured accounts",
     inputSchema: {},
     outputSchema: {
-        configured: z.boolean(),
-        activeAccount: z.object({
-            provider: z.string(),
-            username: z.string(),
-            host: z.string(),
-            port: z.number(),
-            accountName: z.string().optional()
+        configured: zod_1.z.boolean(),
+        activeAccount: zod_1.z.object({
+            provider: zod_1.z.string(),
+            username: zod_1.z.string(),
+            host: zod_1.z.string(),
+            port: zod_1.z.number(),
+            accountName: zod_1.z.string().optional()
         }).optional(),
-        allAccounts: z.array(z.object({
-            key: z.string(),
-            name: z.string(),
-            provider: z.string(),
-            username: z.string(),
-            isActive: z.boolean()
+        allAccounts: zod_1.z.array(zod_1.z.object({
+            key: zod_1.z.string(),
+            name: zod_1.z.string(),
+            provider: zod_1.z.string(),
+            username: zod_1.z.string(),
+            isActive: zod_1.z.boolean()
         })).optional(),
-        message: z.string(),
-        needs_login: z.boolean().optional()
+        message: zod_1.z.string(),
+        needs_login: zod_1.z.boolean().optional()
     }
 }, async () => {
     try {
@@ -5074,18 +5112,18 @@ server.registerTool("email_status", {
 server.registerTool("email_config", {
     description: "Configure email provider settings",
     inputSchema: {
-        provider: z.enum(['gmail', 'outlook', 'yahoo', 'custom']),
-        username: z.string(),
-        password: z.string(),
-        from: z.string().optional(),
-        host: z.string().optional(),
-        port: z.number().optional(),
-        secure: z.boolean().optional()
+        provider: zod_1.z.enum(['gmail', 'outlook', 'yahoo', 'custom']),
+        username: zod_1.z.string(),
+        password: zod_1.z.string(),
+        from: zod_1.z.string().optional(),
+        host: zod_1.z.string().optional(),
+        port: zod_1.z.number().optional(),
+        secure: zod_1.z.boolean().optional()
     },
     outputSchema: {
-        success: z.boolean(),
-        message: z.string(),
-        error: z.string().optional()
+        success: zod_1.z.boolean(),
+        message: zod_1.z.string(),
+        error: zod_1.z.string().optional()
     }
 }, async ({ provider, username, password, from, host, port, secure }) => {
     try {
@@ -5132,20 +5170,20 @@ server.registerTool("email_config", {
 server.registerTool("email_drafts", {
     description: "List and manage email drafts",
     inputSchema: {
-        action: z.enum(['list', 'read', 'delete']),
-        draft_id: z.string().optional()
+        action: zod_1.z.enum(['list', 'read', 'delete']),
+        draft_id: zod_1.z.string().optional()
     },
     outputSchema: {
-        success: z.boolean(),
-        drafts: z.array(z.object({
-            id: z.string(),
-            subject: z.string(),
-            to: z.string(),
-            date: z.string()
+        success: zod_1.z.boolean(),
+        drafts: zod_1.z.array(zod_1.z.object({
+            id: zod_1.z.string(),
+            subject: zod_1.z.string(),
+            to: zod_1.z.string(),
+            date: zod_1.z.string()
         })).optional(),
-        draft: z.any().optional(),
-        message: z.string(),
-        error: z.string().optional()
+        draft: zod_1.z.any().optional(),
+        message: zod_1.z.string(),
+        error: zod_1.z.string().optional()
     }
 }, async ({ action, draft_id }) => {
     try {
@@ -5277,22 +5315,22 @@ server.registerTool("email_drafts", {
 server.registerTool("email_accounts", {
     description: "List all configured email accounts and manage them",
     inputSchema: {
-        action: z.enum(['list', 'add', 'remove', 'switch', 'rename']),
-        accountKey: z.string().optional(),
-        newAccountKey: z.string().optional(),
-        accountName: z.string().optional()
+        action: zod_1.z.enum(['list', 'add', 'remove', 'switch', 'rename']),
+        accountKey: zod_1.z.string().optional(),
+        newAccountKey: zod_1.z.string().optional(),
+        accountName: zod_1.z.string().optional()
     },
     outputSchema: {
-        success: z.boolean(),
-        message: z.string(),
-        accounts: z.array(z.object({
-            key: z.string(),
-            name: z.string(),
-            provider: z.string(),
-            username: z.string(),
-            isActive: z.boolean()
+        success: zod_1.z.boolean(),
+        message: zod_1.z.string(),
+        accounts: zod_1.z.array(zod_1.z.object({
+            key: zod_1.z.string(),
+            name: zod_1.z.string(),
+            provider: zod_1.z.string(),
+            username: zod_1.z.string(),
+            isActive: zod_1.z.boolean()
         })).optional(),
-        error: z.string().optional()
+        error: zod_1.z.string().optional()
     }
 }, async ({ action, accountKey, newAccountKey, accountName }) => {
     try {
@@ -5498,12 +5536,12 @@ server.registerTool("email_accounts", {
 server.registerTool("email_set_active", {
     description: "Set the active email account using natural language or account identifier",
     inputSchema: {
-        accountIdentifier: z.string().describe("Can be email address, account name, or account key")
+        accountIdentifier: zod_1.z.string().describe("Can be email address, account name, or account key")
     },
     outputSchema: {
-        success: z.boolean(),
-        message: z.string(),
-        error: z.string().optional()
+        success: zod_1.z.boolean(),
+        message: zod_1.z.string(),
+        error: zod_1.z.string().optional()
     }
 }, async ({ accountIdentifier }) => {
     try {
@@ -5558,8 +5596,8 @@ server.registerTool("email_set_active", {
 // Calculator and Graphing Tools
 server.registerTool("calculator", {
     description: "Advanced mathematical calculator with scientific functions, unit conversions, and financial calculations",
-    inputSchema: { expression: z.string().describe("Mathematical expression to evaluate (e.g., '2 + 3 * 4', 'sin(pi/2)', '100 USD to EUR')"), precision: z.number().optional().describe("Number of decimal places for result (default: 10)") },
-    outputSchema: { success: z.boolean(), result: z.string(), expression: z.string(), type: z.string(), error: z.string().optional() }
+    inputSchema: { expression: zod_1.z.string().describe("Mathematical expression to evaluate (e.g., '2 + 3 * 4', 'sin(pi/2)', '100 USD to EUR')"), precision: zod_1.z.number().optional().describe("Number of decimal places for result (default: 10)") },
+    outputSchema: { success: zod_1.z.boolean(), result: zod_1.z.string(), expression: zod_1.z.string(), type: zod_1.z.string(), error: zod_1.z.string().optional() }
 }, async ({ expression, precision = 10 }) => {
     try {
         // Standard mathematical evaluation
@@ -5589,18 +5627,18 @@ server.registerTool("calculator", {
 });
 server.registerTool("dice_rolling", {
     description: "Roll dice with various configurations and get random numbers",
-    inputSchema: { dice: z.string().describe("Dice notation (e.g., 'd6', '3d20', '2d10+5', 'd100')"), count: z.number().optional().describe("Number of times to roll (default: 1)"), modifier: z.number().optional().describe("Modifier to add to each roll (default: 0)") },
+    inputSchema: { dice: zod_1.z.string().describe("Dice notation (e.g., 'd6', '3d20', '2d10+5', 'd100')"), count: zod_1.z.number().optional().describe("Number of times to roll (default: 1)"), modifier: zod_1.z.number().optional().describe("Modifier to add to each roll (default: 0)") },
     outputSchema: {
-        success: z.boolean(),
-        dice: z.string(),
-        rolls: z.array(z.array(z.number())),
-        results: z.array(z.number()),
-        total: z.number(),
-        average: z.number(),
-        count: z.number(),
-        modifier: z.number(),
-        message: z.string(),
-        error: z.string().optional()
+        success: zod_1.z.boolean(),
+        dice: zod_1.z.string(),
+        rolls: zod_1.z.array(zod_1.z.array(zod_1.z.number())),
+        results: zod_1.z.array(zod_1.z.number()),
+        total: zod_1.z.number(),
+        average: zod_1.z.number(),
+        count: zod_1.z.number(),
+        modifier: zod_1.z.number(),
+        message: zod_1.z.string(),
+        error: zod_1.z.string().optional()
     }
 }, async ({ dice, count = 1, modifier = 0 }) => {
     try {
@@ -5667,14 +5705,14 @@ server.registerTool("dice_rolling", {
 server.registerTool("math_calculate", {
     description: "Perform mathematical calculations using mathjs library",
     inputSchema: {
-        expression: z.string(),
-        variables: z.record(z.any()).optional(),
-        precision: z.number().int().min(1).max(20).optional()
+        expression: zod_1.z.string(),
+        variables: zod_1.z.record(zod_1.z.any()).optional(),
+        precision: zod_1.z.number().int().min(1).max(20).optional()
     },
     outputSchema: {
-        result: z.any(),
-        type: z.string(),
-        error: z.string().optional()
+        result: zod_1.z.any(),
+        type: zod_1.z.string(),
+        error: zod_1.z.string().optional()
     }
 }, async ({ expression, variables = {}, precision }) => {
     try {
@@ -5708,14 +5746,14 @@ server.registerTool("math_calculate", {
 server.registerTool("math_solve", {
     description: "Solve mathematical equations and systems",
     inputSchema: {
-        equations: z.array(z.string()),
-        variables: z.array(z.string()).optional(),
-        method: z.enum(["auto", "lup", "qr", "lu"]).default("auto")
+        equations: zod_1.z.array(zod_1.z.string()),
+        variables: zod_1.z.array(zod_1.z.string()).optional(),
+        method: zod_1.z.enum(["auto", "lup", "qr", "lu"]).default("auto")
     },
     outputSchema: {
-        solutions: z.record(z.any()),
-        method_used: z.string(),
-        error: z.string().optional()
+        solutions: zod_1.z.record(zod_1.z.any()),
+        method_used: zod_1.z.string(),
+        error: zod_1.z.string().optional()
     }
 }, async ({ equations, variables, method }) => {
     try {
@@ -5771,14 +5809,14 @@ server.registerTool("math_solve", {
 server.registerTool("math_derivative", {
     description: "Calculate derivatives of mathematical expressions",
     inputSchema: {
-        expression: z.string(),
-        variable: z.string().default("x"),
-        order: z.number().int().min(1).max(10).default(1)
+        expression: zod_1.z.string(),
+        variable: zod_1.z.string().default("x"),
+        order: zod_1.z.number().int().min(1).max(10).default(1)
     },
     outputSchema: {
-        derivative: z.string(),
-        simplified: z.string(),
-        error: z.string().optional()
+        derivative: zod_1.z.string(),
+        simplified: zod_1.z.string(),
+        error: zod_1.z.string().optional()
     }
 }, async ({ expression, variable, order }) => {
     try {
@@ -5810,15 +5848,15 @@ server.registerTool("math_derivative", {
 server.registerTool("math_integral", {
     description: "Calculate integrals of mathematical expressions",
     inputSchema: {
-        expression: z.string(),
-        variable: z.string().default("x"),
-        lower_bound: z.number().optional(),
-        upper_bound: z.number().optional()
+        expression: zod_1.z.string(),
+        variable: zod_1.z.string().default("x"),
+        lower_bound: zod_1.z.number().optional(),
+        upper_bound: zod_1.z.number().optional()
     },
     outputSchema: {
-        integral: z.string(),
-        definite_result: z.number().optional(),
-        error: z.string().optional()
+        integral: zod_1.z.string(),
+        definite_result: zod_1.z.number().optional(),
+        error: zod_1.z.string().optional()
     }
 }, async ({ expression, variable, lower_bound, upper_bound }) => {
     try {
@@ -5876,15 +5914,15 @@ server.registerTool("math_integral", {
 server.registerTool("math_matrix", {
     description: "Perform matrix operations",
     inputSchema: {
-        operation: z.enum(["create", "multiply", "inverse", "determinant", "eigenvalues", "eigenvectors", "transpose", "rank", "trace"]),
-        matrix: z.array(z.array(z.number())).optional(),
-        matrix2: z.array(z.array(z.number())).optional(),
-        size: z.array(z.number()).optional()
+        operation: zod_1.z.enum(["create", "multiply", "inverse", "determinant", "eigenvalues", "eigenvectors", "transpose", "rank", "trace"]),
+        matrix: zod_1.z.array(zod_1.z.array(zod_1.z.number())).optional(),
+        matrix2: zod_1.z.array(zod_1.z.array(zod_1.z.number())).optional(),
+        size: zod_1.z.array(zod_1.z.number()).optional()
     },
     outputSchema: {
-        result: z.any(),
-        type: z.string(),
-        error: z.string().optional()
+        result: zod_1.z.any(),
+        type: zod_1.z.string(),
+        error: zod_1.z.string().optional()
     }
 }, async ({ operation, matrix, matrix2, size }) => {
     try {
@@ -5997,15 +6035,15 @@ server.registerTool("math_matrix", {
 server.registerTool("math_statistics", {
     description: "Perform statistical calculations",
     inputSchema: {
-        operation: z.enum(["mean", "median", "mode", "variance", "std", "min", "max", "sum", "product", "range", "percentile", "correlation", "regression"]),
-        data: z.array(z.number()),
-        data2: z.array(z.number()).optional(),
-        percentile: z.number().min(0).max(100).optional()
+        operation: zod_1.z.enum(["mean", "median", "mode", "variance", "std", "min", "max", "sum", "product", "range", "percentile", "correlation", "regression"]),
+        data: zod_1.z.array(zod_1.z.number()),
+        data2: zod_1.z.array(zod_1.z.number()).optional(),
+        percentile: zod_1.z.number().min(0).max(100).optional()
     },
     outputSchema: {
-        result: z.any(),
-        type: z.string(),
-        error: z.string().optional()
+        result: zod_1.z.any(),
+        type: zod_1.z.string(),
+        error: zod_1.z.string().optional()
     }
 }, async ({ operation, data, data2, percentile }) => {
     try {
@@ -6105,15 +6143,15 @@ server.registerTool("math_statistics", {
 server.registerTool("math_units", {
     description: "Convert between different units",
     inputSchema: {
-        value: z.number(),
-        from_unit: z.string(),
-        to_unit: z.string()
+        value: zod_1.z.number(),
+        from_unit: zod_1.z.string(),
+        to_unit: zod_1.z.string()
     },
     outputSchema: {
-        result: z.number(),
-        from_unit: z.string(),
-        to_unit: z.string(),
-        error: z.string().optional()
+        result: zod_1.z.number(),
+        from_unit: zod_1.z.string(),
+        to_unit: zod_1.z.string(),
+        error: zod_1.z.string().optional()
     }
 }, async ({ value, from_unit, to_unit }) => {
     try {
@@ -6143,17 +6181,17 @@ server.registerTool("math_units", {
 server.registerTool("math_complex", {
     description: "Perform complex number operations",
     inputSchema: {
-        operation: z.enum(["create", "add", "subtract", "multiply", "divide", "conjugate", "abs", "arg", "pow"]),
-        real: z.number(),
-        imaginary: z.number(),
-        real2: z.number().optional(),
-        imaginary2: z.number().optional(),
-        power: z.number().optional()
+        operation: zod_1.z.enum(["create", "add", "subtract", "multiply", "divide", "conjugate", "abs", "arg", "pow"]),
+        real: zod_1.z.number(),
+        imaginary: zod_1.z.number(),
+        real2: zod_1.z.number().optional(),
+        imaginary2: zod_1.z.number().optional(),
+        power: zod_1.z.number().optional()
     },
     outputSchema: {
-        result: z.any(),
-        type: z.string(),
-        error: z.string().optional()
+        result: zod_1.z.any(),
+        type: zod_1.z.string(),
+        error: zod_1.z.string().optional()
     }
 }, async ({ operation, real, imaginary, real2, imaginary2, power }) => {
     try {
@@ -6240,18 +6278,18 @@ server.registerTool("math_complex", {
 server.registerTool("math_plot", {
     description: "Generate mathematical plots and visualizations",
     inputSchema: {
-        type: z.enum(["function", "scatter", "histogram", "3d"]),
-        data: z.any(),
-        x_range: z.array(z.number()).optional(),
-        y_range: z.array(z.number()).optional(),
-        title: z.string().optional(),
-        width: z.number().default(800),
-        height: z.number().default(600)
+        type: zod_1.z.enum(["function", "scatter", "histogram", "3d"]),
+        data: zod_1.z.any(),
+        x_range: zod_1.z.array(zod_1.z.number()).optional(),
+        y_range: zod_1.z.array(zod_1.z.number()).optional(),
+        title: zod_1.z.string().optional(),
+        width: zod_1.z.number().default(800),
+        height: zod_1.z.number().default(600)
     },
     outputSchema: {
-        success: z.boolean(),
-        plot_data: z.any(),
-        error: z.string().optional()
+        success: zod_1.z.boolean(),
+        plot_data: zod_1.z.any(),
+        error: zod_1.z.string().optional()
     }
 }, async ({ type, data, x_range, y_range, title, width, height }) => {
     try {
@@ -6340,35 +6378,35 @@ server.registerTool("math_plot", {
 server.registerTool("web_automation", {
     description: "Advanced web automation with form filling, login, and interactive capabilities",
     inputSchema: {
-        action: z.enum(["navigate", "click", "type", "fill_form", "login", "screenshot", "extract_data", "wait", "scroll", "select", "upload", "download"]),
-        url: z.string().url().optional(),
-        selector: z.string().optional(),
-        data: z.record(z.any()).optional(),
-        credentials: z.object({
-            username: z.string().optional(),
-            password: z.string().optional(),
-            email: z.string().optional()
+        action: zod_1.z.enum(["navigate", "click", "type", "fill_form", "login", "screenshot", "extract_data", "wait", "scroll", "select", "upload", "download"]),
+        url: zod_1.z.string().url().optional(),
+        selector: zod_1.z.string().optional(),
+        data: zod_1.z.record(zod_1.z.any()).optional(),
+        credentials: zod_1.z.object({
+            username: zod_1.z.string().optional(),
+            password: zod_1.z.string().optional(),
+            email: zod_1.z.string().optional()
         }).optional(),
-        options: z.object({
-            headless: z.boolean().default(true),
-            timeout: z.number().default(30000),
-            wait_for: z.string().optional(),
-            incognito: z.boolean().default(false),
-            proxy: z.string().optional(),
-            user_agent: z.string().optional()
+        options: zod_1.z.object({
+            headless: zod_1.z.boolean().default(true),
+            timeout: zod_1.z.number().default(30000),
+            wait_for: zod_1.z.string().optional(),
+            incognito: zod_1.z.boolean().default(false),
+            proxy: zod_1.z.string().optional(),
+            user_agent: zod_1.z.string().optional()
         }).optional()
     },
     outputSchema: {
-        success: z.boolean(),
-        data: z.any().optional(),
-        screenshot_path: z.string().optional(),
-        error: z.string().optional()
+        success: zod_1.z.boolean(),
+        data: zod_1.z.any().optional(),
+        screenshot_path: zod_1.z.string().optional(),
+        error: zod_1.z.string().optional()
     }
 }, async ({ action, url, selector, data, credentials, options = {} }) => {
     try {
         // Initialize browser if not already done
         if (!browserInstance) {
-            const puppeteer = await import("puppeteer");
+            const puppeteer = await Promise.resolve().then(() => __importStar(require("puppeteer")));
             const launchOptions = {
                 headless: options.headless,
                 args: [
@@ -6538,29 +6576,29 @@ server.registerTool("web_automation", {
 server.registerTool("web_scraping", {
     description: "Advanced web scraping with HTML parsing, data extraction, and monitoring capabilities",
     inputSchema: {
-        action: z.enum(["scrape", "monitor", "extract", "parse_html", "follow_links", "extract_structured"]),
-        url: z.string().url().optional(),
-        html_content: z.string().optional(),
-        selectors: z.record(z.string()).optional(),
-        monitoring: z.object({
-            interval: z.number().default(300000), // 5 minutes
-            changes: z.boolean().default(true),
-            notifications: z.boolean().default(false)
+        action: zod_1.z.enum(["scrape", "monitor", "extract", "parse_html", "follow_links", "extract_structured"]),
+        url: zod_1.z.string().url().optional(),
+        html_content: zod_1.z.string().optional(),
+        selectors: zod_1.z.record(zod_1.z.string()).optional(),
+        monitoring: zod_1.z.object({
+            interval: zod_1.z.number().default(300000), // 5 minutes
+            changes: zod_1.z.boolean().default(true),
+            notifications: zod_1.z.boolean().default(false)
         }).optional(),
-        options: z.object({
-            timeout: z.number().default(30000),
-            user_agent: z.string().optional(),
-            headers: z.record(z.string()).optional(),
-            follow_redirects: z.boolean().default(true),
-            retry_attempts: z.number().default(3)
+        options: zod_1.z.object({
+            timeout: zod_1.z.number().default(30000),
+            user_agent: zod_1.z.string().optional(),
+            headers: zod_1.z.record(zod_1.z.string()).optional(),
+            follow_redirects: zod_1.z.boolean().default(true),
+            retry_attempts: zod_1.z.number().default(3)
         }).optional()
     },
     outputSchema: {
-        success: z.boolean(),
-        data: z.any().optional(),
-        html: z.string().optional(),
-        links: z.array(z.string()).optional(),
-        error: z.string().optional()
+        success: zod_1.z.boolean(),
+        data: zod_1.z.any().optional(),
+        html: zod_1.z.string().optional(),
+        links: zod_1.z.array(zod_1.z.string()).optional(),
+        error: zod_1.z.string().optional()
     }
 }, async ({ action, url, html_content, selectors, monitoring, options = {} }) => {
     try {
@@ -6568,7 +6606,7 @@ server.registerTool("web_scraping", {
         let response;
         if (!html && url) {
             // Fetch HTML content
-            const axios = await import("axios");
+            const axios = await Promise.resolve().then(() => __importStar(require("axios")));
             const config = {
                 timeout: options.timeout,
                 headers: options.headers || {}
@@ -6597,7 +6635,7 @@ server.registerTool("web_scraping", {
             throw new Error("No HTML content available");
         }
         // Parse HTML with Cheerio
-        const cheerio = await import("cheerio");
+        const cheerio = await Promise.resolve().then(() => __importStar(require("cheerio")));
         const $ = cheerio.load(html);
         switch (action) {
             case "scrape":
@@ -6747,39 +6785,39 @@ server.registerTool("web_scraping", {
 server.registerTool("api_client", {
     description: "Advanced API client with REST calls, authentication, OAuth, and webhook management",
     inputSchema: {
-        action: z.enum(["get", "post", "put", "delete", "patch", "oauth", "webhook", "batch", "cache", "rate_limit"]),
-        url: z.string().url().optional(),
-        method: z.enum(["GET", "POST", "PUT", "DELETE", "PATCH"]).optional(),
-        headers: z.record(z.string()).optional(),
-        data: z.any().optional(),
-        auth: z.object({
-            type: z.enum(["basic", "bearer", "api_key", "oauth2", "oauth1"]).optional(),
-            username: z.string().optional(),
-            password: z.string().optional(),
-            token: z.string().optional(),
-            api_key: z.string().optional(),
-            client_id: z.string().optional(),
-            client_secret: z.string().optional(),
-            redirect_uri: z.string().optional()
+        action: zod_1.z.enum(["get", "post", "put", "delete", "patch", "oauth", "webhook", "batch", "cache", "rate_limit"]),
+        url: zod_1.z.string().url().optional(),
+        method: zod_1.z.enum(["GET", "POST", "PUT", "DELETE", "PATCH"]).optional(),
+        headers: zod_1.z.record(zod_1.z.string()).optional(),
+        data: zod_1.z.any().optional(),
+        auth: zod_1.z.object({
+            type: zod_1.z.enum(["basic", "bearer", "api_key", "oauth2", "oauth1"]).optional(),
+            username: zod_1.z.string().optional(),
+            password: zod_1.z.string().optional(),
+            token: zod_1.z.string().optional(),
+            api_key: zod_1.z.string().optional(),
+            client_id: zod_1.z.string().optional(),
+            client_secret: zod_1.z.string().optional(),
+            redirect_uri: zod_1.z.string().optional()
         }).optional(),
-        options: z.object({
-            timeout: z.number().default(30000),
-            retry_attempts: z.number().default(3),
-            cache_duration: z.number().default(300), // 5 minutes
-            rate_limit: z.number().optional(),
-            follow_redirects: z.boolean().default(true)
+        options: zod_1.z.object({
+            timeout: zod_1.z.number().default(30000),
+            retry_attempts: zod_1.z.number().default(3),
+            cache_duration: zod_1.z.number().default(300), // 5 minutes
+            rate_limit: zod_1.z.number().optional(),
+            follow_redirects: zod_1.z.boolean().default(true)
         }).optional()
     },
     outputSchema: {
-        success: z.boolean(),
-        data: z.any().optional(),
-        status: z.number().optional(),
-        headers: z.record(z.string()).optional(),
-        error: z.string().optional()
+        success: zod_1.z.boolean(),
+        data: zod_1.z.any().optional(),
+        status: zod_1.z.number().optional(),
+        headers: zod_1.z.record(zod_1.z.string()).optional(),
+        error: zod_1.z.string().optional()
     }
 }, async ({ action, url, method, headers, data, auth, options = {} }) => {
     try {
-        const axios = await import("axios");
+        const axios = await Promise.resolve().then(() => __importStar(require("axios")));
         // Configure axios instance
         const config = {
             timeout: options.timeout,
@@ -6980,20 +7018,20 @@ server.registerTool("api_client", {
 server.registerTool("browser_advanced", {
     description: "Advanced browser features including tab management, bookmarks, history, and extensions",
     inputSchema: {
-        action: z.enum(["tabs", "bookmarks", "history", "extensions", "cookies", "storage", "network", "performance", "security"]),
-        operation: z.enum(["list", "create", "delete", "update", "export", "import", "clear", "backup", "restore"]).optional(),
-        data: z.any().optional(),
-        options: z.object({
-            browser: z.enum(["chrome", "firefox", "edge", "safari"]).default("chrome"),
-            profile: z.string().optional(),
-            incognito: z.boolean().default(false)
+        action: zod_1.z.enum(["tabs", "bookmarks", "history", "extensions", "cookies", "storage", "network", "performance", "security"]),
+        operation: zod_1.z.enum(["list", "create", "delete", "update", "export", "import", "clear", "backup", "restore"]).optional(),
+        data: zod_1.z.any().optional(),
+        options: zod_1.z.object({
+            browser: zod_1.z.enum(["chrome", "firefox", "edge", "safari"]).default("chrome"),
+            profile: zod_1.z.string().optional(),
+            incognito: zod_1.z.boolean().default(false)
         }).optional()
     },
     outputSchema: {
-        success: z.boolean(),
-        data: z.any().optional(),
-        message: z.string().optional(),
-        error: z.string().optional()
+        success: zod_1.z.boolean(),
+        data: zod_1.z.any().optional(),
+        message: zod_1.z.string().optional(),
+        error: zod_1.z.string().optional()
     }
 }, async ({ action, operation = "list", data, options = {} }) => {
     try {
@@ -7255,19 +7293,19 @@ server.registerTool("browser_advanced", {
 server.registerTool("security_privacy", {
     description: "Security and privacy features including incognito mode, proxy support, VPN integration, and ad-blocking",
     inputSchema: {
-        action: z.enum(["incognito", "proxy", "vpn", "ad_block", "tracking_protection", "fingerprint_protection", "encryption", "privacy_scan"]),
-        operation: z.enum(["enable", "disable", "configure", "status", "test", "list"]).optional(),
-        config: z.any().optional(),
-        options: z.object({
-            browser: z.enum(["chrome", "firefox", "edge", "safari"]).default("chrome"),
-            profile: z.string().optional()
+        action: zod_1.z.enum(["incognito", "proxy", "vpn", "ad_block", "tracking_protection", "fingerprint_protection", "encryption", "privacy_scan"]),
+        operation: zod_1.z.enum(["enable", "disable", "configure", "status", "test", "list"]).optional(),
+        config: zod_1.z.any().optional(),
+        options: zod_1.z.object({
+            browser: zod_1.z.enum(["chrome", "firefox", "edge", "safari"]).default("chrome"),
+            profile: zod_1.z.string().optional()
         }).optional()
     },
     outputSchema: {
-        success: z.boolean(),
-        data: z.any().optional(),
-        message: z.string().optional(),
-        error: z.string().optional()
+        success: zod_1.z.boolean(),
+        data: zod_1.z.any().optional(),
+        message: zod_1.z.string().optional(),
+        error: zod_1.z.string().optional()
     }
 }, async ({ action, operation = "status", config, options = {} }) => {
     try {
@@ -7475,24 +7513,24 @@ server.registerTool("security_privacy", {
 server.registerTool("content_processing", {
     description: "Advanced content processing including OCR, PDF parsing, video/audio processing, and document conversion",
     inputSchema: {
-        action: z.enum(["ocr", "pdf_parse", "video_process", "audio_process", "document_convert", "image_process", "text_extract", "format_convert"]),
-        input_path: z.string().optional(),
-        input_data: z.any().optional(),
-        output_path: z.string().optional(),
-        options: z.object({
-            language: z.string().default("eng"),
-            quality: z.number().min(1).max(100).default(90),
-            format: z.string().optional(),
-            pages: z.array(z.number()).optional(),
-            resolution: z.number().default(300)
+        action: zod_1.z.enum(["ocr", "pdf_parse", "video_process", "audio_process", "document_convert", "image_process", "text_extract", "format_convert"]),
+        input_path: zod_1.z.string().optional(),
+        input_data: zod_1.z.any().optional(),
+        output_path: zod_1.z.string().optional(),
+        options: zod_1.z.object({
+            language: zod_1.z.string().default("eng"),
+            quality: zod_1.z.number().min(1).max(100).default(90),
+            format: zod_1.z.string().optional(),
+            pages: zod_1.z.array(zod_1.z.number()).optional(),
+            resolution: zod_1.z.number().default(300)
         }).optional()
     },
     outputSchema: {
-        success: z.boolean(),
-        data: z.any().optional(),
-        output_path: z.string().optional(),
-        text: z.string().optional(),
-        error: z.string().optional()
+        success: zod_1.z.boolean(),
+        data: zod_1.z.any().optional(),
+        output_path: zod_1.z.string().optional(),
+        text: zod_1.z.string().optional(),
+        error: zod_1.z.string().optional()
     }
 }, async ({ action, input_path, input_data, output_path, options = {} }) => {
     try {
@@ -7732,14 +7770,14 @@ async function killBrowserProcesses(browser) {
 // ============================================================================
 server.registerTool("unix_services", {
     description: "List Unix/Linux services (systemd, init.d, launchd)",
-    inputSchema: { filter: z.string().optional() },
+    inputSchema: { filter: zod_1.z.string().optional() },
     outputSchema: {
-        services: z.array(z.object({
-            name: z.string(),
-            status: z.string(),
-            enabled: z.boolean().optional()
+        services: zod_1.z.array(zod_1.z.object({
+            name: zod_1.z.string(),
+            status: zod_1.z.string(),
+            enabled: zod_1.z.boolean().optional()
         })),
-        platform: z.string()
+        platform: zod_1.z.string()
     }
 }, async ({ filter }) => {
     try {
@@ -7808,15 +7846,15 @@ server.registerTool("unix_services", {
 });
 server.registerTool("unix_processes", {
     description: "List Unix/Linux processes",
-    inputSchema: { filter: z.string().optional() },
+    inputSchema: { filter: zod_1.z.string().optional() },
     outputSchema: {
-        processes: z.array(z.object({
-            pid: z.number(),
-            name: z.string(),
-            cpu: z.string().optional(),
-            memory: z.string().optional()
+        processes: zod_1.z.array(zod_1.z.object({
+            pid: zod_1.z.number(),
+            name: zod_1.z.string(),
+            cpu: zod_1.z.string().optional(),
+            memory: zod_1.z.string().optional()
         })),
-        platform: z.string()
+        platform: zod_1.z.string()
     }
 }, async ({ filter }) => {
     try {
@@ -7864,12 +7902,12 @@ server.registerTool("unix_processes", {
 server.registerTool("system_maintenance", {
     description: "Perform system maintenance tasks",
     inputSchema: {
-        action: z.enum(["disk_cleanup", "check_disk", "temp_cleanup", "cache_cleanup", "update_check"])
+        action: zod_1.z.enum(["disk_cleanup", "check_disk", "temp_cleanup", "cache_cleanup", "update_check"])
     },
     outputSchema: {
-        success: z.boolean(),
-        output: z.string().optional(),
-        error: z.string().optional()
+        success: zod_1.z.boolean(),
+        output: zod_1.z.string().optional(),
+        error: zod_1.z.string().optional()
     }
 }, async ({ action }) => {
     try {
@@ -7953,14 +7991,14 @@ server.registerTool("system_maintenance", {
 server.registerTool("network_diagnostics", {
     description: "Network diagnostic tools (ping, traceroute, nslookup)",
     inputSchema: {
-        action: z.enum(["ping", "traceroute", "nslookup", "netstat"]),
-        target: z.string()
+        action: zod_1.z.enum(["ping", "traceroute", "nslookup", "netstat"]),
+        target: zod_1.z.string()
     },
     outputSchema: {
-        success: z.boolean(),
-        output: z.string().optional(),
-        avgTime: z.number().optional(),
-        error: z.string().optional()
+        success: zod_1.z.boolean(),
+        output: zod_1.z.string().optional(),
+        avgTime: zod_1.z.number().optional(),
+        error: zod_1.z.string().optional()
     }
 }, async ({ action, target }) => {
     try {
@@ -8025,14 +8063,14 @@ server.registerTool("network_diagnostics", {
 server.registerTool("security_scan", {
     description: "Security scanning and analysis tools",
     inputSchema: {
-        action: z.enum(["check_permissions", "scan_malware", "check_firewall", "audit_system"]),
-        path: z.string().optional()
+        action: zod_1.z.enum(["check_permissions", "scan_malware", "check_firewall", "audit_system"]),
+        path: zod_1.z.string().optional()
     },
     outputSchema: {
-        success: z.boolean(),
-        results: z.array(z.any()).optional(),
-        summary: z.string().optional(),
-        error: z.string().optional()
+        success: zod_1.z.boolean(),
+        results: zod_1.z.array(zod_1.z.any()).optional(),
+        summary: zod_1.z.string().optional(),
+        error: zod_1.z.string().optional()
     }
 }, async ({ action, path: targetPath }) => {
     try {
@@ -8126,16 +8164,16 @@ server.registerTool("security_scan", {
 server.registerTool("network_advanced", {
     description: "Advanced network operations (cross-platform)",
     inputSchema: {
-        action: z.enum(["firewall_status", "port_scan", "dns_lookup", "route_table", "interface_info", "bandwidth_test"]),
-        target: z.string().optional(),
-        domain: z.string().optional(),
-        port: z.number().optional()
+        action: zod_1.z.enum(["firewall_status", "port_scan", "dns_lookup", "route_table", "interface_info", "bandwidth_test"]),
+        target: zod_1.z.string().optional(),
+        domain: zod_1.z.string().optional(),
+        port: zod_1.z.number().optional()
     },
     outputSchema: {
-        success: z.boolean(),
-        results: z.any().optional(),
-        platform: z.string(),
-        error: z.string().optional()
+        success: zod_1.z.boolean(),
+        results: zod_1.z.any().optional(),
+        platform: zod_1.z.string(),
+        error: zod_1.z.string().optional()
     }
 }, async ({ action, target, domain, port }) => {
     try {
@@ -8235,13 +8273,13 @@ server.registerTool("network_advanced", {
 server.registerTool("win_advanced", {
     description: "Windows advanced system operations",
     inputSchema: {
-        action: z.enum(["sfc_scan", "dism_restore", "chkdsk", "system_file_check", "windows_update", "powercfg"])
+        action: zod_1.z.enum(["sfc_scan", "dism_restore", "chkdsk", "system_file_check", "windows_update", "powercfg"])
     },
     outputSchema: {
-        success: z.boolean(),
-        output: z.string().optional(),
-        platform: z.string(),
-        error: z.string().optional()
+        success: zod_1.z.boolean(),
+        output: zod_1.z.string().optional(),
+        platform: zod_1.z.string(),
+        error: zod_1.z.string().optional()
     }
 }, async ({ action }) => {
     try {
@@ -8300,14 +8338,14 @@ server.registerTool("win_advanced", {
 server.registerTool("unix_advanced", {
     description: "Unix/Linux/macOS advanced system operations",
     inputSchema: {
-        action: z.enum(["fsck", "system_update", "service_restart", "package_management", "system_cleanup", "kernel_info"]),
-        service: z.string().optional()
+        action: zod_1.z.enum(["fsck", "system_update", "service_restart", "package_management", "system_cleanup", "kernel_info"]),
+        service: zod_1.z.string().optional()
     },
     outputSchema: {
-        success: z.boolean(),
-        output: z.string().optional(),
-        platform: z.string(),
-        error: z.string().optional()
+        success: zod_1.z.boolean(),
+        output: zod_1.z.string().optional(),
+        platform: zod_1.z.string(),
+        error: zod_1.z.string().optional()
     }
 }, async ({ action, service }) => {
     try {
@@ -8392,16 +8430,16 @@ server.registerTool("unix_advanced", {
 server.registerTool("log_analysis", {
     description: "System log analysis (cross-platform)",
     inputSchema: {
-        action: z.enum(["system_logs", "error_logs", "security_logs", "application_logs", "network_logs"]),
-        hours: z.number().default(24),
-        lines: z.number().default(100)
+        action: zod_1.z.enum(["system_logs", "error_logs", "security_logs", "application_logs", "network_logs"]),
+        hours: zod_1.z.number().default(24),
+        lines: zod_1.z.number().default(100)
     },
     outputSchema: {
-        success: z.boolean(),
-        logs: z.array(z.any()).optional(),
-        summary: z.string().optional(),
-        platform: z.string(),
-        error: z.string().optional()
+        success: zod_1.z.boolean(),
+        logs: zod_1.z.array(zod_1.z.any()).optional(),
+        summary: zod_1.z.string().optional(),
+        platform: zod_1.z.string(),
+        error: zod_1.z.string().optional()
     }
 }, async ({ action, hours, lines }) => {
     try {
@@ -8496,13 +8534,13 @@ server.registerTool("log_analysis", {
 server.registerTool("performance_monitor", {
     description: "System performance monitoring (cross-platform)",
     inputSchema: {
-        action: z.enum(["cpu_usage", "memory_usage", "disk_usage", "network_usage", "process_top", "system_load"])
+        action: zod_1.z.enum(["cpu_usage", "memory_usage", "disk_usage", "network_usage", "process_top", "system_load"])
     },
     outputSchema: {
-        success: z.boolean(),
-        metrics: z.any().optional(),
-        platform: z.string(),
-        error: z.string().optional()
+        success: zod_1.z.boolean(),
+        metrics: zod_1.z.any().optional(),
+        platform: zod_1.z.string(),
+        error: zod_1.z.string().optional()
     }
 }, async ({ action }) => {
     try {
@@ -8588,15 +8626,15 @@ server.registerTool("performance_monitor", {
 server.registerTool("process_management", {
     description: "Process management operations (cross-platform)",
     inputSchema: {
-        action: z.enum(["list_processes", "kill_process", "process_info", "process_tree", "resource_usage"]),
-        processName: z.string().optional(),
-        processId: z.number().optional()
+        action: zod_1.z.enum(["list_processes", "kill_process", "process_info", "process_tree", "resource_usage"]),
+        processName: zod_1.z.string().optional(),
+        processId: zod_1.z.number().optional()
     },
     outputSchema: {
-        success: z.boolean(),
-        processes: z.array(z.any()).optional(),
-        platform: z.string(),
-        error: z.string().optional()
+        success: zod_1.z.boolean(),
+        processes: zod_1.z.array(zod_1.z.any()).optional(),
+        platform: zod_1.z.string(),
+        error: zod_1.z.string().optional()
     }
 }, async ({ action, processName, processId }) => {
     try {
@@ -8690,15 +8728,15 @@ server.registerTool("process_management", {
 server.registerTool("file_system_advanced", {
     description: "Advanced file system operations (cross-platform)",
     inputSchema: {
-        action: z.enum(["find_files", "check_permissions", "disk_space", "file_analysis", "symlink_info", "mount_info"]),
-        path: z.string().optional(),
-        pattern: z.string().optional()
+        action: zod_1.z.enum(["find_files", "check_permissions", "disk_space", "file_analysis", "symlink_info", "mount_info"]),
+        path: zod_1.z.string().optional(),
+        pattern: zod_1.z.string().optional()
     },
     outputSchema: {
-        success: z.boolean(),
-        results: z.any().optional(),
-        platform: z.string(),
-        error: z.string().optional()
+        success: zod_1.z.boolean(),
+        results: zod_1.z.any().optional(),
+        platform: zod_1.z.string(),
+        error: zod_1.z.string().optional()
     }
 }, async ({ action, path: targetPath, pattern }) => {
     try {
@@ -8787,10 +8825,451 @@ server.registerTool("file_system_advanced", {
     }
 });
 // ============================================================================
+// VM MANAGEMENT TOOLS
+// ============================================================================
+// VM Management Tool - Cross-platform VM operations
+server.registerTool("vm_management", {
+    description: "Cross-platform virtual machine management (VirtualBox, VMware, QEMU/KVM, Hyper-V)",
+    inputSchema: {
+        action: zod_1.z.enum([
+            "list_vms", "start_vm", "stop_vm", "pause_vm", "resume_vm",
+            "create_vm", "delete_vm", "vm_info", "vm_status", "list_hypervisors"
+        ]),
+        vm_name: zod_1.z.string().optional(),
+        vm_type: zod_1.z.enum(["virtualbox", "vmware", "qemu", "hyperv", "auto"]).optional(),
+        memory_mb: zod_1.z.number().optional(),
+        cpu_cores: zod_1.z.number().optional(),
+        disk_size_gb: zod_1.z.number().optional(),
+        iso_path: zod_1.z.string().optional(),
+        network_type: zod_1.z.enum(["nat", "bridged", "hostonly", "internal"]).optional()
+    },
+    outputSchema: {
+        success: zod_1.z.boolean(),
+        results: zod_1.z.any().optional(),
+        platform: zod_1.z.string(),
+        hypervisor: zod_1.z.string().optional(),
+        error: zod_1.z.string().optional()
+    }
+}, async ({ action, vm_name, vm_type, memory_mb, cpu_cores, disk_size_gb, iso_path, network_type }) => {
+    try {
+        let results = {};
+        let detectedHypervisor = "none";
+        let command = "";
+        // Auto-detect available hypervisors
+        const detectHypervisors = async () => {
+            const hypervisors = [];
+            // Check VirtualBox
+            try {
+                await execAsync("VBoxManage --version");
+                hypervisors.push("virtualbox");
+            }
+            catch { }
+            // Check VMware
+            try {
+                if (IS_WINDOWS) {
+                    await execAsync("vmrun");
+                }
+                else {
+                    await execAsync("vmrun");
+                }
+                hypervisors.push("vmware");
+            }
+            catch { }
+            // Check QEMU/KVM
+            try {
+                await execAsync("qemu-system-x86_64 --version");
+                hypervisors.push("qemu");
+            }
+            catch { }
+            // Check Hyper-V (Windows only)
+            if (IS_WINDOWS) {
+                try {
+                    await execAsync("powershell \"Get-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V-All\"");
+                    hypervisors.push("hyperv");
+                }
+                catch { }
+            }
+            return hypervisors;
+        };
+        const availableHypervisors = await detectHypervisors();
+        if (vm_type === "auto" || !vm_type) {
+            vm_type = availableHypervisors[0] || "virtualbox";
+        }
+        detectedHypervisor = vm_type || "none";
+        switch (action) {
+            case "list_hypervisors":
+                results = { available: availableHypervisors, detected: vm_type };
+                break;
+            case "list_vms":
+                switch (vm_type) {
+                    case "virtualbox":
+                        try {
+                            const { stdout } = await execAsync("VBoxManage list vms");
+                            results = { vms: stdout.split('\n').filter(line => line.trim()) };
+                        }
+                        catch (error) {
+                            throw new Error(`VirtualBox not available: ${error}`);
+                        }
+                        break;
+                    case "vmware":
+                        try {
+                            if (IS_WINDOWS) {
+                                const { stdout } = await execAsync("vmrun list");
+                                results = { vms: stdout.split('\n').filter(line => line.trim()) };
+                            }
+                            else {
+                                const { stdout } = await execAsync("vmrun list");
+                                results = { vms: stdout.split('\n').filter(line => line.trim()) };
+                            }
+                        }
+                        catch (error) {
+                            throw new Error(`VMware not available: ${error}`);
+                        }
+                        break;
+                    case "qemu":
+                        try {
+                            const { stdout } = await execAsync("virsh list --all");
+                            results = { vms: stdout.split('\n').filter(line => line.trim()) };
+                        }
+                        catch (error) {
+                            throw new Error(`QEMU/KVM not available: ${error}`);
+                        }
+                        break;
+                    case "hyperv":
+                        if (IS_WINDOWS) {
+                            try {
+                                const { stdout } = await execAsync("powershell \"Get-VM | Select-Object Name, State, MemoryAssigned, ProcessorCount\"");
+                                results = { vms: stdout.split('\n').filter(line => line.trim()) };
+                            }
+                            catch (error) {
+                                throw new Error(`Hyper-V not available: ${error}`);
+                            }
+                        }
+                        else {
+                            throw new Error("Hyper-V is only available on Windows");
+                        }
+                        break;
+                }
+                break;
+            case "start_vm":
+                if (!vm_name)
+                    throw new Error("VM name is required");
+                switch (vm_type) {
+                    case "virtualbox":
+                        command = `VBoxManage startvm "${vm_name}" --type headless`;
+                        break;
+                    case "vmware":
+                        command = `vmrun start "${vm_name}" nogui`;
+                        break;
+                    case "qemu":
+                        command = `virsh start "${vm_name}"`;
+                        break;
+                    case "hyperv":
+                        if (IS_WINDOWS) {
+                            command = `powershell "Start-VM -Name '${vm_name}'"`;
+                        }
+                        else {
+                            throw new Error("Hyper-V is only available on Windows");
+                        }
+                        break;
+                }
+                const { stdout: startOutput } = await execAsync(command);
+                results = { output: startOutput, vm: vm_name, action: "started" };
+                break;
+            case "stop_vm":
+                if (!vm_name)
+                    throw new Error("VM name is required");
+                switch (vm_type) {
+                    case "virtualbox":
+                        command = `VBoxManage controlvm "${vm_name}" poweroff`;
+                        break;
+                    case "vmware":
+                        command = `vmrun stop "${vm_name}" soft`;
+                        break;
+                    case "qemu":
+                        command = `virsh shutdown "${vm_name}"`;
+                        break;
+                    case "hyperv":
+                        if (IS_WINDOWS) {
+                            command = `powershell "Stop-VM -Name '${vm_name}' -Force"`;
+                        }
+                        else {
+                            throw new Error("Hyper-V is only available on Windows");
+                        }
+                        break;
+                }
+                const { stdout: stopOutput } = await execAsync(command);
+                results = { output: stopOutput, vm: vm_name, action: "stopped" };
+                break;
+            case "vm_info":
+                if (!vm_name)
+                    throw new Error("VM name is required");
+                switch (vm_type) {
+                    case "virtualbox":
+                        command = `VBoxManage showvminfo "${vm_name}" --machinereadable`;
+                        break;
+                    case "vmware":
+                        command = `vmrun listSnapshots "${vm_name}"`;
+                        break;
+                    case "qemu":
+                        command = `virsh dominfo "${vm_name}"`;
+                        break;
+                    case "hyperv":
+                        if (IS_WINDOWS) {
+                            command = `powershell "Get-VM -Name '${vm_name}' | Select-Object *"`;
+                        }
+                        else {
+                            throw new Error("Hyper-V is only available on Windows");
+                        }
+                        break;
+                }
+                const { stdout: infoOutput } = await execAsync(command);
+                results = { info: infoOutput, vm: vm_name };
+                break;
+            case "create_vm":
+                if (!vm_name)
+                    throw new Error("VM name is required");
+                const memory = memory_mb || 1024;
+                const cores = cpu_cores || 2;
+                const diskSize = disk_size_gb || 20;
+                switch (vm_type) {
+                    case "virtualbox":
+                        command = `VBoxManage createvm --name "${vm_name}" --register && ` +
+                            `VBoxManage modifyvm "${vm_name}" --memory ${memory} --cpus ${cores} && ` +
+                            `VBoxManage createhd --filename "${vm_name}.vdi" --size ${diskSize * 1024} && ` +
+                            `VBoxManage storagectl "${vm_name}" --name "SATA Controller" --add sata --controller IntelAHCI && ` +
+                            `VBoxManage storageattach "${vm_name}" --storagectl "SATA Controller" --port 0 --device 0 --type hdd --medium "${vm_name}.vdi"`;
+                        break;
+                    case "qemu":
+                        command = `qemu-img create -f qcow2 "${vm_name}.qcow2" ${diskSize}G && ` +
+                            `virt-install --name "${vm_name}" --memory ${memory} --vcpus ${cores} --disk "${vm_name}.qcow2}" --cdrom "${iso_path || '/dev/null'}" --network network=default --graphics none --console pty,target_type=serial`;
+                        break;
+                    case "hyperv":
+                        if (IS_WINDOWS) {
+                            command = `powershell "New-VM -Name '${vm_name}' -MemoryStartupBytes ${memory}MB -Generation 2"`;
+                        }
+                        else {
+                            throw new Error("Hyper-V is only available on Windows");
+                        }
+                        break;
+                }
+                const { stdout: createOutput } = await execAsync(command);
+                results = { output: createOutput, vm: vm_name, action: "created", specs: { memory, cores, diskSize } };
+                break;
+            default:
+                throw new Error(`Unsupported VM action: ${action}`);
+        }
+        return {
+            content: [{ type: "text", text: `VM operation completed: ${action}` }],
+            structuredContent: {
+                success: true,
+                results,
+                platform: PLATFORM,
+                hypervisor: detectedHypervisor
+            }
+        };
+    }
+    catch (error) {
+        logger.error("VM management error", { error: error instanceof Error ? error.message : String(error) });
+        return {
+            content: [{ type: "text", text: `VM operation failed: ${error instanceof Error ? error.message : String(error)}` }],
+            structuredContent: {
+                success: false,
+                platform: PLATFORM,
+                error: error instanceof Error ? error.message : String(error)
+            }
+        };
+    }
+});
+// ============================================================================
+// DOCKER MANAGEMENT TOOLS
+// ============================================================================
+// Docker Management Tool - Cross-platform container operations
+server.registerTool("docker_management", {
+    description: "Cross-platform Docker container and image management",
+    inputSchema: {
+        action: zod_1.z.enum([
+            "list_containers", "list_images", "start_container", "stop_container",
+            "create_container", "delete_container", "delete_image", "container_info",
+            "container_logs", "container_stats", "pull_image", "build_image",
+            "list_networks", "list_volumes", "docker_info", "docker_version"
+        ]),
+        container_name: zod_1.z.string().optional(),
+        image_name: zod_1.z.string().optional(),
+        image_tag: zod_1.z.string().optional(),
+        dockerfile_path: zod_1.z.string().optional(),
+        build_context: zod_1.z.string().optional(),
+        port_mapping: zod_1.z.string().optional(),
+        volume_mapping: zod_1.z.string().optional(),
+        environment_vars: zod_1.z.string().optional(),
+        network_name: zod_1.z.string().optional(),
+        volume_name: zod_1.z.string().optional(),
+        all_containers: zod_1.z.boolean().optional()
+    },
+    outputSchema: {
+        success: zod_1.z.boolean(),
+        results: zod_1.z.any().optional(),
+        platform: zod_1.z.string(),
+        docker_available: zod_1.z.boolean(),
+        error: zod_1.z.string().optional()
+    }
+}, async ({ action, container_name, image_name, image_tag, dockerfile_path, build_context, port_mapping, volume_mapping, environment_vars, network_name, volume_name, all_containers }) => {
+    try {
+        let results = {};
+        let dockerAvailable = false;
+        let command = "";
+        // Check if Docker is available
+        try {
+            await execAsync("docker --version");
+            dockerAvailable = true;
+        }
+        catch (error) {
+            return {
+                content: [{ type: "text", text: "Docker is not installed or not available in PATH" }],
+                structuredContent: {
+                    success: false,
+                    platform: PLATFORM,
+                    docker_available: false,
+                    error: "Docker not available"
+                }
+            };
+        }
+        switch (action) {
+            case "docker_version":
+                const { stdout: versionOutput } = await execAsync("docker --version");
+                results = { version: versionOutput.trim() };
+                break;
+            case "docker_info":
+                const { stdout: infoOutput } = await execAsync("docker info");
+                results = { info: infoOutput };
+                break;
+            case "list_containers":
+                const listFlag = all_containers ? "-a" : "";
+                const { stdout: containersOutput } = await execAsync(`docker ps ${listFlag} --format "table {{.Names}}\\t{{.Image}}\\t{{.Status}}\\t{{.Ports}}"`);
+                results = { containers: containersOutput.split('\n').filter(line => line.trim()) };
+                break;
+            case "list_images":
+                const { stdout: imagesOutput } = await execAsync("docker images --format \"table {{.Repository}}\\t{{.Tag}}\\t{{.ID}}\\t{{.Size}}\"");
+                results = { images: imagesOutput.split('\n').filter(line => line.trim()) };
+                break;
+            case "start_container":
+                if (!container_name)
+                    throw new Error("Container name is required");
+                const { stdout: startOutput } = await execAsync(`docker start "${container_name}"`);
+                results = { output: startOutput, container: container_name, action: "started" };
+                break;
+            case "stop_container":
+                if (!container_name)
+                    throw new Error("Container name is required");
+                const { stdout: stopOutput } = await execAsync(`docker stop "${container_name}"`);
+                results = { output: stopOutput, container: container_name, action: "stopped" };
+                break;
+            case "create_container":
+                if (!container_name || !image_name)
+                    throw new Error("Container name and image name are required");
+                let createCommand = `docker create --name "${container_name}"`;
+                if (port_mapping) {
+                    createCommand += ` -p ${port_mapping}`;
+                }
+                if (volume_mapping) {
+                    createCommand += ` -v ${volume_mapping}`;
+                }
+                if (environment_vars) {
+                    createCommand += ` -e ${environment_vars}`;
+                }
+                if (network_name) {
+                    createCommand += ` --network ${network_name}`;
+                }
+                const createImageName = image_tag ? `${image_name}:${image_tag}` : image_name;
+                createCommand += ` ${createImageName}`;
+                const { stdout: createOutput } = await execAsync(createCommand);
+                results = { output: createOutput, container: container_name, image: createImageName, action: "created" };
+                break;
+            case "delete_container":
+                if (!container_name)
+                    throw new Error("Container name is required");
+                const { stdout: deleteOutput } = await execAsync(`docker rm -f "${container_name}"`);
+                results = { output: deleteOutput, container: container_name, action: "deleted" };
+                break;
+            case "delete_image":
+                if (!image_name)
+                    throw new Error("Image name is required");
+                const deleteImageName = image_tag ? `${image_name}:${image_tag}` : image_name;
+                const { stdout: deleteImageOutput } = await execAsync(`docker rmi "${deleteImageName}"`);
+                results = { output: deleteImageOutput, image: deleteImageName, action: "deleted" };
+                break;
+            case "container_info":
+                if (!container_name)
+                    throw new Error("Container name is required");
+                const { stdout: containerInfoOutput } = await execAsync(`docker inspect "${container_name}"`);
+                results = { info: JSON.parse(containerInfoOutput), container: container_name };
+                break;
+            case "container_logs":
+                if (!container_name)
+                    throw new Error("Container name is required");
+                const { stdout: logsOutput } = await execAsync(`docker logs "${container_name}"`);
+                results = { logs: logsOutput, container: container_name };
+                break;
+            case "container_stats":
+                if (!container_name)
+                    throw new Error("Container name is required");
+                const { stdout: statsOutput } = await execAsync(`docker stats "${container_name}" --no-stream --format "table {{.Container}}\\t{{.CPUPerc}}\\t{{.MemUsage}}\\t{{.NetIO}}\\t{{.BlockIO}}"`);
+                results = { stats: statsOutput, container: container_name };
+                break;
+            case "pull_image":
+                if (!image_name)
+                    throw new Error("Image name is required");
+                const pullImageName = image_tag ? `${image_name}:${image_tag}` : image_name;
+                const { stdout: pullOutput } = await execAsync(`docker pull "${pullImageName}"`);
+                results = { output: pullOutput, image: pullImageName, action: "pulled" };
+                break;
+            case "build_image":
+                if (!image_name || !dockerfile_path)
+                    throw new Error("Image name and dockerfile path are required");
+                const buildContext = build_context || ".";
+                const buildTag = image_tag ? `${image_name}:${image_tag}` : image_name;
+                const { stdout: buildOutput } = await execAsync(`docker build -t "${buildTag}" -f "${dockerfile_path}" "${buildContext}"`);
+                results = { output: buildOutput, image: buildTag, action: "built" };
+                break;
+            case "list_networks":
+                const { stdout: networksOutput } = await execAsync("docker network ls --format \"table {{.Name}}\\t{{.Driver}}\\t{{.Scope}}\"");
+                results = { networks: networksOutput.split('\n').filter(line => line.trim()) };
+                break;
+            case "list_volumes":
+                const { stdout: volumesOutput } = await execAsync("docker volume ls --format \"table {{.Name}}\\t{{.Driver}}\\t{{.Scope}}\"");
+                results = { volumes: volumesOutput.split('\n').filter(line => line.trim()) };
+                break;
+            default:
+                throw new Error(`Unsupported Docker action: ${action}`);
+        }
+        return {
+            content: [{ type: "text", text: `Docker operation completed: ${action}` }],
+            structuredContent: {
+                success: true,
+                results,
+                platform: PLATFORM,
+                docker_available: dockerAvailable
+            }
+        };
+    }
+    catch (error) {
+        logger.error("Docker management error", { error: error instanceof Error ? error.message : String(error) });
+        return {
+            content: [{ type: "text", text: `Docker operation failed: ${error instanceof Error ? error.message : String(error)}` }],
+            structuredContent: {
+                success: false,
+                platform: PLATFORM,
+                docker_available: false,
+                error: error instanceof Error ? error.message : String(error)
+            }
+        };
+    }
+});
+// ============================================================================
 // MAIN FUNCTION
 // ============================================================================
 async function main() {
-    const transport = new StdioServerTransport();
+    const transport = new stdio_js_1.StdioServerTransport();
     await server.connect(transport);
 }
 main().catch((err) => {
