@@ -2,13 +2,7 @@
 
 > *"One MCP to rule them all, one MCP to find them, one MCP to bring them all and in the God Mode bind them!"* - The Fellowship of the Prompt
 
-![Hilarious AI Ring](https://media.giphy.com/media/3o6ZtaO9BZHcOjmErm/giphy.gif)
-
 **Welcome to MCP God Mode**, the cross-platform AI superpower that lets your AI assistant conquer Windows, Linux, and macOS like a boss. It's like giving your AI the infinity stones – unlimited power, but hopefully without the snap! Because sometimes, restarting isn't enough; you need an AI to yeet the problems into oblivion. 🚀 Now with full cross-platform support – one MCP to rule ALL operating systems!
-
-**Comedic Disclaimer:** This tool turns your AI into a system wizard. Side effects may include uncontrollable laughter, fixed computers, or accidental world domination.
-
-![AI wizard funny](https://media.giphy.com/media/3o7btPCcdNniyf0ArS/giphy.gif)
 
 ## ⚠️ WARNING: God Mode Activated – Buckle Up!
 
