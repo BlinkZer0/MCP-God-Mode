@@ -33,7 +33,7 @@ This MCP can do wild stuff:
 
 **🚀 Why This is GAME-CHANGING:**
 
-- **🎯 One-Stop Solution:** 77+ tools covering every aspect of system management including VM, Docker, and mobile management – nothing else exists like this!
+- **🎯 One-Stop Solution:** 175+ tools covering every aspect of system management including VM, Docker, mobile management, and comprehensive security toolkits – nothing else exists like this!
 - **🌍 True Cross-Platform:** Works seamlessly on Windows, Linux, macOS, Android, and iOS with intelligent auto-detection
 - **🤖 AI-Powered Intelligence:** Your AI doesn't just execute commands – it understands context and makes smart decisions
 - **⚡ Proactive Problem Solving:** From reactive panic to predictive maintenance and automated fixes
@@ -333,9 +333,6 @@ Here's the complete arsenal, organized by superpower category:
 - **Universal Access:** Works the same way regardless of your expertise level
 - **Smart Routing:** Automatically chooses the right toolkit for your request
 - **Natural Interaction:** Use everyday language instead of technical commands
-- **macOS:** ✅ Full support with native tools (GQRX, SDR Console, HDSDR) and System Profiler
-- **Android:** ⚠️ Limited support via USB OTG with root access required for full functionality
-- **iOS:** ❌ No external SDR hardware support, web-based alternatives available
 
 **Supported SDR Hardware:**
 - **RTL-SDR:** RTL2832U-based USB dongles for general-purpose SDR
@@ -350,21 +347,23 @@ Here's the complete arsenal, organized by superpower category:
 - **📡 SDR Security:** 56+ tools for radio frequency analysis, signal processing, and protocol decoding
 - **🚀 Total Wireless Tools: 111+ specialized security and analysis tools**
 
-### 📱 **Mobile Platform Tools (28 Tools)**
+### 📱 **Mobile Platform Tools (29 Tools)**
 
-**Mobile File Operations (10 Tools):**
+**Mobile Device Information (1 Tool):**
+- `mobile_device_info` - Get comprehensive mobile device information for Android and iOS
+
+**Mobile File Operations (8 Tools):**
 - `mobile_file_ops` with action `list` - List files and directories
-- `mobile_file_ops` with action `read` - Read file contents
-- `mobile_file_ops` with action `write` - Write content to files
-- `mobile_file_ops` with action `delete` - Delete files and directories
 - `mobile_file_ops` with action `copy` - Copy files and directories
 - `mobile_file_ops` with action `move` - Move files and directories
-- `mobile_file_ops` with action `create_dir` - Create directories
-- `mobile_file_ops` with action `get_info` - Get file information
+- `mobile_file_ops` with action `delete` - Delete files and directories
+- `mobile_file_ops` with action `create` - Create files with content
+- `mobile_file_ops` with action `get_info` - Get detailed file information
 - `mobile_file_ops` with action `search` - Search files by pattern
+- `mobile_file_ops` with action `compress` - Compress files using tar
+- `mobile_file_ops` with action `decompress` - Decompress tar archives
 
-**Mobile System Tools (9 Tools):**
-- `mobile_system_tools` with action `system_info` - Get mobile system information
+**Mobile System Tools (8 Tools):**
 - `mobile_system_tools` with action `processes` - List running processes
 - `mobile_system_tools` with action `services` - List system services
 - `mobile_system_tools` with action `network` - Get network information
@@ -372,18 +371,15 @@ Here's the complete arsenal, organized by superpower category:
 - `mobile_system_tools` with action `users` - Get user information
 - `mobile_system_tools` with action `packages` - List installed packages
 - `mobile_system_tools` with action `permissions` - Get app permissions
+- `mobile_system_tools` with action `system_info` - Get mobile system information
 
 **Mobile Hardware Access (9 Tools):**
-- `mobile_hardware` with action `device_info` - Get device hardware information
-- `mobile_hardware` with action `camera` - Access camera capabilities
-- `mobile_hardware` with action `location` - Access GPS and location services
-- `mobile_hardware` with action `biometrics` - Access fingerprint/face recognition
-- `mobile_hardware` with action `bluetooth` - Access Bluetooth functionality
-- `mobile_hardware` with action `nfc` - Access NFC capabilities
-- `mobile_hardware` with action `sensors` - Access accelerometer, gyroscope, etc.
-- `mobile_hardware` with action `notifications` - Manage system notifications
-- `mobile_hardware` with action `audio` - Access audio controls
-- `mobile_hardware` with action `vibration` - Control device vibration
+- `mobile_hardware` with action `check_availability` - Check if hardware feature is available
+- `mobile_hardware` with action `get_status` - Get current hardware status
+- `mobile_hardware` with action `request_permission` - Request hardware permissions
+- `mobile_hardware` with action `get_data` - Get data from hardware sensors
+- `mobile_hardware` with action `control` - Control hardware features
+- **Features Available:** camera, location, biometrics, bluetooth, nfc, sensors, notifications, audio, vibration
 
 ### 🧮 **Advanced Mathematics & Calculations (4 Tools)**
 - `calculator` with basic expressions - Simple mathematical calculations
@@ -421,8 +417,12 @@ Here's the complete arsenal, organized by superpower category:
 - Port scanning for security assessment
 - **Advanced packet capture and analysis across Windows, Linux, macOS, Android, and iOS**
 
-**Packet Sniffing Features:**
-- **16 Advanced Actions:** Start/stop capture, traffic analysis, filtering, statistics, anomaly detection
+**Packet Sniffer Features (16 Advanced Actions):**
+- **Capture Control:** `start_capture`, `stop_capture`, `get_captured_packets`
+- **Traffic Analysis:** `analyze_traffic`, `get_statistics`, `monitor_bandwidth`
+- **Protocol Filtering:** `filter_by_protocol`, `filter_by_ip`, `filter_by_port`
+- **Specialized Capture:** `capture_http`, `capture_dns`, `capture_tcp`, `capture_udp`, `capture_icmp`
+- **Advanced Features:** `export_pcap`, `detect_anomalies`
 - **Protocol Support:** TCP, UDP, ICMP, HTTP, DNS with specialized analysis
 - **Cross-Platform Tools:** Uses tcpdump, tshark, netsh, and other native tools
 - **Real-Time Analysis:** Live traffic monitoring, bandwidth analysis, and security detection
@@ -432,9 +432,24 @@ Here's the complete arsenal, organized by superpower category:
 
 ---
 
-## 🎉 **THE GRAND TOTAL: 168+ REVOLUTIONARY TOOLS!**
+## 🎉 **THE GRAND TOTAL: 175+ REVOLUTIONARY TOOLS!**
 
 **This is absolutely unprecedented!** No other MCP comes close to this level of comprehensive functionality. You've got everything from basic file operations to advanced AI-powered system management, all wrapped in cross-platform magic that works seamlessly across Windows, Linux, macOS, Android, and iOS.
+
+**📊 Complete Tool Breakdown:**
+- **🖥️ Core System Operations:** 2 tools
+- **📁 File System Mastery:** 26 tools (6 basic + 20 advanced file_ops)
+- **⚙️ Process & Service Management:** 3 tools
+- **🖥️ Virtual Machine Management:** 3 tools
+- **🐳 Docker & Container Management:** 6 tools
+- **🔒 Wi-Fi Security & Penetration Testing:** 25+ tools
+- **🔵 Bluetooth Security & Penetration Testing:** 30+ tools
+- **📡 SDR Security & Signal Analysis:** 56+ tools
+- **🗣️ Natural Language Access Tools:** 8+ tools
+- **📱 Mobile Platform Tools:** 29 tools
+- **🧮 Advanced Mathematics & Calculations:** 4 tools
+- **🔧 Development & Version Control:** 1 tool
+- **🌐 Network Tools:** 5 tools (including 16 packet sniffer actions)
 
 **🚀 Ready to Experience the Future?** Ask your AI: *"What can you do now that MCP God Mode is installed?"* and watch as it transform into the ultimate digital assistant!
 
@@ -666,12 +681,12 @@ Before using in production, ensure you have:
 
 ## 🎊 **Welcome to the Future of AI System Administration!**
 
-**You've just installed the most powerful AI system management tool ever created!** With 77+ revolutionary tools and true cross-platform support including mobile platforms, your AI assistant has been transformed into a digital superpower that can handle any system task across Windows, Linux, macOS, Android, and iOS.
+**You've just installed the most powerful AI system management tool ever created!** With 175+ revolutionary tools and true cross-platform support including mobile platforms, your AI assistant has been transformed into a digital superpower that can handle any system task across Windows, Linux, macOS, Android, and iOS.
 
 **🌟 What Makes This Special:**
 - **First-of-its-kind:** Nothing like this exists anywhere else
 - **Complete cross-platform support:** Works flawlessly on all major operating systems and mobile platforms
-- **168+ comprehensive tools:** From basic file operations to advanced AI-powered system management including VM, Docker, mobile operations, and comprehensive security toolkits
+- **175+ comprehensive tools:** From basic file operations to advanced AI-powered system management including VM, Docker, mobile operations, and comprehensive security toolkits
 - **Natural language interface:** Just ask your AI what you need – no commands to memorize!
 - **Universal accessibility:** Complex security tools accessible to everyone through natural language
 - **Rigorously tested:** Every tool has been battle-tested across multiple platforms
@@ -701,6 +716,84 @@ Ask your AI: *"What can you do now that MCP God Mode is installed?"* and watch a
 - "Test transmission power and coverage"
 
 **🎉 You're not just using a tool – you're experiencing the future of computing!**
+
+## 📦 **Available Server Versions**
+
+**Choose the version that fits your needs:**
+
+### **🚀 Full-Featured Version (`server-refactored.ts`)**
+- **All 175+ tools** including comprehensive security toolkits
+- Full cross-platform support (Windows, Linux, macOS, Android, iOS)
+- Complete Wi-Fi, Bluetooth, and SDR security toolkits
+- Mobile platform tools and hardware access
+- Natural language interface for all tools
+- **Recommended for:** Power users, security professionals, developers
+
+### **⚡ Minimal Version (`server-minimal.ts`)**
+- **Core 10 tools** for basic system operations
+- Essential file operations, process management, and system info
+- Cross-platform compatibility
+- **Recommended for:** Basic system administration, lightweight deployments
+
+### **🔧 Ultra-Minimal Version (`server-ultra-minimal.ts`)**
+- **Essential 6 tools** for basic functionality
+- Minimal resource usage
+- Core system operations only
+- **Recommended for:** Embedded systems, resource-constrained environments
+
+**All versions maintain the same high-quality cross-platform support and security features!**
+
+## 🔍 **Complete Tool Reference - Quick Lookup**
+
+**Need to find a specific tool? Here's your complete reference:**
+
+### **🖥️ Core System (2 Tools)**
+- `health` - System health check
+- `system_info` - Complete system information
+
+### **📁 File Operations (26 Tools)**
+- **Basic (6):** `fs_list`, `fs_read_text`, `fs_write_text`, `fs_search`, `download_file`
+- **Advanced (20):** `file_ops` with actions: `list`, `get_info`, `create_dir`, `create_file`, `copy`, `move`, `delete`, `get_size`, `get_permissions`, `list_recursive`, `find_by_content`, `compress`, `decompress`, `chmod`, `chown`, `symlink`, `hardlink`, `watch`, `unwatch`, `set_permissions`, `compare_files`
+
+### **⚙️ Process & Services (3 Tools)**
+- `proc_run` - Run processes
+- `win_services` - Service management
+- `win_processes` - Process management
+
+### **🖥️ Virtualization (3 Tools)**
+- `vm_management` with actions: `list_hypervisors`, `list_vms`, `vm_info`
+
+### **🐳 Docker (6 Tools)**
+- `docker_management` with actions: `docker_version`, `docker_info`, `list_containers`, `list_images`, `list_networks`, `list_volumes`
+
+### **🔒 Wi-Fi Security (25+ Tools)**
+- `wifi_security_toolkit` with actions: `scan_networks`, `capture_handshake`, `capture_pmkid`, `sniff_packets`, `monitor_clients`, `crack_hash`, `dictionary_attack`, `brute_force_attack`, `rainbow_table_attack`, `create_rogue_ap`, `evil_twin_attack`, `phishing_capture`, `credential_harvest`, `wps_attack`, `pixie_dust_attack`, `deauth_attack`, `fragmentation_attack`, `router_scan`, `iot_enumeration`, `vulnerability_scan`, `exploit_router`, `analyze_captures`, `generate_report`, `export_results`, `cleanup_traces`
+
+### **🔵 Bluetooth Security (30+ Tools)**
+- `bluetooth_security_toolkit` with actions: `scan_devices`, `discover_services`, `enumerate_characteristics`, `scan_profiles`, `detect_devices`, `connect_device`, `pair_device`, `force_pairing`, `bypass_pairing`, `test_authentication`, `test_authorization`, `test_encryption`, `test_integrity`, `test_privacy`, `bluejacking_attack`, `bluesnarfing_attack`, `bluebugging_attack`, `car_whisperer`, `key_injection`, `extract_contacts`, `extract_calendar`, `extract_messages`, `extract_files`, `extract_audio`, `exploit_vulnerabilities`, `inject_commands`, `modify_firmware`, `bypass_security`, `escalate_privileges`, `monitor_traffic`, `capture_packets`, `analyze_protocols`, `detect_anomalies`, `log_activities`, `generate_report`, `export_results`, `cleanup_traces`, `restore_devices`
+
+### **📡 SDR Security (56+ Tools)**
+- `sdr_security_toolkit` with actions: `detect_sdr_hardware`, `list_sdr_devices`, `test_sdr_connection`, `configure_sdr`, `calibrate_sdr`, `receive_signals`, `scan_frequencies`, `capture_signals`, `record_audio`, `record_iq_data`, `analyze_signals`, `detect_modulation`, `decode_protocols`, `identify_transmissions`, `scan_wireless_spectrum`, `detect_unauthorized_transmissions`, `monitor_radio_traffic`, `capture_radio_packets`, `analyze_radio_security`, `test_signal_strength`, `decode_ads_b`, `decode_pocsag`, `decode_aprs`, `decode_ais`, `decode_ads_c`, `decode_ads_s`, `decode_tcas`, `decode_mlat`, `decode_radar`, `decode_satellite`, `test_jamming_resistance`, `analyze_interference`, `measure_signal_quality`, `test_spectrum_occupancy`, `detect_signal_spoofing`, `analyze_frequency_hopping`, `scan_mobile_networks`, `analyze_cellular_signals`, `test_iot_radio_security`, `detect_unauthorized_devices`, `monitor_radio_communications`, `test_radio_privacy`, `spectrum_analysis`, `waterfall_analysis`, `time_domain_analysis`, `frequency_domain_analysis`, `correlation_analysis`, `pattern_recognition`, `anomaly_detection`, `trend_analysis`, `export_captured_data`, `save_recordings`, `generate_reports`, `backup_data`, `cleanup_temp_files`, `archive_results`, `broadcast_signals`, `transmit_audio`, `transmit_data`, `jam_frequencies`, `create_interference`, `test_transmission_power`, `calibrate_transmitter`, `test_antenna_pattern`, `measure_coverage`
+
+### **🗣️ Natural Language (8+ Tools)**
+- `hack_network`, `security_testing`, `wifi_hacking`, `wireless_security`, `network_penetration`, `bluetooth_hacking`, `radio_security`, `signal_analysis`
+
+### **📱 Mobile Platform (29 Tools)**
+- `mobile_device_info` - Device information
+- `mobile_file_ops` with actions: `list`, `copy`, `move`, `delete`, `create`, `get_info`, `search`, `compress`, `decompress`
+- `mobile_system_tools` with actions: `processes`, `services`, `network`, `storage`, `users`, `packages`, `permissions`, `system_info`
+- `mobile_hardware` with actions: `check_availability`, `get_status`, `request_permission`, `get_data`, `control` (features: camera, location, biometrics, bluetooth, nfc, sensors, notifications, audio, vibration)
+
+### **🧮 Mathematics (4 Tools)**
+- `calculator` - Basic and advanced calculations
+- `math_calculate` - Scientific functions
+
+### **🔧 Development (1 Tool)**
+- `git_status` - Git operations
+
+### **🌐 Network (5 Tools)**
+- `network_diagnostics` with actions: `ping`, `traceroute`, `dns`, `port_scan`
+- `packet_sniffer` with 16 actions: `start_capture`, `stop_capture`, `get_captured_packets`, `analyze_traffic`, `filter_by_protocol`, `filter_by_ip`, `filter_by_port`, `get_statistics`, `export_pcap`, `monitor_bandwidth`, `detect_anomalies`, `capture_http`, `capture_dns`, `capture_tcp`, `capture_udp`, `capture_icmp`
 
 ---
 
