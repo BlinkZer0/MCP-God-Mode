@@ -1035,6 +1035,707 @@ server.registerTool("create_restore_point", {
     const success = exitCode === 0;
     return { content: [], structuredContent: { success, stdout: stdout || undefined, stderr: stderr || undefined, elevated: false, error: success ? undefined : 'Failed to create restore point (UAC denied, System Protection disabled, or policy restrictions).' } };
 });
+// 1. System Repair Tool
+server.registerTool("system_repair", {
+    description: "Common Windows system repairs and diagnostics",
+    inputSchema: {
+        repairType: z.enum(["sfc", "dism", "chkdsk", "network_reset", "windows_update_reset", "dns_flush", "temp_cleanup", "disk_cleanup"])
+    },
+    outputSchema: {
+        success: z.boolean(),
+        output: z.string().optional(),
+        error: z.string().optional(),
+        elevated: z.boolean()
+    }
+}, async ({ repairType }) => {
+    const elevated = await isProcessElevated();
+    try {
+        let command = "";
+        let needsElevation = false;
+        switch (repairType) {
+            case "sfc":
+                command = "sfc /scannow";
+                needsElevation = true;
+                break;
+            case "dism":
+                command = "dism /online /cleanup-image /restorehealth";
+                needsElevation = true;
+                break;
+            case "chkdsk":
+                command = "chkdsk C: /f /r";
+                needsElevation = true;
+                break;
+            case "network_reset":
+                command = "netsh winsock reset && netsh int ip reset";
+                needsElevation = true;
+                break;
+            case "windows_update_reset":
+                command = "net stop wuauserv && net stop cryptSvc && net stop bits && net stop msiserver";
+                needsElevation = true;
+                break;
+            case "dns_flush":
+                command = "ipconfig /flushdns";
+                break;
+            case "temp_cleanup":
+                command = "del /q /f %temp%\\* && del /q /f C:\\Windows\\Temp\\*";
+                needsElevation = true;
+                break;
+            case "disk_cleanup":
+                command = "cleanmgr /sagerun:1";
+                needsElevation = true;
+                break;
+        }
+        if (needsElevation && !elevated) {
+            const { stdout, stderr, exitCode } = await runElevatedCommand('cmd', ['/c', command], process.cwd(), 10 * 60 * 1000);
+            return {
+                content: [],
+                structuredContent: {
+                    success: exitCode === 0,
+                    output: stdout || undefined,
+                    error: exitCode !== 0 ? stderr : undefined,
+                    elevated: false
+                }
+            };
+        }
+        else {
+            const { stdout, stderr } = await execAsync(command, { timeout: 10 * 60 * 1000 });
+            return {
+                content: [],
+                structuredContent: {
+                    success: true,
+                    output: stdout || undefined,
+                    error: stderr || undefined,
+                    elevated: elevated
+                }
+            };
+        }
+    }
+    catch (error) {
+        return {
+            content: [],
+            structuredContent: {
+                success: false,
+                error: error.message,
+                elevated: elevated
+            }
+        };
+    }
+});
+// 2. System Monitor Tool
+server.registerTool("system_monitor", {
+    description: "Monitor system resources in real-time",
+    inputSchema: {
+        duration: z.number().default(30),
+        metrics: z.array(z.enum(["cpu", "memory", "disk", "network", "processes"])).default(["cpu", "memory"]),
+        interval: z.number().default(2)
+    },
+    outputSchema: {
+        success: z.boolean(),
+        data: z.array(z.any()).optional(),
+        error: z.string().optional()
+    }
+}, async ({ duration, metrics, interval }) => {
+    try {
+        const data = [];
+        const startTime = Date.now();
+        const endTime = startTime + (duration * 1000);
+        while (Date.now() < endTime) {
+            const snapshot = { timestamp: new Date().toISOString() };
+            for (const metric of metrics) {
+                switch (metric) {
+                    case "cpu":
+                        const cpuUsage = os.loadavg()[0] * 100;
+                        snapshot.cpu = { usage: Math.round(cpuUsage), cores: os.cpus().length };
+                        break;
+                    case "memory":
+                        const totalMem = os.totalmem();
+                        const freeMem = os.freemem();
+                        const usedMem = totalMem - freeMem;
+                        snapshot.memory = {
+                            total: Math.round(totalMem / (1024 ** 3) * 100) / 100,
+                            used: Math.round(usedMem / (1024 ** 3) * 100) / 100,
+                            free: Math.round(freeMem / (1024 ** 3) * 100) / 100,
+                            usage: Math.round((usedMem / totalMem) * 100)
+                        };
+                        break;
+                    case "disk":
+                        try {
+                            const { stdout } = await execAsync("wmic logicaldisk get size,freespace,caption /format:csv");
+                            const lines = stdout.trim().split("\n").slice(1);
+                            snapshot.disk = lines.map((line) => {
+                                const parts = line.split(",");
+                                const size = parseInt(parts[1]) || 0;
+                                const free = parseInt(parts[2]) || 0;
+                                const used = size - free;
+                                return {
+                                    drive: parts[0] || "Unknown",
+                                    total: Math.round(size / (1024 ** 3) * 100) / 100,
+                                    used: Math.round(used / (1024 ** 3) * 100) / 100,
+                                    free: Math.round(free / (1024 ** 3) * 100) / 100,
+                                    usage: Math.round((used / size) * 100)
+                                };
+                            });
+                        }
+                        catch (error) {
+                            snapshot.disk = { error: "Could not retrieve disk info" };
+                        }
+                        break;
+                    case "network":
+                        try {
+                            const { stdout } = await execAsync("netstat -e");
+                            const lines = stdout.trim().split("\n");
+                            const stats = lines[lines.length - 1].split(/\s+/);
+                            snapshot.network = {
+                                bytesReceived: parseInt(stats[1]) || 0,
+                                bytesSent: parseInt(stats[2]) || 0
+                            };
+                        }
+                        catch (error) {
+                            snapshot.network = { error: "Could not retrieve network stats" };
+                        }
+                        break;
+                    case "processes":
+                        try {
+                            const { stdout } = await execAsync("tasklist /fo csv /nh");
+                            const processes = stdout.trim().split("\n").map((line) => {
+                                const parts = line.split(",");
+                                return {
+                                    name: parts[0]?.replace(/"/g, "") || "Unknown",
+                                    pid: parseInt(parts[1]) || 0,
+                                    memory: parts[4]?.replace(/"/g, "") || "Unknown"
+                                };
+                            });
+                            snapshot.processes = processes.slice(0, 10); // Top 10 processes
+                        }
+                        catch (error) {
+                            snapshot.processes = { error: "Could not retrieve process list" };
+                        }
+                        break;
+                }
+            }
+            data.push(snapshot);
+            if (Date.now() < endTime) {
+                await new Promise(resolve => setTimeout(resolve, interval * 1000));
+            }
+        }
+        return {
+            content: [],
+            structuredContent: {
+                success: true,
+                data
+            }
+        };
+    }
+    catch (error) {
+        return {
+            content: [],
+            structuredContent: {
+                success: false,
+                error: error.message
+            }
+        };
+    }
+});
+// 3. System Backup Tool
+server.registerTool("system_backup", {
+    description: "Create system backups and restore points",
+    inputSchema: {
+        backupType: z.enum(["files", "registry", "services", "full", "custom"]),
+        source: z.string().optional(),
+        destination: z.string().optional(),
+        includeSystem: z.boolean().default(false)
+    },
+    outputSchema: {
+        success: z.boolean(),
+        backupPath: z.string().optional(),
+        size: z.string().optional(),
+        error: z.string().optional()
+    }
+}, async ({ backupType, source, destination, includeSystem }) => {
+    try {
+        const timestamp = new Date().toISOString().replace(/[:.]/g, "-");
+        const backupDir = destination || path.join(process.cwd(), "backups");
+        await fs.mkdir(backupDir, { recursive: true });
+        let backupPath = "";
+        let command = "";
+        switch (backupType) {
+            case "files":
+                const sourcePath = source || "C:\\Users";
+                backupPath = path.join(backupDir, `files_backup_${timestamp}`);
+                command = `robocopy "${sourcePath}" "${backupPath}" /E /R:3 /W:10 /LOG:"${backupPath}.log"`;
+                break;
+            case "registry":
+                backupPath = path.join(backupDir, `registry_backup_${timestamp}.reg`);
+                command = `reg export HKLM "${backupPath}" /y && reg export HKCU "${backupPath.replace('.reg', '_user.reg')}" /y`;
+                break;
+            case "services":
+                backupPath = path.join(backupDir, `services_backup_${timestamp}.txt`);
+                command = `sc query type= service state= all > "${backupPath}"`;
+                break;
+            case "full":
+                backupPath = path.join(backupDir, `full_backup_${timestamp}`);
+                command = `wbadmin start backup -backupTarget:"${backupPath}" -include:C: -allCritical -quiet`;
+                break;
+            case "custom":
+                if (!source) {
+                    throw new Error("Source path required for custom backup");
+                }
+                backupPath = path.join(backupDir, `custom_backup_${timestamp}`);
+                command = `robocopy "${source}" "${backupPath}" /E /R:3 /W:10 /LOG:"${backupPath}.log"`;
+                break;
+        }
+        const { stdout, stderr } = await execAsync(command, { timeout: 30 * 60 * 1000 });
+        // Get backup size
+        let size = "Unknown";
+        try {
+            const stats = await fs.stat(backupPath);
+            size = `${Math.round(stats.size / (1024 ** 2) * 100) / 100} MB`;
+        }
+        catch (error) {
+            // Size calculation failed
+        }
+        return {
+            content: [],
+            structuredContent: {
+                success: true,
+                backupPath,
+                size
+            }
+        };
+    }
+    catch (error) {
+        return {
+            content: [],
+            structuredContent: {
+                success: false,
+                error: error.message
+            }
+        };
+    }
+});
+// 4. Security Audit Tool
+server.registerTool("security_audit", {
+    description: "Security audit and scanning for Windows systems",
+    inputSchema: {
+        auditType: z.enum(["permissions", "services", "registry", "files", "network", "users", "firewall", "updates"]),
+        target: z.string().optional(),
+        detailed: z.boolean().default(false)
+    },
+    outputSchema: {
+        success: z.boolean(),
+        findings: z.array(z.any()).optional(),
+        summary: z.any().optional(),
+        error: z.string().optional()
+    }
+}, async ({ auditType, target, detailed }) => {
+    try {
+        const findings = [];
+        let summary = {};
+        switch (auditType) {
+            case "permissions":
+                const targetPath = target || "C:\\Windows\\System32";
+                const { stdout } = await execAsync(`icacls "${targetPath}" /T /C /L`);
+                const lines = stdout.trim().split("\n");
+                lines.forEach((line) => {
+                    if (line.includes("Everyone") || line.includes("BUILTIN\\Users")) {
+                        findings.push({
+                            type: "permission_issue",
+                            path: line.split(" ")[0],
+                            issue: "Overly permissive access",
+                            details: line
+                        });
+                    }
+                });
+                summary = {
+                    totalFiles: lines.length,
+                    issuesFound: findings.length
+                };
+                break;
+            case "services":
+                const { stdout: servicesOutput } = await execAsync("wmic service get name,displayname,startmode,state /format:csv");
+                const serviceLines = servicesOutput.trim().split("\n").slice(1);
+                serviceLines.forEach((line) => {
+                    const parts = line.split(",");
+                    const serviceName = parts[1];
+                    const startMode = parts[3];
+                    const state = parts[4];
+                    if (startMode === "Auto" && state === "Stopped") {
+                        findings.push({
+                            type: "service_issue",
+                            service: serviceName,
+                            issue: "Auto-start service is stopped",
+                            details: `Service ${serviceName} is configured to start automatically but is currently stopped`
+                        });
+                    }
+                });
+                summary = {
+                    totalServices: serviceLines.length,
+                    issuesFound: findings.length
+                };
+                break;
+            case "registry":
+                const registryChecks = [
+                    { key: "HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", issue: "Startup programs" },
+                    { key: "HKLM\\SYSTEM\\CurrentControlSet\\Services", issue: "Service configurations" },
+                    { key: "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", issue: "User startup programs" }
+                ];
+                for (const check of registryChecks) {
+                    try {
+                        const { stdout: regOutput } = await execAsync(`reg query "${check.key}"`);
+                        if (regOutput.includes("ERROR")) {
+                            findings.push({
+                                type: "registry_issue",
+                                key: check.key,
+                                issue: "Registry access denied",
+                                details: "Cannot access registry key for security audit"
+                            });
+                        }
+                    }
+                    catch (error) {
+                        findings.push({
+                            type: "registry_issue",
+                            key: check.key,
+                            issue: "Registry key not found or inaccessible",
+                            details: error instanceof Error ? error.message : String(error)
+                        });
+                    }
+                }
+                summary = {
+                    registryKeysChecked: registryChecks.length,
+                    issuesFound: findings.length
+                };
+                break;
+            case "files":
+                const criticalPaths = [
+                    "C:\\Windows\\System32",
+                    "C:\\Windows\\System32\\drivers",
+                    "C:\\Program Files",
+                    "C:\\Program Files (x86)"
+                ];
+                for (const criticalPath of criticalPaths) {
+                    try {
+                        const { stdout: fileOutput } = await execAsync(`dir "${criticalPath}" /A /B`);
+                        const files = fileOutput.trim().split("\n");
+                        // Check for suspicious files
+                        const suspiciousExtensions = [".exe", ".dll", ".bat", ".ps1", ".vbs"];
+                        files.forEach((file) => {
+                            const ext = path.extname(file).toLowerCase();
+                            if (suspiciousExtensions.includes(ext) && file.includes("temp")) {
+                                findings.push({
+                                    type: "file_issue",
+                                    path: path.join(criticalPath, file),
+                                    issue: "Suspicious file in system directory",
+                                    details: `File ${file} with extension ${ext} found in system directory`
+                                });
+                            }
+                        });
+                    }
+                    catch (error) {
+                        findings.push({
+                            type: "file_issue",
+                            path: criticalPath,
+                            issue: "Cannot access directory",
+                            details: error instanceof Error ? error.message : String(error)
+                        });
+                    }
+                }
+                summary = {
+                    directoriesChecked: criticalPaths.length,
+                    issuesFound: findings.length
+                };
+                break;
+            case "network":
+                const networkChecks = [
+                    { command: "netstat -an", issue: "Open ports" },
+                    { command: "arp -a", issue: "ARP table" },
+                    { command: "route print", issue: "Routing table" }
+                ];
+                for (const check of networkChecks) {
+                    try {
+                        const { stdout: netOutput } = await execAsync(check.command);
+                        const lines = netOutput.trim().split("\n");
+                        if (check.issue === "Open ports") {
+                            lines.forEach((line) => {
+                                if (line.includes("LISTENING") && line.includes(":80") || line.includes(":443")) {
+                                    findings.push({
+                                        type: "network_issue",
+                                        issue: "Web server ports open",
+                                        details: line.trim()
+                                    });
+                                }
+                            });
+                        }
+                    }
+                    catch (error) {
+                        findings.push({
+                            type: "network_issue",
+                            issue: `Cannot check ${check.issue}`,
+                            details: error instanceof Error ? error.message : String(error)
+                        });
+                    }
+                }
+                summary = {
+                    networkChecks: networkChecks.length,
+                    issuesFound: findings.length
+                };
+                break;
+            case "users":
+                const { stdout: usersOutput } = await execAsync("wmic useraccount get name,disabled,lockout /format:csv");
+                const userLines = usersOutput.trim().split("\n").slice(1);
+                userLines.forEach((line) => {
+                    const parts = line.split(",");
+                    const username = parts[1];
+                    const disabled = parts[2];
+                    const lockout = parts[3];
+                    if (disabled === "FALSE" && username !== "Administrator") {
+                        findings.push({
+                            type: "user_issue",
+                            user: username,
+                            issue: "Active non-admin user account",
+                            details: `User ${username} is enabled and may need review`
+                        });
+                    }
+                });
+                summary = {
+                    totalUsers: userLines.length,
+                    issuesFound: findings.length
+                };
+                break;
+            case "firewall":
+                const { stdout: firewallOutput } = await execAsync("netsh advfirewall show allprofiles");
+                const firewallLines = firewallOutput.trim().split("\n");
+                let currentProfile = "";
+                firewallLines.forEach((line) => {
+                    if (line.includes("Profile Settings:")) {
+                        currentProfile = line.split(":")[0].trim();
+                    }
+                    if (line.includes("State") && line.includes("OFF")) {
+                        findings.push({
+                            type: "firewall_issue",
+                            profile: currentProfile,
+                            issue: "Firewall disabled",
+                            details: `Windows Firewall is disabled for ${currentProfile} profile`
+                        });
+                    }
+                });
+                summary = {
+                    profilesChecked: 3, // Domain, Private, Public
+                    issuesFound: findings.length
+                };
+                break;
+            case "updates":
+                const { stdout: updateOutput } = await execAsync("wmic qfe get hotfixid,installedon /format:csv");
+                const updateLines = updateOutput.trim().split("\n").slice(1);
+                const lastUpdate = updateLines[updateLines.length - 1];
+                if (lastUpdate) {
+                    const parts = lastUpdate.split(",");
+                    const updateDate = parts[2];
+                    const updateDateObj = new Date(updateDate);
+                    const daysSinceUpdate = Math.floor((Date.now() - updateDateObj.getTime()) / (1000 * 60 * 60 * 24));
+                    if (daysSinceUpdate > 30) {
+                        findings.push({
+                            type: "update_issue",
+                            issue: "System updates are outdated",
+                            details: `Last update was ${daysSinceUpdate} days ago on ${updateDate}`
+                        });
+                    }
+                }
+                summary = {
+                    totalUpdates: updateLines.length,
+                    issuesFound: findings.length
+                };
+                break;
+        }
+        return {
+            content: [],
+            structuredContent: {
+                success: true,
+                findings,
+                summary
+            }
+        };
+    }
+    catch (error) {
+        return {
+            content: [],
+            structuredContent: {
+                success: false,
+                error: error.message
+            }
+        };
+    }
+});
+// 5. Event Log Analyzer Tool
+server.registerTool("event_log_analyzer", {
+    description: "Analyze Windows event logs for issues and patterns",
+    inputSchema: {
+        logType: z.enum(["system", "application", "security", "setup", "forwardedevents"]).default("system"),
+        filter: z.string().optional(),
+        timeRange: z.string().optional(),
+        level: z.enum(["error", "warning", "information", "critical", "all"]).default("error"),
+        maxEvents: z.number().default(100)
+    },
+    outputSchema: {
+        success: z.boolean(),
+        events: z.array(z.any()).optional(),
+        summary: z.any().optional(),
+        patterns: z.array(z.any()).optional(),
+        error: z.string().optional()
+    }
+}, async ({ logType, filter, timeRange, level, maxEvents }) => {
+    try {
+        let command = `wevtutil qe "${logType}" /c:${maxEvents} /f:json`;
+        if (level !== "all") {
+            command += ` /q:"*[System[Level=${level}]]"`;
+        }
+        if (timeRange) {
+            const now = new Date();
+            let startTime;
+            switch (timeRange) {
+                case "1h":
+                    startTime = new Date(now.getTime() - 60 * 60 * 1000);
+                    break;
+                case "24h":
+                    startTime = new Date(now.getTime() - 24 * 60 * 60 * 1000);
+                    break;
+                case "7d":
+                    startTime = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
+                    break;
+                case "30d":
+                    startTime = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000);
+                    break;
+                default:
+                    startTime = new Date(now.getTime() - 24 * 60 * 60 * 1000); // Default to 24h
+            }
+            const startTimeStr = startTime.toISOString();
+            command += ` /q:"*[System[TimeCreated[@SystemTime>='${startTimeStr}']]]"`;
+        }
+        const { stdout } = await execAsync(command);
+        // Parse the XML-like output (wevtutil doesn't actually output JSON)
+        const events = [];
+        const lines = stdout.trim().split("\n");
+        let currentEvent = {};
+        let inEvent = false;
+        lines.forEach((line) => {
+            if (line.includes("<Event ")) {
+                inEvent = true;
+                currentEvent = {};
+            }
+            else if (line.includes("</Event>")) {
+                inEvent = false;
+                if (Object.keys(currentEvent).length > 0) {
+                    events.push(currentEvent);
+                }
+            }
+            else if (inEvent) {
+                if (line.includes("<TimeCreated SystemTime=")) {
+                    const match = line.match(/SystemTime="([^"]+)"/);
+                    if (match) {
+                        currentEvent.timestamp = match[1];
+                    }
+                }
+                else if (line.includes("<Level>")) {
+                    const match = line.match(/<Level>(\d+)<\/Level>/);
+                    if (match) {
+                        currentEvent.level = parseInt(match[1]);
+                    }
+                }
+                else if (line.includes("<EventID>")) {
+                    const match = line.match(/<EventID>(\d+)<\/EventID>/);
+                    if (match) {
+                        currentEvent.eventId = parseInt(match[1]);
+                    }
+                }
+                else if (line.includes("<Source>")) {
+                    const match = line.match(/<Source>([^<]+)<\/Source>/);
+                    if (match) {
+                        currentEvent.source = match[1];
+                    }
+                }
+                else if (line.includes("<Message>")) {
+                    const match = line.match(/<Message>([^<]+)<\/Message>/);
+                    if (match) {
+                        currentEvent.message = match[1];
+                    }
+                }
+            }
+        });
+        // Filter events if filter is provided
+        const filteredEvents = filter
+            ? events.filter(event => event.message?.toLowerCase().includes(filter.toLowerCase()) ||
+                event.source?.toLowerCase().includes(filter.toLowerCase()))
+            : events;
+        // Analyze patterns
+        const patterns = [];
+        const sourceCounts = {};
+        const eventIdCounts = {};
+        filteredEvents.forEach(event => {
+            if (event.source) {
+                sourceCounts[event.source] = (sourceCounts[event.source] || 0) + 1;
+            }
+            if (event.eventId) {
+                eventIdCounts[event.eventId] = (eventIdCounts[event.eventId] || 0) + 1;
+            }
+        });
+        // Find most common sources
+        Object.entries(sourceCounts)
+            .sort(([, a], [, b]) => b - a)
+            .slice(0, 5)
+            .forEach(([source, count]) => {
+            patterns.push({
+                type: "common_source",
+                source,
+                count,
+                percentage: Math.round((count / filteredEvents.length) * 100)
+            });
+        });
+        // Find most common event IDs
+        Object.entries(eventIdCounts)
+            .sort(([, a], [, b]) => b - a)
+            .slice(0, 5)
+            .forEach(([eventId, count]) => {
+            patterns.push({
+                type: "common_event_id",
+                eventId: parseInt(eventId),
+                count,
+                percentage: Math.round((count / filteredEvents.length) * 100)
+            });
+        });
+        // Summary
+        const summary = {
+            totalEvents: filteredEvents.length,
+            logType,
+            timeRange: timeRange || "all",
+            level,
+            topSources: Object.entries(sourceCounts)
+                .sort(([, a], [, b]) => b - a)
+                .slice(0, 3)
+                .map(([source, count]) => ({ source, count })),
+            topEventIds: Object.entries(eventIdCounts)
+                .sort(([, a], [, b]) => b - a)
+                .slice(0, 3)
+                .map(([eventId, count]) => ({ eventId: parseInt(eventId), count }))
+        };
+        return {
+            content: [],
+            structuredContent: {
+                success: true,
+                events: filteredEvents.slice(0, maxEvents),
+                summary,
+                patterns
+            }
+        };
+    }
+    catch (error) {
+        return {
+            content: [],
+            structuredContent: {
+                success: false,
+                error: error.message
+            }
+        };
+    }
+});
 async function main() {
     const transport = new StdioServerTransport();
     await server.connect(transport);

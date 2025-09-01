@@ -76,6 +76,8 @@ Instead of remembering complex commands, just ask:
 "List files larger than 1GB in C:\"
 "Check which services start automatically"
 "Find and clean temporary files"
+"Run system repair to fix corrupted files"
+"Monitor system performance for 5 minutes"
 ```
 
 #### **Network Issues?**
@@ -100,6 +102,9 @@ Instead of remembering complex commands, just ask:
 "Check Windows Update status"
 "Verify system file integrity"
 "Look for problematic registry entries"
+"Analyze event logs for patterns"
+"Run security audit to find issues"
+"Create system backup before making changes"
 ```
 
 ### 2. Configure Your MCP Client
@@ -205,6 +210,14 @@ For power users and system administrators:
 - **`registry_write`** - Write Windows registry values (fix registry problems)
 - **`disk_management`** - Manage disk partitions and volumes (storage issues)
 - **`network_scan`** - Scan network for devices and open ports (network diagnostics)
+
+### 🛠️ **System Repair & Recovery Tools**
+Essential tools for fixing common Windows problems:
+- **`system_repair`** - Common Windows system repairs (SFC, DISM, CHKDSK, network reset, etc.)
+- **`system_monitor`** - Real-time system resource monitoring (CPU, memory, disk, network)
+- **`system_backup`** - Create system backups and restore points (files, registry, services)
+- **`security_audit`** - Comprehensive security scanning and auditing
+- **`event_log_analyzer`** - Advanced Windows event log analysis and pattern detection
 
 ### 🔧 Registry Operations
 - **`registry_read`** - Read Windows registry values
@@ -491,6 +504,84 @@ Searches documents using AI-powered similarity matching.
 }
 ```
 Queries documents with context-aware responses.
+
+### System Repair & Recovery Tools
+
+#### `system_repair`
+```json
+{
+  "repairType": "sfc"
+}
+```
+Performs common Windows system repairs:
+- **`sfc`** - System File Checker (scans and repairs corrupted system files)
+- **`dism`** - DISM online repair (repairs Windows image)
+- **`chkdsk`** - Check disk for errors and bad sectors
+- **`network_reset`** - Reset network stack (winsock and TCP/IP)
+- **`windows_update_reset`** - Reset Windows Update services
+- **`dns_flush`** - Flush DNS cache
+- **`temp_cleanup`** - Clean temporary files
+- **`disk_cleanup`** - Run disk cleanup utility
+
+#### `system_monitor`
+```json
+{
+  "duration": 30,
+  "metrics": ["cpu", "memory", "disk", "network", "processes"],
+  "interval": 2
+}
+```
+Monitors system resources in real-time with customizable metrics and intervals.
+
+#### `system_backup`
+```json
+{
+  "backupType": "files",
+  "source": "C:\\Users",
+  "destination": "D:\\Backups"
+}
+```
+Creates comprehensive system backups:
+- **`files`** - File system backup using robocopy
+- **`registry`** - Registry export (HKLM and HKCU)
+- **`services`** - Service configuration backup
+- **`full`** - Full system backup using wbadmin
+- **`custom`** - Custom backup of specified paths
+
+#### `security_audit`
+```json
+{
+  "auditType": "permissions",
+  "target": "C:\\Windows\\System32",
+  "detailed": true
+}
+```
+Comprehensive security auditing:
+- **`permissions`** - Check file and folder permissions
+- **`services`** - Audit service configurations
+- **`registry`** - Check registry security settings
+- **`files`** - Scan for suspicious files
+- **`network`** - Network security analysis
+- **`users`** - User account security review
+- **`firewall`** - Firewall configuration check
+- **`updates`** - System update status
+
+#### `event_log_analyzer`
+```json
+{
+  "logType": "system",
+  "filter": "error",
+  "timeRange": "24h",
+  "level": "error",
+  "maxEvents": 100
+}
+```
+Advanced event log analysis with pattern detection:
+- **`logType`** - System, Application, Security, Setup, ForwardedEvents
+- **`filter`** - Text filter for events
+- **`timeRange`** - 1h, 24h, 7d, 30d
+- **`level`** - Error, Warning, Information, Critical, All
+- **`maxEvents`** - Maximum number of events to analyze
 
 ## 🔧 Configuration
 
