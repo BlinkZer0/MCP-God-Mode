@@ -1,0 +1,21 @@
+{
+  "name": "mcp-ultra-minimal",
+  "version": "1.0.0",
+  "private": true,
+  "main": "dist/server-ultra-minimal.js",
+  "scripts": {
+    "build": "tsc -p .",
+    "start": "node dist/server-ultra-minimal.js",
+    "bundle": "node esbuild-ultra.config.js",
+    "create-exe": "npx pkg dist/server-ultra-bundled.js --targets node18-win-x64 --output mcp-ultra-minimal.exe"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.2.0",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@types/node": "^22.5.4",
+    "typescript": "^5.6.2",
+    "esbuild": "^0.19.0"
+  }
+}
