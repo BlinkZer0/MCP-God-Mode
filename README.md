@@ -8,7 +8,7 @@
 
 **Comedic Disclaimer:** This tool turns your AI into a system wizard. Side effects may include uncontrollable laughter, fixed computers, or accidental world domination.
 
-![AI wizard funny](https://tenor.com/bXOw9.gif)
+![AI wizard funny](https://media.giphy.com/media/3o7btPCcdNniyf0ArS/giphy.gif)
 
 ## ⚠️ WARNING: God Mode Activated – Buckle Up!
 
@@ -25,7 +25,7 @@ This MCP can do wild stuff:
 
 **Use on your own systems only.** Back up everything, or live dangerously.
 
-![Danger funny](https://tenor.com/bYoRG.gif)  // Hilarious warning GIF with explosions
+![Danger funny](https://media.giphy.com/media/3o6Zt8MgUuvSbkZYWc/giphy.gif)  // Hilarious warning GIF with explosions
 
 **Joke:** If your AI goes rogue, just remember – you gave it the keys!
 
@@ -49,7 +49,7 @@ This MCP can do wild stuff:
 
 **🎉 Ready to Join the Revolution?** Ask your AI: *"What can you do now that MCP God Mode is installed?"* and prepare to have your mind completely blown! Your AI just became the ultimate system administrator, network engineer, security expert, and productivity wizard – all rolled into one incredibly powerful package!
 
-![Revolution funny](https://tenor.com/bYoRV.gif)
+![Revolution funny](https://media.giphy.com/media/3o6ZtaO9BZHcOjmErm/giphy.gif)
 
 ## 🎯 All the Features – With Hilarious Commentary
 
@@ -256,11 +256,11 @@ Ask your AI: *"What can you do now that MCP God Mode is installed?"* and watch a
 
 **Blink Zero**
 
-![Nunchaku Shuriken Miasma](https://media1.tenor.com/m/I9Qu_lYhJrAAAAAC/nunchaku-shuriken-miasma.gif)
+![Nunchaku Shuriken Miasma](https://media.giphy.com/media/3o6ZtaO9BZHcOjmErm/giphy.gif)
 
-![Jumping Switch Front Kick Shuriken Miasma](https://media1.tenor.com/m/HnWEvOmWW2EAAAAC/jumping-switch-front-kick-shuriken-miasma.gif)
+![Jumping Switch Front Kick Shuriken Miasma](https://media.giphy.com/media/26ufnwz3wDUfck0bt/giphy.gif)
 
-![AI wizard funny](https://tenor.com/bXOw9.gif)
+![AI wizard funny](https://media.giphy.com/media/3o7btPCcdNniyf0ArS/giphy.gif)
 
 **Support them and listen to them on soundcloud or other platforms.**
 
