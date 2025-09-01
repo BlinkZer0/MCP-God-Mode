@@ -1,0 +1,14 @@
+{
+  "mcpServers": {
+    "windows-god-mode": {
+      "command": "node",
+      "args": ["dev/dist/server.js"],
+      "env": {
+        "ALLOWED_ROOT": "",
+        "WEB_ALLOWLIST": "",
+        "PROC_ALLOWLIST": "",
+        "EXTRA_PATH": ""
+      }
+    }
+  }
+}
