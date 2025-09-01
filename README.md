@@ -71,10 +71,6 @@ Here's the full arsenal (based on the MCP's capabilities). I've included humorou
 
 - **Extra Goodies:** Hardware info, email sending, git ops, browser control, math tools, and more. (Why? Because we can!) *Humor: Math in a system tool? Next up, recipe suggestions. Intention: Blink Zero building an AI overlord one feature at a time?*
 
-**Funny Note:** Features so comprehensive, your AI might start charging rent for living in your PC.
-
-![Features overload](https://media.giphy.com/media/26ufnwz3wDUfck0bt/giphy.gif)
-
 ## 🛠️ Complete Tool Arsenal - 70 Revolutionary Tools!
 
 **🚀 BREAKING NEWS: 70 TOOLS OF PURE AWESOMENESS!** 
