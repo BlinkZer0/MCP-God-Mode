@@ -1,8 +1,0 @@
-{
-  "to": [
-    "test@example.com"
-  ],
-  "subject": "Test Email",
-  "body": "This is a test email from the MCP God Mode server.",
-  "html": false
-}
