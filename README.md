@@ -249,3 +249,23 @@ Ask your AI: *"What can you do now that MCP God Mode is installed?"* and watch a
 - And so much more!
 
 **This is groundbreaking technology – get excited and dive in!** Your AI just became the ultimate digital assistant. Star, fork, and spread the word – the future of system administration is here! 🤖✨
+
+---
+
+## 👨‍💻 Dev Section
+
+**Blink Zero**
+
+![Nunchaku Shuriken Miasma](https://media1.tenor.com/m/I9Qu_lYhJrAAAAAC/nunchaku-shuriken-miasma.gif)
+
+![Jumping Switch Front Kick Shuriken Miasma](https://media1.tenor.com/m/HnWEvOmWW2EAAAAC/jumping-switch-front-kick-shuriken-miasma.gif)
+
+![AI wizard funny](https://tenor.com/bXOw9.gif)
+
+**Support them and listen to them on soundcloud or other platforms.**
+
+🎵 [SoundCloud - Shuriken Miasma Albums](https://soundcloud.com/shurikenmiasma/albums)
+
+📺 **YouTube Artist:** [Shuriken Miasma](https://www.youtube.com/channel/UC92vxzQiXP9A4I_YDytoyRQ)  
+📺 **YouTube Channel:** [Shuriken Miasma](https://www.youtube.com/@shurikenmiasma)  
+🎧 **Spotify Artist:** [Shuriken Miasma](https://open.spotify.com/artist/1a9Jqhz5BwncRKMWBhzbpY)
