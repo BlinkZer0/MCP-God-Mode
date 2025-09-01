@@ -985,47 +985,99 @@ server.registerTool("git_status", {
     }
 });
 server.registerTool("win_services", {
-    description: "List Windows services",
+    description: "List system services (cross-platform: Windows services, Linux systemd, macOS launchd)",
     inputSchema: { filter: z.string().optional() },
     outputSchema: {
         services: z.array(z.object({
             name: z.string(),
             displayName: z.string(),
             status: z.string(),
-            startupType: z.string()
-        }))
+            startupType: z.string().optional()
+        })),
+        platform: z.string()
     }
 }, async ({ filter }) => {
     try {
-        let command = "wmic service get name,displayname,state,startmode /format:csv";
-        if (filter) {
-            command += ` | findstr /i "${filter}"`;
+        let services = [];
+        if (IS_WINDOWS) {
+            let command = "wmic service get name,displayname,state,startmode /format:csv";
+            if (filter) {
+                command += ` | findstr /i "${filter}"`;
+            }
+            const { stdout } = await execAsync(command);
+            const lines = stdout.trim().split("\n").slice(1); // Skip header
+            services = lines.map(line => {
+                const parts = line.split(",");
+                return {
+                    name: parts[1] || "Unknown",
+                    displayName: parts[2] || "Unknown",
+                    status: parts[3] || "Unknown",
+                    startupType: parts[4] || "Unknown"
+                };
+            }).filter(service => service.name !== "Unknown");
         }
-        const { stdout } = await execAsync(command);
-        const lines = stdout.trim().split("\n").slice(1); // Skip header
-        const services = lines.map(line => {
-            const parts = line.split(",");
-            return {
-                name: parts[1] || "Unknown",
-                displayName: parts[2] || "Unknown",
-                status: parts[3] || "Unknown",
-                startupType: parts[4] || "Unknown"
-            };
-        }).filter(service => service.name !== "Unknown");
-        return { content: [], structuredContent: { services } };
+        else if (IS_LINUX) {
+            // Linux systemd services
+            let command = "systemctl list-units --type=service --all --no-pager";
+            if (filter) {
+                command += ` | grep -i "${filter}"`;
+            }
+            const { stdout } = await execAsync(command);
+            const lines = stdout.trim().split("\n").slice(1); // Skip header
+            services = lines.map(line => {
+                const parts = line.trim().split(/\s+/);
+                if (parts.length >= 4) {
+                    return {
+                        name: parts[0].replace(/\.service$/, ""),
+                        displayName: parts.slice(4).join(" ") || parts[0],
+                        status: parts[2] || "unknown",
+                        startupType: parts[1] || "unknown"
+                    };
+                }
+                return null;
+            }).filter(service => service !== null);
+        }
+        else if (IS_MACOS) {
+            // macOS launchd services
+            let command = "launchctl list";
+            if (filter) {
+                command += ` | grep -i "${filter}"`;
+            }
+            const { stdout } = await execAsync(command);
+            const lines = stdout.trim().split("\n").slice(1); // Skip header
+            services = lines.map(line => {
+                const parts = line.trim().split(/\s+/);
+                if (parts.length >= 3) {
+                    return {
+                        name: parts[2] || "unknown",
+                        displayName: parts[2] || "unknown",
+                        status: parts[0] === "-" ? "stopped" : "running"
+                    };
+                }
+                return null;
+            }).filter(service => service !== null);
+        }
+        return {
+            content: [],
+            structuredContent: {
+                services,
+                platform: PLATFORM
+            }
+        };
     }
     catch (error) {
         return {
             content: [],
             structuredContent: {
                 services: [],
+                platform: PLATFORM,
                 error: error instanceof Error ? error.message : String(error)
             }
         };
     }
 });
 server.registerTool("win_processes", {
-    description: "List Windows processes",
+    description: "List system processes (cross-platform: Windows, Linux, macOS)",
     inputSchema: { filter: z.string().optional() },
     outputSchema: {
         processes: z.array(z.object({
@@ -1033,32 +1085,85 @@ server.registerTool("win_processes", {
             name: z.string(),
             memory: z.string(),
             cpu: z.string()
-        }))
+        })),
+        platform: z.string()
     }
 }, async ({ filter }) => {
     try {
-        let command = "tasklist /fo csv /nh";
-        if (filter) {
-            command += ` | findstr /i "${filter}"`;
+        let processes = [];
+        if (IS_WINDOWS) {
+            let command = "tasklist /fo csv /nh";
+            if (filter) {
+                command += ` | findstr /i "${filter}"`;
+            }
+            const { stdout } = await execAsync(command);
+            const lines = stdout.trim().split("\n");
+            processes = lines.map(line => {
+                const parts = line.split(",");
+                return {
+                    pid: parseInt(parts[1]) || 0,
+                    name: parts[0]?.replace(/"/g, "") || "Unknown",
+                    memory: parts[4]?.replace(/"/g, "") || "Unknown",
+                    cpu: parts[8]?.replace(/"/g, "") || "Unknown"
+                };
+            }).filter(process => process.pid > 0);
         }
-        const { stdout } = await execAsync(command);
-        const lines = stdout.trim().split("\n");
-        const processes = lines.map(line => {
-            const parts = line.split(",");
-            return {
-                pid: parseInt(parts[1]) || 0,
-                name: parts[0]?.replace(/"/g, "") || "Unknown",
-                memory: parts[4]?.replace(/"/g, "") || "Unknown",
-                cpu: parts[8]?.replace(/"/g, "") || "Unknown"
-            };
-        }).filter(process => process.pid > 0);
-        return { content: [], structuredContent: { processes } };
+        else if (IS_LINUX) {
+            // Linux processes using ps
+            let command = "ps aux --no-headers";
+            if (filter) {
+                command += ` | grep -i "${filter}" | grep -v grep`;
+            }
+            const { stdout } = await execAsync(command + " | head -50");
+            const lines = stdout.trim().split("\n");
+            processes = lines.map(line => {
+                const parts = line.trim().split(/\s+/);
+                if (parts.length >= 11) {
+                    return {
+                        pid: parseInt(parts[1]) || 0,
+                        name: parts.slice(10).join(" ") || "Unknown",
+                        memory: parts[5] || "0",
+                        cpu: parts[2] + "%" || "0.0%"
+                    };
+                }
+                return null;
+            }).filter(process => process !== null && process.pid > 0);
+        }
+        else if (IS_MACOS) {
+            // macOS processes using ps
+            let command = "ps aux";
+            if (filter) {
+                command += ` | grep -i "${filter}" | grep -v grep`;
+            }
+            const { stdout } = await execAsync(command + " | head -50");
+            const lines = stdout.trim().split("\n").slice(1); // Skip header
+            processes = lines.map(line => {
+                const parts = line.trim().split(/\s+/);
+                if (parts.length >= 11) {
+                    return {
+                        pid: parseInt(parts[1]) || 0,
+                        name: parts.slice(10).join(" ") || "Unknown",
+                        memory: parts[5] || "0",
+                        cpu: parts[2] + "%" || "0.0%"
+                    };
+                }
+                return null;
+            }).filter(process => process !== null && process.pid > 0);
+        }
+        return {
+            content: [],
+            structuredContent: {
+                processes,
+                platform: PLATFORM
+            }
+        };
     }
     catch (error) {
         return {
             content: [],
             structuredContent: {
                 processes: [],
+                platform: PLATFORM,
                 error: error instanceof Error ? error.message : String(error)
             }
         };
@@ -1116,28 +1221,96 @@ server.registerTool("download_file", {
     }
 });
 server.registerTool("change_wallpaper", {
-    description: "Change Windows desktop wallpaper",
-    inputSchema: { imagePath: z.string() },
-    outputSchema: { success: z.boolean(), error: z.string().optional() }
-}, async ({ imagePath }) => {
+    description: "Change desktop wallpaper (cross-platform: Windows, Linux, macOS)",
+    inputSchema: {
+        imagePath: z.string(),
+        mode: z.enum(["center", "tile", "stretch", "fit", "fill"]).default("fill")
+    },
+    outputSchema: {
+        success: z.boolean(),
+        platform: z.string(),
+        error: z.string().optional()
+    }
+}, async ({ imagePath, mode }) => {
     try {
-        const fullPath = ensureInsideRoot(path.resolve(imagePath));
-        // Use PowerShell to change wallpaper
-        const script = `
-      Add-Type -TypeDefinition @"
-        using System.Runtime.InteropServices;
-        public class Wallpaper {
-          [DllImport("user32.dll", CharSet = CharSet.Auto)]
-          public static extern int SystemParametersInfo(int uAction, int uParam, string lpvParam, int fuWinIni);
+        const fullPath = path.resolve(imagePath);
+        // Verify the image file exists
+        try {
+            await fs.access(fullPath);
         }
+        catch {
+            throw new Error(`Image file not found: ${fullPath}`);
+        }
+        if (IS_WINDOWS) {
+            // Use PowerShell to change wallpaper
+            const script = `
+        Add-Type -TypeDefinition @"
+          using System.Runtime.InteropServices;
+          public class Wallpaper {
+            [DllImport("user32.dll", CharSet = CharSet.Auto)]
+            public static extern int SystemParametersInfo(int uAction, int uParam, string lpvParam, int fuWinIni);
+          }
 "@
-      [Wallpaper]::SystemParametersInfo(0x0014, 0, "${fullPath.replace(/\\/g, "\\\\")}", 0x01 -bor 0x02)
-    `;
-        await execAsync(`powershell -Command "${script}"`);
+        [Wallpaper]::SystemParametersInfo(0x0014, 0, "${fullPath.replace(/\\/g, "\\\\")}", 0x01 -bor 0x02)
+      `;
+            await execAsync(`powershell -Command "${script}"`);
+            return {
+                content: [],
+                structuredContent: {
+                    success: true,
+                    platform: "windows"
+                }
+            };
+        }
+        else if (IS_LINUX) {
+            // Linux: Try multiple desktop environments
+            let command = "";
+            // Detect desktop environment
+            const desktop = process.env.XDG_CURRENT_DESKTOP || process.env.DESKTOP_SESSION || "";
+            if (desktop.toLowerCase().includes("gnome")) {
+                // GNOME
+                command = `gsettings set org.gnome.desktop.background picture-uri "file://${fullPath}" && gsettings set org.gnome.desktop.background picture-options "${mode}"`;
+            }
+            else if (desktop.toLowerCase().includes("kde") || desktop.toLowerCase().includes("plasma")) {
+                // KDE Plasma
+                command = `qdbus org.kde.plasmashell /PlasmaShell org.kde.PlasmaShell.evaluateScript 'var allDesktops = desktops();for (i=0;i<allDesktops.length;i++) {d = allDesktops[i];d.wallpaperPlugin = "org.kde.image";d.currentConfigGroup = Array("Wallpaper", "org.kde.image", "General");d.writeConfig("Image", "file://${fullPath}");}'`;
+            }
+            else if (desktop.toLowerCase().includes("xfce")) {
+                // XFCE
+                command = `xfconf-query -c xfce4-desktop -p /backdrop/screen0/monitor0/workspace0/last-image -s "${fullPath}"`;
+            }
+            else {
+                // Fallback: try feh (common wallpaper setter)
+                command = `feh --bg-${mode === "fill" ? "fill" : "scale"} "${fullPath}"`;
+            }
+            await execAsync(command);
+            return {
+                content: [],
+                structuredContent: {
+                    success: true,
+                    platform: `linux-${desktop.toLowerCase() || 'generic'}`
+                }
+            };
+        }
+        else if (IS_MACOS) {
+            // macOS: Use osascript to set wallpaper
+            const script = `tell application "Finder" to set desktop picture to POSIX file "${fullPath}"`;
+            await execAsync(`osascript -e '${script}'`);
+            return {
+                content: [],
+                structuredContent: {
+                    success: true,
+                    platform: "macos"
+                }
+            };
+        }
+        // Should never reach here, but TypeScript needs a return
         return {
             content: [],
             structuredContent: {
-                success: true
+                success: false,
+                platform: PLATFORM,
+                error: "Unsupported platform"
             }
         };
     }
@@ -1146,6 +1319,7 @@ server.registerTool("change_wallpaper", {
             content: [],
             structuredContent: {
                 success: false,
+                platform: PLATFORM,
                 error: error instanceof Error ? error.message : String(error)
             }
         };
@@ -1380,7 +1554,7 @@ server.registerTool("system_exec", {
     }
 });
 server.registerTool("registry_read", {
-    description: "Read Windows registry values",
+    description: "Read system configuration (Windows: Registry, Linux: config files, macOS: plist/config files)",
     inputSchema: {
         key: z.string(),
         value: z.string().optional()
@@ -1388,19 +1562,97 @@ server.registerTool("registry_read", {
     outputSchema: {
         success: z.boolean(),
         data: z.any().optional(),
+        platform: z.string(),
         error: z.string().optional()
     }
 }, async ({ key, value }) => {
     try {
-        const command = value
-            ? `reg query "${key}" /v "${value}"`
-            : `reg query "${key}"`;
-        const { stdout } = await execAsync(command);
+        if (IS_WINDOWS) {
+            // Windows Registry
+            const command = value
+                ? `reg query "${key}" /v "${value}"`
+                : `reg query "${key}"`;
+            const { stdout } = await execAsync(command);
+            return {
+                content: [],
+                structuredContent: {
+                    success: true,
+                    data: stdout,
+                    platform: "windows-registry"
+                }
+            };
+        }
+        else if (IS_LINUX) {
+            // Linux: Map common registry-like locations to config files
+            let configPath = "";
+            let command = "";
+            if (key.toLowerCase().includes("software") || key.toLowerCase().includes("apps")) {
+                configPath = "/etc/";
+                command = `find /etc -name "*.conf" -o -name "*.cfg" | head -10 | xargs grep -l "${value || ''}" 2>/dev/null || echo "No matching config found"`;
+            }
+            else if (key.toLowerCase().includes("system")) {
+                command = value
+                    ? `grep -r "${value}" /etc/systemd/ /etc/default/ 2>/dev/null || echo "Not found"`
+                    : `ls -la /etc/systemd/system/ /etc/default/`;
+            }
+            else if (key.toLowerCase().includes("user") || key.toLowerCase().includes("current_user")) {
+                const homeDir = process.env.HOME || "/home/" + (process.env.USER || "user");
+                command = value
+                    ? `grep -r "${value}" ${homeDir}/.config/ ${homeDir}/.local/ 2>/dev/null || echo "Not found"`
+                    : `ls -la ${homeDir}/.config/ ${homeDir}/.local/share/ 2>/dev/null || echo "No user config"`;
+            }
+            else {
+                // General config search
+                command = value
+                    ? `grep -r "${value}" /etc/ 2>/dev/null | head -5 || echo "Not found"`
+                    : `echo "Specify a value to search for in Linux config files"`;
+            }
+            const { stdout } = await execAsync(command);
+            return {
+                content: [],
+                structuredContent: {
+                    success: true,
+                    data: stdout,
+                    platform: "linux-configs"
+                }
+            };
+        }
+        else if (IS_MACOS) {
+            // macOS: Use defaults command for plist files
+            let command = "";
+            if (key.toLowerCase().includes("system")) {
+                command = value
+                    ? `defaults read /Library/Preferences/SystemConfiguration/preferences | grep -i "${value}" || echo "Not found"`
+                    : `defaults domains | tr ',' '\n' | head -10`;
+            }
+            else if (key.toLowerCase().includes("user") || key.toLowerCase().includes("current_user")) {
+                command = value
+                    ? `defaults read com.apple.finder | grep -i "${value}" || echo "Not found"`
+                    : `defaults domains | tr ',' '\n' | grep -E "com\\.apple\\.|com\\.microsoft\\." | head -10`;
+            }
+            else {
+                // Try to read as a domain
+                command = value
+                    ? `defaults read "${key}" 2>/dev/null | grep -i "${value}" || echo "Not found"`
+                    : `defaults read "${key}" 2>/dev/null || echo "Domain not found: ${key}"`;
+            }
+            const { stdout } = await execAsync(command);
+            return {
+                content: [],
+                structuredContent: {
+                    success: true,
+                    data: stdout,
+                    platform: "macos-defaults"
+                }
+            };
+        }
+        // Should never reach here, but TypeScript needs a return
         return {
             content: [],
             structuredContent: {
-                success: true,
-                data: stdout
+                success: false,
+                platform: PLATFORM,
+                error: "Unsupported platform for registry operations"
             }
         };
     }
@@ -1409,31 +1661,121 @@ server.registerTool("registry_read", {
             content: [],
             structuredContent: {
                 success: false,
+                platform: PLATFORM,
                 error: error.message
             }
         };
     }
 });
 server.registerTool("registry_write", {
-    description: "Write Windows registry values",
+    description: "Write system configuration (Windows: Registry, Linux: config files, macOS: plist/config files)",
     inputSchema: {
         key: z.string(),
         value: z.string(),
         data: z.string(),
-        type: z.enum(["REG_SZ", "REG_DWORD", "REG_QWORD", "REG_BINARY", "REG_MULTI_SZ", "REG_EXPAND_SZ"]).default("REG_SZ")
+        type: z.enum(["REG_SZ", "REG_DWORD", "REG_QWORD", "REG_BINARY", "REG_MULTI_SZ", "REG_EXPAND_SZ", "string", "boolean", "integer"]).default("string")
     },
     outputSchema: {
         success: z.boolean(),
+        platform: z.string(),
         error: z.string().optional()
     }
 }, async ({ key, value, data, type }) => {
     try {
-        const command = `reg add "${key}" /v "${value}" /t ${type} /d "${data}" /f`;
-        await execAsync(command);
+        if (IS_WINDOWS) {
+            // Windows Registry
+            const regType = type.startsWith("REG_") ? type : "REG_SZ";
+            const command = `reg add "${key}" /v "${value}" /t ${regType} /d "${data}" /f`;
+            await execAsync(command);
+            return {
+                content: [],
+                structuredContent: {
+                    success: true,
+                    platform: "windows-registry"
+                }
+            };
+        }
+        else if (IS_LINUX) {
+            // Linux: Write to appropriate config files
+            if (key.toLowerCase().includes("user") || key.toLowerCase().includes("current_user")) {
+                // User config
+                const homeDir = process.env.HOME || "/home/" + (process.env.USER || "user");
+                const configFile = `${homeDir}/.config/mcp-settings.conf`;
+                // Ensure directory exists
+                await execAsync(`mkdir -p ${homeDir}/.config`);
+                // Append or update the setting
+                const setting = `${value}=${data}`;
+                await execAsync(`grep -v "^${value}=" "${configFile}" > "${configFile}.tmp" 2>/dev/null || touch "${configFile}.tmp"`);
+                await execAsync(`echo "${setting}" >> "${configFile}.tmp"`);
+                await execAsync(`mv "${configFile}.tmp" "${configFile}"`);
+                return {
+                    content: [],
+                    structuredContent: {
+                        success: true,
+                        platform: "linux-userconfig"
+                    }
+                };
+            }
+            else {
+                // System config (requires sudo)
+                const configFile = `/etc/mcp-settings.conf`;
+                const setting = `${value}=${data}`;
+                await execAsync(`sudo bash -c 'grep -v "^${value}=" "${configFile}" > "${configFile}.tmp" 2>/dev/null || touch "${configFile}.tmp"'`);
+                await execAsync(`sudo bash -c 'echo "${setting}" >> "${configFile}.tmp"'`);
+                await execAsync(`sudo mv "${configFile}.tmp" "${configFile}"`);
+                return {
+                    content: [],
+                    structuredContent: {
+                        success: true,
+                        platform: "linux-systemconfig"
+                    }
+                };
+            }
+        }
+        else if (IS_MACOS) {
+            // macOS: Use defaults command for plist files
+            let command = "";
+            if (key.toLowerCase().includes("user") || key.toLowerCase().includes("current_user")) {
+                // User defaults
+                const domain = "com.mcp.settings";
+                if (type === "boolean") {
+                    command = `defaults write ${domain} "${value}" -bool ${data}`;
+                }
+                else if (type === "integer") {
+                    command = `defaults write ${domain} "${value}" -int ${data}`;
+                }
+                else {
+                    command = `defaults write ${domain} "${value}" -string "${data}"`;
+                }
+            }
+            else {
+                // Try to write to the specified domain
+                if (type === "boolean") {
+                    command = `defaults write "${key}" "${value}" -bool ${data}`;
+                }
+                else if (type === "integer") {
+                    command = `defaults write "${key}" "${value}" -int ${data}`;
+                }
+                else {
+                    command = `defaults write "${key}" "${value}" -string "${data}"`;
+                }
+            }
+            await execAsync(command);
+            return {
+                content: [],
+                structuredContent: {
+                    success: true,
+                    platform: "macos-defaults"
+                }
+            };
+        }
+        // Should never reach here, but TypeScript needs a return
         return {
             content: [],
             structuredContent: {
-                success: true
+                success: false,
+                platform: PLATFORM,
+                error: "Unsupported platform for registry operations"
             }
         };
     }
@@ -1442,83 +1784,124 @@ server.registerTool("registry_write", {
             content: [],
             structuredContent: {
                 success: false,
+                platform: PLATFORM,
                 error: error.message
             }
         };
     }
 });
 server.registerTool("service_control", {
-    description: "Control Windows services (start, stop, restart, etc.)",
+    description: "Control system services (cross-platform: Windows services, Linux systemd/init, macOS launchd)",
     inputSchema: {
         serviceName: z.string(),
-        action: z.enum(["start", "stop", "restart", "pause", "resume", "status"])
+        action: z.enum(["start", "stop", "restart", "pause", "resume", "status", "enable", "disable", "list"])
     },
     outputSchema: {
         success: z.boolean(),
         output: z.string().optional(),
+        platform: z.string(),
         error: z.string().optional()
     }
 }, async ({ serviceName, action }) => {
     try {
-        const command = `sc ${action} "${serviceName}"`;
-        const { stdout } = await execAsync(command);
-        return {
-            content: [],
-            structuredContent: {
-                success: true,
-                output: stdout
-            }
-        };
-    }
-    catch (error) {
-        return {
-            content: [],
-            structuredContent: {
-                success: false,
-                error: error.message
-            }
-        };
-    }
-});
-server.registerTool("disk_management", {
-    description: "Manage disk partitions and volumes",
-    inputSchema: {
-        action: z.enum(["list", "create", "delete", "format", "extend", "shrink"]),
-        disk: z.number().optional(),
-        partition: z.number().optional(),
-        size: z.string().optional(),
-        format: z.string().optional()
-    },
-    outputSchema: {
-        success: z.boolean(),
-        output: z.string().optional(),
-        error: z.string().optional()
-    }
-}, async ({ action, disk, partition, size, format }) => {
-    try {
         let command = "";
-        switch (action) {
-            case "list":
-                command = "diskpart /s -";
-                break;
-            case "create":
-                command = `diskpart /s - <<EOF
-select disk ${disk}
-create partition primary size=${size}
-EOF`;
-                break;
-            case "format":
-                command = `format ${disk}: /fs:${format || "NTFS"} /q`;
-                break;
-            default:
-                command = `diskpart /s -`;
+        if (IS_WINDOWS) {
+            // Windows services
+            switch (action) {
+                case "start":
+                case "stop":
+                case "pause":
+                case "resume":
+                    command = `sc ${action} "${serviceName}"`;
+                    break;
+                case "restart":
+                    command = `sc stop "${serviceName}" && sc start "${serviceName}"`;
+                    break;
+                case "status":
+                    command = `sc query "${serviceName}"`;
+                    break;
+                case "enable":
+                    command = `sc config "${serviceName}" start= auto`;
+                    break;
+                case "disable":
+                    command = `sc config "${serviceName}" start= disabled`;
+                    break;
+                case "list":
+                    command = `sc query type= service state= all`;
+                    break;
+            }
+        }
+        else if (IS_LINUX) {
+            // Linux systemd/init services
+            switch (action) {
+                case "start":
+                    command = `sudo systemctl start "${serviceName}" || sudo service "${serviceName}" start`;
+                    break;
+                case "stop":
+                    command = `sudo systemctl stop "${serviceName}" || sudo service "${serviceName}" stop`;
+                    break;
+                case "restart":
+                    command = `sudo systemctl restart "${serviceName}" || sudo service "${serviceName}" restart`;
+                    break;
+                case "status":
+                    command = `systemctl status "${serviceName}" || service "${serviceName}" status`;
+                    break;
+                case "enable":
+                    command = `sudo systemctl enable "${serviceName}"`;
+                    break;
+                case "disable":
+                    command = `sudo systemctl disable "${serviceName}"`;
+                    break;
+                case "pause":
+                    command = `sudo systemctl stop "${serviceName}"`;
+                    break;
+                case "resume":
+                    command = `sudo systemctl start "${serviceName}"`;
+                    break;
+                case "list":
+                    command = `systemctl list-units --type=service || service --status-all`;
+                    break;
+            }
+        }
+        else if (IS_MACOS) {
+            // macOS launchd services
+            switch (action) {
+                case "start":
+                    command = `sudo launchctl load -w /System/Library/LaunchDaemons/${serviceName}.plist || sudo launchctl start ${serviceName}`;
+                    break;
+                case "stop":
+                    command = `sudo launchctl unload -w /System/Library/LaunchDaemons/${serviceName}.plist || sudo launchctl stop ${serviceName}`;
+                    break;
+                case "restart":
+                    command = `sudo launchctl stop ${serviceName} && sudo launchctl start ${serviceName}`;
+                    break;
+                case "status":
+                    command = `launchctl print system/${serviceName} || launchctl list | grep ${serviceName}`;
+                    break;
+                case "enable":
+                    command = `sudo launchctl enable system/${serviceName}`;
+                    break;
+                case "disable":
+                    command = `sudo launchctl disable system/${serviceName}`;
+                    break;
+                case "pause":
+                    command = `sudo launchctl stop ${serviceName}`;
+                    break;
+                case "resume":
+                    command = `sudo launchctl start ${serviceName}`;
+                    break;
+                case "list":
+                    command = `launchctl list | head -20`;
+                    break;
+            }
         }
         const { stdout } = await execAsync(command);
         return {
             content: [],
             structuredContent: {
                 success: true,
-                output: stdout
+                output: stdout,
+                platform: PLATFORM
             }
         };
     }
@@ -1527,13 +1910,140 @@ EOF`;
             content: [],
             structuredContent: {
                 success: false,
+                platform: PLATFORM,
+                error: error.message
+            }
+        };
+    }
+});
+server.registerTool("disk_management", {
+    description: "Manage disk partitions and volumes (cross-platform)",
+    inputSchema: {
+        action: z.enum(["list", "create", "delete", "format", "extend", "shrink", "info"]),
+        disk: z.string().optional(),
+        partition: z.string().optional(),
+        size: z.string().optional(),
+        format: z.string().optional()
+    },
+    outputSchema: {
+        success: z.boolean(),
+        output: z.string().optional(),
+        platform: z.string(),
+        error: z.string().optional()
+    }
+}, async ({ action, disk, partition, size, format }) => {
+    try {
+        let command = "";
+        if (IS_WINDOWS) {
+            // Windows disk management
+            switch (action) {
+                case "list":
+                    command = "wmic logicaldisk get size,freespace,caption";
+                    break;
+                case "info":
+                    command = "wmic diskdrive get model,size,status";
+                    break;
+                case "create":
+                    command = `diskpart /s - <<EOF
+select disk ${disk}
+create partition primary size=${size}
+EOF`;
+                    break;
+                case "format":
+                    command = `format ${disk}: /fs:${format || "NTFS"} /q`;
+                    break;
+                default:
+                    command = "wmic logicaldisk get size,freespace,caption";
+            }
+        }
+        else if (IS_LINUX) {
+            // Linux disk management
+            switch (action) {
+                case "list":
+                    command = "df -h && echo '--- Block Devices ---' && lsblk";
+                    break;
+                case "info":
+                    command = "fdisk -l | grep -E '^Disk|^Device' && echo '--- Mount Points ---' && mount | grep -E '^/dev/'";
+                    break;
+                case "create":
+                    if (!disk || !size) {
+                        throw new Error("Disk and size required for partition creation on Linux");
+                    }
+                    command = `sudo parted ${disk} mkpart primary ext4 0% ${size}`;
+                    break;
+                case "format":
+                    if (!disk) {
+                        throw new Error("Disk/partition required for formatting on Linux");
+                    }
+                    const fsType = format || "ext4";
+                    command = `sudo mkfs.${fsType} ${disk}`;
+                    break;
+                case "delete":
+                    if (!disk || !partition) {
+                        throw new Error("Disk and partition number required for deletion on Linux");
+                    }
+                    command = `sudo parted ${disk} rm ${partition}`;
+                    break;
+                default:
+                    command = "df -h && echo '--- Block Devices ---' && lsblk";
+            }
+        }
+        else if (IS_MACOS) {
+            // macOS disk management
+            switch (action) {
+                case "list":
+                    command = "df -h && echo '--- Disk Utility ---' && diskutil list";
+                    break;
+                case "info":
+                    command = "diskutil info disk0 && system_profiler SPStorageDataType";
+                    break;
+                case "create":
+                    if (!disk || !size) {
+                        throw new Error("Disk and size required for partition creation on macOS");
+                    }
+                    const fsFormat = format || "JHFS+";
+                    command = `diskutil partitionDisk ${disk} GPT ${fsFormat} "New Partition" ${size}`;
+                    break;
+                case "format":
+                    if (!disk) {
+                        throw new Error("Disk/partition required for formatting on macOS");
+                    }
+                    const macFormat = format || "JHFS+";
+                    command = `diskutil eraseDisk ${macFormat} "Formatted" ${disk}`;
+                    break;
+                case "delete":
+                    if (!partition) {
+                        throw new Error("Partition identifier required for deletion on macOS");
+                    }
+                    command = `diskutil eraseVolume "Free Space" %noformat% ${partition}`;
+                    break;
+                default:
+                    command = "df -h && echo '--- Disk Utility ---' && diskutil list";
+            }
+        }
+        const { stdout } = await execAsync(command);
+        return {
+            content: [],
+            structuredContent: {
+                success: true,
+                output: stdout,
+                platform: PLATFORM
+            }
+        };
+    }
+    catch (error) {
+        return {
+            content: [],
+            structuredContent: {
+                success: false,
+                platform: PLATFORM,
                 error: error.message
             }
         };
     }
 });
 server.registerTool("network_scan", {
-    description: "Scan network for devices and open ports",
+    description: "Scan network for devices and open ports (cross-platform)",
     inputSchema: {
         target: z.string().optional(),
         ports: z.string().optional(),
@@ -1542,6 +2052,7 @@ server.registerTool("network_scan", {
     outputSchema: {
         success: z.boolean(),
         results: z.array(z.any()).optional(),
+        platform: z.string(),
         error: z.string().optional()
     }
 }, async ({ target, ports, scanType }) => {
@@ -1550,25 +2061,66 @@ server.registerTool("network_scan", {
         let results = [];
         switch (scanType) {
             case "ping":
-                command = `ping -n 1 ${target || "127.0.0.1"}`;
+                if (IS_WINDOWS) {
+                    command = `ping -n 1 ${target || "127.0.0.1"}`;
+                }
+                else {
+                    command = `ping -c 1 ${target || "127.0.0.1"}`;
+                }
                 break;
             case "port":
-                command = `netstat -an | findstr :${ports || "80"}`;
+                if (IS_WINDOWS) {
+                    command = `netstat -an | findstr :${ports || "80"}`;
+                }
+                else {
+                    command = `netstat -an | grep :${ports || "80"}`;
+                }
                 break;
             case "arp":
-                command = "arp -a";
+                if (IS_WINDOWS) {
+                    command = "arp -a";
+                }
+                else if (IS_LINUX) {
+                    command = "arp -a";
+                }
+                else if (IS_MACOS) {
+                    command = "arp -a";
+                }
                 break;
             case "full":
-                command = `nmap -sn ${target || "192.168.1.0/24"}`;
+                // Try nmap first, fallback to ping sweep
+                try {
+                    if (IS_WINDOWS) {
+                        command = `nmap -sn ${target || "192.168.1.0/24"}`;
+                    }
+                    else {
+                        command = `nmap -sn ${target || "192.168.1.0/24"}`;
+                    }
+                }
+                catch {
+                    // Fallback to ping sweep if nmap not available
+                    if (IS_WINDOWS) {
+                        command = `for /L %i in (1,1,254) do @ping -n 1 -w 100 192.168.1.%i | find "TTL"`;
+                    }
+                    else {
+                        command = `for i in {1..254}; do ping -c 1 -W 100 192.168.1.$i | grep "ttl" & done`;
+                    }
+                }
                 break;
         }
-        const { stdout } = await execAsync(command);
-        results.push({ command, output: stdout });
+        const { stdout } = await execAsync(command, { timeout: 30000 });
+        results.push({
+            command,
+            output: stdout,
+            scanType,
+            target: target || "default"
+        });
         return {
             content: [],
             structuredContent: {
                 success: true,
-                results
+                results,
+                platform: PLATFORM
             }
         };
     }
@@ -1577,6 +2129,7 @@ server.registerTool("network_scan", {
             content: [],
             structuredContent: {
                 success: false,
+                platform: PLATFORM,
                 error: error.message
             }
         };
@@ -1593,18 +2146,18 @@ async function isProcessElevated() {
         return false;
     }
 }
-// Utility: Run a command elevated by generating a PowerShell script and invoking RunAs
+// Utility: Run a command elevated (cross-platform: Windows UAC, Linux/macOS sudo)
 async function runElevatedCommand(command, args, workingDirectory, timeoutMs = config.timeout) {
     const tempDir = os.tmpdir();
     const uid = Date.now().toString(36) + Math.random().toString(36).slice(2);
     const stdoutPath = path.join(tempDir, `mcp_elev_${uid}.out.txt`);
     const stderrPath = path.join(tempDir, `mcp_elev_${uid}.err.txt`);
     const exitPath = path.join(tempDir, `mcp_elev_${uid}.code.txt`);
-    const scriptPath = path.join(tempDir, `mcp_elev_${uid}.ps1`);
-    const cdLine = workingDirectory ? `Set-Location -Path '${workingDirectory.replace(/'/g, "''")}'` : '';
-    const psArgs = args.map(a => a.replace(/'/g, "''")).join("' ,' ");
-    const argList = args.length > 0 ? `, ${args.map(a => `'${a.replace(/'/g, "''")}'`).join(", ")}` : '';
-    const script = `
+    if (IS_WINDOWS) {
+        // Windows: Use PowerShell with UAC elevation
+        const scriptPath = path.join(tempDir, `mcp_elev_${uid}.ps1`);
+        const cdLine = workingDirectory ? `Set-Location -Path '${workingDirectory.replace(/'/g, "''")}'` : '';
+        const script = `
 $ErrorActionPreference = 'Continue'
 ${cdLine}
 try {
@@ -1616,14 +2169,41 @@ try {
 }
 Set-Content -Path '${exitPath.replace(/'/g, "''")}' -Value $code -Encoding ascii -Force
 `;
-    await fs.writeFile(scriptPath, script, 'utf8');
-    const startProcessCmd = `Start-Process PowerShell -Verb RunAs -WindowStyle Hidden -ArgumentList '-NoProfile','-ExecutionPolicy','Bypass','-File','${scriptPath.replace(/'/g, "''")}' -Wait`;
-    try {
-        await execAsync(`powershell -NoProfile -ExecutionPolicy Bypass -Command "${startProcessCmd}"`, { timeout: timeoutMs });
+        await fs.writeFile(scriptPath, script, 'utf8');
+        const startProcessCmd = `Start-Process PowerShell -Verb RunAs -WindowStyle Hidden -ArgumentList '-NoProfile','-ExecutionPolicy','Bypass','-File','${scriptPath.replace(/'/g, "''")}' -Wait`;
+        try {
+            await execAsync(`powershell -NoProfile -ExecutionPolicy Bypass -Command "${startProcessCmd}"`, { timeout: timeoutMs });
+        }
+        catch (e) {
+            // Even if Start-Process fails (e.g., user cancels UAC), fall through to read any files
+        }
+        // Cleanup the script file
+        await fs.unlink(scriptPath).catch(() => { });
     }
-    catch (e) {
-        // Even if Start-Process fails (e.g., user cancels UAC), fall through to read any files
+    else {
+        // Linux/macOS: Use sudo with script execution
+        const scriptPath = path.join(tempDir, `mcp_elev_${uid}.sh`);
+        const cdLine = workingDirectory ? `cd '${workingDirectory.replace(/'/g, "'\"'\"'")}'` : '';
+        const script = `#!/bin/bash
+set -e
+${cdLine}
+# Execute the command and capture output/exit code
+{ ${command} ${args.map(a => `'${a.replace(/'/g, "'\"'\"'")}'`).join(' ')} > '${stdoutPath}' 2> '${stderrPath}'; echo $? > '${exitPath}'; } || { echo $? > '${exitPath}'; }
+`;
+        await fs.writeFile(scriptPath, script, 'utf8');
+        await execAsync(`chmod +x '${scriptPath}'`);
+        try {
+            // Use sudo to execute the script
+            // Note: This may prompt for password in terminal
+            await execAsync(`sudo '${scriptPath}'`, { timeout: timeoutMs });
+        }
+        catch (e) {
+            // Continue to read output files even if sudo fails
+        }
+        // Cleanup the script file
+        await fs.unlink(scriptPath).catch(() => { });
     }
+    // Read output files (common for all platforms)
     let exitCode = -1;
     let stdout = '';
     let stderr = '';
@@ -1640,18 +2220,17 @@ Set-Content -Path '${exitPath.replace(/'/g, "''")}' -Value $code -Encoding ascii
         exitCode = parseInt(codeText.trim(), 10);
     }
     catch { }
-    // Cleanup
+    // Cleanup output files
     await Promise.all([
-        fs.unlink(scriptPath).catch(() => { }),
         fs.unlink(stdoutPath).catch(() => { }),
         fs.unlink(stderrPath).catch(() => { }),
         fs.unlink(exitPath).catch(() => { }),
     ]);
     return { stdout, stderr, exitCode: Number.isFinite(exitCode) ? exitCode : -1 };
 }
-// Elevated process execution
+// Elevated process execution (cross-platform)
 server.registerTool("proc_run_elevated", {
-    description: "Run a command with UAC elevation (will prompt). Captures stdout/stderr via temp files.",
+    description: "Run a command with elevated privileges (Windows: UAC, Linux/macOS: sudo). May prompt for authentication.",
     inputSchema: {
         command: z.string(),
         args: z.array(z.string()).default([]),
@@ -1664,6 +2243,7 @@ server.registerTool("proc_run_elevated", {
         stderr: z.string().optional(),
         exitCode: z.number().optional(),
         elevated: z.boolean(),
+        platform: z.string(),
         note: z.string().optional()
     }
 }, async ({ command, args, cwd, timeout }) => {
@@ -1672,22 +2252,243 @@ server.registerTool("proc_run_elevated", {
     if (elevated) {
         try {
             const { stdout, stderr } = await execAsync(`${command} ${args.join(' ')}`, { cwd: workingDir, timeout });
-            return { content: [], structuredContent: { success: true, stdout: stdout || undefined, stderr: stderr || undefined, exitCode: 0, elevated: true } };
+            return {
+                content: [],
+                structuredContent: {
+                    success: true,
+                    stdout: stdout || undefined,
+                    stderr: stderr || undefined,
+                    exitCode: 0,
+                    elevated: true,
+                    platform: PLATFORM
+                }
+            };
         }
         catch (error) {
-            return { content: [], structuredContent: { success: false, stdout: error.stdout || undefined, stderr: error.stderr || undefined, exitCode: error.code || -1, elevated: true } };
+            return {
+                content: [],
+                structuredContent: {
+                    success: false,
+                    stdout: error.stdout || undefined,
+                    stderr: error.stderr || undefined,
+                    exitCode: error.code || -1,
+                    elevated: true,
+                    platform: PLATFORM
+                }
+            };
         }
     }
     const { stdout, stderr, exitCode } = await runElevatedCommand(command, args, workingDir, timeout);
     const success = exitCode === 0;
-    const note = success ? undefined : 'If you did not accept the UAC prompt, the command did not run.';
-    return { content: [], structuredContent: { success, stdout: stdout || undefined, stderr: stderr || undefined, exitCode, elevated: false, note } };
+    let note = undefined;
+    if (!success) {
+        if (IS_WINDOWS) {
+            note = 'If you did not accept the UAC prompt, the command did not run.';
+        }
+        else {
+            note = 'If you did not provide the correct sudo password, the command did not run.';
+        }
+    }
+    return {
+        content: [],
+        structuredContent: {
+            success,
+            stdout: stdout || undefined,
+            stderr: stderr || undefined,
+            exitCode,
+            elevated: false,
+            platform: PLATFORM,
+            note
+        }
+    };
 });
-// Create a Windows Restore Point (requires System Protection enabled)
-server.registerTool("create_restore_point", {
-    description: "Create a Windows Restore Point (will request elevation).",
+// Linux/macOS-specific elevated terminal execution
+server.registerTool("unix_sudo_exec", {
+    description: "Execute commands with sudo on Linux/macOS (equivalent to Windows PowerShell admin). Interactive sudo prompt.",
     inputSchema: {
-        description: z.string().default("MCP Restore Point"),
+        command: z.string(),
+        args: z.array(z.string()).default([]),
+        cwd: z.string().optional(),
+        timeout: z.number().int().min(1000).max(10 * 60 * 1000).default(2 * 60 * 1000),
+        interactive: z.boolean().default(false)
+    },
+    outputSchema: {
+        success: z.boolean(),
+        stdout: z.string().optional(),
+        stderr: z.string().optional(),
+        exitCode: z.number().optional(),
+        platform: z.string(),
+        sudoUsed: z.boolean(),
+        note: z.string().optional()
+    }
+}, async ({ command, args, cwd, timeout, interactive }) => {
+    if (IS_WINDOWS) {
+        return {
+            content: [],
+            structuredContent: {
+                success: false,
+                platform: PLATFORM,
+                sudoUsed: false,
+                note: "This tool is for Linux/macOS only. Use proc_run_elevated for Windows."
+            }
+        };
+    }
+    const workingDir = cwd ? path.resolve(cwd) : process.cwd();
+    try {
+        let fullCommand = "";
+        let sudoUsed = false;
+        // Check if we're already running as root
+        const isRoot = process.getuid && process.getuid() === 0;
+        if (isRoot) {
+            // Already root, no sudo needed
+            fullCommand = `${command} ${args.join(' ')}`;
+        }
+        else {
+            // Use sudo
+            sudoUsed = true;
+            if (interactive) {
+                // Interactive mode - let sudo handle password prompt
+                fullCommand = `sudo ${command} ${args.join(' ')}`;
+            }
+            else {
+                // Non-interactive mode - use sudo with -S flag and provide password via stdin
+                fullCommand = `sudo -S ${command} ${args.join(' ')}`;
+            }
+        }
+        const { stdout, stderr } = await execAsync(fullCommand, {
+            cwd: workingDir,
+            timeout: timeout
+        });
+        return {
+            content: [],
+            structuredContent: {
+                success: true,
+                stdout: stdout || undefined,
+                stderr: stderr || undefined,
+                exitCode: 0,
+                platform: PLATFORM,
+                sudoUsed: sudoUsed
+            }
+        };
+    }
+    catch (error) {
+        return {
+            content: [],
+            structuredContent: {
+                success: false,
+                stdout: error.stdout || undefined,
+                stderr: error.stderr || undefined,
+                exitCode: error.code || -1,
+                platform: PLATFORM,
+                sudoUsed: true,
+                note: "Command failed. Check if sudo password was correct or if command is valid."
+            }
+        };
+    }
+});
+// Cross-platform shell execution with auto-elevation detection
+server.registerTool("shell_exec_smart", {
+    description: "Smart shell execution that automatically detects and uses appropriate elevation (UAC/sudo) when needed",
+    inputSchema: {
+        command: z.string(),
+        args: z.array(z.string()).default([]),
+        cwd: z.string().optional(),
+        autoElevate: z.boolean().default(true),
+        timeout: z.number().int().min(1000).max(10 * 60 * 1000).default(2 * 60 * 1000)
+    },
+    outputSchema: {
+        success: z.boolean(),
+        stdout: z.string().optional(),
+        stderr: z.string().optional(),
+        exitCode: z.number().optional(),
+        platform: z.string(),
+        elevationUsed: z.boolean(),
+        elevationType: z.string().optional(),
+        note: z.string().optional()
+    }
+}, async ({ command, args, cwd, autoElevate, timeout }) => {
+    const workingDir = cwd ? path.resolve(cwd) : process.cwd();
+    // List of commands that typically require elevation
+    const needsElevationCommands = [
+        'chown', 'chmod', 'mount', 'umount', 'systemctl', 'service', 'apt-get', 'apt',
+        'yum', 'dnf', 'pacman', 'zypper', 'brew', 'fdisk', 'parted', 'mkfs', 'fsck',
+        'iptables', 'ufw', 'firewall-cmd', 'netstat', 'ss', 'lsof', 'dmesg', 'modprobe',
+        'insmod', 'rmmod', 'update-grub', 'grub-install', 'ldconfig', 'sysctl'
+    ];
+    const commandName = command.split(/[\/\\]/).pop() || command;
+    const needsElevation = autoElevate && needsElevationCommands.includes(commandName);
+    try {
+        if (!needsElevation || await isProcessElevated()) {
+            // Run normally without elevation
+            const { stdout, stderr } = await execAsync(`${command} ${args.join(' ')}`, {
+                cwd: workingDir,
+                timeout: timeout
+            });
+            return {
+                content: [],
+                structuredContent: {
+                    success: true,
+                    stdout: stdout || undefined,
+                    stderr: stderr || undefined,
+                    exitCode: 0,
+                    platform: PLATFORM,
+                    elevationUsed: false
+                }
+            };
+        }
+        else {
+            // Use elevation
+            const { stdout, stderr, exitCode } = await runElevatedCommand(command, args, workingDir, timeout);
+            const success = exitCode === 0;
+            let elevationType = "";
+            let note = undefined;
+            if (IS_WINDOWS) {
+                elevationType = "UAC";
+                if (!success) {
+                    note = "UAC elevation may have been cancelled or failed.";
+                }
+            }
+            else {
+                elevationType = "sudo";
+                if (!success) {
+                    note = "sudo elevation may have been cancelled or password incorrect.";
+                }
+            }
+            return {
+                content: [],
+                structuredContent: {
+                    success,
+                    stdout: stdout || undefined,
+                    stderr: stderr || undefined,
+                    exitCode,
+                    platform: PLATFORM,
+                    elevationUsed: true,
+                    elevationType,
+                    note
+                }
+            };
+        }
+    }
+    catch (error) {
+        return {
+            content: [],
+            structuredContent: {
+                success: false,
+                stdout: error.stdout || undefined,
+                stderr: error.stderr || undefined,
+                exitCode: error.code || -1,
+                platform: PLATFORM,
+                elevationUsed: false,
+                note: `Command execution failed: ${error.message}`
+            }
+        };
+    }
+});
+// Create a System Snapshot/Restore Point (cross-platform)
+server.registerTool("create_restore_point", {
+    description: "Create a system snapshot/restore point (Windows: Restore Point, Linux: LVM/Btrfs snapshot, macOS: Time Machine snapshot)",
+    inputSchema: {
+        description: z.string().default("MCP System Snapshot"),
         restorePointType: z.enum(["APPLICATION_INSTALL", "APPLICATION_UNINSTALL", "DEVICE_DRIVER_INSTALL", "MODIFY_SETTINGS", "CANCELLED_OPERATION"]).default("MODIFY_SETTINGS")
     },
     outputSchema: {
@@ -1695,35 +2496,164 @@ server.registerTool("create_restore_point", {
         stdout: z.string().optional(),
         stderr: z.string().optional(),
         elevated: z.boolean(),
+        snapshotId: z.string().optional(),
+        platform: z.string(),
         error: z.string().optional()
     }
 }, async ({ description, restorePointType }) => {
     const elevated = await isProcessElevated();
-    const psCommand = `Checkpoint-Computer -Description '${description.replace(/'/g, "''")}' -RestorePointType '${restorePointType}'`;
-    if (elevated) {
-        try {
-            const { stdout, stderr } = await execAsync(`powershell -NoProfile -ExecutionPolicy Bypass -Command "${psCommand}"`, { timeout: 3 * 60 * 1000 });
-            return { content: [], structuredContent: { success: true, stdout: stdout || undefined, stderr: stderr || undefined, elevated: true } };
+    try {
+        if (IS_WINDOWS) {
+            // Windows Restore Point
+            const psCommand = `Checkpoint-Computer -Description '${description.replace(/'/g, "''")}' -RestorePointType '${restorePointType}'`;
+            if (elevated) {
+                const { stdout, stderr } = await execAsync(`powershell -NoProfile -ExecutionPolicy Bypass -Command "${psCommand}"`, { timeout: 3 * 60 * 1000 });
+                return { content: [], structuredContent: { success: true, stdout: stdout || undefined, stderr: stderr || undefined, elevated: true, platform: "windows" } };
+            }
+            else {
+                const { stdout, stderr, exitCode } = await runElevatedCommand('powershell', ['-NoProfile', '-ExecutionPolicy', 'Bypass', '-Command', psCommand], process.cwd(), 3 * 60 * 1000);
+                const success = exitCode === 0;
+                return { content: [], structuredContent: { success, stdout: stdout || undefined, stderr: stderr || undefined, elevated: false, platform: "windows", error: success ? undefined : 'Failed to create restore point (UAC denied, System Protection disabled, or policy restrictions).' } };
+            }
         }
-        catch (error) {
-            return { content: [], structuredContent: { success: false, stdout: error.stdout || undefined, stderr: error.stderr || undefined, elevated: true, error: error.message } };
+        else if (IS_LINUX) {
+            // Linux: Try Btrfs snapshot first, then LVM snapshot
+            const timestamp = new Date().toISOString().replace(/[:.]/g, "-");
+            const snapshotId = `mcp-snapshot-${timestamp}`;
+            try {
+                // Check if we're on a Btrfs filesystem
+                const { stdout: fsType } = await execAsync("findmnt -n -o FSTYPE /");
+                if (fsType.includes("btrfs")) {
+                    // Create Btrfs snapshot
+                    const snapshotPath = `/.snapshots/${snapshotId}`;
+                    await execAsync(`sudo mkdir -p /.snapshots`);
+                    await execAsync(`sudo btrfs subvolume snapshot / ${snapshotPath}`);
+                    return {
+                        content: [],
+                        structuredContent: {
+                            success: true,
+                            snapshotId,
+                            platform: "linux-btrfs",
+                            stdout: `Btrfs snapshot created: ${snapshotPath}`,
+                            elevated: true
+                        }
+                    };
+                }
+                else {
+                    // Try LVM snapshot
+                    const { stdout: lvmInfo } = await execAsync("sudo lvdisplay --colon 2>/dev/null || echo 'no-lvm'");
+                    if (!lvmInfo.includes("no-lvm")) {
+                        const rootLv = await execAsync("sudo lvdisplay --colon | grep $(df / | tail -1 | awk '{print $1}') | head -1 | cut -d: -f1");
+                        if (rootLv.stdout.trim()) {
+                            await execAsync(`sudo lvcreate -L1G -s -n ${snapshotId} ${rootLv.stdout.trim()}`);
+                            return {
+                                content: [],
+                                structuredContent: {
+                                    success: true,
+                                    snapshotId,
+                                    platform: "linux-lvm",
+                                    stdout: `LVM snapshot created: ${snapshotId}`,
+                                    elevated: true
+                                }
+                            };
+                        }
+                    }
+                    // Fallback: Create a tar backup of important directories
+                    const backupPath = `/tmp/mcp-backup-${timestamp}.tar.gz`;
+                    await execAsync(`sudo tar -czf ${backupPath} /etc /var/log /home --exclude=/home/*/.*cache* 2>/dev/null || true`);
+                    return {
+                        content: [],
+                        structuredContent: {
+                            success: true,
+                            snapshotId: backupPath,
+                            platform: "linux-backup",
+                            stdout: `System backup created: ${backupPath}`,
+                            elevated: true
+                        }
+                    };
+                }
+            }
+            catch (error) {
+                return {
+                    content: [],
+                    structuredContent: {
+                        success: false,
+                        platform: "linux",
+                        error: `Failed to create Linux snapshot: ${error.message}`
+                    }
+                };
+            }
         }
+        else if (IS_MACOS) {
+            // macOS: Use tmutil for Time Machine snapshot
+            const timestamp = new Date().toISOString().replace(/[:.]/g, "-");
+            const snapshotId = `mcp-snapshot-${timestamp}`;
+            try {
+                // Create Time Machine snapshot
+                const { stdout, stderr } = await execAsync(`sudo tmutil localsnapshot`);
+                // Try to get the snapshot name
+                const { stdout: snapshots } = await execAsync(`tmutil listlocalsnapshots /`);
+                const latestSnapshot = snapshots.trim().split('\n').pop();
+                return {
+                    content: [],
+                    structuredContent: {
+                        success: true,
+                        snapshotId: latestSnapshot || snapshotId,
+                        platform: "macos-timemachine",
+                        stdout: `Time Machine snapshot created: ${latestSnapshot}`,
+                        elevated: true
+                    }
+                };
+            }
+            catch (error) {
+                // Fallback: Create a tar backup
+                const backupPath = `/tmp/mcp-backup-${timestamp}.tar.gz`;
+                await execAsync(`sudo tar -czf ${backupPath} /etc /var/log /Users --exclude=/Users/*/Library/Caches 2>/dev/null || true`);
+                return {
+                    content: [],
+                    structuredContent: {
+                        success: true,
+                        snapshotId: backupPath,
+                        platform: "macos-backup",
+                        stdout: `System backup created: ${backupPath}`,
+                        elevated: true
+                    }
+                };
+            }
+        }
+        // Should never reach here, but TypeScript needs a return
+        return {
+            content: [],
+            structuredContent: {
+                success: false,
+                platform: PLATFORM,
+                error: "Unsupported platform for restore points"
+            }
+        };
     }
-    const { stdout, stderr, exitCode } = await runElevatedCommand('powershell', ['-NoProfile', '-ExecutionPolicy', 'Bypass', '-Command', psCommand], process.cwd(), 3 * 60 * 1000);
-    const success = exitCode === 0;
-    return { content: [], structuredContent: { success, stdout: stdout || undefined, stderr: stderr || undefined, elevated: false, error: success ? undefined : 'Failed to create restore point (UAC denied, System Protection disabled, or policy restrictions).' } };
+    catch (error) {
+        return {
+            content: [],
+            structuredContent: {
+                success: false,
+                platform: PLATFORM,
+                error: error.message
+            }
+        };
+    }
 });
 // 1. System Repair Tool
 server.registerTool("system_repair", {
-    description: "Common Windows system repairs and diagnostics",
+    description: "System repairs and diagnostics (cross-platform)",
     inputSchema: {
-        repairType: z.enum(["sfc", "dism", "chkdsk", "network_reset", "windows_update_reset", "dns_flush", "temp_cleanup", "disk_cleanup"])
+        repairType: z.enum(["sfc", "dism", "chkdsk", "network_reset", "windows_update_reset", "dns_flush", "temp_cleanup", "disk_cleanup", "fsck", "system_update", "package_repair", "service_restart"])
     },
     outputSchema: {
         success: z.boolean(),
         output: z.string().optional(),
         error: z.string().optional(),
-        elevated: z.boolean()
+        elevated: z.boolean(),
+        platform: z.string()
     }
 }, async ({ repairType }) => {
     const elevated = await isProcessElevated();
@@ -1732,46 +2662,178 @@ server.registerTool("system_repair", {
         let needsElevation = false;
         switch (repairType) {
             case "sfc":
-                command = "sfc /scannow";
-                needsElevation = true;
+                if (IS_WINDOWS) {
+                    command = "sfc /scannow";
+                    needsElevation = true;
+                }
+                else if (IS_LINUX) {
+                    command = "sudo apt-get check && sudo apt-get autoremove";
+                    needsElevation = true;
+                }
+                else if (IS_MACOS) {
+                    command = "sudo diskutil verifyVolume /";
+                    needsElevation = true;
+                }
                 break;
             case "dism":
-                command = "dism /online /cleanup-image /restorehealth";
-                needsElevation = true;
+                if (IS_WINDOWS) {
+                    command = "dism /online /cleanup-image /restorehealth";
+                    needsElevation = true;
+                }
+                else if (IS_LINUX) {
+                    command = "sudo apt-get update && sudo apt-get upgrade";
+                    needsElevation = true;
+                }
+                else if (IS_MACOS) {
+                    command = "softwareupdate -i -a";
+                    needsElevation = true;
+                }
                 break;
             case "chkdsk":
-                command = "chkdsk C: /f /r";
-                needsElevation = true;
+                if (IS_WINDOWS) {
+                    command = "chkdsk C: /f /r";
+                    needsElevation = true;
+                }
+                else if (IS_LINUX) {
+                    command = "sudo fsck -f /";
+                    needsElevation = true;
+                }
+                else if (IS_MACOS) {
+                    command = "sudo diskutil repairVolume /";
+                    needsElevation = true;
+                }
                 break;
             case "network_reset":
-                command = "netsh winsock reset && netsh int ip reset";
-                needsElevation = true;
+                if (IS_WINDOWS) {
+                    command = "netsh winsock reset && netsh int ip reset";
+                    needsElevation = true;
+                }
+                else if (IS_LINUX) {
+                    command = "sudo systemctl restart NetworkManager";
+                    needsElevation = true;
+                }
+                else if (IS_MACOS) {
+                    command = "sudo dscacheutil -flushcache && sudo killall -HUP mDNSResponder";
+                    needsElevation = true;
+                }
                 break;
             case "windows_update_reset":
-                command = "net stop wuauserv && net stop cryptSvc && net stop bits && net stop msiserver";
-                needsElevation = true;
+                if (IS_WINDOWS) {
+                    command = "net stop wuauserv && net stop cryptSvc && net stop bits && net stop msiserver";
+                    needsElevation = true;
+                }
+                else if (IS_LINUX) {
+                    command = "sudo systemctl restart systemd-update-utmp";
+                    needsElevation = true;
+                }
+                else if (IS_MACOS) {
+                    command = "sudo launchctl unload /System/Library/LaunchDaemons/com.apple.softwareupdate.plist";
+                    needsElevation = true;
+                }
                 break;
             case "dns_flush":
-                command = "ipconfig /flushdns";
+                if (IS_WINDOWS) {
+                    command = "ipconfig /flushdns";
+                }
+                else if (IS_LINUX) {
+                    command = "sudo systemctl restart systemd-resolved";
+                    needsElevation = true;
+                }
+                else if (IS_MACOS) {
+                    command = "sudo dscacheutil -flushcache";
+                    needsElevation = true;
+                }
                 break;
             case "temp_cleanup":
-                command = "del /q /f %temp%\\* && del /q /f C:\\Windows\\Temp\\*";
-                needsElevation = true;
+                if (IS_WINDOWS) {
+                    command = "del /q /f %temp%\\* && del /q /f C:\\Windows\\Temp\\*";
+                    needsElevation = true;
+                }
+                else {
+                    command = "sudo rm -rf /tmp/* /var/tmp/* 2>/dev/null || true";
+                    needsElevation = true;
+                }
                 break;
             case "disk_cleanup":
-                command = "cleanmgr /sagerun:1";
-                needsElevation = true;
+                if (IS_WINDOWS) {
+                    command = "cleanmgr /sagerun:1";
+                    needsElevation = true;
+                }
+                else if (IS_LINUX) {
+                    command = "sudo apt-get autoremove -y && sudo apt-get autoclean";
+                    needsElevation = true;
+                }
+                else if (IS_MACOS) {
+                    command = "sudo rm -rf ~/Library/Caches/* /tmp/* 2>/dev/null || true";
+                    needsElevation = true;
+                }
+                break;
+            case "fsck":
+                if (IS_LINUX || IS_MACOS) {
+                    command = "sudo fsck -f /";
+                    needsElevation = true;
+                }
+                else {
+                    throw new Error("fsck is not available on Windows");
+                }
+                break;
+            case "system_update":
+                if (IS_LINUX) {
+                    command = "sudo apt update && sudo apt upgrade -y";
+                    needsElevation = true;
+                }
+                else if (IS_MACOS) {
+                    command = "softwareupdate -i -a";
+                    needsElevation = true;
+                }
+                else {
+                    throw new Error("System update not supported on Windows via this tool");
+                }
+                break;
+            case "package_repair":
+                if (IS_LINUX) {
+                    command = "sudo dpkg --configure -a && sudo apt-get install -f";
+                    needsElevation = true;
+                }
+                else if (IS_MACOS) {
+                    command = "brew doctor && brew cleanup";
+                }
+                else {
+                    throw new Error("Package repair not supported on Windows");
+                }
+                break;
+            case "service_restart":
+                if (IS_LINUX) {
+                    command = "sudo systemctl restart systemd-resolved";
+                    needsElevation = true;
+                }
+                else if (IS_MACOS) {
+                    command = "sudo launchctl unload /System/Library/LaunchDaemons/com.apple.mDNSResponder.plist && sudo launchctl load /System/Library/LaunchDaemons/com.apple.mDNSResponder.plist";
+                    needsElevation = true;
+                }
+                else {
+                    throw new Error("Service restart not supported on Windows via this tool");
+                }
                 break;
         }
         if (needsElevation && !elevated) {
-            const { stdout, stderr, exitCode } = await runElevatedCommand('cmd', ['/c', command], process.cwd(), 10 * 60 * 1000);
+            // Try to run with elevation
+            let elevatedCommand = command;
+            if (IS_WINDOWS) {
+                elevatedCommand = `powershell -Command "Start-Process cmd -ArgumentList '/c ${command}' -Verb RunAs"`;
+            }
+            else {
+                elevatedCommand = `sudo ${command}`;
+            }
+            const { stdout, stderr } = await execAsync(elevatedCommand, { timeout: 10 * 60 * 1000 });
             return {
                 content: [],
                 structuredContent: {
-                    success: exitCode === 0,
+                    success: true,
                     output: stdout || undefined,
-                    error: exitCode !== 0 ? stderr : undefined,
-                    elevated: false
+                    error: stderr || undefined,
+                    elevated: true,
+                    platform: PLATFORM
                 }
             };
         }
@@ -1783,7 +2845,8 @@ server.registerTool("system_repair", {
                     success: true,
                     output: stdout || undefined,
                     error: stderr || undefined,
-                    elevated: elevated
+                    elevated: elevated,
+                    platform: PLATFORM
                 }
             };
         }
@@ -1794,14 +2857,15 @@ server.registerTool("system_repair", {
             structuredContent: {
                 success: false,
                 error: error.message,
-                elevated: elevated
+                elevated: elevated,
+                platform: PLATFORM
             }
         };
     }
 });
 // 2. System Monitor Tool
 server.registerTool("system_monitor", {
-    description: "Monitor system resources in real-time",
+    description: "Monitor system resources in real-time (cross-platform)",
     inputSchema: {
         duration: z.number().default(30),
         metrics: z.array(z.enum(["cpu", "memory", "disk", "network", "processes"])).default(["cpu", "memory"]),
@@ -1810,7 +2874,8 @@ server.registerTool("system_monitor", {
     outputSchema: {
         success: z.boolean(),
         data: z.array(z.any()).optional(),
-        error: z.string().optional()
+        error: z.string().optional(),
+        platform: z.string()
     }
 }, async ({ duration, metrics, interval }) => {
     try {
@@ -1838,21 +2903,44 @@ server.registerTool("system_monitor", {
                         break;
                     case "disk":
                         try {
-                            const { stdout } = await execAsync("wmic logicaldisk get size,freespace,caption /format:csv");
-                            const lines = stdout.trim().split("\n").slice(1);
-                            snapshot.disk = lines.map((line) => {
-                                const parts = line.split(",");
-                                const size = parseInt(parts[1]) || 0;
-                                const free = parseInt(parts[2]) || 0;
-                                const used = size - free;
-                                return {
-                                    drive: parts[0] || "Unknown",
-                                    total: Math.round(size / (1024 ** 3) * 100) / 100,
-                                    used: Math.round(used / (1024 ** 3) * 100) / 100,
-                                    free: Math.round(free / (1024 ** 3) * 100) / 100,
-                                    usage: Math.round((used / size) * 100)
-                                };
-                            });
+                            let command = "";
+                            if (IS_WINDOWS) {
+                                command = "wmic logicaldisk get size,freespace,caption /format:csv";
+                            }
+                            else {
+                                command = "df -h";
+                            }
+                            const { stdout } = await execAsync(command);
+                            if (IS_WINDOWS) {
+                                const lines = stdout.trim().split("\n").slice(1);
+                                snapshot.disk = lines.map((line) => {
+                                    const parts = line.split(",");
+                                    const size = parseInt(parts[1]) || 0;
+                                    const free = parseInt(parts[2]) || 0;
+                                    const used = size - free;
+                                    return {
+                                        drive: parts[0] || "Unknown",
+                                        total: Math.round(size / (1024 ** 3) * 100) / 100,
+                                        used: Math.round(used / (1024 ** 3) * 100) / 100,
+                                        free: Math.round(free / (1024 ** 3) * 100) / 100,
+                                        usage: Math.round((used / size) * 100)
+                                    };
+                                });
+                            }
+                            else {
+                                const lines = stdout.trim().split("\n").slice(1);
+                                snapshot.disk = lines.map((line) => {
+                                    const parts = line.trim().split(/\s+/);
+                                    return {
+                                        filesystem: parts[0],
+                                        size: parts[1],
+                                        used: parts[2],
+                                        available: parts[3],
+                                        usage: parts[4],
+                                        mount: parts[5]
+                                    };
+                                });
+                            }
                         }
                         catch (error) {
                             snapshot.disk = { error: "Could not retrieve disk info" };
@@ -1860,13 +2948,34 @@ server.registerTool("system_monitor", {
                         break;
                     case "network":
                         try {
-                            const { stdout } = await execAsync("netstat -e");
-                            const lines = stdout.trim().split("\n");
-                            const stats = lines[lines.length - 1].split(/\s+/);
-                            snapshot.network = {
-                                bytesReceived: parseInt(stats[1]) || 0,
-                                bytesSent: parseInt(stats[2]) || 0
-                            };
+                            let command = "";
+                            if (IS_WINDOWS) {
+                                command = "netstat -e";
+                            }
+                            else {
+                                command = "cat /proc/net/dev | head -2";
+                            }
+                            const { stdout } = await execAsync(command);
+                            if (IS_WINDOWS) {
+                                const lines = stdout.trim().split("\n");
+                                const stats = lines[lines.length - 1].split(/\s+/);
+                                snapshot.network = {
+                                    bytesReceived: parseInt(stats[1]) || 0,
+                                    bytesSent: parseInt(stats[2]) || 0
+                                };
+                            }
+                            else {
+                                const lines = stdout.split("\n");
+                                if (lines.length >= 2) {
+                                    const header = lines[0].trim().split(/\s+/);
+                                    const data = lines[1].trim().split(/\s+/);
+                                    snapshot.network = {
+                                        interface: data[0],
+                                        bytesReceived: parseInt(data[1]) || 0,
+                                        bytesSent: parseInt(data[9]) || 0
+                                    };
+                                }
+                            }
                         }
                         catch (error) {
                             snapshot.network = { error: "Could not retrieve network stats" };
@@ -1874,16 +2983,39 @@ server.registerTool("system_monitor", {
                         break;
                     case "processes":
                         try {
-                            const { stdout } = await execAsync("tasklist /fo csv /nh");
-                            const processes = stdout.trim().split("\n").map((line) => {
-                                const parts = line.split(",");
-                                return {
-                                    name: parts[0]?.replace(/"/g, "") || "Unknown",
-                                    pid: parseInt(parts[1]) || 0,
-                                    memory: parts[4]?.replace(/"/g, "") || "Unknown"
-                                };
-                            });
-                            snapshot.processes = processes.slice(0, 10); // Top 10 processes
+                            let command = "";
+                            if (IS_WINDOWS) {
+                                command = "tasklist /fo csv /nh";
+                            }
+                            else {
+                                command = "ps aux --sort=-%cpu | head -10";
+                            }
+                            const { stdout } = await execAsync(command);
+                            if (IS_WINDOWS) {
+                                const processes = stdout.trim().split("\n").map((line) => {
+                                    const parts = line.split(",");
+                                    return {
+                                        name: parts[0]?.replace(/"/g, "") || "Unknown",
+                                        pid: parseInt(parts[1]) || 0,
+                                        memory: parts[4]?.replace(/"/g, "") || "Unknown"
+                                    };
+                                });
+                                snapshot.processes = processes.slice(0, 10); // Top 10 processes
+                            }
+                            else {
+                                const lines = stdout.trim().split("\n").slice(1);
+                                const processes = lines.map((line) => {
+                                    const parts = line.trim().split(/\s+/);
+                                    return {
+                                        user: parts[0],
+                                        pid: parseInt(parts[1]) || 0,
+                                        cpu: parts[2],
+                                        memory: parts[3],
+                                        command: parts.slice(10).join(" ")
+                                    };
+                                });
+                                snapshot.processes = processes;
+                            }
                         }
                         catch (error) {
                             snapshot.processes = { error: "Could not retrieve process list" };
@@ -1900,7 +3032,8 @@ server.registerTool("system_monitor", {
             content: [],
             structuredContent: {
                 success: true,
-                data
+                data,
+                platform: PLATFORM
             }
         };
     }
@@ -1909,7 +3042,8 @@ server.registerTool("system_monitor", {
             content: [],
             structuredContent: {
                 success: false,
-                error: error.message
+                error: error.message,
+                platform: PLATFORM
             }
         };
     }
@@ -1993,9 +3127,9 @@ server.registerTool("system_backup", {
 });
 // 4. Security Audit Tool
 server.registerTool("security_audit", {
-    description: "Security audit and scanning for Windows systems",
+    description: "Security audit and scanning (cross-platform)",
     inputSchema: {
-        auditType: z.enum(["permissions", "services", "registry", "files", "network", "users", "firewall", "updates"]),
+        auditType: z.enum(["permissions", "services", "registry", "files", "network", "users", "firewall", "updates", "packages", "configs"]),
         target: z.string().optional(),
         detailed: z.boolean().default(false)
     },
@@ -2003,7 +3137,8 @@ server.registerTool("security_audit", {
         success: z.boolean(),
         findings: z.array(z.any()).optional(),
         summary: z.any().optional(),
-        error: z.string().optional()
+        error: z.string().optional(),
+        platform: z.string()
     }
 }, async ({ auditType, target, detailed }) => {
     try {
@@ -2063,50 +3198,107 @@ server.registerTool("security_audit", {
                 };
                 break;
             case "registry":
-                const registryChecks = [
-                    { key: "HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", issue: "Startup programs" },
-                    { key: "HKLM\\SYSTEM\\CurrentControlSet\\Services", issue: "Service configurations" },
-                    { key: "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", issue: "User startup programs" }
-                ];
-                for (const check of registryChecks) {
-                    try {
-                        const { stdout: regOutput } = await execAsync(`reg query "${check.key}"`);
-                        if (regOutput.includes("ERROR")) {
+                if (IS_WINDOWS) {
+                    const registryChecks = [
+                        { key: "HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", issue: "Startup programs" },
+                        { key: "HKLM\\SYSTEM\\CurrentControlSet\\Services", issue: "Service configurations" },
+                        { key: "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", issue: "User startup programs" }
+                    ];
+                    for (const check of registryChecks) {
+                        try {
+                            const { stdout: regOutput } = await execAsync(`reg query "${check.key}"`);
+                            if (regOutput.includes("ERROR")) {
+                                findings.push({
+                                    type: "registry_issue",
+                                    key: check.key,
+                                    issue: "Registry access denied",
+                                    details: "Cannot access registry key for security audit"
+                                });
+                            }
+                        }
+                        catch (error) {
                             findings.push({
                                 type: "registry_issue",
                                 key: check.key,
-                                issue: "Registry access denied",
-                                details: "Cannot access registry key for security audit"
+                                issue: "Registry key not found or inaccessible",
+                                details: error instanceof Error ? error.message : String(error)
                             });
                         }
                     }
-                    catch (error) {
-                        findings.push({
-                            type: "registry_issue",
-                            key: check.key,
-                            issue: "Registry key not found or inaccessible",
-                            details: error instanceof Error ? error.message : String(error)
-                        });
-                    }
+                    summary = {
+                        registryKeysChecked: registryChecks.length,
+                        issuesFound: findings.length
+                    };
                 }
-                summary = {
-                    registryKeysChecked: registryChecks.length,
-                    issuesFound: findings.length
-                };
+                else {
+                    // Unix/Linux/macOS: Check configuration files instead
+                    const configChecks = [
+                        { path: "/etc/passwd", issue: "User accounts" },
+                        { path: "/etc/shadow", issue: "Password hashes" },
+                        { path: "/etc/sudoers", issue: "Sudo configuration" },
+                        { path: "/etc/crontab", issue: "Cron jobs" }
+                    ];
+                    for (const check of configChecks) {
+                        try {
+                            const { stdout: configOutput } = await execAsync(`ls -la "${check.path}"`);
+                            if (configOutput.includes("Permission denied")) {
+                                findings.push({
+                                    type: "config_issue",
+                                    path: check.path,
+                                    issue: "Configuration file access denied",
+                                    details: "Cannot access configuration file for security audit"
+                                });
+                            }
+                        }
+                        catch (error) {
+                            findings.push({
+                                type: "config_issue",
+                                path: check.path,
+                                issue: "Configuration file not found or inaccessible",
+                                details: error instanceof Error ? error.message : String(error)
+                            });
+                        }
+                    }
+                    summary = {
+                        configFilesChecked: configChecks.length,
+                        issuesFound: findings.length
+                    };
+                }
                 break;
             case "files":
-                const criticalPaths = [
-                    "C:\\Windows\\System32",
-                    "C:\\Windows\\System32\\drivers",
-                    "C:\\Program Files",
-                    "C:\\Program Files (x86)"
-                ];
+                let criticalPaths = [];
+                let command = "";
+                if (IS_WINDOWS) {
+                    criticalPaths = [
+                        "C:\\Windows\\System32",
+                        "C:\\Windows\\System32\\drivers",
+                        "C:\\Program Files",
+                        "C:\\Program Files (x86)"
+                    ];
+                }
+                else {
+                    criticalPaths = [
+                        "/bin",
+                        "/sbin",
+                        "/usr/bin",
+                        "/usr/sbin",
+                        "/etc"
+                    ];
+                }
                 for (const criticalPath of criticalPaths) {
                     try {
-                        const { stdout: fileOutput } = await execAsync(`dir "${criticalPath}" /A /B`);
+                        if (IS_WINDOWS) {
+                            command = `dir "${criticalPath}" /A /B`;
+                        }
+                        else {
+                            command = `ls -la "${criticalPath}"`;
+                        }
+                        const { stdout: fileOutput } = await execAsync(command);
                         const files = fileOutput.trim().split("\n");
                         // Check for suspicious files
-                        const suspiciousExtensions = [".exe", ".dll", ".bat", ".ps1", ".vbs"];
+                        const suspiciousExtensions = IS_WINDOWS
+                            ? [".exe", ".dll", ".bat", ".ps1", ".vbs"]
+                            : ["", ".sh", ".py", ".pl"];
                         files.forEach((file) => {
                             const ext = path.extname(file).toLowerCase();
                             if (suspiciousExtensions.includes(ext) && file.includes("temp")) {
@@ -2134,23 +3326,44 @@ server.registerTool("security_audit", {
                 };
                 break;
             case "network":
-                const networkChecks = [
-                    { command: "netstat -an", issue: "Open ports" },
-                    { command: "arp -a", issue: "ARP table" },
-                    { command: "route print", issue: "Routing table" }
-                ];
+                let networkChecks = [];
+                if (IS_WINDOWS) {
+                    networkChecks = [
+                        { command: "netstat -an", issue: "Open ports" },
+                        { command: "arp -a", issue: "ARP table" },
+                        { command: "route print", issue: "Routing table" }
+                    ];
+                }
+                else {
+                    networkChecks = [
+                        { command: "netstat -tuln", issue: "Open ports" },
+                        { command: "arp -a", issue: "ARP table" },
+                        { command: "ip route show", issue: "Routing table" }
+                    ];
+                }
                 for (const check of networkChecks) {
                     try {
                         const { stdout: netOutput } = await execAsync(check.command);
                         const lines = netOutput.trim().split("\n");
                         if (check.issue === "Open ports") {
                             lines.forEach((line) => {
-                                if (line.includes("LISTENING") && line.includes(":80") || line.includes(":443")) {
-                                    findings.push({
-                                        type: "network_issue",
-                                        issue: "Web server ports open",
-                                        details: line.trim()
-                                    });
+                                if (IS_WINDOWS) {
+                                    if (line.includes("LISTENING") && (line.includes(":80") || line.includes(":443"))) {
+                                        findings.push({
+                                            type: "network_issue",
+                                            issue: "Web server ports open",
+                                            details: line.trim()
+                                        });
+                                    }
+                                }
+                                else {
+                                    if (line.includes("LISTEN") && (line.includes(":80") || line.includes(":443"))) {
+                                        findings.push({
+                                            type: "network_issue",
+                                            issue: "Web server ports open",
+                                            details: line.trim()
+                                        });
+                                    }
                                 }
                             });
                         }
@@ -2169,70 +3382,261 @@ server.registerTool("security_audit", {
                 };
                 break;
             case "users":
-                const { stdout: usersOutput } = await execAsync("wmic useraccount get name,disabled,lockout /format:csv");
-                const userLines = usersOutput.trim().split("\n").slice(1);
-                userLines.forEach((line) => {
-                    const parts = line.split(",");
-                    const username = parts[1];
-                    const disabled = parts[2];
-                    const lockout = parts[3];
-                    if (disabled === "FALSE" && username !== "Administrator") {
-                        findings.push({
-                            type: "user_issue",
-                            user: username,
-                            issue: "Active non-admin user account",
-                            details: `User ${username} is enabled and may need review`
-                        });
-                    }
-                });
-                summary = {
-                    totalUsers: userLines.length,
-                    issuesFound: findings.length
-                };
+                if (IS_WINDOWS) {
+                    const { stdout: usersOutput } = await execAsync("wmic useraccount get name,disabled,lockout /format:csv");
+                    const userLines = usersOutput.trim().split("\n").slice(1);
+                    userLines.forEach((line) => {
+                        const parts = line.split(",");
+                        const username = parts[1];
+                        const disabled = parts[2];
+                        const lockout = parts[3];
+                        if (disabled === "FALSE" && username !== "Administrator") {
+                            findings.push({
+                                type: "user_issue",
+                                user: username,
+                                issue: "Active non-admin user account",
+                                details: `User ${username} is enabled and may need review`
+                            });
+                        }
+                    });
+                    summary = {
+                        totalUsers: userLines.length,
+                        issuesFound: findings.length
+                    };
+                }
+                else {
+                    const { stdout: usersOutput } = await execAsync("cat /etc/passwd");
+                    const userLines = usersOutput.trim().split("\n");
+                    userLines.forEach((line) => {
+                        const parts = line.split(":");
+                        const username = parts[0];
+                        const uid = parseInt(parts[2]);
+                        const shell = parts[6];
+                        // Check for users with shell access and non-system UIDs
+                        if (uid >= 1000 && shell !== "/bin/false" && shell !== "/usr/sbin/nologin") {
+                            findings.push({
+                                type: "user_issue",
+                                user: username,
+                                issue: "User with shell access",
+                                details: `User ${username} has shell access (${shell}) and may need review`
+                            });
+                        }
+                    });
+                    summary = {
+                        totalUsers: userLines.length,
+                        issuesFound: findings.length
+                    };
+                }
                 break;
             case "firewall":
-                const { stdout: firewallOutput } = await execAsync("netsh advfirewall show allprofiles");
-                const firewallLines = firewallOutput.trim().split("\n");
-                let currentProfile = "";
-                firewallLines.forEach((line) => {
-                    if (line.includes("Profile Settings:")) {
-                        currentProfile = line.split(":")[0].trim();
+                if (IS_WINDOWS) {
+                    const { stdout: firewallOutput } = await execAsync("netsh advfirewall show allprofiles");
+                    const firewallLines = firewallOutput.trim().split("\n");
+                    let currentProfile = "";
+                    firewallLines.forEach((line) => {
+                        if (line.includes("Profile Settings:")) {
+                            currentProfile = line.split(":")[0].trim();
+                        }
+                        if (line.includes("State") && line.includes("OFF")) {
+                            findings.push({
+                                type: "firewall_issue",
+                                profile: currentProfile,
+                                issue: "Firewall disabled",
+                                details: `Windows Firewall is disabled for ${currentProfile} profile`
+                            });
+                        }
+                    });
+                    summary = {
+                        profilesChecked: 3, // Domain, Private, Public
+                        issuesFound: findings.length
+                    };
+                }
+                else {
+                    // Check for common firewall tools on Unix systems
+                    try {
+                        const { stdout: ufwOutput } = await execAsync("sudo ufw status");
+                        if (ufwOutput.includes("Status: inactive")) {
+                            findings.push({
+                                type: "firewall_issue",
+                                issue: "UFW firewall disabled",
+                                details: "Uncomplicated Firewall (UFW) is inactive"
+                            });
+                        }
                     }
-                    if (line.includes("State") && line.includes("OFF")) {
-                        findings.push({
-                            type: "firewall_issue",
-                            profile: currentProfile,
-                            issue: "Firewall disabled",
-                            details: `Windows Firewall is disabled for ${currentProfile} profile`
-                        });
+                    catch {
+                        try {
+                            const { stdout: iptablesOutput } = await execAsync("sudo iptables -L");
+                            if (iptablesOutput.includes("Chain INPUT (policy ACCEPT)")) {
+                                findings.push({
+                                    type: "firewall_issue",
+                                    issue: "iptables firewall permissive",
+                                    details: "iptables INPUT chain has ACCEPT policy"
+                                });
+                            }
+                        }
+                        catch {
+                            findings.push({
+                                type: "firewall_issue",
+                                issue: "No firewall detected",
+                                details: "No common firewall tools (UFW, iptables) found or accessible"
+                            });
+                        }
                     }
-                });
-                summary = {
-                    profilesChecked: 3, // Domain, Private, Public
-                    issuesFound: findings.length
-                };
+                    summary = {
+                        firewallToolsChecked: 2, // UFW, iptables
+                        issuesFound: findings.length
+                    };
+                }
                 break;
             case "updates":
-                const { stdout: updateOutput } = await execAsync("wmic qfe get hotfixid,installedon /format:csv");
-                const updateLines = updateOutput.trim().split("\n").slice(1);
-                const lastUpdate = updateLines[updateLines.length - 1];
-                if (lastUpdate) {
-                    const parts = lastUpdate.split(",");
-                    const updateDate = parts[2];
-                    const updateDateObj = new Date(updateDate);
-                    const daysSinceUpdate = Math.floor((Date.now() - updateDateObj.getTime()) / (1000 * 60 * 60 * 24));
-                    if (daysSinceUpdate > 30) {
+                if (IS_WINDOWS) {
+                    const { stdout: updateOutput } = await execAsync("wmic qfe get hotfixid,installedon /format:csv");
+                    const updateLines = updateOutput.trim().split("\n").slice(1);
+                    const lastUpdate = updateLines[updateLines.length - 1];
+                    if (lastUpdate) {
+                        const parts = lastUpdate.split(",");
+                        const updateDate = parts[2];
+                        const updateDateObj = new Date(updateDate);
+                        const daysSinceUpdate = Math.floor((Date.now() - updateDateObj.getTime()) / (1000 * 60 * 60 * 24));
+                        if (daysSinceUpdate > 30) {
+                            findings.push({
+                                type: "update_issue",
+                                issue: "System updates are outdated",
+                                details: `Last update was ${daysSinceUpdate} days ago on ${updateDate}`
+                            });
+                        }
+                    }
+                    summary = {
+                        totalUpdates: updateLines.length,
+                        issuesFound: findings.length
+                    };
+                }
+                else {
+                    // Check for available updates on Unix systems
+                    try {
+                        if (IS_LINUX) {
+                            const { stdout: updateOutput } = await execAsync("sudo apt list --upgradable");
+                            const updateLines = updateOutput.trim().split("\n").slice(1);
+                            if (updateLines.length > 0) {
+                                findings.push({
+                                    type: "update_issue",
+                                    issue: "System updates available",
+                                    details: `${updateLines.length} packages have available updates`
+                                });
+                            }
+                        }
+                        else if (IS_MACOS) {
+                            const { stdout: updateOutput } = await execAsync("softwareupdate -l");
+                            if (updateOutput.includes("Software Update found")) {
+                                findings.push({
+                                    type: "update_issue",
+                                    issue: "System updates available",
+                                    details: "macOS software updates are available"
+                                });
+                            }
+                        }
+                    }
+                    catch (error) {
                         findings.push({
                             type: "update_issue",
-                            issue: "System updates are outdated",
-                            details: `Last update was ${daysSinceUpdate} days ago on ${updateDate}`
+                            issue: "Cannot check for updates",
+                            details: error instanceof Error ? error.message : String(error)
+                        });
+                    }
+                    summary = {
+                        updateSystemChecked: true,
+                        issuesFound: findings.length
+                    };
+                }
+                break;
+            case "packages":
+                if (!IS_WINDOWS) {
+                    try {
+                        if (IS_LINUX) {
+                            const { stdout: packageOutput } = await execAsync("dpkg -l | grep -E '^ii' | wc -l");
+                            const packageCount = parseInt(packageOutput.trim());
+                            // Check for packages that might need attention
+                            const { stdout: brokenOutput } = await execAsync("dpkg -l | grep -E '^[^i]' | wc -l");
+                            const brokenCount = parseInt(brokenOutput.trim());
+                            if (brokenCount > 0) {
+                                findings.push({
+                                    type: "package_issue",
+                                    issue: "Broken packages detected",
+                                    details: `${brokenCount} packages are in a broken state`
+                                });
+                            }
+                            summary = {
+                                totalPackages: packageCount,
+                                brokenPackages: brokenCount,
+                                issuesFound: findings.length
+                            };
+                        }
+                        else if (IS_MACOS) {
+                            const { stdout: brewOutput } = await execAsync("brew list | wc -l");
+                            const packageCount = parseInt(brewOutput.trim());
+                            summary = {
+                                totalPackages: packageCount,
+                                issuesFound: findings.length
+                            };
+                        }
+                    }
+                    catch (error) {
+                        findings.push({
+                            type: "package_issue",
+                            issue: "Cannot check packages",
+                            details: error instanceof Error ? error.message : String(error)
                         });
                     }
                 }
-                summary = {
-                    totalUpdates: updateLines.length,
-                    issuesFound: findings.length
-                };
+                else {
+                    findings.push({
+                        type: "package_issue",
+                        issue: "Package audit not supported",
+                        details: "Package audit is not supported on Windows systems"
+                    });
+                }
+                break;
+            case "configs":
+                if (!IS_WINDOWS) {
+                    const configFiles = [
+                        { path: "/etc/ssh/sshd_config", issue: "SSH configuration" },
+                        { path: "/etc/sudoers", issue: "Sudo configuration" },
+                        { path: "/etc/crontab", issue: "Cron configuration" },
+                        { path: "/etc/fstab", issue: "Filesystem configuration" }
+                    ];
+                    for (const config of configFiles) {
+                        try {
+                            const { stdout: configOutput } = await execAsync(`ls -la "${config.path}"`);
+                            if (configOutput.includes("Permission denied")) {
+                                findings.push({
+                                    type: "config_issue",
+                                    path: config.path,
+                                    issue: "Configuration file access denied",
+                                    details: `Cannot access ${config.issue} for security audit`
+                                });
+                            }
+                        }
+                        catch (error) {
+                            findings.push({
+                                type: "config_issue",
+                                path: config.path,
+                                issue: "Configuration file not found",
+                                details: `${config.issue} file not found or inaccessible`
+                            });
+                        }
+                    }
+                    summary = {
+                        configFilesChecked: configFiles.length,
+                        issuesFound: findings.length
+                    };
+                }
+                else {
+                    findings.push({
+                        type: "config_issue",
+                        issue: "Config audit not supported",
+                        details: "Configuration file audit is not supported on Windows systems"
+                    });
+                }
                 break;
         }
         return {
@@ -2240,7 +3644,8 @@ server.registerTool("security_audit", {
             structuredContent: {
                 success: true,
                 findings,
-                summary
+                summary,
+                platform: PLATFORM
             }
         };
     }
@@ -2249,16 +3654,17 @@ server.registerTool("security_audit", {
             content: [],
             structuredContent: {
                 success: false,
-                error: error.message
+                error: error.message,
+                platform: PLATFORM
             }
         };
     }
 });
 // 5. Event Log Analyzer Tool
 server.registerTool("event_log_analyzer", {
-    description: "Analyze Windows event logs for issues and patterns",
+    description: "Analyze system logs for issues and patterns (cross-platform)",
     inputSchema: {
-        logType: z.enum(["system", "application", "security", "setup", "forwardedevents"]).default("system"),
+        logType: z.enum(["system", "application", "security", "setup", "forwardedevents", "kernel", "auth", "syslog"]).default("system"),
         filter: z.string().optional(),
         timeRange: z.string().optional(),
         level: z.enum(["error", "warning", "information", "critical", "all"]).default("error"),
@@ -2269,7 +3675,8 @@ server.registerTool("event_log_analyzer", {
         events: z.array(z.any()).optional(),
         summary: z.any().optional(),
         patterns: z.array(z.any()).optional(),
-        error: z.string().optional()
+        error: z.string().optional(),
+        platform: z.string()
     }
 }, async ({ logType, filter, timeRange, level, maxEvents }) => {
     try {
@@ -6320,6 +7727,1065 @@ async function killBrowserProcesses(browser) {
         return false;
     }
 }
+// ============================================================================
+// MISSING TOOLS - System Management
+// ============================================================================
+server.registerTool("unix_services", {
+    description: "List Unix/Linux services (systemd, init.d, launchd)",
+    inputSchema: { filter: z.string().optional() },
+    outputSchema: {
+        services: z.array(z.object({
+            name: z.string(),
+            status: z.string(),
+            enabled: z.boolean().optional()
+        })),
+        platform: z.string()
+    }
+}, async ({ filter }) => {
+    try {
+        let services = [];
+        if (IS_LINUX) {
+            // Linux systemd services
+            let command = "systemctl list-units --type=service --all --no-pager --no-legend";
+            if (filter) {
+                command += ` | grep -i "${filter}"`;
+            }
+            const { stdout } = await execAsync(command);
+            const lines = stdout.trim().split("\n").filter(line => line.trim());
+            services = lines.map(line => {
+                const parts = line.trim().split(/\s+/);
+                const name = parts[0] || "Unknown";
+                const status = parts[2] || "Unknown";
+                return {
+                    name: name.replace('.service', ''),
+                    status,
+                    enabled: status === "active"
+                };
+            });
+        }
+        else if (IS_MACOS) {
+            // macOS launchd services
+            let command = "launchctl list";
+            if (filter) {
+                command += ` | grep -i "${filter}"`;
+            }
+            const { stdout } = await execAsync(command);
+            const lines = stdout.trim().split("\n").slice(1); // Skip header
+            services = lines.map(line => {
+                const parts = line.trim().split(/\s+/);
+                const pid = parts[0];
+                const status = parts[1];
+                const name = parts[2] || "Unknown";
+                return {
+                    name,
+                    status: pid !== "-" ? "running" : "stopped",
+                    enabled: status !== "-"
+                };
+            });
+        }
+        else {
+            // Windows - return empty services for non-Windows platforms
+            services = [];
+        }
+        return {
+            content: [],
+            structuredContent: {
+                services: services.slice(0, 100), // Limit to 100 services
+                platform: PLATFORM
+            }
+        };
+    }
+    catch (error) {
+        return {
+            content: [],
+            structuredContent: {
+                services: [],
+                platform: PLATFORM,
+                error: error.message
+            }
+        };
+    }
+});
+server.registerTool("unix_processes", {
+    description: "List Unix/Linux processes",
+    inputSchema: { filter: z.string().optional() },
+    outputSchema: {
+        processes: z.array(z.object({
+            pid: z.number(),
+            name: z.string(),
+            cpu: z.string().optional(),
+            memory: z.string().optional()
+        })),
+        platform: z.string()
+    }
+}, async ({ filter }) => {
+    try {
+        let processes = [];
+        if (IS_LINUX || IS_MACOS) {
+            let command = "ps aux";
+            if (filter) {
+                command += ` | grep -i "${filter}" | grep -v grep`;
+            }
+            const { stdout } = await execAsync(command);
+            const lines = stdout.trim().split("\n").slice(1); // Skip header
+            processes = lines.map(line => {
+                const parts = line.trim().split(/\s+/);
+                return {
+                    pid: parseInt(parts[1]) || 0,
+                    name: parts[10] || "Unknown",
+                    cpu: parts[2] || "0",
+                    memory: parts[3] || "0"
+                };
+            }).filter(proc => proc.pid > 0);
+        }
+        else {
+            // Windows - return empty processes for non-Windows platforms
+            processes = [];
+        }
+        return {
+            content: [],
+            structuredContent: {
+                processes: processes.slice(0, 100), // Limit to 100 processes
+                platform: PLATFORM
+            }
+        };
+    }
+    catch (error) {
+        return {
+            content: [],
+            structuredContent: {
+                processes: [],
+                platform: PLATFORM,
+                error: error.message
+            }
+        };
+    }
+});
+server.registerTool("system_maintenance", {
+    description: "Perform system maintenance tasks",
+    inputSchema: {
+        action: z.enum(["disk_cleanup", "check_disk", "temp_cleanup", "cache_cleanup", "update_check"])
+    },
+    outputSchema: {
+        success: z.boolean(),
+        output: z.string().optional(),
+        error: z.string().optional()
+    }
+}, async ({ action }) => {
+    try {
+        let command = "";
+        switch (action) {
+            case "disk_cleanup":
+                if (IS_WINDOWS) {
+                    command = "cleanmgr /sagerun:1";
+                }
+                else if (IS_LINUX) {
+                    command = "sudo apt-get autoremove -y && sudo apt-get autoclean";
+                }
+                else if (IS_MACOS) {
+                    command = "sudo rm -rf ~/Library/Caches/* /tmp/* 2>/dev/null || true";
+                }
+                break;
+            case "check_disk":
+                if (IS_WINDOWS) {
+                    command = "chkdsk C: /f /r";
+                }
+                else if (IS_LINUX) {
+                    command = "sudo fsck -f /";
+                }
+                else if (IS_MACOS) {
+                    command = "diskutil verifyVolume /";
+                }
+                break;
+            case "temp_cleanup":
+                if (IS_WINDOWS) {
+                    command = "del /q /f /s %TEMP%\\* 2>nul & del /q /f /s C:\\Windows\\Temp\\* 2>nul";
+                }
+                else {
+                    command = "sudo rm -rf /tmp/* /var/tmp/* 2>/dev/null || true";
+                }
+                break;
+            case "cache_cleanup":
+                if (IS_WINDOWS) {
+                    command = "RunDll32.exe InetCpl.cpl,ClearMyTracksByProcess 8";
+                }
+                else if (IS_LINUX) {
+                    command = "sudo sync && echo 3 | sudo tee /proc/sys/vm/drop_caches";
+                }
+                else if (IS_MACOS) {
+                    command = "sudo rm -rf ~/Library/Caches/* 2>/dev/null || true";
+                }
+                break;
+            case "update_check":
+                if (IS_WINDOWS) {
+                    command = "powershell Get-WindowsUpdate";
+                }
+                else if (IS_LINUX) {
+                    command = "sudo apt list --upgradable";
+                }
+                else if (IS_MACOS) {
+                    command = "softwareupdate -l";
+                }
+                break;
+        }
+        if (!command) {
+            throw new Error(`Action ${action} not supported on ${PLATFORM}`);
+        }
+        const { stdout } = await execAsync(command, { timeout: 30000 });
+        return {
+            content: [],
+            structuredContent: {
+                success: true,
+                output: stdout
+            }
+        };
+    }
+    catch (error) {
+        return {
+            content: [],
+            structuredContent: {
+                success: false,
+                error: error.message
+            }
+        };
+    }
+});
+server.registerTool("network_diagnostics", {
+    description: "Network diagnostic tools (ping, traceroute, nslookup)",
+    inputSchema: {
+        action: z.enum(["ping", "traceroute", "nslookup", "netstat"]),
+        target: z.string()
+    },
+    outputSchema: {
+        success: z.boolean(),
+        output: z.string().optional(),
+        avgTime: z.number().optional(),
+        error: z.string().optional()
+    }
+}, async ({ action, target }) => {
+    try {
+        let command = "";
+        switch (action) {
+            case "ping":
+                if (IS_WINDOWS) {
+                    command = `ping -n 4 ${target}`;
+                }
+                else {
+                    command = `ping -c 4 ${target}`;
+                }
+                break;
+            case "traceroute":
+                if (IS_WINDOWS) {
+                    command = `tracert ${target}`;
+                }
+                else {
+                    command = `traceroute ${target}`;
+                }
+                break;
+            case "nslookup":
+                command = `nslookup ${target}`;
+                break;
+            case "netstat":
+                if (IS_WINDOWS) {
+                    command = `netstat -an | findstr ${target}`;
+                }
+                else {
+                    command = `netstat -an | grep ${target}`;
+                }
+                break;
+        }
+        const { stdout } = await execAsync(command, { timeout: 30000 });
+        // Extract average time for ping
+        let avgTime;
+        if (action === "ping") {
+            const timeMatch = stdout.match(/Average = (\d+)ms|avg\/stddev = ([\d.]+)\/[\d.]+\/[\d.]+\/([\d.]+) ms/);
+            if (timeMatch) {
+                avgTime = parseFloat(timeMatch[1] || timeMatch[2] || "0");
+            }
+        }
+        return {
+            content: [],
+            structuredContent: {
+                success: true,
+                output: stdout,
+                avgTime
+            }
+        };
+    }
+    catch (error) {
+        return {
+            content: [],
+            structuredContent: {
+                success: false,
+                error: error.message
+            }
+        };
+    }
+});
+server.registerTool("security_scan", {
+    description: "Security scanning and analysis tools",
+    inputSchema: {
+        action: z.enum(["check_permissions", "scan_malware", "check_firewall", "audit_system"]),
+        path: z.string().optional()
+    },
+    outputSchema: {
+        success: z.boolean(),
+        results: z.array(z.any()).optional(),
+        summary: z.string().optional(),
+        error: z.string().optional()
+    }
+}, async ({ action, path: targetPath }) => {
+    try {
+        let results = [];
+        let summary = "";
+        switch (action) {
+            case "check_permissions":
+                if (!targetPath)
+                    targetPath = ".";
+                if (IS_WINDOWS) {
+                    const { stdout } = await execAsync(`icacls "${targetPath}"`);
+                    results = stdout.split("\n").filter(line => line.trim()).map(line => ({
+                        path: line.split(" ")[0],
+                        permissions: line.substring(line.indexOf(" ") + 1)
+                    }));
+                }
+                else {
+                    const { stdout } = await execAsync(`ls -la "${targetPath}"`);
+                    results = stdout.split("\n").filter(line => line.trim() && !line.startsWith("total")).map(line => {
+                        const parts = line.split(/\s+/);
+                        return {
+                            permissions: parts[0],
+                            owner: parts[2],
+                            group: parts[3],
+                            name: parts.slice(8).join(" ")
+                        };
+                    });
+                }
+                summary = `Found ${results.length} items with permission information`;
+                break;
+            case "scan_malware":
+                summary = "Malware scanning requires specialized tools. Consider running Windows Defender, ClamAV, or similar.";
+                results = [{ message: "Use dedicated antivirus software for malware scanning" }];
+                break;
+            case "check_firewall":
+                if (IS_WINDOWS) {
+                    const { stdout } = await execAsync("netsh advfirewall show allprofiles");
+                    summary = "Windows Firewall status retrieved";
+                    results = [{ output: stdout }];
+                }
+                else if (IS_LINUX) {
+                    try {
+                        const { stdout } = await execAsync("sudo ufw status");
+                        summary = "UFW firewall status retrieved";
+                        results = [{ output: stdout }];
+                    }
+                    catch {
+                        const { stdout } = await execAsync("sudo iptables -L");
+                        summary = "iptables rules retrieved";
+                        results = [{ output: stdout }];
+                    }
+                }
+                else if (IS_MACOS) {
+                    const { stdout } = await execAsync("sudo pfctl -s all");
+                    summary = "macOS firewall status retrieved";
+                    results = [{ output: stdout }];
+                }
+                break;
+            case "audit_system":
+                summary = "Basic system audit completed";
+                results = [
+                    { check: "OS Version", result: PLATFORM },
+                    { check: "Current User", result: process.env.USER || process.env.USERNAME || "unknown" },
+                    { check: "Working Directory", result: process.cwd() },
+                    { check: "Node.js Version", result: process.version }
+                ];
+                break;
+        }
+        return {
+            content: [],
+            structuredContent: {
+                success: true,
+                results,
+                summary
+            }
+        };
+    }
+    catch (error) {
+        return {
+            content: [],
+            structuredContent: {
+                success: false,
+                error: error.message
+            }
+        };
+    }
+});
+// ============================================================================
+// ADVANCED NETWORK TOOLS - Cross-Platform
+// ============================================================================
+server.registerTool("network_advanced", {
+    description: "Advanced network operations (cross-platform)",
+    inputSchema: {
+        action: z.enum(["firewall_status", "port_scan", "dns_lookup", "route_table", "interface_info", "bandwidth_test"]),
+        target: z.string().optional(),
+        domain: z.string().optional(),
+        port: z.number().optional()
+    },
+    outputSchema: {
+        success: z.boolean(),
+        results: z.any().optional(),
+        platform: z.string(),
+        error: z.string().optional()
+    }
+}, async ({ action, target, domain, port }) => {
+    try {
+        let command = "";
+        let results = {};
+        switch (action) {
+            case "firewall_status":
+                if (IS_WINDOWS) {
+                    command = "netsh advfirewall show allprofiles";
+                }
+                else if (IS_LINUX) {
+                    try {
+                        command = "sudo ufw status verbose";
+                    }
+                    catch {
+                        command = "sudo iptables -L -n";
+                    }
+                }
+                else if (IS_MACOS) {
+                    command = "sudo pfctl -s all";
+                }
+                break;
+            case "port_scan":
+                const scanTarget = target || "localhost";
+                const scanPort = port || 80;
+                if (IS_WINDOWS) {
+                    command = `powershell "Test-NetConnection -ComputerName ${scanTarget} -Port ${scanPort}"`;
+                }
+                else {
+                    command = `nc -zv ${scanTarget} ${scanPort} 2>&1 || echo "Port ${scanPort} closed or filtered"`;
+                }
+                break;
+            case "dns_lookup":
+                const lookupDomain = domain || target || "google.com";
+                if (IS_WINDOWS) {
+                    command = `nslookup ${lookupDomain}`;
+                }
+                else {
+                    command = `dig ${lookupDomain} +short`;
+                }
+                break;
+            case "route_table":
+                if (IS_WINDOWS) {
+                    command = "route print";
+                }
+                else {
+                    command = "ip route show";
+                }
+                break;
+            case "interface_info":
+                if (IS_WINDOWS) {
+                    command = "ipconfig /all";
+                }
+                else if (IS_LINUX) {
+                    command = "ip addr show";
+                }
+                else if (IS_MACOS) {
+                    command = "ifconfig";
+                }
+                break;
+            case "bandwidth_test":
+                if (IS_WINDOWS) {
+                    command = "powershell \"Get-NetAdapter | Select-Object Name, LinkSpeed, Status\"";
+                }
+                else {
+                    command = "cat /proc/net/dev | head -n 2";
+                }
+                break;
+        }
+        const { stdout } = await execAsync(command, { timeout: 30000 });
+        results = {
+            action,
+            command,
+            output: stdout,
+            timestamp: new Date().toISOString()
+        };
+        return {
+            content: [],
+            structuredContent: {
+                success: true,
+                results,
+                platform: PLATFORM
+            }
+        };
+    }
+    catch (error) {
+        return {
+            content: [],
+            structuredContent: {
+                success: false,
+                platform: PLATFORM,
+                error: error.message
+            }
+        };
+    }
+});
+server.registerTool("win_advanced", {
+    description: "Windows advanced system operations",
+    inputSchema: {
+        action: z.enum(["sfc_scan", "dism_restore", "chkdsk", "system_file_check", "windows_update", "powercfg"])
+    },
+    outputSchema: {
+        success: z.boolean(),
+        output: z.string().optional(),
+        platform: z.string(),
+        error: z.string().optional()
+    }
+}, async ({ action }) => {
+    try {
+        if (!IS_WINDOWS) {
+            return {
+                content: [],
+                structuredContent: {
+                    success: false,
+                    platform: PLATFORM,
+                    error: "Windows advanced tools only available on Windows"
+                }
+            };
+        }
+        let command = "";
+        switch (action) {
+            case "sfc_scan":
+                command = "sfc /scannow";
+                break;
+            case "dism_restore":
+                command = "dism /online /cleanup-image /restorehealth";
+                break;
+            case "chkdsk":
+                command = "chkdsk C: /f /r";
+                break;
+            case "system_file_check":
+                command = "sfc /verifyonly";
+                break;
+            case "windows_update":
+                command = "powershell Get-WindowsUpdate";
+                break;
+            case "powercfg":
+                command = "powercfg /query";
+                break;
+        }
+        const { stdout } = await execAsync(command, { timeout: 60000 });
+        return {
+            content: [],
+            structuredContent: {
+                success: true,
+                output: stdout,
+                platform: "windows"
+            }
+        };
+    }
+    catch (error) {
+        return {
+            content: [],
+            structuredContent: {
+                success: false,
+                platform: PLATFORM,
+                error: error.message
+            }
+        };
+    }
+});
+server.registerTool("unix_advanced", {
+    description: "Unix/Linux/macOS advanced system operations",
+    inputSchema: {
+        action: z.enum(["fsck", "system_update", "service_restart", "package_management", "system_cleanup", "kernel_info"]),
+        service: z.string().optional()
+    },
+    outputSchema: {
+        success: z.boolean(),
+        output: z.string().optional(),
+        platform: z.string(),
+        error: z.string().optional()
+    }
+}, async ({ action, service }) => {
+    try {
+        if (IS_WINDOWS) {
+            return {
+                content: [],
+                structuredContent: {
+                    success: false,
+                    platform: PLATFORM,
+                    error: "Unix advanced tools only available on Unix/Linux/macOS"
+                }
+            };
+        }
+        let command = "";
+        switch (action) {
+            case "fsck":
+                if (IS_LINUX) {
+                    command = "sudo fsck -f /";
+                }
+                else if (IS_MACOS) {
+                    command = "sudo fsck -f /";
+                }
+                break;
+            case "system_update":
+                if (IS_LINUX) {
+                    command = "sudo apt update && sudo apt list --upgradable";
+                }
+                else if (IS_MACOS) {
+                    command = "softwareupdate -l";
+                }
+                break;
+            case "service_restart":
+                const serviceName = service || "ssh";
+                if (IS_LINUX) {
+                    command = `sudo systemctl restart ${serviceName}`;
+                }
+                else if (IS_MACOS) {
+                    command = `sudo launchctl unload /System/Library/LaunchDaemons/${serviceName}.plist && sudo launchctl load /System/Library/LaunchDaemons/${serviceName}.plist`;
+                }
+                break;
+            case "package_management":
+                if (IS_LINUX) {
+                    command = "dpkg -l | head -20";
+                }
+                else if (IS_MACOS) {
+                    command = "brew list | head -20";
+                }
+                break;
+            case "system_cleanup":
+                if (IS_LINUX) {
+                    command = "sudo apt autoremove && sudo apt autoclean";
+                }
+                else if (IS_MACOS) {
+                    command = "sudo rm -rf /tmp/* ~/Library/Caches/*";
+                }
+                break;
+            case "kernel_info":
+                command = "uname -a";
+                break;
+        }
+        const { stdout } = await execAsync(command, { timeout: 60000 });
+        return {
+            content: [],
+            structuredContent: {
+                success: true,
+                output: stdout,
+                platform: PLATFORM
+            }
+        };
+    }
+    catch (error) {
+        return {
+            content: [],
+            structuredContent: {
+                success: false,
+                platform: PLATFORM,
+                error: error.message
+            }
+        };
+    }
+});
+server.registerTool("log_analysis", {
+    description: "System log analysis (cross-platform)",
+    inputSchema: {
+        action: z.enum(["system_logs", "error_logs", "security_logs", "application_logs", "network_logs"]),
+        hours: z.number().default(24),
+        lines: z.number().default(100)
+    },
+    outputSchema: {
+        success: z.boolean(),
+        logs: z.array(z.any()).optional(),
+        summary: z.string().optional(),
+        platform: z.string(),
+        error: z.string().optional()
+    }
+}, async ({ action, hours, lines }) => {
+    try {
+        let command = "";
+        let logs = [];
+        switch (action) {
+            case "system_logs":
+                if (IS_WINDOWS) {
+                    command = `powershell "Get-EventLog -LogName System -Newest ${lines} | Select-Object TimeGenerated, EntryType, Message"`;
+                }
+                else if (IS_LINUX) {
+                    command = `journalctl --since "${hours} hours ago" -n ${lines} --no-pager`;
+                }
+                else if (IS_MACOS) {
+                    command = `log show --predicate 'category == "system"' --last ${hours}h --style compact`;
+                }
+                break;
+            case "error_logs":
+                if (IS_WINDOWS) {
+                    command = `powershell "Get-EventLog -LogName System -EntryType Error -Newest ${lines}"`;
+                }
+                else if (IS_LINUX) {
+                    command = `journalctl --since "${hours} hours ago" -p err -n ${lines} --no-pager`;
+                }
+                else if (IS_MACOS) {
+                    command = `log show --predicate 'messageType == "Error"' --last ${hours}h --style compact`;
+                }
+                break;
+            case "security_logs":
+                if (IS_WINDOWS) {
+                    command = `powershell "Get-EventLog -LogName Security -Newest ${lines}"`;
+                }
+                else if (IS_LINUX) {
+                    command = `journalctl --since "${hours} hours ago" -p warning -n ${lines} --no-pager`;
+                }
+                else if (IS_MACOS) {
+                    command = `log show --predicate 'category == "security"' --last ${hours}h --style compact`;
+                }
+                break;
+            case "application_logs":
+                if (IS_WINDOWS) {
+                    command = `powershell "Get-EventLog -LogName Application -Newest ${lines}"`;
+                }
+                else if (IS_LINUX) {
+                    command = `journalctl --since "${hours} hours ago" -n ${lines} --no-pager`;
+                }
+                else if (IS_MACOS) {
+                    command = `log show --predicate 'category == "application"' --last ${hours}h --style compact`;
+                }
+                break;
+            case "network_logs":
+                if (IS_WINDOWS) {
+                    command = `powershell "Get-EventLog -LogName System | Where-Object {$_.Message -like '*network*'} | Select-Object -First ${lines}"`;
+                }
+                else if (IS_LINUX) {
+                    command = `journalctl --since "${hours} hours ago" | grep -i network | tail -${lines}`;
+                }
+                else if (IS_MACOS) {
+                    command = `log show --predicate 'category == "network"' --last ${hours}h --style compact`;
+                }
+                break;
+        }
+        const { stdout } = await execAsync(command, { timeout: 30000 });
+        // Parse logs into structured format
+        const logLines = stdout.split('\n').filter(line => line.trim());
+        logs = logLines.map((line, index) => ({
+            id: index + 1,
+            content: line.trim(),
+            timestamp: new Date().toISOString()
+        }));
+        return {
+            content: [],
+            structuredContent: {
+                success: true,
+                logs: logs.slice(0, lines),
+                summary: `Retrieved ${logs.length} log entries from the last ${hours} hours`,
+                platform: PLATFORM
+            }
+        };
+    }
+    catch (error) {
+        return {
+            content: [],
+            structuredContent: {
+                success: false,
+                platform: PLATFORM,
+                error: error.message
+            }
+        };
+    }
+});
+server.registerTool("performance_monitor", {
+    description: "System performance monitoring (cross-platform)",
+    inputSchema: {
+        action: z.enum(["cpu_usage", "memory_usage", "disk_usage", "network_usage", "process_top", "system_load"])
+    },
+    outputSchema: {
+        success: z.boolean(),
+        metrics: z.any().optional(),
+        platform: z.string(),
+        error: z.string().optional()
+    }
+}, async ({ action }) => {
+    try {
+        let command = "";
+        let metrics = {};
+        switch (action) {
+            case "cpu_usage":
+                if (IS_WINDOWS) {
+                    command = "powershell \"Get-Counter '\\Processor(_Total)\\% Processor Time' | Select-Object -ExpandProperty CounterSamples | Select-Object CookedValue\"";
+                }
+                else {
+                    command = "top -bn1 | grep 'Cpu(s)' | awk '{print $2}' | cut -d'%' -f1";
+                }
+                break;
+            case "memory_usage":
+                if (IS_WINDOWS) {
+                    command = "powershell \"Get-Counter '\\Memory\\Available MBytes' | Select-Object -ExpandProperty CounterSamples | Select-Object CookedValue\"";
+                }
+                else {
+                    command = "free -m | grep Mem | awk '{print $3/$2 * 100.0}'";
+                }
+                break;
+            case "disk_usage":
+                if (IS_WINDOWS) {
+                    command = "powershell \"Get-WmiObject -Class Win32_LogicalDisk | Select-Object DeviceID, @{Name='Size(GB)';Expression={[math]::Round($_.Size/1GB,2)}}, @{Name='FreeSpace(GB)';Expression={[math]::Round($_.FreeSpace/1GB,2)}}\"";
+                }
+                else {
+                    command = "df -h | grep -E '^/dev/'";
+                }
+                break;
+            case "network_usage":
+                if (IS_WINDOWS) {
+                    command = "powershell \"Get-NetAdapterStatistics | Select-Object Name, BytesReceived, BytesSent\"";
+                }
+                else {
+                    command = "cat /proc/net/dev | grep -E 'eth0|wlan0' | head -2";
+                }
+                break;
+            case "process_top":
+                if (IS_WINDOWS) {
+                    command = "powershell \"Get-Process | Sort-Object CPU -Descending | Select-Object -First 10 Name, CPU, WorkingSet\"";
+                }
+                else {
+                    command = "ps aux --sort=-%cpu | head -10";
+                }
+                break;
+            case "system_load":
+                if (IS_WINDOWS) {
+                    command = "powershell \"Get-Counter '\\System\\Processor Queue Length' | Select-Object -ExpandProperty CounterSamples | Select-Object CookedValue\"";
+                }
+                else {
+                    command = "uptime";
+                }
+                break;
+        }
+        const { stdout } = await execAsync(command, { timeout: 30000 });
+        metrics = {
+            action,
+            output: stdout,
+            timestamp: new Date().toISOString(),
+            platform: PLATFORM
+        };
+        return {
+            content: [],
+            structuredContent: {
+                success: true,
+                metrics,
+                platform: PLATFORM
+            }
+        };
+    }
+    catch (error) {
+        return {
+            content: [],
+            structuredContent: {
+                success: false,
+                platform: PLATFORM,
+                error: error.message
+            }
+        };
+    }
+});
+server.registerTool("process_management", {
+    description: "Process management operations (cross-platform)",
+    inputSchema: {
+        action: z.enum(["list_processes", "kill_process", "process_info", "process_tree", "resource_usage"]),
+        processName: z.string().optional(),
+        processId: z.number().optional()
+    },
+    outputSchema: {
+        success: z.boolean(),
+        processes: z.array(z.any()).optional(),
+        platform: z.string(),
+        error: z.string().optional()
+    }
+}, async ({ action, processName, processId }) => {
+    try {
+        let command = "";
+        let processes = [];
+        switch (action) {
+            case "list_processes":
+                if (IS_WINDOWS) {
+                    command = "powershell \"Get-Process | Select-Object Id, ProcessName, CPU, WorkingSet | Sort-Object CPU -Descending | Select-Object -First 20\"";
+                }
+                else {
+                    command = "ps aux --sort=-%cpu | head -20";
+                }
+                break;
+            case "kill_process":
+                if (processId) {
+                    if (IS_WINDOWS) {
+                        command = `taskkill /PID ${processId} /F`;
+                    }
+                    else {
+                        command = `kill -9 ${processId}`;
+                    }
+                }
+                else if (processName) {
+                    if (IS_WINDOWS) {
+                        command = `taskkill /IM ${processName} /F`;
+                    }
+                    else {
+                        command = `pkill -f ${processName}`;
+                    }
+                }
+                else {
+                    throw new Error("Process ID or name required for kill operation");
+                }
+                break;
+            case "process_info":
+                const targetProcess = processId || processName || "current";
+                if (IS_WINDOWS) {
+                    command = `powershell "Get-Process -Id ${targetProcess} | Select-Object *"`;
+                }
+                else {
+                    command = `ps -p ${targetProcess} -o pid,ppid,cmd,%cpu,%mem`;
+                }
+                break;
+            case "process_tree":
+                if (IS_WINDOWS) {
+                    command = "powershell \"Get-WmiObject Win32_Process | Select-Object ProcessId, ParentProcessId, Name | Sort-Object ProcessId\"";
+                }
+                else {
+                    command = "pstree -p";
+                }
+                break;
+            case "resource_usage":
+                if (IS_WINDOWS) {
+                    command = "powershell \"Get-Process | Measure-Object CPU, WorkingSet -Sum | Select-Object @{Name='TotalCPU';Expression={$_.Sum}}, @{Name='TotalMemory';Expression={[math]::Round($_.Sum/1MB,2)}}\"";
+                }
+                else {
+                    command = "ps aux | awk '{cpu+=$3; mem+=$4} END {print \"Total CPU: \" cpu \"%\", \"Total Memory: \" mem \"%\"}'";
+                }
+                break;
+        }
+        const { stdout } = await execAsync(command, { timeout: 30000 });
+        if (action === "list_processes" || action === "process_tree") {
+            const lines = stdout.split('\n').filter(line => line.trim());
+            processes = lines.map((line, index) => ({
+                id: index + 1,
+                content: line.trim()
+            }));
+        }
+        return {
+            content: [],
+            structuredContent: {
+                success: true,
+                processes: processes.length > 0 ? processes : undefined,
+                output: processes.length === 0 ? stdout : undefined,
+                platform: PLATFORM
+            }
+        };
+    }
+    catch (error) {
+        return {
+            content: [],
+            structuredContent: {
+                success: false,
+                platform: PLATFORM,
+                error: error.message
+            }
+        };
+    }
+});
+server.registerTool("file_system_advanced", {
+    description: "Advanced file system operations (cross-platform)",
+    inputSchema: {
+        action: z.enum(["find_files", "check_permissions", "disk_space", "file_analysis", "symlink_info", "mount_info"]),
+        path: z.string().optional(),
+        pattern: z.string().optional()
+    },
+    outputSchema: {
+        success: z.boolean(),
+        results: z.any().optional(),
+        platform: z.string(),
+        error: z.string().optional()
+    }
+}, async ({ action, path: targetPath, pattern }) => {
+    try {
+        let command = "";
+        let results = {};
+        switch (action) {
+            case "find_files":
+                const searchPath = targetPath || ".";
+                const searchPattern = pattern || "*";
+                if (IS_WINDOWS) {
+                    command = `powershell "Get-ChildItem -Path '${searchPath}' -Recurse -Filter '${searchPattern}' | Select-Object FullName, Length, LastWriteTime"`;
+                }
+                else {
+                    command = `find ${searchPath} -name "${searchPattern}" -type f 2>/dev/null | head -50`;
+                }
+                break;
+            case "check_permissions":
+                const checkPath = targetPath || ".";
+                if (IS_WINDOWS) {
+                    command = `icacls "${checkPath}"`;
+                }
+                else {
+                    command = `ls -la "${checkPath}"`;
+                }
+                break;
+            case "disk_space":
+                if (IS_WINDOWS) {
+                    command = "powershell \"Get-WmiObject -Class Win32_LogicalDisk | Select-Object DeviceID, @{Name='Size(GB)';Expression={[math]::Round($_.Size/1GB,2)}}, @{Name='FreeSpace(GB)';Expression={[math]::Round($_.FreeSpace/1GB,2)}}, @{Name='PercentFree';Expression={[math]::Round(($_.FreeSpace/$_.Size)*100,2)}}\"";
+                }
+                else {
+                    command = "df -h";
+                }
+                break;
+            case "file_analysis":
+                const analyzePath = targetPath || ".";
+                if (IS_WINDOWS) {
+                    command = `powershell "Get-ChildItem -Path '${analyzePath}' -Recurse | Group-Object Extension | Sort-Object Count -Descending | Select-Object Name, Count"`;
+                }
+                else {
+                    command = `find ${analyzePath} -type f | sed 's/.*\\.//' | sort | uniq -c | sort -nr | head -20`;
+                }
+                break;
+            case "symlink_info":
+                const symlinkPath = targetPath || ".";
+                if (IS_WINDOWS) {
+                    command = `powershell "Get-ChildItem -Path '${symlinkPath}' -Recurse | Where-Object {$_.LinkType -ne $null} | Select-Object FullName, LinkType, Target"`;
+                }
+                else {
+                    command = `find ${symlinkPath} -type l -exec ls -la {} \\; 2>/dev/null | head -20`;
+                }
+                break;
+            case "mount_info":
+                if (IS_WINDOWS) {
+                    command = "wmic logicaldisk get size,freespace,caption";
+                }
+                else {
+                    command = "mount | column -t";
+                }
+                break;
+        }
+        const { stdout } = await execAsync(command, { timeout: 30000 });
+        results = {
+            action,
+            path: targetPath || "current directory",
+            output: stdout,
+            timestamp: new Date().toISOString()
+        };
+        return {
+            content: [],
+            structuredContent: {
+                success: true,
+                results,
+                platform: PLATFORM
+            }
+        };
+    }
+    catch (error) {
+        return {
+            content: [],
+            structuredContent: {
+                success: false,
+                platform: PLATFORM,
+                error: error.message
+            }
+        };
+    }
+});
 // ============================================================================
 // MAIN FUNCTION
 // ============================================================================

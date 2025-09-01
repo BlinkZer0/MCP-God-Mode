@@ -1,0 +1,8 @@
+{
+  "url": "https://httpbin.org/html",
+  "initial_hash": "3405f5d4c9ada070d09b84cfd77ba22c",
+  "last_check": "2025-09-01T06:48:56.251Z",
+  "interval": 300000,
+  "changes": true,
+  "notifications": true
+}
