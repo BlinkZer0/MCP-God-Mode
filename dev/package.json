@@ -10,7 +10,9 @@
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.2.0",
     "simple-git": "^3.24.0",
-    "zod": "^3.23.8"
+    "zod": "^3.23.8",
+    "winston": "^3.11.0",
+    "shell-escape": "^0.2.0"
   },
   "devDependencies": {
     "@types/node": "^22.5.4",
