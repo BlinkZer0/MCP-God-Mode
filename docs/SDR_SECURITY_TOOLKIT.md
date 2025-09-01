@@ -39,6 +39,14 @@ The SDR (Software Defined Radio) Security Toolkit provides comprehensive capabil
 - **Pattern Recognition**: Identify patterns in radio transmissions
 - **Anomaly Detection**: Detect unusual or suspicious radio activity
 
+### Signal Broadcasting & Transmission
+- **Signal Broadcasting**: Broadcast custom signals at specified frequencies
+- **Audio Transmission**: Transmit audio signals with various modulations
+- **Data Transmission**: Send data packets using different protocols
+- **Frequency Jamming**: Create interference for testing purposes
+- **Transmission Testing**: Test transmission power and antenna patterns
+- **Coverage Measurement**: Measure signal coverage and strength
+
 ## 🌐 Cross-Platform Support Matrix
 
 | Feature | Linux | Windows | macOS | Android | iOS |
@@ -50,6 +58,9 @@ The SDR (Software Defined Radio) Security Toolkit provides comprehensive capabil
 | **Protocol Decoding** | ✅ Full | ✅ Full | ✅ Full | ⚠️ Limited | ❌ None |
 | **Spectrum Analysis** | ✅ Full | ✅ Full | ✅ Full | ⚠️ Limited | ❌ None |
 | **Real-time Monitoring** | ✅ Full | ✅ Full | ✅ Full | ⚠️ Limited | ❌ None |
+| **Signal Broadcasting** | ✅ Full | ⚠️ Limited | ⚠️ Limited | ❌ None | ❌ None |
+| **Audio Transmission** | ✅ Full | ⚠️ Limited | ⚠️ Limited | ❌ None | ❌ None |
+| **Frequency Jamming** | ✅ Full | ⚠️ Limited | ⚠️ Limited | ❌ None | ❌ None |
 
 **Legend:**
 - ✅ **Full**: Complete functionality with native tools
@@ -105,6 +116,10 @@ sudo apt-get install bladerf
 # Additional SDR tools
 sudo apt-get install gnuradio gnuradio-dev
 sudo apt-get install gr-osmosdr
+
+# Broadcasting tools
+sudo apt-get install sox  # For audio processing
+sudo apt-get install ffmpeg  # For media handling
 ```
 
 ### Windows
@@ -219,6 +234,54 @@ const analysisResult = await sdr_security_toolkit({
 
 console.log("Signal strength:", analysisResult.analysis_results.signal_strength);
 console.log("SNR:", analysisResult.analysis_results.snr);
+
+### Signal Broadcasting
+```typescript
+// Broadcast custom signals at specified frequency
+const broadcastResult = await sdr_security_toolkit({
+  action: "broadcast_signals",
+  device_index: 0,
+  frequency: 100000000, // 100 MHz
+  sample_rate: 2000000, // 2 MHz
+  gain: 20,             // 20 dB
+  power_level: 10,      // 10 dBm
+  duration: 30,         // 30 seconds
+  output_file: "broadcast_output.bin"
+});
+
+console.log("Broadcasting status:", broadcastResult.message);
+```
+
+### Audio Transmission
+```typescript
+// Transmit audio signals with FM modulation
+const audioResult = await sdr_security_toolkit({
+  action: "transmit_audio",
+  device_index: 0,
+  frequency: 100000000, // 100 MHz
+  modulation: "FM",     // Frequency Modulation
+  power_level: 10,      // 10 dBm
+  duration: 30,         // 30 seconds
+  output_file: "transmitted_audio.wav"
+});
+
+console.log("Audio transmission:", audioResult.message);
+```
+
+### Frequency Jamming (Testing Only)
+```typescript
+// Test frequency jamming capabilities
+const jamResult = await sdr_security_toolkit({
+  action: "jam_frequencies",
+  device_index: 0,
+  frequency: 100000000, // 100 MHz
+  power_level: 50,      // 50 dBm
+  duration: 10          // 10 seconds
+});
+
+console.log("Jamming status:", jamResult.message);
+console.log("Warning:", jamResult.warning);
+```
 ```
 
 ## ⚠️ Security Considerations

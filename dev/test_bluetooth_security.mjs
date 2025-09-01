@@ -535,7 +535,7 @@ async function runBluetoothSecurityTests() {
 }
 
 // Run the tests if this script is executed directly
-if (import.meta.url === `file://${process.argv[1]}`) {
+if (process.argv[1] && process.argv[1].endsWith('test_bluetooth_security.mjs')) {
   runBluetoothSecurityTests();
 }
 

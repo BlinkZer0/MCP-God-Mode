@@ -370,7 +370,7 @@ async function runWiFiSecurityTests() {
 }
 
 // Run tests if this script is executed directly
-if (import.meta.url === `file://${process.argv[1]}`) {
+if (process.argv[1] && process.argv[1].endsWith('test_wifi_security.mjs')) {
   runWiFiSecurityTests().catch(error => {
     logError(`Fatal error: ${error.message}`);
     process.exit(1);
