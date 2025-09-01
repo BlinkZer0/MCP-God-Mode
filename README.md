@@ -2,7 +2,7 @@
 
 > *"One MCP to rule them all, one MCP to find them, one MCP to bring them all and in the God Mode bind them!"* - The Fellowship of the Prompt
 
-![Hilarious AI Ring](https://media.giphy.com/media/3o6ZtaO9BZHcOjmErm/giphy.gif)  // Funny GIF of a powerful ring with AI twist
+![Hilarious AI Ring](https://media.giphy.com/media/3o6ZtaO9BZHcOjmErm/giphy.gif)  
 
 **Welcome to MCP God Mode**, the cross-platform AI superpower that lets your AI assistant conquer Windows, Linux, and macOS like a boss. It's like giving your AI the infinity stones – unlimited power, but hopefully without the snap! Because sometimes, restarting isn't enough; you need an AI to yeet the problems into oblivion. 🚀 Now with full cross-platform support – one MCP to rule ALL operating systems!
 
@@ -25,7 +25,7 @@ This MCP can do wild stuff:
 
 **Use on your own systems only.** Back up everything, or live dangerously.
 
-![Danger funny](https://tenor.com/bYoRG.gif)  // Hilarious warning GIF with explosions
+![Danger funny](https://tenor.com/bYoRG.gif)  
 
 **Joke:** If your AI goes rogue, just remember – you gave it the keys!
 
