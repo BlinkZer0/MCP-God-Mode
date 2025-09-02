@@ -473,11 +473,11 @@ server.registerTool("browser_control", {
 // ===========================================
 
 server.registerTool("system_restore", {
-  description: "Ultra-minimal system restore for Windows, Linux, and macOS. Basic restore point creation and configuration backup only.",
+  description: "💾 **System Restore & Backup Management (Ultra-Minimal)** - Ultra-minimal system restore for Windows, Linux, and macOS. Basic restore point creation and configuration backup only. Limited to 2 essential actions: create_restore_point, backup_config. Cross-platform support with minimal resource usage for embedded systems and resource-constrained environments.",
   inputSchema: {
     action: z.enum([
       "create_restore_point", "backup_config"
-    ]).describe("Action to perform. 'create_restore_point' creates a basic system restore point, 'backup_config' backs up essential system configurations."),
+    ]).describe("**System Restore Actions (2 Operations):** 'create_restore_point' - Create basic system restore points across platforms (Windows: PowerShell System Restore, Linux/macOS: Timestamp file with metadata), 'backup_config' - Backup essential system configurations (Windows: Not available in ultra-minimal, Linux/macOS: /etc directory backup with file count)."),
     description: z.string().optional().describe("Description for the restore point or backup.")
   },
   outputSchema: {

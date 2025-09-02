@@ -942,11 +942,11 @@ async function takeSimpleScreenshot(screenshotPath?: string): Promise<any> {
 // ===========================================
 
 server.registerTool("system_restore", {
-  description: "Basic system restore and backup management for Windows, Linux, and macOS. Create restore points, backup configurations, and restore systems. Limited functionality compared to full version.",
+  description: "💾 **System Restore & Backup Management (Minimal)** - Basic system restore and backup management for Windows, Linux, and macOS. Create restore points, backup configurations, and restore systems. Limited to 4 essential actions: create_restore_point, list_restore_points, restore_system, backup_config. Cross-platform support with platform-specific optimizations.",
   inputSchema: {
     action: z.enum([
       "create_restore_point", "list_restore_points", "restore_system", "backup_config"
-    ]).describe("Action to perform. 'create_restore_point' creates a new system restore point, 'list_restore_points' shows available restore points, 'restore_system' rolls back to a previous state, 'backup_config' backs up system configurations."),
+    ]).describe("**System Restore Actions (4 Operations):** 'create_restore_point' - Create system restore points across platforms (Windows: PowerShell System Restore, Linux/macOS: File-based /etc backup), 'list_restore_points' - List available restore points with metadata (Windows: System Restore catalog, Linux/macOS: Backup logs), 'restore_system' - Rollback system to previous state (Windows: System Restore, Linux/macOS: File restoration), 'backup_config' - Backup critical system configurations (Windows: Registry export, Linux/macOS: /etc directory backup)."),
     description: z.string().optional().describe("Description for the restore point or backup."),
     target_path: z.string().optional().describe("Target path for backup operations.")
   },
