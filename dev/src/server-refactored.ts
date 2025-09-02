@@ -164,7 +164,7 @@ server.registerTool("file_ops", {
       "copy", "move", "delete", "create_dir", "create_file", "get_info", "list_recursive",
       "find_by_content", "compress", "decompress", "chmod", "chown", "symlink", "hardlink",
       "watch", "unwatch", "get_size", "get_permissions", "set_permissions", "compare_files"
-    ]).describe("The file operation to perform. Choose from: copy/move files, delete files/directories, create directories/files, get file information, list files recursively, search by content, compress/decompress files, manage permissions, create links, or monitor file changes."),
+    ]).describe("The file operation to perform."),
     source: z.string().optional().describe("The source file or directory path for operations like copy, move, delete, or get_info. Can be relative or absolute path. Examples: './file.txt', '/home/user/documents', 'C:\\Users\\User\\Desktop'."),
     destination: z.string().optional().describe("The destination path for operations like copy, move, create_dir, or create_file. Can be relative or absolute path. Examples: './backup/file.txt', '/home/user/backups', 'C:\\Users\\User\\Backups'."),
     content: z.string().optional().describe("The content to write when creating a new file. Can be plain text, JSON, XML, or any text-based format. Examples: 'Hello World', '{\"key\": \"value\"}', '<xml>data</xml>'."),
@@ -955,7 +955,7 @@ server.registerTool("vm_management", {
     action: z.enum([
       "list_vms", "start_vm", "stop_vm", "pause_vm", "resume_vm", 
       "create_vm", "delete_vm", "vm_info", "vm_status", "list_hypervisors"
-    ]).describe("The virtual machine operation to perform. Choose from: list existing VMs, start/stop/pause/resume VMs, create/delete VMs, get VM information/status, or list available hypervisors."),
+    ]).describe("The virtual machine operation to perform."),
     vm_name: z.string().optional().describe("The name of the virtual machine to operate on. Examples: 'UbuntuVM', 'Windows10', 'TestVM'. Required for start, stop, pause, resume, delete, vm_info, and vm_status actions."),
     vm_type: z.enum(["virtualbox", "vmware", "qemu", "hyperv", "auto"]).optional().describe("The hypervisor type to use. Examples: 'virtualbox' for VirtualBox, 'vmware' for VMware, 'qemu' for QEMU/KVM, 'hyperv' for Hyper-V, 'auto' to auto-detect. Defaults to 'auto'."),
     memory_mb: z.number().optional().describe("Memory allocation in megabytes for new VMs. Examples: 2048 for 2GB, 4096 for 4GB, 8192 for 8GB. Required when creating new VMs."),
@@ -1348,7 +1348,7 @@ server.registerTool("docker_management", {
   inputSchema: {
     action: z.enum([
       "list_containers", "list_images", "start_container", "stop_container", "create_container", "delete_container", "delete_image", "container_info", "container_logs", "container_stats", "pull_image", "build_image", "list_networks", "list_volumes", "docker_info", "docker_version"
-    ]).describe("The Docker operation to perform. Choose from: list containers/images/networks/volumes, start/stop/create/delete containers, pull/build images, get container info/logs/stats, or get Docker system information."),
+    ]).describe("The Docker operation to perform."),
     container_name: z.string().optional().describe("The name of the Docker container to operate on. Examples: 'myapp', 'web-server', 'database'. Required for start_container, stop_container, create_container, delete_container, container_info, container_logs, and container_stats actions."),
     image_name: z.string().optional().describe("The name of the Docker image to use. Examples: 'nginx', 'ubuntu', 'postgres', 'node'. Required for create_container, pull_image, and build_image actions."),
     image_tag: z.string().optional().describe("The tag/version of the Docker image. Examples: 'latest', '20.04', '14.0', 'v1.0.0'. Defaults to 'latest' if not specified."),
@@ -2351,7 +2351,7 @@ server.registerTool("wifi_security_toolkit", {
       "router_scan", "iot_enumeration", "vulnerability_scan", "exploit_router",
       // Analysis & Reporting
       "analyze_captures", "generate_report", "export_results", "cleanup_traces"
-    ]),
+    ]).describe("The Wi-Fi security action to perform."),
     target_ssid: z.string().optional().describe("The name/SSID of the target Wi-Fi network you want to attack or analyze. Example: 'OfficeWiFi' or 'HomeNetwork'."),
     target_bssid: z.string().optional().describe("The MAC address (BSSID) of the target Wi-Fi access point. Format: XX:XX:XX:XX:XX:XX. Useful for targeting specific devices when multiple networks have similar names."),
     interface: z.string().optional().describe("The wireless network interface to use for attacks. Examples: 'wlan0' (Linux), 'Wi-Fi' (Windows), or 'en0' (macOS). Leave empty for auto-detection."),
@@ -5814,7 +5814,7 @@ server.registerTool("bluetooth_security_toolkit", {
       "monitor_traffic", "capture_packets", "analyze_protocols", "detect_anomalies", "log_activities",
       // Reporting & Cleanup
       "generate_report", "export_results", "cleanup_traces", "restore_devices"
-    ]),
+    ]).describe("The Bluetooth security action to perform."),
     target_address: z.string().optional().describe("The Bluetooth MAC address of the target device to attack or analyze. Format: XX:XX:XX:XX:XX:XX. Examples: '00:11:22:33:44:55' or 'AA:BB:CC:DD:EE:FF'."),
     target_name: z.string().optional().describe("The friendly name of the target Bluetooth device. Examples: 'iPhone', 'Samsung TV', 'JBL Speaker', 'Car Audio'. Useful when you don't know the MAC address."),
     device_class: z.string().optional().describe("The Bluetooth device class to filter for during scanning. Examples: 'Audio', 'Phone', 'Computer', 'Peripheral', 'Imaging', 'Wearable'. Leave empty to scan all device types."),
@@ -6052,7 +6052,7 @@ server.registerTool("bluetooth_hacking", {
       "exploit_vulnerabilities", "inject_commands", "modify_firmware", "bypass_security", "escalate_privileges",
       "monitor_traffic", "capture_packets", "analyze_protocols", "detect_anomalies", "log_activities",
       "generate_report", "export_results", "cleanup_traces", "restore_devices"
-    ]).describe("Bluetooth security testing action. 'scan_devices' discovers nearby devices, 'discover_services' enumerates available services, 'bypass_pairing' attempts unauthorized connections, attack actions include 'bluejacking_attack' for message spam, 'bluesnarfing_attack' for data theft, 'bluebugging_attack' for device control, 'extract_contacts' steals address book, 'monitor_traffic' captures communications."),
+    ]).describe("The Bluetooth hacking action to perform."),
     target_address: z.string().optional().describe("Target Bluetooth device MAC address. Format: XX:XX:XX:XX:XX:XX. Examples: '00:11:22:33:44:55', 'AA:BB:CC:DD:EE:FF'. Unique identifier for precise device targeting in attacks."),
     target_name: z.string().optional().describe("Target Bluetooth device friendly name. Examples: 'iPhone', 'Samsung Galaxy', 'JBL Speaker', 'Car Audio System'. Human-readable name when MAC address is unknown."),
     device_class: z.string().optional().describe("Bluetooth device class to filter during scanning. Examples: 'Audio', 'Phone', 'Computer', 'Peripheral', 'Imaging', 'Wearable'. Helps focus attacks on specific device types."),
@@ -7679,7 +7679,7 @@ server.registerTool("sdr_security_toolkit", {
       // Signal Broadcasting & Transmission
       "broadcast_signals", "transmit_audio", "transmit_data", "jam_frequencies", "create_interference",
       "test_transmission_power", "calibrate_transmitter", "test_antenna_pattern", "measure_coverage"
-    ]),
+    ]).describe("The SDR security action to perform."),
     device_index: z.number().optional().describe("The index number of the SDR device to use (0, 1, 2, etc.). Use 0 for the first detected device. Run 'detect_sdr_hardware' first to see available devices and their indices."),
     frequency: z.number().optional().describe("The radio frequency in Hz to tune to. Examples: 100000000 for 100 MHz, 2400000000 for 2.4 GHz. Common ranges: 30-300 MHz (VHF), 300-3000 MHz (UHF), 2.4-5 GHz (Wi-Fi/Bluetooth)."),
     sample_rate: z.number().optional().describe("The sampling rate in Hz for signal capture. Higher rates provide better signal quality but require more processing power. Recommended: 2-8 MHz for narrowband, 20-40 MHz for wideband signals."),
@@ -8018,19 +8018,19 @@ server.registerTool("radio_security", {
       "cleanup_temp_files", "archive_results",
       "broadcast_signals", "transmit_audio", "transmit_data", "jam_frequencies", "create_interference",
       "test_transmission_power", "calibrate_transmitter", "test_antenna_pattern", "measure_coverage"
-    ]),
-    device_index: z.number().optional(),
-    frequency: z.number().optional(),
-    sample_rate: z.number().optional(),
-    gain: z.number().optional(),
-    bandwidth: z.number().optional(),
-    duration: z.number().optional(),
-    output_file: z.string().optional(),
-    modulation: z.enum(["AM", "FM", "USB", "LSB", "CW", "PSK", "QPSK", "FSK", "MSK", "GMSK"]).optional(),
-    protocol: z.string().optional(),
-    coordinates: z.string().optional(),
-    power_level: z.number().optional(),
-    antenna_type: z.string().optional()
+    ]).describe("The radio security action to perform."),
+    device_index: z.number().optional().describe("The index number of the SDR device to use (0, 1, 2, etc.). Use 0 for the first detected device. Run 'detect_sdr_hardware' first to see available devices and their indices."),
+    frequency: z.number().optional().describe("The radio frequency in Hz to tune to. Examples: 100000000 for 100 MHz, 2400000000 for 2.4 GHz. Common ranges: 30-300 MHz (VHF), 300-3000 MHz (UHF), 2.4-5 GHz (Wi-Fi/Bluetooth)."),
+    sample_rate: z.number().optional().describe("The sampling rate in Hz for signal capture. Higher rates provide better signal quality but require more processing power. Recommended: 2-8 MHz for narrowband, 20-40 MHz for wideband signals."),
+    gain: z.number().optional().describe("The RF gain setting for the SDR (0-100%). Higher gain improves signal reception but may cause overload on strong signals. Recommended: 20-40% for strong signals, 60-80% for weak signals."),
+    bandwidth: z.number().optional().describe("The bandwidth in Hz to capture around the center frequency. Should match your signal of interest. Examples: 12500 for narrowband FM, 200000 for wideband FM, 20000000 for Wi-Fi signals."),
+    duration: z.number().optional().describe("Duration in seconds for signal capture, scanning, or monitoring operations. Longer durations capture more data but require more storage. Recommended: 10-300 seconds for analysis, 600+ seconds for monitoring."),
+    output_file: z.string().optional().describe("File path where captured signals, recordings, or analysis results will be saved. Examples: './captured_signal.iq', './audio_recording.wav', './spectrum_analysis.png', './decoded_data.json'."),
+    modulation: z.enum(["AM", "FM", "USB", "LSB", "CW", "PSK", "QPSK", "FSK", "MSK", "GMSK"]).optional().describe("The modulation type for signal transmission or decoding. AM/FM for broadcast radio, USB/LSB for amateur radio, PSK/QPSK for digital communications, FSK for data transmission."),
+    protocol: z.string().optional().describe("The specific radio protocol to decode. Examples: 'ADS-B' for aircraft tracking, 'POCSAG' for pager messages, 'APRS' for amateur radio position reporting, 'AIS' for ship tracking, 'P25' for public safety radio."),
+    coordinates: z.string().optional().describe("GPS coordinates for location-based operations. Format: 'latitude,longitude' (e.g., '40.7128,-74.0060' for New York). Required for ADS-B decoding, useful for signal triangulation and coverage analysis."),
+    power_level: z.number().optional().describe("Transmit power level (0-100%) for broadcasting or jamming operations. Higher power increases range and effectiveness but may be detected. Use lower power (10-30%) for testing, higher (70-100%) for maximum effect."),
+    antenna_type: z.string().optional().describe("The type of antenna to use for transmission or reception. Examples: 'dipole', 'yagi', 'omnidirectional', 'directional', 'patch'. Leave empty to use the default antenna or auto-detect the best available.")
   },
   outputSchema: {
     success: z.boolean(),
@@ -8109,19 +8109,19 @@ server.registerTool("signal_analysis", {
       "cleanup_temp_files", "archive_results",
       "broadcast_signals", "transmit_audio", "transmit_data", "jam_frequencies", "create_interference",
       "test_transmission_power", "calibrate_transmitter", "test_antenna_pattern", "measure_coverage"
-    ]),
-    device_index: z.number().optional(),
-    frequency: z.number().optional(),
-    sample_rate: z.number().optional(),
-    gain: z.number().optional(),
-    bandwidth: z.number().optional(),
-    duration: z.number().optional(),
-    output_file: z.string().optional(),
-    modulation: z.enum(["AM", "FM", "USB", "LSB", "CW", "PSK", "QPSK", "FSK", "MSK", "GMSK"]).optional(),
-    protocol: z.string().optional(),
-    coordinates: z.string().optional(),
-    power_level: z.number().optional(),
-    antenna_type: z.string().optional()
+    ]).describe("The signal analysis action to perform."),
+    device_index: z.number().optional().describe("The index number of the SDR device to use (0, 1, 2, etc.). Use 0 for the first detected device. Run 'detect_sdr_hardware' first to see available devices and their indices."),
+    frequency: z.number().optional().describe("The radio frequency in Hz to tune to. Examples: 100000000 for 100 MHz, 2400000000 for 2.4 GHz. Common ranges: 30-300 MHz (VHF), 300-3000 MHz (UHF), 2.4-5 GHz (Wi-Fi/Bluetooth)."),
+    sample_rate: z.number().optional().describe("The sampling rate in Hz for signal capture. Higher rates provide better signal quality but require more processing power. Recommended: 2-8 MHz for narrowband, 20-40 MHz for wideband signals."),
+    gain: z.number().optional().describe("The RF gain setting for the SDR (0-100%). Higher gain improves signal reception but may cause overload on strong signals. Recommended: 20-40% for strong signals, 60-80% for weak signals."),
+    bandwidth: z.number().optional().describe("The bandwidth in Hz to capture around the center frequency. Should match your signal of interest. Examples: 12500 for narrowband FM, 200000 for wideband FM, 20000000 for Wi-Fi signals."),
+    duration: z.number().optional().describe("Duration in seconds for signal capture, scanning, or monitoring operations. Longer durations capture more data but require more storage. Recommended: 10-300 seconds for analysis, 600+ seconds for monitoring."),
+    output_file: z.string().optional().describe("File path where captured signals, recordings, or analysis results will be saved. Examples: './captured_signal.iq', './audio_recording.wav', './spectrum_analysis.png', './decoded_data.json'."),
+    modulation: z.enum(["AM", "FM", "USB", "LSB", "CW", "PSK", "QPSK", "FSK", "MSK", "GMSK"]).optional().describe("The modulation type for signal transmission or decoding. AM/FM for broadcast radio, USB/LSB for amateur radio, PSK/QPSK for digital communications, FSK for data transmission."),
+    protocol: z.string().optional().describe("The specific radio protocol to decode. Examples: 'ADS-B' for aircraft tracking, 'POCSAG' for pager messages, 'APRS' for amateur radio position reporting, 'AIS' for ship tracking, 'P25' for public safety radio."),
+    coordinates: z.string().optional().describe("GPS coordinates for location-based operations. Format: 'latitude,longitude' (e.g., '40.7128,-74.0060' for New York). Required for ADS-B decoding, useful for signal triangulation and coverage analysis."),
+    power_level: z.number().optional().describe("Transmit power level (0-100%) for broadcasting or jamming operations. Higher power increases range and effectiveness but may be detected. Use lower power (10-30%) for testing, higher (70-100%) for maximum effect."),
+    antenna_type: z.string().optional().describe("The type of antenna to use for transmission or reception. Examples: 'dipole', 'yagi', 'omnidirectional', 'directional', 'patch'. Leave empty to use the default antenna or auto-detect the best available.")
   },
   outputSchema: {
     success: z.boolean(),
