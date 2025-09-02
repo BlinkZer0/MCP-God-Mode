@@ -831,6 +831,48 @@ Copy the provided `mcp.json` to your MCP client configuration:
 
 ---
 
+## 📚 **Documentation & Guides**
+
+### 📖 **Complete Guides**
+- **[Setup Guide](docs/SETUP_GUIDE.md)** - Complete installation and configuration instructions
+- **[Natural Language Access](docs/NATURAL_LANGUAGE_ACCESS.md)** - How to use tools with plain English
+- **[Prompt Templates](docs/PROMPT_TEMPLATES.md)** - Ready-to-use prompt examples for all tools
+- **[Parameter Reference](docs/PARAMETER_REFERENCE.md)** - Complete parameter documentation with examples
+- **[Parameter Improvements Summary](docs/PARAMETER_IMPROVEMENTS_SUMMARY.md)** - Overview of all parameter enhancements
+
+### 🛡️ **Security Toolkit Guides**
+- **[Wi-Fi Security Toolkit](docs/WIFI_SECURITY_TOOLKIT.md)** - Complete Wi-Fi security and penetration testing
+- **[Bluetooth Security Toolkit](docs/BLUETOOTH_SECURITY_TOOLKIT.md)** - Bluetooth security and device exploitation
+- **[SDR Security Toolkit](docs/SDR_SECURITY_TOOLKIT.md)** - Radio frequency security and signal analysis
+
+### 🎯 **Quick Start Examples**
+Instead of remembering technical commands, just ask naturally:
+- ❌ Old way: `wifi_security_toolkit action=scan_networks interface=wlan0`
+- ✅ New way: "Scan for Wi-Fi networks around me"
+- ❌ Old way: `bluetooth_security_toolkit action=scan_devices`
+- ✅ New way: "Find Bluetooth devices nearby"
+- ❌ Old way: `sdr_security_toolkit action=scan_frequencies`
+- ✅ New way: "Scan radio frequencies for security threats"
+- ❌ Old way: `fs_list dir=.`
+- ✅ New way: "Show me the files in this folder"
+
+### 🔧 **Parameter Descriptions**
+**All major tools now have comprehensive parameter descriptions!** Every parameter includes:
+- Clear explanations of what it does
+- Cross-platform examples (Windows, Linux, macOS)
+- Usage guidelines and best practices
+- Natural language translation support
+
+**Enhanced Tools Include:**
+- ✅ **File System**: `fs_list`, `fs_read_text`, `fs_write_text`, `fs_search`, `file_ops`
+- ✅ **Process Management**: `proc_run`, `win_processes`, `win_services`
+- ✅ **Security Toolkits**: Wi-Fi, Bluetooth, SDR, Radio Security
+- ✅ **System Tools**: `vm_management`, `docker_management`, `git_status`
+- ✅ **Mobile Tools**: `mobile_device_info`, `mobile_file_ops`, `mobile_system_tools`
+- ✅ **Utility Tools**: `calculator`, `download_file`, `packet_sniffer`
+
+---
+
 ## 📦 **Available Server Versions**
 
 **Choose the version that fits your needs:**

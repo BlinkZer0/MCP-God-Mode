@@ -92,7 +92,7 @@ function limitString(str: string, maxBytes: number): { text: string; truncated: 
 
 server.registerTool("fs_list", {
   description: "List files/directories under a relative path (non-recursive)",
-  inputSchema: { dir: z.string().default(".") },
+  inputSchema: { dir: z.string().default(".").describe("The directory path to list files and folders from. Examples: '.', './documents', '/home/user/pictures', 'C:\\Users\\User\\Desktop'. Use '.' for current directory.") },
   outputSchema: { entries: z.array(z.object({ name: z.string(), isDir: z.boolean() })) }
 }, async ({ dir }) => {
   let base: string;
@@ -108,7 +108,7 @@ server.registerTool("fs_list", {
 
 server.registerTool("fs_read_text", {
   description: "Read a UTF-8 text file within the sandbox",
-  inputSchema: { path: z.string() },
+  inputSchema: { path: z.string().describe("The file path to read from. Can be relative or absolute path. Examples: './config.txt', '/home/user/documents/readme.md', 'C:\\Users\\User\\Desktop\\notes.txt'.") },
   outputSchema: { path: z.string(), content: z.string(), truncated: z.boolean() }
 }, async ({ path: relPath }) => {
   const fullPath = ensureInsideRoot(path.resolve(relPath));
@@ -119,7 +119,10 @@ server.registerTool("fs_read_text", {
 
 server.registerTool("fs_write_text", {
   description: "Write a UTF-8 text file within the sandbox",
-  inputSchema: { path: z.string(), content: z.string() },
+  inputSchema: { 
+    path: z.string().describe("The file path to write to. Can be relative or absolute path. Examples: './output.txt', '/home/user/documents/log.txt', 'C:\\Users\\User\\Desktop\\data.txt'."),
+    content: z.string().describe("The text content to write to the file. Can be plain text, JSON, XML, or any text-based format. Examples: 'Hello World', '{\"key\": \"value\"}', '<xml>data</xml>'.")
+  },
   outputSchema: { path: z.string(), success: z.boolean() }
 }, async ({ path: relPath, content }) => {
   const fullPath = ensureInsideRoot(path.resolve(relPath));
@@ -129,7 +132,10 @@ server.registerTool("fs_write_text", {
 
 server.registerTool("fs_search", {
   description: "Search for files by name pattern",
-  inputSchema: { pattern: z.string(), dir: z.string().default(".") },
+  inputSchema: { 
+    pattern: z.string().describe("The file name pattern to search for. Supports glob patterns and partial matches. Examples: '*.txt', 'config*', '*.js', 'README*', '*.{json,yaml}'."),
+    dir: z.string().default(".").describe("The directory to search in. Examples: '.', './src', '/home/user/documents', 'C:\\Users\\User\\Projects'. Use '.' for current directory.")
+  },
   outputSchema: { matches: z.array(z.string()) }
 }, async ({ pattern, dir }) => {
   const base = ensureInsideRoot(path.resolve(dir));
@@ -170,9 +176,9 @@ server.registerTool("fs_search", {
 server.registerTool("proc_run", {
   description: "Run a process with arguments",
   inputSchema: { 
-    command: z.string(), 
-    args: z.array(z.string()).default([]),
-    cwd: z.string().optional()
+    command: z.string().describe("The command to execute. Examples: 'ls', 'dir', 'cat', 'echo', 'python', 'node', 'git', 'docker'. Can be any executable available in your system PATH or full path to an executable."), 
+    args: z.array(z.string()).default([]).describe("Array of command line arguments to pass to the command. Examples: ['-l', '-a'] for 'ls -l -a', ['--version'] for version info, ['install', 'package'] for package installation."),
+    cwd: z.string().optional().describe("Working directory for the command. Examples: './project', '/home/user/workspace', 'C:\\Users\\User\\Projects'. If not specified, uses the current working directory.")
   },
   outputSchema: { 
     success: z.boolean(), 
@@ -223,7 +229,7 @@ server.registerTool("proc_run", {
 
 server.registerTool("git_status", {
   description: "Get git status for a repository",
-  inputSchema: { dir: z.string().default(".") },
+  inputSchema: { dir: z.string().default(".").describe("The directory containing the git repository to check. Examples: './project', '/home/user/repos/myproject', 'C:\\Users\\User\\Projects\\MyProject'. Use '.' for the current directory.") },
   outputSchema: { 
     status: z.string(), 
     branch: z.string().optional(),
@@ -266,8 +272,8 @@ server.registerTool("git_status", {
 server.registerTool("calculator", {
   description: "Mathematical calculator with basic functions",
   inputSchema: { 
-    expression: z.string(),
-    precision: z.number().default(10)
+    expression: z.string().describe("The mathematical expression to evaluate. Supports basic arithmetic, scientific functions, and complex expressions. Examples: '2 + 2', 'sin(45)', 'sqrt(16)', '2^8', 'log(100)', '5!', '2 * (3 + 4)'."),
+    precision: z.number().default(10).describe("The number of decimal places to display in the result. Examples: 2 for currency, 5 for scientific calculations, 10 for high precision. Range: 0-15 decimal places.")
   },
   outputSchema: { 
     success: z.boolean(),
@@ -311,8 +317,8 @@ server.registerTool("calculator", {
 server.registerTool("download_file", {
   description: "Download a file from URL",
   inputSchema: { 
-    url: z.string().url(), 
-    outputPath: z.string().optional() 
+    url: z.string().url().describe("The URL of the file to download. Must be a valid HTTP/HTTPS URL. Examples: 'https://example.com/file.zip', 'http://downloads.example.org/document.pdf'."), 
+    outputPath: z.string().optional().describe("Optional custom filename for the downloaded file. Examples: 'myfile.zip', './downloads/document.pdf', 'C:\\Users\\User\\Downloads\\file.txt'. If not specified, uses the original filename from the URL.") 
   },
   outputSchema: { 
     success: z.boolean(),

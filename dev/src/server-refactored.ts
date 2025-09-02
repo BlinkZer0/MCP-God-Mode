@@ -73,7 +73,7 @@ server.registerTool("system_info", {
 
 server.registerTool("fs_list", {
   description: "List files/directories under a relative path (non-recursive)",
-  inputSchema: { dir: z.string().default(".") },
+  inputSchema: { dir: z.string().default(".").describe("The directory path to list files and folders from. Examples: '.', './documents', '/home/user/pictures', 'C:\\Users\\User\\Desktop'. Use '.' for current directory.") },
   outputSchema: { entries: z.array(z.object({ name: z.string(), isDir: z.boolean() })) }
 }, async ({ dir }) => {
   // Try to find the directory in one of the allowed roots
@@ -91,7 +91,7 @@ server.registerTool("fs_list", {
 
 server.registerTool("fs_read_text", {
   description: "Read a UTF-8 text file within the sandbox",
-  inputSchema: { path: z.string() },
+  inputSchema: { path: z.string().describe("The file path to read from. Can be relative or absolute path. Examples: './config.txt', '/home/user/documents/readme.md', 'C:\\Users\\User\\Desktop\\notes.txt'.") },
   outputSchema: { path: z.string(), content: z.string(), truncated: z.boolean() }
 }, async ({ path: relPath }) => {
   const fullPath = ensureInsideRoot(path.resolve(relPath));
@@ -102,7 +102,10 @@ server.registerTool("fs_read_text", {
 
 server.registerTool("fs_write_text", {
   description: "Write a UTF-8 text file within the sandbox",
-  inputSchema: { path: z.string(), content: z.string() },
+  inputSchema: { 
+    path: z.string().describe("The file path to write to. Can be relative or absolute path. Examples: './output.txt', '/home/user/documents/log.txt', 'C:\\Users\\User\\Desktop\\data.txt'."),
+    content: z.string().describe("The text content to write to the file. Can be plain text, JSON, XML, or any text-based format. Examples: 'Hello World', '{\"key\": \"value\"}', '<xml>data</xml>'.")
+  },
   outputSchema: { path: z.string(), success: z.boolean() }
 }, async ({ path: relPath, content }) => {
   const fullPath = ensureInsideRoot(path.resolve(relPath));
@@ -112,7 +115,10 @@ server.registerTool("fs_write_text", {
 
 server.registerTool("fs_search", {
   description: "Search for files by name pattern",
-  inputSchema: { pattern: z.string(), dir: z.string().default(".") },
+  inputSchema: { 
+    pattern: z.string().describe("The file name pattern to search for. Supports glob patterns and partial matches. Examples: '*.txt', 'config*', '*.js', 'README*', '*.{json,yaml}'."),
+    dir: z.string().default(".").describe("The directory to search in. Examples: '.', './src', '/home/user/documents', 'C:\\Users\\User\\Projects'. Use '.' for current directory.")
+  },
   outputSchema: { matches: z.array(z.string()) }
 }, async ({ pattern, dir }) => {
   const base = ensureInsideRoot(path.resolve(dir));
@@ -158,18 +164,18 @@ server.registerTool("file_ops", {
       "copy", "move", "delete", "create_dir", "create_file", "get_info", "list_recursive",
       "find_by_content", "compress", "decompress", "chmod", "chown", "symlink", "hardlink",
       "watch", "unwatch", "get_size", "get_permissions", "set_permissions", "compare_files"
-    ]),
-    source: z.string().optional(),
-    destination: z.string().optional(),
-    content: z.string().optional(),
-    recursive: z.boolean().default(false),
-    overwrite: z.boolean().default(false),
-    permissions: z.string().optional(),
-    owner: z.string().optional(),
-    group: z.string().optional(),
-    pattern: z.string().optional(),
-    search_text: z.string().optional(),
-    compression_type: z.enum(["zip", "tar", "gzip", "bzip2"]).default("zip")
+    ]).describe("The file operation to perform. Choose from: copy/move files, delete files/directories, create directories/files, get file information, list files recursively, search by content, compress/decompress files, manage permissions, create links, or monitor file changes."),
+    source: z.string().optional().describe("The source file or directory path for operations like copy, move, delete, or get_info. Can be relative or absolute path. Examples: './file.txt', '/home/user/documents', 'C:\\Users\\User\\Desktop'."),
+    destination: z.string().optional().describe("The destination path for operations like copy, move, create_dir, or create_file. Can be relative or absolute path. Examples: './backup/file.txt', '/home/user/backups', 'C:\\Users\\User\\Backups'."),
+    content: z.string().optional().describe("The content to write when creating a new file. Can be plain text, JSON, XML, or any text-based format. Examples: 'Hello World', '{\"key\": \"value\"}', '<xml>data</xml>'."),
+    recursive: z.boolean().default(false).describe("Whether to perform the operation recursively on directories and their contents. Required for copying, moving, or deleting directories. Set to true for directory operations, false for single file operations."),
+    overwrite: z.boolean().default(false).describe("Whether to overwrite existing files at the destination. Set to true to replace existing files, false to fail if destination already exists. Useful for backup operations or when you want to update files."),
+    permissions: z.string().optional().describe("Unix-style file permissions in octal format (e.g., '755', '644') or symbolic format (e.g., 'rwxr-xr-x', 'u+rw'). Examples: '755' for executable directories, '644' for readable files, '600' for private files."),
+    owner: z.string().optional().describe("The username to set as the owner of the file or directory. Examples: 'john', 'root', 'www-data'. Only works on Unix-like systems with appropriate permissions."),
+    group: z.string().optional().describe("The group name to set for the file or directory. Examples: 'users', 'admin', 'www-data'. Only works on Unix-like systems with appropriate permissions."),
+    pattern: z.string().optional().describe("File pattern for search operations. Supports glob patterns like '*.txt', '**/*.log', 'file*'. Examples: '*.py' for Python files, '**/*.json' for JSON files in subdirectories, 'backup*' for files starting with 'backup'."),
+    search_text: z.string().optional().describe("Text content to search for within files. Used with 'find_by_content' action to locate files containing specific text. Examples: 'password', 'API_KEY', 'TODO', 'FIXME'."),
+    compression_type: z.enum(["zip", "tar", "gzip", "bzip2"]).default("zip").describe("The compression format to use. ZIP is most universal, TAR preserves Unix permissions, GZIP is fast compression, BZIP2 is high compression. Choose based on your needs: ZIP for Windows compatibility, TAR for Unix systems, GZIP for speed, BZIP2 for space savings.")
   },
   outputSchema: {
     success: z.boolean(),
@@ -485,9 +491,9 @@ server.registerTool("file_ops", {
 server.registerTool("proc_run", {
   description: "Run a process with arguments",
   inputSchema: { 
-    command: z.string(), 
-    args: z.array(z.string()).default([]),
-    cwd: z.string().optional()
+    command: z.string().describe("The command to execute. Examples: 'ls', 'dir', 'cat', 'echo', 'python', 'node', 'git', 'docker'. Can be any executable available in your system PATH or full path to an executable."), 
+    args: z.array(z.string()).default([]).describe("Array of command-line arguments to pass to the command. Examples: ['-la'] for 'ls -la', ['--version'] for version info, ['filename.txt'] for file operations. Leave empty array for commands with no arguments."),
+    cwd: z.string().optional().describe("The working directory where the command will be executed. Examples: './project', '/home/user/documents', 'C:\\Users\\User\\Desktop'. Leave empty to use the current working directory.")
   },
   outputSchema: { 
     success: z.boolean(), 
@@ -546,7 +552,7 @@ server.registerTool("proc_run", {
 
 server.registerTool("git_status", {
   description: "Get git status for a repository",
-  inputSchema: { dir: z.string().default(".") },
+  inputSchema: { dir: z.string().default(".").describe("The directory containing the git repository to check. Examples: './project', '/home/user/repos/myproject', 'C:\\Users\\User\\Projects\\MyProject'. Use '.' for the current directory.") },
   outputSchema: { 
     status: z.string(), 
     branch: z.string().optional(),
@@ -588,7 +594,7 @@ server.registerTool("git_status", {
 
 server.registerTool("win_services", {
   description: "List system services (cross-platform: Windows services, Linux systemd, macOS launchd)",
-  inputSchema: { filter: z.string().optional() },
+  inputSchema: { filter: z.string().optional().describe("Optional filter to search for specific services by name or display name. Examples: 'ssh', 'mysql', 'apache', 'nginx', 'docker'. Leave empty to list all services.") },
   outputSchema: { 
     services: z.array(z.object({ 
       name: z.string(), 
@@ -686,7 +692,7 @@ server.registerTool("win_services", {
 
 server.registerTool("win_processes", {
   description: "List system processes (cross-platform: Windows, Linux, macOS)",
-  inputSchema: { filter: z.string().optional() },
+  inputSchema: { filter: z.string().optional().describe("Optional filter to search for specific processes by name. Examples: 'chrome', 'firefox', 'node', 'python', 'java'. Leave empty to list all processes.") },
   outputSchema: { 
     processes: z.array(z.object({ 
       pid: z.number(), 
@@ -790,8 +796,8 @@ server.registerTool("win_processes", {
 server.registerTool("download_file", {
   description: "Download a file from URL",
   inputSchema: { 
-    url: z.string().url(), 
-    outputPath: z.string().optional() 
+    url: z.string().url().describe("The URL of the file to download. Must be a valid HTTP/HTTPS URL. Examples: 'https://example.com/file.zip', 'http://downloads.example.org/document.pdf'."), 
+    outputPath: z.string().optional().describe("Optional custom filename for the downloaded file. Examples: 'myfile.zip', './downloads/document.pdf', 'C:\\Users\\User\\Downloads\\file.txt'. If not specified, uses the original filename from the URL.") 
   },
   outputSchema: { 
     success: z.boolean(),
@@ -850,8 +856,8 @@ server.registerTool("download_file", {
 server.registerTool("calculator", {
   description: "Advanced mathematical calculator with scientific functions, unit conversions, and financial calculations",
   inputSchema: { 
-    expression: z.string(),
-    precision: z.number().default(10)
+    expression: z.string().describe("The mathematical expression to evaluate. Supports basic arithmetic, scientific functions, and complex expressions. Examples: '2 + 2', 'sin(45)', 'sqrt(16)', '2^8', 'log(100)', '5!', '2 * (3 + 4)'."),
+    precision: z.number().default(10).describe("The number of decimal places to display in the result. Examples: 2 for currency, 5 for scientific calculations, 10 for high precision. Range: 0-15 decimal places.")
   },
   outputSchema: { 
     success: z.boolean(),
@@ -949,14 +955,14 @@ server.registerTool("vm_management", {
     action: z.enum([
       "list_vms", "start_vm", "stop_vm", "pause_vm", "resume_vm", 
       "create_vm", "delete_vm", "vm_info", "vm_status", "list_hypervisors"
-    ]),
-    vm_name: z.string().optional(),
-    vm_type: z.enum(["virtualbox", "vmware", "qemu", "hyperv", "auto"]).optional(),
-    memory_mb: z.number().optional(),
-    cpu_cores: z.number().optional(),
-    disk_size_gb: z.number().optional(),
-    iso_path: z.string().optional(),
-    network_type: z.enum(["nat", "bridged", "hostonly", "internal"]).optional()
+    ]).describe("The virtual machine operation to perform. Choose from: list existing VMs, start/stop/pause/resume VMs, create/delete VMs, get VM information/status, or list available hypervisors."),
+    vm_name: z.string().optional().describe("The name of the virtual machine to operate on. Examples: 'UbuntuVM', 'Windows10', 'TestVM'. Required for start, stop, pause, resume, delete, vm_info, and vm_status actions."),
+    vm_type: z.enum(["virtualbox", "vmware", "qemu", "hyperv", "auto"]).optional().describe("The hypervisor type to use. Examples: 'virtualbox' for VirtualBox, 'vmware' for VMware, 'qemu' for QEMU/KVM, 'hyperv' for Hyper-V, 'auto' to auto-detect. Defaults to 'auto'."),
+    memory_mb: z.number().optional().describe("Memory allocation in megabytes for new VMs. Examples: 2048 for 2GB, 4096 for 4GB, 8192 for 8GB. Required when creating new VMs."),
+    cpu_cores: z.number().optional().describe("Number of CPU cores to allocate to the VM. Examples: 1, 2, 4, 8. Required when creating new VMs."),
+    disk_size_gb: z.number().optional().describe("Disk size in gigabytes for new VMs. Examples: 20 for 20GB, 100 for 100GB, 500 for 500GB. Required when creating new VMs."),
+    iso_path: z.string().optional().describe("Path to the ISO file for VM installation. Examples: './ubuntu.iso', '/home/user/downloads/windows.iso', 'C:\\ISOs\\centos.iso'. Required when creating new VMs."),
+    network_type: z.enum(["nat", "bridged", "hostonly", "internal"]).optional().describe("Network configuration type for new VMs. Examples: 'nat' for Network Address Translation, 'bridged' for direct network access, 'hostonly' for host-only network, 'internal' for internal network. Defaults to 'nat'.")
   },
   outputSchema: { 
     success: z.boolean(),
@@ -1342,18 +1348,18 @@ server.registerTool("docker_management", {
   inputSchema: {
     action: z.enum([
       "list_containers", "list_images", "start_container", "stop_container", "create_container", "delete_container", "delete_image", "container_info", "container_logs", "container_stats", "pull_image", "build_image", "list_networks", "list_volumes", "docker_info", "docker_version"
-    ]),
-    container_name: z.string().optional(),
-    image_name: z.string().optional(),
-    image_tag: z.string().optional(),
-    dockerfile_path: z.string().optional(),
-    build_context: z.string().optional(),
-    port_mapping: z.string().optional(),
-    volume_mapping: z.string().optional(),
-    environment_vars: z.string().optional(),
-    network_name: z.string().optional(),
-    volume_name: z.string().optional(),
-    all_containers: z.boolean().optional()
+    ]).describe("The Docker operation to perform. Choose from: list containers/images/networks/volumes, start/stop/create/delete containers, pull/build images, get container info/logs/stats, or get Docker system information."),
+    container_name: z.string().optional().describe("The name of the Docker container to operate on. Examples: 'myapp', 'web-server', 'database'. Required for start_container, stop_container, create_container, delete_container, container_info, container_logs, and container_stats actions."),
+    image_name: z.string().optional().describe("The name of the Docker image to use. Examples: 'nginx', 'ubuntu', 'postgres', 'node'. Required for create_container, pull_image, and build_image actions."),
+    image_tag: z.string().optional().describe("The tag/version of the Docker image. Examples: 'latest', '20.04', '14.0', 'v1.0.0'. Defaults to 'latest' if not specified."),
+    dockerfile_path: z.string().optional().describe("Path to the Dockerfile for building custom images. Examples: './Dockerfile', '/home/user/project/Dockerfile', 'C:\\Projects\\MyApp\\Dockerfile'. Required for build_image action."),
+    build_context: z.string().optional().describe("The build context directory containing the Dockerfile and source code. Examples: '.', './src', '/home/user/project'. Defaults to the directory containing the Dockerfile."),
+    port_mapping: z.string().optional().describe("Port mapping in format 'host_port:container_port'. Examples: '8080:80', '3000:3000', '5432:5432'. Use for exposing container ports to the host system."),
+    volume_mapping: z.string().optional().describe("Volume mapping in format 'host_path:container_path'. Examples: './data:/app/data', '/home/user/files:/shared', 'C:\\Data:/data'. Use for persistent data storage."),
+    environment_vars: z.string().optional().describe("Environment variables for the container in format 'KEY=value'. Examples: 'DB_HOST=localhost', 'NODE_ENV=production', 'API_KEY=secret123'. Multiple variables can be separated by spaces."),
+    network_name: z.string().optional().describe("The name of the Docker network to connect the container to. Examples: 'bridge', 'host', 'my-network'. Defaults to 'bridge' network."),
+    volume_name: z.string().optional().describe("The name of the Docker volume to use. Examples: 'my-data', 'database-storage', 'app-logs'. Use for named volumes instead of bind mounts."),
+    all_containers: z.boolean().optional().describe("Whether to include stopped containers in listings. Set to true to see all containers (running and stopped), false to see only running containers. Defaults to false.")
   },
   outputSchema: {
     success: z.boolean(),
@@ -1529,7 +1535,7 @@ server.registerTool("docker_management", {
 server.registerTool("mobile_device_info", {
   description: "Get comprehensive mobile device information for Android and iOS",
   inputSchema: {
-    include_sensitive: z.boolean().default(false)
+    include_sensitive: z.boolean().default(false).describe("Whether to include sensitive device information like SMS and phone call permissions. Set to true for security testing, false for general device info. Examples: true for penetration testing, false for device inventory.")
   },
   outputSchema: {
     success: z.boolean(),
@@ -2346,16 +2352,16 @@ server.registerTool("wifi_security_toolkit", {
       // Analysis & Reporting
       "analyze_captures", "generate_report", "export_results", "cleanup_traces"
     ]),
-    target_ssid: z.string().optional(),
-    target_bssid: z.string().optional(),
-    interface: z.string().optional(),
-    wordlist: z.string().optional(),
-    output_file: z.string().optional(),
-    duration: z.number().optional(),
-    max_attempts: z.number().optional(),
-    attack_type: z.enum(["wpa", "wpa2", "wpa3", "wep", "wps"]).optional(),
-    channel: z.number().optional(),
-    power_level: z.number().optional()
+    target_ssid: z.string().optional().describe("The name/SSID of the target Wi-Fi network you want to attack or analyze. Example: 'OfficeWiFi' or 'HomeNetwork'."),
+    target_bssid: z.string().optional().describe("The MAC address (BSSID) of the target Wi-Fi access point. Format: XX:XX:XX:XX:XX:XX. Useful for targeting specific devices when multiple networks have similar names."),
+    interface: z.string().optional().describe("The wireless network interface to use for attacks. Examples: 'wlan0' (Linux), 'Wi-Fi' (Windows), or 'en0' (macOS). Leave empty for auto-detection."),
+    wordlist: z.string().optional().describe("Path to a wordlist file containing potential passwords for dictionary attacks. Should contain one password per line. Common wordlists: rockyou.txt, common_passwords.txt."),
+    output_file: z.string().optional().describe("File path where captured data, handshakes, or analysis results will be saved. Examples: './captured_handshake.pcap', './network_scan.json', './cracked_passwords.txt'."),
+    duration: z.number().optional().describe("Duration in seconds for operations like packet sniffing, handshake capture, or network monitoring. Longer durations increase capture success but take more time. Recommended: 30-300 seconds."),
+    max_attempts: z.number().optional().describe("Maximum number of attempts for brute force attacks or WPS exploitation. Higher values increase success chance but take longer. Recommended: 1000-10000 for WPS, 100000+ for brute force."),
+    attack_type: z.enum(["wpa", "wpa2", "wpa3", "wep", "wps"]).optional().describe("The type of Wi-Fi security protocol to target. WPA2 is most common, WPA3 is newest, WEP is outdated but still found. WPS attacks work on vulnerable routers regardless of protocol."),
+    channel: z.number().optional().describe("Specific Wi-Fi channel to focus on (1-13 for 2.4GHz, 36-165 for 5GHz). Useful for targeting specific networks or avoiding interference. Leave empty to scan all channels."),
+    power_level: z.number().optional().describe("Transmit power level for attacks (0-100%). Higher power increases range and success but may be detected. Use lower power (20-50%) for stealth, higher (80-100%) for maximum effectiveness.")
   },
   outputSchema: {
     success: z.boolean(),
@@ -5809,17 +5815,17 @@ server.registerTool("bluetooth_security_toolkit", {
       // Reporting & Cleanup
       "generate_report", "export_results", "cleanup_traces", "restore_devices"
     ]),
-    target_address: z.string().optional(),
-    target_name: z.string().optional(),
-    device_class: z.string().optional(),
-    service_uuid: z.string().optional(),
-    characteristic_uuid: z.string().optional(),
-    attack_type: z.enum(["passive", "active", "man_in_middle", "replay", "fuzzing"]).optional(),
-    duration: z.number().optional(),
-    max_attempts: z.number().optional(),
-    output_file: z.string().optional(),
-    interface: z.string().optional(),
-    power_level: z.number().optional()
+    target_address: z.string().optional().describe("The Bluetooth MAC address of the target device to attack or analyze. Format: XX:XX:XX:XX:XX:XX. Examples: '00:11:22:33:44:55' or 'AA:BB:CC:DD:EE:FF'."),
+    target_name: z.string().optional().describe("The friendly name of the target Bluetooth device. Examples: 'iPhone', 'Samsung TV', 'JBL Speaker', 'Car Audio'. Useful when you don't know the MAC address."),
+    device_class: z.string().optional().describe("The Bluetooth device class to filter for during scanning. Examples: 'Audio', 'Phone', 'Computer', 'Peripheral', 'Imaging', 'Wearable'. Leave empty to scan all device types."),
+    service_uuid: z.string().optional().describe("The UUID of the specific Bluetooth service to target. Format: 128-bit UUID (e.g., '0000110b-0000-1000-8000-00805f9b34fb' for Audio Sink). Leave empty to discover all services."),
+    characteristic_uuid: z.string().optional().describe("The UUID of the specific Bluetooth characteristic to read/write. Format: 128-bit UUID. Required for data extraction and injection attacks. Leave empty to enumerate all characteristics."),
+    attack_type: z.enum(["passive", "active", "man_in_middle", "replay", "fuzzing"]).optional().describe("The type of attack to perform. Passive: eavesdropping without interaction. Active: direct device interaction. Man-in-middle: intercepting communications. Replay: capturing and retransmitting data. Fuzzing: sending malformed data to find vulnerabilities."),
+    duration: z.number().optional().describe("Duration in seconds for scanning, monitoring, or attack operations. Longer durations increase success chance but take more time. Recommended: 30-300 seconds for scanning, 60-600 seconds for monitoring."),
+    max_attempts: z.number().optional().describe("Maximum number of attempts for pairing bypass, authentication testing, or brute force attacks. Higher values increase success chance but take longer. Recommended: 100-1000 for pairing, 1000-10000 for authentication."),
+    output_file: z.string().optional().describe("File path where captured data, extracted information, or analysis results will be saved. Examples: './bluetooth_scan.json', './extracted_contacts.txt', './captured_packets.pcap'."),
+    interface: z.string().optional().describe("The Bluetooth interface to use for attacks. Examples: 'hci0' (Linux), 'Bluetooth' (Windows), or 'default' (macOS). Leave empty for auto-detection."),
+    power_level: z.number().optional().describe("Bluetooth transmit power level (0-100%). Higher power increases range and success but may be detected. Use lower power (20-50%) for stealth, higher (80-100%) for maximum effectiveness.")
   },
   outputSchema: {
     success: z.boolean(),
@@ -6732,18 +6738,18 @@ server.registerTool("sdr_security_toolkit", {
       "broadcast_signals", "transmit_audio", "transmit_data", "jam_frequencies", "create_interference",
       "test_transmission_power", "calibrate_transmitter", "test_antenna_pattern", "measure_coverage"
     ]),
-    device_index: z.number().optional(),
-    frequency: z.number().optional(),
-    sample_rate: z.number().optional(),
-    gain: z.number().optional(),
-    bandwidth: z.number().optional(),
-    duration: z.number().optional(),
-    output_file: z.string().optional(),
-    modulation: z.enum(["AM", "FM", "USB", "LSB", "CW", "PSK", "QPSK", "FSK", "MSK", "GMSK"]).optional(),
-    protocol: z.string().optional(),
-    coordinates: z.string().optional(),
-    power_level: z.number().optional(),
-    antenna_type: z.string().optional()
+    device_index: z.number().optional().describe("The index number of the SDR device to use (0, 1, 2, etc.). Use 0 for the first detected device. Run 'detect_sdr_hardware' first to see available devices and their indices."),
+    frequency: z.number().optional().describe("The radio frequency in Hz to tune to. Examples: 100000000 for 100 MHz, 2400000000 for 2.4 GHz. Common ranges: 30-300 MHz (VHF), 300-3000 MHz (UHF), 2.4-5 GHz (Wi-Fi/Bluetooth)."),
+    sample_rate: z.number().optional().describe("The sampling rate in Hz for signal capture. Higher rates provide better signal quality but require more processing power. Recommended: 2-8 MHz for narrowband, 20-40 MHz for wideband signals."),
+    gain: z.number().optional().describe("The RF gain setting for the SDR (0-100%). Higher gain improves signal reception but may cause overload on strong signals. Recommended: 20-40% for strong signals, 60-80% for weak signals."),
+    bandwidth: z.number().optional().describe("The bandwidth in Hz to capture around the center frequency. Should match your signal of interest. Examples: 12500 for narrowband FM, 200000 for wideband FM, 20000000 for Wi-Fi signals."),
+    duration: z.number().optional().describe("Duration in seconds for signal capture, scanning, or monitoring operations. Longer durations capture more data but require more storage. Recommended: 10-300 seconds for analysis, 600+ seconds for monitoring."),
+    output_file: z.string().optional().describe("File path where captured signals, recordings, or analysis results will be saved. Examples: './captured_signal.iq', './audio_recording.wav', './spectrum_analysis.png', './decoded_data.json'."),
+    modulation: z.enum(["AM", "FM", "USB", "LSB", "CW", "PSK", "QPSK", "FSK", "MSK", "GMSK"]).optional().describe("The modulation type for signal transmission or decoding. AM/FM for broadcast radio, USB/LSB for amateur radio, PSK/QPSK for digital communications, FSK for data transmission."),
+    protocol: z.string().optional().describe("The specific radio protocol to decode. Examples: 'ADS-B' for aircraft tracking, 'POCSAG' for pager messages, 'APRS' for amateur radio position reporting, 'AIS' for ship tracking, 'P25' for public safety radio."),
+    coordinates: z.string().optional().describe("GPS coordinates for location-based operations. Format: 'latitude,longitude' (e.g., '40.7128,-74.0060' for New York). Required for ADS-B decoding, useful for signal triangulation and coverage analysis."),
+    power_level: z.number().optional().describe("Transmit power level (0-100%) for broadcasting or jamming operations. Higher power increases range and effectiveness but may be detected. Use lower power (10-30%) for testing, higher (70-100%) for maximum effect."),
+    antenna_type: z.string().optional().describe("The type of antenna to use for transmission or reception. Examples: 'dipole', 'yagi', 'omnidirectional', 'directional', 'patch'. Leave empty to use the default antenna or auto-detect the best available.")
   },
   outputSchema: {
     success: z.boolean(),
