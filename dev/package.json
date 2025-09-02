@@ -8,6 +8,10 @@
     "dev": "tsc -p . && node dist/server-refactored.js",
     "web": "node dist/web-server.js",
     "test": "echo \"Error: no test specified\" && exit 1",
+    "test:elevated": "node test_elevated_permissions.mjs",
+    "test:elevated:windows": "cross-env PLATFORM=win32 node test_elevated_permissions.mjs",
+    "test:elevated:linux": "cross-env PLATFORM=linux node test_elevated_permissions.mjs",
+    "test:elevated:macos": "cross-env PLATFORM=darwin node test_elevated_permissions.mjs",
     "cli": "node dist/server-refactored.js"
   },
   "dependencies": {

@@ -547,6 +547,100 @@ server.registerTool("proc_run", {
 });
 
 // ===========================================
+// ELEVATED PROCESS EXECUTION TOOLS
+// ===========================================
+
+server.registerTool("proc_run_elevated", {
+  description: "Run a process with elevated privileges (admin/root/sudo) across all platforms",
+  inputSchema: { 
+    command: z.string().describe("The command to execute with elevated privileges. Examples: 'netstat', 'systemctl', 'sc', 'launchctl'. Commands that require admin/root access."), 
+    args: z.array(z.string()).default([]).describe("Array of command-line arguments to pass to the command. Examples: ['-tuln'] for 'netstat -tuln', ['status', 'ssh'] for 'systemctl status ssh'."),
+    cwd: z.string().optional().describe("The working directory where the command will be executed. Examples: './project', '/home/user/documents', 'C:\\Users\\User\\Desktop'. Leave empty to use the current working directory."),
+    interactive: z.boolean().default(false).describe("Whether to use interactive elevation prompt. Set to true for commands that require user input during elevation.")
+  },
+  outputSchema: { 
+    success: z.boolean(), 
+    stdout: z.string().optional(), 
+    stderr: z.string().optional(),
+    exitCode: z.number().optional(),
+    elevated: z.boolean().optional(),
+    elevationMethod: z.string().optional()
+  }
+}, async ({ command, args, cwd, interactive }) => {
+  // Import elevated permissions utility
+  const { executeElevated, executeInteractiveElevated, requiresElevation, canElevateCommand, getElevationMethod } = await import("./utils/elevated-permissions.js");
+  
+  // Check if command can be elevated safely
+  if (!canElevateCommand(command)) {
+    throw new Error(`Command cannot be elevated for security reasons: ${command}`);
+  }
+  
+  // Check if this command actually needs elevation
+  const needsElevation = requiresElevation("proc_run_elevated") || 
+    command.includes("systemctl") || 
+    command.includes("sc ") || 
+    command.includes("wmic ") || 
+    command.includes("net ") ||
+    command.includes("launchctl");
+  
+  if (!needsElevation) {
+    // Command doesn't need elevation, run normally
+    const { command: sanitizedCommand, args: sanitizedArgs } = sanitizeCommand(command, args);
+    const { stdout, stderr } = await execAsync(`${sanitizedCommand} ${sanitizedArgs.join(" ")}`, { cwd: cwd || process.cwd() });
+    return { 
+      content: [], 
+      structuredContent: { 
+        success: true, 
+        stdout: stdout || undefined, 
+        stderr: stderr || undefined,
+        exitCode: 0,
+        elevated: false,
+        elevationMethod: "Not required"
+      } 
+    };
+  }
+  
+  // Execute with elevation
+  try {
+    const workingDir = cwd ? ensureInsideRoot(path.resolve(cwd)) : process.cwd();
+    const { command: sanitizedCommand, args: sanitizedArgs } = sanitizeCommand(command, args);
+    
+    let result;
+    if (interactive) {
+      result = await executeInteractiveElevated(sanitizedCommand, sanitizedArgs, workingDir);
+    } else {
+      result = await executeElevated(sanitizedCommand, sanitizedArgs, workingDir);
+    }
+    
+    return { 
+      content: [], 
+      structuredContent: { 
+        success: result.success, 
+        stdout: result.stdout, 
+        stderr: result.stderr,
+        exitCode: result.exitCode,
+        elevated: true,
+        elevationMethod: getElevationMethod()
+      } 
+    };
+  } catch (error: unknown) {
+    const errorMessage = error instanceof Error ? error.message : String(error);
+    return { 
+      content: [], 
+      structuredContent: { 
+        success: false, 
+        stdout: undefined, 
+        stderr: undefined,
+        exitCode: -1,
+        elevated: false,
+        elevationMethod: getElevationMethod(),
+        error: errorMessage
+      } 
+    };
+  }
+});
+
+// ===========================================
 // GIT TOOLS
 // ===========================================
 
@@ -593,7 +687,7 @@ server.registerTool("git_status", {
 // ===========================================
 
 server.registerTool("win_services", {
-  description: "List system services (cross-platform: Windows services, Linux systemd, macOS launchd)",
+  description: "List system services (cross-platform: Windows services, Linux systemd, macOS launchd) - Automatically uses elevated privileges when needed",
   inputSchema: { filter: z.string().optional().describe("Optional filter to search for specific services by name or display name. Examples: 'ssh', 'mysql', 'apache', 'nginx', 'docker'. Leave empty to list all services.") },
   outputSchema: { 
     services: z.array(z.object({ 
@@ -602,11 +696,16 @@ server.registerTool("win_services", {
       status: z.string(), 
       startupType: z.string().optional() 
     })),
-    platform: z.string()
+    platform: z.string(),
+    elevated: z.boolean().optional()
   }
 }, async ({ filter }) => {
   try {
+    // Import elevated permissions utility
+    const { executeElevated, hasElevatedPrivileges } = await import("./utils/elevated-permissions.js");
+    
     let services: any[] = [];
+    let elevated = false;
     
     if (IS_WINDOWS) {
       let command = "wmic service get name,displayname,state,startmode /format:csv";
@@ -614,68 +713,94 @@ server.registerTool("win_services", {
         command += ` | findstr /i "${filter}"`;
       }
       
-      const { stdout } = await execAsync(command);
-      const lines = stdout.trim().split("\n").slice(1); // Skip header
-      
-      services = lines.map(line => {
-        const parts = line.split(",");
-        return {
-          name: parts[1] || "Unknown",
-          displayName: parts[2] || "Unknown",
-          status: parts[3] || "Unknown",
-          startupType: parts[4] || "Unknown"
-        };
-      }).filter(service => service.name !== "Unknown");
+      // Check if we need elevated privileges
+      const isElevated = await hasElevatedPrivileges();
+      if (!isElevated) {
+        // Use elevated execution for Windows services
+        const result = await executeElevated("wmic", ["service", "get", "name,displayname,state,startmode", "/format:csv"]);
+        if (result.success && result.stdout) {
+          const lines = result.stdout.trim().split("\n").slice(1); // Skip header
+          services = lines.map(line => {
+            const parts = line.split(",");
+            return {
+              name: parts[1] || "Unknown",
+              displayName: parts[2] || "Unknown",
+              status: parts[3] || "Unknown",
+              startupType: parts[4] || "Unknown"
+            };
+          }).filter(service => service.name !== "Unknown");
+          elevated = true;
+        }
+      } else {
+        // Already elevated, run normally
+        const { stdout } = await execAsync(command);
+        const lines = stdout.trim().split("\n").slice(1); // Skip header
+        services = lines.map(line => {
+          const parts = line.split(",");
+          return {
+            name: parts[1] || "Unknown",
+            displayName: parts[2] || "Unknown",
+            status: parts[3] || "Unknown",
+            startupType: parts[4] || "Unknown"
+          };
+        }).filter(service => service.name !== "Unknown");
+        elevated = true;
+      }
     } else if (IS_LINUX) {
-      // Linux systemd services
+      // Linux systemd services - always need elevation
       let command = "systemctl list-units --type=service --all --no-pager";
       if (filter) {
         command += ` | grep -i "${filter}"`;
       }
       
-      const { stdout } = await execAsync(command);
-      const lines = stdout.trim().split("\n").slice(1); // Skip header
-      
-      services = lines.map(line => {
-        const parts = line.trim().split(/\s+/);
-        if (parts.length >= 4) {
-          return {
-            name: parts[0].replace(/\.service$/, ""),
-            displayName: parts.slice(4).join(" ") || parts[0],
-            status: parts[2] || "unknown",
-            startupType: parts[1] || "unknown"
-          };
-        }
-        return null;
-      }).filter(service => service !== null);
+      const result = await executeElevated("systemctl", ["list-units", "--type=service", "--all", "--no-pager"]);
+      if (result.success && result.stdout) {
+        const lines = result.stdout.trim().split("\n").slice(1); // Skip header
+        services = lines.map(line => {
+          const parts = line.trim().split(/\s+/);
+          if (parts.length >= 4) {
+            return {
+              name: parts[0].replace(/\.service$/, ""),
+              displayName: parts.slice(4).join(" ") || parts[0],
+              status: parts[2] || "unknown",
+              startupType: parts[1] || "unknown"
+            };
+          }
+          return null;
+        }).filter(service => service !== null);
+        elevated = true;
+      }
     } else if (IS_MACOS) {
-      // macOS launchd services
+      // macOS launchd services - need elevation for full access
       let command = "launchctl list";
       if (filter) {
         command += ` | grep -i "${filter}"`;
       }
       
-      const { stdout } = await execAsync(command);
-      const lines = stdout.trim().split("\n").slice(1); // Skip header
-      
-      services = lines.map(line => {
-        const parts = line.trim().split(/\s+/);
-        if (parts.length >= 3) {
-          return {
-            name: parts[2] || "unknown",
-            displayName: parts[2] || "unknown",
-            status: parts[0] === "-" ? "stopped" : "running"
-          };
-        }
-        return null;
-      }).filter(service => service !== null);
+      const result = await executeElevated("launchctl", ["list"]);
+      if (result.success && result.stdout) {
+        const lines = result.stdout.trim().split("\n").slice(1); // Skip header
+        services = lines.map(line => {
+          const parts = line.trim().split(/\s+/);
+          if (parts.length >= 3) {
+            return {
+              name: parts[2] || "unknown",
+              displayName: parts[2] || "unknown",
+              status: parts[0] === "-" ? "stopped" : "running"
+            };
+          }
+          return null;
+        }).filter(service => service !== null);
+        elevated = true;
+      }
     }
     
     return { 
       content: [], 
       structuredContent: { 
         services, 
-        platform: PLATFORM 
+        platform: PLATFORM,
+        elevated
       } 
     };
   } catch (error) {
@@ -684,6 +809,7 @@ server.registerTool("win_services", {
       structuredContent: { 
         services: [],
         platform: PLATFORM,
+        elevated: false,
         error: error instanceof Error ? error.message : String(error)
       } 
     };
@@ -691,7 +817,7 @@ server.registerTool("win_services", {
 });
 
 server.registerTool("win_processes", {
-  description: "List system processes (cross-platform: Windows, Linux, macOS)",
+  description: "List system processes (cross-platform: Windows, Linux, macOS) - Automatically uses elevated privileges when needed for full system access",
   inputSchema: { filter: z.string().optional().describe("Optional filter to search for specific processes by name. Examples: 'chrome', 'firefox', 'node', 'python', 'java'. Leave empty to list all processes.") },
   outputSchema: { 
     processes: z.array(z.object({ 
@@ -700,81 +826,107 @@ server.registerTool("win_processes", {
       memory: z.string(),
       cpu: z.string()
     })),
-    platform: z.string()
+    platform: z.string(),
+    elevated: z.boolean().optional()
   }
 }, async ({ filter }) => {
   try {
+    // Import elevated permissions utility
+    const { executeElevated, hasElevatedPrivileges } = await import("./utils/elevated-permissions.js");
+    
     let processes: any[] = [];
+    let elevated = false;
     
     if (IS_WINDOWS) {
-      let command = "tasklist /fo csv /nh";
-      if (filter) {
-        command += ` | findstr /i "${filter}"`;
+      // Check if we need elevated privileges for full process access
+      const isElevated = await hasElevatedPrivileges();
+      if (!isElevated) {
+        // Use elevated execution for Windows processes to get full system access
+        const result = await executeElevated("tasklist", ["/fo", "csv", "/nh"]);
+        if (result.success && result.stdout) {
+          const lines = result.stdout.trim().split("\n");
+          processes = lines.map(line => {
+            const parts = line.split(",");
+            return {
+              pid: parseInt(parts[1]) || 0,
+              name: parts[0]?.replace(/"/g, "") || "Unknown",
+              memory: parts[4]?.replace(/"/g, "") || "Unknown",
+              cpu: parts[8]?.replace(/"/g, "") || "Unknown"
+            };
+          }).filter(process => process.pid > 0);
+          elevated = true;
+        }
+      } else {
+        // Already elevated, run normally
+        const { stdout } = await execAsync("tasklist /fo csv /nh");
+        const lines = stdout.trim().split("\n");
+        processes = lines.map(line => {
+          const parts = line.split(",");
+          return {
+            pid: parseInt(parts[1]) || 0,
+            name: parts[0]?.replace(/"/g, "") || "Unknown",
+            memory: parts[4]?.replace(/"/g, "") || "Unknown",
+            cpu: parts[8]?.replace(/"/g, "") || "Unknown"
+          };
+        }).filter(process => process.pid > 0);
+        elevated = true;
       }
-      
-      const { stdout } = await execAsync(command);
-      const lines = stdout.trim().split("\n");
-      
-      processes = lines.map(line => {
-        const parts = line.split(",");
-        return {
-          pid: parseInt(parts[1]) || 0,
-          name: parts[0]?.replace(/"/g, "") || "Unknown",
-          memory: parts[4]?.replace(/"/g, "") || "Unknown",
-          cpu: parts[8]?.replace(/"/g, "") || "Unknown"
-        };
-      }).filter(process => process.pid > 0);
     } else if (IS_LINUX) {
-      // Linux processes using ps
-      let command = "ps aux --no-headers";
-      if (filter) {
-        command += ` | grep -i "${filter}" | grep -v grep`;
-      }
-      
-      const { stdout } = await execAsync(command + " | head -50");
-      const lines = stdout.trim().split("\n");
-      
-      processes = lines.map(line => {
-        const parts = line.trim().split(/\s+/);
-        if (parts.length >= 11) {
-          return {
-            pid: parseInt(parts[1]) || 0,
-            name: parts.slice(10).join(" ") || "Unknown",
-            memory: parts[5] || "0",
-            cpu: parts[2] + "%" || "0.0%"
-          };
+      // Linux processes - use elevated access for full system process list
+      const result = await executeElevated("ps", ["aux", "--no-headers"]);
+      if (result.success && result.stdout) {
+        let lines = result.stdout.trim().split("\n");
+        if (filter) {
+          lines = lines.filter(line => line.toLowerCase().includes(filter.toLowerCase()) && !line.includes("grep"));
         }
-        return null;
-      }).filter(process => process !== null && process.pid > 0);
+        lines = lines.slice(0, 50); // Limit to 50 processes
+        
+        processes = lines.map(line => {
+          const parts = line.trim().split(/\s+/);
+          if (parts.length >= 11) {
+            return {
+              pid: parseInt(parts[1]) || 0,
+              name: parts.slice(10).join(" ") || "Unknown",
+              memory: parts[5] || "0",
+              cpu: parts[2] + "%" || "0.0%"
+            };
+          }
+          return null;
+        }).filter(process => process !== null && process.pid > 0);
+        elevated = true;
+      }
     } else if (IS_MACOS) {
-      // macOS processes using ps
-      let command = "ps aux";
-      if (filter) {
-        command += ` | grep -i "${filter}" | grep -v grep`;
-      }
-      
-      const { stdout } = await execAsync(command + " | head -50");
-      const lines = stdout.trim().split("\n").slice(1); // Skip header
-      
-      processes = lines.map(line => {
-        const parts = line.trim().split(/\s+/);
-        if (parts.length >= 11) {
-          return {
-            pid: parseInt(parts[1]) || 0,
-            name: parts.slice(10).join(" ") || "Unknown",
-            memory: parts[5] || "0",
-            cpu: parts[2] + "%" || "0.0%"
-          };
+      // macOS processes - use elevated access for full system process list
+      const result = await executeElevated("ps", ["aux"]);
+      if (result.success && result.stdout) {
+        let lines = result.stdout.trim().split("\n").slice(1); // Skip header
+        if (filter) {
+          lines = lines.filter(line => line.toLowerCase().includes(filter.toLowerCase()) && !line.includes("grep"));
         }
-        return null;
-      }).filter(process => process !== null && process.pid > 0);
+        lines = lines.slice(0, 50); // Limit to 50 processes
+        
+        processes = lines.map(line => {
+          const parts = line.trim().split(/\s+/);
+          if (parts.length >= 11) {
+            return {
+              pid: parseInt(parts[1]) || 0,
+              name: parts.slice(10).join(" ") || "Unknown",
+              memory: parts[5] || "0",
+              cpu: parts[2] + "%" || "0.0%"
+            };
+          }
+          return null;
+        }).filter(process => process !== null && process.pid > 0);
+        elevated = true;
+      }
     }
     
     return { 
       content: [], 
       structuredContent: { 
         processes, 
-        platform: PLATFORM 
+        platform: PLATFORM,
+        elevated
       } 
     };
   } catch (error) {
@@ -783,6 +935,7 @@ server.registerTool("win_processes", {
       structuredContent: { 
         processes: [],
         platform: PLATFORM,
+        elevated: false,
         error: error instanceof Error ? error.message : String(error)
       } 
     };

@@ -27,7 +27,9 @@ This MCP can do wild stuff:
 
 **🔥 BREAKING: This Changes EVERYTHING!**
 
-**Before MCP God Mode:** You were stuck in the dark ages – manually clicking through menus, memorizing different commands for each OS, using 20+ different tools, and praying your system wouldn't crash. IT support was expensive, slow, and frustrating.
+**Before MCP God Mode:** You were stuck in the dark ages – manually clicking through menus, memorizing different commands for each OS, using 20+ different tools, praying your system wouldn't crash, and manually requesting admin/root privileges for every operation. IT support was expensive, slow, and frustrating.
+
+**After MCP God Mode:** Your AI automatically gets elevated permissions (admin/root/sudo) when needed across ALL platforms – Windows UAC, Linux sudo, macOS sudo, Android root, and iOS limitations are handled automatically. No more "Run as Administrator" or "sudo" prompts for every operation!
 
 **After MCP God Mode:** Your AI becomes a digital god! It speaks natural language, predicts problems before they happen, fixes everything proactively across Windows, Linux, macOS, Android, and iOS, and does it all while making you laugh. This is the first time in history that AI has been given complete system control with cross-platform intelligence!
 
@@ -95,6 +97,27 @@ Here's the full arsenal (based on the MCP's capabilities). I've included humorou
 **🚀 WARNING: 36 Tools of Absolute Power!** Handing this to AGI is like giving a toddler the nuclear codes – fun in theory, disastrous in practice. Joke: In infosec, this is the equivalent of arming Skynet with dad jokes. Don't give access to a dumb AI; it'll probably just DDoS itself. And your girlfriend on SillyTavern? She might "roleplay" your system into oblivion!
 
 **📊 Tool Count Clarification:** This MCP provides **36 unique tools**, each with multiple actions that expand functionality. The 179+ operations represent the total actions available across all tools.
+
+## 🔐 **AUTOMATIC ELEVATED PERMISSIONS - The Game Changer!**
+
+**🚀 No More Manual Admin Prompts!** MCP God Mode automatically handles elevated permissions across ALL platforms:
+
+- **🪟 Windows**: Automatic UAC elevation for admin operations
+- **🐧 Linux**: Automatic sudo execution for root privileges  
+- **🍎 macOS**: Automatic sudo execution for admin privileges
+- **🤖 Android**: Automatic root access when available
+- **📱 iOS**: Graceful fallback for security restrictions
+
+**Tools that automatically get elevated permissions:**
+- System services and process management
+- Network security and penetration testing
+- Wi-Fi and Bluetooth security tools
+- SDR and radio frequency analysis
+- Virtual machine and container management
+- Mobile device system control
+- Advanced file system operations
+
+**Result:** Your AI works like it's already running as administrator/root - no more permission errors or manual elevation requests!
 
 **Key Distinction: Tools vs. Actions**
 - **Tools**: Individual, named functions (e.g., `wifi_security_toolkit`, `file_ops`)
