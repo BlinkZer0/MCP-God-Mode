@@ -1,8 +1,9 @@
 {
   "mcpServers": {
-    "windows-god-mode": {
+    "mcp-god-mode": {
       "command": "node",
-      "args": ["C:/Users/Randy/.lmstudio/dev/dist/server-refactored.js"],
+      "args": ["./start-mcp.js"],
+      "cwd": ".",
       "env": {
         "ALLOWED_ROOT": "",
         "WEB_ALLOWLIST": "",

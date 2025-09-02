@@ -771,6 +771,66 @@ Ask your AI: *"What can you do now that MCP God Mode is installed?"* and watch a
 
 **🎉 You're not just using a tool – you're experiencing the future of computing!**
 
+## 🚀 **Installation & Setup**
+
+### **Option 1: Automated Installation (Recommended)**
+```bash
+# Windows
+install.bat
+
+# Linux/macOS
+./install.sh
+```
+
+### **Option 2: Manual Installation**
+```bash
+# 1. Clone the repository
+git clone https://github.com/blinkzero/mcp-god-mode.git
+cd mcp-god-mode
+
+# 2. Install dependencies
+npm install
+cd dev && npm install && cd ..
+
+# 3. Build the project
+npm run build
+
+# 4. Start the server
+npm start
+```
+
+### **📋 What the Installation Scripts Do**
+- ✅ Install all dependencies (root + dev)
+- ✅ Build the project automatically
+- ✅ Set proper permissions
+- ✅ Test the installation
+- ✅ Provide next steps guidance
+
+### **🔧 MCP Client Configuration**
+Copy the provided `mcp.json` to your MCP client configuration:
+
+```json
+{
+  "mcpServers": {
+    "mcp-god-mode": {
+      "command": "node",
+      "args": ["./start-mcp.js"],
+      "cwd": ".",
+      "env": {
+        "ALLOWED_ROOT": "",
+        "WEB_ALLOWLIST": "",
+        "PROC_ALLOWLIST": "",
+        "EXTRA_PATH": ""
+      }
+    }
+  }
+}
+```
+
+**💡 For detailed setup instructions, see `docs/SETUP_GUIDE.md`**
+
+---
+
 ## 📦 **Available Server Versions**
 
 **Choose the version that fits your needs:**
