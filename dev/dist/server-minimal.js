@@ -943,6 +943,160 @@ async function takeSimpleScreenshot(screenshotPath) {
     }
 }
 // ===========================================
+// SYSTEM RESTORE TOOL (MINIMAL VERSION)
+// ===========================================
+server.registerTool("system_restore", {
+    description: "Basic system restore and backup management for Windows, Linux, and macOS. Create restore points, backup configurations, and restore systems. Limited functionality compared to full version.",
+    inputSchema: {
+        action: zod_1.z.enum([
+            "create_restore_point", "list_restore_points", "restore_system", "backup_config"
+        ]).describe("Action to perform. 'create_restore_point' creates a new system restore point, 'list_restore_points' shows available restore points, 'restore_system' rolls back to a previous state, 'backup_config' backs up system configurations."),
+        description: zod_1.z.string().optional().describe("Description for the restore point or backup."),
+        target_path: zod_1.z.string().optional().describe("Target path for backup operations.")
+    },
+    outputSchema: {
+        success: zod_1.z.boolean(),
+        platform: zod_1.z.string(),
+        action: zod_1.z.string(),
+        result: zod_1.z.any(),
+        message: zod_1.z.string(),
+        error: zod_1.z.string().optional()
+    }
+}, async ({ action, description, target_path }) => {
+    try {
+        let result;
+        switch (action) {
+            case "create_restore_point":
+                if (IS_WINDOWS) {
+                    const restoreDesc = description || `System restore point created on ${new Date().toISOString()}`;
+                    const command = `powershell -Command "Checkpoint-Computer -Description '${restoreDesc}' -RestorePointType 'MODIFY_SETTINGS' -Verbose"`;
+                    await execAsync(command);
+                    result = { message: "Windows restore point created successfully" };
+                }
+                else if (IS_LINUX || IS_MACOS) {
+                    const backupPath = target_path || `/tmp/backup_${Date.now()}`;
+                    await fs.mkdir(backupPath, { recursive: true });
+                    // Simple backup of /etc directory
+                    const etcBackup = path.join(backupPath, 'etc');
+                    await fs.mkdir(etcBackup, { recursive: true });
+                    try {
+                        const etcEntries = await fs.readdir('/etc', { withFileTypes: true });
+                        for (const entry of etcEntries) {
+                            if (entry.isFile()) {
+                                try {
+                                    const sourcePath = path.join('/etc', entry.name);
+                                    const destPath = path.join(etcBackup, entry.name);
+                                    await fs.copyFile(sourcePath, destPath);
+                                }
+                                catch (error) {
+                                    // Skip files that can't be copied
+                                }
+                            }
+                        }
+                        result = {
+                            message: `${IS_LINUX ? 'Linux' : 'macOS'} configuration backed up successfully`,
+                            backup_path: backupPath
+                        };
+                    }
+                    catch (error) {
+                        result = { message: "Partial backup completed (some files skipped)" };
+                    }
+                }
+                break;
+            case "list_restore_points":
+                if (IS_WINDOWS) {
+                    const command = `powershell -Command "Get-ComputerRestorePoint | Select-Object SequenceNumber, Description, CreationTime | ConvertTo-Json"`;
+                    const { stdout } = await execAsync(command);
+                    const restorePoints = JSON.parse(stdout);
+                    result = {
+                        message: `Found ${restorePoints.length} Windows restore points`,
+                        restore_points: restorePoints
+                    };
+                }
+                else {
+                    result = {
+                        message: "Restore points not available on this platform",
+                        restore_points: []
+                    };
+                }
+                break;
+            case "restore_system":
+                if (IS_WINDOWS && description) {
+                    const command = `powershell -Command "Restore-Computer -RestorePoint ${description} -Confirm:$false"`;
+                    await execAsync(command);
+                    result = { message: "System restore initiated. System will restart." };
+                }
+                else {
+                    result = { message: "System restore not available on this platform" };
+                }
+                break;
+            case "backup_config":
+                if (IS_LINUX || IS_MACOS) {
+                    const backupPath = target_path || `/tmp/config_backup_${Date.now()}`;
+                    await fs.mkdir(backupPath, { recursive: true });
+                    // Backup common config directories
+                    const configDirs = ['/etc', '/usr/local/etc'];
+                    for (const dir of configDirs) {
+                        try {
+                            const destPath = path.join(backupPath, path.basename(dir));
+                            await fs.mkdir(destPath, { recursive: true });
+                            const entries = await fs.readdir(dir, { withFileTypes: true });
+                            for (const entry of entries) {
+                                if (entry.isFile()) {
+                                    try {
+                                        const sourcePath = path.join(dir, entry.name);
+                                        const destFile = path.join(destPath, entry.name);
+                                        await fs.copyFile(sourcePath, destFile);
+                                    }
+                                    catch (error) {
+                                        // Skip files that can't be copied
+                                    }
+                                }
+                            }
+                        }
+                        catch (error) {
+                            // Skip directories that can't be accessed
+                        }
+                    }
+                    result = {
+                        message: "System configuration backed up successfully",
+                        backup_path: backupPath
+                    };
+                }
+                else {
+                    result = { message: "Configuration backup not available on this platform" };
+                }
+                break;
+            default:
+                result = { message: `Action ${action} not supported in minimal version` };
+        }
+        return {
+            content: [],
+            structuredContent: {
+                success: true,
+                platform: PLATFORM,
+                action,
+                result,
+                message: result.message || `${action} completed successfully`
+            }
+        };
+    }
+    catch (error) {
+        const errorMessage = error instanceof Error ? error.message : String(error);
+        return {
+            content: [],
+            structuredContent: {
+                success: false,
+                platform: PLATFORM,
+                action,
+                result: null,
+                message: `Failed to perform ${action}`,
+                error: errorMessage
+            }
+        };
+    }
+});
+// ===========================================
 // MAIN FUNCTION
 // ===========================================
 async function main() {

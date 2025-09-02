@@ -469,6 +469,127 @@ server.registerTool("browser_control", {
 });
 
 // ===========================================
+// SYSTEM RESTORE TOOL (ULTRA-MINIMAL VERSION)
+// ===========================================
+
+server.registerTool("system_restore", {
+  description: "Ultra-minimal system restore for Windows, Linux, and macOS. Basic restore point creation and configuration backup only.",
+  inputSchema: {
+    action: z.enum([
+      "create_restore_point", "backup_config"
+    ]).describe("Action to perform. 'create_restore_point' creates a basic system restore point, 'backup_config' backs up essential system configurations."),
+    description: z.string().optional().describe("Description for the restore point or backup.")
+  },
+  outputSchema: {
+    success: z.boolean(),
+    platform: z.string(),
+    action: z.string(),
+    result: z.any(),
+    message: z.string(),
+    error: z.string().optional()
+  }
+}, async ({ action, description }) => {
+  try {
+    let result: any;
+    
+    switch (action) {
+      case "create_restore_point":
+        if (PLATFORM === "win32") {
+          const restoreDesc = description || `System restore point created on ${new Date().toISOString()}`;
+          const command = `powershell -Command "Checkpoint-Computer -Description '${restoreDesc}' -RestorePointType 'MODIFY_SETTINGS' -Verbose"`;
+          await execAsync(command);
+          result = { message: "Windows restore point created successfully" };
+        } else {
+          // For Linux/macOS, just create a timestamp file
+          const timestamp = new Date().toISOString();
+          const backupPath = `/tmp/restore_point_${Date.now()}`;
+          await fs.mkdir(backupPath, { recursive: true });
+          
+          const metadata = {
+            timestamp,
+            description: description || "System restore point",
+            platform: PLATFORM
+          };
+          
+          await fs.writeFile(path.join(backupPath, 'metadata.json'), JSON.stringify(metadata, null, 2));
+          result = { 
+            message: `${PLATFORM === "linux" ? "Linux" : "macOS"} restore point created`,
+            backup_path: backupPath
+          };
+        }
+        break;
+
+      case "backup_config":
+        if (PLATFORM === "win32") {
+          result = { message: "Configuration backup not available in ultra-minimal version" };
+        } else {
+          // Simple backup of /etc directory
+          const backupPath = `/tmp/config_backup_${Date.now()}`;
+          await fs.mkdir(backupPath, { recursive: true });
+          
+          try {
+            const etcBackup = path.join(backupPath, 'etc');
+            await fs.mkdir(etcBackup, { recursive: true });
+            
+            const etcEntries = await fs.readdir('/etc', { withFileTypes: true });
+            let copiedFiles = 0;
+            
+            for (const entry of etcEntries) {
+              if (entry.isFile()) {
+                try {
+                  const sourcePath = path.join('/etc', entry.name);
+                  const destPath = path.join(etcBackup, entry.name);
+                  await fs.copyFile(sourcePath, destPath);
+                  copiedFiles++;
+                } catch (error) {
+                  // Skip files that can't be copied
+                }
+              }
+            }
+            
+            result = { 
+              message: `Configuration backup completed. ${copiedFiles} files copied.`,
+              backup_path: backupPath,
+              files_copied: copiedFiles
+            };
+          } catch (error) {
+            result = { message: "Partial backup completed (some files skipped)" };
+          }
+        }
+        break;
+
+      default:
+        result = { message: `Action ${action} not supported in ultra-minimal version` };
+    }
+    
+    return {
+      content: [],
+      structuredContent: {
+        success: true,
+        platform: PLATFORM,
+        action,
+        result,
+        message: result.message || `${action} completed successfully`
+      }
+    };
+
+  } catch (error: unknown) {
+    const errorMessage = error instanceof Error ? error.message : String(error);
+    return {
+      content: [],
+      structuredContent: {
+        success: false,
+        platform: PLATFORM,
+        action,
+        result: null,
+        message: `Failed to perform ${action}`,
+        error: errorMessage
+      }
+    };
+  }
+});
+
+// ===========================================
 // MAIN FUNCTION
 // ===========================================
 

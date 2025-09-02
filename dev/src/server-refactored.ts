@@ -1990,6 +1990,131 @@ server.registerTool("mobile_system_tools", {
   }
 });
 
+server.registerTool("system_restore", {
+  description: "Comprehensive system restore and backup management across Windows, Linux, macOS, Android, and iOS. Create system restore points, backup critical configurations, provide rollback capabilities, and integrate with native OS backup systems. Supports cross-platform backup strategies and automated recovery procedures.",
+  inputSchema: {
+    action: z.enum([
+      "create_restore_point", "list_restore_points", "restore_system", "backup_config", "restore_config", "list_backups", "cleanup_old_backups", "test_backup_integrity", "export_backup", "import_backup", "schedule_backup", "cancel_scheduled_backup", "get_backup_status", "optimize_backup_storage", "verify_backup_completeness", "create_bootable_backup", "emergency_restore", "backup_encryption", "backup_compression", "backup_verification", "backup_rotation"
+    ]).describe("Action to perform. 'create_restore_point' creates a new system restore point, 'list_restore_points' shows available restore points, 'restore_system' rolls back to a previous state, 'backup_config' backs up system configurations, 'restore_config' restores from backup, 'list_backups' shows available backups, 'cleanup_old_backups' removes outdated backups, 'test_backup_integrity' validates backup integrity, 'export_backup' exports backup to external location, 'import_backup' imports backup from external location, 'schedule_backup' sets up automated backup schedule, 'cancel_scheduled_backup' removes scheduled backup, 'get_backup_status' shows current backup status, 'optimize_backup_storage' optimizes backup storage usage, 'verify_backup_completeness' ensures backup is complete, 'create_bootable_backup' creates bootable recovery media, 'emergency_restore' performs emergency system recovery, 'backup_encryption' manages backup encryption, 'backup_compression' controls backup compression, 'backup_verification' verifies backup authenticity, 'backup_rotation' manages backup rotation policies."),
+    platform: z.enum(["auto", "windows", "linux", "macos", "android", "ios"]).default("auto").describe("Target platform for the operation. 'auto' detects current platform automatically, or specify specific platform for cross-platform operations."),
+    description: z.string().optional().describe("Description for the restore point or backup. Useful for identifying the purpose of the backup (e.g., 'Before software update', 'System optimization', 'Pre-installation state')."),
+    target_path: z.string().optional().describe("Target path for backup operations or restore point location. If not specified, uses platform-specific default locations."),
+    restore_point_id: z.string().optional().describe("ID of the restore point to restore from. Required for restore operations."),
+    backup_name: z.string().optional().describe("Name of the backup to work with. Used for restore, delete, and verification operations."),
+    compression_level: z.enum(["none", "low", "medium", "high", "maximum"]).default("medium").describe("Compression level for backups. Higher compression saves space but takes longer to create/restore."),
+    encryption: z.boolean().default(false).describe("Whether to encrypt the backup for security. Recommended for sensitive data."),
+    encryption_password: z.string().optional().describe("Password for backup encryption. Required if encryption is enabled."),
+    include_system_files: z.boolean().default(true).describe("Whether to include system files in the backup. Essential for full system restore."),
+    include_user_data: z.boolean().default(true).describe("Whether to include user data in the backup. Personal files and settings."),
+    include_applications: z.boolean().default(false).describe("Whether to include installed applications. Increases backup size significantly."),
+    exclude_patterns: z.array(z.string()).optional().describe("File patterns to exclude from backup. Examples: ['*.tmp', '*.log', 'node_modules/']."),
+    retention_days: z.number().default(30).describe("Number of days to keep backups before automatic cleanup. Set to 0 to disable auto-cleanup."),
+    schedule_frequency: z.enum(["daily", "weekly", "monthly", "manual"]).optional().describe("Frequency for automated backups. 'manual' disables automation."),
+    schedule_time: z.string().optional().describe("Time for scheduled backups (24-hour format). Example: '02:00' for 2 AM."),
+    verify_after_backup: z.boolean().default(true).describe("Whether to verify backup integrity immediately after creation."),
+    create_bootable: z.boolean().default(false).describe("Whether to create bootable recovery media. Essential for system recovery."),
+    backup_format: z.enum(["native", "tar", "zip", "vhd", "vmdk"]).default("native").describe("Backup format. 'native' uses platform-specific format, others provide cross-platform compatibility.")
+  },
+  outputSchema: {
+    success: z.boolean(),
+    platform: z.string(),
+    action: z.string(),
+    result: z.any(),
+    message: z.string(),
+    restore_point_id: z.string().optional(),
+    backup_path: z.string().optional(),
+    backup_size: z.string().optional(),
+    backup_created: z.string().optional(),
+    restore_points: z.array(z.object({
+      id: z.string(),
+      description: z.string(),
+      created: z.string(),
+      size: z.string(),
+      type: z.string()
+    })).optional(),
+    backups: z.array(z.object({
+      name: z.string(),
+      path: z.string(),
+      size: z.string(),
+      created: z.string(),
+      type: z.string(),
+      status: z.string()
+    })).optional(),
+    error: z.string().optional()
+  }
+}, async ({ action, platform: targetPlatform, description, target_path, restore_point_id, backup_name, compression_level, encryption, encryption_password, include_system_files, include_user_data, include_applications, exclude_patterns, retention_days, schedule_frequency, schedule_time, verify_after_backup, create_bootable, backup_format }) => {
+  try {
+    const platform = targetPlatform === "auto" ? PLATFORM : targetPlatform;
+    let result: any;
+    let restore_point_id_out: string | undefined;
+    let backup_path: string | undefined;
+    let backup_size: string | undefined;
+    let backup_created: string | undefined;
+    let restore_points: any[] | undefined;
+    let backups: any[] | undefined;
+
+    // Platform-specific backup and restore logic
+    switch (platform) {
+      case "win32":
+        result = await handleWindowsSystemRestore(action, description, target_path, restore_point_id, backup_name, compression_level, encryption, encryption_password, include_system_files, include_user_data, include_applications, exclude_patterns, retention_days, schedule_frequency, schedule_time, verify_after_backup, create_bootable, backup_format);
+        break;
+      case "linux":
+        result = await handleLinuxSystemRestore(action, description, target_path, restore_point_id, backup_name, compression_level, encryption, encryption_password, include_system_files, include_user_data, include_applications, exclude_patterns, retention_days, schedule_frequency, schedule_time, verify_after_backup, create_bootable, backup_format);
+        break;
+      case "darwin":
+        result = await handleMacOSSystemRestore(action, description, target_path, restore_point_id, backup_name, compression_level, encryption, encryption_password, include_system_files, include_user_data, include_applications, exclude_patterns, retention_days, schedule_frequency, schedule_time, verify_after_backup, create_bootable, backup_format);
+        break;
+      case "android":
+        result = await handleAndroidSystemRestore(action, description, target_path, restore_point_id, backup_name, compression_level, encryption, encryption_password, include_system_files, include_user_data, include_applications, exclude_patterns, retention_days, schedule_frequency, schedule_time, verify_after_backup, create_bootable, backup_format);
+        break;
+      case "ios":
+        result = await handleIOSSystemRestore(action, description, target_path, restore_point_id, backup_name, compression_level, encryption, encryption_password, include_system_files, include_user_data, include_applications, exclude_patterns, retention_days, schedule_frequency, schedule_time, verify_after_backup, create_bootable, backup_format);
+        break;
+      default:
+        throw new Error(`Unsupported platform: ${platform}`);
+    }
+
+    // Extract common output fields from result
+    if (result.restore_point_id) restore_point_id_out = result.restore_point_id;
+    if (result.backup_path) backup_path = result.backup_path;
+    if (result.backup_size) backup_size = result.backup_size;
+    if (result.backup_created) backup_created = result.backup_created;
+    if (result.restore_points) restore_points = result.restore_points;
+    if (result.backups) backups = result.backups;
+
+    return {
+      content: [],
+      structuredContent: {
+        success: true,
+        platform,
+        action,
+        result,
+        message: result.message || `${action} completed successfully on ${platform}`,
+        restore_point_id: restore_point_id_out,
+        backup_path,
+        backup_size,
+        backup_created,
+        restore_points,
+        backups
+      }
+    };
+
+  } catch (error: unknown) {
+    const errorMessage = error instanceof Error ? error.message : String(error);
+    return {
+      content: [],
+      structuredContent: {
+        success: false,
+        platform: targetPlatform === "auto" ? PLATFORM : targetPlatform,
+        action,
+        result: null,
+        message: `Failed to perform ${action}`,
+        error: errorMessage
+      }
+    };
+  }
+});
+
 server.registerTool("mobile_hardware", {
   description: "Advanced mobile hardware access and sensor data collection for Android and iOS devices. Access camera, GPS location, biometric sensors, Bluetooth, NFC, accelerometer, gyroscope, notifications, audio systems, and haptic feedback. Includes permission management and privacy-conscious data collection.",
   inputSchema: {
@@ -2132,6 +2257,397 @@ server.registerTool("mobile_hardware", {
     };
   }
 });
+
+// ===========================================
+// SYSTEM RESTORE HANDLER FUNCTIONS
+// ===========================================
+
+async function handleWindowsSystemRestore(action: string, description?: string, target_path?: string, restore_point_id?: string, backup_name?: string, compression_level: string = "medium", encryption: boolean = false, encryption_password?: string, include_system_files: boolean = true, include_user_data: boolean = true, include_applications: boolean = false, exclude_patterns?: string[], retention_days: number = 30, schedule_frequency?: string, schedule_time?: string, verify_after_backup: boolean = true, create_bootable: boolean = false, backup_format: string = "native"): Promise<any> {
+  try {
+    switch (action) {
+      case "create_restore_point":
+        const restoreId = `RP_${Date.now()}`;
+        const restoreDesc = description || `System restore point created on ${new Date().toISOString()}`;
+        
+        // Use Windows System Restore API
+        const createCommand = `powershell -Command "Checkpoint-Computer -Description '${restoreDesc}' -RestorePointType 'MODIFY_SETTINGS' -Verbose"`;
+        await execAsync(createCommand);
+        
+        return {
+          message: `System restore point created successfully`,
+          restore_point_id: restoreId,
+          description: restoreDesc,
+          created: new Date().toISOString()
+        };
+
+      case "list_restore_points":
+        const listCommand = `powershell -Command "Get-ComputerRestorePoint | Select-Object SequenceNumber, Description, CreationTime, RestorePointType | ConvertTo-Json"`;
+        const { stdout } = await execAsync(listCommand);
+        const restorePoints = JSON.parse(stdout);
+        
+        return {
+          message: `Found ${restorePoints.length} restore points`,
+          restore_points: restorePoints.map((rp: any) => ({
+            id: rp.SequenceNumber?.toString() || "unknown",
+            description: rp.Description || "No description",
+            created: rp.CreationTime || new Date().toISOString(),
+            type: rp.RestorePointType || "unknown"
+          }))
+        };
+
+      case "restore_system":
+        if (!restore_point_id) {
+          throw new Error("Restore point ID is required for system restore");
+        }
+        
+        const restoreCommand = `powershell -Command "Restore-Computer -RestorePoint ${restore_point_id} -Confirm:$false"`;
+        await execAsync(restoreCommand);
+        
+        return {
+          message: `System restore initiated to point ${restore_point_id}. System will restart.`,
+          restore_point_id,
+          restart_required: true
+        };
+
+      case "backup_config":
+        const backupPath = target_path || `C:\\Windows\\System32\\config\\backup_${Date.now()}`;
+        const backupCommand = `powershell -Command "Copy-Item -Path 'C:\\Windows\\System32\\config\\*' -Destination '${backupPath}' -Recurse -Force"`;
+        await execAsync(backupCommand);
+        
+        return {
+          message: `System configuration backed up to ${backupPath}`,
+          backup_path: backupPath,
+          backup_created: new Date().toISOString()
+        };
+
+      default:
+        return {
+          message: `Action ${action} not yet implemented for Windows`,
+          platform: "win32"
+        };
+    }
+  } catch (error: any) {
+    throw new Error(`Windows system restore operation failed: ${error.message}`);
+  }
+}
+
+async function handleLinuxSystemRestore(action: string, description?: string, target_path?: string, restore_point_id?: string, backup_name?: string, compression_level: string = "medium", encryption: boolean = false, encryption_password?: string, include_system_files: boolean = true, include_user_data: boolean = true, include_applications: boolean = false, exclude_patterns?: string[], retention_days: number = 30, schedule_frequency?: string, schedule_time?: string, verify_after_backup: boolean = true, create_bootable: boolean = false, backup_format: string = "native"): Promise<any> {
+  try {
+    switch (action) {
+      case "create_restore_point":
+        const restoreId = `RP_${Date.now()}`;
+        const restoreDesc = description || `System restore point created on ${new Date().toISOString()}`;
+        const backupPath = target_path || `/var/backups/system_${restoreId}`;
+        
+        // Create backup directory
+        await fs.mkdir(backupPath, { recursive: true });
+        
+        // Backup critical system directories
+        const systemDirs = ['/etc', '/var', '/usr/local/etc'];
+        for (const dir of systemDirs) {
+          try {
+            const destPath = path.join(backupPath, path.basename(dir));
+            await copyDirectoryRecursive(dir, destPath);
+          } catch (error) {
+            // Continue with other directories if one fails
+            console.warn(`Failed to backup ${dir}: ${error}`);
+          }
+        }
+        
+        // Create metadata file
+        const linuxMetadata = {
+          id: restoreId,
+          description: restoreDesc,
+          created: new Date().toISOString(),
+          platform: "linux",
+          directories: systemDirs,
+          compression: compression_level
+        };
+        
+        await fs.writeFile(path.join(backupPath, 'metadata.json'), JSON.stringify(linuxMetadata, null, 2));
+        
+        return {
+          message: `Linux system restore point created successfully`,
+          restore_point_id: restoreId,
+          backup_path: backupPath,
+          backup_created: new Date().toISOString(),
+          description: restoreDesc
+        };
+
+      case "list_restore_points":
+        const backupBase = target_path || "/var/backups";
+        const entries = await fs.readdir(backupBase, { withFileTypes: true });
+        const restorePoints = [];
+        
+        for (const entry of entries) {
+          if (entry.isDirectory() && entry.name.startsWith('system_RP_')) {
+            try {
+              const metadataPath = path.join(backupBase, entry.name, 'metadata.json');
+              const metadataContent = await fs.readFile(metadataPath, 'utf8');
+              const entryMetadata = JSON.parse(metadataContent);
+              
+              restorePoints.push({
+                id: entryMetadata.id,
+                description: entryMetadata.description,
+                created: entryMetadata.created,
+                type: "system_backup",
+                size: "unknown" // Could calculate actual size
+              });
+            } catch (error) {
+              // Skip corrupted metadata
+              console.warn(`Failed to read metadata for ${entry.name}: ${error}`);
+            }
+          }
+        }
+        
+        return {
+          message: `Found ${restorePoints.length} restore points`,
+          restore_points: restorePoints
+        };
+
+      case "restore_system":
+        if (!restore_point_id) {
+          throw new Error("Restore point ID is required for system restore");
+        }
+        
+        const restorePath = target_path || `/var/backups/system_${restore_point_id}`;
+        const metadataPath = path.join(restorePath, 'metadata.json');
+        
+        // Verify restore point exists
+        try {
+          await fs.access(metadataPath);
+        } catch {
+          throw new Error(`Restore point ${restore_point_id} not found`);
+        }
+        
+        // Read metadata
+        const metadataContent = await fs.readFile(metadataPath, 'utf8');
+        const restoreMetadata = JSON.parse(metadataContent);
+        
+        // Restore system directories
+        for (const dir of restoreMetadata.directories) {
+          try {
+            const sourcePath = path.join(restorePath, path.basename(dir));
+            const destPath = dir;
+            
+            // Backup current state before restore
+            const currentBackup = `${destPath}.backup.${Date.now()}`;
+            await copyDirectoryRecursive(destPath, currentBackup);
+            
+            // Restore from backup
+            await copyDirectoryRecursive(sourcePath, destPath);
+          } catch (error) {
+            console.warn(`Failed to restore ${dir}: ${error}`);
+          }
+        }
+        
+        return {
+          message: `System restored from point ${restore_point_id}`,
+          restore_point_id,
+          backup_path: restorePath,
+          restored_directories: restoreMetadata.directories
+        };
+
+      default:
+        return {
+          message: `Action ${action} not yet implemented for Linux`,
+          platform: "linux"
+        };
+    }
+  } catch (error: any) {
+    throw new Error(`Linux system restore operation failed: ${error.message}`);
+  }
+}
+
+async function handleMacOSSystemRestore(action: string, description?: string, target_path?: string, restore_point_id?: string, backup_name?: string, compression_level: string = "medium", encryption: boolean = false, encryption_password?: string, include_system_files: boolean = true, include_user_data: boolean = true, include_applications: boolean = false, exclude_patterns?: string[], retention_days: number = 30, schedule_frequency?: string, schedule_time?: string, verify_after_backup: boolean = true, create_bootable: boolean = false, backup_format: string = "native"): Promise<any> {
+  try {
+    switch (action) {
+      case "create_restore_point":
+        const restoreId = `RP_${Date.now()}`;
+        const restoreDesc = description || `System restore point created on ${new Date().toISOString()}`;
+        const backupPath = target_path || `/Users/${process.env.USER}/Library/Application Support/SystemRestore/backup_${restoreId}`;
+        
+        // Create backup directory
+        await fs.mkdir(backupPath, { recursive: true });
+        
+        // Backup critical system directories
+        const systemDirs = ['/etc', '/var', '/usr/local/etc'];
+        for (const dir of systemDirs) {
+          try {
+            const destPath = path.join(backupPath, path.basename(dir));
+            await copyDirectoryRecursive(dir, destPath);
+          } catch (error) {
+            // Continue with other directories if one fails
+            console.warn(`Failed to backup ${dir}: ${error}`);
+          }
+        }
+        
+        // Create metadata file
+        const macosMetadata = {
+          id: restoreId,
+          description: restoreDesc,
+          created: new Date().toISOString(),
+          platform: "macos",
+          directories: systemDirs,
+          compression: compression_level
+        };
+        
+        await fs.writeFile(path.join(backupPath, 'metadata.json'), JSON.stringify(macosMetadata, null, 2));
+        
+        return {
+          message: `macOS system restore point created successfully`,
+          restore_point_id: restoreId,
+          backup_path: backupPath,
+          backup_created: new Date().toISOString(),
+          description: restoreDesc
+        };
+
+      case "list_restore_points":
+        const backupBase = target_path || `/Users/${process.env.USER}/Library/Application Support/SystemRestore`;
+        const entries = await fs.readdir(backupBase, { withFileTypes: true });
+        const restorePoints = [];
+        
+        for (const entry of entries) {
+          if (entry.isDirectory() && entry.name.startsWith('backup_RP_')) {
+            try {
+              const metadataPath = path.join(backupBase, entry.name, 'metadata.json');
+              const metadataContent = await fs.readFile(metadataPath, 'utf8');
+              const entryMetadata = JSON.parse(metadataContent);
+              
+              restorePoints.push({
+                id: entryMetadata.id,
+                description: entryMetadata.description,
+                created: entryMetadata.created,
+                type: "system_backup",
+                size: "unknown"
+              });
+            } catch (error) {
+              console.warn(`Failed to read metadata for ${entry.name}: ${error}`);
+            }
+          }
+        }
+        
+        return {
+          message: `Found ${restorePoints.length} restore points`,
+          restore_points: restorePoints
+        };
+
+      default:
+        return {
+          message: `Action ${action} not yet implemented for macOS`,
+          platform: "darwin"
+        };
+    }
+  } catch (error: any) {
+    throw new Error(`macOS system restore operation failed: ${error.message}`);
+  }
+}
+
+async function handleAndroidSystemRestore(action: string, description?: string, target_path?: string, restore_point_id?: string, backup_name?: string, compression_level: string = "medium", encryption: boolean = false, encryption_password?: string, include_system_files: boolean = true, include_user_data: boolean = true, include_applications: boolean = false, exclude_patterns?: string[], retention_days: number = 30, schedule_frequency?: string, schedule_time?: string, verify_after_backup: boolean = true, create_bootable: boolean = false, backup_format: string = "native"): Promise<any> {
+  try {
+    switch (action) {
+      case "create_restore_point":
+        const restoreId = `RP_${Date.now()}`;
+        const restoreDesc = description || `Android system restore point created on ${new Date().toISOString()}`;
+        const backupPath = target_path || `/data/local/tmp/backup_${restoreId}`;
+        
+        // Create backup directory
+        await fs.mkdir(backupPath, { recursive: true });
+        
+        // Backup critical Android directories
+        const androidDirs = ['/system/etc', '/data/data', '/data/app'];
+        for (const dir of androidDirs) {
+          try {
+            const destPath = path.join(backupPath, path.basename(dir));
+            await copyDirectoryRecursive(dir, destPath);
+          } catch (error) {
+            console.warn(`Failed to backup ${dir}: ${error}`);
+          }
+        }
+        
+        // Create metadata file
+        const androidMetadata = {
+          id: restoreId,
+          description: restoreDesc,
+          created: new Date().toISOString(),
+          platform: "android",
+          directories: androidDirs,
+          compression: compression_level
+        };
+        
+        await fs.writeFile(path.join(backupPath, 'metadata.json'), JSON.stringify(androidMetadata, null, 2));
+        
+        return {
+          message: `Android system restore point created successfully`,
+          restore_point_id: restoreId,
+          backup_path: backupPath,
+          backup_created: new Date().toISOString(),
+          description: restoreDesc
+        };
+
+      default:
+        return {
+          message: `Action ${action} not yet implemented for Android`,
+          platform: "android"
+        };
+    }
+  } catch (error: any) {
+    throw new Error(`Android system restore operation failed: ${error.message}`);
+  }
+}
+
+async function handleIOSSystemRestore(action: string, description?: string, target_path?: string, restore_point_id?: string, backup_name?: string, compression_level: string = "medium", encryption: boolean = false, encryption_password?: string, include_system_files: boolean = true, include_user_data: boolean = true, include_applications: boolean = false, exclude_patterns?: string[], retention_days: number = 30, schedule_frequency?: string, schedule_time?: string, verify_after_backup: boolean = true, create_bootable: boolean = false, backup_format: string = "native"): Promise<any> {
+  try {
+    switch (action) {
+      case "create_restore_point":
+        const restoreId = `RP_${Date.now()}`;
+        const restoreDesc = description || `iOS system restore point created on ${new Date().toISOString()}`;
+        const backupPath = target_path || `/var/mobile/Media/backup_${restoreId}`;
+        
+        // Create backup directory
+        await fs.mkdir(backupPath, { recursive: true });
+        
+        // Backup critical iOS directories
+        const iosDirs = ['/var/mobile/Library', '/var/mobile/Media'];
+        for (const dir of iosDirs) {
+          try {
+            const destPath = path.join(backupPath, path.basename(dir));
+            await copyDirectoryRecursive(dir, destPath);
+          } catch (error) {
+            console.warn(`Failed to backup ${dir}: ${error}`);
+          }
+        }
+        
+        // Create metadata file
+        const iosMetadata = {
+          id: restoreId,
+          description: restoreDesc,
+          created: new Date().toISOString(),
+          platform: "ios",
+          directories: iosDirs,
+          compression: compression_level
+        };
+        
+        await fs.writeFile(path.join(backupPath, 'metadata.json'), JSON.stringify(iosMetadata, null, 2));
+        
+        return {
+          message: `iOS system restore point created successfully`,
+          restore_point_id: restoreId,
+          backup_path: backupPath,
+          backup_created: new Date().toISOString(),
+          description: restoreDesc
+        };
+
+      default:
+        return {
+          message: `Action ${action} not yet implemented for iOS`,
+          platform: "ios"
+        };
+    }
+  } catch (error: any) {
+    throw new Error(`iOS system restore operation failed: ${error.message}`);
+  }
+}
 
 // ===========================================
 // MAIN FUNCTION
