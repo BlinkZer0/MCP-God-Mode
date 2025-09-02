@@ -79,7 +79,7 @@ Here's the full arsenal (based on the MCP's capabilities). I've included humorou
 
 **🚀 SEE IT WORKING!** Here's what you'll get when MCP God Mode is properly installed:
 
-![Tools Successfully Mounted](docs/Screenshot%202025-09-02%20161602.png)
+![Tools Successfully Mounted](docs/Screenshot%202025-09-02%20165005.png)
 *All 36 tools successfully mounted and ready to use in your MCP client*
 
 **This screenshot proves:**
@@ -460,6 +460,42 @@ Here's the complete arsenal, organized by superpower category:
 - `mobile_hardware` with action `get_data` - Get data from hardware sensors
 - `mobile_hardware` with action `control` - Control hardware features
 - **Features Available:** camera, location, biometrics, bluetooth, nfc, sensors, notifications, audio, vibration
+
+### 💾 **System Restore & Backup Management (1 Tool) - Cross-Platform Support**
+- `system_restore` with action `create_restore_point` - Create system restore points across all platforms (Windows: PowerShell, Linux/macOS: File-based, Mobile: Limited)
+- `system_restore` with action `list_restore_points` - List available restore points with metadata (Windows: System Restore, Linux/macOS: Backup logs, Mobile: System snapshots)
+- `system_restore` with action `restore_system` - Rollback system to previous state (Windows: System Restore, Linux/macOS: File restoration, Mobile: Factory reset)
+- `system_restore` with action `backup_config` - Backup critical system configurations (Windows: Registry, Linux/macOS: /etc, Mobile: Settings)
+- `system_restore` with action `restore_config` - Restore system configurations from backup (All platforms: File restoration with validation)
+- `system_restore` with action `list_backups` - List available backup files and metadata (All platforms: Backup catalog with timestamps)
+- `system_restore` with action `cleanup_old_backups` - Remove outdated backups based on retention policy (All platforms: Automated cleanup with safety checks)
+- `system_restore` with action `test_backup_integrity` - Validate backup file integrity and completeness (All platforms: Checksum verification and file validation)
+- `system_restore` with action `export_backup` - Export backup to external location or cloud storage (All platforms: Multiple export formats and destinations)
+- `system_restore` with action `import_backup` - Import backup from external source or cloud storage (All platforms: Import validation and conflict resolution)
+- `system_restore` with action `schedule_backup` - Set up automated backup schedules (Windows: Task Scheduler, Linux/macOS: Cron, Mobile: System scheduling)
+- `system_restore` with action `cancel_scheduled_backup` - Remove or modify scheduled backup tasks (All platforms: Schedule management and modification)
+- `system_restore` with action `get_backup_status` - Check current backup status and progress (All platforms: Real-time status monitoring)
+- `system_restore` with action `optimize_backup_storage` - Optimize backup storage usage and compression (All platforms: Storage analysis and optimization)
+- `system_restore` with action `verify_backup_completeness` - Ensure backup contains all required data (All platforms: Completeness verification and reporting)
+- `system_restore` with action `create_bootable_backup` - Create bootable recovery media (Windows: Recovery drive, Linux/macOS: Live USB, Mobile: Recovery mode)
+- `system_restore` with action `emergency_restore` - Perform emergency system recovery procedures (All platforms: Emergency protocols and safety measures)
+- `system_restore` with action `backup_encryption` - Manage backup encryption and security (All platforms: AES encryption with key management)
+- `system_restore` with action `backup_compression` - Control backup compression levels and algorithms (All platforms: Multiple compression options for space optimization)
+- `system_restore` with action `backup_verification` - Verify backup authenticity and integrity (All platforms: Digital signatures and checksum validation)
+- `system_restore` with action `backup_rotation` - Manage backup rotation policies and retention (All platforms: Automated rotation with configurable policies)
+
+**Cross-Platform Support Matrix:**
+- **Windows:** ✅ Full support with System Restore, PowerShell integration, and Registry backup
+- **Linux:** ✅ Full support with file-based backups, cron scheduling, and tar compression
+- **macOS:** ✅ Full support with Time Machine integration, launchd scheduling, and native backup tools
+- **Android:** ⚠️ Limited support with system snapshots and ADB integration
+- **iOS:** ❌ Very limited support due to security restrictions (jailbroken devices only)
+
+**Backup Formats Supported:**
+- **Native:** Platform-specific backup formats (Windows: VSS, Linux: tar, macOS: Time Machine)
+- **Cross-Platform:** tar, zip, vhd, vmdk for universal compatibility
+- **Compression:** gzip, bzip2, xz with configurable levels
+- **Encryption:** AES-256 with password protection
 
 ### 🧮 **Advanced Mathematics & Calculations (4 Tools)**
 - `calculator` with basic expressions - Simple mathematical calculations
@@ -1091,7 +1127,7 @@ Instead of remembering technical commands, just ask naturally:
 - ✅ **File System**: `fs_list`, `fs_read_text`, `fs_write_text`, `fs_search`, `file_ops`
 - ✅ **Process Management**: `proc_run`, `win_processes`, `win_services`
 - ✅ **Security Toolkits**: Wi-Fi, Bluetooth, SDR, Radio Security
-- ✅ **System Tools**: `vm_management`, `docker_management`, `git_status`
+- ✅ **System Tools**: `vm_management`, `docker_management`, `git_status`, `system_restore`
 - ✅ **Mobile Tools**: `mobile_device_info`, `mobile_file_ops`, `mobile_system_tools`
 - ✅ **Utility Tools**: `calculator`, `download_file`, `packet_sniffer`
 
@@ -1112,11 +1148,13 @@ Instead of remembering technical commands, just ask naturally:
 ### **⚡ Minimal Version (`server-minimal.ts`)**
 - **Core 10 tools** for basic system operations
 - Essential file operations, process management, and system info
+- **System restore with 4 actions:** create_restore_point, list_restore_points, restore_system, backup_config
 - Cross-platform compatibility
 - **Recommended for:** Basic system administration, lightweight deployments
 
 ### **🔧 Ultra-Minimal Version (`server-ultra-minimal.ts`)**
 - **Essential 6 tools** for basic functionality
+- **System restore with 2 actions:** create_restore_point, backup_config
 - Minimal resource usage
 - Core system operations only
 - **Recommended for:** Embedded systems, resource-constrained environments
