@@ -33,7 +33,7 @@ This MCP can do wild stuff:
 
 **🚀 Why This is GAME-CHANGING:**
 
-- **🎯 One-Stop Solution:** 36 tools with 179+ operations covering system management, security, and mobile access.
+- **🎯 One-Stop Solution:** 36 tools with 200 operations covering system management, security, and mobile access.
 - **🌍 True Cross-Platform:** Works seamlessly on Windows, Linux, macOS, Android, and iOS with intelligent auto-detection
 - **🤖 AI-Powered Intelligence:** Your AI executes commands with context awareness.
 - **⚡ Proactive Problem Solving:** Supports predictive maintenance and automated fixes
@@ -42,7 +42,7 @@ This MCP can do wild stuff:
 
 **The Competition:** This MCP uniquely combines AI with system control across platforms including mobile.
 
-**🎉 Ready to Join the Revolution?** Ask your AI: *"What can you do now that MCP God Mode is installed?"* and prepare to have your mind completely blown! Your AI just became the ultimate system administrator, network engineer, security expert, mobile developer, and productivity wizard – all rolled into one incredibly powerful package with 36 tools and 179+ operations!
+**🎉 Ready to Join the Revolution?** Ask your AI: *"What can you do now that MCP God Mode is installed?"* and prepare to have your mind completely blown! Your AI just became the ultimate system administrator, network engineer, security expert, mobile developer, and productivity wizard – all rolled into one incredibly powerful package with 36 tools and 200 operations!
 
 ## 🎯 All the Features – With Hilarious Commentary
 
@@ -94,12 +94,12 @@ Here's the full arsenal (based on the MCP's capabilities). I've included humorou
 
 **🚀 WARNING: 36 Tools of Absolute Power!** Handing this to AGI is like giving a toddler the nuclear codes – fun in theory, disastrous in practice. Joke: In infosec, this is the equivalent of arming Skynet with dad jokes. Don't give access to a dumb AI; it'll probably just DDoS itself. And your girlfriend on SillyTavern? She might "roleplay" your system into oblivion!
 
-**📊 Tool Count Clarification:** This MCP provides **36 unique tools**, each with multiple actions that expand functionality. The 179+ operations represent the total actions available across all tools.
+**📊 Tool Count Clarification:** This MCP provides **36 unique tools**, each with multiple actions that expand functionality. The 200 operations represent the total actions available across all tools.
 
 **Key Distinction: Tools vs. Actions**
 - **Tools**: Individual, named functions (e.g., `wifi_security_toolkit`, `file_ops`)
 - **Actions**: Specific operations within a tool (e.g., `scan_networks`, `copy`, `delete`)
-- **Total Operations**: 179+ individual actions across all tools
+- **Total Operations**: 200 individual actions across all tools
 
 Here are all the current tools in MCP God Mode, broken down by category. Each gets a functionality breakdown with jokes because why not laugh at our digital overlords?
 
@@ -161,7 +161,7 @@ These are the mcp_windows-god-mode_ tools – where AGI gets scary powerful.
 
 **Grand Total: 36 Tools of Mayhem!** AGI with this arsenal? It's infosec god mode. Just don't let a stupid one loose – or your SillyTavern RP turns real.
 
-**🎉 Ready to Join the Revolution?** Ask your AI: *"What can you do now that MCP God Mode is installed?"* and prepare to have your mind blown! Your AI just became a system administrator, network engineer, security expert, mobile developer, and productivity wizard all rolled into one with 36 tools and 179+ operations!
+**🎉 Ready to Join the Revolution?** Ask your AI: *"What can you do now that MCP God Mode is installed?"* and prepare to have your mind blown! Your AI just became a system administrator, network engineer, security expert, mobile developer, and productivity wizard all rolled into one with 36 tools and 200 operations!
 
 **🚀 BREAKING NEWS: Now with comprehensive Bluetooth security toolkit!** Your AI can now perform advanced Bluetooth security testing, device exploitation, and vulnerability assessment across all platforms!
 
@@ -548,7 +548,7 @@ Here's the complete arsenal, organized by superpower category:
 
 ---
 
-## 🎉 **THE GRAND TOTAL: 36 Tools, 179+ Operations!**
+## 🎉 **THE GRAND TOTAL: 36 Tools, 200 Operations!**
 
 **This is absolutely unprecedented!** No other MCP comes close to this level of comprehensive functionality. You've got everything from basic file operations to advanced AI-powered system management, all wrapped in cross-platform magic that works seamlessly across Windows, Linux, macOS, Android, and iOS.
 
@@ -740,7 +740,7 @@ When I'm not coding AI overlords, I'm practicing martial arts. Here are some of 
 
 ## 🤖 **Recommended AI Models & Platforms - Choose Your Digital Overlord Wisely!**
 
-**🚨 CRITICAL: This ain't your grandma's chatbot!** MCP God Mode is a beast with 36 tools and 179+ operations, comprehensive security toolkits, and massive context requirements. You need an AI model that can handle the heat! 🔥
+**🚨 CRITICAL: This ain't your grandma's chatbot!** MCP God Mode is a beast with 36 tools and 200 operations, comprehensive security toolkits, and massive context requirements. You need an AI model that can handle the heat! 🔥
 
 ### **🎯 Context Requirements - Size Matters!**
 
@@ -858,7 +858,7 @@ When I'm not coding AI overlords, I'm practicing martial arts. Here are some of 
 
 **MCP God Mode is a professional-grade system that requires professional-grade AI models.** Don't handicap yourself with underpowered models when you're dealing with:
 
-- **36 sophisticated tools with 179+ operations** (including web scraping, browser automation & mobile device management)
+- **36 sophisticated tools with 200 operations** (including web scraping, browser automation & mobile device management)
 - **Complex security operations**
 - **Cross-platform system management**  
 - **Advanced penetration testing**
@@ -995,12 +995,12 @@ Before using in production, ensure you have:
 
 ## 🎊 **Welcome to the Future of AI System Administration!**
 
-**You've just installed the most powerful AI system management tool ever created!** With 36 revolutionary tools and 179+ operations, plus true cross-platform support including mobile platforms, your AI assistant has been transformed into a digital superpower that can handle any system task across Windows, Linux, macOS, Android, and iOS.
+**You've just installed the most powerful AI system management tool ever created!** With 36 revolutionary tools and 200 operations, plus true cross-platform support including mobile platforms, your AI assistant has been transformed into a digital superpower that can handle any system task across Windows, Linux, macOS, Android, and iOS.
 
 **🌟 What Makes This Special:**
 - **First-of-its-kind:** Nothing like this exists anywhere else
 - **Complete cross-platform support:** Works flawlessly on all major operating systems and mobile platforms
-- **36 comprehensive tools with 179+ operations:** From basic file operations to advanced AI-powered system management including VM, Docker, mobile operations, and comprehensive security toolkits
+- **36 comprehensive tools with 200 operations:** From basic file operations to advanced AI-powered system management including VM, Docker, mobile operations, and comprehensive security toolkits
 - **Natural language interface:** Just ask your AI what you need – no commands to memorize!
 - **Universal accessibility:** Complex security tools accessible to everyone through natural language
 - **Rigorously tested:** Every tool has been battle-tested across multiple platforms
@@ -1138,7 +1138,7 @@ Instead of remembering technical commands, just ask naturally:
 **Choose the version that fits your needs:**
 
 ### **🚀 Full-Featured Version (`server-refactored.ts`)**
-- **All 36 tools with 179+ operations** including comprehensive security toolkits
+- **All 36 tools with 200 operations** including comprehensive security toolkits
 - Full cross-platform support (Windows, Linux, macOS, Android, iOS)
 - Complete Wi-Fi, Bluetooth, and SDR security toolkits
 - Mobile platform tools and hardware access
