@@ -1632,17 +1632,17 @@ server.registerTool("mobile_device_info", {
 });
 
 server.registerTool("mobile_file_ops", {
-  description: "Mobile-optimized file operations with Android and iOS support",
+  description: "Advanced mobile file operations with comprehensive Android and iOS support. Perform file management, data transfer, compression, and search operations on mobile devices. Supports both rooted/jailbroken and standard devices with appropriate permission handling.",
   inputSchema: {
     action: z.enum([
       "list", "copy", "move", "delete", "create", "get_info", "search", "compress", "decompress"
-    ]),
-    source: z.string().optional(),
-    destination: z.string().optional(),
-    content: z.string().optional(),
-    recursive: z.boolean().default(false),
-    pattern: z.string().optional(),
-    search_text: z.string().optional()
+    ]).describe("File operation to perform. 'list' shows directory contents, 'copy'/'move' transfer files, 'delete' removes files/folders, 'create' makes new files/directories, 'get_info' provides file details, 'search' finds files by pattern/content, 'compress'/'decompress' handle archives."),
+    source: z.string().optional().describe("Source file or directory path for operations. Examples: '/sdcard/Documents/', '/var/mobile/Documents/', './photos/', 'C:\\Users\\Mobile\\Downloads\\'. Required for most operations."),
+    destination: z.string().optional().describe("Destination path for copy/move operations. Examples: '/sdcard/backup/', '/var/mobile/backup/', './backup/'. Should include filename for file operations."),
+    content: z.string().optional().describe("Content to write when creating files. Can be text, JSON, XML, or binary data. Examples: 'Hello World', '{\"config\": \"value\"}', '<xml>data</xml>'."),
+    recursive: z.boolean().default(false).describe("Perform operation recursively on directories. Set to true for directory operations, false for single files. Required for copying/deleting folders."),
+    pattern: z.string().optional().describe("Search pattern for file operations. Supports wildcards and regex. Examples: '*.jpg' for images, '*.log' for logs, 'backup*' for files starting with backup."),
+    search_text: z.string().optional().describe("Text content to search for within files. Examples: 'password', 'API_KEY', 'error', 'TODO'. Used with search action to find files containing specific text.")
   },
   outputSchema: {
     success: z.boolean(),
@@ -1844,14 +1844,14 @@ server.registerTool("mobile_file_ops", {
 });
 
 server.registerTool("mobile_system_tools", {
-  description: "Mobile system management tools for Android and iOS",
+  description: "Comprehensive mobile system management and administration tools for Android and iOS devices. Monitor processes, manage services, analyze network connections, check storage, examine installed packages, and review system permissions. Supports both standard and rooted/jailbroken devices.",
   inputSchema: {
     tool: z.enum([
       "processes", "services", "network", "storage", "users", "packages", "permissions", "system_info"
-    ]),
-    action: z.string().optional(),
-    filter: z.string().optional(),
-    target: z.string().optional()
+    ]).describe("System tool to use. 'processes' lists running apps/services, 'services' manages system services, 'network' shows connections, 'storage' analyzes disk usage, 'users' lists accounts, 'packages' shows installed apps, 'permissions' reviews app permissions, 'system_info' provides device details."),
+    action: z.string().optional().describe("Action to perform with the selected tool. Examples: 'list', 'start', 'stop', 'kill', 'enable', 'disable', 'analyze', 'monitor'. Actions vary by tool type."),
+    filter: z.string().optional().describe("Filter results by name or criteria. Examples: 'chrome', 'system', 'user', 'com.android.*', 'running'. Helps narrow down results for specific items."),
+    target: z.string().optional().describe("Specific target for the action. Examples: process ID, package name, service name, user account. Required for targeted operations like kill, start, stop.")
   },
   outputSchema: {
     success: z.boolean(),
@@ -1991,15 +1991,15 @@ server.registerTool("mobile_system_tools", {
 });
 
 server.registerTool("mobile_hardware", {
-  description: "Mobile hardware access and sensor data for Android and iOS",
+  description: "Advanced mobile hardware access and sensor data collection for Android and iOS devices. Access camera, GPS location, biometric sensors, Bluetooth, NFC, accelerometer, gyroscope, notifications, audio systems, and haptic feedback. Includes permission management and privacy-conscious data collection.",
   inputSchema: {
     feature: z.enum([
       "camera", "location", "biometrics", "bluetooth", "nfc", "sensors", "notifications", "audio", "vibration"
-    ]),
+    ]).describe("Hardware feature to access. 'camera' for photo/video capture, 'location' for GPS/positioning, 'biometrics' for fingerprint/face recognition, 'bluetooth' for device connections, 'nfc' for near-field communication, 'sensors' for accelerometer/gyroscope/compass, 'notifications' for system alerts, 'audio' for microphone/speakers, 'vibration' for haptic feedback."),
     action: z.enum([
       "check_availability", "get_status", "request_permission", "get_data", "control"
-    ]),
-    parameters: z.any().optional()
+    ]).describe("Action to perform on the hardware feature. 'check_availability' verifies if feature exists, 'get_status' shows current state, 'request_permission' asks for user authorization, 'get_data' retrieves sensor information, 'control' activates/deactivates features."),
+    parameters: z.any().optional().describe("Additional parameters for the hardware operation. Format varies by feature. Examples: {'duration': 5000, 'quality': 'high'} for camera, {'accuracy': 'fine'} for location, {'pattern': [100, 200, 100]} for vibration.")
   },
   outputSchema: {
     success: z.boolean(),
@@ -2508,7 +2508,7 @@ server.registerTool("wifi_security_toolkit", {
 
 // Natural Language Aliases for Wi-Fi Toolkit
 server.registerTool("wifi_hacking", {
-  description: "Alias for Wi-Fi security toolkit - Hack Wi-Fi networks, crack passwords, create evil twin attacks. Ask me to break into Wi-Fi, steal passwords, or perform wireless attacks.",
+  description: "Advanced Wi-Fi security penetration testing toolkit with comprehensive attack capabilities. Perform wireless network assessments, password cracking, evil twin attacks, WPS exploitation, and IoT device enumeration. Supports all Wi-Fi security protocols (WEP, WPA, WPA2, WPA3) across multiple platforms with ethical hacking methodologies.",
   inputSchema: {
     action: z.enum([
       "scan_networks", "capture_handshake", "capture_pmkid", "sniff_packets", "monitor_clients",
@@ -2517,17 +2517,17 @@ server.registerTool("wifi_hacking", {
       "wps_attack", "pixie_dust_attack", "deauth_attack", "fragmentation_attack",
       "router_scan", "iot_enumeration", "vulnerability_scan", "exploit_router",
       "analyze_captures", "generate_report", "export_results", "cleanup_traces"
-    ]),
-    target_ssid: z.string().optional(),
-    target_bssid: z.string().optional(),
-    interface: z.string().optional(),
-    wordlist: z.string().optional(),
-    output_file: z.string().optional(),
-    duration: z.number().optional(),
-    max_attempts: z.number().optional(),
-    attack_type: z.enum(["wpa", "wpa2", "wpa3", "wep", "wps"]).optional(),
-    channel: z.number().optional(),
-    power_level: z.number().optional()
+    ]).describe("Wi-Fi security testing action. 'scan_networks' discovers APs, 'capture_handshake' grabs WPA handshakes, 'capture_pmkid' uses PMKID attack, 'crack_hash' breaks passwords, attack options include 'dictionary_attack', 'brute_force_attack', 'evil_twin_attack' for phishing, 'deauth_attack' for disconnection, 'wps_attack' exploits WPS, 'vulnerability_scan' finds weaknesses."),
+    target_ssid: z.string().optional().describe("Target Wi-Fi network name (SSID) to attack. Examples: 'OfficeWiFi', 'HOME-NETWORK-5G', 'Guest-Access'. Case-sensitive network identifier for focused attacks."),
+    target_bssid: z.string().optional().describe("Target access point MAC address (BSSID). Format: XX:XX:XX:XX:XX:XX. Examples: '00:11:22:33:44:55', 'AA:BB:CC:DD:EE:FF'. More precise targeting than SSID when multiple APs share names."),
+    interface: z.string().optional().describe("Wireless network interface for attacks. Examples: 'wlan0' (Linux), 'Wi-Fi' (Windows), 'en0' (macOS). Must support monitor mode for most attacks. Leave empty for auto-detection."),
+    wordlist: z.string().optional().describe("Password wordlist file path for dictionary attacks. Examples: './rockyou.txt', '/usr/share/wordlists/common.txt', 'C:\\Security\\passwords.txt'. Should contain one password per line for effective cracking."),
+    output_file: z.string().optional().describe("File path to save attack results, captures, or cracked passwords. Examples: './wifi_capture.pcap', '/tmp/handshake.cap', 'C:\\Security\\results.txt'. Helps organize and preserve attack evidence."),
+    duration: z.number().optional().describe("Attack duration in seconds. Examples: 30 for quick scans, 300 for handshake capture, 3600 for comprehensive attacks. Longer durations increase success rates but take more time."),
+    max_attempts: z.number().optional().describe("Maximum attempts for brute force or WPS attacks. Examples: 1000 for WPS, 10000 for dictionary attacks, 100000+ for brute force. Higher values increase success but require more time."),
+    attack_type: z.enum(["wpa", "wpa2", "wpa3", "wep", "wps"]).optional().describe("Wi-Fi security protocol to target. 'wpa'/'wpa2' most common, 'wpa3' newest/strongest, 'wep' outdated/vulnerable, 'wps' router feature often exploitable. Choose based on target network type."),
+    channel: z.number().optional().describe("Specific Wi-Fi channel to focus attacks (1-13 for 2.4GHz, 36-165 for 5GHz). Examples: 6 for common 2.4GHz, 149 for 5GHz. Targeting specific channels improves attack efficiency and reduces interference."),
+    power_level: z.number().optional().describe("RF transmission power level (0-100%). Examples: 20-50% for stealth operations, 80-100% for maximum range and effectiveness. Higher power increases success but may be more detectable.")
   },
   outputSchema: {
     success: z.boolean(),
@@ -2584,24 +2584,24 @@ server.registerTool("wifi_hacking", {
 // ===========================================
 
 server.registerTool("packet_sniffer", {
-  description: "Cross-platform packet sniffing and network analysis with support for all platforms",
+  description: "Advanced cross-platform packet sniffing and network traffic analysis tool. Capture, analyze, and monitor network packets in real-time across Windows, Linux, macOS, Android, and iOS. Supports protocol filtering, bandwidth monitoring, anomaly detection, and comprehensive traffic analysis with multiple capture formats.",
   inputSchema: {
     action: z.enum([
       "start_capture", "stop_capture", "get_captured_packets", "analyze_traffic", 
       "filter_by_protocol", "filter_by_ip", "filter_by_port", "get_statistics",
       "export_pcap", "monitor_bandwidth", "detect_anomalies", "capture_http",
       "capture_dns", "capture_tcp", "capture_udp", "capture_icmp"
-    ]),
-    interface: z.string().optional(),
-    filter: z.string().optional(),
-    duration: z.number().optional(),
-    max_packets: z.number().optional(),
-    protocol: z.enum(["tcp", "udp", "icmp", "http", "dns", "all"]).optional(),
-    source_ip: z.string().optional(),
-    dest_ip: z.string().optional(),
-    source_port: z.number().optional(),
-    dest_port: z.number().optional(),
-    output_file: z.string().optional()
+    ]).describe("Packet capture action to perform. 'start_capture' begins packet collection, 'stop_capture' ends collection, 'get_captured_packets' retrieves stored packets, 'analyze_traffic' performs deep analysis, filtering options focus on specific protocols/IPs/ports, 'export_pcap' saves in standard format, monitoring actions provide real-time insights."),
+    interface: z.string().optional().describe("Network interface to capture on. Examples: 'eth0', 'wlan0', 'Wi-Fi', 'Ethernet'. Leave empty for auto-detection. Use 'ifconfig' or 'ipconfig' to list available interfaces."),
+    filter: z.string().optional().describe("Berkeley Packet Filter (BPF) expression to filter packets. Examples: 'host 192.168.1.1', 'port 80', 'tcp and dst port 443', 'icmp', 'not broadcast'. Advanced filtering for specific traffic."),
+    duration: z.number().optional().describe("Capture duration in seconds. Examples: 30 for short capture, 300 for detailed analysis, 3600 for long-term monitoring. Longer durations provide more comprehensive data."),
+    max_packets: z.number().optional().describe("Maximum number of packets to capture. Examples: 1000 for quick analysis, 10000 for detailed study, 100000 for comprehensive monitoring. Helps manage storage and processing."),
+    protocol: z.enum(["tcp", "udp", "icmp", "http", "dns", "all"]).optional().describe("Protocol to focus on. 'tcp' for reliable connections, 'udp' for streaming/gaming, 'icmp' for ping/traceroute, 'http' for web traffic, 'dns' for name resolution, 'all' for everything."),
+    source_ip: z.string().optional().describe("Filter by source IP address. Examples: '192.168.1.100', '10.0.0.5', '8.8.8.8'. Captures packets originating from this address."),
+    dest_ip: z.string().optional().describe("Filter by destination IP address. Examples: '192.168.1.1', '172.16.0.1', '1.1.1.1'. Captures packets going to this address."),
+    source_port: z.number().optional().describe("Filter by source port number. Examples: 80 for HTTP, 443 for HTTPS, 22 for SSH, 53 for DNS. Focuses on traffic from specific services."),
+    dest_port: z.number().optional().describe("Filter by destination port number. Examples: 80 for HTTP servers, 443 for HTTPS, 25 for SMTP, 110 for POP3. Targets specific services."),
+    output_file: z.string().optional().describe("File to save captured packets. Examples: './capture.pcap', '/tmp/network_capture.pcap', 'C:\\Captures\\traffic.pcap'. Saves in pcap format for analysis tools like Wireshark.")
   },
   outputSchema: {
     success: z.boolean(),
@@ -6041,7 +6041,7 @@ server.registerTool("bluetooth_security_toolkit", {
 
 // Natural Language Aliases for Bluetooth Toolkit
 server.registerTool("bluetooth_hacking", {
-  description: "Alias for Bluetooth security toolkit - Hack Bluetooth devices, bypass pairing, extract data, perform bluejacking attacks. Ask me to break into Bluetooth devices or steal information.",
+  description: "Advanced Bluetooth security penetration testing and exploitation toolkit. Perform comprehensive Bluetooth device assessments, bypass pairing mechanisms, extract sensitive data, execute bluejacking/bluesnarfing/bluebugging attacks, and analyze Bluetooth Low Energy (BLE) devices. Supports all Bluetooth versions with cross-platform compatibility.",
   inputSchema: {
     action: z.enum([
       "scan_devices", "discover_services", "enumerate_characteristics", "scan_profiles", "detect_devices",
@@ -6052,18 +6052,18 @@ server.registerTool("bluetooth_hacking", {
       "exploit_vulnerabilities", "inject_commands", "modify_firmware", "bypass_security", "escalate_privileges",
       "monitor_traffic", "capture_packets", "analyze_protocols", "detect_anomalies", "log_activities",
       "generate_report", "export_results", "cleanup_traces", "restore_devices"
-    ]),
-    target_address: z.string().optional(),
-    target_name: z.string().optional(),
-    device_class: z.string().optional(),
-    service_uuid: z.string().optional(),
-    characteristic_uuid: z.string().optional(),
-    attack_type: z.enum(["passive", "active", "man_in_middle", "replay", "fuzzing"]).optional(),
-    duration: z.number().optional(),
-    max_attempts: z.number().optional(),
-    output_file: z.string().optional(),
-    interface: z.string().optional(),
-    power_level: z.number().optional()
+    ]).describe("Bluetooth security testing action. 'scan_devices' discovers nearby devices, 'discover_services' enumerates available services, 'bypass_pairing' attempts unauthorized connections, attack actions include 'bluejacking_attack' for message spam, 'bluesnarfing_attack' for data theft, 'bluebugging_attack' for device control, 'extract_contacts' steals address book, 'monitor_traffic' captures communications."),
+    target_address: z.string().optional().describe("Target Bluetooth device MAC address. Format: XX:XX:XX:XX:XX:XX. Examples: '00:11:22:33:44:55', 'AA:BB:CC:DD:EE:FF'. Unique identifier for precise device targeting in attacks."),
+    target_name: z.string().optional().describe("Target Bluetooth device friendly name. Examples: 'iPhone', 'Samsung Galaxy', 'JBL Speaker', 'Car Audio System'. Human-readable name when MAC address is unknown."),
+    device_class: z.string().optional().describe("Bluetooth device class to filter during scanning. Examples: 'Audio', 'Phone', 'Computer', 'Peripheral', 'Imaging', 'Wearable'. Helps focus attacks on specific device types."),
+    service_uuid: z.string().optional().describe("Bluetooth service UUID to target. Format: 128-bit UUID. Examples: '0000110b-0000-1000-8000-00805f9b34fb' for Audio Sink, '00001101-0000-1000-8000-00805f9b34fb' for Serial Port. Leave empty to discover all services."),
+    characteristic_uuid: z.string().optional().describe("Bluetooth characteristic UUID for data extraction/injection. Format: 128-bit UUID. Required for advanced attacks that read/write specific data characteristics. Used in BLE attacks and data manipulation."),
+    attack_type: z.enum(["passive", "active", "man_in_middle", "replay", "fuzzing"]).optional().describe("Attack methodology. 'passive' for eavesdropping without interaction, 'active' for direct device interaction, 'man_in_middle' for intercepting communications, 'replay' for retransmitting captured data, 'fuzzing' for sending malformed data to find vulnerabilities."),
+    duration: z.number().optional().describe("Attack duration in seconds. Examples: 30-300 for scanning, 60-600 for monitoring, 300-3600 for comprehensive attacks. Longer durations increase success rates but require more time."),
+    max_attempts: z.number().optional().describe("Maximum attempts for pairing bypass, authentication testing, or brute force attacks. Examples: 100-1000 for pairing attempts, 1000-10000 for authentication testing. Higher values increase success but take longer."),
+    output_file: z.string().optional().describe("File path to save attack results, captured data, or extracted information. Examples: './bluetooth_scan.json', './extracted_contacts.txt', './captured_packets.pcap'. Helps preserve evidence and analysis data."),
+    interface: z.string().optional().describe("Bluetooth interface to use for attacks. Examples: 'hci0' (Linux), 'Bluetooth' (Windows), 'default' (macOS). Leave empty for auto-detection of available Bluetooth adapters."),
+    power_level: z.number().optional().describe("Bluetooth transmission power level (0-100%). Examples: 20-50% for stealth operations to avoid detection, 80-100% for maximum range and attack effectiveness. Higher power increases success but may be more noticeable.")
   },
   outputSchema: {
     success: z.boolean(),
@@ -8656,12 +8656,12 @@ async function captureSignals(deviceIndex: number, config: any): Promise<any> {
 
 // General Security Testing Tools
 server.registerTool("hack_network", {
-  description: "General network hacking tool - Ask me to hack networks, break into systems, or perform security testing. I'll route your request to the appropriate toolkit.",
+  description: "Comprehensive network penetration testing and security assessment tool with intelligent routing to specialized toolkits. Perform network reconnaissance, vulnerability scanning, exploitation, wireless attacks, and system penetration testing. Automatically selects appropriate security tools based on target type and attack methodology.",
   inputSchema: {
-    target: z.string(),
-    action: z.string(),
-    method: z.string().optional(),
-    duration: z.number().optional()
+    target: z.string().describe("Target network, system, or device to test. Examples: '192.168.1.0/24' for network range, '10.0.0.1' for specific host, 'company.com' for domain, 'OfficeWiFi' for wireless network, '00:11:22:33:44:55' for Bluetooth device. Determines which security toolkit to use."),
+    action: z.string().describe("Security testing action to perform. Examples: 'hack network', 'break into system', 'test security', 'find vulnerabilities', 'crack password', 'penetration test', 'security assessment'. Natural language descriptions of desired testing goals."),
+    method: z.string().optional().describe("Preferred testing methodology or approach. Examples: 'port scan', 'brute force', 'dictionary attack', 'vulnerability scan', 'wireless attack', 'social engineering'. Helps select specific attack techniques within toolkits."),
+    duration: z.number().optional().describe("Testing duration in seconds. Examples: 300 for quick assessment, 1800 for detailed scan, 3600 for comprehensive penetration test. Longer durations provide more thorough results but take more time.")
   },
   outputSchema: {
     success: z.boolean(),
@@ -8711,12 +8711,12 @@ server.registerTool("hack_network", {
 });
 
 server.registerTool("security_testing", {
-  description: "Comprehensive security testing tool - Test the security of networks, devices, and systems. Ask me to assess vulnerabilities or perform penetration testing.",
+  description: "Advanced multi-domain security testing and vulnerability assessment platform. Perform comprehensive security evaluations across networks, devices, systems, wireless communications, Bluetooth connections, and radio frequencies. Provides intelligent recommendations for appropriate security toolkits and testing methodologies based on target analysis.",
   inputSchema: {
-    target_type: z.enum(["network", "device", "system", "wireless", "bluetooth", "radio"]),
-    action: z.string(),
-    target: z.string().optional(),
-    duration: z.number().optional()
+    target_type: z.enum(["network", "device", "system", "wireless", "bluetooth", "radio"]).describe("Type of target to security test. 'network' for IP networks and infrastructure, 'device' for individual computers/servers, 'system' for applications/services, 'wireless' for Wi-Fi networks, 'bluetooth' for Bluetooth devices, 'radio' for RF/SDR analysis. Determines which security toolkit to recommend."),
+    action: z.string().describe("Security testing action or goal. Examples: 'assess vulnerabilities', 'penetration test', 'find weaknesses', 'security audit', 'test defenses', 'ethical hacking'. Natural language description of desired security assessment."),
+    target: z.string().optional().describe("Optional specific target identifier. Examples: '192.168.1.0/24' for network, 'server.company.com' for system, 'OfficeWiFi' for wireless, 'AA:BB:CC:DD:EE:FF' for Bluetooth. Helps provide more targeted toolkit recommendations."),
+    duration: z.number().optional().describe("Preferred testing duration in seconds. Examples: 600 for quick assessment, 3600 for standard penetration test, 7200 for comprehensive security audit. Influences recommendation of testing depth and methodology.")
   },
   outputSchema: {
     success: z.boolean(),

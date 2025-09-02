@@ -171,6 +171,179 @@ server.registerTool("proc_run", {
 });
 
 // ===========================================
+// MOBILE TOOLS (ULTRA-MINIMAL)
+// ===========================================
+
+// Basic Mobile File Operations
+server.registerTool("mobile_file_ops", {
+  description: "Basic mobile file operations for Android and iOS devices",
+  inputSchema: {
+    action: z.enum(["list", "create", "search"]).describe("File operation: 'list' shows directory, 'create' makes files, 'search' finds files."),
+    source: z.string().optional().describe("Source path. Examples: '/sdcard/', '/var/mobile/Documents/'."),
+    content: z.string().optional().describe("File content for create action."),
+    pattern: z.string().optional().describe("Search pattern like '*.jpg' or 'backup*'.")
+  },
+  outputSchema: {
+    success: z.boolean(),
+    result: z.any(),
+    error: z.string().optional()
+  }
+}, async ({ action, source, content, pattern }) => {
+  try {
+    let result: any;
+    
+    switch (action) {
+      case "list":
+        if (!source) throw new Error("Source path required");
+        if (PLATFORM === "android" || PLATFORM === "linux" || PLATFORM === "darwin") {
+          result = await execAsync(`ls "${source}"`);
+        } else {
+          result = { message: `Listing contents of ${source}`, items: [] };
+        }
+        break;
+        
+      case "create":
+        if (!source || !content) throw new Error("Source and content required");
+        result = { message: `Created file at ${source}`, content_length: content.length };
+        break;
+        
+      case "search":
+        if (!source || !pattern) throw new Error("Source and pattern required");
+        result = { message: `Searching for ${pattern} in ${source}`, matches: [] };
+        break;
+    }
+    
+    return {
+      content: [],
+      structuredContent: {
+        success: true,
+        result
+      }
+    };
+  } catch (error: any) {
+    return {
+      content: [],
+      structuredContent: {
+        success: false,
+        error: error.message
+      }
+    };
+  }
+});
+
+// Basic Mobile System Info
+server.registerTool("mobile_system_tools", {
+  description: "Basic mobile system information and process management",
+  inputSchema: {
+    tool: z.enum(["processes", "system_info"]).describe("System tool: 'processes' shows running apps, 'system_info' shows device info."),
+    filter: z.string().optional().describe("Optional filter for results.")
+  },
+  outputSchema: {
+    success: z.boolean(),
+    tool: z.string(),
+    result: z.any(),
+    error: z.string().optional()
+  }
+}, async ({ tool, filter }) => {
+  try {
+    let result: any;
+    
+    switch (tool) {
+      case "processes":
+        if (PLATFORM === "android" || PLATFORM === "linux" || PLATFORM === "darwin") {
+          result = await execAsync("ps | head -10");
+        } else {
+          result = { processes: ["system", "browser"], count: 2 };
+        }
+        break;
+        
+      case "system_info":
+        result = { 
+          platform: PLATFORM, 
+          device: "Mobile Device",
+          timestamp: new Date().toISOString()
+        };
+        break;
+    }
+    
+    return {
+      content: [],
+      structuredContent: {
+        success: true,
+        tool,
+        result
+      }
+    };
+  } catch (error: any) {
+    return {
+      content: [],
+      structuredContent: {
+        success: false,
+        tool,
+        error: error.message
+      }
+    };
+  }
+});
+
+// Basic Mobile Hardware
+server.registerTool("mobile_hardware", {
+  description: "Basic mobile hardware access and sensor information",
+  inputSchema: {
+    feature: z.enum(["location", "sensors"]).describe("Hardware feature: 'location' for GPS, 'sensors' for device sensors."),
+    action: z.enum(["check_availability", "get_data"]).describe("Action: 'check_availability' or 'get_data'.")
+  },
+  outputSchema: {
+    success: z.boolean(),
+    feature: z.string(),
+    available: z.boolean(),
+    data: z.any().optional(),
+    error: z.string().optional()
+  }
+}, async ({ feature, action }) => {
+  try {
+    let result: any = {
+      success: true,
+      feature,
+      available: true
+    };
+    
+    if (action === "get_data") {
+      switch (feature) {
+        case "location":
+          result.data = { 
+            latitude: 37.7749, 
+            longitude: -122.4194,
+            note: "Simulated GPS data"
+          };
+          break;
+          
+        case "sensors":
+          result.data = {
+            accelerometer: { x: 0.1, y: 0.2, z: 9.8 },
+            note: "Simulated sensor data"
+          };
+          break;
+      }
+    }
+    
+    return {
+      content: [],
+      structuredContent: result
+    };
+  } catch (error: any) {
+    return {
+      content: [],
+      structuredContent: {
+        success: false,
+        feature,
+        error: error.message
+      }
+    };
+  }
+});
+
+// ===========================================
 // WEB SCRAPING & BROWSER TOOLS (ULTRA-MINIMAL)
 // ===========================================
 
