@@ -1,0 +1,30 @@
+{
+  "name": "mcp-god-mode",
+  "version": "1.0.0",
+  "description": "MCP God Mode Server - Advanced AI Agent Toolkit",
+  "main": "start-mcp.js",
+  "bin": {
+    "mcp-god-mode": "start-mcp.js"
+  },
+  "scripts": {
+    "start": "node start-mcp.js",
+    "dev": "cd dev && npm run dev",
+    "build": "cd dev && npm run build",
+    "test": "cd dev && npm test"
+  },
+  "keywords": [
+    "mcp",
+    "ai",
+    "automation",
+    "security",
+    "cross-platform"
+  ],
+  "author": "MCP God Mode Team",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.2.0"
+  }
+}

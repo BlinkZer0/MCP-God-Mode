@@ -2,7 +2,7 @@
   "mcpServers": {
     "windows-god-mode": {
       "command": "node",
-      "args": ["dev/dist/server.js"],
+      "args": ["start-mcp.js"],
       "env": {
         "ALLOWED_ROOT": "",
         "WEB_ALLOWLIST": "",
