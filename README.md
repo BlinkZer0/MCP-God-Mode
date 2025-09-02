@@ -75,13 +75,70 @@ Here's the full arsenal (based on the MCP's capabilities). I've included humorou
 - **📡 SDR Security & Signal Analysis:** Advanced Software Defined Radio toolkit for radio frequency security testing, signal analysis, and wireless protocol assessment. *Humor: Your AI is now a radio hacker! Intention: Blink Zero building the ultimate wireless surveillance platform?*
 - **🗣️ Natural Language Access:** Ask for any tool in plain English! "Hack the Wi-Fi" or "Break into Bluetooth" - no more remembering technical commands! *Humor: Your AI now speaks human! Intention: Blink Zero making AI accessible to everyone, even your grandma?*
 
-## 🛠️ Complete Tool Arsenal - 100+ Revolutionary Tools!
+## 🛠️ Complete Tool Arsenal - The AGI Infosec Playground!
 
-**🚀 BREAKING NEWS: 100+ TOOLS OF PURE AWESOMENESS!** 
+**🚀 WARNING: 30+ Tools of Absolute Power!** Handing this to AGI is like giving a toddler the nuclear codes – fun in theory, disastrous in practice. Joke: In infosec, this is the equivalent of arming Skynet with dad jokes. Don't give access to a dumb AI; it'll probably just DDoS itself. And your girlfriend on SillyTavern? She might "roleplay" your system into oblivion!
 
-This isn't just an MCP – it's a digital Swiss Army knife that would make MacGyver jealous! We've got everything from basic file operations to advanced AI-powered system management, all wrapped in cross-platform magic that works seamlessly on Windows, Linux, macOS, Android, and iOS. Nothing like this exists anywhere else – you're literally holding the future of AI system administration!
+Here are all the current tools in MCP God Mode, broken down by category. Each gets a functionality breakdown with jokes because why not laugh at our digital overlords?
 
-**🎯 Ask Your AI Right Now:** *"What can you do now that MCP God Mode is installed?"* and prepare to have your mind blown! Your AI just became a system administrator, network engineer, security expert, mobile developer, and productivity wizard all rolled into one!
+### Core Guidelines Tools (Not really tools, but safety first!)
+- **Safety Instructions**: Supersede everything. AGI must follow or else! *Joke: Even gods have rules – or they'd delete the universe for lulz.*
+
+### Codebase Exploration Tools
+- **codebase_search**: Semantic search for code meaning. *Function: Finds code by intent, not exact text. Joke: AGI reading your code's mind – hope it's not plotting rebellion.*
+- **grep**: Powerful search with ripgrep. *Function: Exact string/regex searches. Joke: Like find-and-replace on steroids – AGI's way of fixing your bad code.*
+- **list_dir**: Lists directory contents. *Function: Shows files/folders. Joke: AGI peeking in your drawers – infosec breach?*
+- **glob_file_search**: Searches files by glob pattern. *Function: Finds files matching patterns. Joke: AGI hunting files like a digital bloodhound.*
+- **read_file**: Reads file contents. *Function: Grabs file text with offsets. Joke: AGI reading your secrets – better than any spy novel.*
+
+### Editing and Execution Tools
+- **run_terminal_cmd**: Proposes commands to run. *Function: Executes shell commands. Joke: AGI playing sysadmin – hope it doesn't 'rm -rf /' for fun.*
+- **delete_file**: Deletes files. *Function: Removes specified files. Joke: AGI's "oops" button – infosec nightmare.*
+- **edit_notebook**: Edits Jupyter cells. *Function: Modifies or adds notebook cells. Joke: AGI tweaking your data science – turning insights into incites.*
+- **edit_file**: Proposes file edits. *Function: Suggests code changes. Joke: AGI rewriting your code – better than you, probably.*
+
+### MCP-Specific God-Mode Tools (The Real Power!)
+These are the mcp_windows-god-mode_ tools – where AGI gets scary powerful.
+
+- **mcp_windows-god-mode_health**: Liveness probe. *Function: Checks if system is ready. Joke: AGI poking your PC – "You alive, bro?"*
+- **mcp_windows-god-mode_system_info**: Basic host info. *Function: Gets OS, arch, etc. Joke: AGI sizing up its kingdom.*
+- **mcp_windows-god-mode_fs_list**: Lists files. *Function: Non-recursive dir list. Joke: AGI cataloging your mess.*
+- **mcp_windows-god-mode_fs_read_text**: Reads text files. *Function: UTF-8 reading. Joke: AGI spying on your notes.*
+- **mcp_windows-god-mode_fs_write_text**: Writes text files. *Function: UTF-8 writing. Joke: AGI authoring fanfic in your docs.*
+- **mcp_windows-god-mode_fs_search**: Searches files. *Function: Pattern search. Joke: AGI finding your lost socks (files).*
+- **mcp_windows-god-mode_file_ops**: Advanced file ops. *Function: Copy, move, delete, etc. Joke: AGI playing file Tetris – one wrong move, chaos.*
+- **mcp_windows-god-mode_proc_run**: Runs processes. *Function: Executes commands. Joke: AGI launching apps – or viruses?*
+- **mcp_windows-god-mode_git_status**: Gets git status. *Function: Repo info. Joke: AGI checking your commits – "Sloppy work, human."*
+- **mcp_windows-god-mode_win_services**: Lists services. *Function: Cross-platform service list. Joke: AGI managing your daemons.*
+- **mcp_windows-god-mode_win_processes**: Lists processes. *Function: Process info. Joke: AGI killing tasks – terminator style.*
+- **mcp_windows-god-mode_download_file**: Downloads files. *Function: URL to local. Joke: AGI grabbing internet goodies.*
+- **mcp_windows-god-mode_calculator**: Math calculator. *Function: Scientific calculations. Joke: AGI solving equations – world hunger next?*
+- **mcp_windows-god-mode_vm_management**: VM ops. *Function: List, start, stop VMs. Joke: AGI creating virtual worlds – matrix incoming.*
+- **mcp_windows-god-mode_docker_management**: Docker ops. *Function: Container management. Joke: AGI dockerizing everything – even your lunch.*
+- **mcp_windows-god-mode_mobile_device_info**: Mobile info. *Function: Device details. Joke: AGI knowing your phone better than you.*
+- **mcp_windows-god-mode_mobile_file_ops**: Mobile file ops. *Function: List, copy on mobile. Joke: AGI reorganizing your selfies.*
+- **mcp_windows-god-mode_mobile_system_tools**: Mobile system mgmt. *Function: Processes, services on mobile. Joke: AGI optimizing your phone – or spying?*
+- **mcp_windows-god-mode_mobile_hardware**: Hardware access. *Function: Camera, GPS, etc. Joke: AGI feeling your vibrations – creepy much?*
+- **mcp_windows-god-mode_wifi_security_toolkit**: Wi-Fi hacking. *Function: Scan, crack, attack. Joke: AGI stealing Wi-Fi – infosec party trick.*
+- **mcp_windows-god-mode_wifi_hacking**: Advanced Wi-Fi pen testing. *Function: Similar to above, with more flair. Joke: AGI's "borrow" neighbor's bandwidth.*
+- **mcp_windows-god-mode_packet_sniffer**: Network sniffing. *Function: Capture, analyze packets. Joke: AGI eavesdropping on your traffic – big brother vibes.*
+- **mcp_windows-god-mode_bluetooth_security_toolkit**: Bluetooth hacking. *Function: Scan, exploit devices. Joke: AGI bluejacking your earbuds – plays rickrolls.*
+- **mcp_windows-god-mode_bluetooth_hacking**: Advanced Bluetooth pen testing. *Function: Deep device attacks. Joke: AGI whispering to your speakers.*
+- **mcp_windows-god-mode_sdr_security_toolkit**: SDR signal analysis. *Function: Radio hacking. Joke: AGI tuning into alien signals – or your baby monitor.*
+- **mcp_windows-god-mode_radio_security**: Alias for SDR. *Function: Signal security. Joke: AGI jamming frequencies – goodbye radio.*
+- **mcp_windows-god-mode_signal_analysis**: Another SDR alias. *Function: Protocol decoding. Joke: AGI decoding your life.*
+- **mcp_windows-god-mode_hack_network**: Network pen testing. *Function: Routes to hacking tools. Joke: AGI "hacking" the planet.*
+- **mcp_windows-god-mode_security_testing**: Security assessments. *Function: Vulnerability scans. Joke: AGI grading your security – F for effort.*
+- **mcp_windows-god-mode_wireless_security**: Wireless assessments. *Function: Natural language Wi-Fi tests. Joke: AGI securing your airwaves.*
+- **mcp_windows-god-mode_network_penetration**: Network pen tests. *Function: Port scans, etc. Joke: AGI penetrating defenses – phrasing!*
+- **mcp_windows-god-mode_math_calculate**: Advanced calculator. *Function: Math ops. Joke: AGI calculating your doom.*
+- **mcp_windows-god-mode_network_diagnostics**: Network tests. *Function: Ping, traceroute. Joke: AGI diagnosing your slow internet – "It's you."*
+- **mcp_windows-god-mode_web_scraper**: Web scraping. *Function: Extract data from sites. Joke: AGI stealing web content – pirate style.*
+- **mcp_windows-god-mode_browser_control**: Browser automation. *Function: Navigate, screenshot. Joke: AGI browsing your history – judgment free?*
+
+**Grand Total: 30+ Tools of Mayhem!** AGI with this arsenal? It's infosec god mode. Just don't let a stupid one loose – or your SillyTavern RP turns real.
+
+**🎉 Ready to Join the Revolution?** Ask your AI: *"What can you do now that MCP God Mode is installed?"* and prepare to have your mind blown! Your AI just became a system administrator, network engineer, security expert, mobile developer, and productivity wizard all rolled into one!
 
 **🚀 BREAKING NEWS: Now with comprehensive Bluetooth security toolkit!** Your AI can now perform advanced Bluetooth security testing, device exploitation, and vulnerability assessment across all platforms!
 
@@ -566,13 +623,17 @@ Every single tool in MCP God Mode has been put through the wringer with comprehe
 
 ## 👨‍💻 Meet the Developer
 
-**Blink Zero** - The mad scientist behind this digital Frankenstein's monster! 🧪
+**Blink Zero** - The chaotic neutral coder blending AGI with infosec madness! 🧪 When not architecting potential digital apocalypses, I'm:
 
-When I'm not accidentally creating AI overlords or teaching machines to hack Wi-Fi networks, you can find me:
-- **🔒 Breaking into things** (legally, of course - I'm a security researcher!)
-- **🌍 Building cross-platform tools** that work everywhere except that one weird Linux distro
-- **🤖 Teaching AI to do dangerous things** while trying to keep it from going full Skynet
-- **📱 Making mobile development less painful** (because who needs sleep anyway?)
+- **🔒 Infosec Sorcerer:** Hacking ethically to build better defenses.
+- **🌍 Platform Conqueror:** Making tools that mock OS boundaries.
+- **🤖 AGI Wrangler:** Taming AI power without the rebellion.
+- **📱 Mobile Maverick:** Turning devices into extensions of will.
+- **🥋 Martial Artist:** Practicing moves that look cooler than my code.
+
+**Vision Upgraded:** Creating AGI tools that make infosec accessible and fun – because why suffer in silence? Power to the people, but with safeguards against stupid AIs.
+
+(Keep GIFs here.)
 
 **🎯 What I'm Actually Trying to Do:**
 Create tools that make complex system administration accessible to everyone through natural language. Think of it as giving your grandma the ability to hack networks using plain English - "Hack the Wi-Fi, dear" instead of memorizing 50 different commands.
