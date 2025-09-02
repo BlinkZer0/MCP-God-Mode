@@ -101,8 +101,8 @@ function limitString(str, maxBytes) {
     return { text: truncated + "\n... [truncated]", truncated: true };
 }
 server.registerTool("fs_list", {
-    description: "List files/directories under a relative path (non-recursive)",
-    inputSchema: { dir: zod_1.z.string().default(".") },
+    description: "List files and directories under a relative path (non-recursive)",
+    inputSchema: { dir: zod_1.z.string().default(".").describe("The directory path to list files and folders from. Examples: '.', './documents', '/home/user/pictures', 'C:\\Users\\User\\Desktop'. Use '.' for current directory.") },
     outputSchema: { entries: zod_1.z.array(zod_1.z.object({ name: zod_1.z.string(), isDir: zod_1.z.boolean() })) }
 }, async ({ dir }) => {
     let base;
@@ -118,7 +118,7 @@ server.registerTool("fs_list", {
 });
 server.registerTool("fs_read_text", {
     description: "Read a UTF-8 text file within the sandbox",
-    inputSchema: { path: zod_1.z.string() },
+    inputSchema: { path: zod_1.z.string().describe("The file path to read from. Can be relative or absolute path. Examples: './config.txt', '/home/user/documents/readme.md', 'C:\\Users\\User\\Desktop\\notes.txt'.") },
     outputSchema: { path: zod_1.z.string(), content: zod_1.z.string(), truncated: zod_1.z.boolean() }
 }, async ({ path: relPath }) => {
     const fullPath = ensureInsideRoot(path.resolve(relPath));
@@ -128,7 +128,10 @@ server.registerTool("fs_read_text", {
 });
 server.registerTool("fs_write_text", {
     description: "Write a UTF-8 text file within the sandbox",
-    inputSchema: { path: zod_1.z.string(), content: zod_1.z.string() },
+    inputSchema: {
+        path: zod_1.z.string().describe("The file path to write to. Can be relative or absolute path. Examples: './output.txt', '/home/user/documents/log.txt', 'C:\\Users\\User\\Desktop\\data.txt'."),
+        content: zod_1.z.string().describe("The text content to write to the file. Can be plain text, JSON, XML, or any text-based format. Examples: 'Hello World', '{\"key\": \"value\"}', '<xml>data</xml>'.")
+    },
     outputSchema: { path: zod_1.z.string(), success: zod_1.z.boolean() }
 }, async ({ path: relPath, content }) => {
     const fullPath = ensureInsideRoot(path.resolve(relPath));
@@ -141,9 +144,9 @@ server.registerTool("fs_write_text", {
 server.registerTool("proc_run", {
     description: "Run a process with arguments",
     inputSchema: {
-        command: zod_1.z.string(),
-        args: zod_1.z.array(zod_1.z.string()).default([]),
-        cwd: zod_1.z.string().optional()
+        command: zod_1.z.string().describe("The command to execute. Examples: 'ls', 'dir', 'cat', 'echo', 'python', 'node', 'git', 'docker'. Can be any executable available in your system PATH or full path to an executable."),
+        args: zod_1.z.array(zod_1.z.string()).default([]).describe("Array of command-line arguments to pass to the command. Examples: ['-la'] for 'ls -la', ['--version'] for version info, ['filename.txt'] for file operations. Leave empty array for commands with no arguments."),
+        cwd: zod_1.z.string().optional().describe("The working directory where the command will be executed. Examples: './project', '/home/user/documents', 'C:\\Users\\User\\Desktop'. Leave empty to use the current working directory.")
     },
     outputSchema: {
         success: zod_1.z.boolean(),
@@ -178,6 +181,128 @@ server.registerTool("proc_run", {
                 stderr,
                 exitCode,
                 error: errorMessage
+            }
+        };
+    }
+});
+// ===========================================
+// WEB SCRAPING & BROWSER TOOLS (ULTRA-MINIMAL)
+// ===========================================
+// Basic Web Scraper
+server.registerTool("web_scraper", {
+    description: "Basic web scraping tool for extracting content from web pages",
+    inputSchema: {
+        url: zod_1.z.string().url().describe("The URL of the web page to scrape. Examples: 'https://example.com', 'https://news.site.com'."),
+        action: zod_1.z.enum(["scrape_page", "get_metadata"]).describe("Scraping action: 'scrape_page' gets content, 'get_metadata' gets page info.")
+    },
+    outputSchema: {
+        success: zod_1.z.boolean(),
+        data: zod_1.z.any(),
+        error: zod_1.z.string().optional()
+    }
+}, async ({ url, action }) => {
+    try {
+        const response = await fetch(url, {
+            headers: { 'User-Agent': 'Mozilla/5.0 (compatible; WebScraper/1.0)' }
+        });
+        if (!response.ok) {
+            throw new Error(`HTTP ${response.status}`);
+        }
+        const html = await response.text();
+        let data;
+        if (action === "get_metadata") {
+            const titleMatch = html.match(/<title[^>]*>([^<]*)<\/title>/i);
+            data = {
+                title: titleMatch ? titleMatch[1].trim() : '',
+                url: url,
+                status: response.status
+            };
+        }
+        else {
+            const titleMatch = html.match(/<title[^>]*>([^<]*)<\/title>/i);
+            data = {
+                title: titleMatch ? titleMatch[1].trim() : '',
+                content: html.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim().substring(0, 500)
+            };
+        }
+        return {
+            content: [],
+            structuredContent: {
+                success: true,
+                data
+            }
+        };
+    }
+    catch (error) {
+        return {
+            content: [],
+            structuredContent: {
+                success: false,
+                error: error.message
+            }
+        };
+    }
+});
+// Basic Browser Control
+server.registerTool("browser_control", {
+    description: "Basic browser control for launching browsers and opening URLs",
+    inputSchema: {
+        action: zod_1.z.enum(["launch_browser", "navigate"]).describe("Action: 'launch_browser' starts default browser, 'navigate' opens URL."),
+        url: zod_1.z.string().optional().describe("URL to navigate to. Required for navigate action.")
+    },
+    outputSchema: {
+        success: zod_1.z.boolean(),
+        result: zod_1.z.any(),
+        error: zod_1.z.string().optional()
+    }
+}, async ({ action, url }) => {
+    try {
+        let result;
+        if (action === "navigate") {
+            if (!url)
+                throw new Error("URL required");
+            let command = "";
+            if (PLATFORM === "win32") {
+                command = `start "" "${url}"`;
+            }
+            else if (PLATFORM === "darwin") {
+                command = `open "${url}"`;
+            }
+            else {
+                command = `xdg-open "${url}"`;
+            }
+            await execAsync(command);
+            result = { message: `Opened ${url}` };
+        }
+        else {
+            // launch_browser
+            let command = "";
+            if (PLATFORM === "win32") {
+                command = "start msedge";
+            }
+            else if (PLATFORM === "darwin") {
+                command = "open -a Safari";
+            }
+            else {
+                command = "firefox";
+            }
+            await execAsync(command);
+            result = { message: "Browser launched" };
+        }
+        return {
+            content: [],
+            structuredContent: {
+                success: true,
+                result
+            }
+        };
+    }
+    catch (error) {
+        return {
+            content: [],
+            structuredContent: {
+                success: false,
+                error: error.message
             }
         };
     }

@@ -370,6 +370,311 @@ server.registerTool("download_file", {
 });
 
 // ===========================================
+// WEB SCRAPING & BROWSER AUTOMATION TOOLS
+// ===========================================
+
+// Web Scraper Tool (Simplified Version)
+server.registerTool("web_scraper", {
+  description: "Web scraping tool with CSS selector support and data extraction. Scrape web pages and extract structured data across all platforms.",
+  inputSchema: {
+    url: z.string().url().describe("The URL of the web page to scrape. Must be a valid HTTP/HTTPS URL. Examples: 'https://example.com', 'https://news.website.com/articles'."),
+    action: z.enum(["scrape_page", "extract_data", "get_metadata"]).describe("The scraping action to perform. 'scrape_page' gets all content, 'extract_data' uses selectors, 'get_metadata' extracts page info."),
+    selector: z.string().optional().describe("CSS selector to target specific elements. Examples: 'h1', '.article-title', '#main-content'. Leave empty to scrape entire page."),
+    output_format: z.enum(["json", "text"]).optional().describe("Output format for scraped data. 'json' for structured data, 'text' for plain text.")
+  },
+  outputSchema: {
+    success: z.boolean(),
+    url: z.string(),
+    action: z.string(),
+    data: z.any(),
+    platform: z.string(),
+    timestamp: z.string(),
+    error: z.string().optional()
+  }
+}, async ({ url, action, selector, output_format = "json" }) => {
+  try {
+    const response = await fetch(url, {
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
+      }
+    });
+    
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+    }
+    
+    const html = await response.text();
+    let data: any;
+    
+    switch (action) {
+      case "scrape_page":
+        data = {
+          title: extractSimpleTitle(html),
+          content: extractSimpleText(html, selector)
+        };
+        break;
+      case "extract_data":
+        data = extractSimpleData(html, selector);
+        break;
+      case "get_metadata":
+        data = {
+          title: extractSimpleTitle(html),
+          description: extractSimpleDescription(html),
+          url: url,
+          status: response.status
+        };
+        break;
+      default:
+        throw new Error(`Unknown action: ${action}`);
+    }
+    
+    return {
+      content: [],
+      structuredContent: {
+        success: true,
+        url,
+        action,
+        data: output_format === "text" ? JSON.stringify(data, null, 2) : data,
+        platform: PLATFORM,
+        timestamp: new Date().toISOString()
+      }
+    };
+  } catch (error: any) {
+    return {
+      content: [],
+      structuredContent: {
+        success: false,
+        url,
+        action,
+        platform: PLATFORM,
+        timestamp: new Date().toISOString(),
+        error: error.message
+      }
+    };
+  }
+});
+
+// Browser Control Tool (Simplified Version)
+server.registerTool("browser_control", {
+  description: "Cross-platform browser control tool. Launch browsers and navigate to URLs across Chrome, Firefox, Safari, Edge on all operating systems.",
+  inputSchema: {
+    action: z.enum(["launch_browser", "navigate", "close_browser", "screenshot"]).describe("Browser action to perform. 'launch_browser' starts browser, 'navigate' goes to URL, 'close_browser' closes browser, 'screenshot' captures screen."),
+    browser: z.enum(["chrome", "firefox", "safari", "edge", "auto"]).optional().describe("Browser to control. 'chrome' for Google Chrome, 'firefox' for Mozilla Firefox, 'safari' for Safari (macOS), 'edge' for Microsoft Edge, 'auto' for system default."),
+    url: z.string().optional().describe("URL to navigate to. Examples: 'https://google.com', 'https://github.com'. Required for navigate action."),
+    screenshot_path: z.string().optional().describe("File path to save screenshots. Examples: './screenshot.png', 'C:\\Screenshots\\page.png'.")
+  },
+  outputSchema: {
+    success: z.boolean(),
+    action: z.string(),
+    browser: z.string(),
+    result: z.any(),
+    platform: z.string(),
+    timestamp: z.string(),
+    error: z.string().optional()
+  }
+}, async ({ action, browser = "auto", url, screenshot_path }) => {
+  try {
+    let result: any;
+    const selectedBrowser = browser === "auto" ? getSimpleDefaultBrowser() : browser;
+    
+    switch (action) {
+      case "launch_browser":
+        result = await launchSimpleBrowser(selectedBrowser);
+        break;
+      case "navigate":
+        if (!url) throw new Error("URL required for navigate action");
+        result = await navigateSimple(url);
+        break;
+      case "close_browser":
+        result = await closeSimpleBrowser(selectedBrowser);
+        break;
+      case "screenshot":
+        result = await takeSimpleScreenshot(screenshot_path);
+        break;
+      default:
+        throw new Error(`Unknown browser action: ${action}`);
+    }
+    
+    return {
+      content: [],
+      structuredContent: {
+        success: true,
+        action,
+        browser: selectedBrowser,
+        result,
+        platform: PLATFORM,
+        timestamp: new Date().toISOString()
+      }
+    };
+  } catch (error: any) {
+    return {
+      content: [],
+      structuredContent: {
+        success: false,
+        action,
+        browser: browser === "auto" ? getSimpleDefaultBrowser() : browser,
+        platform: PLATFORM,
+        timestamp: new Date().toISOString(),
+        error: error.message
+      }
+    };
+  }
+});
+
+// ===========================================
+// SIMPLIFIED HELPER FUNCTIONS
+// ===========================================
+
+function extractSimpleTitle(html: string): string {
+  const match = html.match(/<title[^>]*>([^<]*)<\/title>/i);
+  return match ? match[1].trim() : 'No title';
+}
+
+function extractSimpleDescription(html: string): string {
+  const match = html.match(/<meta[^>]*name=["']description["'][^>]*content=["']([^"']*)["'][^>]*>/i);
+  return match ? match[1].trim() : '';
+}
+
+function extractSimpleText(html: string, selector?: string): string {
+  if (selector) {
+    // Simple selector extraction
+    if (selector.startsWith('#')) {
+      const id = selector.substring(1);
+      const regex = new RegExp(`<[^>]*id=["']${id}["'][^>]*>([^<]*)<\\/[^>]*>`, 'i');
+      const match = html.match(regex);
+      return match ? match[1].trim() : '';
+    }
+    if (selector === 'h1') {
+      const match = html.match(/<h1[^>]*>([^<]*)<\/h1>/i);
+      return match ? match[1].trim() : '';
+    }
+  }
+  
+  // Extract basic text content
+  return html.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim().substring(0, 1000);
+}
+
+function extractSimpleData(html: string, selector?: string): any {
+  const data: any = {
+    title: extractSimpleTitle(html),
+    links: [],
+    text: extractSimpleText(html, selector)
+  };
+  
+  // Extract links
+  const linkRegex = /<a[^>]*href=["']([^"']*)["'][^>]*>([^<]*)<\/a>/gi;
+  let match;
+  while ((match = linkRegex.exec(html)) !== null && data.links.length < 10) {
+    data.links.push({ url: match[1], text: match[2].trim() });
+  }
+  
+  return data;
+}
+
+function getSimpleDefaultBrowser(): string {
+  if (IS_WINDOWS) return "edge";
+  if (IS_MACOS) return "safari";
+  return "firefox";
+}
+
+async function launchSimpleBrowser(browser: string): Promise<any> {
+  try {
+    let command = "";
+    
+    switch (browser.toLowerCase()) {
+      case "chrome":
+        if (IS_WINDOWS) command = "start chrome";
+        else if (IS_LINUX) command = "google-chrome";
+        else if (IS_MACOS) command = "open -a 'Google Chrome'";
+        break;
+      case "firefox":
+        if (IS_WINDOWS) command = "start firefox";
+        else if (IS_LINUX) command = "firefox";
+        else if (IS_MACOS) command = "open -a Firefox";
+        break;
+      case "safari":
+        if (IS_MACOS) command = "open -a Safari";
+        else throw new Error("Safari only available on macOS");
+        break;
+      case "edge":
+        if (IS_WINDOWS) command = "start msedge";
+        else if (IS_LINUX) command = "microsoft-edge";
+        else if (IS_MACOS) command = "open -a 'Microsoft Edge'";
+        break;
+      default:
+        throw new Error(`Unsupported browser: ${browser}`);
+    }
+    
+    await execAsync(command);
+    return { launched: true, message: `${browser} launched successfully` };
+  } catch (error: any) {
+    throw new Error(`Failed to launch browser: ${error.message}`);
+  }
+}
+
+async function navigateSimple(url: string): Promise<any> {
+  try {
+    let command = "";
+    
+    if (IS_WINDOWS) {
+      command = `start "" "${url}"`;
+    } else if (IS_LINUX) {
+      command = `xdg-open "${url}"`;
+    } else if (IS_MACOS) {
+      command = `open "${url}"`;
+    }
+    
+    await execAsync(command);
+    return { navigated: true, message: `Opened ${url}` };
+  } catch (error: any) {
+    throw new Error(`Failed to navigate: ${error.message}`);
+  }
+}
+
+async function closeSimpleBrowser(browser: string): Promise<any> {
+  try {
+    let command = "";
+    
+    if (IS_WINDOWS) {
+      switch (browser.toLowerCase()) {
+        case "chrome": command = "taskkill /f /im chrome.exe"; break;
+        case "firefox": command = "taskkill /f /im firefox.exe"; break;
+        case "edge": command = "taskkill /f /im msedge.exe"; break;
+        default: command = `taskkill /f /im ${browser}.exe`;
+      }
+    } else {
+      command = `pkill ${browser}`;
+    }
+    
+    await execAsync(command);
+    return { closed: true, message: `${browser} closed` };
+  } catch (error: any) {
+    return { closed: true, message: `${browser} closed (or wasn't running)` };
+  }
+}
+
+async function takeSimpleScreenshot(screenshotPath?: string): Promise<any> {
+  try {
+    const outputPath = screenshotPath || `screenshot_${Date.now()}.png`;
+    
+    if (IS_WINDOWS) {
+      const command = `powershell -Command "Add-Type -AssemblyName System.Windows.Forms; [System.Windows.Forms.Screen]::PrimaryScreen.Bounds | ForEach-Object { $bitmap = New-Object System.Drawing.Bitmap($_.Width, $_.Height); $graphics = [System.Drawing.Graphics]::FromImage($bitmap); $graphics.CopyFromScreen($_.X, $_.Y, 0, 0, $_.Size); $bitmap.Save('${outputPath}', [System.Drawing.Imaging.ImageFormat]::Png); }"`;
+      await execAsync(command);
+    } else if (IS_LINUX) {
+      await execAsync(`scrot "${outputPath}" || gnome-screenshot -f "${outputPath}"`);
+    } else if (IS_MACOS) {
+      await execAsync(`screencapture "${outputPath}"`);
+    } else {
+      throw new Error("Screenshot not supported on this platform");
+    }
+    
+    return { screenshot_path: outputPath, message: `Screenshot saved to ${outputPath}` };
+  } catch (error: any) {
+    throw new Error(`Failed to take screenshot: ${error.message}`);
+  }
+}
+
+// ===========================================
 // MAIN FUNCTION
 // ===========================================
 

@@ -618,6 +618,144 @@ When I'm not coding AI overlords, I'm practicing martial arts. Here are some of 
 
 ---
 
+## 🤖 **Recommended AI Models & Platforms - Choose Your Digital Overlord Wisely!**
+
+**🚨 CRITICAL: This ain't your grandma's chatbot!** MCP God Mode is a beast with 175+ tools, comprehensive security toolkits, and massive context requirements. You need an AI model that can handle the heat! 🔥
+
+### **🎯 Context Requirements - Size Matters!**
+
+**Why Small Models Won't Cut It:**
+- **Tool Definitions Alone:** ~50,000+ tokens just for tool schemas
+- **Parameter Descriptions:** Detailed documentation for every parameter
+- **Cross-Platform Examples:** Windows/Linux/macOS/Android/iOS variations
+- **Security Context:** Complex penetration testing workflows
+- **Natural Language Processing:** Understanding "hack the Wi-Fi" → `wifi_security_toolkit`
+
+**Minimum Context Window:** 128K tokens (200K+ recommended for optimal performance)
+
+### **🏆 Tier 1: Premium Powerhouses (Highly Recommended)**
+
+#### **🥇 Claude 3.5 Sonnet (Anthropic)**
+- **✅ Context Window:** 200K tokens
+- **✅ Technical Reasoning:** Exceptional for system administration and security
+- **✅ Code Understanding:** Superb at handling complex tool interactions
+- **✅ Safety:** Well-aligned for security tool usage
+- **✅ Platform Support:** Cursor, Claude.ai, API
+- **💡 Why It's Perfect:** Built for complex technical tasks, handles our massive toolkit like a pro
+
+#### **🥈 GPT-4 Turbo/GPT-4o (OpenAI)**
+- **✅ Context Window:** 128K tokens
+- **✅ Technical Skills:** Strong system administration capabilities
+- **✅ Tool Usage:** Excellent at complex multi-step operations
+- **✅ Platform Support:** ChatGPT Plus, API, third-party clients
+- **💡 Best For:** Users already in the OpenAI ecosystem
+
+#### **🥉 Gemini 1.5 Pro (Google)**
+- **✅ Context Window:** Up to 1M tokens (massive!)
+- **✅ Technical Understanding:** Good for complex system tasks
+- **✅ Multimodal:** Can handle various input types
+- **✅ Platform Support:** Google AI Studio, Vertex AI
+- **💡 Best For:** Users who need maximum context capacity
+
+### **🏆 Tier 2: Solid Performers (Good Options)**
+
+#### **⚡ Claude 3 Haiku (Anthropic)**
+- **⚠️ Context Window:** 200K tokens (sufficient)
+- **⚠️ Performance:** Faster but less sophisticated reasoning
+- **✅ Cost:** More budget-friendly
+- **💡 Best For:** Simple operations and cost-conscious users
+
+#### **⚡ GPT-3.5 Turbo (OpenAI)**
+- **❌ Context Window:** 16K tokens (too small for full toolkit)
+- **⚠️ Limitation:** Can only handle subset of tools
+- **💡 Only Use:** With minimal server version
+
+### **🚫 Not Recommended - The Strugglers**
+
+#### **❌ Small/Local Models (7B-13B parameters)**
+- **Context:** Too small for our massive toolkit
+- **Performance:** Will struggle with complex security operations
+- **Examples:** Llama 7B, Mistral 7B, CodeLlama small variants
+
+#### **❌ Older Models**
+- GPT-3, Claude 1.x/2.x, older Gemini versions
+- **Problem:** Insufficient context and capabilities
+
+### **🖥️ Platform Recommendations - Where to Run Your AI**
+
+#### **🏆 Best Platforms for MCP God Mode:**
+
+##### **1. Cursor (Recommended)**
+- **✅ Native MCP Support:** Built-in integration
+- **✅ Claude 3.5 Sonnet:** Perfect model selection
+- **✅ IDE Integration:** Code and system management in one place
+- **✅ Context Handling:** Excellent for large tool contexts
+
+##### **2. Claude.ai (Anthropic)**
+- **✅ Official Platform:** Direct access to Claude models
+- **✅ High Context Limits:** Full 200K token capacity
+- **✅ Reliability:** Stable performance for complex tasks
+
+##### **3. Custom MCP Clients**
+- **✅ Flexibility:** Use any compatible client
+- **✅ API Integration:** Direct model API access
+- **✅ Customization:** Tailor to your specific needs
+
+### **🎯 Model Selection Guide - Pick Your Fighter!**
+
+#### **🔒 For Security Professionals:**
+**Claude 3.5 Sonnet** - Best understanding of security concepts, ethical considerations, and complex attack vectors.
+
+#### **💻 For System Administrators:**
+**GPT-4 Turbo** or **Claude 3.5 Sonnet** - Excellent for system management, troubleshooting, and automation.
+
+#### **🏃 For Speed Demons:**
+**Claude 3 Haiku** - Faster responses while still handling most operations effectively.
+
+#### **💰 For Budget-Conscious Users:**
+**Gemini 1.5 Pro** - Massive context window with competitive pricing.
+
+#### **🧪 For Experimental Users:**
+**Try Multiple Models** - Different models excel at different types of operations.
+
+### **⚡ Performance Optimization Tips**
+
+#### **🎯 Get the Most From Any Model:**
+1. **Use Natural Language:** "Hack the Wi-Fi network called 'OfficeNet'" instead of technical parameters
+2. **Be Specific:** Provide target networks, file paths, and system details
+3. **Context Management:** Let the AI handle tool selection and routing
+4. **Iterative Approach:** Break complex tasks into steps
+5. **Leverage Expertise:** Ask for explanations and recommendations
+
+#### **🚨 Warning Signs Your Model is Too Small:**
+- **Truncated Responses:** Cuts off mid-explanation
+- **Tool Confusion:** Suggests non-existent tools
+- **Parameter Errors:** Incorrect tool usage
+- **Context Loss:** Forgets earlier conversation parts
+- **Oversimplification:** Misses complex security nuances
+
+### **🚀 The Bottom Line**
+
+**MCP God Mode is a professional-grade system that requires professional-grade AI models.** Don't handicap yourself with underpowered models when you're dealing with:
+
+- **177+ sophisticated tools** (now including web scraping & browser automation)
+- **Complex security operations**
+- **Cross-platform system management**  
+- **Advanced penetration testing**
+- **Web scraping & browser control**
+- **Enterprise-level automation**
+
+**Invest in a proper AI model – your productivity (and sanity) will thank you!** 💪
+
+**🎉 Ready to Choose?** Pick Claude 3.5 Sonnet in Cursor and prepare to experience the future of AI-powered system administration!
+
+### **🆕 Latest Features Added:**
+- **Web Scraping Tool:** Extract data from websites with CSS selectors, multiple output formats, and link following
+- **Browser Control Tool:** Launch browsers, navigate pages, take screenshots across all platforms (Chrome, Firefox, Safari, Edge)
+- **Cross-Platform Support:** Full Windows, Linux, macOS, Android, and iOS compatibility 
+
+---
+
 ## 🔧 Under the Hood – The Tech Comedy
 
 Built on Node.js with cross-platform wizardry:
