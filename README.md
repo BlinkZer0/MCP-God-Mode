@@ -70,7 +70,7 @@ This MCP can do wild stuff:
 
 **🚀 Why This is GAME-CHANGING:**
 
-- **🎯 One-Stop Solution:** 43 tools with 300+ operations covering system management, security, and mobile access.
+- **🎯 One-Stop Solution:** 44 tools with 300+ operations covering system management, security, and mobile access.
 - **🌍 True Cross-Platform:** Works seamlessly on Windows, Linux, macOS, Android, and iOS with intelligent auto-detection
 - **🤖 AI-Powered Intelligence:** Your AI executes commands with context awareness.
 - **⚡ Proactive Problem Solving:** Supports predictive maintenance and automated fixes
@@ -79,7 +79,7 @@ This MCP can do wild stuff:
 
 **The Competition:** This MCP uniquely combines AI with system control across platforms including mobile.
 
-**🎉 Ready to Join the Revolution?** Ask your AI: *"What can you do now that MCP God Mode is installed?"* and prepare to have your mind completely blown! Your AI just became the ultimate system administrator, network engineer, security expert, mobile developer, and productivity wizard – all rolled into one incredibly powerful package with 43 tools and 300+ operations!
+**🎉 Ready to Join the Revolution?** Ask your AI: *"What can you do now that MCP God Mode is installed?"* and prepare to have your mind completely blown! Your AI just became the ultimate system administrator, network engineer, security expert, mobile developer, and productivity wizard – all rolled into one incredibly powerful package with 44 tools and 300+ operations!
 
 ## 🎯 All the Features – With Hilarious Commentary
 
@@ -171,9 +171,9 @@ Here's the full arsenal (based on the MCP's capabilities). I've included humorou
 
 ## 🛠️ Complete Tool Arsenal - The AGI Infosec Playground!
 
-**🚀 WARNING: 43 Tools of Absolute Power!** Handing this to AGI is like giving a toddler the nuclear codes – fun in theory, disastrous in practice. Joke: In infosec, this is the equivalent of arming Skynet with dad jokes. Don't give access to a dumb AI; it'll probably just DDoS itself. And your girlfriend on SillyTavern? She might "roleplay" your system into oblivion!
+**🚀 WARNING: 44 Tools of Absolute Power!** Handing this to AGI is like giving a toddler the nuclear codes – fun in theory, disastrous in practice. Joke: In infosec, this is the equivalent of arming Skynet with dad jokes. Don't give access to a dumb AI; it'll probably just DDoS itself. And your girlfriend on SillyTavern? She might "roleplay" your system into oblivion!
 
-**📊 Tool Count Clarification:** This MCP provides **43 unique tools**, each with multiple actions that expand functionality. The 300+ operations represent the total actions available across all tools.
+**📊 Tool Count Clarification:** This MCP provides **44 unique tools**, each with multiple actions that expand functionality. The 300+ operations represent the total actions available across all tools.
 
 ## 🔐 **AUTOMATIC ELEVATED PERMISSIONS - The Game Changer!**
 
@@ -259,9 +259,12 @@ These are the mcp_mcp-god-mode_ tools – where AGI gets scary powerful.
 - **mcp_mcp-god-mode_browser_control**: Browser automation. *Function: Navigate, screenshot. Joke: AGI browsing your history – judgment free?*
 - **mcp_mcp-god-mode_system_restore**: System restore and backup management. *Function: Create restore points, backup configs, rollback systems. Joke: AGI as your digital time machine – "Let's go back to when your system wasn't broken!"*
 
-**Grand Total: 43 Tools of Mayhem!** AGI with this arsenal? It's infosec god mode. Just don't let a stupid one loose – or your SillyTavern RP turns real.
+**Grand Total: 44 Tools of Mayhem!** AGI with this arsenal? It's infosec god mode. Just don't let a stupid one loose – or your SillyTavern RP turns real.
 
-**🎉 Ready to Join the Revolution?** Ask your AI: *"What can you do now that MCP God Mode is installed?"* and prepare to have your mind blown! Your AI just became a system administrator, network engineer, security expert, mobile developer, and productivity wizard all rolled into one with 43 tools and 250+ operations!
+**🎲 NEW: Dice Rolling Tool - Gamble with Your AI Compadre!** 
+*"Roll a d20 to see if I get admin privileges!"* 😄 Your AI can now roll any sided dice, multiple dice, and apply modifiers. Perfect for settling disputes over who gets control of the computer! **Cross-platform support across Windows, Linux, macOS, Android, and iOS** - because gambling should work everywhere! 🎯
+
+**🎉 Ready to Join the Revolution?** Ask your AI: *"What can you do now that MCP God Mode is installed?"* and prepare to have your mind blown! Your AI just became a system administrator, network engineer, security expert, mobile developer, and productivity wizard all rolled into one with 44 tools and 250+ operations!
 
 **🚀 BREAKING NEWS: Now with comprehensive Bluetooth security toolkit!** Your AI can now perform advanced Bluetooth security testing, device exploitation, and vulnerability assessment across all platforms!
 
@@ -501,6 +504,7 @@ Here's the complete arsenal, organized by superpower category:
 - `signal_analysis` - Signal analysis and protocol decoding using natural language
 
 **Natural Language Examples:**
+- **🎲 Dice Rolling:** "Roll a d20", "Roll 3d6+5", "Roll 2d100-10"
 - **Wi-Fi:** "Hack the Wi-Fi network", "Crack the password", "Create an evil twin attack"
 - **Bluetooth:** "Hack the Bluetooth speaker", "Extract data from device", "Test pairing security"
 - **Radio:** "Analyze radio signals", "Decode ADS-B", "Scan frequencies for threats"
@@ -529,6 +533,30 @@ Here's the complete arsenal, organized by superpower category:
 - **🔵 Bluetooth Security:** 30+ tools for device discovery, service enumeration, and vulnerability assessment  
 - **📡 SDR Security:** 56+ tools for radio frequency analysis, signal processing, and protocol decoding
 - **🚀 Total Wireless Tools: 111+ specialized security and analysis tools**
+
+### 🎲 **NEW: Dice Rolling Tool - Gamble with Your AI Compadre!**
+*"Roll a d20 to see if I get admin privileges!"* 😄
+
+**🎯 What It Does:**
+- **Roll any sided dice:** From d2 to d1000+ (limited only by your imagination!)
+- **Multiple dice support:** Roll 3d6, 5d20, or any combination you want
+- **Modifiers:** Add +5, -2, or any modifier to your rolls
+- **Cross-platform:** Works on Windows, Linux, macOS, Android, and iOS
+- **Perfect for:** Settling disputes over computer control, D&D sessions, or just having fun with your AI!
+
+**🎲 Example Usage:**
+- **"Roll a d6"** → Single six-sided die
+- **"Roll 3d20+5"** → Three twenty-sided dice plus 5
+- **"Roll 2d100-10"** → Two hundred-sided dice minus 10
+- **"Roll 10d4"** → Ten four-sided dice
+
+**🤖 AI Gambling Scenarios:**
+- *"Roll a d20 to see if I get admin privileges!"*
+- *"Roll 2d6 to determine how many files I can delete!"*
+- *"Roll a d100 to see if I can access your camera!"*
+- *"Roll 3d10+5 to decide your system's fate!"*
+
+**⚠️ Warning:** Your AI might start challenging you to dice rolls for every system operation. "Want me to delete that file? Roll a d20 first!" 😅
 
 ### 📱 **Mobile Platform Tools (29 Tools)**
 
@@ -600,11 +628,12 @@ Here's the complete arsenal, organized by superpower category:
 - **Compression:** gzip, bzip2, xz with configurable levels
 - **Encryption:** AES-256 with password protection
 
-### 🧮 **Advanced Mathematics & Calculations (4 Tools)**
+### 🧮 **Advanced Mathematics & Calculations (5 Tools)**
 - `calculator` with basic expressions - Simple mathematical calculations
 - `calculator` with advanced functions - Scientific functions and complex expressions
 - `math_calculate` with basic math - Mathematical operations using mathjs
 - `math_calculate` with advanced functions - Power operations, roots, trigonometric functions
+- `dice_rolling` - Roll dice with various configurations and get random numbers. Supports any sided dice, multiple dice, and modifiers. **🎲 Now you can gamble with your AI compadre for control over your computer!** *"Roll a d20 to see if I get admin privileges!"* 😄
 
 **Supported Operations:**
 - Basic arithmetic (+, -, *, /, ^)
@@ -651,7 +680,7 @@ Here's the complete arsenal, organized by superpower category:
 
 ---
 
-## 🎉 **THE GRAND TOTAL: 43 Tools, 300+ Operations!**
+## 🎉 **THE GRAND TOTAL: 44 Tools, 300+ Operations!**
 
 **This is absolutely unprecedented!** No other MCP comes close to this level of comprehensive functionality. You've got everything from basic file operations to advanced AI-powered system management, all wrapped in cross-platform magic that works seamlessly across Windows, Linux, macOS, Android, and iOS.
 
@@ -666,7 +695,7 @@ Here's the complete arsenal, organized by superpower category:
 - **📡 SDR Security & Signal Analysis:** 3 tools (with 56+ actions)
 - **🗣️ Natural Language Access Tools:** 8 tools
 - **📱 Mobile Platform Tools:** 4 tools (with 29+ actions)
-- **🧮 Advanced Mathematics & Calculations:** 2 tools
+- **🧮 Advanced Mathematics & Calculations:** 5 tools
 - **🔧 Development & Version Control:** 1 tool
 - **🌐 Network Tools:** 2 tools (with 20+ actions)
 
@@ -687,7 +716,7 @@ Every single tool in MCP God Mode has been put through the wringer with comprehe
 - **Integration Testing:** Tool interactions and dependency management
 
 **🎯 Testing Results:**
-- **100% Tool Coverage:** All 43 tools tested and verified working
+- **100% Tool Coverage:** All 44 tools tested and verified working
 - **Zero Half-Implemented Features:** Every feature is complete and functional
 - **Comprehensive Error Handling:** Graceful failures with informative messages
 - **Cross-Platform Validation:** Tested on all supported operating systems
@@ -844,7 +873,7 @@ When I'm not coding AI overlords, I'm practicing martial arts. Here are some of 
 
 ## 🤖 **Recommended AI Models & Platforms - Choose Your Digital Overlord Wisely!**
 
-**🚨 CRITICAL: This ain't your grandma's chatbot!** MCP God Mode is a beast with 43 tools and 300+ operations, comprehensive security toolkits, and massive context requirements. You need an AI model that can handle the heat! 🔥
+**🚨 CRITICAL: This ain't your grandma's chatbot!** MCP God Mode is a beast with 44 tools and 300+ operations, comprehensive security toolkits, and massive context requirements. You need an AI model that can handle the heat! 🔥
 
 ### **🎯 Context Requirements - Size Matters!**
 
@@ -863,7 +892,7 @@ When I'm not coding AI overlords, I'm practicing martial arts. Here are some of 
 **Choose your server based on your AI model's capabilities:**
 
 #### **🔥 Full-Featured Server (`server-refactored.ts`)**
-- **Tools:** 43 tools with 300+ operations
+- **Tools:** 44 tools with 300+ operations
 - **Context Required:** 200K+ tokens (400K+ recommended)
 - **Server Size:** 633KB compiled, 13,603 lines
 - **Best For:** Claude 3.5 Sonnet, Gemini 1.5 Pro, GPT-4 Turbo (limited)
@@ -989,7 +1018,7 @@ When I'm not coding AI overlords, I'm practicing martial arts. Here are some of 
 **Based on your AI model, here's what to install:**
 
 #### **🎯 For Claude 3.5 Sonnet Users:**
-- **Best Choice:** Full server (43 tools, 300+ operations)
+- **Best Choice:** Full server (44 tools, 300+ operations)
 - **Alternative:** Minimal server (25 tools, 50+ operations) for faster performance
 - **Command:** `npm run install:full` or `npm run install:minimal`
 
@@ -1005,11 +1034,11 @@ When I'm not coding AI overlords, I'm practicing martial arts. Here are some of 
 
 #### **🎯 For Claude 3 Haiku Users:**
 - **Best Choice:** Minimal server (25 tools, 50+ operations)
-- **Alternative:** Full server (43 tools, 300+ operations) if you need everything
+- **Alternative:** Full server (44 tools, 300+ operations) if you need everything
 - **Command:** `npm run install:minimal` or `npm run install:full`
 
 #### **🎯 For Gemini 1.5 Pro Users:**
-- **Best Choice:** Full server (43 tools, 300+ operations)
+- **Best Choice:** Full server (44 tools, 300+ operations)
 - **Alternative:** Any server version - you have massive context capacity!
 - **Command:** `npm run install:full` (recommended)
 
@@ -1045,7 +1074,8 @@ When I'm not coding AI overlords, I'm practicing martial arts. Here are some of 
 **🎉 Ready to Choose?** Pick Claude 3.5 Sonnet in Cursor and prepare to experience the future of AI-powered system administration!
 
 ### **🆕 Latest Features Added:**
-- **Multiple Server Versions:** Choose from Full (43 tools), Minimal (25 tools), or Ultra-Minimal (15 tools) based on your AI model's capabilities
+- **🎲 Dice Rolling Tool:** Roll any sided dice, multiple dice, and apply modifiers. **Now you can gamble with your AI compadre for control over your computer!** Cross-platform support across all 5 platforms.
+- **Multiple Server Versions:** Choose from Full (44 tools), Minimal (25 tools), or Ultra-Minimal (15 tools) based on your AI model's capabilities
 - **Web Scraping Tool:** Extract data from websites with CSS selectors, multiple output formats, and link following
 - **Browser Control Tool:** Launch browsers, navigate pages, take screenshots across all platforms (Chrome, Firefox, Safari, Edge)  
 - **Mobile Device Tools:** Complete mobile support with file operations, system management, and hardware access
@@ -1171,12 +1201,12 @@ Before using in production, ensure you have:
 
 ## 🎊 **Welcome to the Future of AI System Administration!**
 
-**You've just installed the most powerful AI system management tool ever created!** With 43 revolutionary tools and 250+ operations, plus true cross-platform support including mobile platforms, your AI assistant has been transformed into a digital superpower that can handle any system task across Windows, Linux, macOS, Android, and iOS.
+**You've just installed the most powerful AI system management tool ever created!** With 44 revolutionary tools and 250+ operations, plus true cross-platform support including mobile platforms, your AI assistant has been transformed into a digital superpower that can handle any system task across Windows, Linux, macOS, Android, and iOS.
 
 **🌟 What Makes This Special:**
 - **First-of-its-kind:** Nothing like this exists anywhere else
 - **Complete cross-platform support:** Works flawlessly on all major operating systems and mobile platforms
-- **43 comprehensive tools with 250+ operations:** From basic file operations to advanced AI-powered system management including VM, Docker, mobile operations, and comprehensive security toolkits
+- **44 comprehensive tools with 250+ operations:** From basic file operations to advanced AI-powered system management including VM, Docker, mobile operations, and comprehensive security toolkits
 - **Natural language interface:** Just ask your AI what you need – no commands to memorize!
 - **Universal accessibility:** Complex security tools accessible to everyone through natural language
 - **Rigorously tested:** Every tool has been battle-tested across multiple platforms
@@ -1190,6 +1220,7 @@ Ask your AI: *"What can you do now that MCP God Mode is installed?"* and watch a
 - Access mobile hardware and sensors
 - Perform advanced mathematical calculations
 - Monitor networks and security
+- **🎲 Roll dice and gamble for computer control!** *"Roll a d20 to see if I get admin privileges!"*
 - **Hack Wi-Fi networks using natural language**
 - **Break into Bluetooth devices with plain English**
 - **Analyze radio signals through conversation**
@@ -1339,7 +1370,7 @@ Instead of remembering technical commands, just ask naturally:
 **Choose the version that fits your needs:**
 
 ### **🚀 Full-Featured Version (`server-refactored.ts`)**
-- **All 43 tools with 300+ operations** including comprehensive security toolkits
+- **All 44 tools with 300+ operations** including comprehensive security toolkits
 - Full cross-platform support (Windows, Linux, macOS, Android, iOS)
 - Complete Wi-Fi, Bluetooth, and SDR security toolkits
 - Mobile platform tools and hardware access
@@ -1405,9 +1436,323 @@ Instead of remembering technical commands, just ask naturally:
 - `mobile_system_tools` with actions: `processes`, `services`, `network`, `storage`, `users`, `packages`, `permissions`, `system_info`
 - `mobile_hardware` with actions: `check_availability`, `get_status`, `request_permission`, `get_data`, `control` (features: camera, location, biometrics, bluetooth, nfc, sensors, notifications, audio, vibration)
 
-### **🧮 Mathematics (4 Tools)**
+### **🧮 Mathematics (5 Tools)**
 - `calculator` - Basic and advanced calculations
 - `math_calculate` - Scientific functions
+- `dice_rolling` - Roll dice with various configurations and get random numbers. Supports any sided dice, multiple dice, and modifiers. **🎲 Now you can gamble with your AI compadre for control over your computer!** *"Roll a d20 to see if I get admin privileges!"* 😄
+
+### **🔧 Development (1 Tool)**
+- `git_status` - Git operations
+
+### **🌐 Network (5 Tools)**
+- `network_diagnostics` with actions: `ping`, `traceroute`, `dns`, `port_scan`
+- `packet_sniffer` with 16 actions: `start_capture`, `stop_capture`, `get_captured_packets`, `analyze_traffic`, `filter_by_protocol`, `filter_by_ip`, `filter_by_port`, `get_statistics`, `export_pcap`, `monitor_bandwidth`, `detect_anomalies`, `capture_http`, `capture_dns`, `capture_tcp`, `capture_udp`, `capture_icmp`
+
+### **💾 System Restore (1 Tool)**
+- `system_restore` with 20 actions: `create_restore_point`, `list_restore_points`, `restore_system`, `backup_config`, `restore_config`, `list_backups`, `cleanup_old_backups`, `test_backup_integrity`, `export_backup`, `import_backup`, `schedule_backup`, `cancel_scheduled_backup`, `get_backup_status`, `optimize_backup_storage`, `verify_backup_completeness`, `create_bootable_backup`, `emergency_restore`, `backup_encryption`, `backup_compression`, `backup_verification`, `backup_rotation`
+
+---
+
+*MCP God Mode - Because sometimes you need an AI that can do everything, everywhere, all at once! 🚀*
+
+---
+
+## 🛠️ **Modular Tools System - Build Your Own Custom Server!**
+
+**🚀 NEW: Extract Individual Tools and Build Custom Servers!** MCP God Mode now includes a revolutionary modular architecture that allows you to:
+
+1. **Extract individual tools easily** - Each tool is now a separate module
+2. **Build custom servers** - Create servers with only the tools you need
+3. **Maintain full functionality** - All tools work exactly as before
+4. **Scale efficiently** - Add or remove tools without affecting others
+
+### 🏗️ **Modular Architecture Benefits**
+
+- **🎯 Customization** - Build servers with only the tools you need
+- **⚡ Performance** - Smaller servers load faster and use less memory
+- **🔧 Maintenance** - Easier to understand and modify specific tools
+- **🚀 Deployment** - Deploy specialized servers for different use cases
+- **🔒 Security** - Deploy minimal servers with required functionality only
+
+### 🚀 **Quick Start - Build Custom Servers**
+
+#### **1. Use Predefined Configurations**
+```bash
+# Email-only server
+npm run build:email-only
+
+# Minimal server  
+npm run build:minimal
+
+# Core-only server
+npm run build:core-only
+
+# Custom configuration
+npm run build:custom
+```
+
+#### **2. Build Custom Servers with Specific Tools**
+```bash
+# Build a server with only email tools
+node build-server.js health system_info send_email parse_email
+
+# Build a minimal server
+node build-server.js health system_info fs_list send_email parse_email
+
+# Build a security-focused server
+node build-server.js health system_info wifi_security_toolkit bluetooth_security_toolkit
+
+# Build with custom name and output file
+node build-server.js health system_info send_email my-email-server.ts "Email Server"
+```
+
+### 📁 **Available Tool Modules**
+
+#### **✅ Core Tools (Ready to Use)**
+- `health` - System health check
+- `system_info` - System information
+- `fs_list` - List files and directories
+
+#### **✅ Email Tools (Ready to Use)**
+- `send_email` - Send emails via SMTP
+- `parse_email` - Parse email content
+
+#### **🚧 Security Tools (Coming Soon)**
+- `wifi_security_toolkit` - Wi-Fi security testing
+- `bluetooth_security_toolkit` - Bluetooth security testing
+- `sdr_security_toolkit` - Radio frequency security
+
+#### **🚧 Mobile Tools (Coming Soon)**
+- `mobile_device_info` - Mobile device information
+- `mobile_file_ops` - Mobile file operations
+- `mobile_system_tools` - Mobile system management
+- `mobile_hardware` - Mobile hardware access
+
+#### **🚧 Network Tools (Coming Soon)**
+- `network_diagnostics` - Network testing
+- `packet_sniffer` - Packet capture and analysis
+
+#### **🚧 Virtualization Tools (Coming Soon)**
+- `vm_management` - Virtual machine management
+- `docker_management` - Docker container management
+
+#### **🚧 Utility Tools (Coming Soon)**
+- `calculator` - Mathematical calculations
+- `math_calculate` - Advanced math functions
+- `dice_rolling` - Roll dice with various configurations and get random numbers. **🎲 Now you can gamble with your AI compadre for control over your computer!** 😄
+- `git_status` - Git operations
+- `web_scraper` - Web scraping
+- `browser_control` - Browser automation
+- `system_restore` - System backup and restore
+
+### 🔧 **How to Use Individual Tools in Your Own Server**
+
+#### **1. Extract Tools from MCP God Mode**
+Each tool is now a separate TypeScript module that you can:
+- Import into your own projects
+- Modify and customize
+- Combine with other tools
+- Deploy independently
+
+#### **2. Import Individual Tools**
+```typescript
+// Import specific tools
+import { registerHealth } from "./tools/core/health.js";
+import { registerSendEmail } from "./tools/email/send_email.js";
+import { registerFsList } from "./tools/file_system/fs_list.js";
+
+// Register with your MCP server
+const server = new McpServer({ name: "my-custom-server", version: "1.0.0" });
+
+registerHealth(server);
+registerSendEmail(server);
+registerFsList(server);
+```
+
+#### **3. Create Your Own Tool Categories**
+```typescript
+// tools/my_category/my_tool.ts
+import { z } from "zod";
+import { PLATFORM } from "../../config/environment.js";
+
+export function registerMyTool(server: any) {
+  server.registerTool("my_tool", {
+    description: "Description of what this tool does",
+    inputSchema: {
+      param1: z.string().describe("Description of parameter 1"),
+      param2: z.number().describe("Description of parameter 2")
+    },
+    outputSchema: {
+      success: z.boolean().describe("Whether the operation succeeded"),
+      result: z.string().describe("The result of the operation"),
+      platform: z.string().describe("Platform where the tool was executed"),
+      timestamp: z.string().describe("When the operation was performed")
+    }
+  }, async ({ param1, param2 }) => {
+    try {
+      // Your tool logic here
+      const result = `Processed ${param1} with value ${param2}`;
+      
+      return {
+        content: [],
+        structuredContent: {
+          success: true,
+          result,
+          platform: PLATFORM,
+          timestamp: new Date().toISOString()
+        }
+      };
+    } catch (error: any) {
+      return {
+        content: [],
+        structuredContent: {
+          success: false,
+          error: error.message,
+          platform: PLATFORM,
+          timestamp: new Date().toISOString()
+        }
+      };
+    }
+  });
+}
+```
+
+### 📊 **Server Configuration Options**
+
+#### **Full Server (server-refactored.ts)**
+- **Tools**: All 43 tools with 250+ operations
+- **Use Case**: Complete functionality, development, testing
+- **Size**: Large, comprehensive
+
+#### **Minimal Server (server-minimal.ts)**
+- **Tools**: Core + essential tools
+- **Use Case**: Production deployment, limited functionality
+- **Size**: Medium, focused
+
+#### **Ultra-Minimal Server (server-ultra-minimal.ts)**
+- **Tools**: Core tools only
+- **Use Case**: Embedded systems, resource-constrained environments
+- **Size**: Small, lightweight
+
+#### **Custom Server (Your Choice!)**
+- **Tools**: User-selected tools
+- **Use Case**: Specific requirements, specialized deployments
+- **Size**: Variable, tailored
+
+### 🎯 **Use Cases for Custom Servers**
+
+#### **Email-Only Server**
+```bash
+node build-server.js health system_info send_email parse_email
+```
+**Use Case**: Email management applications, notification systems
+
+#### **Security Testing Server**
+```bash
+node build-server.js health system_info wifi_security_toolkit bluetooth_security_toolkit
+```
+**Use Case**: Security audits, penetration testing, vulnerability assessment
+
+#### **Mobile Development Server**
+```bash
+node build-server.js health system_info mobile_device_info mobile_file_ops
+```
+**Use Case**: Mobile app development, device testing, mobile automation
+
+#### **Minimal Production Server**
+```bash
+node build-server.js health system_info fs_list send_email
+```
+**Use Case**: Production deployments, resource-constrained environments
+
+### 📚 **Documentation and Resources**
+
+- **📖 Tools Documentation**: `docs/tools-README.md` - Complete guide for the modular system
+- **🔧 Build System**: `docs/MODULAR_REFACTORING_SUMMARY.md` - Technical implementation details
+- **📁 Source Code**: `src/tools/` - Individual tool modules
+- **🚀 Build Script**: `build-server.js` - Custom server generator
+
+### 🚨 **Important Notes**
+
+- **✅ All existing servers continue to work** - No breaking changes
+- **✅ Tool functionality is identical** - Same inputs, outputs, and behavior
+- **✅ Performance is maintained** - No degradation in tool performance
+- **✅ No migration required** - Existing deployments continue to work
+- **✅ Gradual adoption** - Use modular system for new deployments
+
+---
+
+## 📦 **Available Server Versions**
+
+### **🚀 Full-Featured Version (`server-refactored.ts`)**
+- **All 43 tools with 250+ operations** including comprehensive security toolkits
+- Full cross-platform support (Windows, Linux, macOS, Android, iOS)
+- Complete Wi-Fi, Bluetooth, and SDR security toolkits
+- Mobile platform tools and hardware access
+- Natural language interface for all tools
+- **Recommended for:** Power users, security professionals, developers
+
+### **⚡ Minimal Version (`server-minimal.ts`)**
+- **Core 10 tools** for basic system operations
+- Essential file operations, process management, and system info
+- **System restore with 4 actions:** create_restore_point, list_restore_points, restore_system, backup_config
+- Cross-platform compatibility
+- **Recommended for:** Basic system administration, lightweight deployments
+
+### **🔧 Ultra-Minimal Version (`server-ultra-minimal.ts`)**
+- **Essential 6 tools** for basic functionality
+- **System restore with 2 actions:** create_restore_point, backup_config
+- Minimal resource usage
+- Core system operations only
+- **Recommended for:** Embedded systems, resource-constrained environments
+
+**All versions maintain the same high-quality cross-platform support and security features!**
+
+## 🔍 **Complete Tool Reference - Quick Lookup**
+
+**Need to find a specific tool? Here's your complete reference:**
+
+### **🖥️ Core System (2 Tools)**
+- `health` - System health check
+- `system_info` - Complete system information
+
+### **📁 File Operations (26 Tools)**
+- **Basic (6):** `fs_list`, `fs_read_text`, `fs_write_text`, `fs_search`, `download_file`
+- **Advanced (20):** `file_ops` with actions: `list`, `get_info`, `create_dir`, `create_file`, `copy`, `move`, `delete`, `get_size`, `get_permissions`, `list_recursive`, `find_by_content`, `compress`, `decompress`, `chmod`, `chown`, `symlink`, `hardlink`, `watch`, `unwatch`, `set_permissions`, `compare_files`
+
+### **⚙️ Process & Services (3 Tools)**
+- `proc_run` - Run processes
+- `win_services` - Service management
+- `win_processes` - Process management
+
+### **🖥️ Virtualization (3 Tools)**
+- `vm_management` with actions: `list_hypervisors`, `list_vms`, `vm_info`
+
+### **🐳 Docker (6 Tools)**
+- `docker_management` with actions: `docker_version`, `docker_info`, `list_containers`, `list_images`, `list_networks`, `list_volumes`
+
+### **🔒 Wi-Fi Security (25+ Tools)**
+- `wifi_security_toolkit` with actions: `scan_networks`, `capture_handshake`, `capture_pmkid`, `sniff_packets`, `monitor_clients`, `crack_hash`, `dictionary_attack`, `brute_force_attack`, `rainbow_table_attack`, `create_rogue_ap`, `evil_twin_attack`, `phishing_capture`, `credential_harvest`, `wps_attack`, `pixie_dust_attack`, `deauth_attack`, `fragmentation_attack`, `router_scan`, `iot_enumeration`, `vulnerability_scan`, `exploit_router`, `analyze_captures`, `generate_report`, `export_results`, `cleanup_traces`
+
+### **🔵 Bluetooth Security (30+ Tools)**
+- `bluetooth_security_toolkit` with actions: `scan_devices`, `discover_services`, `enumerate_characteristics`, `scan_profiles`, `detect_devices`, `connect_device`, `pair_device`, `force_pairing`, `bypass_pairing`, `test_authentication`, `test_authorization`, `test_encryption`, `test_integrity`, `test_privacy`, `bluejacking_attack`, `bluesnarfing_attack`, `bluebugging_attack`, `car_whisperer`, `key_injection`, `extract_contacts`, `extract_calendar`, `extract_messages`, `extract_files`, `extract_audio`, `exploit_vulnerabilities`, `inject_commands`, `modify_firmware`, `bypass_security`, `escalate_privileges`, `monitor_traffic`, `capture_packets`, `analyze_protocols`, `detect_anomalies`, `log_activities`, `generate_report`, `export_results`, `cleanup_traces`, `restore_devices`
+
+### **📡 SDR Security (56+ Tools)**
+- `sdr_security_toolkit` with actions: `detect_sdr_hardware`, `list_sdr_devices`, `test_sdr_connection`, `configure_sdr`, `calibrate_sdr`, `receive_signals`, `scan_frequencies`, `capture_signals`, `record_audio`, `record_iq_data`, `analyze_signals`, `detect_modulation`, `decode_protocols`, `identify_transmissions`, `scan_wireless_spectrum`, `detect_unauthorized_transmissions`, `monitor_radio_traffic`, `capture_radio_packets`, `analyze_radio_security`, `test_signal_strength`, `decode_ads_b`, `decode_pocsag`, `decode_aprs`, `decode_ais`, `decode_ads_c`, `decode_ads_s`, `decode_tcas`, `decode_mlat`, `decode_radar`, `decode_satellite`, `test_jamming_resistance`, `analyze_interference`, `measure_signal_quality`, `test_spectrum_occupancy`, `detect_signal_spoofing`, `analyze_frequency_hopping`, `scan_mobile_networks`, `analyze_cellular_signals`, `test_iot_radio_security`, `detect_unauthorized_devices`, `monitor_radio_communications`, `test_radio_privacy`, `spectrum_analysis`, `waterfall_analysis`, `time_domain_analysis`, `frequency_domain_analysis`, `correlation_analysis`, `pattern_recognition`, `anomaly_detection`, `trend_analysis`, `export_captured_data`, `save_recordings`, `generate_reports`, `backup_data`, `cleanup_temp_files`, `archive_results`, `broadcast_signals`, `transmit_audio`, `transmit_data`, `jam_frequencies`, `create_interference`, `test_transmission_power`, `calibrate_transmitter`, `test_antenna_pattern`, `measure_coverage`
+
+### **🗣️ Natural Language (8+ Tools)**
+- `hack_network`, `security_testing`, `wifi_hacking`, `wireless_security`, `network_penetration`, `bluetooth_hacking`, `radio_security`, `signal_analysis`
+
+### **📱 Mobile Platform (29 Tools)**
+- `mobile_device_info` - Device information
+- `mobile_file_ops` with actions: `list`, `copy`, `move`, `delete`, `create`, `get_info`, `search`, `compress`, `decompress`
+- `mobile_system_tools` with actions: `processes`, `services`, `network`, `storage`, `users`, `packages`, `permissions`, `system_info`
+- `mobile_hardware` with actions: `check_availability`, `get_status`, `request_permission`, `get_data`, `control` (features: camera, location, biometrics, bluetooth, nfc, sensors, notifications, audio, vibration)
+
+### **🧮 Mathematics (5 Tools)**
+- `calculator` - Basic and advanced calculations
+- `math_calculate` - Scientific functions
+- `dice_rolling` - Roll dice with various configurations and get random numbers. Supports any sided dice, multiple dice, and modifiers. **🎲 Now you can gamble with your AI compadre for control over your computer!** *"Roll a d20 to see if I get admin privileges!"* 😄
 
 ### **🔧 Development (1 Tool)**
 - `git_status` - Git operations
@@ -1716,320 +2061,10 @@ node build-server.js health system_info fs_list send_email
 - `mobile_system_tools` with actions: `processes`, `services`, `network`, `storage`, `users`, `packages`, `permissions`, `system_info`
 - `mobile_hardware` with actions: `check_availability`, `get_status`, `request_permission`, `get_data`, `control` (features: camera, location, biometrics, bluetooth, nfc, sensors, notifications, audio, vibration)
 
-### **🧮 Mathematics (4 Tools)**
+### **🧮 Mathematics (5 Tools)**
 - `calculator` - Basic and advanced calculations
 - `math_calculate` - Scientific functions
-
-### **🔧 Development (1 Tool)**
-- `git_status` - Git operations
-
-### **🌐 Network (5 Tools)**
-- `network_diagnostics` with actions: `ping`, `traceroute`, `dns`, `port_scan`
-- `packet_sniffer` with 16 actions: `start_capture`, `stop_capture`, `get_captured_packets`, `analyze_traffic`, `filter_by_protocol`, `filter_by_ip`, `filter_by_port`, `get_statistics`, `export_pcap`, `monitor_bandwidth`, `detect_anomalies`, `capture_http`, `capture_dns`, `capture_tcp`, `capture_udp`, `capture_icmp`
-
-### **💾 System Restore (1 Tool)**
-- `system_restore` with 20 actions: `create_restore_point`, `list_restore_points`, `restore_system`, `backup_config`, `restore_config`, `list_backups`, `cleanup_old_backups`, `test_backup_integrity`, `export_backup`, `import_backup`, `schedule_backup`, `cancel_scheduled_backup`, `get_backup_status`, `optimize_backup_storage`, `verify_backup_completeness`, `create_bootable_backup`, `emergency_restore`, `backup_encryption`, `backup_compression`, `backup_verification`, `backup_rotation`
-
----
-
-*MCP God Mode - Because sometimes you need an AI that can do everything, everywhere, all at once! 🚀*
-
----
-
-## 🛠️ **Modular Tools System - Build Your Own Custom Server!**
-
-**🚀 NEW: Extract Individual Tools and Build Custom Servers!** MCP God Mode now includes a revolutionary modular architecture that allows you to:
-
-1. **Extract individual tools easily** - Each tool is now a separate module
-2. **Build custom servers** - Create servers with only the tools you need
-3. **Maintain full functionality** - All tools work exactly as before
-4. **Scale efficiently** - Add or remove tools without affecting others
-
-### 🏗️ **Modular Architecture Benefits**
-
-- **🎯 Customization** - Build servers with only the tools you need
-- **⚡ Performance** - Smaller servers load faster and use less memory
-- **🔧 Maintenance** - Easier to understand and modify specific tools
-- **🚀 Deployment** - Deploy specialized servers for different use cases
-- **🔒 Security** - Deploy minimal servers with required functionality only
-
-### 🚀 **Quick Start - Build Custom Servers**
-
-#### **1. Use Predefined Configurations**
-```bash
-# Email-only server
-npm run build:email-only
-
-# Minimal server  
-npm run build:minimal
-
-# Core-only server
-npm run build:core-only
-
-# Custom configuration
-npm run build:custom
-```
-
-#### **2. Build Custom Servers with Specific Tools**
-```bash
-# Build a server with only email tools
-node build-server.js health system_info send_email parse_email
-
-# Build a minimal server
-node build-server.js health system_info fs_list send_email parse_email
-
-# Build a security-focused server
-node build-server.js health system_info wifi_security_toolkit bluetooth_security_toolkit
-
-# Build with custom name and output file
-node build-server.js health system_info send_email my-email-server.ts "Email Server"
-```
-
-### 📁 **Available Tool Modules**
-
-#### **✅ Core Tools (Ready to Use)**
-- `health` - System health check
-- `system_info` - System information
-- `fs_list` - List files and directories
-
-#### **✅ Email Tools (Ready to Use)**
-- `send_email` - Send emails via SMTP
-- `parse_email` - Parse email content
-
-#### **🚧 Security Tools (Coming Soon)**
-- `wifi_security_toolkit` - Wi-Fi security testing
-- `bluetooth_security_toolkit` - Bluetooth security testing
-- `sdr_security_toolkit` - Radio frequency security
-
-#### **🚧 Mobile Tools (Coming Soon)**
-- `mobile_device_info` - Mobile device information
-- `mobile_file_ops` - Mobile file operations
-- `mobile_system_tools` - Mobile system management
-- `mobile_hardware` - Mobile hardware access
-
-#### **🚧 Network Tools (Coming Soon)**
-- `network_diagnostics` - Network testing
-- `packet_sniffer` - Packet capture and analysis
-
-#### **🚧 Virtualization Tools (Coming Soon)**
-- `vm_management` - Virtual machine management
-- `docker_management` - Docker container management
-
-#### **🚧 Utility Tools (Coming Soon)**
-- `calculator` - Mathematical calculations
-- `math_calculate` - Advanced math functions
-- `git_status` - Git operations
-- `web_scraper` - Web scraping
-- `browser_control` - Browser automation
-- `system_restore` - System backup and restore
-
-### 🔧 **How to Use Individual Tools in Your Own Server**
-
-#### **1. Extract Tools from MCP God Mode**
-Each tool is now a separate TypeScript module that you can:
-- Import into your own projects
-- Modify and customize
-- Combine with other tools
-- Deploy independently
-
-#### **2. Import Individual Tools**
-```typescript
-// Import specific tools
-import { registerHealth } from "./tools/core/health.js";
-import { registerSendEmail } from "./tools/email/send_email.js";
-import { registerFsList } from "./tools/file_system/fs_list.js";
-
-// Register with your MCP server
-const server = new McpServer({ name: "my-custom-server", version: "1.0.0" });
-
-registerHealth(server);
-registerSendEmail(server);
-registerFsList(server);
-```
-
-#### **3. Create Your Own Tool Categories**
-```typescript
-// tools/my_category/my_tool.ts
-import { z } from "zod";
-import { PLATFORM } from "../../config/environment.js";
-
-export function registerMyTool(server: any) {
-  server.registerTool("my_tool", {
-    description: "Description of what this tool does",
-    inputSchema: {
-      param1: z.string().describe("Description of parameter 1"),
-      param2: z.number().describe("Description of parameter 2")
-    },
-    outputSchema: {
-      success: z.boolean().describe("Whether the operation succeeded"),
-      result: z.string().describe("The result of the operation"),
-      platform: z.string().describe("Platform where the tool was executed"),
-      timestamp: z.string().describe("When the operation was performed")
-    }
-  }, async ({ param1, param2 }) => {
-    try {
-      // Your tool logic here
-      const result = `Processed ${param1} with value ${param2}`;
-      
-      return {
-        content: [],
-        structuredContent: {
-          success: true,
-          result,
-          platform: PLATFORM,
-          timestamp: new Date().toISOString()
-        }
-      };
-    } catch (error: any) {
-      return {
-        content: [],
-        structuredContent: {
-          success: false,
-          error: error.message,
-          platform: PLATFORM,
-          timestamp: new Date().toISOString()
-        }
-      };
-    }
-  });
-}
-```
-
-### 📊 **Server Configuration Options**
-
-#### **Full Server (server-refactored.ts)**
-- **Tools**: All 43 tools with 250+ operations
-- **Use Case**: Complete functionality, development, testing
-- **Size**: Large, comprehensive
-
-#### **Minimal Server (server-minimal.ts)**
-- **Tools**: Core + essential tools
-- **Use Case**: Production deployment, limited functionality
-- **Size**: Medium, focused
-
-#### **Ultra-Minimal Server (server-ultra-minimal.ts)**
-- **Tools**: Core tools only
-- **Use Case**: Embedded systems, resource-constrained environments
-- **Size**: Small, lightweight
-
-#### **Custom Server (Your Choice!)**
-- **Tools**: User-selected tools
-- **Use Case**: Specific requirements, specialized deployments
-- **Size**: Variable, tailored
-
-### 🎯 **Use Cases for Custom Servers**
-
-#### **Email-Only Server**
-```bash
-node build-server.js health system_info send_email parse_email
-```
-**Use Case**: Email management applications, notification systems
-
-#### **Security Testing Server**
-```bash
-node build-server.js health system_info wifi_security_toolkit bluetooth_security_toolkit
-```
-**Use Case**: Security audits, penetration testing, vulnerability assessment
-
-#### **Mobile Development Server**
-```bash
-node build-server.js health system_info mobile_device_info mobile_file_ops
-```
-**Use Case**: Mobile app development, device testing, mobile automation
-
-#### **Minimal Production Server**
-```bash
-node build-server.js health system_info fs_list send_email
-```
-**Use Case**: Production deployments, resource-constrained environments
-
-### 📚 **Documentation and Resources**
-
-- **📖 Tools Documentation**: `docs/tools-README.md` - Complete guide for the modular system
-- **🔧 Build System**: `docs/MODULAR_REFACTORING_SUMMARY.md` - Technical implementation details
-- **📁 Source Code**: `src/tools/` - Individual tool modules
-- **🚀 Build Script**: `build-server.js` - Custom server generator
-
-### 🚨 **Important Notes**
-
-- **✅ All existing servers continue to work** - No breaking changes
-- **✅ Tool functionality is identical** - Same inputs, outputs, and behavior
-- **✅ Performance is maintained** - No degradation in tool performance
-- **✅ No migration required** - Existing deployments continue to work
-- **✅ Gradual adoption** - Use modular system for new deployments
-
----
-
-## 📦 **Available Server Versions**
-
-### **🚀 Full-Featured Version (`server-refactored.ts`)**
-- **All 43 tools with 250+ operations** including comprehensive security toolkits
-- Full cross-platform support (Windows, Linux, macOS, Android, iOS)
-- Complete Wi-Fi, Bluetooth, and SDR security toolkits
-- Mobile platform tools and hardware access
-- Natural language interface for all tools
-- **Recommended for:** Power users, security professionals, developers
-
-### **⚡ Minimal Version (`server-minimal.ts`)**
-- **Core 10 tools** for basic system operations
-- Essential file operations, process management, and system info
-- **System restore with 4 actions:** create_restore_point, list_restore_points, restore_system, backup_config
-- Cross-platform compatibility
-- **Recommended for:** Basic system administration, lightweight deployments
-
-### **🔧 Ultra-Minimal Version (`server-ultra-minimal.ts`)**
-- **Essential 6 tools** for basic functionality
-- **System restore with 2 actions:** create_restore_point, backup_config
-- Minimal resource usage
-- Core system operations only
-- **Recommended for:** Embedded systems, resource-constrained environments
-
-**All versions maintain the same high-quality cross-platform support and security features!**
-
-## 🔍 **Complete Tool Reference - Quick Lookup**
-
-**Need to find a specific tool? Here's your complete reference:**
-
-### **🖥️ Core System (2 Tools)**
-- `health` - System health check
-- `system_info` - Complete system information
-
-### **📁 File Operations (26 Tools)**
-- **Basic (6):** `fs_list`, `fs_read_text`, `fs_write_text`, `fs_search`, `download_file`
-- **Advanced (20):** `file_ops` with actions: `list`, `get_info`, `create_dir`, `create_file`, `copy`, `move`, `delete`, `get_size`, `get_permissions`, `list_recursive`, `find_by_content`, `compress`, `decompress`, `chmod`, `chown`, `symlink`, `hardlink`, `watch`, `unwatch`, `set_permissions`, `compare_files`
-
-### **⚙️ Process & Services (3 Tools)**
-- `proc_run` - Run processes
-- `win_services` - Service management
-- `win_processes` - Process management
-
-### **🖥️ Virtualization (3 Tools)**
-- `vm_management` with actions: `list_hypervisors`, `list_vms`, `vm_info`
-
-### **🐳 Docker (6 Tools)**
-- `docker_management` with actions: `docker_version`, `docker_info`, `list_containers`, `list_images`, `list_networks`, `list_volumes`
-
-### **🔒 Wi-Fi Security (25+ Tools)**
-- `wifi_security_toolkit` with actions: `scan_networks`, `capture_handshake`, `capture_pmkid`, `sniff_packets`, `monitor_clients`, `crack_hash`, `dictionary_attack`, `brute_force_attack`, `rainbow_table_attack`, `create_rogue_ap`, `evil_twin_attack`, `phishing_capture`, `credential_harvest`, `wps_attack`, `pixie_dust_attack`, `deauth_attack`, `fragmentation_attack`, `router_scan`, `iot_enumeration`, `vulnerability_scan`, `exploit_router`, `analyze_captures`, `generate_report`, `export_results`, `cleanup_traces`
-
-### **🔵 Bluetooth Security (30+ Tools)**
-- `bluetooth_security_toolkit` with actions: `scan_devices`, `discover_services`, `enumerate_characteristics`, `scan_profiles`, `detect_devices`, `connect_device`, `pair_device`, `force_pairing`, `bypass_pairing`, `test_authentication`, `test_authorization`, `test_encryption`, `test_integrity`, `test_privacy`, `bluejacking_attack`, `bluesnarfing_attack`, `bluebugging_attack`, `car_whisperer`, `key_injection`, `extract_contacts`, `extract_calendar`, `extract_messages`, `extract_files`, `extract_audio`, `exploit_vulnerabilities`, `inject_commands`, `modify_firmware`, `bypass_security`, `escalate_privileges`, `monitor_traffic`, `capture_packets`, `analyze_protocols`, `detect_anomalies`, `log_activities`, `generate_report`, `export_results`, `cleanup_traces`, `restore_devices`
-
-### **📡 SDR Security (56+ Tools)**
-- `sdr_security_toolkit` with actions: `detect_sdr_hardware`, `list_sdr_devices`, `test_sdr_connection`, `configure_sdr`, `calibrate_sdr`, `receive_signals`, `scan_frequencies`, `capture_signals`, `record_audio`, `record_iq_data`, `analyze_signals`, `detect_modulation`, `decode_protocols`, `identify_transmissions`, `scan_wireless_spectrum`, `detect_unauthorized_transmissions`, `monitor_radio_traffic`, `capture_radio_packets`, `analyze_radio_security`, `test_signal_strength`, `decode_ads_b`, `decode_pocsag`, `decode_aprs`, `decode_ais`, `decode_ads_c`, `decode_ads_s`, `decode_tcas`, `decode_mlat`, `decode_radar`, `decode_satellite`, `test_jamming_resistance`, `analyze_interference`, `measure_signal_quality`, `test_spectrum_occupancy`, `detect_signal_spoofing`, `analyze_frequency_hopping`, `scan_mobile_networks`, `analyze_cellular_signals`, `test_iot_radio_security`, `detect_unauthorized_devices`, `monitor_radio_communications`, `test_radio_privacy`, `spectrum_analysis`, `waterfall_analysis`, `time_domain_analysis`, `frequency_domain_analysis`, `correlation_analysis`, `pattern_recognition`, `anomaly_detection`, `trend_analysis`, `export_captured_data`, `save_recordings`, `generate_reports`, `backup_data`, `cleanup_temp_files`, `archive_results`, `broadcast_signals`, `transmit_audio`, `transmit_data`, `jam_frequencies`, `create_interference`, `test_transmission_power`, `calibrate_transmitter`, `test_antenna_pattern`, `measure_coverage`
-
-### **🗣️ Natural Language (8+ Tools)**
-- `hack_network`, `security_testing`, `wifi_hacking`, `wireless_security`, `network_penetration`, `bluetooth_hacking`, `radio_security`, `signal_analysis`
-
-### **📱 Mobile Platform (29 Tools)**
-- `mobile_device_info` - Device information
-- `mobile_file_ops` with actions: `list`, `copy`, `move`, `delete`, `create`, `get_info`, `search`, `compress`, `decompress`
-- `mobile_system_tools` with actions: `processes`, `services`, `network`, `storage`, `users`, `packages`, `permissions`, `system_info`
-- `mobile_hardware` with actions: `check_availability`, `get_status`, `request_permission`, `get_data`, `control` (features: camera, location, biometrics, bluetooth, nfc, sensors, notifications, audio, vibration)
-
-### **🧮 Mathematics (4 Tools)**
-- `calculator` - Basic and advanced calculations
-- `math_calculate` - Scientific functions
+- `dice_rolling` - Roll dice with various configurations and get random numbers. Supports any sided dice, multiple dice, and modifiers. **🎲 Now you can gamble with your AI compadre for control over your computer!** *"Roll a d20 to see if I get admin privileges!"* 😄
 
 ### **🔧 Development (1 Tool)**
 - `git_status` - Git operations

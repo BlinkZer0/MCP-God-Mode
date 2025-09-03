@@ -12,6 +12,7 @@ const logger_js_1 = require("./utils/logger.js");
 const index_js_1 = require("./tools/core/index.js");
 const index_js_2 = require("./tools/email/index.js");
 const fs_list_js_1 = require("./tools/file_system/fs_list.js");
+const index_js_3 = require("./tools/utilities/index.js");
 // Global variables for enhanced features
 let browserInstance = null;
 let webSocketServer = null;
@@ -35,10 +36,12 @@ const server = new mcp_js_1.McpServer({ name: "MCP God Mode - Modular", version:
 (0, index_js_2.registerParseEmail)(server);
 // Register file system tools
 (0, fs_list_js_1.registerFsList)(server);
+// Register utility tools
+(0, index_js_3.registerDiceRolling)(server);
 // ===========================================
 // START THE SERVER
 // ===========================================
 const transport = new stdio_js_1.StdioServerTransport();
 server.connect(transport);
 console.log("Modular MCP Server started with imported tools");
-console.log("Available tools: health, system_info, send_email, parse_email, fs_list");
+console.log("Available tools: health, system_info, send_email, parse_email, fs_list, dice_rolling");

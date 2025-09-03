@@ -30,6 +30,7 @@ import { logger, logServerStart } from "./utils/logger.js";
 import { registerHealth, registerSystemInfo } from "./tools/core/index.js";
 import { registerSendEmail, registerParseEmail } from "./tools/email/index.js";
 import { registerFsList } from "./tools/file_system/fs_list.js";
+import { registerDiceRolling } from "./tools/utilities/index.js";
 
 // Global variables for enhanced features
 let browserInstance: any = null;
@@ -62,6 +63,9 @@ registerParseEmail(server);
 // Register file system tools
 registerFsList(server);
 
+// Register utility tools
+registerDiceRolling(server);
+
 // ===========================================
 // START THE SERVER
 // ===========================================
@@ -70,4 +74,4 @@ const transport = new StdioServerTransport();
 server.connect(transport);
 
 console.log("Modular MCP Server started with imported tools");
-console.log("Available tools: health, system_info, send_email, parse_email, fs_list");
+console.log("Available tools: health, system_info, send_email, parse_email, fs_list, dice_rolling");

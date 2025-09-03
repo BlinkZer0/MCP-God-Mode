@@ -53,6 +53,96 @@ server.registerTool("system_info", {
 }));
 
 // ===========================================
+// DICE ROLLING TOOL
+// ===========================================
+
+server.registerTool("dice_rolling", {
+  description: "Roll dice with various configurations and get random numbers. Supports any sided dice, multiple dice, and modifiers.",
+  inputSchema: {
+    dice: z.string().describe("Dice notation (e.g., 'd6', '3d20', '2d10+5', 'd100'). Format: [count]d[sides][+/-modifier]"),
+    count: z.number().optional().describe("Number of times to roll (default: 1)"),
+    modifier: z.number().optional().describe("Additional modifier to apply to the final result (default: 0)")
+  },
+  outputSchema: {
+    dice: z.string(),
+    rolls: z.array(z.array(z.number())),
+    total: z.number(),
+    modifier: z.number(),
+    breakdown: z.string()
+  }
+}, async ({ dice, count = 1, modifier = 0 }) => {
+  try {
+    // Parse dice notation (e.g., "3d20+5" -> { number: 3, sides: 20, modifier: 5 })
+    const diceRegex = /^(\d+)?d(\d+)([+-]\d+)?$/;
+    const match = dice.match(diceRegex);
+    
+    if (!match) {
+      throw new Error(`Invalid dice notation: ${dice}. Use format like 'd6', '3d20', or '2d10+5'`);
+    }
+    
+    const diceNumber = match[1] ? parseInt(match[1]) : 1;
+    const diceSides = parseInt(match[2]);
+    const diceModifier = match[3] ? parseInt(match[3]) : 0;
+    
+    if (diceSides < 1) {
+      throw new Error(`Invalid dice sides: ${diceSides}. Must be at least 1.`);
+    }
+    
+    if (diceNumber < 1) {
+      throw new Error(`Invalid dice count: ${diceNumber}. Must be at least 1.`);
+    }
+    
+    // Generate random rolls
+    const rolls: number[][] = [];
+    for (let i = 0; i < count; i++) {
+      const diceRolls: number[] = [];
+      for (let j = 0; j < diceNumber; j++) {
+        // Cross-platform random number generation
+        const roll = Math.floor(Math.random() * diceSides) + 1;
+        diceRolls.push(roll);
+      }
+      rolls.push(diceRolls);
+    }
+    
+    // Calculate totals
+    const totals = rolls.map(diceRolls => 
+      diceRolls.reduce((sum, roll) => sum + roll, 0) + diceModifier + modifier
+    );
+    
+    const total = totals.reduce((sum, t) => sum + t, 0);
+    
+    // Create breakdown string
+    const breakdown = rolls.map((diceRolls, index) => {
+      const diceTotal = diceRolls.reduce((sum, roll) => sum + roll, 0) + diceModifier + modifier;
+      return `Roll ${index + 1}: [${diceRolls.join(' + ')}] + ${diceModifier + modifier} = ${diceTotal}`;
+    }).join('\n');
+    
+    return {
+      content: [],
+      structuredContent: {
+        dice: dice,
+        rolls: rolls,
+        total: total,
+        modifier: modifier + diceModifier,
+        breakdown: breakdown
+      }
+    };
+    
+  } catch (error) {
+    return {
+      content: [],
+      structuredContent: {
+        dice: dice,
+        rolls: [],
+        total: 0,
+        modifier: modifier,
+        breakdown: `Error: ${error instanceof Error ? error.message : String(error)}`
+      }
+    };
+  }
+});
+
+// ===========================================
 // ESSENTIAL FILE SYSTEM TOOLS
 // ===========================================
 
