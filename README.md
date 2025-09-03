@@ -264,6 +264,11 @@ These are the mcp_mcp-god-mode_ tools – where AGI gets scary powerful.
 **🎲 NEW: Dice Rolling Tool - Gamble with Your AI Compadre!** 
 *"Roll a d20 to see if I get admin privileges!"* 😄 Your AI can now roll any sided dice, multiple dice, and apply modifiers. Perfect for settling disputes over who gets control of the computer! **Cross-platform support across Windows, Linux, macOS, Android, and iOS** - because gambling should work everywhere! 🎯
 
+**📸 Screenshot - See the Dice Rolling Tool in Action in Cursor!**
+
+![Dice Rolling Tool in Cursor](docs/images/Screenshot 2025-09-03 162804.png)
+*Watch as MCP God Mode demonstrates the dice rolling tool in Cursor - roll any sided dice, multiple dice, and apply modifiers for the ultimate AI gambling experience!*
+
 **🎉 Ready to Join the Revolution?** Ask your AI: *"What can you do now that MCP God Mode is installed?"* and prepare to have your mind blown! Your AI just became a system administrator, network engineer, security expert, mobile developer, and productivity wizard all rolled into one with 44 tools and 250+ operations!
 
 **🚀 BREAKING NEWS: Now with comprehensive Bluetooth security toolkit!** Your AI can now perform advanced Bluetooth security testing, device exploitation, and vulnerability assessment across all platforms!
@@ -331,6 +336,17 @@ Here's the complete arsenal, organized by superpower category:
 - `docker_management` with action `list_volumes` - List Docker volumes
 
 ### 🔒 **Wi-Fi Security & Penetration Testing (25+ Tools) - Cross-Platform Support**
+
+**🎥 Video Demonstration - See the WiFi Security Tool in Action!**
+
+This demonstration shows the WiFi security tool being used in Cursor, scanning for vulnerabilities within range:
+
+<video width="100%" controls>
+  <source src="docs/images/Recording 2025-09-03 011615.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+
+*Watch as MCP God Mode scans for WiFi networks, identifies security vulnerabilities, and demonstrates real-time network analysis capabilities in Cursor!*
 - `wifi_security_toolkit` with action `scan_networks` - Discover available Wi-Fi networks across all 5 platforms
 - `wifi_security_toolkit` with action `capture_handshake` - Capture WPA/WPA2 handshakes (Linux: Full, Others: Limited)
 - `wifi_security_toolkit` with action `capture_pmkid` - Extract PMKIDs without reconnections (Linux: Full, Others: Limited)
