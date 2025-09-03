@@ -49,7 +49,7 @@ logServerStart(PLATFORM);
 // MODULAR SERVER: Imported Tools
 // ===========================================
 
-const server = new McpServer({ name: "modular-mcp-server", version: "1.0.0" });
+const server = new McpServer({ name: "MCP God Mode - Modular", version: "1.3" });
 
 // Register core tools
 registerHealth(server);

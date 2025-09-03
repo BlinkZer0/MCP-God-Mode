@@ -26,7 +26,7 @@ const execAsync = (0, node_util_1.promisify)(node_child_process_1.exec);
 // ===========================================
 // MODULAR SERVER: Imported Tools
 // ===========================================
-const server = new mcp_js_1.McpServer({ name: "modular-mcp-server", version: "1.0.0" });
+const server = new mcp_js_1.McpServer({ name: "MCP God Mode - Modular", version: "1.3" });
 // Register core tools
 (0, index_js_1.registerHealth)(server);
 (0, index_js_1.registerSystemInfo)(server);

@@ -44,7 +44,7 @@ logServerStart(PLATFORM);
 // CORE TOOLS
 // ===========================================
 
-const server = new McpServer({ name: "windows-dev-mcp", version: "1.0.0" });
+const server = new McpServer({ name: "MCP God Mode", version: "1.3" });
 
 server.registerTool("health", {
   description: "Liveness/readiness probe",

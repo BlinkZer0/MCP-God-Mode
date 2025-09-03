@@ -29,7 +29,7 @@ log('info', `MCP Server starting on ${PLATFORM}`);
 // CORE TOOLS ONLY
 // ===========================================
 
-const server = new McpServer({ name: "mcp-ultra-minimal", version: "1.0.0" });
+const server = new McpServer({ name: "MCP God Mode - Ultra-Minimal", version: "1.3" });
 
 server.registerTool("health", {
   description: "Liveness/readiness probe",

@@ -9,8 +9,8 @@ console.log('🔧 Building minimal MCP server...');
 // Step 1: Install minimal dependencies
 console.log('📦 Installing minimal dependencies...');
 const minimalPackageJson = {
-  "name": "windows-dev-mcp-minimal",
-  "version": "1.0.0",
+  "name": "mcp-god-mode-minimal",
+  "version": "1.3",
   "private": true,
   "main": "dist/server-minimal.js",
   "scripts": {

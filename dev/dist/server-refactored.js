@@ -69,7 +69,7 @@ const execAsync = (0, node_util_1.promisify)(node_child_process_1.exec);
 // ===========================================
 // CORE TOOLS
 // ===========================================
-const server = new mcp_js_1.McpServer({ name: "windows-dev-mcp", version: "1.0.0" });
+const server = new mcp_js_1.McpServer({ name: "MCP God Mode", version: "1.3" });
 server.registerTool("health", {
     description: "Liveness/readiness probe",
     outputSchema: { ok: zod_1.z.boolean(), roots: zod_1.z.array(zod_1.z.string()), cwd: zod_1.z.string() }

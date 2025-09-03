@@ -36,8 +36,8 @@ try {
 // Step 2: Create minimal package.json
 console.log('\n📝 Creating minimal package.json...');
 const minimalPackage = {
-  "name": "windows-dev-mcp-minimal",
-  "version": "1.0.0",
+  "name": "mcp-god-mode-minimal",
+  "version": "1.3",
   "private": true,
   "main": "dist/server-minimal.js",
   "scripts": {

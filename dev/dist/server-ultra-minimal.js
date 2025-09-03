@@ -60,7 +60,7 @@ log('info', `MCP Server starting on ${PLATFORM}`);
 // ===========================================
 // CORE TOOLS ONLY
 // ===========================================
-const server = new mcp_js_1.McpServer({ name: "mcp-ultra-minimal", version: "1.0.0" });
+const server = new mcp_js_1.McpServer({ name: "MCP God Mode - Ultra-Minimal", version: "1.3" });
 server.registerTool("health", {
     description: "Liveness/readiness probe",
     outputSchema: { ok: zod_1.z.boolean(), roots: zod_1.z.array(zod_1.z.string()), cwd: zod_1.z.string() }

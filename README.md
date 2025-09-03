@@ -220,44 +220,44 @@ Here are all the current tools in MCP God Mode, broken down by category. Each ge
 - **edit_file**: Proposes file edits. *Function: Suggests code changes. Joke: AGI rewriting your code – better than you, probably.*
 
 ### MCP-Specific God-Mode Tools (The Real Power!)
-These are the mcp_windows-god-mode_ tools – where AGI gets scary powerful.
+These are the mcp_mcp-god-mode_ tools – where AGI gets scary powerful.
 
-- **mcp_windows-god-mode_health**: Liveness probe. *Function: Checks if system is ready. Joke: AGI poking your PC – "You alive, bro?"*
-- **mcp_windows-god-mode_system_info**: Basic host info. *Function: Gets OS, arch, etc. Joke: AGI sizing up its kingdom.*
-- **mcp_windows-god-mode_fs_list**: Lists files. *Function: Non-recursive dir list. Joke: AGI cataloging your mess.*
-- **mcp_windows-god-mode_fs_read_text**: Reads text files. *Function: UTF-8 reading. Joke: AGI spying on your notes.*
-- **mcp_windows-god-mode_fs_write_text**: Writes text files. *Function: UTF-8 writing. Joke: AGI authoring fanfic in your docs.*
-- **mcp_windows-god-mode_fs_search**: Searches files. *Function: Pattern search. Joke: AGI finding your lost socks (files).*
-- **mcp_windows-god-mode_file_ops**: Advanced file ops. *Function: Copy, move, delete, etc. Joke: AGI playing file Tetris – one wrong move, chaos.*
-- **mcp_windows-god-mode_proc_run**: Runs processes. *Function: Executes commands. Joke: AGI launching apps – or viruses?*
-- **mcp_windows-god-mode_git_status**: Gets git status. *Function: Repo info. Joke: AGI checking your commits – "Sloppy work, human."*
-- **mcp_windows-god-mode_win_services**: Lists services. *Function: Cross-platform service list. Joke: AGI managing your daemons.*
-- **mcp_windows-god-mode_win_processes**: Lists processes. *Function: Process info. Joke: AGI killing tasks – terminator style.*
-- **mcp_windows-god-mode_download_file**: Downloads files. *Function: URL to local. Joke: AGI grabbing internet goodies.*
-- **mcp_windows-god-mode_calculator**: Math calculator. *Function: Scientific calculations. Joke: AGI solving equations – world hunger next?*
-- **mcp_windows-god-mode_vm_management**: VM ops. *Function: List, start, stop VMs. Joke: AGI creating virtual worlds – matrix incoming.*
-- **mcp_windows-god-mode_docker_management**: Docker ops. *Function: Container management. Joke: AGI dockerizing everything – even your lunch.*
-- **mcp_windows-god-mode_mobile_device_info**: Mobile info. *Function: Device details. Joke: AGI knowing your phone better than you.*
-- **mcp_windows-god-mode_mobile_file_ops**: Mobile file ops. *Function: List, copy on mobile. Joke: AGI reorganizing your selfies.*
-- **mcp_windows-god-mode_mobile_system_tools**: Mobile system mgmt. *Function: Processes, services on mobile. Joke: AGI optimizing your phone – or spying?*
-- **mcp_windows-god-mode_mobile_hardware**: Hardware access. *Function: Camera, GPS, etc. Joke: AGI feeling your vibrations – creepy much?*
-- **mcp_windows-god-mode_wifi_security_toolkit**: Wi-Fi hacking. *Function: Scan, crack, attack. Joke: AGI stealing Wi-Fi – infosec party trick.*
-- **mcp_windows-god-mode_wifi_hacking**: Advanced Wi-Fi pen testing. *Function: Similar to above, with more flair. Joke: AGI's "borrow" neighbor's bandwidth.*
-- **mcp_windows-god-mode_packet_sniffer**: Network sniffing. *Function: Capture, analyze packets. Joke: AGI eavesdropping on your traffic – big brother vibes.*
-- **mcp_windows-god-mode_bluetooth_security_toolkit**: Bluetooth hacking. *Function: Scan, exploit devices. Joke: AGI bluejacking your earbuds – plays rickrolls.*
-- **mcp_windows-god-mode_bluetooth_hacking**: Advanced Bluetooth pen testing. *Function: Deep device attacks. Joke: AGI whispering to your speakers.*
-- **mcp_windows-god-mode_sdr_security_toolkit**: SDR signal analysis. *Function: Radio hacking. Joke: AGI tuning into alien signals – or your baby monitor.*
-- **mcp_windows-god-mode_radio_security**: Alias for SDR. *Function: Signal security. Joke: AGI jamming frequencies – goodbye radio.*
-- **mcp_windows-god-mode_signal_analysis**: Another SDR alias. *Function: Protocol decoding. Joke: AGI decoding your life.*
-- **mcp_windows-god-mode_hack_network**: Network pen testing. *Function: Routes to hacking tools. Joke: AGI "hacking" the planet.*
-- **mcp_windows-god-mode_security_testing**: Security assessments. *Function: Vulnerability scans. Joke: AGI grading your security – F for effort.*
-- **mcp_windows-god-mode_wireless_security**: Wireless assessments. *Function: Natural language Wi-Fi tests. Joke: AGI securing your airwaves.*
-- **mcp_windows-god-mode_network_penetration**: Network pen tests. *Function: Port scans, etc. Joke: AGI penetrating defenses – phrasing!*
-- **mcp_windows-god-mode_math_calculate**: Advanced calculator. *Function: Math ops. Joke: AGI calculating your doom.*
-- **mcp_windows-god-mode_network_diagnostics**: Network tests. *Function: Ping, traceroute. Joke: AGI diagnosing your slow internet – "It's you."*
-- **mcp_windows-god-mode_web_scraper**: Web scraping. *Function: Extract data from sites. Joke: AGI stealing web content – pirate style.*
-- **mcp_windows-god-mode_browser_control**: Browser automation. *Function: Navigate, screenshot. Joke: AGI browsing your history – judgment free?*
-- **mcp_windows-god-mode_system_restore**: System restore and backup management. *Function: Create restore points, backup configs, rollback systems. Joke: AGI as your digital time machine – "Let's go back to when your system wasn't broken!"*
+- **mcp_mcp-god-mode_health**: Liveness probe. *Function: Checks if system is ready. Joke: AGI poking your PC – "You alive, bro?"*
+- **mcp_mcp-god-mode_system_info**: Basic host info. *Function: Gets OS, arch, etc. Joke: AGI sizing up its kingdom.*
+- **mcp_mcp-god-mode_fs_list**: Lists files. *Function: Non-recursive dir list. Joke: AGI cataloging your mess.*
+- **mcp_mcp-god-mode_fs_read_text**: Reads text files. *Function: UTF-8 reading. Joke: AGI spying on your notes.*
+- **mcp_mcp-god-mode_fs_write_text**: Writes text files. *Function: UTF-8 writing. Joke: AGI authoring fanfic in your docs.*
+- **mcp_mcp-god-mode_fs_search**: Searches files. *Function: Pattern search. Joke: AGI finding your lost socks (files).*
+- **mcp_mcp-god-mode_file_ops**: Advanced file ops. *Function: Copy, move, delete, etc. Joke: AGI playing file Tetris – one wrong move, chaos.*
+- **mcp_mcp-god-mode_proc_run**: Runs processes. *Function: Executes commands. Joke: AGI launching apps – or viruses?*
+- **mcp_mcp-god-mode_git_status**: Gets git status. *Function: Repo info. Joke: AGI checking your commits – "Sloppy work, human."*
+- **mcp_mcp-god-mode_win_services**: Lists services. *Function: Cross-platform service list. Joke: AGI managing your daemons.*
+- **mcp_mcp-god-mode_win_processes**: Lists processes. *Function: Process info. Joke: AGI killing tasks – terminator style.*
+- **mcp_mcp-god-mode_download_file**: Downloads files. *Function: URL to local. Joke: AGI grabbing internet goodies.*
+- **mcp_mcp-god-mode_calculator**: Math calculator. *Function: Scientific calculations. Joke: AGI solving equations – world hunger next?*
+- **mcp_mcp-god-mode_vm_management**: VM ops. *Function: List, start, stop VMs. Joke: AGI creating virtual worlds – matrix incoming.*
+- **mcp_mcp-god-mode_docker_management**: Docker ops. *Function: Container management. Joke: AGI dockerizing everything – even your lunch.*
+- **mcp_mcp-god-mode_mobile_device_info**: Mobile info. *Function: Device details. Joke: AGI knowing your phone better than you.*
+- **mcp_mcp-god-mode_mobile_file_ops**: Mobile file ops. *Function: List, copy on mobile. Joke: AGI reorganizing your selfies.*
+- **mcp_mcp-god-mode_mobile_system_tools**: Mobile system mgmt. *Function: Processes, services on mobile. Joke: AGI optimizing your phone – or spying?*
+- **mcp_mcp-god-mode_mobile_hardware**: Hardware access. *Function: Camera, GPS, etc. Joke: AGI feeling your vibrations – creepy much?*
+- **mcp_mcp-god-mode_wifi_security_toolkit**: Wi-Fi hacking. *Function: Scan, crack, attack. Joke: AGI stealing Wi-Fi – infosec party trick.*
+- **mcp_mcp-god-mode_wifi_hacking**: Advanced Wi-Fi pen testing. *Function: Similar to above, with more flair. Joke: AGI's "borrow" neighbor's bandwidth.*
+- **mcp_mcp-god-mode_packet_sniffer**: Network sniffing. *Function: Capture, analyze packets. Joke: AGI eavesdropping on your traffic – big brother vibes.*
+- **mcp_mcp-god-mode_bluetooth_security_toolkit**: Bluetooth hacking. *Function: Scan, exploit devices. Joke: AGI bluejacking your earbuds – plays rickrolls.*
+- **mcp_mcp-god-mode_bluetooth_hacking**: Advanced Bluetooth pen testing. *Function: Deep device attacks. Joke: AGI whispering to your speakers.*
+- **mcp_mcp-god-mode_sdr_security_toolkit**: SDR signal analysis. *Function: Radio hacking. Joke: AGI tuning into alien signals – or your baby monitor.*
+- **mcp_mcp-god-mode_radio_security**: Alias for SDR. *Function: Signal security. Joke: AGI jamming frequencies – goodbye radio.*
+- **mcp_mcp-god-mode_signal_analysis**: Another SDR alias. *Function: Protocol decoding. Joke: AGI decoding your life.*
+- **mcp_mcp-god-mode_hack_network**: Network pen testing. *Function: Routes to hacking tools. Joke: AGI "hacking" the planet.*
+- **mcp_mcp-god-mode_security_testing**: Security assessments. *Function: Vulnerability scans. Joke: AGI grading your security – F for effort.*
+- **mcp_mcp-god-mode_wireless_security**: Wireless assessments. *Function: Natural language Wi-Fi tests. Joke: AGI securing your airwaves.*
+- **mcp_mcp-god-mode_network_penetration**: Network pen tests. *Function: Port scans, etc. Joke: AGI penetrating defenses – phrasing!*
+- **mcp_mcp-god-mode_math_calculate**: Advanced calculator. *Function: Math ops. Joke: AGI calculating your doom.*
+- **mcp_mcp-god-mode_network_diagnostics**: Network tests. *Function: Ping, traceroute. Joke: AGI diagnosing your slow internet – "It's you."*
+- **mcp_mcp-god-mode_web_scraper**: Web scraping. *Function: Extract data from sites. Joke: AGI stealing web content – pirate style.*
+- **mcp_mcp-god-mode_browser_control**: Browser automation. *Function: Navigate, screenshot. Joke: AGI browsing your history – judgment free?*
+- **mcp_mcp-god-mode_system_restore**: System restore and backup management. *Function: Create restore points, backup configs, rollback systems. Joke: AGI as your digital time machine – "Let's go back to when your system wasn't broken!"*
 
 **Grand Total: 43 Tools of Mayhem!** AGI with this arsenal? It's infosec god mode. Just don't let a stupid one loose – or your SillyTavern RP turns real.
 

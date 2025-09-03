@@ -1,6 +1,6 @@
 {
-  "name": "windows-dev-mcp",
-  "version": "1.0.0",
+  "name": "mcp-god-mode",
+  "version": "1.3",
   "private": true,
   "scripts": {
     "build": "tsc -p .",
