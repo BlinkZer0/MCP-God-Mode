@@ -9,7 +9,7 @@ export function registerFsList(server: any) {
     description: "List files/directories under a relative path (non-recursive)",
     inputSchema: { dir: z.string().default(".").describe("The directory path to list files and folders from. Examples: '.', './documents', '/home/user/pictures', 'C:\\Users\\User\\Desktop'. Use '.' for current directory.") },
     outputSchema: { entries: z.array(z.object({ name: z.string(), isDir: z.boolean() })) }
-  }, async ({ dir }) => {
+  }, async ({ dir }: { dir: string }) => {
     // Try to find the directory in one of the allowed roots
     let base: string;
     try {

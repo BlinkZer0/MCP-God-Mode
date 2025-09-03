@@ -12772,34 +12772,19 @@ server.registerTool("delete_emails", {
                             });
                             return;
                         }
-                        // Delete emails
-                        if (permanent_delete) {
-                            imap.del(uidsToDelete, (err) => {
-                                if (err) {
-                                    failedCount = uidsToDelete.length;
-                                    failedUids.push(...uidsToDelete);
-                                }
-                                else {
-                                    deletedCount = uidsToDelete.length;
-                                    deletedUids.push(...uidsToDelete);
-                                }
-                                finalizeDeletion();
-                            });
-                        }
-                        else {
-                            // Move to trash by setting \Deleted flag
-                            imap.setFlags(uidsToDelete, ['\\Deleted'], (err) => {
-                                if (err) {
-                                    failedCount = uidsToDelete.length;
-                                    failedUids.push(...uidsToDelete);
-                                }
-                                else {
-                                    deletedCount = uidsToDelete.length;
-                                    deletedUids.push(...uidsToDelete);
-                                }
-                                finalizeDeletion();
-                            });
-                        }
+                        // Delete emails - use setFlags for both permanent and soft delete
+                        const flags = permanent_delete ? ['\\Deleted', '\\Seen'] : ['\\Deleted'];
+                        imap.setFlags(uidsToDelete, flags, (err) => {
+                            if (err) {
+                                failedCount = uidsToDelete.length;
+                                failedUids.push(...uidsToDelete);
+                            }
+                            else {
+                                deletedCount = uidsToDelete.length;
+                                deletedUids.push(...uidsToDelete);
+                            }
+                            finalizeDeletion();
+                        });
                     }
                     function finalizeDeletion() {
                         imap.end();

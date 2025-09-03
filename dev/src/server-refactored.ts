@@ -13279,31 +13279,18 @@ server.registerTool("delete_emails", {
               return;
             }
 
-            // Delete emails
-            if (permanent_delete) {
-              imap.del(uidsToDelete, (err) => {
-                if (err) {
-                  failedCount = uidsToDelete.length;
-                  failedUids.push(...uidsToDelete);
-                } else {
-                  deletedCount = uidsToDelete.length;
-                  deletedUids.push(...uidsToDelete);
-                }
-                finalizeDeletion();
-              });
-            } else {
-              // Move to trash by setting \Deleted flag
-              imap.setFlags(uidsToDelete, ['\\Deleted'], (err) => {
-                if (err) {
-                  failedCount = uidsToDelete.length;
-                  failedUids.push(...uidsToDelete);
-                } else {
-                  deletedCount = uidsToDelete.length;
-                  deletedUids.push(...uidsToDelete);
-                }
-                finalizeDeletion();
-              });
-            }
+            // Delete emails - use setFlags for both permanent and soft delete
+            const flags = permanent_delete ? ['\\Deleted', '\\Seen'] : ['\\Deleted'];
+            imap.setFlags(uidsToDelete, flags, (err) => {
+              if (err) {
+                failedCount = uidsToDelete.length;
+                failedUids.push(...uidsToDelete);
+              } else {
+                deletedCount = uidsToDelete.length;
+                deletedUids.push(...uidsToDelete);
+              }
+              finalizeDeletion();
+            });
           }
 
           function finalizeDeletion() {
@@ -13749,7 +13736,7 @@ server.registerTool("manage_email_accounts", {
 }, async ({ action, account_name, email_config, test_connection = true }) => {
   try {
     // In-memory storage for email accounts (in production, this would be persistent)
-    if (!global.emailAccounts) {
+    if (!(global as any).emailAccounts) {
       (global as any).emailAccounts = new Map<string, any>();
     }
     const emailAccounts = (global as any).emailAccounts;
@@ -13764,7 +13751,7 @@ server.registerTool("manage_email_accounts", {
           throw new Error(`Account '${account_name}' already exists`);
         }
 
-        const accountToAdd = {
+        const accountToAdd: any = {
           ...email_config,
           last_validated: null,
           status: 'pending'
@@ -13905,7 +13892,7 @@ server.registerTool("manage_email_accounts", {
         };
 
       case 'list':
-        const accountList = Array.from(emailAccounts.entries()).map(([name, config]) => ({
+        const accountList = Array.from(emailAccounts.entries() as Iterable<[string, any]>).map(([name, config]) => ({
           name,
           service: config.service,
           email: config.email,

@@ -38,7 +38,13 @@ export function registerParseEmail(server: any) {
       platform: z.string().describe("Platform where the email tool was executed."),
       timestamp: z.string().describe("Timestamp when the parsing operation was performed.")
     }
-  }, async ({ email_content, extract_attachments = true, extract_links = true, extract_emails = true, include_raw = false }) => {
+  }, async ({ email_content, extract_attachments = true, extract_links = true, extract_emails = true, include_raw = false }: {
+    email_content: string;
+    extract_attachments?: boolean;
+    extract_links?: boolean;
+    extract_emails?: boolean;
+    include_raw?: boolean;
+  }) => {
     try {
       const parsed = await simpleParser(email_content);
       

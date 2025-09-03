@@ -2,8 +2,8 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.registerSendEmail = registerSendEmail;
 const zod_1 = require("zod");
-const environment_js_1 = require("../../config/environment.js");
-const email_utils_js_1 = require("./email_utils.js");
+const environment_1 = require("../../config/environment");
+const email_utils_1 = require("./email_utils");
 function registerSendEmail(server) {
     server.registerTool("send_email", {
         description: "Send emails using SMTP across all platforms (Windows, Linux, macOS, Android, iOS). Supports Gmail, Outlook, Yahoo, and custom SMTP servers with proper authentication and security.",
@@ -40,21 +40,44 @@ function registerSendEmail(server) {
         }
     }, async ({ to, subject, body, html = false, from, cc, bcc, attachments, email_config }) => {
         try {
-            const transport = await (0, email_utils_js_1.getEmailTransport)(email_config);
+            // Validate email configuration
+            if (email_config.service === 'custom' && !email_config.host) {
+                throw new Error('Host is required for custom SMTP servers');
+            }
+            const transport = await (0, email_utils_1.getEmailTransport)(email_config);
+            // Build the from field
+            let fromField;
+            if (from) {
+                fromField = from;
+            }
+            else if (email_config.name) {
+                fromField = `"${email_config.name}" <${email_config.email}>`;
+            }
+            else {
+                fromField = email_config.email;
+            }
             const mailOptions = {
-                from: from || email_config.name ? `"${email_config.name}" <${email_config.email}>` : email_config.email,
+                from: fromField,
                 to,
                 subject,
-                text: html ? undefined : body,
-                html: html ? body : undefined,
                 cc,
-                bcc,
-                attachments: attachments ? attachments.map(att => ({
+                bcc
+            };
+            // Set body content based on HTML flag
+            if (html) {
+                mailOptions.html = body;
+            }
+            else {
+                mailOptions.text = body;
+            }
+            // Process attachments if provided
+            if (attachments && attachments.length > 0) {
+                mailOptions.attachments = attachments.map((att) => ({
                     filename: att.filename,
                     content: Buffer.from(att.content, 'base64'),
-                    contentType: att.contentType
-                })) : undefined
-            };
+                    contentType: att.contentType || 'application/octet-stream'
+                }));
+            }
             const result = await transport.sendMail(mailOptions);
             return {
                 content: [],
@@ -63,7 +86,7 @@ function registerSendEmail(server) {
                     message_id: result.messageId,
                     response: `Email sent successfully to ${to}`,
                     error: undefined,
-                    platform: environment_js_1.PLATFORM,
+                    platform: environment_1.PLATFORM,
                     timestamp: new Date().toISOString()
                 }
             };
@@ -76,7 +99,7 @@ function registerSendEmail(server) {
                     message_id: undefined,
                     response: undefined,
                     error: `Failed to send email: ${error.message}`,
-                    platform: environment_js_1.PLATFORM,
+                    platform: environment_1.PLATFORM,
                     timestamp: new Date().toISOString()
                 }
             };

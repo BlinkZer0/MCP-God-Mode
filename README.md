@@ -2,6 +2,41 @@
 
 > *"One MCP to rule them all, one MCP to find them, one MCP to bring them all and in the God Mode bind them!"* - The Fellowship of the Prompt
 
+## ⚖️ **LEGAL DISCLAIMER & TERMS OF USE**
+
+> **⚠️ IMPORTANT: This software is provided for educational, testing, and authorized security research purposes ONLY.**
+
+**By using MCP God Mode, you acknowledge and agree to the following:**
+
+- **Legal Use Only:** This software must be used exclusively for lawful purposes, including but not limited to:
+  - Testing your own systems and networks
+  - Authorized penetration testing with explicit permission
+  - Educational cybersecurity research
+  - Legitimate system administration and management
+  - Security auditing of systems you own or have written authorization to test
+
+- **Prohibited Activities:** Any use of this software for illegal purposes is strictly forbidden, including:
+  - Unauthorized access to systems or networks
+  - Interference with others' digital property
+  - Violation of privacy or data protection laws
+  - Any activities that could constitute cybercrime or computer fraud
+
+- **No Liability:** Blink Zero, the developers, contributors, and any AI systems involved in the creation of this software:
+  - Take **NO responsibility** for any misuse of this software
+  - Are **NOT liable** for any damages, legal consequences, or criminal charges resulting from improper use
+  - Do **NOT endorse** or support any illegal activities
+  - Provide **NO warranty** regarding the legality of specific use cases
+
+- **User Responsibility:** You are solely responsible for:
+  - Ensuring your use complies with all applicable laws and regulations
+  - Obtaining proper authorization before testing any systems
+  - Understanding the legal implications of your actions
+  - Seeking legal counsel if you have questions about compliance
+
+**This software is a powerful tool that can be used for both good and harmful purposes. Choose wisely and legally.**
+
+---
+
 **Welcome to MCP God Mode**, the ultimate cross-platform AI superpower that lets your AI assistant conquer Windows, Linux, macOS, Android, and iOS like a boss. It's like giving your AI the infinity stones – unlimited power, but hopefully without the snap! Because sometimes, restarting isn't enough; you need an AI to yeet the problems into oblivion. 🚀 Now with full cross-platform support – one MCP to rule ALL operating systems and mobile platforms!
 
 ## ⚠️ WARNING: God Mode Activated – Buckle Up!
@@ -35,7 +70,7 @@ This MCP can do wild stuff:
 
 **🚀 Why This is GAME-CHANGING:**
 
-- **🎯 One-Stop Solution:** 43 tools with 250+ operations covering system management, security, and mobile access.
+- **🎯 One-Stop Solution:** 43 tools with 300+ operations covering system management, security, and mobile access.
 - **🌍 True Cross-Platform:** Works seamlessly on Windows, Linux, macOS, Android, and iOS with intelligent auto-detection
 - **🤖 AI-Powered Intelligence:** Your AI executes commands with context awareness.
 - **⚡ Proactive Problem Solving:** Supports predictive maintenance and automated fixes
@@ -44,7 +79,7 @@ This MCP can do wild stuff:
 
 **The Competition:** This MCP uniquely combines AI with system control across platforms including mobile.
 
-**🎉 Ready to Join the Revolution?** Ask your AI: *"What can you do now that MCP God Mode is installed?"* and prepare to have your mind completely blown! Your AI just became the ultimate system administrator, network engineer, security expert, mobile developer, and productivity wizard – all rolled into one incredibly powerful package with 43 tools and 250+ operations!
+**🎉 Ready to Join the Revolution?** Ask your AI: *"What can you do now that MCP God Mode is installed?"* and prepare to have your mind completely blown! Your AI just became the ultimate system administrator, network engineer, security expert, mobile developer, and productivity wizard – all rolled into one incredibly powerful package with 43 tools and 300+ operations!
 
 ## 🎯 All the Features – With Hilarious Commentary
 
@@ -138,7 +173,7 @@ Here's the full arsenal (based on the MCP's capabilities). I've included humorou
 
 **🚀 WARNING: 43 Tools of Absolute Power!** Handing this to AGI is like giving a toddler the nuclear codes – fun in theory, disastrous in practice. Joke: In infosec, this is the equivalent of arming Skynet with dad jokes. Don't give access to a dumb AI; it'll probably just DDoS itself. And your girlfriend on SillyTavern? She might "roleplay" your system into oblivion!
 
-**📊 Tool Count Clarification:** This MCP provides **43 unique tools**, each with multiple actions that expand functionality. The 250+ operations represent the total actions available across all tools.
+**📊 Tool Count Clarification:** This MCP provides **43 unique tools**, each with multiple actions that expand functionality. The 300+ operations represent the total actions available across all tools.
 
 ## 🔐 **AUTOMATIC ELEVATED PERMISSIONS - The Game Changer!**
 
@@ -382,6 +417,9 @@ Here's the complete arsenal, organized by superpower category:
 - Set custom environment variables
 
 ### 📡 **SDR Security & Signal Analysis (56+ Tools) - Cross-Platform Support**
+
+> 🚗 **Fun Fact:** Your AI can now open garage doors! Yours, your neighbor's... the possibilities are endless! 🎯 *Please use responsibly - we're not responsible for confused neighbors wondering why their garage keeps opening and closing.*
+
 - `sdr_security_toolkit` with action `detect_sdr_hardware` - Automatically detect SDR hardware devices (Linux/Windows/macOS: Full, Mobile: Limited)
 - `sdr_security_toolkit` with action `list_sdr_devices` - List available SDR devices and capabilities (Linux/Windows/macOS: Full, Mobile: Limited)
 - `sdr_security_toolkit` with action `test_sdr_connection` - Test SDR device connectivity and performance (Linux/Windows/macOS: Full, Mobile: Limited)
@@ -613,7 +651,7 @@ Here's the complete arsenal, organized by superpower category:
 
 ---
 
-## 🎉 **THE GRAND TOTAL: 43 Tools, 250+ Operations!**
+## 🎉 **THE GRAND TOTAL: 43 Tools, 300+ Operations!**
 
 **This is absolutely unprecedented!** No other MCP comes close to this level of comprehensive functionality. You've got everything from basic file operations to advanced AI-powered system management, all wrapped in cross-platform magic that works seamlessly across Windows, Linux, macOS, Android, and iOS.
 
@@ -806,18 +844,44 @@ When I'm not coding AI overlords, I'm practicing martial arts. Here are some of 
 
 ## 🤖 **Recommended AI Models & Platforms - Choose Your Digital Overlord Wisely!**
 
-**🚨 CRITICAL: This ain't your grandma's chatbot!** MCP God Mode is a beast with 43 tools and 250+ operations, comprehensive security toolkits, and massive context requirements. You need an AI model that can handle the heat! 🔥
+**🚨 CRITICAL: This ain't your grandma's chatbot!** MCP God Mode is a beast with 43 tools and 300+ operations, comprehensive security toolkits, and massive context requirements. You need an AI model that can handle the heat! 🔥
 
 ### **🎯 Context Requirements - Size Matters!**
 
 **Why Small Models Won't Cut It:**
-- **Tool Definitions Alone:** ~50,000+ tokens just for tool schemas
-- **Parameter Descriptions:** Detailed documentation for every parameter
+- **Tool Definitions Alone:** ~75,000+ tokens just for tool schemas
+- **Parameter Descriptions:** Detailed documentation for every parameter (300+ actions)
 - **Cross-Platform Examples:** Windows/Linux/macOS/Android/iOS variations
-- **Security Context:** Complex penetration testing workflows
+- **Security Context:** Complex penetration testing workflows (Wi-Fi: 25 actions, Bluetooth: 30 actions, SDR: 56 actions)
 - **Natural Language Processing:** Understanding "hack the Wi-Fi" → `wifi_security_toolkit`
+- **Server Size:** Compiled `server-refactored.js` is 633KB with 13,603 lines of code
 
-**Minimum Context Window:** 128K tokens (200K+ recommended for optimal performance)
+**Minimum Context Window:** 200K tokens (400K+ recommended for optimal performance)
+
+### **📊 Server-Specific Context Requirements**
+
+**Choose your server based on your AI model's capabilities:**
+
+#### **🔥 Full-Featured Server (`server-refactored.ts`)**
+- **Tools:** 43 tools with 300+ operations
+- **Context Required:** 200K+ tokens (400K+ recommended)
+- **Server Size:** 633KB compiled, 13,603 lines
+- **Best For:** Claude 3.5 Sonnet, Gemini 1.5 Pro, GPT-4 Turbo (limited)
+- **Features:** Complete security toolkits, mobile support, advanced operations
+
+#### **⚡ Minimal Server (`server-minimal.ts`)**
+- **Tools:** 25 tools with 50+ operations
+- **Context Required:** 100K+ tokens (200K+ recommended)
+- **Server Size:** ~200KB compiled, ~5,000 lines
+- **Best For:** Claude 3 Haiku, GPT-4 Turbo, GPT-3.5 Turbo (limited)
+- **Features:** Core system operations, basic email tools, essential security
+
+#### **🔧 Ultra-Minimal Server (`server-ultra-minimal.ts`)**
+- **Tools:** 15 tools with 25+ operations
+- **Context Required:** 50K+ tokens (100K+ recommended)
+- **Server Size:** ~100KB compiled, ~2,500 lines
+- **Best For:** GPT-3.5 Turbo, Claude 3 Haiku, smaller models
+- **Features:** Basic system operations, email sending/parsing, core functionality
 
 ### **🏆 Tier 1: Premium Powerhouses (Highly Recommended)**
 
@@ -830,11 +894,11 @@ When I'm not coding AI overlords, I'm practicing martial arts. Here are some of 
 - **💡 Why It's Perfect:** Built for complex technical tasks, handles our massive toolkit like a pro
 
 #### **🥈 GPT-4 Turbo/GPT-4o (OpenAI)**
-- **✅ Context Window:** 128K tokens
+- **⚠️ Context Window:** 128K tokens (below recommended minimum)
 - **✅ Technical Skills:** Strong system administration capabilities
-- **✅ Tool Usage:** Excellent at complex multi-step operations
+- **⚠️ Tool Usage:** May struggle with full toolkit (300+ actions)
 - **✅ Platform Support:** ChatGPT Plus, API, third-party clients
-- **💡 Best For:** Users already in the OpenAI ecosystem
+- **💡 Best For:** Users with OpenAI ecosystem, but consider Claude 3.5 Sonnet for full functionality
 
 #### **🥉 Gemini 1.5 Pro (Google)**
 - **✅ Context Window:** Up to 1M tokens (massive!)
@@ -846,15 +910,16 @@ When I'm not coding AI overlords, I'm practicing martial arts. Here are some of 
 ### **🏆 Tier 2: Solid Performers (Good Options)**
 
 #### **⚡ Claude 3 Haiku (Anthropic)**
-- **⚠️ Context Window:** 200K tokens (sufficient)
+- **⚠️ Context Window:** 200K tokens (minimum requirement)
 - **⚠️ Performance:** Faster but less sophisticated reasoning
 - **✅ Cost:** More budget-friendly
-- **💡 Best For:** Simple operations and cost-conscious users
+- **💡 Best For:** Basic operations and cost-conscious users
 
 #### **⚡ GPT-3.5 Turbo (OpenAI)**
-- **❌ Context Window:** 16K tokens (too small for full toolkit)
-- **⚠️ Limitation:** Can only handle subset of tools
-- **💡 Only Use:** With minimal server version
+- **⚠️ Context Window:** 16K tokens (limited but usable)
+- **✅ Limitation:** Can handle ultra-minimal server effectively
+- **💡 Best For:** Ultra-minimal server (15 tools, 25+ operations)
+- **💡 Also Works:** With minimal server for basic operations
 
 ### **🚫 Not Recommended - The Strugglers**
 
@@ -893,16 +958,60 @@ When I'm not coding AI overlords, I'm practicing martial arts. Here are some of 
 **Claude 3.5 Sonnet** - Best understanding of security concepts, ethical considerations, and complex attack vectors.
 
 #### **💻 For System Administrators:**
-**GPT-4 Turbo** or **Claude 3.5 Sonnet** - Excellent for system management, troubleshooting, and automation.
+**Claude 3.5 Sonnet** (recommended) or **GPT-4 Turbo** (limited) - Excellent for system management, troubleshooting, and automation.
 
 #### **🏃 For Speed Demons:**
-**Claude 3 Haiku** - Faster responses while still handling most operations effectively.
+**Claude 3 Haiku** - Faster responses while handling basic operations effectively (200K context minimum).
 
 #### **💰 For Budget-Conscious Users:**
 **Gemini 1.5 Pro** - Massive context window with competitive pricing.
 
 #### **🧪 For Experimental Users:**
 **Try Multiple Models** - Different models excel at different types of operations.
+
+### **🎯 Model-Server Compatibility Matrix**
+
+**Match your AI model to the right server version:**
+
+| AI Model | Context | Full Server | Minimal Server | Ultra-Minimal Server |
+|----------|---------|-------------|----------------|---------------------|
+| **Claude 3.5 Sonnet** | 200K | ✅ **Perfect** | ✅ **Excellent** | ✅ **Overkill** |
+| **GPT-4 Turbo** | 128K | ⚠️ **Limited** | ✅ **Good** | ✅ **Excellent** |
+| **Claude 3 Haiku** | 200K | ✅ **Good** | ✅ **Excellent** | ✅ **Overkill** |
+| **Gemini 1.5 Pro** | 1M+ | ✅ **Perfect** | ✅ **Excellent** | ✅ **Overkill** |
+| **GPT-3.5 Turbo** | 16K | ❌ **Too Small** | ⚠️ **Limited** | ✅ **Perfect** |
+| **Small Models (7B-13B)** | <16K | ❌ **Too Small** | ❌ **Too Small** | ⚠️ **Limited** |
+
+**Legend:** ✅ Perfect | ✅ Excellent | ✅ Good | ⚠️ Limited | ❌ Too Small
+
+### **🚀 Quick Server Selection Guide**
+
+**Based on your AI model, here's what to install:**
+
+#### **🎯 For Claude 3.5 Sonnet Users:**
+- **Best Choice:** Full server (43 tools, 300+ operations)
+- **Alternative:** Minimal server (25 tools, 50+ operations) for faster performance
+- **Command:** `npm run install:full` or `npm run install:minimal`
+
+#### **🎯 For GPT-4 Turbo Users:**
+- **Best Choice:** Minimal server (25 tools, 50+ operations)
+- **Alternative:** Ultra-minimal server (15 tools, 25+ operations) for optimal performance
+- **Command:** `npm run install:minimal` or `npm run install:ultra-minimal`
+
+#### **🎯 For GPT-3.5 Turbo Users:**
+- **Best Choice:** Ultra-minimal server (15 tools, 25+ operations)
+- **Alternative:** Minimal server (25 tools, 50+ operations) with limited functionality
+- **Command:** `npm run install:ultra-minimal`
+
+#### **🎯 For Claude 3 Haiku Users:**
+- **Best Choice:** Minimal server (25 tools, 50+ operations)
+- **Alternative:** Full server (43 tools, 300+ operations) if you need everything
+- **Command:** `npm run install:minimal` or `npm run install:full`
+
+#### **🎯 For Gemini 1.5 Pro Users:**
+- **Best Choice:** Full server (43 tools, 300+ operations)
+- **Alternative:** Any server version - you have massive context capacity!
+- **Command:** `npm run install:full` (recommended)
 
 ### **⚡ Performance Optimization Tips**
 
@@ -924,7 +1033,7 @@ When I'm not coding AI overlords, I'm practicing martial arts. Here are some of 
 
 **MCP God Mode is a professional-grade system that requires professional-grade AI models.** Don't handicap yourself with underpowered models when you're dealing with:
 
-- **43 sophisticated tools with 250+ operations** (including web scraping, browser automation & mobile device management)
+- **43 sophisticated tools with 300+ operations** (including web scraping, browser automation & mobile device management)
 - **Complex security operations**
 - **Cross-platform system management**  
 - **Advanced penetration testing**
@@ -936,6 +1045,7 @@ When I'm not coding AI overlords, I'm practicing martial arts. Here are some of 
 **🎉 Ready to Choose?** Pick Claude 3.5 Sonnet in Cursor and prepare to experience the future of AI-powered system administration!
 
 ### **🆕 Latest Features Added:**
+- **Multiple Server Versions:** Choose from Full (43 tools), Minimal (25 tools), or Ultra-Minimal (15 tools) based on your AI model's capabilities
 - **Web Scraping Tool:** Extract data from websites with CSS selectors, multiple output formats, and link following
 - **Browser Control Tool:** Launch browsers, navigate pages, take screenshots across all platforms (Chrome, Firefox, Safari, Edge)  
 - **Mobile Device Tools:** Complete mobile support with file operations, system management, and hardware access
@@ -1229,7 +1339,7 @@ Instead of remembering technical commands, just ask naturally:
 **Choose the version that fits your needs:**
 
 ### **🚀 Full-Featured Version (`server-refactored.ts`)**
-- **All 43 tools with 250+ operations** including comprehensive security toolkits
+- **All 43 tools with 300+ operations** including comprehensive security toolkits
 - Full cross-platform support (Windows, Linux, macOS, Android, iOS)
 - Complete Wi-Fi, Bluetooth, and SDR security toolkits
 - Mobile platform tools and hardware access
@@ -1237,14 +1347,16 @@ Instead of remembering technical commands, just ask naturally:
 - **Recommended for:** Power users, security professionals, developers
 
 ### **⚡ Minimal Version (`server-minimal.ts`)**
-- **Core 10 tools** for basic system operations
+- **25 tools** for core system operations
 - Essential file operations, process management, and system info
+- **Email tools:** send_email, parse_email
 - **System restore with 4 actions:** create_restore_point, list_restore_points, restore_system, backup_config
 - Cross-platform compatibility
 - **Recommended for:** Basic system administration, lightweight deployments
 
 ### **🔧 Ultra-Minimal Version (`server-ultra-minimal.ts`)**
-- **Essential 6 tools** for basic functionality
+- **15 tools** for essential functionality
+- **Email tools:** send_email, parse_email
 - **System restore with 2 actions:** create_restore_point, backup_config
 - Minimal resource usage
 - Core system operations only
