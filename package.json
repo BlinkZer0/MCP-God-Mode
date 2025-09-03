@@ -7,10 +7,26 @@
     "mcp-god-mode": "start-mcp.js"
   },
   "scripts": {
-    "start": "node start-mcp.js",
-    "dev": "cd dev && npm run dev",
-    "build": "cd dev && npm run build",
-    "test": "cd dev && npm test"
+    "install": "cd dev && node install.js",
+    "install:ultra-minimal": "cd dev && npm run build",
+    "install:minimal": "cd dev && npm run build", 
+    "install:full": "cd dev && npm run build",
+    "install:custom": "cd dev && node build-server.js",
+    "build": "tsc -p .",
+    "start": "node dist/server-refactored.js",
+    "dev": "tsc -p . && node dist/server-refactored.js",
+    "web": "node dist/web-server.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "test:elevated": "node test_elevated_permissions.mjs",
+    "test:elevated:windows": "cross-env PLATFORM=win32 node test_elevated_permissions.mjs",
+    "test:elevated:linux": "cross-env PLATFORM=darwin node test_elevated_permissions.mjs",
+    "test:elevated:macos": "cross-env PLATFORM=darwin node test_elevated_permissions.mjs",
+    "cli": "node dist/server-refactored.js",
+    "build:modular": "tsc src/server-modular.ts --outDir dist --target es2020 --module es2020 --moduleResolution node --esModuleInterop --allowSyntheticDefaultImports",
+    "build:email-only": "cd dev && node build-server.js health system_info send_email parse_email",
+    "build:minimal": "cd dev && node build-server.js health system_info fs_list",
+    "build:core-only": "cd dev && node build-server.js health system_info",
+    "build:custom": "cd dev && node build-server.js"
   },
   "keywords": [
     "mcp",

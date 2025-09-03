@@ -1,4 +1,4 @@
-import winston = require("winston");
+import * as winston from "winston";
 import { config } from "../config/environment.js";
 
 // Configure structured logging

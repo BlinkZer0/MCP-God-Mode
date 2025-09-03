@@ -1097,6 +1097,250 @@ server.registerTool("system_restore", {
     }
 });
 // ===========================================
+// EMAIL TOOLS - Cross-platform email functionality
+// ===========================================
+// Import email libraries
+const nodemailer_1 = __importDefault(require("nodemailer"));
+const mailparser_1 = require("mailparser");
+// Email configuration cache
+const emailTransports = new Map();
+// Helper function to get email transport
+async function getEmailTransport(config) {
+    const configKey = JSON.stringify(config);
+    if (emailTransports.has(configKey)) {
+        return emailTransports.get(configKey);
+    }
+    let transport;
+    if (config.service === 'gmail') {
+        transport = nodemailer_1.default.createTransport({
+            service: 'gmail',
+            auth: {
+                user: config.email,
+                pass: config.password
+            }
+        });
+    }
+    else if (config.service === 'outlook') {
+        transport = nodemailer_1.default.createTransport({
+            host: 'smtp-mail.outlook.com',
+            port: 587,
+            secure: false,
+            auth: {
+                user: config.email,
+                pass: config.password
+            }
+        });
+    }
+    else if (config.service === 'yahoo') {
+        transport = nodemailer_1.default.createTransport({
+            host: 'smtp.mail.yahoo.com',
+            port: 587,
+            secure: false,
+            auth: {
+                user: config.email,
+                pass: config.password
+            }
+        });
+    }
+    else {
+        transport = nodemailer_1.default.createTransport({
+            host: config.host,
+            port: config.port || 587,
+            secure: config.secure || false,
+            auth: {
+                user: config.email,
+                pass: config.password
+            }
+        });
+    }
+    try {
+        await transport.verify();
+        emailTransports.set(configKey, transport);
+        return transport;
+    }
+    catch (error) {
+        throw new Error(`Failed to connect to email server: ${error}`);
+    }
+}
+// Send email tool
+server.registerTool("send_email", {
+    description: "Send emails using SMTP across all platforms (Windows, Linux, macOS, Android, iOS). Supports Gmail, Outlook, Yahoo, and custom SMTP servers with proper authentication and security.",
+    inputSchema: {
+        to: zod_1.z.string().describe("Recipient email address(es). Examples: 'user@example.com', 'user1@example.com,user2@example.com' for multiple recipients."),
+        subject: zod_1.z.string().describe("Email subject line. Examples: 'Meeting Reminder', 'Project Update', 'Hello from MCP God Mode'."),
+        body: zod_1.z.string().describe("Email body content. Can be plain text or HTML. Examples: 'Hello, this is a test email.', '<h1>Hello</h1><p>This is HTML content.</p>'."),
+        html: zod_1.z.boolean().default(false).describe("Whether the email body contains HTML content. Set to true for HTML emails, false for plain text."),
+        from: zod_1.z.string().optional().describe("Sender email address. If not provided, uses the configured email address."),
+        cc: zod_1.z.string().optional().describe("CC recipient email address(es). Examples: 'cc@example.com', 'cc1@example.com,cc2@example.com'."),
+        bcc: zod_1.z.string().optional().describe("BCC recipient email address(es). Examples: 'bcc@example.com', 'bcc1@example.com,bcc2@example.com'."),
+        attachments: zod_1.z.array(zod_1.z.object({
+            filename: zod_1.z.string().describe("Name of the attachment file. Examples: 'document.pdf', 'image.jpg', 'report.xlsx'."),
+            content: zod_1.z.string().describe("Base64 encoded content of the attachment file."),
+            contentType: zod_1.z.string().optional().describe("MIME type of the attachment. Examples: 'application/pdf', 'image/jpeg', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'.")
+        })).optional().describe("Array of file attachments to include with the email."),
+        email_config: zod_1.z.object({
+            service: zod_1.z.enum(["gmail", "outlook", "yahoo", "custom"]).describe("Email service provider. 'gmail' for Google Mail, 'outlook' for Microsoft Outlook/Hotmail, 'yahoo' for Yahoo Mail, 'custom' for other SMTP servers."),
+            email: zod_1.z.string().describe("Email address for authentication. Examples: 'user@gmail.com', 'user@outlook.com', 'user@company.com'."),
+            password: zod_1.z.string().describe("Password or app password for the email account. For Gmail, use App Password if 2FA is enabled."),
+            host: zod_1.z.string().optional().describe("SMTP host for custom servers. Examples: 'smtp.company.com', 'mail.example.org'. Required when service is 'custom'."),
+            port: zod_1.z.number().optional().describe("SMTP port for custom servers. Examples: 587 for TLS, 465 for SSL, 25 for unencrypted. Defaults to 587 for TLS."),
+            secure: zod_1.z.boolean().optional().describe("Whether to use SSL/TLS encryption. Examples: true for port 465, false for port 587. Defaults to false for TLS."),
+            name: zod_1.z.string().optional().describe("Display name for the sender. Examples: 'John Doe', 'Company Name', 'MCP God Mode'.")
+        }).describe("Email server configuration including service provider, credentials, and connection settings.")
+    },
+    outputSchema: {
+        success: zod_1.z.boolean().describe("Whether the email was sent successfully."),
+        message_id: zod_1.z.string().optional().describe("Unique message ID returned by the email server."),
+        response: zod_1.z.string().optional().describe("Response message from the email server."),
+        error: zod_1.z.string().optional().describe("Error message if the email failed to send."),
+        platform: zod_1.z.string().describe("Platform where the email tool was executed."),
+        timestamp: zod_1.z.string().describe("Timestamp when the email was sent.")
+    }
+}, async ({ to, subject, body, html = false, from, cc, bcc, attachments, email_config }) => {
+    try {
+        const transport = await getEmailTransport(email_config);
+        const mailOptions = {
+            from: from || email_config.name ? `"${email_config.name}" <${email_config.email}>` : email_config.email,
+            to,
+            subject,
+            text: html ? undefined : body,
+            html: html ? body : undefined,
+            cc,
+            bcc,
+            attachments: attachments ? attachments.map(att => ({
+                filename: att.filename,
+                content: Buffer.from(att.content, 'base64'),
+                contentType: att.contentType
+            })) : undefined
+        };
+        const result = await transport.sendMail(mailOptions);
+        return {
+            content: [],
+            structuredContent: {
+                success: true,
+                message_id: result.messageId,
+                response: `Email sent successfully to ${to}`,
+                error: undefined,
+                platform: PLATFORM,
+                timestamp: new Date().toISOString()
+            }
+        };
+    }
+    catch (error) {
+        return {
+            content: [],
+            structuredContent: {
+                success: false,
+                message_id: undefined,
+                response: undefined,
+                error: `Failed to send email: ${error.message}`,
+                platform: PLATFORM,
+                timestamp: new Date().toISOString()
+            }
+        };
+    }
+});
+// Parse email content tool
+server.registerTool("parse_email", {
+    description: "Parse and analyze email content across all platforms (Windows, Linux, macOS, Android, iOS). Extract text, HTML, attachments, headers, and metadata from email messages with comprehensive parsing capabilities.",
+    inputSchema: {
+        email_content: zod_1.z.string().describe("Raw email content in MIME format or email file path. Examples: 'From: sender@example.com\\nSubject: Test\\n\\nHello world', './email.eml', '/path/to/email.txt'."),
+        parse_attachments: zod_1.z.boolean().default(true).describe("Whether to parse and extract email attachments. Set to true to include attachment information, false to skip attachments."),
+        extract_links: zod_1.z.boolean().default(true).describe("Whether to extract URLs and links from email content. Set to true to find all links, false to skip link extraction."),
+        extract_emails: zod_1.z.boolean().default(true).describe("Whether to extract email addresses from the content. Set to true to find all email addresses, false to skip email extraction."),
+        include_headers: zod_1.z.boolean().default(true).describe("Whether to include email headers in the parsed result. Set to true for complete header information, false for content only.")
+    },
+    outputSchema: {
+        success: zod_1.z.boolean().describe("Whether the email was parsed successfully."),
+        parsed_email: zod_1.z.object({
+            from: zod_1.z.string().describe("Sender email address and name."),
+            to: zod_1.z.string().describe("Recipient email address(es)."),
+            subject: zod_1.z.string().describe("Subject line of the email."),
+            date: zod_1.z.string().describe("Date and time when the email was sent."),
+            message_id: zod_1.z.string().describe("Unique message identifier."),
+            text_content: zod_1.z.string().describe("Plain text content of the email."),
+            html_content: zod_1.z.string().optional().describe("HTML content of the email if available."),
+            headers: zod_1.z.record(zod_1.z.string()).optional().describe("Complete email headers including routing, authentication, and metadata information."),
+            attachments: zod_1.z.array(zod_1.z.object({
+                filename: zod_1.z.string().describe("Name of the attachment file."),
+                content_type: zod_1.z.string().describe("MIME type of the attachment."),
+                size: zod_1.z.number().describe("Size of the attachment in bytes."),
+                content: zod_1.z.string().optional().describe("Base64 encoded content of the attachment if requested.")
+            })).optional().describe("Array of file attachments found in the email."),
+            links: zod_1.z.array(zod_1.z.string()).optional().describe("Array of URLs and links found in the email content."),
+            emails: zod_1.z.array(zod_1.z.string()).optional().describe("Array of email addresses found in the email content."),
+            size: zod_1.z.number().describe("Total size of the email in bytes.")
+        }).optional().describe("Parsed email content with extracted information and metadata."),
+        error: zod_1.z.string().optional().describe("Error message if the parsing failed."),
+        platform: zod_1.z.string().describe("Platform where the email tool was executed."),
+        timestamp: zod_1.z.string().describe("Timestamp when the email was parsed.")
+    }
+}, async ({ email_content, parse_attachments = true, extract_links = true, extract_emails = true, include_headers = true }) => {
+    try {
+        let content = email_content;
+        // If it's a file path, read the file
+        if (email_content.includes('\n') === false && (email_content.endsWith('.eml') || email_content.endsWith('.txt'))) {
+            try {
+                content = await fs.readFile(email_content, 'utf8');
+            }
+            catch (fileError) {
+                // If file reading fails, treat as direct content
+            }
+        }
+        const parsed = await (0, mailparser_1.simpleParser)(content);
+        const result = {
+            from: parsed.from?.text || 'Unknown Sender',
+            to: Array.isArray(parsed.to) ? parsed.to[0]?.text || 'Unknown Recipient' : parsed.to?.text || 'Unknown Recipient',
+            subject: parsed.subject || 'No Subject',
+            date: parsed.date?.toISOString() || 'Unknown Date',
+            message_id: parsed.messageId || 'Unknown ID',
+            text_content: parsed.text || '',
+            html_content: parsed.html || undefined,
+            headers: include_headers ? parsed.headers : undefined,
+            attachments: parse_attachments ? parsed.attachments?.map(att => ({
+                filename: att.filename || 'unnamed',
+                content_type: att.contentType || 'application/octet-stream',
+                size: att.size || 0,
+                content: att.content?.toString('base64')
+            })) : undefined,
+            links: extract_links ? extractLinksFromText(parsed.text || '') : undefined,
+            emails: extract_emails ? extractEmailsFromText(parsed.text || '') : undefined,
+            size: parsed.text ? Buffer.byteLength(parsed.text, 'utf8') : 0
+        };
+        return {
+            content: [],
+            structuredContent: {
+                success: true,
+                parsed_email: result,
+                error: undefined,
+                platform: PLATFORM,
+                timestamp: new Date().toISOString()
+            }
+        };
+    }
+    catch (error) {
+        return {
+            content: [],
+            structuredContent: {
+                success: false,
+                parsed_email: undefined,
+                error: `Failed to parse email: ${error.message}`,
+                platform: PLATFORM,
+                timestamp: new Date().toISOString()
+            }
+        };
+    }
+});
+// Helper functions for email parsing
+function extractLinksFromText(text) {
+    const urlRegex = /(https?:\/\/[^\s]+)/g;
+    return text.match(urlRegex) || [];
+}
+function extractEmailsFromText(text) {
+    const emailRegex = /\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b/g;
+    return text.match(emailRegex) || [];
+}
+// ===========================================
 // MAIN FUNCTION
 // ===========================================
 async function main() {

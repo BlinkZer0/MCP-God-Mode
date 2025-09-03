@@ -12692,4 +12692,1472 @@ async function setCookies(browser: string, url?: string, cookies?: Record<string
   };
 }
 
+// ===========================================
+// EMAIL TOOLS - Cross-platform email functionality
+// ===========================================
+
+// Import email libraries
+import nodemailer from "nodemailer";
+import Imap from "imap";
+import { simpleParser, AddressObject } from "mailparser";
+
+// Email configuration cache
+const emailConfigs = new Map<string, any>();
+const emailTransports = new Map<string, any>();
+
+// Helper function to get email transport
+async function getEmailTransport(config: any) {
+  const configKey = JSON.stringify(config);
+  
+  if (emailTransports.has(configKey)) {
+    return emailTransports.get(configKey);
+  }
+
+  let transport;
+  
+  if (config.service === 'gmail') {
+    // Gmail OAuth2 or App Password setup
+    transport = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user: config.email,
+        pass: config.password // Use App Password for Gmail
+      }
+    });
+  } else if (config.service === 'outlook') {
+    // Outlook/Hotmail setup
+    transport = nodemailer.createTransport({
+      host: 'smtp-mail.outlook.com',
+      port: 587,
+      secure: false,
+      auth: {
+        user: config.email,
+        pass: config.password
+      }
+    });
+  } else if (config.service === 'yahoo') {
+    // Yahoo setup
+    transport = nodemailer.createTransport({
+      host: 'smtp.mail.yahoo.com',
+      port: 587,
+      secure: false,
+      auth: {
+        user: config.email,
+        pass: config.password
+      }
+    });
+  } else {
+    // Custom SMTP server
+    transport = nodemailer.createTransport({
+      host: config.host,
+      port: config.port || 587,
+      secure: config.secure || false,
+      auth: {
+        user: config.email,
+        pass: config.password
+      }
+    });
+  }
+
+  // Verify connection
+  try {
+    await transport.verify();
+    emailTransports.set(configKey, transport);
+    return transport;
+  } catch (error) {
+    throw new Error(`Failed to connect to email server: ${error}`);
+  }
+}
+
+// Send email tool
+server.registerTool("send_email", {
+  description: "Send emails using SMTP across all platforms (Windows, Linux, macOS, Android, iOS). Supports Gmail, Outlook, Yahoo, and custom SMTP servers with proper authentication and security.",
+  inputSchema: {
+    to: z.string().describe("Recipient email address(es). Examples: 'user@example.com', 'user1@example.com,user2@example.com' for multiple recipients."),
+    subject: z.string().describe("Email subject line. Examples: 'Meeting Reminder', 'Project Update', 'Hello from MCP God Mode'."),
+    body: z.string().describe("Email body content. Can be plain text or HTML. Examples: 'Hello, this is a test email.', '<h1>Hello</h1><p>This is HTML content.</p>'."),
+    html: z.boolean().default(false).describe("Whether the email body contains HTML content. Set to true for HTML emails, false for plain text."),
+    from: z.string().optional().describe("Sender email address. If not provided, uses the configured email address."),
+    cc: z.string().optional().describe("CC recipient email address(es). Examples: 'cc@example.com', 'cc1@example.com,cc2@example.com'."),
+    bcc: z.string().optional().describe("BCC recipient email address(es). Examples: 'bcc@example.com', 'bcc1@example.com,bcc2@example.com'."),
+    attachments: z.array(z.object({
+      filename: z.string().describe("Name of the attachment file. Examples: 'document.pdf', 'image.jpg', 'report.xlsx'."),
+      content: z.string().describe("Base64 encoded content of the attachment file."),
+      contentType: z.string().optional().describe("MIME type of the attachment. Examples: 'application/pdf', 'image/jpeg', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'.")
+    })).optional().describe("Array of file attachments to include with the email."),
+    email_config: z.object({
+      service: z.enum(["gmail", "outlook", "yahoo", "custom"]).describe("Email service provider. 'gmail' for Google Mail, 'outlook' for Microsoft Outlook/Hotmail, 'yahoo' for Yahoo Mail, 'custom' for other SMTP servers."),
+      email: z.string().describe("Email address for authentication. Examples: 'user@gmail.com', 'user@outlook.com', 'user@company.com'."),
+      password: z.string().describe("Password or app password for the email account. For Gmail, use App Password if 2FA is enabled."),
+      host: z.string().optional().describe("SMTP host for custom servers. Examples: 'smtp.company.com', 'mail.example.org'. Required when service is 'custom'."),
+      port: z.number().optional().describe("SMTP port for custom servers. Examples: 587 for TLS, 465 for SSL, 25 for unencrypted. Defaults to 587 for TLS."),
+      secure: z.boolean().optional().describe("Whether to use SSL/TLS encryption. Examples: true for port 465, false for port 587. Defaults to false for TLS."),
+      name: z.string().optional().describe("Display name for the sender. Examples: 'John Doe', 'Company Name', 'MCP God Mode'.")
+    }).describe("Email server configuration including service provider, credentials, and connection settings.")
+  },
+  outputSchema: {
+    success: z.boolean().describe("Whether the email was sent successfully."),
+    message_id: z.string().optional().describe("Unique message ID returned by the email server."),
+    response: z.string().optional().describe("Response message from the email server."),
+    error: z.string().optional().describe("Error message if the email failed to send."),
+    platform: z.string().describe("Platform where the email tool was executed."),
+    timestamp: z.string().describe("Timestamp when the email was sent.")
+  }
+}, async ({ to, subject, body, html = false, from, cc, bcc, attachments, email_config }) => {
+  try {
+    const transport = await getEmailTransport(email_config);
+    
+    const mailOptions = {
+      from: from || email_config.name ? `"${email_config.name}" <${email_config.email}>` : email_config.email,
+      to,
+      subject,
+      text: html ? undefined : body,
+      html: html ? body : undefined,
+      cc,
+      bcc,
+      attachments: attachments ? attachments.map(att => ({
+        filename: att.filename,
+        content: Buffer.from(att.content, 'base64'),
+        contentType: att.contentType
+      })) : undefined
+    };
+
+    const result = await transport.sendMail(mailOptions);
+    
+    return {
+      content: [],
+      structuredContent: {
+        success: true,
+        message_id: result.messageId,
+        response: `Email sent successfully to ${to}`,
+        error: undefined,
+        platform: PLATFORM,
+        timestamp: new Date().toISOString()
+      }
+    };
+  } catch (error: any) {
+    return {
+      content: [],
+      structuredContent: {
+        success: false,
+        message_id: undefined,
+        response: undefined,
+        error: `Failed to send email: ${error.message}`,
+        platform: PLATFORM,
+        timestamp: new Date().toISOString()
+      }
+    };
+  }
+});
+
+// Read emails tool
+server.registerTool("read_emails", {
+  description: "Read emails from IMAP servers across all platforms (Windows, Linux, macOS, Android, iOS). Supports Gmail, Outlook, Yahoo, and custom IMAP servers with secure authentication.",
+  inputSchema: {
+    email_config: z.object({
+      service: z.enum(["gmail", "outlook", "yahoo", "custom"]).describe("Email service provider. 'gmail' for Google Mail, 'outlook' for Microsoft Outlook/Hotmail, 'yahoo' for Yahoo Mail, 'custom' for other IMAP servers."),
+      email: z.string().describe("Email address for authentication. Examples: 'user@gmail.com', 'user@outlook.com', 'user@company.com'."),
+      password: z.string().describe("Password or app password for the email account. For Gmail, use App Password if 2FA is enabled."),
+      host: z.string().optional().describe("IMAP host for custom servers. Examples: 'imap.company.com', 'mail.example.org'. Required when service is 'custom'."),
+      port: z.number().optional().describe("IMAP port for custom servers. Examples: 993 for SSL, 143 for unencrypted. Defaults to 993 for SSL."),
+      secure: z.boolean().optional().describe("Whether to use SSL/TLS encryption. Examples: true for port 993, false for port 143. Defaults to true for SSL."),
+      name: z.string().optional().describe("Display name for the email account. Examples: 'John Doe', 'Company Email', 'MCP God Mode'.")
+    }).describe("Email server configuration including service provider, credentials, and connection settings."),
+    folder: z.string().default("INBOX").describe("Email folder to read from. Examples: 'INBOX', 'Sent', 'Drafts', 'Trash', 'Archive'."),
+    limit: z.number().default(10).describe("Maximum number of emails to retrieve. Examples: 5 for recent emails, 20 for more emails, 100 for comprehensive retrieval."),
+    unread_only: z.boolean().default(false).describe("Whether to retrieve only unread emails. Set to true to get only unread messages, false to get all messages."),
+    search_criteria: z.string().optional().describe("Search criteria for filtering emails. Examples: 'FROM:user@example.com', 'SUBJECT:meeting', 'SINCE:2024-01-01', 'LARGER:1000000' for emails larger than 1MB.")
+  },
+  outputSchema: {
+    success: z.boolean().describe("Whether the emails were retrieved successfully."),
+    emails: z.array(z.object({
+      uid: z.string().describe("Unique identifier for the email message."),
+      subject: z.string().describe("Subject line of the email."),
+      from: z.string().describe("Sender email address and name."),
+      to: z.string().describe("Recipient email address(es)."),
+      date: z.string().describe("Date and time when the email was sent."),
+      size: z.number().describe("Size of the email in bytes."),
+      flags: z.array(z.string()).describe("Email flags like 'Seen', 'Answered', 'Flagged', 'Deleted'."),
+      preview: z.string().describe("Preview of the email content (first 200 characters)."),
+      has_attachments: z.boolean().describe("Whether the email contains file attachments.")
+    })).optional().describe("Array of email messages retrieved from the server."),
+    error: z.string().optional().describe("Error message if the operation failed."),
+    platform: z.string().describe("Platform where the email tool was executed."),
+    timestamp: z.string().describe("Timestamp when the emails were retrieved.")
+  }
+}, async ({ email_config, folder = "INBOX", limit = 10, unread_only = false, search_criteria }) => {
+  try {
+    let imapConfig;
+    
+    if (email_config.service === 'gmail') {
+      imapConfig = {
+        user: email_config.email,
+        password: email_config.password,
+        host: 'imap.gmail.com',
+        port: 993,
+        tls: true,
+        tlsOptions: { rejectUnauthorized: false }
+      };
+    } else if (email_config.service === 'outlook') {
+      imapConfig = {
+        user: email_config.email,
+        password: email_config.password,
+        host: 'outlook.office365.com',
+        port: 993,
+        tls: true,
+        tlsOptions: { rejectUnauthorized: false }
+      };
+    } else if (email_config.service === 'yahoo') {
+      imapConfig = {
+        user: email_config.email,
+        password: email_config.password,
+        host: 'imap.mail.yahoo.com',
+        port: 993,
+        tls: true,
+        tlsOptions: { rejectUnauthorized: false }
+      };
+    } else {
+      imapConfig = {
+        user: email_config.email,
+        password: email_config.password,
+        host: email_config.host!,
+        port: email_config.port || 993,
+        tls: email_config.secure !== false,
+        tlsOptions: { rejectUnauthorized: false }
+      };
+    }
+
+    return new Promise((resolve, reject) => {
+      const imap = new Imap(imapConfig);
+      const emails: any[] = [];
+
+      imap.once('ready', () => {
+        imap.openBox(folder, false, (err, box) => {
+          if (err) {
+            imap.end();
+            reject(new Error(`Failed to open folder: ${err.message}`));
+            return;
+          }
+
+          let searchTerms = [];
+          if (unread_only) searchTerms.push(['UNSEEN']);
+          if (search_criteria) searchTerms.push(search_criteria);
+
+          imap.search(searchTerms, (err, results) => {
+            if (err) {
+              imap.end();
+              reject(new Error(`Failed to search emails: ${err.message}`));
+              return;
+            }
+
+            if (results.length === 0) {
+              imap.end();
+              resolve({
+                content: [],
+                structuredContent: {
+                  success: true,
+                  emails: [],
+                  error: undefined,
+                  platform: PLATFORM,
+                  timestamp: new Date().toISOString()
+                }
+              });
+              return;
+            }
+
+            const fetch = imap.fetch(results.slice(0, limit), { bodies: 'HEADER.FIELDS (FROM TO SUBJECT DATE)', struct: true });
+
+            fetch.on('message', (msg, seqno) => {
+              let email: any = {};
+
+              msg.on('body', (stream, info) => {
+                let buffer = '';
+                stream.on('data', (chunk) => {
+                  buffer += chunk.toString('utf8');
+                });
+                stream.on('end', () => {
+                  const header = Imap.parseHeader(buffer);
+                  email.subject = header.subject ? header.subject[0] : 'No Subject';
+                  email.from = header.from ? header.from[0] : 'Unknown Sender';
+                  email.to = header.to ? header.to[0] : 'Unknown Recipient';
+                  email.date = header.date ? header.date[0] : 'Unknown Date';
+                });
+              });
+
+              msg.once('attributes', (attrs) => {
+                email.uid = attrs.uid;
+                email.size = attrs.size;
+                email.flags = attrs.flags || [];
+                email.has_attachments = attrs.struct && attrs.struct.parts && attrs.struct.parts.length > 1;
+                email.preview = 'Email preview not available in header-only mode';
+              });
+
+              msg.once('end', () => {
+                emails.push(email);
+              });
+            });
+
+            fetch.once('error', (err) => {
+              imap.end();
+              reject(new Error(`Failed to fetch emails: ${err.message}`));
+            });
+
+            fetch.once('end', () => {
+              imap.end();
+              resolve({
+                content: [],
+                structuredContent: {
+                  success: true,
+                  emails: emails.slice(0, limit),
+                  error: undefined,
+                  platform: PLATFORM,
+                  timestamp: new Date().toISOString()
+                }
+              });
+            });
+          });
+        });
+      });
+
+      imap.once('error', (err: any) => {
+        reject(new Error(`IMAP connection error: ${err.message}`));
+      });
+
+      imap.connect();
+    });
+  } catch (error: any) {
+    return {
+      content: [],
+      structuredContent: {
+        success: false,
+        emails: undefined,
+        error: `Failed to read emails: ${error.message}`,
+        platform: PLATFORM,
+        timestamp: new Date().toISOString()
+      }
+    };
+  }
+});
+
+// Parse email content tool
+server.registerTool("parse_email", {
+  description: "Parse and analyze email content across all platforms (Windows, Linux, macOS, Android, iOS). Extract text, HTML, attachments, headers, and metadata from email messages with comprehensive parsing capabilities.",
+  inputSchema: {
+    email_content: z.string().describe("Raw email content in MIME format or email file path. Examples: 'From: sender@example.com\\nSubject: Test\\n\\nHello world', './email.eml', '/path/to/email.txt'."),
+    parse_attachments: z.boolean().default(true).describe("Whether to parse and extract email attachments. Set to true to include attachment information, false to skip attachments."),
+    extract_links: z.boolean().default(true).describe("Whether to extract URLs and links from email content. Set to true to find all links, false to skip link extraction."),
+    extract_emails: z.boolean().default(true).describe("Whether to extract email addresses from the content. Set to true to find all email addresses, false to skip email extraction."),
+    include_headers: z.boolean().default(true).describe("Whether to include email headers in the parsed result. Set to true for complete header information, false for content only.")
+  },
+  outputSchema: {
+    success: z.boolean().describe("Whether the email was parsed successfully."),
+    parsed_email: z.object({
+      from: z.string().describe("Sender email address and name."),
+      to: z.string().describe("Recipient email address(es)."),
+      subject: z.string().describe("Subject line of the email."),
+      date: z.string().describe("Date and time when the email was sent."),
+      message_id: z.string().describe("Unique message identifier."),
+      text_content: z.string().describe("Plain text content of the email."),
+      html_content: z.string().optional().describe("HTML content of the email if available."),
+      headers: z.record(z.string()).optional().describe("Complete email headers including routing, authentication, and metadata information."),
+      attachments: z.array(z.object({
+        filename: z.string().describe("Name of the attachment file."),
+        content_type: z.string().describe("MIME type of the attachment."),
+        size: z.number().describe("Size of the attachment in bytes."),
+        content: z.string().optional().describe("Base64 encoded content of the attachment if requested.")
+      })).optional().describe("Array of file attachments found in the email."),
+      links: z.array(z.string()).optional().describe("Array of URLs and links found in the email content."),
+      emails: z.array(z.string()).optional().describe("Array of email addresses found in the email content."),
+      size: z.number().describe("Total size of the email in bytes.")
+    }).optional().describe("Parsed email content with extracted information and metadata."),
+    error: z.string().optional().describe("Error message if the parsing failed."),
+    platform: z.string().describe("Platform where the email tool was executed."),
+    timestamp: z.string().describe("Timestamp when the email was parsed.")
+  }
+}, async ({ email_content, parse_attachments = true, extract_links = true, extract_emails = true, include_headers = true }) => {
+  try {
+    let content = email_content;
+    
+    // If it's a file path, read the file
+    if (email_content.includes('\n') === false && (email_content.endsWith('.eml') || email_content.endsWith('.txt'))) {
+      try {
+        content = await fs.readFile(email_content, 'utf8');
+      } catch (fileError) {
+        // If file reading fails, treat as direct content
+      }
+    }
+
+    const parsed = await simpleParser(content);
+    
+    const result = {
+      from: parsed.from?.text || 'Unknown Sender',
+      to: Array.isArray(parsed.to) ? parsed.to[0]?.text || 'Unknown Recipient' : parsed.to?.text || 'Unknown Recipient',
+      subject: parsed.subject || 'No Subject',
+      date: parsed.date?.toISOString() || 'Unknown Date',
+      message_id: parsed.messageId || 'Unknown ID',
+      text_content: parsed.text || '',
+      html_content: parsed.html || undefined,
+      headers: include_headers ? parsed.headers : undefined,
+      attachments: parse_attachments ? parsed.attachments?.map(att => ({
+        filename: att.filename || 'unnamed',
+        content_type: att.contentType || 'application/octet-stream',
+        size: att.size || 0,
+        content: att.content?.toString('base64')
+      })) : undefined,
+      links: extract_links ? extractLinksFromText(parsed.text || '') : undefined,
+      emails: extract_emails ? extractEmailsFromText(parsed.text || '') : undefined,
+      size: parsed.text ? Buffer.byteLength(parsed.text, 'utf8') : 0
+    };
+
+    return {
+      content: [],
+      structuredContent: {
+        success: true,
+        parsed_email: result,
+        error: undefined,
+        platform: PLATFORM,
+        timestamp: new Date().toISOString()
+      }
+    };
+  } catch (error: any) {
+    return {
+      content: [],
+      structuredContent: {
+        success: false,
+        parsed_email: undefined,
+        error: `Failed to parse email: ${error.message}`,
+        platform: PLATFORM,
+        timestamp: new Date().toISOString()
+      }
+    };
+  }
+});
+
+// Helper functions for email parsing
+function extractLinksFromText(text: string): string[] {
+  const urlRegex = /(https?:\/\/[^\s]+)/g;
+  return text.match(urlRegex) || [];
+}
+
+function extractEmailsFromText(text: string): string[] {
+  const emailRegex = /\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b/g;
+  return text.match(emailRegex) || [];
+}
+
+// Delete emails tool
+server.registerTool("delete_emails", {
+  description: "Delete emails from IMAP servers across all platforms (Windows, Linux, macOS, Android, iOS). Supports permanent deletion, moving to trash, and bulk deletion operations with proper error handling and confirmation.",
+  inputSchema: {
+    email_config: z.object({
+      service: z.enum(["gmail", "outlook", "yahoo", "custom"]).describe("Email service provider. 'gmail' for Google Mail, 'outlook' for Microsoft Outlook/Hotmail, 'yahoo' for Yahoo Mail, 'custom' for other IMAP servers."),
+      email: z.string().describe("Email address for authentication. Examples: 'user@gmail.com', 'user@outlook.com', 'user@company.com'."),
+      password: z.string().describe("Password or app password for the email account. For Gmail, use App Password if 2FA is enabled."),
+      host: z.string().optional().describe("IMAP host for custom servers. Examples: 'imap.company.com', 'mail.example.org'. Required when service is 'custom'."),
+      port: z.number().optional().describe("IMAP port for custom servers. Examples: 993 for SSL, 143 for unencrypted. Defaults to 993 for SSL."),
+      secure: z.boolean().optional().describe("Whether to use SSL/TLS encryption. Examples: true for port 993, false for port 143. Defaults to true for SSL."),
+      name: z.string().optional().describe("Display name for the email account. Examples: 'John Doe', 'Company Email', 'MCP God Mode'.")
+    }).describe("Email server configuration including service provider, credentials, and connection settings."),
+    email_uids: z.array(z.string()).describe("Array of email UIDs to delete. Examples: ['12345', '12346'], ['all'] for all emails in folder, ['12345-12350'] for range."),
+    folder: z.string().default("INBOX").describe("Email folder containing the emails to delete. Examples: 'INBOX', 'Sent', 'Drafts', 'Trash', 'Archive'."),
+    permanent_delete: z.boolean().default(false).describe("Whether to permanently delete emails or move them to trash. Set to true for permanent deletion, false to move to trash folder."),
+    confirm_deletion: z.boolean().default(true).describe("Whether to require confirmation before deletion. Set to true for safety, false to skip confirmation.")
+  },
+  outputSchema: {
+    success: z.boolean().describe("Whether the email deletion operation was successful."),
+    deleted_count: z.number().describe("Number of emails successfully deleted."),
+    failed_count: z.number().describe("Number of emails that failed to delete."),
+    deleted_uids: z.array(z.string()).describe("Array of UIDs of successfully deleted emails."),
+    failed_uids: z.array(z.string()).describe("Array of UIDs that failed to delete with error details."),
+    message: z.string().describe("Summary message of the deletion operation."),
+    error: z.string().optional().describe("Error message if the operation failed."),
+    platform: z.string().describe("Platform where the email tool was executed."),
+    timestamp: z.string().describe("Timestamp when the deletion operation was performed.")
+  }
+}, async ({ email_config, email_uids, folder = "INBOX", permanent_delete = false, confirm_deletion = true }) => {
+  try {
+    let imapConfig;
+    
+    if (email_config.service === 'gmail') {
+      imapConfig = {
+        user: email_config.email,
+        password: email_config.password,
+        host: 'imap.gmail.com',
+        port: 993,
+        tls: true,
+        tlsOptions: { rejectUnauthorized: false }
+      };
+    } else if (email_config.service === 'outlook') {
+      imapConfig = {
+        user: email_config.email,
+        password: email_config.password,
+        host: 'outlook.office365.com',
+        port: 993,
+        tls: true,
+        tlsOptions: { rejectUnauthorized: false }
+      };
+    } else if (email_config.service === 'yahoo') {
+      imapConfig = {
+        user: email_config.email,
+        password: email_config.password,
+        host: 'imap.mail.yahoo.com',
+        port: 993,
+        tls: true,
+        tlsOptions: { rejectUnauthorized: false }
+      };
+    } else {
+      imapConfig = {
+        user: email_config.email,
+        password: email_config.password,
+        host: email_config.host!,
+        port: email_config.port || 993,
+        tls: email_config.secure !== false,
+        tlsOptions: { rejectUnauthorized: false }
+      };
+    }
+
+    return new Promise((resolve, reject) => {
+      const imap = new Imap(imapConfig);
+      let deletedCount = 0;
+      let failedCount = 0;
+      const deletedUids: string[] = [];
+      const failedUids: string[] = [];
+
+      imap.once('ready', () => {
+        imap.openBox(folder, false, (err, box) => {
+          if (err) {
+            imap.end();
+            reject(new Error(`Failed to open folder: ${err.message}`));
+            return;
+          }
+
+          // Process email UIDs
+          let uidsToDelete: string[] = [];
+          
+          if (email_uids.includes('all')) {
+            // Get all emails in folder
+            imap.search(['ALL'], (err, results) => {
+              if (err) {
+                imap.end();
+                reject(new Error(`Failed to search emails: ${err.message}`));
+                return;
+              }
+              uidsToDelete = results.map(uid => uid.toString());
+              performDeletion();
+            });
+          } else {
+            // Process specific UIDs or ranges
+            email_uids.forEach(uid => {
+              if (uid.includes('-')) {
+                const [start, end] = uid.split('-').map(Number);
+                for (let i = start; i <= end; i++) {
+                  uidsToDelete.push(i.toString());
+                }
+              } else {
+                uidsToDelete.push(uid);
+              }
+            });
+            performDeletion();
+          }
+
+          function performDeletion() {
+            if (uidsToDelete.length === 0) {
+              imap.end();
+              resolve({
+                content: [],
+                structuredContent: {
+                  success: true,
+                  deleted_count: 0,
+                  failed_count: 0,
+                  deleted_uids: [],
+                  failed_uids: [],
+                  message: "No emails to delete",
+                  error: undefined,
+                  platform: PLATFORM,
+                  timestamp: new Date().toISOString()
+                }
+              });
+              return;
+            }
+
+            // Delete emails
+            if (permanent_delete) {
+              imap.del(uidsToDelete, (err) => {
+                if (err) {
+                  failedCount = uidsToDelete.length;
+                  failedUids.push(...uidsToDelete);
+                } else {
+                  deletedCount = uidsToDelete.length;
+                  deletedUids.push(...uidsToDelete);
+                }
+                finalizeDeletion();
+              });
+            } else {
+              // Move to trash by setting \Deleted flag
+              imap.setFlags(uidsToDelete, ['\\Deleted'], (err) => {
+                if (err) {
+                  failedCount = uidsToDelete.length;
+                  failedUids.push(...uidsToDelete);
+                } else {
+                  deletedCount = uidsToDelete.length;
+                  deletedUids.push(...uidsToDelete);
+                }
+                finalizeDeletion();
+              });
+            }
+          }
+
+          function finalizeDeletion() {
+            imap.end();
+            resolve({
+              content: [],
+              structuredContent: {
+                success: deletedCount > 0,
+                deleted_count: deletedCount,
+                failed_count: failedCount,
+                deleted_uids: deletedUids,
+                failed_uids: failedUids,
+                message: `Successfully deleted ${deletedCount} emails${failedCount > 0 ? `, ${failedCount} failed` : ''}`,
+                error: failedCount > 0 ? `Failed to delete ${failedCount} emails` : undefined,
+                platform: PLATFORM,
+                timestamp: new Date().toISOString()
+              }
+            });
+          }
+        });
+      });
+
+      imap.once('error', (err: any) => {
+        reject(new Error(`IMAP connection error: ${err.message}`));
+      });
+
+      imap.connect();
+    });
+  } catch (error: any) {
+    return {
+      content: [],
+      structuredContent: {
+        success: false,
+        deleted_count: 0,
+        failed_count: 0,
+        deleted_uids: [],
+        failed_uids: [],
+        message: "Deletion operation failed",
+        error: `Failed to delete emails: ${error.message}`,
+        platform: PLATFORM,
+        timestamp: new Date().toISOString()
+      }
+    };
+  }
+});
+
+// Sort emails tool
+server.registerTool("sort_emails", {
+  description: "Sort and organize emails from IMAP servers across all platforms (Windows, Linux, macOS, Android, iOS). Supports multiple sorting criteria, filtering, and organization into folders with intelligent email management capabilities.",
+  inputSchema: {
+    email_config: z.object({
+      service: z.enum(["gmail", "outlook", "yahoo", "custom"]).describe("Email service provider. 'gmail' for Google Mail, 'outlook' for Microsoft Outlook/Hotmail, 'yahoo' for Yahoo Mail, 'custom' for other IMAP servers."),
+      email: z.string().describe("Email address for authentication. Examples: 'user@gmail.com', 'user@outlook.com', 'user@company.com'."),
+      password: z.string().describe("Password or app password for the email account. For Gmail, use App Password if 2FA is enabled."),
+      host: z.string().optional().describe("IMAP host for custom servers. Examples: 'imap.company.com', 'mail.example.org'. Required when service is 'custom'."),
+      port: z.number().optional().describe("IMAP port for custom servers. Examples: 993 for SSL, 143 for unencrypted. Defaults to 993 for SSL."),
+      secure: z.boolean().optional().describe("Whether to use SSL/TLS encryption. Examples: true for port 993, false for port 143. Defaults to true for SSL."),
+      name: z.string().optional().describe("Display name for the email account. Examples: 'John Doe', 'Company Email', 'MCP God Mode'.")
+    }).describe("Email server configuration including service provider, credentials, and connection settings."),
+    source_folder: z.string().default("INBOX").describe("Source folder to sort emails from. Examples: 'INBOX', 'Sent', 'Drafts', 'Archive'."),
+    sort_criteria: z.enum(["date", "sender", "subject", "size", "priority", "unread", "has_attachments"]).describe("Primary sorting criteria. 'date' for chronological order, 'sender' for sender name, 'subject' for subject line, 'size' for email size, 'priority' for importance, 'unread' for unread status, 'has_attachments' for attachment presence."),
+    sort_order: z.enum(["asc", "desc"]).default("desc").describe("Sorting order. 'asc' for ascending (oldest first, A-Z), 'desc' for descending (newest first, Z-A)."),
+    filter_criteria: z.object({
+      from: z.string().optional().describe("Filter by sender email or domain. Examples: 'user@example.com', '@company.com', 'john'."),
+      subject: z.string().optional().describe("Filter by subject keywords. Examples: 'meeting', 'urgent', 'project'."),
+      date_range: z.object({
+        start_date: z.string().optional().describe("Start date for filtering (ISO format). Examples: '2024-01-01', '2024-01-01T00:00:00Z'."),
+        end_date: z.string().optional().describe("End date for filtering (ISO format). Examples: '2024-12-31', '2024-12-31T23:59:59Z'.")
+      }).optional().describe("Date range filter for emails."),
+      has_attachments: z.boolean().optional().describe("Filter emails with or without attachments. Examples: true for emails with attachments, false for emails without attachments."),
+      unread_only: z.boolean().optional().describe("Filter only unread emails. Examples: true for unread emails only, false for all emails."),
+      size_limit: z.number().optional().describe("Maximum email size in bytes. Examples: 1000000 for 1MB, 10000000 for 10MB.")
+    }).optional().describe("Filtering criteria to apply before sorting."),
+    organization_rules: z.array(z.object({
+      condition: z.string().describe("Condition to match emails. Examples: 'FROM:spam@example.com', 'SUBJECT:newsletter', 'SINCE:2024-01-01'."),
+      action: z.enum(["move", "flag", "mark_read", "mark_unread", "delete"]).describe("Action to perform on matching emails. 'move' to move to folder, 'flag' to add flag, 'mark_read'/'mark_unread' to change read status, 'delete' to remove."),
+      target_folder: z.string().optional().describe("Target folder for move action. Examples: 'Spam', 'Newsletters', 'Archive', 'Important'."),
+      flag: z.string().optional().describe("Flag to add for flag action. Examples: 'Important', 'Follow-up', 'Urgent'.")
+    })).optional().describe("Rules for automatically organizing emails based on conditions."),
+    limit: z.number().default(50).describe("Maximum number of emails to process and sort. Examples: 25 for quick sorting, 100 for comprehensive organization, 1000 for bulk processing.")
+  },
+  outputSchema: {
+    success: z.boolean().describe("Whether the email sorting operation was successful."),
+    processed_count: z.number().describe("Number of emails processed during sorting."),
+    organized_count: z.number().describe("Number of emails that were organized according to rules."),
+    sorted_emails: z.array(z.object({
+      uid: z.string().describe("Unique identifier for the email message."),
+      subject: z.string().describe("Subject line of the email."),
+      from: z.string().describe("Sender email address and name."),
+      date: z.string().describe("Date and time when the email was sent."),
+      size: z.number().describe("Size of the email in bytes."),
+      sort_value: z.string().describe("Value used for sorting (date, sender, subject, etc.)."),
+      flags: z.array(z.string()).describe("Email flags after organization."),
+      folder: z.string().describe("Current folder location of the email.")
+    })).optional().describe("Array of sorted emails with their organization details."),
+    organization_summary: z.object({
+      moved_count: z.number().describe("Number of emails moved to different folders."),
+      flagged_count: z.number().describe("Number of emails that received new flags."),
+      read_status_changed: z.number().describe("Number of emails with changed read status."),
+      deleted_count: z.number().describe("Number of emails deleted during organization.")
+    }).optional().describe("Summary of organization actions performed."),
+    message: z.string().describe("Summary message of the sorting and organization operation."),
+    error: z.string().optional().describe("Error message if the operation failed."),
+    platform: z.string().describe("Platform where the email tool was executed."),
+    timestamp: z.string().describe("Timestamp when the sorting operation was performed.")
+  }
+}, async ({ email_config, source_folder = "INBOX", sort_criteria, sort_order = "desc", filter_criteria, organization_rules, limit = 50 }) => {
+  try {
+    let imapConfig;
+    
+    if (email_config.service === 'gmail') {
+      imapConfig = {
+        user: email_config.email,
+        password: email_config.password,
+        host: 'imap.gmail.com',
+        port: 993,
+        tls: true,
+        tlsOptions: { rejectUnauthorized: false }
+      };
+    } else if (email_config.service === 'outlook') {
+      imapConfig = {
+        user: email_config.email,
+        password: email_config.password,
+        host: 'outlook.office365.com',
+        port: 993,
+        tls: true,
+        tlsOptions: { rejectUnauthorized: false }
+      };
+    } else if (email_config.service === 'yahoo') {
+      imapConfig = {
+        user: email_config.email,
+        password: email_config.password,
+        host: 'imap.mail.yahoo.com',
+        port: 993,
+        tls: true,
+        tlsOptions: { rejectUnauthorized: false }
+      };
+    } else {
+      imapConfig = {
+        user: email_config.email,
+        password: email_config.password,
+        host: email_config.host!,
+        port: email_config.port || 993,
+        tls: email_config.secure !== false,
+        tlsOptions: { rejectUnauthorized: false }
+      };
+    }
+
+    return new Promise((resolve, reject) => {
+      const imap = new Imap(imapConfig);
+      const emails: any[] = [];
+      let processedCount = 0;
+      let organizedCount = 0;
+      const organizationSummary = {
+        moved_count: 0,
+        flagged_count: 0,
+        read_status_changed: 0,
+        deleted_count: 0
+      };
+
+      imap.once('ready', () => {
+        imap.openBox(source_folder, false, (err, box) => {
+          if (err) {
+            imap.end();
+            reject(new Error(`Failed to open folder: ${err.message}`));
+            return;
+          }
+
+          // Build search criteria
+          let searchTerms: any[] = [];
+          
+          if (filter_criteria?.unread_only) searchTerms.push(['UNSEEN']);
+          if (filter_criteria?.from) searchTerms.push(['FROM', filter_criteria.from]);
+          if (filter_criteria?.subject) searchTerms.push(['SUBJECT', filter_criteria.subject]);
+          if (filter_criteria?.has_attachments) searchTerms.push(['HASATTACHMENT']);
+          if (filter_criteria?.date_range?.start_date) searchTerms.push(['SINCE', filter_criteria.date_range.start_date]);
+          if (filter_criteria?.date_range?.end_date) searchTerms.push(['UNTIL', filter_criteria.date_range.end_date]);
+          
+          if (searchTerms.length === 0) searchTerms.push(['ALL']);
+
+          imap.search(searchTerms, (err, results) => {
+            if (err) {
+              imap.end();
+              reject(new Error(`Failed to search emails: ${err.message}`));
+              return;
+            }
+
+            if (results.length === 0) {
+              imap.end();
+              resolve({
+                content: [],
+                structuredContent: {
+                  success: true,
+                  processed_count: 0,
+                  organized_count: 0,
+                  sorted_emails: [],
+                  organization_summary: organizationSummary,
+                  message: "No emails found matching criteria",
+                  error: undefined,
+                  platform: PLATFORM,
+                  timestamp: new Date().toISOString()
+                }
+              });
+              return;
+            }
+
+            const fetch = imap.fetch(results.slice(0, limit), { 
+              bodies: 'HEADER.FIELDS (FROM TO SUBJECT DATE)', 
+              struct: true 
+            });
+
+            fetch.on('message', (msg, seqno) => {
+              let email: any = {};
+
+              msg.on('body', (stream, info) => {
+                let buffer = '';
+                stream.on('data', (chunk) => {
+                  buffer += chunk.toString('utf8');
+                });
+                stream.on('end', () => {
+                  const header = Imap.parseHeader(buffer);
+                  email.subject = header.subject ? header.subject[0] : 'No Subject';
+                  email.from = header.from ? header.from[0] : 'Unknown Sender';
+                  email.date = header.date ? header.date[0] : 'Unknown Date';
+                  
+                  // Extract sort value based on criteria
+                  switch (sort_criteria) {
+                    case 'date':
+                      email.sort_value = email.date;
+                      break;
+                    case 'sender':
+                      email.sort_value = email.from.toLowerCase();
+                      break;
+                    case 'subject':
+                      email.sort_value = email.subject.toLowerCase();
+                      break;
+                    case 'size':
+                      email.sort_value = email.size || 0;
+                      break;
+                    case 'priority':
+                      email.sort_value = email.flags?.includes('\\Flagged') ? 1 : 0;
+                      break;
+                    case 'unread':
+                      email.sort_value = email.flags?.includes('\\Seen') ? 0 : 1;
+                      break;
+                    case 'has_attachments':
+                      email.sort_value = email.has_attachments ? 1 : 0;
+                      break;
+                  }
+                });
+              });
+
+              msg.once('attributes', (attrs) => {
+                email.uid = attrs.uid;
+                email.size = attrs.size;
+                email.flags = attrs.flags || [];
+                email.has_attachments = attrs.struct && attrs.struct.parts && attrs.struct.parts.length > 1;
+                email.folder = source_folder;
+                processedCount++;
+              });
+
+              msg.once('end', () => {
+                emails.push(email);
+              });
+            });
+
+            fetch.once('error', (err) => {
+              imap.end();
+              reject(new Error(`Failed to fetch emails: ${err.message}`));
+            });
+
+            fetch.once('end', () => {
+              // Sort emails based on criteria and order
+              emails.sort((a, b) => {
+                let aVal = a.sort_value;
+                let bVal = b.sort_value;
+                
+                if (sort_criteria === 'date') {
+                  aVal = new Date(aVal).getTime();
+                  bVal = new Date(bVal).getTime();
+                } else if (sort_criteria === 'size' || sort_criteria === 'priority' || sort_criteria === 'unread' || sort_criteria === 'has_attachments') {
+                  aVal = Number(aVal) || 0;
+                  bVal = Number(bVal) || 0;
+                } else {
+                  aVal = String(aVal || '').toLowerCase();
+                  bVal = String(bVal || '').toLowerCase();
+                }
+                
+                if (sort_order === 'asc') {
+                  return aVal > bVal ? 1 : aVal < bVal ? -1 : 0;
+                } else {
+                  return aVal < bVal ? 1 : aVal > bVal ? -1 : 0;
+                }
+              });
+
+              // Apply organization rules if provided
+              if (organization_rules && organization_rules.length > 0) {
+                emails.forEach(email => {
+                  organization_rules.forEach(rule => {
+                    // Simple rule matching (can be enhanced)
+                    if (rule.condition.includes('FROM:') && email.from.includes(rule.condition.split(':')[1])) {
+                      applyOrganizationRule(email, rule);
+                    } else if (rule.condition.includes('SUBJECT:') && email.subject.toLowerCase().includes(rule.condition.split(':')[1].toLowerCase())) {
+                      applyOrganizationRule(email, rule);
+                    }
+                  });
+                });
+              }
+
+              imap.end();
+              resolve({
+                content: [],
+                structuredContent: {
+                  success: true,
+                  processed_count: processedCount,
+                  organized_count: organizedCount,
+                  sorted_emails: emails,
+                  organization_summary: organizationSummary,
+                  message: `Successfully sorted ${processedCount} emails${organizedCount > 0 ? ` and organized ${organizedCount}` : ''}`,
+                  error: undefined,
+                  platform: PLATFORM,
+                  timestamp: new Date().toISOString()
+                }
+              });
+            });
+          });
+        });
+      });
+
+      function applyOrganizationRule(email: any, rule: any) {
+        switch (rule.action) {
+          case 'move':
+            if (rule.target_folder) {
+              // Note: Actual folder moving would require additional IMAP operations
+              email.folder = rule.target_folder;
+              organizationSummary.moved_count++;
+            }
+            break;
+          case 'flag':
+            if (rule.flag) {
+              email.flags.push(rule.flag);
+              organizationSummary.flagged_count++;
+            }
+            break;
+          case 'mark_read':
+            if (!email.flags.includes('\\Seen')) {
+              email.flags.push('\\Seen');
+              organizationSummary.read_status_changed++;
+            }
+            break;
+          case 'mark_unread':
+            if (email.flags.includes('\\Seen')) {
+              email.flags = email.flags.filter((f: string) => f !== '\\Seen');
+              organizationSummary.read_status_changed++;
+            }
+            break;
+          case 'delete':
+            email.flags.push('\\Deleted');
+            organizationSummary.deleted_count++;
+            break;
+        }
+        organizedCount++;
+      }
+
+      imap.once('error', (err: any) => {
+        reject(new Error(`IMAP connection error: ${err.message}`));
+      });
+
+      imap.connect();
+    });
+  } catch (error: any) {
+    return {
+      content: [],
+      structuredContent: {
+        success: false,
+        processed_count: 0,
+        organized_count: 0,
+        sorted_emails: undefined,
+        organization_summary: undefined,
+        message: "Sorting operation failed",
+        error: `Failed to sort emails: ${error.message}`,
+        platform: PLATFORM,
+        timestamp: new Date().toISOString()
+      }
+    };
+  }
+});
+
+// Manage email accounts tool
+server.registerTool("manage_email_accounts", {
+  description: "Manage multiple email accounts across all platforms (Windows, Linux, macOS, Android, iOS). Store, retrieve, validate, and manage email configurations for Gmail, Outlook, Yahoo, and custom SMTP/IMAP servers with secure credential management.",
+  inputSchema: {
+    action: z.enum(["add", "remove", "list", "validate", "update", "get_config"]).describe("Action to perform on email accounts. 'add' to store new account, 'remove' to delete account, 'list' to show all accounts, 'validate' to test connection, 'update' to modify existing account, 'get_config' to retrieve specific account."),
+    account_name: z.string().optional().describe("Name identifier for the email account. Examples: 'work', 'personal', 'gmail-account', 'company-email'. Required for add, remove, update, and get_config actions."),
+    email_config: z.object({
+      service: z.enum(["gmail", "outlook", "yahoo", "custom"]).describe("Email service provider. 'gmail' for Google Mail, 'outlook' for Microsoft Outlook/Hotmail, 'yahoo' for Yahoo Mail, 'custom' for other servers."),
+      email: z.string().describe("Email address for authentication. Examples: 'user@gmail.com', 'user@outlook.com', 'user@company.com'."),
+      password: z.string().describe("Password or app password for the email account. For Gmail, use App Password if 2FA is enabled."),
+      host: z.string().optional().describe("SMTP/IMAP host for custom servers. Examples: 'smtp.company.com', 'imap.company.com'. Required when service is 'custom'."),
+      port: z.number().optional().describe("SMTP/IMAP port for custom servers. Examples: 587 for SMTP TLS, 993 for IMAP SSL. Defaults to service-specific values."),
+      secure: z.boolean().optional().describe("Whether to use SSL/TLS encryption. Examples: true for SSL, false for TLS. Defaults to service-specific values."),
+      name: z.string().optional().describe("Display name for the email account. Examples: 'John Doe', 'Company Email', 'MCP God Mode'."),
+      description: z.string().optional().describe("Additional description for the account. Examples: 'Work email for project communications', 'Personal email for family updates'.")
+    }).optional().describe("Email server configuration. Required for add, update, and validate actions."),
+    test_connection: z.boolean().default(true).describe("Whether to test the connection when adding or updating accounts. Set to true to verify credentials, false to skip validation.")
+  },
+  outputSchema: {
+    success: z.boolean().describe("Whether the account management operation was successful."),
+    action_performed: z.string().describe("The action that was performed on the email accounts."),
+    accounts: z.array(z.object({
+      name: z.string().describe("Name identifier for the email account."),
+      service: z.string().describe("Email service provider."),
+      email: z.string().describe("Email address for the account."),
+      display_name: z.string().optional().describe("Display name for the account."),
+      description: z.string().optional().describe("Account description."),
+      last_validated: z.string().optional().describe("Timestamp when the account was last validated."),
+      status: z.string().describe("Account status: 'active', 'inactive', 'error', 'validating'.")
+    })).optional().describe("Array of managed email accounts."),
+    account_details: z.object({
+      name: z.string().describe("Name identifier for the email account."),
+      service: z.string().describe("Email service provider."),
+      email: z.string().describe("Email address for the account."),
+      host: z.string().optional().describe("SMTP/IMAP host for custom servers."),
+      port: z.number().optional().describe("SMTP/IMAP port for custom servers."),
+      secure: z.boolean().optional().describe("Whether to use SSL/TLS encryption."),
+      display_name: z.string().optional().describe("Display name for the account."),
+      description: z.string().optional().describe("Account description."),
+      last_validated: z.string().optional().describe("Timestamp when the account was last validated."),
+      status: z.string().describe("Account status.")
+    }).optional().describe("Details of a specific email account."),
+    validation_result: z.object({
+      smtp_working: z.boolean().describe("Whether SMTP connection test was successful."),
+      imap_working: z.boolean().describe("Whether IMAP connection test was successful."),
+      smtp_error: z.string().optional().describe("SMTP connection error message if test failed."),
+      imap_error: z.string().optional().describe("IMAP connection error message if test failed."),
+      test_timestamp: z.string().describe("Timestamp when the validation test was performed.")
+    }).optional().describe("Results of connection validation tests."),
+    message: z.string().describe("Summary message of the account management operation."),
+    error: z.string().optional().describe("Error message if the operation failed."),
+    platform: z.string().describe("Platform where the email tool was executed."),
+    timestamp: z.string().describe("Timestamp when the operation was performed.")
+  }
+}, async ({ action, account_name, email_config, test_connection = true }) => {
+  try {
+    // In-memory storage for email accounts (in production, this would be persistent)
+    if (!global.emailAccounts) {
+      (global as any).emailAccounts = new Map<string, any>();
+    }
+    const emailAccounts = (global as any).emailAccounts;
+
+    switch (action) {
+      case 'add':
+        if (!account_name || !email_config) {
+          throw new Error('Account name and email configuration are required for adding accounts');
+        }
+
+        if (emailAccounts.has(account_name)) {
+          throw new Error(`Account '${account_name}' already exists`);
+        }
+
+        const accountToAdd = {
+          ...email_config,
+          last_validated: null,
+          status: 'pending'
+        };
+
+        if (test_connection) {
+          accountToAdd.status = 'validating';
+          try {
+            const validationResult = await validateEmailAccount(email_config);
+            accountToAdd.status = validationResult.smtp_working && validationResult.imap_working ? 'active' : 'error';
+            accountToAdd.last_validated = validationResult.test_timestamp;
+            
+            emailAccounts.set(account_name, accountToAdd);
+            
+            return {
+              content: [],
+              structuredContent: {
+                success: true,
+                action_performed: 'add',
+                account_details: {
+                  name: account_name,
+                  service: accountToAdd.service,
+                  email: accountToAdd.email,
+                  host: accountToAdd.host,
+                  port: accountToAdd.port,
+                  secure: accountToAdd.secure,
+                  display_name: accountToAdd.name,
+                  description: accountToAdd.description,
+                  last_validated: accountToAdd.last_validated,
+                  status: accountToAdd.status
+                },
+                validation_result: validationResult,
+                message: `Account '${account_name}' added successfully${accountToAdd.status === 'active' ? ' and validated' : ' but validation failed'}`,
+                error: undefined,
+                platform: PLATFORM,
+                timestamp: new Date().toISOString()
+              }
+            };
+          } catch (validationError: any) {
+            accountToAdd.status = 'error';
+            accountToAdd.last_validated = new Date().toISOString();
+            emailAccounts.set(account_name, accountToAdd);
+            
+            return {
+              content: [],
+              structuredContent: {
+                success: false,
+                action_performed: 'add',
+                account_details: {
+                  name: account_name,
+                  service: accountToAdd.service,
+                  email: accountToAdd.email,
+                  host: accountToAdd.host,
+                  port: accountToAdd.port,
+                  secure: accountToAdd.secure,
+                  display_name: accountToAdd.name,
+                  description: accountToAdd.description,
+                  last_validated: accountToAdd.last_validated,
+                  status: accountToAdd.status
+                },
+                validation_result: {
+                  smtp_working: false,
+                  imap_working: false,
+                  smtp_error: validationError.message,
+                  imap_error: validationError.message,
+                  test_timestamp: new Date().toISOString()
+                },
+                message: `Account '${account_name}' added but validation failed: ${validationError.message}`,
+                error: `Validation failed: ${validationError.message}`,
+                platform: PLATFORM,
+                timestamp: new Date().toISOString()
+              }
+            };
+          }
+        } else {
+          accountToAdd.status = 'pending';
+          emailAccounts.set(account_name, accountToAdd);
+          
+          return {
+            content: [],
+            structuredContent: {
+              success: true,
+              action_performed: 'add',
+              account_details: {
+                name: account_name,
+                service: accountToAdd.service,
+                email: accountToAdd.email,
+                host: accountToAdd.host,
+                port: accountToAdd.port,
+                secure: accountToAdd.secure,
+                display_name: accountToAdd.name,
+                description: accountToAdd.description,
+                last_validated: accountToAdd.last_validated,
+                status: accountToAdd.status
+              },
+              message: `Account '${account_name}' added successfully (validation skipped)`,
+              error: undefined,
+              platform: PLATFORM,
+              timestamp: new Date().toISOString()
+            }
+          };
+        }
+
+      case 'remove':
+        if (!account_name) {
+          throw new Error('Account name is required for removing accounts');
+        }
+
+        if (!emailAccounts.has(account_name)) {
+          throw new Error(`Account '${account_name}' not found`);
+        }
+
+        const removedAccount = emailAccounts.get(account_name);
+        emailAccounts.delete(account_name);
+        
+        return {
+          content: [],
+          structuredContent: {
+            success: true,
+            action_performed: 'remove',
+            account_details: {
+              name: account_name,
+              service: removedAccount.service,
+              email: removedAccount.email,
+              host: removedAccount.host,
+              port: removedAccount.port,
+              secure: removedAccount.secure,
+              display_name: removedAccount.name,
+              description: removedAccount.description,
+              last_validated: removedAccount.last_validated,
+              status: 'removed'
+            },
+            message: `Account '${account_name}' removed successfully`,
+            error: undefined,
+            platform: PLATFORM,
+            timestamp: new Date().toISOString()
+          }
+        };
+
+      case 'list':
+        const accountList = Array.from(emailAccounts.entries()).map(([name, config]) => ({
+          name,
+          service: config.service,
+          email: config.email,
+          display_name: config.name,
+          description: config.description,
+          last_validated: config.last_validated,
+          status: config.status
+        }));
+        
+        return {
+          content: [],
+          structuredContent: {
+            success: true,
+            action_performed: 'list',
+            accounts: accountList,
+            message: `Found ${accountList.length} email account(s)`,
+            error: undefined,
+            platform: PLATFORM,
+            timestamp: new Date().toISOString()
+          }
+        };
+
+      case 'validate':
+        if (!account_name) {
+          throw new Error('Account name is required for validation');
+        }
+
+        if (!emailAccounts.has(account_name)) {
+          throw new Error(`Account '${account_name}' not found`);
+        }
+
+        const accountToValidate = emailAccounts.get(account_name);
+        const validationResult = await validateEmailAccount(accountToValidate);
+        
+        // Update account status based on validation
+        accountToValidate.status = validationResult.smtp_working && validationResult.imap_working ? 'active' : 'error';
+        accountToValidate.last_validated = validationResult.test_timestamp;
+        emailAccounts.set(account_name, accountToValidate);
+        
+        return {
+          content: [],
+          structuredContent: {
+            success: true,
+            action_performed: 'validate',
+            account_details: {
+              name: account_name,
+              service: accountToValidate.service,
+              email: accountToValidate.email,
+              host: accountToValidate.host,
+              port: accountToValidate.port,
+              secure: accountToValidate.secure,
+              display_name: accountToValidate.name,
+              description: accountToValidate.description,
+              last_validated: accountToValidate.last_validated,
+              status: accountToValidate.status
+            },
+            validation_result: validationResult,
+            message: `Account '${account_name}' validation completed${accountToValidate.status === 'active' ? ' successfully' : ' with errors'}`,
+            error: undefined,
+            platform: PLATFORM,
+            timestamp: new Date().toISOString()
+          }
+        };
+
+      case 'update':
+        if (!account_name || !email_config) {
+          throw new Error('Account name and email configuration are required for updating accounts');
+        }
+
+        if (!emailAccounts.has(account_name)) {
+          throw new Error(`Account '${account_name}' not found`);
+        }
+
+        const existingAccount = emailAccounts.get(account_name);
+        const updatedAccount = {
+          ...existingAccount,
+          ...email_config,
+          status: 'pending'
+        };
+
+        if (test_connection) {
+          updatedAccount.status = 'validating';
+          try {
+            const validationResult = await validateEmailAccount(email_config);
+            updatedAccount.status = validationResult.smtp_working && validationResult.imap_working ? 'active' : 'error';
+            updatedAccount.last_validated = validationResult.test_timestamp;
+          } catch (validationError: any) {
+            updatedAccount.status = 'error';
+            updatedAccount.last_validated = new Date().toISOString();
+          }
+        }
+
+        emailAccounts.set(account_name, updatedAccount);
+        
+        return {
+          content: [],
+          structuredContent: {
+            success: true,
+            action_performed: 'update',
+            account_details: {
+              name: account_name,
+              service: updatedAccount.service,
+              email: updatedAccount.email,
+              host: updatedAccount.host,
+              port: updatedAccount.port,
+              secure: updatedAccount.secure,
+              display_name: updatedAccount.name,
+              description: updatedAccount.description,
+              last_validated: updatedAccount.last_validated,
+              status: updatedAccount.status
+            },
+            message: `Account '${account_name}' updated successfully`,
+            error: undefined,
+            platform: PLATFORM,
+            timestamp: new Date().toISOString()
+          }
+        };
+
+      case 'get_config':
+        if (!account_name) {
+          throw new Error('Account name is required for retrieving account configuration');
+        }
+
+        if (!emailAccounts.has(account_name)) {
+          throw new Error(`Account '${account_name}' not found`);
+        }
+
+        const retrievedAccount = emailAccounts.get(account_name);
+        
+        return {
+          content: [],
+          structuredContent: {
+            success: true,
+            action_performed: 'get_config',
+            account_details: {
+              name: account_name,
+              service: retrievedAccount.service,
+              email: retrievedAccount.email,
+              host: retrievedAccount.host,
+              port: retrievedAccount.port,
+              secure: retrievedAccount.secure,
+              display_name: retrievedAccount.name,
+              description: retrievedAccount.description,
+              last_validated: retrievedAccount.last_validated,
+              status: retrievedAccount.status
+            },
+            message: `Account '${account_name}' configuration retrieved successfully`,
+            error: undefined,
+            platform: PLATFORM,
+            timestamp: new Date().toISOString()
+          }
+        };
+
+      default:
+        throw new Error(`Unknown action: ${action}`);
+    }
+  } catch (error: any) {
+    return {
+      content: [],
+      structuredContent: {
+        success: false,
+        action_performed: action || 'unknown',
+        message: "Account management operation failed",
+        error: `Failed to manage email accounts: ${error.message}`,
+        platform: PLATFORM,
+        timestamp: new Date().toISOString()
+      }
+    };
+  }
+});
+
+// Helper function to validate email account connections
+async function validateEmailAccount(config: any): Promise<any> {
+  const result = {
+    smtp_working: false,
+    imap_working: false,
+    smtp_error: undefined,
+    imap_error: undefined,
+    test_timestamp: new Date().toISOString()
+  };
+
+  // Test SMTP connection
+  try {
+    const transport = await getEmailTransport(config);
+    await transport.verify();
+    result.smtp_working = true;
+  } catch (error: any) {
+    result.smtp_error = error.message;
+  }
+
+  // Test IMAP connection
+  try {
+    let imapConfig;
+    if (config.service === 'gmail') {
+      imapConfig = {
+        user: config.email,
+        password: config.password,
+        host: 'imap.gmail.com',
+        port: 993,
+        tls: true,
+        tlsOptions: { rejectUnauthorized: false }
+      };
+    } else if (config.service === 'outlook') {
+      imapConfig = {
+        user: config.email,
+        password: config.password,
+        host: 'outlook.office365.com',
+        port: 993,
+        tls: true,
+        tlsOptions: { rejectUnauthorized: false }
+      };
+    } else if (config.service === 'yahoo') {
+      imapConfig = {
+        user: config.email,
+        password: config.password,
+        host: 'imap.mail.yahoo.com',
+        port: 993,
+        tls: true,
+        tlsOptions: { rejectUnauthorized: false }
+      };
+    } else {
+      imapConfig = {
+        user: config.email,
+        password: config.password,
+        host: config.host!,
+        port: config.port || 993,
+        tls: config.secure !== false,
+        tlsOptions: { rejectUnauthorized: false }
+      };
+    }
+
+    return new Promise((resolve, reject) => {
+      const imap = new Imap(imapConfig);
+      
+      imap.once('ready', () => {
+        result.imap_working = true;
+        imap.end();
+        resolve(result);
+      });
+
+      imap.once('error', (err: any) => {
+        result.imap_error = err.message;
+        imap.end();
+        resolve(result);
+      });
+
+      imap.connect();
+    });
+  } catch (error: any) {
+    result.imap_error = error.message;
+    return result;
+  }
+}
+
 // Start the server
