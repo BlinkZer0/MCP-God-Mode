@@ -115,7 +115,7 @@ Here's the full arsenal (based on the MCP's capabilities). I've included humorou
 <div style="flex: 1;">
 
 ### **🤖 LM Studio Integration Proof**
-![LM Studio Proof](docs/Screenshot%202025-09-02%20191515-lmstudioproof.png)
+![LM Studio Proof](docs/lmstudioproof.png)
 *MCP God Mode successfully integrated with LM Studio - All 36 tools mounted and ready*
 
 **This screenshot proves:**
