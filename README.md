@@ -341,12 +341,11 @@ Here's the complete arsenal, organized by superpower category:
 
 This demonstration shows the WiFi security tool being used in Cursor, scanning for vulnerabilities within range:
 
-<video width="100%" controls>
-  <source src="docs/images/Recording 2025-09-03 011615.mp4" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
+[![WiFi Security Tool Demo](docs/images/Screenshot%202025-09-03%20162804.png)](docs/images/Recording%202025-09-03%20011615.mp4)
 
-*Watch as MCP God Mode scans for WiFi networks, identifies security vulnerabilities, and demonstrates real-time network analysis capabilities in Cursor!*
+**[▶️ Click to Watch Full Video](docs/images/Recording%202025-09-03%20011615.mp4)** - *Watch as MCP God Mode scans for WiFi networks, identifies security vulnerabilities, and demonstrates real-time network analysis capabilities in Cursor!*
+
+*Note: Click the image above or the link below to view the full MP4 demonstration video. GitHub displays images natively but requires clicking to view video files.*
 - `wifi_security_toolkit` with action `scan_networks` - Discover available Wi-Fi networks across all 5 platforms
 - `wifi_security_toolkit` with action `capture_handshake` - Capture WPA/WPA2 handshakes (Linux: Full, Others: Limited)
 - `wifi_security_toolkit` with action `capture_pmkid` - Extract PMKIDs without reconnections (Linux: Full, Others: Limited)
