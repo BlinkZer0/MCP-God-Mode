@@ -121,7 +121,7 @@ Here's the full arsenal (based on the MCP's capabilities). I've included humorou
 **Additional Tool Views:**
 ![Cursor Tools Enabled](docs/images/Toolscursor1.png)
 ![Cursor Tools Enabled 2](docs/images/Toolscursor2.png)
-*All 43 tools successfully mounted and ready to use in your MCP client*
+*All 44 tools successfully mounted and ready to use in your MCP client*
 
 **This screenshot proves:**
 - ✅ **Tools actually work** - Not just marketing hype
