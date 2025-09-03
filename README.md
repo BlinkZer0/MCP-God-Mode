@@ -101,7 +101,7 @@ Here's the full arsenal (based on the MCP's capabilities). I've included humorou
 <div style="flex: 1;">
 
 ### **🖥️ System Specifications**
-![System Specifications](docs/Screenshot%202025-09-02%20161602.png)
+![System Specifications](docs/systemspecs.png)
 *Real system specifications detected by MCP God Mode - Windows 10, 24 CPU cores, 31.8 GB RAM*
 
 **This screenshot proves:**
