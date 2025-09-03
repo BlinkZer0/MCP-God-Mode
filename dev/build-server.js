@@ -37,6 +37,7 @@ const AVAILABLE_TOOLS = {
   // Utility Tools (to be implemented)
   calculator: './tools/utilities/calculator',
   math_calculate: './tools/utilities/math_calculate',
+  dice_rolling: './tools/utilities/dice_rolling',
   git_status: './tools/utilities/git_status',
   web_scraper: './tools/utilities/web_scraper',
   browser_control: './tools/utilities/browser_control',

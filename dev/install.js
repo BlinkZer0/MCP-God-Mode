@@ -17,7 +17,8 @@ const SERVER_CONFIGS = {
       'Mobile device support (file_ops, system_tools, hardware)',
       'Web tools (scraper, browser control)',
       'System restore capabilities',
-      'Email tools (send_email, parse_email)'
+      'Email tools (send_email, parse_email)',
+      'Dice rolling utility'
     ],
     useCase: 'Embedded systems, IoT devices, minimal deployments',
     size: 'Small, lightweight'
@@ -31,7 +32,10 @@ const SERVER_CONFIGS = {
       'Advanced file operations (fs_search, download_file)',
       'Enhanced mobile support',
       'Additional web capabilities',
-      'Extended system restore features'
+      'Extended system restore features',
+      'Git integration',
+      'Calculator functionality',
+      'Dice rolling utility'
     ],
     useCase: 'Basic system administration, lightweight deployments',
     size: 'Medium, focused'
@@ -39,7 +43,7 @@ const SERVER_CONFIGS = {
   'full': {
     name: 'Full-Featured Server',
     description: 'Complete MCP God Mode with all tools and capabilities',
-    tools: 43,
+    tools: 44,
     features: [
       'All minimal features',
       'Complete Wi-Fi security toolkit (25+ actions)',
@@ -47,10 +51,30 @@ const SERVER_CONFIGS = {
       'Complete SDR security toolkit (56+ actions)',
       'Advanced mobile platform tools (29 tools)',
       'Natural language interface for all tools',
-      'Comprehensive security testing capabilities'
+      'Comprehensive security testing capabilities',
+      'Advanced email management (9 email tools)',
+      'Network diagnostics and penetration testing',
+      'Virtual machine and Docker management',
+      'Advanced mathematics and calculations',
+      'Dice rolling utility'
     ],
     useCase: 'Power users, security professionals, developers',
     size: 'Large, comprehensive'
+  },
+  'modular': {
+    name: 'Modular Server',
+    description: 'Custom-built server with imported tool modules - includes the dice tool',
+    tools: 6,
+    features: [
+      'Core system tools (health, system_info)',
+      'Email management (send_email, parse_email)',
+      'File system operations (fs_list)',
+      'Dice rolling utility (dice_rolling)',
+      'Modular architecture for easy customization',
+      'Lightweight and focused functionality'
+    ],
+    useCase: 'Custom deployments, specific tool requirements, development testing',
+    size: 'Very small, modular'
   },
   'custom': {
     name: 'Custom Server',
@@ -61,7 +85,8 @@ const SERVER_CONFIGS = {
       'Mix and match functionality',
       'Optimize for specific use cases',
       'Reduce resource usage',
-      'Customize for deployment needs'
+      'Customize for deployment needs',
+      'Include dice tool and other utilities as needed'
     ],
     useCase: 'Specific requirements, specialized deployments',
     size: 'Variable, tailored'
@@ -94,7 +119,7 @@ function getServerChoice() {
   });
 
   return new Promise((resolve) => {
-    rl.question('Which server version would you like to install? (ultra-minimal/minimal/full/custom): ', (answer) => {
+    rl.question('Which server version would you like to install? (ultra-minimal/minimal/full/modular/custom): ', (answer) => {
       rl.close();
       resolve(answer.toLowerCase().trim());
     });
@@ -142,6 +167,15 @@ function installServer(choice) {
       console.log('  node build-server.js <tool1> <tool2> ...');
       console.log('\nExample:');
       console.log('  node build-server.js health system_info send_email parse_email');
+      return;
+    }
+    
+    if (choice === 'modular') {
+      console.log('For modular server installation, please use:');
+      console.log('  npm run build:modular');
+      console.log('\nOr manually:');
+      console.log('  cd dev && npm run build:modular');
+      console.log('\nThe modular server includes: health, system_info, send_email, parse_email, fs_list, dice_rolling');
       return;
     }
     
