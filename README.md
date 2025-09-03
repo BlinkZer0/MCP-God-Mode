@@ -347,7 +347,6 @@ https://github.com/user-attachments/assets/e0e80e6b-844e-464d-a18f-0ca993c2d7ea
 
  - *Watch as MCP God Mode scans for WiFi networks, identifies security vulnerabilities, and demonstrates real-time network analysis capabilities in Cursor!*
 
-*Note: Click the image above or the link below to view the full MP4 demonstration video. GitHub displays images natively but requires clicking to view video files.*
 - `wifi_security_toolkit` with action `scan_networks` - Discover available Wi-Fi networks across all 5 platforms
 - `wifi_security_toolkit` with action `capture_handshake` - Capture WPA/WPA2 handshakes (Linux: Full, Others: Limited)
 - `wifi_security_toolkit` with action `capture_pmkid` - Extract PMKIDs without reconnections (Linux: Full, Others: Limited)
