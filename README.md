@@ -35,7 +35,7 @@ This MCP can do wild stuff:
 
 **🚀 Why This is GAME-CHANGING:**
 
-- **🎯 One-Stop Solution:** 36 tools with 200 operations covering system management, security, and mobile access.
+- **🎯 One-Stop Solution:** 43 tools with 250+ operations covering system management, security, and mobile access.
 - **🌍 True Cross-Platform:** Works seamlessly on Windows, Linux, macOS, Android, and iOS with intelligent auto-detection
 - **🤖 AI-Powered Intelligence:** Your AI executes commands with context awareness.
 - **⚡ Proactive Problem Solving:** Supports predictive maintenance and automated fixes
@@ -44,7 +44,7 @@ This MCP can do wild stuff:
 
 **The Competition:** This MCP uniquely combines AI with system control across platforms including mobile.
 
-**🎉 Ready to Join the Revolution?** Ask your AI: *"What can you do now that MCP God Mode is installed?"* and prepare to have your mind completely blown! Your AI just became the ultimate system administrator, network engineer, security expert, mobile developer, and productivity wizard – all rolled into one incredibly powerful package with 36 tools and 200 operations!
+**🎉 Ready to Join the Revolution?** Ask your AI: *"What can you do now that MCP God Mode is installed?"* and prepare to have your mind completely blown! Your AI just became the ultimate system administrator, network engineer, security expert, mobile developer, and productivity wizard – all rolled into one incredibly powerful package with 43 tools and 250+ operations!
 
 ## 🎯 All the Features – With Hilarious Commentary
 
@@ -81,12 +81,12 @@ Here's the full arsenal (based on the MCP's capabilities). I've included humorou
 
 **🚀 SEE IT WORKING!** Here's what you'll get when MCP God Mode is properly installed:
 
-![Tools Successfully Mounted](docs/images/Screenshot%202025-09-02%20165005.png)
-*All 36 tools successfully mounted and ready to use in your MCP client*
+![Tools Successfully Mounted](docs/images/Cursortoolsenabled.png)(docs/images/Toolscursor1.png)(docs/images/Toolscursor2.png)
+*All 43 tools successfully mounted and ready to use in your MCP client*
 
 **This screenshot proves:**
 - ✅ **Tools actually work** - Not just marketing hype
-- ✅ **Accurate count** - 36 tools as promised
+- ✅ **Accurate count** - 43 tools as promised
 - ✅ **Proper mounting** - MCP integration successful
 - ✅ **Ready to use** - Your AI can access everything
 
@@ -116,11 +116,11 @@ Here's the full arsenal (based on the MCP's capabilities). I've included humorou
 
 ### **🤖 LM Studio Integration Proof**
 ![LM Studio Proof](docs/images/lmstudioproof.png)
-*MCP God Mode successfully integrated with LM Studio - All 36 tools mounted and ready*
+*MCP God Mode successfully integrated with LM Studio - All 43 tools mounted and ready*
 
 **This screenshot proves:**
 - ✅ **LM Studio compatibility** - Works seamlessly with popular AI platforms
-- ✅ **Tool mounting success** - All 36 tools properly integrated
+- ✅ **Tool mounting success** - All 43 tools properly integrated
 - ✅ **Professional integration** - Enterprise-grade AI platform support
 - ✅ **Ready for production** - Stable and reliable tool deployment
 
@@ -132,9 +132,9 @@ Here's the full arsenal (based on the MCP's capabilities). I've included humorou
 
 ## 🛠️ Complete Tool Arsenal - The AGI Infosec Playground!
 
-**🚀 WARNING: 36 Tools of Absolute Power!** Handing this to AGI is like giving a toddler the nuclear codes – fun in theory, disastrous in practice. Joke: In infosec, this is the equivalent of arming Skynet with dad jokes. Don't give access to a dumb AI; it'll probably just DDoS itself. And your girlfriend on SillyTavern? She might "roleplay" your system into oblivion!
+**🚀 WARNING: 43 Tools of Absolute Power!** Handing this to AGI is like giving a toddler the nuclear codes – fun in theory, disastrous in practice. Joke: In infosec, this is the equivalent of arming Skynet with dad jokes. Don't give access to a dumb AI; it'll probably just DDoS itself. And your girlfriend on SillyTavern? She might "roleplay" your system into oblivion!
 
-**📊 Tool Count Clarification:** This MCP provides **36 unique tools**, each with multiple actions that expand functionality. The 200 operations represent the total actions available across all tools.
+**📊 Tool Count Clarification:** This MCP provides **43 unique tools**, each with multiple actions that expand functionality. The 250+ operations represent the total actions available across all tools.
 
 ## 🔐 **AUTOMATIC ELEVATED PERMISSIONS - The Game Changer!**
 
@@ -160,7 +160,7 @@ Here's the full arsenal (based on the MCP's capabilities). I've included humorou
 **Key Distinction: Tools vs. Actions**
 - **Tools**: Individual, named functions (e.g., `wifi_security_toolkit`, `file_ops`)
 - **Actions**: Specific operations within a tool (e.g., `scan_networks`, `copy`, `delete`)
-- **Total Operations**: 200 individual actions across all tools
+- **Total Operations**: 250+ individual actions across all tools
 
 Here are all the current tools in MCP God Mode, broken down by category. Each gets a functionality breakdown with jokes because why not laugh at our digital overlords?
 
@@ -220,9 +220,9 @@ These are the mcp_windows-god-mode_ tools – where AGI gets scary powerful.
 - **mcp_windows-god-mode_browser_control**: Browser automation. *Function: Navigate, screenshot. Joke: AGI browsing your history – judgment free?*
 - **mcp_windows-god-mode_system_restore**: System restore and backup management. *Function: Create restore points, backup configs, rollback systems. Joke: AGI as your digital time machine – "Let's go back to when your system wasn't broken!"*
 
-**Grand Total: 36 Tools of Mayhem!** AGI with this arsenal? It's infosec god mode. Just don't let a stupid one loose – or your SillyTavern RP turns real.
+**Grand Total: 43 Tools of Mayhem!** AGI with this arsenal? It's infosec god mode. Just don't let a stupid one loose – or your SillyTavern RP turns real.
 
-**🎉 Ready to Join the Revolution?** Ask your AI: *"What can you do now that MCP God Mode is installed?"* and prepare to have your mind blown! Your AI just became a system administrator, network engineer, security expert, mobile developer, and productivity wizard all rolled into one with 36 tools and 200 operations!
+**🎉 Ready to Join the Revolution?** Ask your AI: *"What can you do now that MCP God Mode is installed?"* and prepare to have your mind blown! Your AI just became a system administrator, network engineer, security expert, mobile developer, and productivity wizard all rolled into one with 43 tools and 250+ operations!
 
 **🚀 BREAKING NEWS: Now with comprehensive Bluetooth security toolkit!** Your AI can now perform advanced Bluetooth security testing, device exploitation, and vulnerability assessment across all platforms!
 
@@ -609,7 +609,7 @@ Here's the complete arsenal, organized by superpower category:
 
 ---
 
-## 🎉 **THE GRAND TOTAL: 36 Tools, 200 Operations!**
+## 🎉 **THE GRAND TOTAL: 43 Tools, 250+ Operations!**
 
 **This is absolutely unprecedented!** No other MCP comes close to this level of comprehensive functionality. You've got everything from basic file operations to advanced AI-powered system management, all wrapped in cross-platform magic that works seamlessly across Windows, Linux, macOS, Android, and iOS.
 
@@ -645,7 +645,7 @@ Every single tool in MCP God Mode has been put through the wringer with comprehe
 - **Integration Testing:** Tool interactions and dependency management
 
 **🎯 Testing Results:**
-- **100% Tool Coverage:** All 36 tools tested and verified working
+- **100% Tool Coverage:** All 43 tools tested and verified working
 - **Zero Half-Implemented Features:** Every feature is complete and functional
 - **Comprehensive Error Handling:** Graceful failures with informative messages
 - **Cross-Platform Validation:** Tested on all supported operating systems
@@ -801,7 +801,7 @@ When I'm not coding AI overlords, I'm practicing martial arts. Here are some of 
 
 ## 🤖 **Recommended AI Models & Platforms - Choose Your Digital Overlord Wisely!**
 
-**🚨 CRITICAL: This ain't your grandma's chatbot!** MCP God Mode is a beast with 36 tools and 200 operations, comprehensive security toolkits, and massive context requirements. You need an AI model that can handle the heat! 🔥
+**🚨 CRITICAL: This ain't your grandma's chatbot!** MCP God Mode is a beast with 43 tools and 250+ operations, comprehensive security toolkits, and massive context requirements. You need an AI model that can handle the heat! 🔥
 
 ### **🎯 Context Requirements - Size Matters!**
 
@@ -919,7 +919,7 @@ When I'm not coding AI overlords, I'm practicing martial arts. Here are some of 
 
 **MCP God Mode is a professional-grade system that requires professional-grade AI models.** Don't handicap yourself with underpowered models when you're dealing with:
 
-- **36 sophisticated tools with 200 operations** (including web scraping, browser automation & mobile device management)
+- **43 sophisticated tools with 250+ operations** (including web scraping, browser automation & mobile device management)
 - **Complex security operations**
 - **Cross-platform system management**  
 - **Advanced penetration testing**
@@ -1056,12 +1056,12 @@ Before using in production, ensure you have:
 
 ## 🎊 **Welcome to the Future of AI System Administration!**
 
-**You've just installed the most powerful AI system management tool ever created!** With 36 revolutionary tools and 200 operations, plus true cross-platform support including mobile platforms, your AI assistant has been transformed into a digital superpower that can handle any system task across Windows, Linux, macOS, Android, and iOS.
+**You've just installed the most powerful AI system management tool ever created!** With 43 revolutionary tools and 250+ operations, plus true cross-platform support including mobile platforms, your AI assistant has been transformed into a digital superpower that can handle any system task across Windows, Linux, macOS, Android, and iOS.
 
 **🌟 What Makes This Special:**
 - **First-of-its-kind:** Nothing like this exists anywhere else
 - **Complete cross-platform support:** Works flawlessly on all major operating systems and mobile platforms
-- **36 comprehensive tools with 200 operations:** From basic file operations to advanced AI-powered system management including VM, Docker, mobile operations, and comprehensive security toolkits
+- **43 comprehensive tools with 250+ operations:** From basic file operations to advanced AI-powered system management including VM, Docker, mobile operations, and comprehensive security toolkits
 - **Natural language interface:** Just ask your AI what you need – no commands to memorize!
 - **Universal accessibility:** Complex security tools accessible to everyone through natural language
 - **Rigorously tested:** Every tool has been battle-tested across multiple platforms
@@ -1224,7 +1224,7 @@ Instead of remembering technical commands, just ask naturally:
 **Choose the version that fits your needs:**
 
 ### **🚀 Full-Featured Version (`server-refactored.ts`)**
-- **All 36 tools with 200 operations** including comprehensive security toolkits
+- **All 43 tools with 250+ operations** including comprehensive security toolkits
 - Full cross-platform support (Windows, Linux, macOS, Android, iOS)
 - Complete Wi-Fi, Bluetooth, and SDR security toolkits
 - Mobile platform tools and hardware access
@@ -1470,7 +1470,7 @@ export function registerMyTool(server: any) {
 ### 📊 **Server Configuration Options**
 
 #### **Full Server (server-refactored.ts)**
-- **Tools**: All 36 tools with 200 operations
+- **Tools**: All 43 tools with 250+ operations
 - **Use Case**: Complete functionality, development, testing
 - **Size**: Large, comprehensive
 
@@ -1535,7 +1535,7 @@ node build-server.js health system_info fs_list send_email
 ## 📦 **Available Server Versions**
 
 ### **🚀 Full-Featured Version (`server-refactored.ts`)**
-- **All 36 tools with 200 operations** including comprehensive security toolkits
+- **All 43 tools with 250+ operations** including comprehensive security toolkits
 - Full cross-platform support (Windows, Linux, macOS, Android, iOS)
 - Complete Wi-Fi, Bluetooth, and SDR security toolkits
 - Mobile platform tools and hardware access
@@ -1781,7 +1781,7 @@ export function registerMyTool(server: any) {
 ### 📊 **Server Configuration Options**
 
 #### **Full Server (server-refactored.ts)**
-- **Tools**: All 36 tools with 200 operations
+- **Tools**: All 43 tools with 250+ operations
 - **Use Case**: Complete functionality, development, testing
 - **Size**: Large, comprehensive
 
@@ -1846,7 +1846,7 @@ node build-server.js health system_info fs_list send_email
 ## 📦 **Available Server Versions**
 
 ### **🚀 Full-Featured Version (`server-refactored.ts`)**
-- **All 36 tools with 200 operations** including comprehensive security toolkits
+- **All 43 tools with 250+ operations** including comprehensive security toolkits
 - Full cross-platform support (Windows, Linux, macOS, Android, iOS)
 - Complete Wi-Fi, Bluetooth, and SDR security toolkits
 - Mobile platform tools and hardware access
@@ -2092,7 +2092,7 @@ export function registerMyTool(server: any) {
 ### 📊 **Server Configuration Options**
 
 #### **Full Server (server-refactored.ts)**
-- **Tools**: All 36 tools with 200 operations
+- **Tools**: All 43 tools with 250+ operations
 - **Use Case**: Complete functionality, development, testing
 - **Size**: Large, comprehensive
 
@@ -2157,7 +2157,7 @@ node build-server.js health system_info fs_list send_email
 ## 📦 **Available Server Versions**
 
 ### **🚀 Full-Featured Version (`server-refactored.ts`)**
-- **All 36 tools with 200 operations** including comprehensive security toolkits
+- **All 43 tools with 250+ operations** including comprehensive security toolkits
 - Full cross-platform support (Windows, Linux, macOS, Android, iOS)
 - Complete Wi-Fi, Bluetooth, and SDR security toolkits
 - Mobile platform tools and hardware access
@@ -2403,7 +2403,7 @@ export function registerMyTool(server: any) {
 ### 📊 **Server Configuration Options**
 
 #### **Full Server (server-refactored.ts)**
-- **Tools**: All 36 tools with 200 operations
+- **Tools**: All 43 tools with 250+ operations
 - **Use Case**: Complete functionality, development, testing
 - **Size**: Large, comprehensive
 
@@ -2468,7 +2468,7 @@ node build-server.js health system_info fs_list send_email
 ## 📦 **Available Server Versions**
 
 ### **🚀 Full-Featured Version (`server-refactored.ts`)**
-- **All 36 tools with 200 operations** including comprehensive security toolkits
+- **All 43 tools with 250+ operations** including comprehensive security toolkits
 - Full cross-platform support (Windows, Linux, macOS, Android, iOS)
 - Complete Wi-Fi, Bluetooth, and SDR security toolkits
 - Mobile platform tools and hardware access
@@ -2714,7 +2714,7 @@ export function registerMyTool(server: any) {
 ### 📊 **Server Configuration Options**
 
 #### **Full Server (server-refactored.ts)**
-- **Tools**: All 36 tools with 200 operations
+- **Tools**: All 43 tools with 250+ operations
 - **Use Case**: Complete functionality, development, testing
 - **Size**: Large, comprehensive
 
@@ -2779,7 +2779,7 @@ node build-server.js health system_info fs_list send_email
 ## 📦 **Available Server Versions**
 
 ### **🚀 Full-Featured Version (`server-refactored.ts`)**
-- **All 36 tools with 200 operations** including comprehensive security toolkits
+- **All 43 tools with 250+ operations** including comprehensive security toolkits
 - Full cross-platform support (Windows, Linux, macOS, Android, iOS)
 - Complete Wi-Fi, Bluetooth, and SDR security toolkits
 - Mobile platform tools and hardware access
@@ -3025,7 +3025,7 @@ export function registerMyTool(server: any) {
 ### 📊 **Server Configuration Options**
 
 #### **Full Server (server-refactored.ts)**
-- **Tools**: All 36 tools with 200 operations
+- **Tools**: All 43 tools with 250+ operations
 - **Use Case**: Complete functionality, development, testing
 - **Size**: Large, comprehensive
 
@@ -3090,7 +3090,7 @@ node build-server.js health system_info fs_list send_email
 ## 📦 **Available Server Versions**
 
 ### **🚀 Full-Featured Version (`server-refactored.ts`)**
-- **All 36 tools with 200 operations** including comprehensive security toolkits
+- **All 43 tools with 250+ operations** including comprehensive security toolkits
 - Full cross-platform support (Windows, Linux, macOS, Android, iOS)
 - Complete Wi-Fi, Bluetooth, and SDR security toolkits
 - Mobile platform tools and hardware access
@@ -3336,7 +3336,7 @@ export function registerMyTool(server: any) {
 ### 📊 **Server Configuration Options**
 
 #### **Full Server (server-refactored.ts)**
-- **Tools**: All 36 tools with 200 operations
+- **Tools**: All 43 tools with 250+ operations
 - **Use Case**: Complete functionality, development, testing
 - **Size**: Large, comprehensive
 
@@ -3401,7 +3401,7 @@ node build-server.js health system_info fs_list send_email
 ## 📦 **Available Server Versions**
 
 ### **🚀 Full-Featured Version (`server-refactored.ts`)**
-- **All 36 tools with 200 operations** including comprehensive security toolkits
+- **All 43 tools with 250+ operations** including comprehensive security toolkits
 - Full cross-platform support (Windows, Linux, macOS, Android, iOS)
 - Complete Wi-Fi, Bluetooth, and SDR security toolkits
 - Mobile platform tools and hardware access
@@ -3647,7 +3647,7 @@ export function registerMyTool(server: any) {
 ### 📊 **Server Configuration Options**
 
 #### **Full Server (server-refactored.ts)**
-- **Tools**: All 36 tools with 200 operations
+- **Tools**: All 43 tools with 250+ operations
 - **Use Case**: Complete functionality, development, testing
 - **Size**: Large, comprehensive
 
@@ -3712,7 +3712,7 @@ node build-server.js health system_info fs_list send_email
 ## 📦 **Available Server Versions**
 
 ### **🚀 Full-Featured Version (`server-refactored.ts`)**
-- **All 36 tools with 200 operations** including comprehensive security toolkits
+- **All 43 tools with 250+ operations** including comprehensive security toolkits
 - Full cross-platform support (Windows, Linux, macOS, Android, iOS)
 - Complete Wi-Fi, Bluetooth, and SDR security toolkits
 - Mobile platform tools and hardware access
@@ -3958,7 +3958,7 @@ export function registerMyTool(server: any) {
 ### 📊 **Server Configuration Options**
 
 #### **Full Server (server-refactored.ts)**
-- **Tools**: All 36 tools with 200 operations
+- **Tools**: All 43 tools with 250+ operations
 - **Use Case**: Complete functionality, development, testing
 - **Size**: Large, comprehensive
 
@@ -4023,7 +4023,7 @@ node build-server.js health system_info fs_list send_email
 ## 📦 **Available Server Versions**
 
 ### **🚀 Full-Featured Version (`server-refactored.ts`)**
-- **All 36 tools with 200 operations** including comprehensive security toolkits
+- **All 43 tools with 250+ operations** including comprehensive security toolkits
 - Full cross-platform support (Windows, Linux, macOS, Android, iOS)
 - Complete Wi-Fi, Bluetooth, and SDR security toolkits
 - Mobile platform tools and hardware access
@@ -4269,7 +4269,7 @@ export function registerMyTool(server: any) {
 ### 📊 **Server Configuration Options**
 
 #### **Full Server (server-refactored.ts)**
-- **Tools**: All 36 tools with 200 operations
+- **Tools**: All 43 tools with 250+ operations
 - **Use Case**: Complete functionality, development, testing
 - **Size**: Large, comprehensive
 
@@ -4334,7 +4334,7 @@ node build-server.js health system_info fs_list send_email
 ## 📦 **Available Server Versions**
 
 ### **🚀 Full-Featured Version (`server-refactored.ts`)**
-- **All 36 tools with 200 operations** including comprehensive security toolkits
+- **All 43 tools with 250+ operations** including comprehensive security toolkits
 - Full cross-platform support (Windows, Linux, macOS, Android, iOS)
 - Complete Wi-Fi, Bluetooth, and SDR security toolkits
 - Mobile platform tools and hardware access
@@ -4580,7 +4580,7 @@ export function registerMyTool(server: any) {
 ### 📊 **Server Configuration Options**
 
 #### **Full Server (server-refactored.ts)**
-- **Tools**: All 36 tools with 200 operations
+- **Tools**: All 43 tools with 250+ operations
 - **Use Case**: Complete functionality, development, testing
 - **Size**: Large, comprehensive
 
@@ -4645,7 +4645,7 @@ node build-server.js health system_info fs_list send_email
 ## 📦 **Available Server Versions**
 
 ### **🚀 Full-Featured Version (`server-refactored.ts`)**
-- **All 36 tools with 200 operations** including comprehensive security toolkits
+- **All 43 tools with 250+ operations** including comprehensive security toolkits
 - Full cross-platform support (Windows, Linux, macOS, Android, iOS)
 - Complete Wi-Fi, Bluetooth, and SDR security toolkits
 - Mobile platform tools and hardware access
@@ -4891,7 +4891,7 @@ export function registerMyTool(server: any) {
 ### 📊 **Server Configuration Options**
 
 #### **Full Server (server-refactored.ts)**
-- **Tools**: All 36 tools with 200 operations
+- **Tools**: All 43 tools with 250+ operations
 - **Use Case**: Complete functionality, development, testing
 - **Size**: Large, comprehensive
 
@@ -4956,7 +4956,7 @@ node build-server.js health system_info fs_list send_email
 ## 📦 **Available Server Versions**
 
 ### **🚀 Full-Featured Version (`server-refactored.ts`)**
-- **All 36 tools with 200 operations** including comprehensive security toolkits
+- **All 43 tools with 250+ operations** including comprehensive security toolkits
 - Full cross-platform support (Windows, Linux, macOS, Android, iOS)
 - Complete Wi-Fi, Bluetooth, and SDR security toolkits
 - Mobile platform tools and hardware access
@@ -5202,7 +5202,7 @@ export function registerMyTool(server: any) {
 ### 📊 **Server Configuration Options**
 
 #### **Full Server (server-refactored.ts)**
-- **Tools**: All 36 tools with 200 operations
+- **Tools**: All 43 tools with 250+ operations
 - **Use Case**: Complete functionality, development, testing
 - **Size**: Large, comprehensive
 
@@ -5267,7 +5267,7 @@ node build-server.js health system_info fs_list send_email
 ## 📦 **Available Server Versions**
 
 ### **🚀 Full-Featured Version (`server-refactored.ts`)**
-- **All 36 tools with 200 operations** including comprehensive security toolkits
+- **All 43 tools with 250+ operations** including comprehensive security toolkits
 - Full cross-platform support (Windows, Linux, macOS, Android, iOS)
 - Complete Wi-Fi, Bluetooth, and SDR security toolkits
 - Mobile platform tools and hardware access
@@ -5513,7 +5513,7 @@ export function registerMyTool(server: any) {
 ### 📊 **Server Configuration Options**
 
 #### **Full Server (server-refactored.ts)**
-- **Tools**: All 36 tools with 200 operations
+- **Tools**: All 43 tools with 250+ operations
 - **Use Case**: Complete functionality, development, testing
 - **Size**: Large, comprehensive
 
@@ -5578,7 +5578,7 @@ node build-server.js health system_info fs_list send_email
 ## 📦 **Available Server Versions**
 
 ### **🚀 Full-Featured Version (`server-refactored.ts`)**
-- **All 36 tools with 200 operations** including comprehensive security toolkits
+- **All 43 tools with 250+ operations** including comprehensive security toolkits
 - Full cross-platform support (Windows, Linux, macOS, Android, iOS)
 - Complete Wi-Fi, Bluetooth, and SDR security toolkits
 - Mobile platform tools and hardware access
@@ -5824,7 +5824,7 @@ export function registerMyTool(server: any) {
 ### 📊 **Server Configuration Options**
 
 #### **Full Server (server-refactored.ts)**
-- **Tools**: All 36 tools with 200 operations
+- **Tools**: All 43 tools with 250+ operations
 - **Use Case**: Complete functionality, development, testing
 - **Size**: Large, comprehensive
 
@@ -5889,7 +5889,7 @@ node build-server.js health system_info fs_list send_email
 ## 📦 **Available Server Versions**
 
 ### **🚀 Full-Featured Version (`server-refactored.ts`)**
-- **All 36 tools with 200 operations** including comprehensive security toolkits
+- **All 43 tools with 250+ operations** including comprehensive security toolkits
 - Full cross-platform support (Windows, Linux, macOS, Android, iOS)
 - Complete Wi-Fi, Bluetooth, and SDR security toolkits
 - Mobile platform tools and hardware access
@@ -6135,7 +6135,7 @@ export function registerMyTool(server: any) {
 ### 📊 **Server Configuration Options**
 
 #### **Full Server (server-refactored.ts)**
-- **Tools**: All 36 tools with 200 operations
+- **Tools**: All 43 tools with 250+ operations
 - **Use Case**: Complete functionality, development, testing
 - **Size**: Large, comprehensive
 
@@ -6200,7 +6200,7 @@ node build-server.js health system_info fs_list send_email
 ## 📦 **Available Server Versions**
 
 ### **🚀 Full-Featured Version (`server-refactored.ts`)**
-- **All 36 tools with 200 operations** including comprehensive security toolkits
+- **All 43 tools with 250+ operations** including comprehensive security toolkits
 - Full cross-platform support (Windows, Linux, macOS, Android, iOS)
 - Complete Wi-Fi, Bluetooth, and SDR security toolkits
 - Mobile platform tools and hardware access
@@ -6446,7 +6446,7 @@ export function registerMyTool(server: any) {
 ### 📊 **Server Configuration Options**
 
 #### **Full Server (server-refactored.ts)**
-- **Tools**: All 36 tools with 200 operations
+- **Tools**: All 43 tools with 250+ operations
 - **Use Case**: Complete functionality, development, testing
 - **Size**: Large, comprehensive
 
