@@ -339,10 +339,10 @@ if (portScanResult.status === "success" && portScanResult.results?.port_scan) {
 - **v1.1**: Enhanced diagnostic features
 - **v1.2**: Advanced network analysis
 - **v1.3**: Cross-platform improvements
-- **v1.4**: Professional diagnostic features
+- **v1.4a**: Professional diagnostic features
 
 ---
 
 **⚠️ IMPORTANT: Always respect network policies and implement appropriate rate limiting when performing network diagnostics.**
 
-*This document is part of MCP God Mode v1.4 - Advanced AI Agent Toolkit*
+*This document is part of MCP God Mode v1.4a - Advanced AI Agent Toolkit*

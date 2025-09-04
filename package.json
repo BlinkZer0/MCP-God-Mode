@@ -1,6 +1,6 @@
 {
   "name": "mcp-god-mode",
-  "version": "1.4",
+  "version": "1.4a",
   "description": "MCP God Mode Server - Advanced AI Agent Toolkit",
   "main": "start-mcp.js",
   "bin": {

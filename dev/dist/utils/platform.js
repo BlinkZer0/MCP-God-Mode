@@ -1,59 +1,12 @@
-"use strict";
-var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    var desc = Object.getOwnPropertyDescriptor(m, k);
-    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-      desc = { enumerable: true, get: function() { return m[k]; } };
-    }
-    Object.defineProperty(o, k2, desc);
-}) : (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    o[k2] = m[k];
-}));
-var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
-    Object.defineProperty(o, "default", { enumerable: true, value: v });
-}) : function(o, v) {
-    o["default"] = v;
-});
-var __importStar = (this && this.__importStar) || (function () {
-    var ownKeys = function(o) {
-        ownKeys = Object.getOwnPropertyNames || function (o) {
-            var ar = [];
-            for (var k in o) if (Object.prototype.hasOwnProperty.call(o, k)) ar[ar.length] = k;
-            return ar;
-        };
-        return ownKeys(o);
-    };
-    return function (mod) {
-        if (mod && mod.__esModule) return mod;
-        var result = {};
-        if (mod != null) for (var k = ownKeys(mod), i = 0; i < k.length; i++) if (k[i] !== "default") __createBinding(result, mod, k[i]);
-        __setModuleDefault(result, mod);
-        return result;
-    };
-})();
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.ALLOWED_ROOTS_ARRAY = void 0;
-exports.getRootPaths = getRootPaths;
-exports.getPlatformCommand = getPlatformCommand;
-exports.getMobilePermissions = getMobilePermissions;
-exports.isMobileFeatureAvailable = isMobileFeatureAvailable;
-exports.getMobileDeviceInfo = getMobileDeviceInfo;
-exports.getFileOperationCommand = getFileOperationCommand;
-exports.getMobileProcessCommand = getMobileProcessCommand;
-exports.getMobileServiceCommand = getMobileServiceCommand;
-exports.getMobileNetworkCommand = getMobileNetworkCommand;
-exports.getMobileStorageCommand = getMobileStorageCommand;
-exports.getMobileUserCommand = getMobileUserCommand;
-const os = __importStar(require("node:os"));
-const fsSync = __importStar(require("node:fs"));
-const environment_js_1 = require("../config/environment.js");
+import * as os from "node:os";
+import * as fsSync from "node:fs";
+import { IS_WINDOWS, IS_LINUX, IS_MACOS, IS_ANDROID, IS_IOS, IS_MOBILE, MOBILE_PATHS, COMMAND_MAPPINGS } from "../config/environment.js";
 // Cross-platform utility functions
-function getRootPaths() {
-    if (environment_js_1.IS_MOBILE) {
+export function getRootPaths() {
+    if (IS_MOBILE) {
         return getMobileRootPaths();
     }
-    else if (environment_js_1.IS_WINDOWS) {
+    else if (IS_WINDOWS) {
         // Get all available drives on Windows
         const drives = [];
         try {
@@ -82,46 +35,46 @@ function getRootPaths() {
 }
 // Mobile-specific root path handling
 function getMobileRootPaths() {
-    if (environment_js_1.IS_ANDROID) {
+    if (IS_ANDROID) {
         return [
-            environment_js_1.MOBILE_PATHS.android.external,
-            environment_js_1.MOBILE_PATHS.android.downloads,
-            environment_js_1.MOBILE_PATHS.android.pictures,
-            environment_js_1.MOBILE_PATHS.android.documents
+            MOBILE_PATHS.android.external,
+            MOBILE_PATHS.android.downloads,
+            MOBILE_PATHS.android.pictures,
+            MOBILE_PATHS.android.documents
         ];
     }
-    else if (environment_js_1.IS_IOS) {
+    else if (IS_IOS) {
         return [
-            environment_js_1.MOBILE_PATHS.ios.documents,
-            environment_js_1.MOBILE_PATHS.ios.downloads,
-            environment_js_1.MOBILE_PATHS.ios.pictures,
-            environment_js_1.MOBILE_PATHS.ios.shared
+            MOBILE_PATHS.ios.documents,
+            MOBILE_PATHS.ios.downloads,
+            MOBILE_PATHS.ios.pictures,
+            MOBILE_PATHS.ios.shared
         ];
     }
     return [process.cwd()];
 }
 // Get platform-specific command for a given operation
-function getPlatformCommand(operation) {
-    if (environment_js_1.IS_ANDROID) {
-        return environment_js_1.COMMAND_MAPPINGS.android[operation];
+export function getPlatformCommand(operation) {
+    if (IS_ANDROID) {
+        return COMMAND_MAPPINGS.android[operation];
     }
-    else if (environment_js_1.IS_IOS) {
-        return environment_js_1.COMMAND_MAPPINGS.ios[operation];
+    else if (IS_IOS) {
+        return COMMAND_MAPPINGS.ios[operation];
     }
-    else if (environment_js_1.IS_WINDOWS) {
-        return environment_js_1.COMMAND_MAPPINGS.windows[operation];
+    else if (IS_WINDOWS) {
+        return COMMAND_MAPPINGS.windows[operation];
     }
-    else if (environment_js_1.IS_LINUX) {
-        return environment_js_1.COMMAND_MAPPINGS.linux[operation];
+    else if (IS_LINUX) {
+        return COMMAND_MAPPINGS.linux[operation];
     }
-    else if (environment_js_1.IS_MACOS) {
-        return environment_js_1.COMMAND_MAPPINGS.macos[operation];
+    else if (IS_MACOS) {
+        return COMMAND_MAPPINGS.macos[operation];
     }
     return "";
 }
 // Mobile-specific utility functions
-function getMobilePermissions() {
-    if (environment_js_1.IS_ANDROID) {
+export function getMobilePermissions() {
+    if (IS_ANDROID) {
         return [
             "android.permission.READ_EXTERNAL_STORAGE",
             "android.permission.WRITE_EXTERNAL_STORAGE",
@@ -134,7 +87,7 @@ function getMobilePermissions() {
             "android.permission.CALL_PHONE"
         ];
     }
-    else if (environment_js_1.IS_IOS) {
+    else if (IS_IOS) {
         return [
             "NSCameraUsageDescription",
             "NSLocationWhenInUseUsageDescription",
@@ -150,34 +103,34 @@ function getMobilePermissions() {
     return [];
 }
 // Check if mobile feature is available
-function isMobileFeatureAvailable(feature) {
-    if (!environment_js_1.IS_MOBILE)
+export function isMobileFeatureAvailable(feature) {
+    if (!IS_MOBILE)
         return false;
     switch (feature) {
         case "camera":
-            return environment_js_1.IS_ANDROID || environment_js_1.IS_IOS;
+            return IS_ANDROID || IS_IOS;
         case "location":
-            return environment_js_1.IS_ANDROID || environment_js_1.IS_IOS;
+            return IS_ANDROID || IS_IOS;
         case "biometrics":
-            return environment_js_1.IS_ANDROID || environment_js_1.IS_IOS;
+            return IS_ANDROID || IS_IOS;
         case "bluetooth":
-            return environment_js_1.IS_ANDROID || environment_js_1.IS_IOS;
+            return IS_ANDROID || IS_IOS;
         case "nfc":
-            return environment_js_1.IS_ANDROID || environment_js_1.IS_IOS;
+            return IS_ANDROID || IS_IOS;
         case "sensors":
-            return environment_js_1.IS_ANDROID || environment_js_1.IS_IOS;
+            return IS_ANDROID || IS_IOS;
         case "notifications":
-            return environment_js_1.IS_ANDROID || environment_js_1.IS_IOS;
+            return IS_ANDROID || IS_IOS;
         default:
             return false;
     }
 }
 // Get mobile device info
-function getMobileDeviceInfo() {
-    if (!environment_js_1.IS_MOBILE)
+export function getMobileDeviceInfo() {
+    if (!IS_MOBILE)
         return null;
     return {
-        platform: environment_js_1.IS_ANDROID ? "android" : environment_js_1.IS_IOS ? "ios" : "mobile-web",
+        platform: IS_ANDROID ? "android" : IS_IOS ? "ios" : "mobile-web",
         version: process.version,
         arch: os.arch(),
         cpus: os.cpus().length,
@@ -189,11 +142,11 @@ function getMobileDeviceInfo() {
     };
 }
 // Cross-platform file operations with mobile support
-function getFileOperationCommand(operation, source, destination) {
-    if (environment_js_1.IS_MOBILE) {
+export function getFileOperationCommand(operation, source, destination) {
+    if (IS_MOBILE) {
         return getMobileFileOperationCommand(operation, source, destination);
     }
-    else if (environment_js_1.IS_WINDOWS) {
+    else if (IS_WINDOWS) {
         return getWindowsFileOperationCommand(operation, source, destination);
     }
     else {
@@ -201,7 +154,7 @@ function getFileOperationCommand(operation, source, destination) {
     }
 }
 function getMobileFileOperationCommand(operation, source, destination) {
-    if (environment_js_1.IS_ANDROID) {
+    if (IS_ANDROID) {
         switch (operation) {
             case "copy":
                 return `cp "${source}" "${destination}"`;
@@ -215,7 +168,7 @@ function getMobileFileOperationCommand(operation, source, destination) {
                 return `ls "${source}"`;
         }
     }
-    else if (environment_js_1.IS_IOS) {
+    else if (IS_IOS) {
         switch (operation) {
             case "copy":
                 return `cp "${source}" "${destination}"`;
@@ -260,8 +213,8 @@ function getUnixFileOperationCommand(operation, source, destination) {
     }
 }
 // Mobile-specific process management
-function getMobileProcessCommand(operation, filter) {
-    if (environment_js_1.IS_ANDROID) {
+export function getMobileProcessCommand(operation, filter) {
+    if (IS_ANDROID) {
         switch (operation) {
             case "list":
                 return filter ? `ps | grep "${filter}"` : "ps";
@@ -273,7 +226,7 @@ function getMobileProcessCommand(operation, filter) {
                 return "ps";
         }
     }
-    else if (environment_js_1.IS_IOS) {
+    else if (IS_IOS) {
         switch (operation) {
             case "list":
                 return filter ? `ps aux | grep "${filter}"` : "ps aux";
@@ -288,8 +241,8 @@ function getMobileProcessCommand(operation, filter) {
     return "";
 }
 // Mobile-specific service management
-function getMobileServiceCommand(operation, service) {
-    if (environment_js_1.IS_ANDROID) {
+export function getMobileServiceCommand(operation, service) {
+    if (IS_ANDROID) {
         switch (operation) {
             case "list":
                 return service ? `dumpsys ${service}` : "dumpsys";
@@ -303,7 +256,7 @@ function getMobileServiceCommand(operation, service) {
                 return "dumpsys";
         }
     }
-    else if (environment_js_1.IS_IOS) {
+    else if (IS_IOS) {
         switch (operation) {
             case "list":
                 return "launchctl list";
@@ -320,8 +273,8 @@ function getMobileServiceCommand(operation, service) {
     return "";
 }
 // Mobile-specific network management
-function getMobileNetworkCommand(operation, networkInterface) {
-    if (environment_js_1.IS_ANDROID) {
+export function getMobileNetworkCommand(operation, networkInterface) {
+    if (IS_ANDROID) {
         switch (operation) {
             case "interfaces":
                 return "ip addr show";
@@ -335,7 +288,7 @@ function getMobileNetworkCommand(operation, networkInterface) {
                 return "ip addr show";
         }
     }
-    else if (environment_js_1.IS_IOS) {
+    else if (IS_IOS) {
         switch (operation) {
             case "interfaces":
                 return "ifconfig";
@@ -352,8 +305,8 @@ function getMobileNetworkCommand(operation, networkInterface) {
     return "";
 }
 // Mobile-specific storage management
-function getMobileStorageCommand(operation, path) {
-    if (environment_js_1.IS_ANDROID) {
+export function getMobileStorageCommand(operation, path) {
+    if (IS_ANDROID) {
         switch (operation) {
             case "usage":
                 return path ? `df -h "${path}"` : "df -h";
@@ -367,7 +320,7 @@ function getMobileStorageCommand(operation, path) {
                 return "df -h";
         }
     }
-    else if (environment_js_1.IS_IOS) {
+    else if (IS_IOS) {
         switch (operation) {
             case "usage":
                 return path ? `df -h "${path}"` : "df -h";
@@ -384,8 +337,8 @@ function getMobileStorageCommand(operation, path) {
     return "";
 }
 // Mobile-specific user management
-function getMobileUserCommand(operation, user) {
-    if (environment_js_1.IS_ANDROID) {
+export function getMobileUserCommand(operation, user) {
+    if (IS_ANDROID) {
         switch (operation) {
             case "list":
                 return "pm list-users";
@@ -399,7 +352,7 @@ function getMobileUserCommand(operation, user) {
                 return "pm list-users";
         }
     }
-    else if (environment_js_1.IS_IOS) {
+    else if (IS_IOS) {
         switch (operation) {
             case "list":
                 return "dscl . -list /Users";
@@ -416,4 +369,4 @@ function getMobileUserCommand(operation, user) {
     return "";
 }
 // Export the enhanced platform utilities
-exports.ALLOWED_ROOTS_ARRAY = getRootPaths();
+export const ALLOWED_ROOTS_ARRAY = getRootPaths();

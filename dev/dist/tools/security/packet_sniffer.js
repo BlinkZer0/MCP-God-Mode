@@ -1,78 +1,42 @@
-"use strict";
-var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    var desc = Object.getOwnPropertyDescriptor(m, k);
-    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-      desc = { enumerable: true, get: function() { return m[k]; } };
-    }
-    Object.defineProperty(o, k2, desc);
-}) : (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    o[k2] = m[k];
-}));
-var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
-    Object.defineProperty(o, "default", { enumerable: true, value: v });
-}) : function(o, v) {
-    o["default"] = v;
-});
-var __importStar = (this && this.__importStar) || (function () {
-    var ownKeys = function(o) {
-        ownKeys = Object.getOwnPropertyNames || function (o) {
-            var ar = [];
-            for (var k in o) if (Object.prototype.hasOwnProperty.call(o, k)) ar[ar.length] = k;
-            return ar;
-        };
-        return ownKeys(o);
-    };
-    return function (mod) {
-        if (mod && mod.__esModule) return mod;
-        var result = {};
-        if (mod != null) for (var k = ownKeys(mod), i = 0; i < k.length; i++) if (k[i] !== "default") __createBinding(result, mod, k[i]);
-        __setModuleDefault(result, mod);
-        return result;
-    };
-})();
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.registerPacketSniffer = registerPacketSniffer;
-const zod_1 = require("zod");
-const child_process_1 = require("child_process");
-const util_1 = require("util");
-const environment_js_1 = require("../../config/environment.js");
-const fs = __importStar(require("fs/promises"));
-const execAsync = (0, util_1.promisify)(child_process_1.exec);
+import { z } from "zod";
+import { spawn, exec } from "child_process";
+import { promisify } from "util";
+import { IS_WINDOWS, IS_LINUX, IS_MACOS } from "../../config/environment.js";
+import * as fs from "fs/promises";
+const execAsync = promisify(exec);
 let captureProcess = null;
 let isCapturing = false;
 let capturedPackets = [];
 let captureStartTime = 0;
-function registerPacketSniffer(server) {
+export function registerPacketSniffer(server) {
     server.registerTool("packet_sniffer", {
         description: "Advanced packet sniffer for authorized corporate security testing - captures and analyzes network traffic across all platforms",
         inputSchema: {
-            action: zod_1.z.enum(['start_capture', 'stop_capture', 'get_captured_packets', 'analyze_traffic', 'filter_by_protocol', 'filter_by_ip', 'filter_by_port', 'get_statistics', 'export_pcap', 'monitor_bandwidth', 'detect_anomalies']).describe("Packet capture action to perform"),
-            interface: zod_1.z.string().optional().describe("Network interface to capture on. Examples: 'eth0', 'wlan0', 'Wi-Fi', 'Ethernet'. Leave empty for auto-detection"),
-            filter: zod_1.z.string().optional().describe("Berkeley Packet Filter (BPF) expression to filter packets. Examples: 'host 192.168.1.1', 'port 80', 'tcp and dst port 443'"),
-            duration: zod_1.z.number().optional().describe("Capture duration in seconds. Examples: 30 for short capture, 300 for detailed analysis"),
-            max_packets: zod_1.z.number().optional().describe("Maximum number of packets to capture. Examples: 1000 for quick analysis, 10000 for detailed study"),
-            output_file: zod_1.z.string().optional().describe("File to save captured packets. Examples: './capture.pcap', '/tmp/network_capture.pcap'"),
-            capture_payload: zod_1.z.boolean().default(false).describe("Whether to capture packet payloads (increases storage and processing)")
+            action: z.enum(['start_capture', 'stop_capture', 'get_captured_packets', 'analyze_traffic', 'filter_by_protocol', 'filter_by_ip', 'filter_by_port', 'get_statistics', 'export_pcap', 'monitor_bandwidth', 'detect_anomalies']).describe("Packet capture action to perform"),
+            interface: z.string().optional().describe("Network interface to capture on. Examples: 'eth0', 'wlan0', 'Wi-Fi', 'Ethernet'. Leave empty for auto-detection"),
+            filter: z.string().optional().describe("Berkeley Packet Filter (BPF) expression to filter packets. Examples: 'host 192.168.1.1', 'port 80', 'tcp and dst port 443'"),
+            duration: z.number().optional().describe("Capture duration in seconds. Examples: 30 for short capture, 300 for detailed analysis"),
+            max_packets: z.number().optional().describe("Maximum number of packets to capture. Examples: 1000 for quick analysis, 10000 for detailed study"),
+            output_file: z.string().optional().describe("File to save captured packets. Examples: './capture.pcap', '/tmp/network_capture.pcap'"),
+            capture_payload: z.boolean().default(false).describe("Whether to capture packet payloads (increases storage and processing)")
         },
         outputSchema: {
-            action: zod_1.z.string(),
-            status: zod_1.z.string(),
-            interface: zod_1.z.string().optional(),
-            total_packets: zod_1.z.number(),
-            capture_duration: zod_1.z.number(),
-            filtered_packets: zod_1.z.number(),
-            protocols: zod_1.z.record(zod_1.z.number()),
-            top_ips: zod_1.z.array(zod_1.z.object({ ip: zod_1.z.string(), count: zod_1.z.number() })),
-            top_ports: zod_1.z.array(zod_1.z.object({ port: zod_1.z.number(), count: zod_1.z.number() })),
-            bandwidth_usage: zod_1.z.object({
-                bytes_per_second: zod_1.z.number(),
-                packets_per_second: zod_1.z.number(),
-                total_bytes: zod_1.z.number()
+            action: z.string(),
+            status: z.string(),
+            interface: z.string().optional(),
+            total_packets: z.number(),
+            capture_duration: z.number(),
+            filtered_packets: z.number(),
+            protocols: z.record(z.number()),
+            top_ips: z.array(z.object({ ip: z.string(), count: z.number() })),
+            top_ports: z.array(z.object({ port: z.number(), count: z.number() })),
+            bandwidth_usage: z.object({
+                bytes_per_second: z.number(),
+                packets_per_second: z.number(),
+                total_bytes: z.number()
             }),
-            anomalies: zod_1.z.array(zod_1.z.string()),
-            summary: zod_1.z.string()
+            anomalies: z.array(z.string()),
+            summary: z.string()
         }
     }, async ({ action, interface: iface, filter, duration, max_packets, output_file, capture_payload }) => {
         try {
@@ -100,7 +64,13 @@ function registerPacketSniffer(server) {
                 case 'detect_anomalies':
                     return await detectAnomalies();
                 default:
-                    throw new Error(`Unknown action: ${action}`);
+                    return {
+                        content: [{ type: "text", text: `Error: ${`Unknown action: ${action}`}` }],
+                        structuredContent: {
+                            success: false,
+                            error: `${`Unknown action: ${action}`}`
+                        }
+                    };
             }
         }
         catch (error) {
@@ -159,10 +129,10 @@ async function startCapture(iface, filter, duration, maxPackets, outputFile, cap
         iface = await detectNetworkInterface();
     }
     // Start platform-specific packet capture
-    if (environment_js_1.IS_WINDOWS) {
+    if (IS_WINDOWS) {
         await startWindowsCapture(iface, filter, maxPackets, outputFile, capturePayload);
     }
-    else if (environment_js_1.IS_LINUX || environment_js_1.IS_MACOS) {
+    else if (IS_LINUX || IS_MACOS) {
         await startUnixCapture(iface, filter, maxPackets, outputFile, capturePayload);
     }
     else {
@@ -423,7 +393,13 @@ async function exportPcap(outputFile) {
         };
     }
     catch (error) {
-        throw new Error(`Failed to export PCAP: ${error instanceof Error ? error.message : 'Unknown error'}`);
+        return {
+            content: [{ type: "text", text: `Error: ${`Failed to export PCAP: ${error instanceof Error ? error.message : 'Unknown error'}`}` }],
+            structuredContent: {
+                success: false,
+                error: `${`Failed to export PCAP: ${error instanceof Error ? error.message : 'Unknown error'}`}`
+            }
+        };
     }
 }
 async function monitorBandwidth() {
@@ -474,7 +450,7 @@ async function detectAnomalies() {
 }
 async function detectNetworkInterface() {
     try {
-        if (environment_js_1.IS_WINDOWS) {
+        if (IS_WINDOWS) {
             const { stdout } = await execAsync('netsh interface show interface');
             const lines = stdout.split('\n');
             for (const line of lines) {
@@ -502,7 +478,7 @@ async function detectNetworkInterface() {
         }
     }
     catch (error) {
-        return environment_js_1.IS_WINDOWS ? 'Ethernet' : 'eth0';
+        return IS_WINDOWS ? 'Ethernet' : 'eth0';
     }
 }
 async function startWindowsCapture(iface, filter, maxPackets, outputFile, capturePayload) {
@@ -512,7 +488,7 @@ async function startWindowsCapture(iface, filter, maxPackets, outputFile, captur
         const { stdout } = await execAsync(command);
         // Start monitoring network activity
         const monitorCommand = `powershell -Command "Get-Counter '\\Network Interface(*)\\Bytes Total/sec' -SampleInterval 1 -MaxSamples ${maxPackets || 1000}"`;
-        captureProcess = (0, child_process_1.spawn)('powershell', ['-Command', monitorCommand]);
+        captureProcess = spawn('powershell', ['-Command', monitorCommand]);
         captureProcess.stdout.on('data', (data) => {
             parseWindowsNetworkData(data.toString());
         });
@@ -528,7 +504,7 @@ async function startUnixCapture(iface, filter, maxPackets, outputFile, capturePa
         if (filter) {
             args.push(filter);
         }
-        captureProcess = (0, child_process_1.spawn)('tcpdump', args);
+        captureProcess = spawn('tcpdump', args);
         captureProcess.stdout.on('data', (data) => {
             parseUnixNetworkData(data.toString());
         });
@@ -540,7 +516,7 @@ async function startUnixCapture(iface, filter, maxPackets, outputFile, capturePa
 async function startNodeJSCapture(iface, filter, maxPackets, outputFile, capturePayload) {
     try {
         // Simulate packet capture using Node.js
-        const net = await Promise.resolve().then(() => __importStar(require('net')));
+        const net = await import('net');
         // Create a simple packet generator for demonstration
         setInterval(() => {
             if (capturedPackets.length >= (maxPackets || 1000)) {

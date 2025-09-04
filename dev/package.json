@@ -1,7 +1,8 @@
 {
   "name": "mcp-god-mode",
-  "version": "1.4",
+  "version": "1.4a",
   "private": true,
+  "type": "module",
   "scripts": {
     "build": "tsc -p .",
     "start": "node dist/server-refactored.js",

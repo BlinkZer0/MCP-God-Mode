@@ -1,20 +1,9 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.ELEVATED_TOOLS = void 0;
-exports.requiresElevation = requiresElevation;
-exports.hasElevatedPrivileges = hasElevatedPrivileges;
-exports.getElevationCommand = getElevationCommand;
-exports.executeElevated = executeElevated;
-exports.executeInteractiveElevated = executeInteractiveElevated;
-exports.isElevationAvailable = isElevationAvailable;
-exports.getElevationMethod = getElevationMethod;
-exports.canElevateCommand = canElevateCommand;
-const node_child_process_1 = require("node:child_process");
-const node_util_1 = require("node:util");
-const environment_js_1 = require("../config/environment.js");
-const execAsync = (0, node_util_1.promisify)(node_child_process_1.exec);
+import { spawn, exec } from "node:child_process";
+import { promisify } from "node:util";
+import { IS_WINDOWS, IS_LINUX, IS_MACOS, IS_ANDROID, IS_IOS } from "../config/environment.js";
+const execAsync = promisify(exec);
 // Tools that require elevated permissions by category
-exports.ELEVATED_TOOLS = {
+export const ELEVATED_TOOLS = {
     // System administration tools
     system: [
         "win_services", "win_processes", "system_monitor", "system_backup",
@@ -42,27 +31,27 @@ exports.ELEVATED_TOOLS = {
     ]
 };
 // Check if a tool requires elevated permissions
-function requiresElevation(toolName) {
-    return Object.values(exports.ELEVATED_TOOLS).flat().includes(toolName);
+export function requiresElevation(toolName) {
+    return Object.values(ELEVATED_TOOLS).flat().includes(toolName);
 }
 // Check if current process has elevated privileges
-async function hasElevatedPrivileges() {
+export async function hasElevatedPrivileges() {
     try {
-        if (environment_js_1.IS_WINDOWS) {
+        if (IS_WINDOWS) {
             // Check if running as administrator on Windows
             const { stdout } = await execAsync('net session', { timeout: 5000 });
             return !stdout.includes('Access is denied');
         }
-        else if (environment_js_1.IS_LINUX || environment_js_1.IS_MACOS) {
+        else if (IS_LINUX || IS_MACOS) {
             // Check if running as root on Unix-like systems
             return process.getuid?.() === 0;
         }
-        else if (environment_js_1.IS_ANDROID) {
+        else if (IS_ANDROID) {
             // Check if running as root on Android
             const { stdout } = await execAsync('id', { timeout: 5000 });
             return stdout.includes('uid=0');
         }
-        else if (environment_js_1.IS_IOS) {
+        else if (IS_IOS) {
             // iOS has very limited elevated access
             return false;
         }
@@ -73,27 +62,27 @@ async function hasElevatedPrivileges() {
     }
 }
 // Get platform-specific elevation command
-function getElevationCommand(command, args = []) {
-    if (environment_js_1.IS_WINDOWS) {
+export function getElevationCommand(command, args = []) {
+    if (IS_WINDOWS) {
         // Windows: Use runas or PowerShell elevation
         return `powershell -Command "Start-Process -FilePath '${command}' -ArgumentList '${args.join(' ')}' -Verb RunAs -Wait"`;
     }
-    else if (environment_js_1.IS_LINUX || environment_js_1.IS_MACOS) {
+    else if (IS_LINUX || IS_MACOS) {
         // Unix-like: Use sudo
         return `sudo ${command} ${args.join(' ')}`;
     }
-    else if (environment_js_1.IS_ANDROID) {
+    else if (IS_ANDROID) {
         // Android: Use su if available
         return `su -c '${command} ${args.join(' ')}'`;
     }
-    else if (environment_js_1.IS_IOS) {
+    else if (IS_IOS) {
         // iOS: No elevation available
         return `${command} ${args.join(' ')}`;
     }
     return `${command} ${args.join(' ')}`;
 }
 // Execute command with elevated privileges
-async function executeElevated(command, args = [], cwd, timeout = 30000) {
+export async function executeElevated(command, args = [], cwd, timeout = 30000) {
     try {
         // Check if we already have elevated privileges
         const isElevated = await hasElevatedPrivileges();
@@ -108,7 +97,7 @@ async function executeElevated(command, args = [], cwd, timeout = 30000) {
         }
         // Need to elevate - use platform-specific method
         const elevatedCommand = getElevationCommand(command, args);
-        if (environment_js_1.IS_WINDOWS) {
+        if (IS_WINDOWS) {
             // Windows: Use PowerShell elevation
             const { stdout, stderr } = await execAsync(elevatedCommand, {
                 cwd,
@@ -117,7 +106,7 @@ async function executeElevated(command, args = [], cwd, timeout = 30000) {
             });
             return { success: true, stdout, stderr, exitCode: 0 };
         }
-        else if (environment_js_1.IS_LINUX || environment_js_1.IS_MACOS) {
+        else if (IS_LINUX || IS_MACOS) {
             // Unix-like: Use sudo with proper error handling
             const { stdout, stderr } = await execAsync(elevatedCommand, {
                 cwd,
@@ -126,7 +115,7 @@ async function executeElevated(command, args = [], cwd, timeout = 30000) {
             });
             return { success: true, stdout, stderr, exitCode: 0 };
         }
-        else if (environment_js_1.IS_ANDROID) {
+        else if (IS_ANDROID) {
             // Android: Try su command
             try {
                 const { stdout, stderr } = await execAsync(elevatedCommand, {
@@ -146,7 +135,7 @@ async function executeElevated(command, args = [], cwd, timeout = 30000) {
                 return { success: true, stdout, stderr, exitCode: 0 };
             }
         }
-        else if (environment_js_1.IS_IOS) {
+        else if (IS_IOS) {
             // iOS: No elevation available, run normally
             const { stdout, stderr } = await execAsync(`${command} ${args.join(' ')}`, {
                 cwd,
@@ -178,7 +167,7 @@ async function executeElevated(command, args = [], cwd, timeout = 30000) {
     }
 }
 // Execute command with interactive elevation prompt
-async function executeInteractiveElevated(command, args = [], cwd) {
+export async function executeInteractiveElevated(command, args = [], cwd) {
     try {
         // Check if we already have elevated privileges
         const isElevated = await hasElevatedPrivileges();
@@ -191,11 +180,11 @@ async function executeInteractiveElevated(command, args = [], cwd) {
             return { success: true, stdout, stderr, exitCode: 0 };
         }
         // Need to elevate - use interactive method
-        if (environment_js_1.IS_WINDOWS) {
+        if (IS_WINDOWS) {
             // Windows: Use runas with interactive prompt
             return new Promise((resolve) => {
                 const elevatedCommand = `runas /user:Administrator "${command} ${args.join(' ')}"`;
-                const child = (0, node_child_process_1.spawn)('cmd', ['/c', elevatedCommand], {
+                const child = spawn('cmd', ['/c', elevatedCommand], {
                     cwd,
                     stdio: ['pipe', 'pipe', 'pipe']
                 });
@@ -223,10 +212,10 @@ async function executeInteractiveElevated(command, args = [], cwd) {
                 });
             });
         }
-        else if (environment_js_1.IS_LINUX || environment_js_1.IS_MACOS) {
+        else if (IS_LINUX || IS_MACOS) {
             // Unix-like: Use sudo with interactive prompt
             return new Promise((resolve) => {
-                const child = (0, node_child_process_1.spawn)('sudo', [command, ...args], {
+                const child = spawn('sudo', [command, ...args], {
                     cwd,
                     stdio: ['pipe', 'pipe', 'pipe']
                 });
@@ -267,42 +256,42 @@ async function executeInteractiveElevated(command, args = [], cwd) {
     }
 }
 // Check if elevation is available on current platform
-function isElevationAvailable() {
-    if (environment_js_1.IS_WINDOWS) {
+export function isElevationAvailable() {
+    if (IS_WINDOWS) {
         return true; // Windows has UAC
     }
-    else if (environment_js_1.IS_LINUX || environment_js_1.IS_MACOS) {
+    else if (IS_LINUX || IS_MACOS) {
         return true; // Unix-like systems have sudo
     }
-    else if (environment_js_1.IS_ANDROID) {
+    else if (IS_ANDROID) {
         return true; // Android can have root access
     }
-    else if (environment_js_1.IS_IOS) {
+    else if (IS_IOS) {
         return false; // iOS has no elevation
     }
     return false;
 }
 // Get elevation method description for current platform
-function getElevationMethod() {
-    if (environment_js_1.IS_WINDOWS) {
+export function getElevationMethod() {
+    if (IS_WINDOWS) {
         return "User Account Control (UAC) - Administrator privileges";
     }
-    else if (environment_js_1.IS_LINUX) {
+    else if (IS_LINUX) {
         return "sudo - Root privileges";
     }
-    else if (environment_js_1.IS_MACOS) {
+    else if (IS_MACOS) {
         return "sudo - Administrator privileges";
     }
-    else if (environment_js_1.IS_ANDROID) {
+    else if (IS_ANDROID) {
         return "su - Root access (if available)";
     }
-    else if (environment_js_1.IS_IOS) {
+    else if (IS_IOS) {
         return "No elevation available - iOS security restrictions";
     }
     return "Unknown platform";
 }
 // Validate if a command can be elevated
-function canElevateCommand(command) {
+export function canElevateCommand(command) {
     // Block dangerous commands from elevation
     const dangerousCommands = [
         'format', 'del', 'rmdir', 'shutdown', 'taskkill', 'rm', 'dd',

@@ -1,44 +1,8 @@
-"use strict";
-var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    var desc = Object.getOwnPropertyDescriptor(m, k);
-    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-      desc = { enumerable: true, get: function() { return m[k]; } };
-    }
-    Object.defineProperty(o, k2, desc);
-}) : (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    o[k2] = m[k];
-}));
-var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
-    Object.defineProperty(o, "default", { enumerable: true, value: v });
-}) : function(o, v) {
-    o["default"] = v;
-});
-var __importStar = (this && this.__importStar) || (function () {
-    var ownKeys = function(o) {
-        ownKeys = Object.getOwnPropertyNames || function (o) {
-            var ar = [];
-            for (var k in o) if (Object.prototype.hasOwnProperty.call(o, k)) ar[ar.length] = k;
-            return ar;
-        };
-        return ownKeys(o);
-    };
-    return function (mod) {
-        if (mod && mod.__esModule) return mod;
-        var result = {};
-        if (mod != null) for (var k = ownKeys(mod), i = 0; i < k.length; i++) if (k[i] !== "default") __createBinding(result, mod, k[i]);
-        __setModuleDefault(result, mod);
-        return result;
-    };
-})();
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.registerPasswordCracker = registerPasswordCracker;
-const zod_1 = require("zod");
-const child_process_1 = require("child_process");
-const util_1 = require("util");
-const environment_js_1 = require("../../config/environment.js");
-const execAsync = (0, util_1.promisify)(child_process_1.exec);
+import { z } from "zod";
+import { exec } from "child_process";
+import { promisify } from "util";
+import { IS_WINDOWS, IS_LINUX, IS_MACOS } from "../../config/environment.js";
+const execAsync = promisify(exec);
 const COMMON_PASSWORDS = [
     'admin', 'password', '123456', '12345678', 'qwerty', 'abc123', 'password123',
     'admin123', 'root', 'toor', 'guest', 'user', 'test', 'demo', 'welcome',
@@ -61,33 +25,33 @@ const SERVICE_PORTS = {
     'redis': 6379,
     'vnc': 5900
 };
-function registerPasswordCracker(server) {
+export function registerPasswordCracker(server) {
     server.registerTool("password_cracker", {
         description: "🔐 **Advanced Password Security Testing Tool** - Comprehensive authentication testing framework for authorized corporate security assessments. Tests password strength and authentication mechanisms across SSH, FTP, RDP, SMB, HTTP, and database services on Windows, Linux, macOS, Android, and iOS platforms. Supports dictionary attacks, brute force testing, hybrid methods, and rainbow table attacks with configurable attempt limits and timeout settings.",
         inputSchema: {
-            target: zod_1.z.string().describe("Target host to test password authentication. Examples: '192.168.1.1', 'company.com'"),
-            service: zod_1.z.enum(['ssh', 'ftp', 'telnet', 'rdp', 'smb', 'http', 'https', 'mysql', 'postgresql', 'mssql', 'oracle', 'redis', 'vnc']).describe("Service to test authentication against"),
-            username: zod_1.z.string().describe("Username to test authentication with"),
-            password_list: zod_1.z.array(zod_1.z.string()).optional().describe("Custom password list to test. If not provided, uses common passwords"),
-            method: zod_1.z.enum(['dictionary', 'brute_force', 'hybrid', 'rainbow_table']).default('dictionary').describe("Password cracking method to use"),
-            max_attempts: zod_1.z.number().default(1000).describe("Maximum number of password attempts before stopping"),
-            timeout: zod_1.z.number().default(30000).describe("Timeout in milliseconds for each authentication attempt"),
-            custom_port: zod_1.z.number().optional().describe("Custom port number if different from service default"),
-            verbose: zod_1.z.boolean().default(false).describe("Enable verbose output for detailed cracking information")
+            target: z.string().describe("Target host to test password authentication. Examples: '192.168.1.1', 'company.com'"),
+            service: z.enum(['ssh', 'ftp', 'telnet', 'rdp', 'smb', 'http', 'https', 'mysql', 'postgresql', 'mssql', 'oracle', 'redis', 'vnc']).describe("Service to test authentication against"),
+            username: z.string().describe("Username to test authentication with"),
+            password_list: z.array(z.string()).optional().describe("Custom password list to test. If not provided, uses common passwords"),
+            method: z.enum(['dictionary', 'brute_force', 'hybrid', 'rainbow_table']).default('dictionary').describe("Password cracking method to use"),
+            max_attempts: z.number().default(1000).describe("Maximum number of password attempts before stopping"),
+            timeout: z.number().default(30000).describe("Timeout in milliseconds for each authentication attempt"),
+            custom_port: z.number().optional().describe("Custom port number if different from service default"),
+            verbose: z.boolean().default(false).describe("Enable verbose output for detailed cracking information")
         },
         outputSchema: {
-            target: zod_1.z.string(),
-            service: zod_1.z.string(),
-            username: zod_1.z.string(),
-            method: zod_1.z.string(),
-            total_attempts: zod_1.z.number(),
-            cracked_password: zod_1.z.string().optional(),
-            status: zod_1.z.enum(['cracked', 'failed', 'timeout', 'error']),
-            duration: zod_1.z.number(),
-            attempts_made: zod_1.z.number(),
-            success_rate: zod_1.z.number(),
-            summary: zod_1.z.string(),
-            security_recommendations: zod_1.z.array(zod_1.z.string())
+            target: z.string(),
+            service: z.string(),
+            username: z.string(),
+            method: z.string(),
+            total_attempts: z.number(),
+            cracked_password: z.string().optional(),
+            status: z.enum(['cracked', 'failed', 'timeout', 'error']),
+            duration: z.number(),
+            attempts_made: z.number(),
+            success_rate: z.number(),
+            summary: z.string(),
+            security_recommendations: z.array(z.string())
         }
     }, async ({ target, service, username, password_list, method, max_attempts, timeout, custom_port, verbose }) => {
         const startTime = Date.now();
@@ -95,11 +59,23 @@ function registerPasswordCracker(server) {
             // Validate target accessibility
             const port = custom_port || SERVICE_PORTS[service];
             if (!port) {
-                throw new Error(`Unknown service: ${service}`);
+                return {
+                    content: [{ type: "text", text: `Error: ${`Unknown service: ${service}`}` }],
+                    structuredContent: {
+                        success: false,
+                        error: `${`Unknown service: ${service}`}`
+                    }
+                };
             }
             // Check if target is accessible
             if (!await isTargetAccessible(target, port, timeout)) {
-                throw new Error(`Target ${target}:${port} is not accessible`);
+                return {
+                    content: [{ type: "text", text: `Error: ${`Target ${target}:${port} is not accessible`}` }],
+                    structuredContent: {
+                        success: false,
+                        error: `${`Target ${target}:${port} is not accessible`}`
+                    }
+                };
             }
             // Prepare password list
             const passwords = password_list && password_list.length > 0
@@ -111,13 +87,13 @@ function registerPasswordCracker(server) {
             let attemptsMade = 0;
             let status = 'failed';
             // Perform password cracking based on platform and service
-            if (environment_js_1.IS_WINDOWS) {
+            if (IS_WINDOWS) {
                 const result = await crackWindowsPassword(target, service, username, limitedPasswords, method, timeout, verbose);
                 crackedPassword = result.password;
                 attemptsMade = result.attempts;
                 status = result.status;
             }
-            else if (environment_js_1.IS_LINUX || environment_js_1.IS_MACOS) {
+            else if (IS_LINUX || IS_MACOS) {
                 const result = await crackUnixPassword(target, service, username, limitedPasswords, method, timeout, verbose);
                 crackedPassword = result.password;
                 attemptsMade = result.attempts;
@@ -182,7 +158,7 @@ function registerPasswordCracker(server) {
 }
 async function isTargetAccessible(target, port, timeout) {
     try {
-        if (environment_js_1.IS_WINDOWS) {
+        if (IS_WINDOWS) {
             const command = `powershell -Command "Test-NetConnection -ComputerName '${target}' -Port ${port} -InformationLevel Quiet"`;
             const { stdout } = await execAsync(command, { timeout });
             return stdout.includes('True');
@@ -243,7 +219,9 @@ async function crackWindowsPassword(target, service, username, passwords, method
                     success = await testGenericPassword(target, service, username, password, timeout);
             }
             if (success) {
-                return { password, attempts, status: 'cracked' };
+                return {
+                    password, attempts, status: 'cracked'
+                };
             }
             if (verbose && attempts % 100 === 0) {
                 console.log(`Attempted ${attempts} passwords...`);
@@ -253,7 +231,9 @@ async function crackWindowsPassword(target, service, username, passwords, method
             // Continue with next password
         }
     }
-    return { attempts, status: 'failed' };
+    return {
+        attempts, status: 'failed'
+    };
 }
 async function crackUnixPassword(target, service, username, passwords, method, timeout, verbose) {
     let attempts = 0;
@@ -301,7 +281,9 @@ async function crackUnixPassword(target, service, username, passwords, method, t
                     success = await testGenericPassword(target, service, username, password, timeout);
             }
             if (success) {
-                return { password, attempts, status: 'cracked' };
+                return {
+                    password, attempts, status: 'cracked'
+                };
             }
             if (verbose && attempts % 100 === 0) {
                 console.log(`Attempted ${attempts} passwords...`);
@@ -311,7 +293,9 @@ async function crackUnixPassword(target, service, username, passwords, method, t
             // Continue with next password
         }
     }
-    return { attempts, status: 'failed' };
+    return {
+        attempts, status: 'failed'
+    };
 }
 async function crackNodeJSPassword(target, service, username, passwords, method, timeout, verbose) {
     let attempts = 0;
@@ -321,7 +305,9 @@ async function crackNodeJSPassword(target, service, username, passwords, method,
             // Generic password testing using Node.js
             const success = await testGenericPassword(target, service, username, password, timeout);
             if (success) {
-                return { password, attempts, status: 'cracked' };
+                return {
+                    password, attempts, status: 'cracked'
+                };
             }
             if (verbose && attempts % 100 === 0) {
                 console.log(`Attempted ${attempts} passwords...`);
@@ -331,11 +317,13 @@ async function crackNodeJSPassword(target, service, username, passwords, method,
             // Continue with next password
         }
     }
-    return { attempts, status: 'failed' };
+    return {
+        attempts, status: 'failed'
+    };
 }
 async function testSSHPassword(target, username, password, timeout) {
     try {
-        const net = await Promise.resolve().then(() => __importStar(require('net')));
+        const net = await import('net');
         return new Promise((resolve) => {
             const socket = new net.Socket();
             const timer = setTimeout(() => {

@@ -250,10 +250,10 @@ const riskyPorts = securityScan.open_ports.filter(port =>
 - **v1.1**: Enhanced service detection
 - **v1.2**: Cross-platform improvements
 - **v1.3**: Advanced scanning capabilities
-- **v1.4**: Professional security features
+- **v1.4a**: Professional security features
 
 ---
 
 **⚠️ IMPORTANT: This tool is designed for authorized corporate security testing only. Always obtain proper authorization before testing any systems.**
 
-*This document is part of MCP God Mode v1.4 - Advanced AI Agent Toolkit*
+*This document is part of MCP God Mode v1.4a - Advanced AI Agent Toolkit*

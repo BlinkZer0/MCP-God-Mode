@@ -104,7 +104,13 @@ export function registerPacketSniffer(server: McpServer) {
           break;
         
         default:
-          throw new Error(`Unknown action: ${action}`);
+          return {
+          content: [{ type: "text", text: `Error: ${`Unknown action: ${action}`}` }],
+          structuredContent: {
+            success: false,
+            error: `${`Unknown action: ${action}`}`
+          }
+        };
       }
 
       return {

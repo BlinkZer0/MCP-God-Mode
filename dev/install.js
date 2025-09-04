@@ -42,8 +42,8 @@ const SERVER_CONFIGS = {
   },
   'full': {
     name: 'Full-Featured Server',
-    description: 'Complete MCP God Mode with all tools and capabilities including comprehensive penetration testing tools',
-    tools: 49,
+    description: 'Complete MCP God Mode with all tools and capabilities including comprehensive penetration testing tools, audio editing, video editing with recording, and screenshot capabilities',
+    tools: 55,
     features: [
       'All minimal features',
       'Complete Wi-Fi security toolkit (25+ actions)',
@@ -61,30 +61,46 @@ const SERVER_CONFIGS = {
       'Vulnerability scanner for security assessment',
       'Password cracker for authentication testing',
       'Exploit framework for vulnerability testing',
-      'Packet sniffer for network analysis'
+      'Packet sniffer for network analysis',
+      'Audio editing tool with recording capabilities (25+ actions)',
+      'Video editing tool with recording capabilities (16+ actions)',
+      'Screenshot tool for window and screen capture (9+ actions)',
+      'Image editing tool with comprehensive manipulation capabilities (30+ actions)'
     ],
-    useCase: 'Power users, security professionals, developers, penetration testers',
-    size: 'Large, comprehensive'
+    useCase: 'Power users, security professionals, developers, penetration testers, media creators',
+    size: 'Large, comprehensive with media capabilities'
   },
   'modular': {
     name: 'Modular Server',
-    description: 'Custom-built server with imported tool modules including comprehensive penetration testing tools',
-    tools: 11,
+    description: 'Complete modular server with all 67 tools including comprehensive penetration testing, media processing, cloud security, and forensics capabilities',
+    tools: 67,
     features: [
       'Core system tools (health, system_info)',
-      'Email management (send_email, parse_email)',
-      'File system operations (fs_list)',
-      'Dice rolling utility (dice_rolling)',
-      'Port scanner tool for network reconnaissance',
-      'Vulnerability scanner for security assessment',
-      'Password cracker for authentication testing',
-      'Exploit framework for vulnerability testing',
-      'Packet sniffer for network analysis',
-      'Modular architecture for easy customization',
-      'Lightweight and focused functionality'
+      'File system operations (fs_list, fs_read_text, fs_write_text, fs_search, file_ops)',
+      'Process management (proc_run, proc_run_elevated)',
+      'System tools (system_restore, elevated_permissions_manager)',
+      'Git integration (git_status)',
+      'Windows tools (win_services, win_processes)',
+      'Network tools (packet_sniffer, port_scanner, network_diagnostics, download_file)',
+      'Security tools (vulnerability_scanner, password_cracker, exploit_framework, network_security, blockchain_security, quantum_security, iot_security, social_engineering, threat_intelligence, compliance_assessment, malware_analysis)',
+      'Penetration tools (hack_network, security_testing, network_penetration)',
+      'Wireless tools (wifi_security_toolkit, wifi_hacking, wireless_security)',
+      'Bluetooth tools (bluetooth_security_toolkit, bluetooth_hacking)',
+      'Radio tools (sdr_security_toolkit, radio_security, signal_analysis)',
+      'Web tools (web_scraper, browser_control)',
+      'Email tools (send_email, read_emails, parse_email, delete_emails, sort_emails, manage_email_accounts)',
+      'Media tools (video_editing, ocr_tool, image_editing, audio_editing)',
+      'Screenshot tools (screenshot)',
+      'Mobile tools (mobile_device_info, mobile_file_ops, mobile_system_tools, mobile_hardware)',
+      'Virtualization tools (vm_management, docker_management)',
+      'Utility tools (calculator, dice_rolling, math_calculate, data_analysis, machine_learning)',
+      'Cloud tools (cloud_security)',
+      'Forensics tools (forensics_analysis)',
+      'Modular architecture for easy customization and maintenance',
+      'Comprehensive security testing and media processing capabilities'
     ],
-    useCase: 'Custom deployments, specific tool requirements, development testing, security testing',
-    size: 'Small, modular with security focus'
+    useCase: 'Professional security testing, comprehensive system administration, media creation, development testing, enterprise deployments',
+    size: 'Large, comprehensive with modular architecture'
   },
   'custom': {
     name: 'Custom Server',
@@ -185,7 +201,13 @@ function installServer(choice) {
       console.log('  npm run build:modular');
       console.log('\nOr manually:');
       console.log('  cd dev && npm run build:modular');
-      console.log('\nThe modular server includes: health, system_info, send_email, parse_email, fs_list, dice_rolling');
+      console.log('\nThe modular server includes all 67 tools:');
+      console.log('  - Core system tools (health, system_info)');
+      console.log('  - File system operations (fs_list, fs_read_text, fs_write_text, fs_search, file_ops)');
+      console.log('  - Security tools (vulnerability_scanner, password_cracker, exploit_framework, etc.)');
+      console.log('  - Media tools (video_editing, image_editing, audio_editing, ocr_tool)');
+      console.log('  - Network tools (packet_sniffer, port_scanner, network_diagnostics)');
+      console.log('  - And many more specialized tools...');
       return;
     }
     
@@ -250,7 +272,7 @@ if (process.argv.includes('--help') || process.argv.includes('-h')) {
 }
 
 if (process.argv.includes('--version') || process.argv.includes('-v')) {
-  console.log('MCP God Mode Installer v1.0.0');
+  console.log('MCP God Mode Installer v1.4a');
   process.exit(0);
 }
 

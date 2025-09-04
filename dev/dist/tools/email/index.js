@@ -1,7 +1,6 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.registerParseEmail = exports.registerSendEmail = void 0;
-var send_email_js_1 = require("./send_email.js");
-Object.defineProperty(exports, "registerSendEmail", { enumerable: true, get: function () { return send_email_js_1.registerSendEmail; } });
-var parse_email_js_1 = require("./parse_email.js");
-Object.defineProperty(exports, "registerParseEmail", { enumerable: true, get: function () { return parse_email_js_1.registerParseEmail; } });
+export { registerSendEmail } from "./send_email.js";
+export { registerReadEmails } from "./read_emails.js";
+export { registerParseEmail } from "./parse_email.js";
+export { registerDeleteEmails } from "./delete_emails.js";
+export { registerSortEmails } from "./sort_emails.js";
+export { registerManageEmailAccounts } from "./manage_email_accounts.js";

@@ -1,55 +1,17 @@
 #!/usr/bin/env node
-"use strict";
-var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    var desc = Object.getOwnPropertyDescriptor(m, k);
-    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-      desc = { enumerable: true, get: function() { return m[k]; } };
-    }
-    Object.defineProperty(o, k2, desc);
-}) : (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    o[k2] = m[k];
-}));
-var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
-    Object.defineProperty(o, "default", { enumerable: true, value: v });
-}) : function(o, v) {
-    o["default"] = v;
-});
-var __importStar = (this && this.__importStar) || (function () {
-    var ownKeys = function(o) {
-        ownKeys = Object.getOwnPropertyNames || function (o) {
-            var ar = [];
-            for (var k in o) if (Object.prototype.hasOwnProperty.call(o, k)) ar[ar.length] = k;
-            return ar;
-        };
-        return ownKeys(o);
-    };
-    return function (mod) {
-        if (mod && mod.__esModule) return mod;
-        var result = {};
-        if (mod != null) for (var k = ownKeys(mod), i = 0; i < k.length; i++) if (k[i] !== "default") __createBinding(result, mod, k[i]);
-        __setModuleDefault(result, mod);
-        return result;
-    };
-})();
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-const mcp_js_1 = require("@modelcontextprotocol/sdk/server/mcp.js");
-const stdio_js_1 = require("@modelcontextprotocol/sdk/server/stdio.js");
-const zod_1 = require("zod");
-const path = __importStar(require("node:path"));
-const os = __importStar(require("node:os"));
-const fs = __importStar(require("node:fs/promises"));
-const node_child_process_1 = require("node:child_process");
-const node_util_1 = require("node:util");
+import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
+import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
+import { z } from "zod";
+import * as path from "node:path";
+import * as os from "node:os";
+import * as fs from "node:fs/promises";
+import { exec } from "node:child_process";
+import { promisify } from "node:util";
 // Ultra-minimal configuration
 const PLATFORM = os.platform();
 const ALLOWED_ROOTS_ARRAY = [process.cwd()];
 const MAX_BYTES = 1024 * 1024; // 1MB
-const execAsync = (0, node_util_1.promisify)(node_child_process_1.exec);
+const execAsync = promisify(exec);
 // Minimal logging
 function log(level, message) {
     if (process.env.NODE_ENV !== 'production') {
@@ -60,17 +22,17 @@ log('info', `MCP Server starting on ${PLATFORM}`);
 // ===========================================
 // CORE TOOLS ONLY
 // ===========================================
-const server = new mcp_js_1.McpServer({ name: "MCP God Mode - Ultra-Minimal", version: "1.4" });
+const server = new McpServer({ name: "MCP God Mode - Ultra-Minimal", version: "1.4a" });
 server.registerTool("health", {
     description: "Liveness/readiness probe",
-    outputSchema: { ok: zod_1.z.boolean(), roots: zod_1.z.array(zod_1.z.string()), cwd: zod_1.z.string() }
+    outputSchema: { ok: z.boolean(), roots: z.array(z.string()), cwd: z.string() }
 }, async () => ({
     content: [{ type: "text", text: "ok" }],
     structuredContent: { ok: true, roots: ALLOWED_ROOTS_ARRAY, cwd: process.cwd() }
 }));
 server.registerTool("system_info", {
     description: "Basic host info (OS, arch, cpus, memGB)",
-    outputSchema: { platform: zod_1.z.string(), arch: zod_1.z.string(), cpus: zod_1.z.number(), memGB: zod_1.z.number() }
+    outputSchema: { platform: z.string(), arch: z.string(), cpus: z.number(), memGB: z.number() }
 }, async () => ({
     content: [],
     structuredContent: {
@@ -86,16 +48,16 @@ server.registerTool("system_info", {
 server.registerTool("dice_rolling", {
     description: "Roll dice with various configurations and get random numbers. Supports any sided dice, multiple dice, and modifiers.",
     inputSchema: {
-        dice: zod_1.z.string().describe("Dice notation (e.g., 'd6', '3d20', '2d10+5', 'd100'). Format: [count]d[sides][+/-modifier]"),
-        count: zod_1.z.number().optional().describe("Number of times to roll (default: 1)"),
-        modifier: zod_1.z.number().optional().describe("Additional modifier to apply to the final result (default: 0)")
+        dice: z.string().describe("Dice notation (e.g., 'd6', '3d20', '2d10+5', 'd100'). Format: [count]d[sides][+/-modifier]"),
+        count: z.number().optional().describe("Number of times to roll (default: 1)"),
+        modifier: z.number().optional().describe("Additional modifier to apply to the final result (default: 0)")
     },
     outputSchema: {
-        dice: zod_1.z.string(),
-        rolls: zod_1.z.array(zod_1.z.array(zod_1.z.number())),
-        total: zod_1.z.number(),
-        modifier: zod_1.z.number(),
-        breakdown: zod_1.z.string()
+        dice: z.string(),
+        rolls: z.array(z.array(z.number())),
+        total: z.number(),
+        modifier: z.number(),
+        breakdown: z.string()
     }
 }, async ({ dice, count = 1, modifier = 0 }) => {
     try {
@@ -182,8 +144,8 @@ function limitString(str, maxBytes) {
 }
 server.registerTool("fs_list", {
     description: "List files and directories under a relative path (non-recursive)",
-    inputSchema: { dir: zod_1.z.string().default(".").describe("The directory path to list files and folders from. Examples: '.', './documents', '/home/user/pictures', 'C:\\Users\\User\\Desktop'. Use '.' for current directory.") },
-    outputSchema: { entries: zod_1.z.array(zod_1.z.object({ name: zod_1.z.string(), isDir: zod_1.z.boolean() })) }
+    inputSchema: { dir: z.string().default(".").describe("The directory path to list files and folders from. Examples: '.', './documents', '/home/user/pictures', 'C:\\Users\\User\\Desktop'. Use '.' for current directory.") },
+    outputSchema: { entries: z.array(z.object({ name: z.string(), isDir: z.boolean() })) }
 }, async ({ dir }) => {
     let base;
     try {
@@ -198,8 +160,8 @@ server.registerTool("fs_list", {
 });
 server.registerTool("fs_read_text", {
     description: "Read a UTF-8 text file within the sandbox",
-    inputSchema: { path: zod_1.z.string().describe("The file path to read from. Can be relative or absolute path. Examples: './config.txt', '/home/user/documents/readme.md', 'C:\\Users\\User\\Desktop\\notes.txt'.") },
-    outputSchema: { path: zod_1.z.string(), content: zod_1.z.string(), truncated: zod_1.z.boolean() }
+    inputSchema: { path: z.string().describe("The file path to read from. Can be relative or absolute path. Examples: './config.txt', '/home/user/documents/readme.md', 'C:\\Users\\User\\Desktop\\notes.txt'.") },
+    outputSchema: { path: z.string(), content: z.string(), truncated: z.boolean() }
 }, async ({ path: relPath }) => {
     const fullPath = ensureInsideRoot(path.resolve(relPath));
     const content = await fs.readFile(fullPath, "utf8");
@@ -209,10 +171,10 @@ server.registerTool("fs_read_text", {
 server.registerTool("fs_write_text", {
     description: "Write a UTF-8 text file within the sandbox",
     inputSchema: {
-        path: zod_1.z.string().describe("The file path to write to. Can be relative or absolute path. Examples: './output.txt', '/home/user/documents/log.txt', 'C:\\Users\\User\\Desktop\\data.txt'."),
-        content: zod_1.z.string().describe("The text content to write to the file. Can be plain text, JSON, XML, or any text-based format. Examples: 'Hello World', '{\"key\": \"value\"}', '<xml>data</xml>'.")
+        path: z.string().describe("The file path to write to. Can be relative or absolute path. Examples: './output.txt', '/home/user/documents/log.txt', 'C:\\Users\\User\\Desktop\\data.txt'."),
+        content: z.string().describe("The text content to write to the file. Can be plain text, JSON, XML, or any text-based format. Examples: 'Hello World', '{\"key\": \"value\"}', '<xml>data</xml>'.")
     },
-    outputSchema: { path: zod_1.z.string(), success: zod_1.z.boolean() }
+    outputSchema: { path: z.string(), success: z.boolean() }
 }, async ({ path: relPath, content }) => {
     const fullPath = ensureInsideRoot(path.resolve(relPath));
     await fs.writeFile(fullPath, content, "utf8");
@@ -224,15 +186,15 @@ server.registerTool("fs_write_text", {
 server.registerTool("proc_run", {
     description: "Run a process with arguments",
     inputSchema: {
-        command: zod_1.z.string().describe("The command to execute. Examples: 'ls', 'dir', 'cat', 'echo', 'python', 'node', 'git', 'docker'. Can be any executable available in your system PATH or full path to an executable."),
-        args: zod_1.z.array(zod_1.z.string()).default([]).describe("Array of command-line arguments to pass to the command. Examples: ['-la'] for 'ls -la', ['--version'] for version info, ['filename.txt'] for file operations. Leave empty array for commands with no arguments."),
-        cwd: zod_1.z.string().optional().describe("The working directory where the command will be executed. Examples: './project', '/home/user/documents', 'C:\\Users\\User\\Desktop'. Leave empty to use the current working directory.")
+        command: z.string().describe("The command to execute. Examples: 'ls', 'dir', 'cat', 'echo', 'python', 'node', 'git', 'docker'. Can be any executable available in your system PATH or full path to an executable."),
+        args: z.array(z.string()).default([]).describe("Array of command-line arguments to pass to the command. Examples: ['-la'] for 'ls -la', ['--version'] for version info, ['filename.txt'] for file operations. Leave empty array for commands with no arguments."),
+        cwd: z.string().optional().describe("The working directory where the command will be executed. Examples: './project', '/home/user/documents', 'C:\\Users\\User\\Desktop'. Leave empty to use the current working directory.")
     },
     outputSchema: {
-        success: zod_1.z.boolean(),
-        stdout: zod_1.z.string().optional(),
-        stderr: zod_1.z.string().optional(),
-        exitCode: zod_1.z.number().optional()
+        success: z.boolean(),
+        stdout: z.string().optional(),
+        stderr: z.string().optional(),
+        exitCode: z.number().optional()
     }
 }, async ({ command, args, cwd }) => {
     const workingDir = cwd ? ensureInsideRoot(path.resolve(cwd)) : process.cwd();
@@ -272,15 +234,15 @@ server.registerTool("proc_run", {
 server.registerTool("mobile_file_ops", {
     description: "Basic mobile file operations for Android and iOS devices",
     inputSchema: {
-        action: zod_1.z.enum(["list", "create", "search"]).describe("File operation: 'list' shows directory, 'create' makes files, 'search' finds files."),
-        source: zod_1.z.string().optional().describe("Source path. Examples: '/sdcard/', '/var/mobile/Documents/'."),
-        content: zod_1.z.string().optional().describe("File content for create action."),
-        pattern: zod_1.z.string().optional().describe("Search pattern like '*.jpg' or 'backup*'.")
+        action: z.enum(["list", "create", "search"]).describe("File operation: 'list' shows directory, 'create' makes files, 'search' finds files."),
+        source: z.string().optional().describe("Source path. Examples: '/sdcard/', '/var/mobile/Documents/'."),
+        content: z.string().optional().describe("File content for create action."),
+        pattern: z.string().optional().describe("Search pattern like '*.jpg' or 'backup*'.")
     },
     outputSchema: {
-        success: zod_1.z.boolean(),
-        result: zod_1.z.any(),
-        error: zod_1.z.string().optional()
+        success: z.boolean(),
+        result: z.any(),
+        error: z.string().optional()
     }
 }, async ({ action, source, content, pattern }) => {
     try {
@@ -329,14 +291,14 @@ server.registerTool("mobile_file_ops", {
 server.registerTool("mobile_system_tools", {
     description: "Basic mobile system information and process management",
     inputSchema: {
-        tool: zod_1.z.enum(["processes", "system_info"]).describe("System tool: 'processes' shows running apps, 'system_info' shows device info."),
-        filter: zod_1.z.string().optional().describe("Optional filter for results.")
+        tool: z.enum(["processes", "system_info"]).describe("System tool: 'processes' shows running apps, 'system_info' shows device info."),
+        filter: z.string().optional().describe("Optional filter for results.")
     },
     outputSchema: {
-        success: zod_1.z.boolean(),
-        tool: zod_1.z.string(),
-        result: zod_1.z.any(),
-        error: zod_1.z.string().optional()
+        success: z.boolean(),
+        tool: z.string(),
+        result: z.any(),
+        error: z.string().optional()
     }
 }, async ({ tool, filter }) => {
     try {
@@ -382,15 +344,15 @@ server.registerTool("mobile_system_tools", {
 server.registerTool("mobile_hardware", {
     description: "Basic mobile hardware access and sensor information",
     inputSchema: {
-        feature: zod_1.z.enum(["location", "sensors"]).describe("Hardware feature: 'location' for GPS, 'sensors' for device sensors."),
-        action: zod_1.z.enum(["check_availability", "get_data"]).describe("Action: 'check_availability' or 'get_data'.")
+        feature: z.enum(["location", "sensors"]).describe("Hardware feature: 'location' for GPS, 'sensors' for device sensors."),
+        action: z.enum(["check_availability", "get_data"]).describe("Action: 'check_availability' or 'get_data'.")
     },
     outputSchema: {
-        success: zod_1.z.boolean(),
-        feature: zod_1.z.string(),
-        available: zod_1.z.boolean(),
-        data: zod_1.z.any().optional(),
-        error: zod_1.z.string().optional()
+        success: z.boolean(),
+        feature: z.string(),
+        available: z.boolean(),
+        data: z.any().optional(),
+        error: z.string().optional()
     }
 }, async ({ feature, action }) => {
     try {
@@ -439,13 +401,13 @@ server.registerTool("mobile_hardware", {
 server.registerTool("web_scraper", {
     description: "Basic web scraping tool for extracting content from web pages",
     inputSchema: {
-        url: zod_1.z.string().url().describe("The URL of the web page to scrape. Examples: 'https://example.com', 'https://news.site.com'."),
-        action: zod_1.z.enum(["scrape_page", "get_metadata"]).describe("Scraping action: 'scrape_page' gets content, 'get_metadata' gets page info.")
+        url: z.string().url().describe("The URL of the web page to scrape. Examples: 'https://example.com', 'https://news.site.com'."),
+        action: z.enum(["scrape_page", "get_metadata"]).describe("Scraping action: 'scrape_page' gets content, 'get_metadata' gets page info.")
     },
     outputSchema: {
-        success: zod_1.z.boolean(),
-        data: zod_1.z.any(),
-        error: zod_1.z.string().optional()
+        success: z.boolean(),
+        data: z.any(),
+        error: z.string().optional()
     }
 }, async ({ url, action }) => {
     try {
@@ -494,13 +456,13 @@ server.registerTool("web_scraper", {
 server.registerTool("browser_control", {
     description: "Basic browser control for launching browsers and opening URLs",
     inputSchema: {
-        action: zod_1.z.enum(["launch_browser", "navigate"]).describe("Action: 'launch_browser' starts default browser, 'navigate' opens URL."),
-        url: zod_1.z.string().optional().describe("URL to navigate to. Required for navigate action.")
+        action: z.enum(["launch_browser", "navigate"]).describe("Action: 'launch_browser' starts default browser, 'navigate' opens URL."),
+        url: z.string().optional().describe("URL to navigate to. Required for navigate action.")
     },
     outputSchema: {
-        success: zod_1.z.boolean(),
-        result: zod_1.z.any(),
-        error: zod_1.z.string().optional()
+        success: z.boolean(),
+        result: z.any(),
+        error: z.string().optional()
     }
 }, async ({ action, url }) => {
     try {
@@ -560,18 +522,18 @@ server.registerTool("browser_control", {
 server.registerTool("system_restore", {
     description: "💾 **System Restore & Backup Management (Ultra-Minimal)** - Ultra-minimal system restore for Windows, Linux, and macOS. Basic restore point creation and configuration backup only. Limited to 2 essential actions: create_restore_point, backup_config. Cross-platform support with minimal resource usage for embedded systems and resource-constrained environments.",
     inputSchema: {
-        action: zod_1.z.enum([
+        action: z.enum([
             "create_restore_point", "backup_config"
         ]).describe("**System Restore Actions (2 Operations):** 'create_restore_point' - Create basic system restore points across platforms (Windows: PowerShell System Restore, Linux/macOS: Timestamp file with metadata), 'backup_config' - Backup essential system configurations (Windows: Not available in ultra-minimal, Linux/macOS: /etc directory backup with file count)."),
-        description: zod_1.z.string().optional().describe("Description for the restore point or backup.")
+        description: z.string().optional().describe("Description for the restore point or backup.")
     },
     outputSchema: {
-        success: zod_1.z.boolean(),
-        platform: zod_1.z.string(),
-        action: zod_1.z.string(),
-        result: zod_1.z.any(),
-        message: zod_1.z.string(),
-        error: zod_1.z.string().optional()
+        success: z.boolean(),
+        platform: z.string(),
+        action: z.string(),
+        result: z.any(),
+        message: z.string(),
+        error: z.string().optional()
     }
 }, async ({ action, description }) => {
     try {
@@ -671,8 +633,8 @@ server.registerTool("system_restore", {
 // EMAIL TOOLS - Cross-platform email functionality
 // ===========================================
 // Import email libraries
-const nodemailer_1 = __importDefault(require("nodemailer"));
-const mailparser_1 = require("mailparser");
+import nodemailer from "nodemailer";
+import { simpleParser } from "mailparser";
 // Email configuration cache
 const emailTransports = new Map();
 // Helper function to get email transport
@@ -683,7 +645,7 @@ async function getEmailTransport(config) {
     }
     let transport;
     if (config.service === 'gmail') {
-        transport = nodemailer_1.default.createTransport({
+        transport = nodemailer.createTransport({
             service: 'gmail',
             auth: {
                 user: config.email,
@@ -692,7 +654,7 @@ async function getEmailTransport(config) {
         });
     }
     else if (config.service === 'outlook') {
-        transport = nodemailer_1.default.createTransport({
+        transport = nodemailer.createTransport({
             host: 'smtp-mail.outlook.com',
             port: 587,
             secure: false,
@@ -703,7 +665,7 @@ async function getEmailTransport(config) {
         });
     }
     else if (config.service === 'yahoo') {
-        transport = nodemailer_1.default.createTransport({
+        transport = nodemailer.createTransport({
             host: 'smtp.mail.yahoo.com',
             port: 587,
             secure: false,
@@ -714,7 +676,7 @@ async function getEmailTransport(config) {
         });
     }
     else {
-        transport = nodemailer_1.default.createTransport({
+        transport = nodemailer.createTransport({
             host: config.host,
             port: config.port || 587,
             secure: config.secure || false,
@@ -737,35 +699,35 @@ async function getEmailTransport(config) {
 server.registerTool("send_email", {
     description: "Send emails using SMTP across all platforms (Windows, Linux, macOS, Android, iOS). Supports Gmail, Outlook, Yahoo, and custom SMTP servers with proper authentication and security.",
     inputSchema: {
-        to: zod_1.z.string().describe("Recipient email address(es). Examples: 'user@example.com', 'user1@example.com,user2@example.com' for multiple recipients."),
-        subject: zod_1.z.string().describe("Email subject line. Examples: 'Meeting Reminder', 'Project Update', 'Hello from MCP God Mode'."),
-        body: zod_1.z.string().describe("Email body content. Can be plain text or HTML. Examples: 'Hello, this is a test email.', '<h1>Hello</h1><p>This is HTML content.</p>'."),
-        html: zod_1.z.boolean().default(false).describe("Whether the email body contains HTML content. Set to true for HTML emails, false for plain text."),
-        from: zod_1.z.string().optional().describe("Sender email address. If not provided, uses the configured email address."),
-        cc: zod_1.z.string().optional().describe("CC recipient email address(es). Examples: 'cc@example.com', 'cc1@example.com,cc2@example.com'."),
-        bcc: zod_1.z.string().optional().describe("BCC recipient email address(es). Examples: 'bcc@example.com', 'bcc1@example.com,bcc2@example.com'."),
-        attachments: zod_1.z.array(zod_1.z.object({
-            filename: zod_1.z.string().describe("Name of the attachment file. Examples: 'document.pdf', 'image.jpg', 'report.xlsx'."),
-            content: zod_1.z.string().describe("Base64 encoded content of the attachment file."),
-            contentType: zod_1.z.string().optional().describe("MIME type of the attachment. Examples: 'application/pdf', 'image/jpeg', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'.")
+        to: z.string().describe("Recipient email address(es). Examples: 'user@example.com', 'user1@example.com,user2@example.com' for multiple recipients."),
+        subject: z.string().describe("Email subject line. Examples: 'Meeting Reminder', 'Project Update', 'Hello from MCP God Mode'."),
+        body: z.string().describe("Email body content. Can be plain text or HTML. Examples: 'Hello, this is a test email.', '<h1>Hello</h1><p>This is HTML content.</p>'."),
+        html: z.boolean().default(false).describe("Whether the email body contains HTML content. Set to true for HTML emails, false for plain text."),
+        from: z.string().optional().describe("Sender email address. If not provided, uses the configured email address."),
+        cc: z.string().optional().describe("CC recipient email address(es). Examples: 'cc@example.com', 'cc1@example.com,cc2@example.com'."),
+        bcc: z.string().optional().describe("BCC recipient email address(es). Examples: 'bcc@example.com', 'bcc1@example.com,bcc2@example.com'."),
+        attachments: z.array(z.object({
+            filename: z.string().describe("Name of the attachment file. Examples: 'document.pdf', 'image.jpg', 'report.xlsx'."),
+            content: z.string().describe("Base64 encoded content of the attachment file."),
+            contentType: z.string().optional().describe("MIME type of the attachment. Examples: 'application/pdf', 'image/jpeg', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'.")
         })).optional().describe("Array of file attachments to include with the email."),
-        email_config: zod_1.z.object({
-            service: zod_1.z.enum(["gmail", "outlook", "yahoo", "custom"]).describe("Email service provider. 'gmail' for Google Mail, 'outlook' for Microsoft Outlook/Hotmail, 'yahoo' for Yahoo Mail, 'custom' for other SMTP servers."),
-            email: zod_1.z.string().describe("Email address for authentication. Examples: 'user@gmail.com', 'user@outlook.com', 'user@company.com'."),
-            password: zod_1.z.string().describe("Password or app password for the email account. For Gmail, use App Password if 2FA is enabled."),
-            host: zod_1.z.string().optional().describe("SMTP host for custom servers. Examples: 'smtp.company.com', 'mail.example.org'. Required when service is 'custom'."),
-            port: zod_1.z.number().optional().describe("SMTP port for custom servers. Examples: 587 for TLS, 465 for SSL, 25 for unencrypted. Defaults to 587 for TLS."),
-            secure: zod_1.z.boolean().optional().describe("Whether to use SSL/TLS encryption. Examples: true for port 465, false for port 587. Defaults to false for TLS."),
-            name: zod_1.z.string().optional().describe("Display name for the sender. Examples: 'John Doe', 'Company Name', 'MCP God Mode'.")
+        email_config: z.object({
+            service: z.enum(["gmail", "outlook", "yahoo", "custom"]).describe("Email service provider. 'gmail' for Google Mail, 'outlook' for Microsoft Outlook/Hotmail, 'yahoo' for Yahoo Mail, 'custom' for other SMTP servers."),
+            email: z.string().describe("Email address for authentication. Examples: 'user@gmail.com', 'user@outlook.com', 'user@company.com'."),
+            password: z.string().describe("Password or app password for the email account. For Gmail, use App Password if 2FA is enabled."),
+            host: z.string().optional().describe("SMTP host for custom servers. Examples: 'smtp.company.com', 'mail.example.org'. Required when service is 'custom'."),
+            port: z.number().optional().describe("SMTP port for custom servers. Examples: 587 for TLS, 465 for SSL, 25 for unencrypted. Defaults to 587 for TLS."),
+            secure: z.boolean().optional().describe("Whether to use SSL/TLS encryption. Examples: true for port 465, false for port 587. Defaults to false for TLS."),
+            name: z.string().optional().describe("Display name for the sender. Examples: 'John Doe', 'Company Name', 'MCP God Mode'.")
         }).describe("Email server configuration including service provider, credentials, and connection settings.")
     },
     outputSchema: {
-        success: zod_1.z.boolean().describe("Whether the email was sent successfully."),
-        message_id: zod_1.z.string().optional().describe("Unique message ID returned by the email server."),
-        response: zod_1.z.string().optional().describe("Response message from the email server."),
-        error: zod_1.z.string().optional().describe("Error message if the email failed to send."),
-        platform: zod_1.z.string().describe("Platform where the email tool was executed."),
-        timestamp: zod_1.z.string().describe("Timestamp when the email was sent.")
+        success: z.boolean().describe("Whether the email was sent successfully."),
+        message_id: z.string().optional().describe("Unique message ID returned by the email server."),
+        response: z.string().optional().describe("Response message from the email server."),
+        error: z.string().optional().describe("Error message if the email failed to send."),
+        platform: z.string().describe("Platform where the email tool was executed."),
+        timestamp: z.string().describe("Timestamp when the email was sent.")
     }
 }, async ({ to, subject, body, html = false, from, cc, bcc, attachments, email_config }) => {
     try {
@@ -815,36 +777,36 @@ server.registerTool("send_email", {
 server.registerTool("parse_email", {
     description: "Parse and analyze email content across all platforms (Windows, Linux, macOS, Android, iOS). Extract text, HTML, attachments, headers, and metadata from email messages with comprehensive parsing capabilities.",
     inputSchema: {
-        email_content: zod_1.z.string().describe("Raw email content in MIME format or email file path. Examples: 'From: sender@example.com\\nSubject: Test\\n\\nHello world', './email.eml', '/path/to/email.txt'."),
-        parse_attachments: zod_1.z.boolean().default(true).describe("Whether to parse and extract email attachments. Set to true to include attachment information, false to skip attachments."),
-        extract_links: zod_1.z.boolean().default(true).describe("Whether to extract URLs and links from email content. Set to true to find all links, false to skip link extraction."),
-        extract_emails: zod_1.z.boolean().default(true).describe("Whether to extract email addresses from the content. Set to true to find all email addresses, false to skip email extraction."),
-        include_headers: zod_1.z.boolean().default(true).describe("Whether to include email headers in the parsed result. Set to true for complete header information, false for content only.")
+        email_content: z.string().describe("Raw email content in MIME format or email file path. Examples: 'From: sender@example.com\\nSubject: Test\\n\\nHello world', './email.eml', '/path/to/email.txt'."),
+        parse_attachments: z.boolean().default(true).describe("Whether to parse and extract email attachments. Set to true to include attachment information, false to skip attachments."),
+        extract_links: z.boolean().default(true).describe("Whether to extract URLs and links from email content. Set to true to find all links, false to skip link extraction."),
+        extract_emails: z.boolean().default(true).describe("Whether to extract email addresses from the content. Set to true to find all email addresses, false to skip email extraction."),
+        include_headers: z.boolean().default(true).describe("Whether to include email headers in the parsed result. Set to true for complete header information, false for content only.")
     },
     outputSchema: {
-        success: zod_1.z.boolean().describe("Whether the email was parsed successfully."),
-        parsed_email: zod_1.z.object({
-            from: zod_1.z.string().describe("Sender email address and name."),
-            to: zod_1.z.string().describe("Recipient email address(es)."),
-            subject: zod_1.z.string().describe("Subject line of the email."),
-            date: zod_1.z.string().describe("Date and time when the email was sent."),
-            message_id: zod_1.z.string().describe("Unique message identifier."),
-            text_content: zod_1.z.string().describe("Plain text content of the email."),
-            html_content: zod_1.z.string().optional().describe("HTML content of the email if available."),
-            headers: zod_1.z.record(zod_1.z.string()).optional().describe("Complete email headers including routing, authentication, and metadata information."),
-            attachments: zod_1.z.array(zod_1.z.object({
-                filename: zod_1.z.string().describe("Name of the attachment file."),
-                content_type: zod_1.z.string().describe("MIME type of the attachment."),
-                size: zod_1.z.number().describe("Size of the attachment in bytes."),
-                content: zod_1.z.string().optional().describe("Base64 encoded content of the attachment if requested.")
+        success: z.boolean().describe("Whether the email was parsed successfully."),
+        parsed_email: z.object({
+            from: z.string().describe("Sender email address and name."),
+            to: z.string().describe("Recipient email address(es)."),
+            subject: z.string().describe("Subject line of the email."),
+            date: z.string().describe("Date and time when the email was sent."),
+            message_id: z.string().describe("Unique message identifier."),
+            text_content: z.string().describe("Plain text content of the email."),
+            html_content: z.string().optional().describe("HTML content of the email if available."),
+            headers: z.record(z.string()).optional().describe("Complete email headers including routing, authentication, and metadata information."),
+            attachments: z.array(z.object({
+                filename: z.string().describe("Name of the attachment file."),
+                content_type: z.string().describe("MIME type of the attachment."),
+                size: z.number().describe("Size of the attachment in bytes."),
+                content: z.string().optional().describe("Base64 encoded content of the attachment if requested.")
             })).optional().describe("Array of file attachments found in the email."),
-            links: zod_1.z.array(zod_1.z.string()).optional().describe("Array of URLs and links found in the email content."),
-            emails: zod_1.z.array(zod_1.z.string()).optional().describe("Array of email addresses found in the email content."),
-            size: zod_1.z.number().describe("Total size of the email in bytes.")
+            links: z.array(z.string()).optional().describe("Array of URLs and links found in the email content."),
+            emails: z.array(z.string()).optional().describe("Array of email addresses found in the email content."),
+            size: z.number().describe("Total size of the email in bytes.")
         }).optional().describe("Parsed email content with extracted information and metadata."),
-        error: zod_1.z.string().optional().describe("Error message if the parsing failed."),
-        platform: zod_1.z.string().describe("Platform where the email tool was executed."),
-        timestamp: zod_1.z.string().describe("Timestamp when the email was parsed.")
+        error: z.string().optional().describe("Error message if the parsing failed."),
+        platform: z.string().describe("Platform where the email tool was executed."),
+        timestamp: z.string().describe("Timestamp when the email was parsed.")
     }
 }, async ({ email_content, parse_attachments = true, extract_links = true, extract_emails = true, include_headers = true }) => {
     try {
@@ -858,7 +820,7 @@ server.registerTool("parse_email", {
                 // If file reading fails, treat as direct content
             }
         }
-        const parsed = await (0, mailparser_1.simpleParser)(content);
+        const parsed = await simpleParser(content);
         const result = {
             from: parsed.from?.text || 'Unknown Sender',
             to: Array.isArray(parsed.to) ? parsed.to[0]?.text || 'Unknown Recipient' : parsed.to?.text || 'Unknown Recipient',
@@ -917,22 +879,22 @@ function extractEmailsFromText(text) {
 server.registerTool("video_editing", {
     description: "Advanced video editing and manipulation tool with cross-platform support. Perform video processing, editing, format conversion, effects application, and video analysis across Windows, Linux, macOS, Android, and iOS.",
     inputSchema: {
-        action: zod_1.z.enum(["convert", "trim", "merge", "split", "resize", "apply_effects", "extract_audio", "add_subtitles", "stabilize", "analyze", "compress", "enhance"]).describe("Video editing action to perform."),
-        input_file: zod_1.z.string().describe("Path to the input video file."),
-        output_file: zod_1.z.string().optional().describe("Path for the output video file."),
-        format: zod_1.z.string().optional().describe("Output video format."),
-        quality: zod_1.z.enum(["low", "medium", "high", "ultra"]).default("high").describe("Video quality setting.")
+        action: z.enum(["convert", "trim", "merge", "split", "resize", "apply_effects", "extract_audio", "add_subtitles", "stabilize", "analyze", "compress", "enhance"]).describe("Video editing action to perform."),
+        input_file: z.string().describe("Path to the input video file."),
+        output_file: z.string().optional().describe("Path for the output video file."),
+        format: z.string().optional().describe("Output video format."),
+        quality: z.enum(["low", "medium", "high", "ultra"]).default("high").describe("Video quality setting.")
     },
     outputSchema: {
-        success: zod_1.z.boolean().describe("Whether the video editing operation was successful."),
-        action_performed: zod_1.z.string().describe("The video editing action that was executed."),
-        input_file: zod_1.z.string().describe("Path to the input video file."),
-        output_file: zod_1.z.string().describe("Path to the output video file."),
-        processing_time: zod_1.z.number().describe("Time taken to process the video in seconds."),
-        message: zod_1.z.string().describe("Summary message of the video editing operation."),
-        error: zod_1.z.string().optional().describe("Error message if the operation failed."),
-        platform: zod_1.z.string().describe("Platform where the video editing tool was executed."),
-        timestamp: zod_1.z.string().describe("Timestamp when the operation was performed.")
+        success: z.boolean().describe("Whether the video editing operation was successful."),
+        action_performed: z.string().describe("The video editing action that was executed."),
+        input_file: z.string().describe("Path to the input video file."),
+        output_file: z.string().describe("Path to the output video file."),
+        processing_time: z.number().describe("Time taken to process the video in seconds."),
+        message: z.string().describe("Summary message of the video editing operation."),
+        error: z.string().optional().describe("Error message if the operation failed."),
+        platform: z.string().describe("Platform where the video editing tool was executed."),
+        timestamp: z.string().describe("Timestamp when the operation was performed.")
     }
 }, async ({ action, input_file, output_file, format, quality }) => {
     try {
@@ -989,25 +951,25 @@ server.registerTool("video_editing", {
 server.registerTool("ocr_tool", {
     description: "Optical Character Recognition (OCR) tool for extracting text from images, documents, and video frames. Supports multiple languages, handwriting recognition, and various image formats across all platforms.",
     inputSchema: {
-        action: zod_1.z.enum(["extract_text", "recognize_handwriting", "extract_from_pdf", "extract_from_video", "batch_process", "language_detection", "table_extraction", "form_processing"]).describe("OCR action to perform."),
-        input_file: zod_1.z.string().describe("Path to the input file (image, PDF, video)."),
-        output_file: zod_1.z.string().optional().describe("Path for the output text file."),
-        language: zod_1.z.string().optional().describe("Language for OCR processing."),
-        confidence_threshold: zod_1.z.number().min(0).max(100).default(80).describe("Minimum confidence threshold for text recognition (0-100)."),
-        output_format: zod_1.z.enum(["text", "json", "xml", "csv", "hocr"]).default("text").describe("Output format for extracted text.")
+        action: z.enum(["extract_text", "recognize_handwriting", "extract_from_pdf", "extract_from_video", "batch_process", "language_detection", "table_extraction", "form_processing"]).describe("OCR action to perform."),
+        input_file: z.string().describe("Path to the input file (image, PDF, video)."),
+        output_file: z.string().optional().describe("Path for the output text file."),
+        language: z.string().optional().describe("Language for OCR processing."),
+        confidence_threshold: z.number().min(0).max(100).default(80).describe("Minimum confidence threshold for text recognition (0-100)."),
+        output_format: z.enum(["text", "json", "xml", "csv", "hocr"]).default("text").describe("Output format for extracted text.")
     },
     outputSchema: {
-        success: zod_1.z.boolean().describe("Whether the OCR operation was successful."),
-        action_performed: zod_1.z.string().describe("The OCR action that was executed."),
-        input_file: zod_1.z.string().describe("Path to the input file."),
-        output_file: zod_1.z.string().describe("Path to the output text file."),
-        extracted_text: zod_1.z.string().describe("The extracted text content."),
-        confidence_score: zod_1.z.number().describe("Average confidence score of the OCR recognition (0-100)."),
-        processing_time: zod_1.z.number().describe("Time taken to process the document in seconds."),
-        message: zod_1.z.string().describe("Summary message of the OCR operation."),
-        error: zod_1.z.string().optional().describe("Error message if the operation failed."),
-        platform: zod_1.z.string().describe("Platform where the OCR tool was executed."),
-        timestamp: zod_1.z.string().describe("Timestamp when the operation was performed.")
+        success: z.boolean().describe("Whether the OCR operation was successful."),
+        action_performed: z.string().describe("The OCR action that was executed."),
+        input_file: z.string().describe("Path to the input file."),
+        output_file: z.string().describe("Path to the output text file."),
+        extracted_text: z.string().describe("The extracted text content."),
+        confidence_score: z.number().describe("Average confidence score of the OCR recognition (0-100)."),
+        processing_time: z.number().describe("Time taken to process the document in seconds."),
+        message: z.string().describe("Summary message of the OCR operation."),
+        error: z.string().optional().describe("Error message if the operation failed."),
+        platform: z.string().describe("Platform where the OCR tool was executed."),
+        timestamp: z.string().describe("Timestamp when the operation was performed.")
     }
 }, async ({ action, input_file, output_file, language, confidence_threshold, output_format }) => {
     try {
@@ -1067,7 +1029,7 @@ server.registerTool("ocr_tool", {
 // MAIN FUNCTION
 // ===========================================
 async function main() {
-    const transport = new stdio_js_1.StdioServerTransport();
+    const transport = new StdioServerTransport();
     await server.connect(transport);
 }
 main().catch((err) => {

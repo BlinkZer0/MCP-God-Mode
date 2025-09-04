@@ -1,40 +1,35 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-const jsx_runtime_1 = require("react/jsx-runtime");
-const react_1 = require("react");
-const react_router_dom_1 = require("react-router-dom");
-const styles_1 = require("@mui/material/styles");
-const material_1 = require("@mui/material");
-const socket_io_client_1 = require("socket.io-client");
+import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
+import { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { CssBaseline, Box } from '@mui/material';
+import { io } from 'socket.io-client';
 // Import components
-const Layout_1 = __importDefault(require("./components/Layout"));
-const Login_1 = __importDefault(require("./components/Login"));
-const Dashboard_1 = __importDefault(require("./pages/Dashboard"));
-const Monitoring_1 = __importDefault(require("./pages/Monitoring"));
-const Workflows_1 = __importDefault(require("./pages/Workflows"));
-const Plugins_1 = __importDefault(require("./pages/Plugins"));
-const Tools_1 = __importDefault(require("./pages/Tools"));
-const Settings_1 = __importDefault(require("./pages/Settings"));
+import Layout from './components/Layout';
+import Login from './components/Login';
+import Dashboard from './pages/Dashboard';
+import Monitoring from './pages/Monitoring';
+import Workflows from './pages/Workflows';
+import Plugins from './pages/Plugins';
+import Tools from './pages/Tools';
+import Settings from './pages/Settings';
 // Import contexts
-const AuthContext_1 = require("./contexts/AuthContext");
-const SocketContext_1 = require("./contexts/SocketContext");
-const ThemeContext_1 = require("./contexts/ThemeContext");
+import { AuthContext } from './contexts/AuthContext';
+import { SocketContext } from './contexts/SocketContext';
+import { ThemeContext } from './contexts/ThemeContext';
 // API configuration
 const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:3000/api/v1';
 const SOCKET_URL = process.env.REACT_APP_SOCKET_URL || 'http://localhost:3000';
 // App component
 function App() {
     // State
-    const [user, setUser] = (0, react_1.useState)(null);
-    const [isAuthenticated, setIsAuthenticated] = (0, react_1.useState)(false);
-    const [isLoading, setIsLoading] = (0, react_1.useState)(true);
-    const [isDarkMode, setIsDarkMode] = (0, react_1.useState)(false);
-    const [socket, setSocket] = (0, react_1.useState)(null);
+    const [user, setUser] = useState(null);
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
+    const [isDarkMode, setIsDarkMode] = useState(false);
+    const [socket, setSocket] = useState(null);
     // Theme
-    const theme = (0, styles_1.createTheme)({
+    const theme = createTheme({
         palette: {
             mode: isDarkMode ? 'dark' : 'light',
             primary: {
@@ -139,7 +134,7 @@ function App() {
         socket,
         connect: () => {
             if (!socket && isAuthenticated) {
-                const newSocket = (0, socket_io_client_1.io)(SOCKET_URL, {
+                const newSocket = io(SOCKET_URL, {
                     auth: {
                         token: user?.token,
                     },
@@ -160,7 +155,7 @@ function App() {
         toggleTheme: () => setIsDarkMode(!isDarkMode),
     };
     // Check authentication status on mount
-    (0, react_1.useEffect)(() => {
+    useEffect(() => {
         const checkAuth = async () => {
             try {
                 const token = localStorage.getItem('token');
@@ -187,14 +182,14 @@ function App() {
         checkAuth();
     }, []);
     // Connect socket when authenticated
-    (0, react_1.useEffect)(() => {
+    useEffect(() => {
         if (isAuthenticated && !socket) {
             socketContextValue.connect();
         }
     }, [isAuthenticated, socket]);
     if (isLoading) {
-        return ((0, jsx_runtime_1.jsx)(material_1.Box, { display: "flex", justifyContent: "center", alignItems: "center", minHeight: "100vh", bgcolor: "background.default", children: (0, jsx_runtime_1.jsx)("div", { children: "Loading..." }) }));
+        return (_jsx(Box, { display: "flex", justifyContent: "center", alignItems: "center", minHeight: "100vh", bgcolor: "background.default", children: _jsx("div", { children: "Loading..." }) }));
     }
-    return ((0, jsx_runtime_1.jsx)(ThemeContext_1.ThemeContext.Provider, { value: themeContextValue, children: (0, jsx_runtime_1.jsxs)(styles_1.ThemeProvider, { theme: theme, children: [(0, jsx_runtime_1.jsx)(material_1.CssBaseline, {}), (0, jsx_runtime_1.jsx)(AuthContext_1.AuthContext.Provider, { value: authContextValue, children: (0, jsx_runtime_1.jsx)(SocketContext_1.SocketContext.Provider, { value: socketContextValue, children: (0, jsx_runtime_1.jsx)(react_router_dom_1.BrowserRouter, { children: (0, jsx_runtime_1.jsx)(material_1.Box, { bgcolor: "background.default", minHeight: "100vh", children: isAuthenticated ? ((0, jsx_runtime_1.jsx)(Layout_1.default, { children: (0, jsx_runtime_1.jsxs)(react_router_dom_1.Routes, { children: [(0, jsx_runtime_1.jsx)(react_router_dom_1.Route, { path: "/", element: (0, jsx_runtime_1.jsx)(react_router_dom_1.Navigate, { to: "/dashboard", replace: true }) }), (0, jsx_runtime_1.jsx)(react_router_dom_1.Route, { path: "/dashboard", element: (0, jsx_runtime_1.jsx)(Dashboard_1.default, {}) }), (0, jsx_runtime_1.jsx)(react_router_dom_1.Route, { path: "/monitoring", element: (0, jsx_runtime_1.jsx)(Monitoring_1.default, {}) }), (0, jsx_runtime_1.jsx)(react_router_dom_1.Route, { path: "/workflows", element: (0, jsx_runtime_1.jsx)(Workflows_1.default, {}) }), (0, jsx_runtime_1.jsx)(react_router_dom_1.Route, { path: "/plugins", element: (0, jsx_runtime_1.jsx)(Plugins_1.default, {}) }), (0, jsx_runtime_1.jsx)(react_router_dom_1.Route, { path: "/tools", element: (0, jsx_runtime_1.jsx)(Tools_1.default, {}) }), (0, jsx_runtime_1.jsx)(react_router_dom_1.Route, { path: "/settings", element: (0, jsx_runtime_1.jsx)(Settings_1.default, {}) }), (0, jsx_runtime_1.jsx)(react_router_dom_1.Route, { path: "*", element: (0, jsx_runtime_1.jsx)(react_router_dom_1.Navigate, { to: "/dashboard", replace: true }) })] }) })) : ((0, jsx_runtime_1.jsxs)(react_router_dom_1.Routes, { children: [(0, jsx_runtime_1.jsx)(react_router_dom_1.Route, { path: "/login", element: (0, jsx_runtime_1.jsx)(Login_1.default, {}) }), (0, jsx_runtime_1.jsx)(react_router_dom_1.Route, { path: "*", element: (0, jsx_runtime_1.jsx)(react_router_dom_1.Navigate, { to: "/login", replace: true }) })] })) }) }) }) })] }) }));
+    return (_jsx(ThemeContext.Provider, { value: themeContextValue, children: _jsxs(ThemeProvider, { theme: theme, children: [_jsx(CssBaseline, {}), _jsx(AuthContext.Provider, { value: authContextValue, children: _jsx(SocketContext.Provider, { value: socketContextValue, children: _jsx(Router, { children: _jsx(Box, { bgcolor: "background.default", minHeight: "100vh", children: isAuthenticated ? (_jsx(Layout, { children: _jsxs(Routes, { children: [_jsx(Route, { path: "/", element: _jsx(Navigate, { to: "/dashboard", replace: true }) }), _jsx(Route, { path: "/dashboard", element: _jsx(Dashboard, {}) }), _jsx(Route, { path: "/monitoring", element: _jsx(Monitoring, {}) }), _jsx(Route, { path: "/workflows", element: _jsx(Workflows, {}) }), _jsx(Route, { path: "/plugins", element: _jsx(Plugins, {}) }), _jsx(Route, { path: "/tools", element: _jsx(Tools, {}) }), _jsx(Route, { path: "/settings", element: _jsx(Settings, {}) }), _jsx(Route, { path: "*", element: _jsx(Navigate, { to: "/dashboard", replace: true }) })] }) })) : (_jsxs(Routes, { children: [_jsx(Route, { path: "/login", element: _jsx(Login, {}) }), _jsx(Route, { path: "*", element: _jsx(Navigate, { to: "/login", replace: true }) })] })) }) }) }) })] }) }));
 }
-exports.default = App;
+export default App;

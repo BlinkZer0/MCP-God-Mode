@@ -10,8 +10,10 @@ export const logger = winston.createLogger({
     winston.format.json()
   ),
   transports: [
+    // IMPORTANT: Log everything to stderr so stdout remains clean for MCP JSON-RPC
     new winston.transports.Console({
-      format: winston.format.simple()
+      format: winston.format.simple(),
+      stderrLevels: ["info", "warn", "error", "debug", "verbose"],
     })
   ]
 });

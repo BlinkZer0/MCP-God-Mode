@@ -1,22 +1,14 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.getEmailTransport = getEmailTransport;
-exports.extractLinksFromText = extractLinksFromText;
-exports.extractEmailsFromText = extractEmailsFromText;
-const nodemailer_1 = __importDefault(require("nodemailer"));
+import * as nodemailer from "nodemailer";
 // Email configuration cache
 const emailTransports = new Map();
-async function getEmailTransport(config) {
+export async function getEmailTransport(config) {
     const cacheKey = `${config.service}-${config.email}-${config.host || 'default'}`;
     if (emailTransports.has(cacheKey)) {
         return emailTransports.get(cacheKey);
     }
     let transport;
     if (config.service === 'gmail') {
-        transport = nodemailer_1.default.createTransport({
+        transport = nodemailer.createTransport({
             service: 'gmail',
             auth: {
                 user: config.email,
@@ -25,7 +17,7 @@ async function getEmailTransport(config) {
         });
     }
     else if (config.service === 'outlook') {
-        transport = nodemailer_1.default.createTransport({
+        transport = nodemailer.createTransport({
             host: 'smtp-mail.outlook.com',
             port: 587,
             secure: false,
@@ -36,7 +28,7 @@ async function getEmailTransport(config) {
         });
     }
     else if (config.service === 'yahoo') {
-        transport = nodemailer_1.default.createTransport({
+        transport = nodemailer.createTransport({
             host: 'smtp.mail.yahoo.com',
             port: 587,
             secure: false,
@@ -47,7 +39,7 @@ async function getEmailTransport(config) {
         });
     }
     else {
-        transport = nodemailer_1.default.createTransport({
+        transport = nodemailer.createTransport({
             host: config.host,
             port: config.port || 587,
             secure: config.secure || false,
@@ -64,14 +56,20 @@ async function getEmailTransport(config) {
         return transport;
     }
     catch (error) {
-        throw new Error(`Failed to create email transport: ${error}`);
+        return {
+            content: [{ type: "text", text: `Error: ${`Failed to create email transport: ${error}`}` }],
+            structuredContent: {
+                success: false,
+                error: `${`Failed to create email transport: ${error}`}`
+            }
+        };
     }
 }
-function extractLinksFromText(text) {
+export function extractLinksFromText(text) {
     const urlRegex = /https?:\/\/[^\s]+/g;
     return text.match(urlRegex) || [];
 }
-function extractEmailsFromText(text) {
+export function extractEmailsFromText(text) {
     const emailRegex = /\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b/g;
     return text.match(emailRegex) || [];
 }

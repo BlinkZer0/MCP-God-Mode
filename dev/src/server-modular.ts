@@ -26,13 +26,8 @@ import { sanitizeCommand, isDangerousCommand, shouldPerformSecurityChecks } from
 import { ensureInsideRoot, limitString } from "./utils/fileSystem.js";
 import { logger, logServerStart } from "./utils/logger.js";
 
-// Import tool modules
-import { registerHealth, registerSystemInfo } from "./tools/core/index.js";
-import { registerSendEmail, registerParseEmail } from "./tools/email/index.js";
-import { registerFsList } from "./tools/file_system/fs_list.js";
-import { registerDiceRolling } from "./tools/utilities/index.js";
-import { registerPortScanner, registerVulnerabilityScanner, registerPasswordCracker, registerExploitFramework } from "./tools/security/index.js";
-import { registerPacketSniffer } from "./tools/network/index.js";
+// Import all tools from the comprehensive index
+import * as allTools from "./tools/index.js";
 
 // Global variables for enhanced features
 let browserInstance: any = null;
@@ -48,56 +43,44 @@ const execAsync = promisify(exec);
 // Log server startup
 logServerStart(PLATFORM);
 
+// Register additional tools
+
 // ===========================================
 // MODULAR SERVER: Imported Tools
 // ===========================================
 
-const server = new McpServer({ name: "MCP God Mode - Modular", version: "1.4" });
+const server = new McpServer({ name: "MCP God Mode - Modular", version: "1.4a" });
 
-// Register core tools
-registerHealth(server);
-registerSystemInfo(server);
+// Capture tool registrations dynamically to keep the list accurate
+const registeredTools = new Set<string>();
+const _origRegisterTool = (server as any).registerTool?.bind(server);
+if (_origRegisterTool) {
+  (server as any).registerTool = (name: string, ...rest: any[]) => {
+    try { registeredTools.add(name); } catch {}
+    return _origRegisterTool(name, ...rest);
+  };
+}
 
-// Register email tools
-registerSendEmail(server);
-registerParseEmail(server);
-
-// Register file system tools
-registerFsList(server);
-
-// Register utility tools
-registerDiceRolling(server);
 
 // ===========================================
-// COMPREHENSIVE PENETRATION TESTING TOOLS
-// ===========================================
-// 
-// 🚨 **SECURITY NOTICE**: These tools are designed for authorized corporate security testing ONLY.
-// All WAN testing capabilities are strictly limited to personal networks and authorized corporate infrastructure.
-// Unauthorized use may constitute cybercrime and result in legal consequences.
-//
-// 🔒 **AUTHORIZED USE CASES**:
-// - Personal network security assessment
-// - Corporate penetration testing with written authorization
-// - Educational security research in controlled environments
-// - Security professional development and training
-//
-// ❌ **PROHIBITED USE**:
-// - Testing external networks without authorization
-// - Scanning public internet infrastructure
-// - Targeting systems you don't own or have permission to test
-// - Any activities that could disrupt network services
-//
+// REGISTER ALL 67 TOOLS FROM COMPREHENSIVE INDEX
 // ===========================================
 
-// Register security tools
-registerPortScanner(server);
-registerVulnerabilityScanner(server);
-registerPasswordCracker(server);
-registerExploitFramework(server);
+// Get all tool registration functions from the comprehensive index
+const toolFunctions = Object.values(allTools);
 
-// Register network tools
-registerPacketSniffer(server);
+// Register all tools dynamically
+toolFunctions.forEach((toolFunction: any) => {
+  if (typeof toolFunction === 'function' && toolFunction.name.startsWith('register')) {
+    try {
+      toolFunction(server);
+    } catch (error) {
+      console.warn(`Warning: Failed to register tool ${toolFunction.name}:`, error);
+    }
+  }
+});
+
+console.log(`✅ Successfully registered ${toolFunctions.length} tool functions`);
 
 // ===========================================
 // START THE SERVER
@@ -106,15 +89,19 @@ registerPacketSniffer(server);
 const transport = new StdioServerTransport();
 server.connect(transport);
 
-console.log("Modular MCP Server started with imported tools");
-console.log("Available tools: health, system_info, send_email, parse_email, fs_list, dice_rolling, port_scanner, vulnerability_scanner, password_cracker, exploit_framework, packet_sniffer");
+console.log("🚀 **MCP GOD MODE - MODULAR SERVER STARTED**");
+console.log(`📊 Total Tools Available: ${Array.from(registeredTools).length}`);
 console.log("");
-console.log("🔒 **COMPREHENSIVE PENETRATION TESTING SUITE LOADED**");
-console.log("📡 Port Scanner: Advanced network reconnaissance and service enumeration");
-console.log("🛡️ Vulnerability Scanner: Comprehensive security assessment and risk scoring");
-console.log("🔐 Password Cracker: Authentication testing across multiple services");
-console.log("⚡ Exploit Framework: Vulnerability testing with safe mode simulation");
-console.log("📡 Packet Sniffer: Network traffic analysis and security monitoring");
+console.log("🔧 **COMPREHENSIVE TOOL SUITE LOADED**");
+console.log("📁 File System Tools: File operations, search, and management");
+console.log("⚙️ Process Tools: Process execution and management");
+console.log("🌐 Network Tools: Network diagnostics, scanning, and security");
+console.log("🔒 Security Tools: Penetration testing, vulnerability assessment");
+console.log("📧 Email Tools: Email management and analysis");
+console.log("🎨 Media Tools: Image, video, and audio processing");
+console.log("📱 Mobile Tools: Mobile device management and security");
+console.log("☁️ Cloud Tools: Cloud infrastructure security");
+console.log("🔍 Forensics Tools: Digital forensics and analysis");
 console.log("");
 console.log("⚠️  **SECURITY NOTICE**: All tools are for authorized testing ONLY");
 console.log("🔒 Use only on networks you own or have explicit permission to test");

@@ -350,10 +350,10 @@ if (searchResult.status === "success" && searchResult.results?.search_results) {
 - **v1.1**: Enhanced file operations
 - **v1.2**: Advanced security features
 - **v1.3**: Cross-platform improvements
-- **v1.4**: Professional file management features
+- **v1.4a**: Professional file management features
 
 ---
 
 **⚠️ IMPORTANT: File operations can affect system stability and data integrity. Always verify operations and use appropriate permission levels.**
 
-*This document is part of MCP God Mode v1.4 - Advanced AI Agent Toolkit*
+*This document is part of MCP God Mode v1.4a - Advanced AI Agent Toolkit*

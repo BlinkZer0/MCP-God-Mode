@@ -287,10 +287,10 @@ if (customDice.status === "success") {
 - **v1.1**: Enhanced dice notation support
 - **v1.2**: Advanced statistical features
 - **v1.3**: Cross-platform improvements
-- **v1.4**: Professional dice rolling features
+- **v1.4a**: Professional dice rolling features
 
 ---
 
 **⚠️ IMPORTANT: Random number generation is for entertainment and gaming purposes only. Do not use for cryptographic or security applications.**
 
-*This document is part of MCP God Mode v1.4 - Advanced AI Agent Toolkit*
+*This document is part of MCP God Mode v1.4a - Advanced AI Agent Toolkit*

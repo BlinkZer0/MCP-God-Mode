@@ -88,12 +88,24 @@ export function registerPasswordCracker(server: McpServer) {
       // Validate target accessibility
       const port = custom_port || SERVICE_PORTS[service];
       if (!port) {
-        throw new Error(`Unknown service: ${service}`);
+        return {
+          content: [{ type: "text", text: `Error: ${`Unknown service: ${service}`}` }],
+          structuredContent: {
+            success: false,
+            error: `${`Unknown service: ${service}`}`
+          }
+        };
       }
       
       // Check if target is accessible
       if (!await isTargetAccessible(target, port, timeout)) {
-        throw new Error(`Target ${target}:${port} is not accessible`);
+        return {
+          content: [{ type: "text", text: `Error: ${`Target ${target}:${port} is not accessible`}` }],
+          structuredContent: {
+            success: false,
+            error: `${`Target ${target}:${port} is not accessible`}`
+          }
+        };
       }
       
       // Prepare password list
@@ -247,7 +259,11 @@ async function crackWindowsPassword(target: string, service: string, username: s
       }
       
       if (success) {
-        return { password, attempts, status: 'cracked' };
+        return {
+        password, attempts, status: 'cracked' 
+        
+        
+      };
       }
       
       if (verbose && attempts % 100 === 0) {
@@ -259,7 +275,11 @@ async function crackWindowsPassword(target: string, service: string, username: s
     }
   }
   
-  return { attempts, status: 'failed' };
+  return {
+        attempts, status: 'failed' 
+        
+        
+      };
 }
 
 async function crackUnixPassword(target: string, service: string, username: string, passwords: string[], method: string, timeout: number, verbose: boolean): Promise<{ password?: string; attempts: number; status: string }> {
@@ -312,7 +332,11 @@ async function crackUnixPassword(target: string, service: string, username: stri
       }
       
       if (success) {
-        return { password, attempts, status: 'cracked' };
+        return {
+        password, attempts, status: 'cracked' 
+        
+        
+      };
       }
       
       if (verbose && attempts % 100 === 0) {
@@ -324,7 +348,11 @@ async function crackUnixPassword(target: string, service: string, username: stri
     }
   }
   
-  return { attempts, status: 'failed' };
+  return {
+        attempts, status: 'failed' 
+        
+        
+      };
 }
 
 async function crackNodeJSPassword(target: string, service: string, username: string, passwords: string[], method: string, timeout: number, verbose: boolean): Promise<{ password?: string; attempts: number; status: string }> {
@@ -338,7 +366,11 @@ async function crackNodeJSPassword(target: string, service: string, username: st
       const success = await testGenericPassword(target, service, username, password, timeout);
       
       if (success) {
-        return { password, attempts, status: 'cracked' };
+        return {
+        password, attempts, status: 'cracked' 
+        
+        
+      };
       }
       
       if (verbose && attempts % 100 === 0) {
@@ -350,7 +382,11 @@ async function crackNodeJSPassword(target: string, service: string, username: st
     }
   }
   
-  return { attempts, status: 'failed' };
+  return {
+        attempts, status: 'failed' 
+        
+        
+      };
 }
 
 async function testSSHPassword(target: string, username: string, password: string, timeout: number): Promise<boolean> {

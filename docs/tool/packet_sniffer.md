@@ -319,10 +319,10 @@ if (securityMonitor.security_alerts && securityMonitor.security_alerts.length > 
 - **v1.1**: Enhanced protocol support
 - **v1.2**: Advanced filtering capabilities
 - **v1.3**: Cross-platform improvements
-- **v1.4**: Professional security features
+- **v1.4a**: Professional security features
 
 ---
 
 **⚠️ IMPORTANT: This tool is designed for authorized corporate network testing only. Always obtain proper authorization before monitoring any networks.**
 
-*This document is part of MCP God Mode v1.4 - Advanced AI Agent Toolkit*
+*This document is part of MCP God Mode v1.4a - Advanced AI Agent Toolkit*

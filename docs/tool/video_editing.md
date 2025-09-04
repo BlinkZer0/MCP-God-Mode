@@ -1,14 +1,14 @@
 # Video Editing Tool
 
 ## Overview
-Advanced video editing and manipulation tool with cross-platform support. Perform video processing, editing, format conversion, effects application, and video analysis across Windows, Linux, macOS, Android, and iOS.
+Advanced video editing and manipulation tool with cross-platform support. Perform video processing, editing, format conversion, effects application, video analysis, and recording across Windows, Linux, macOS, Android, and iOS.
 
 ## Description
-Advanced video editing and manipulation tool with cross-platform support. Perform video processing, editing, format conversion, effects application, and video analysis across Windows, Linux, macOS, Android, and iOS.
+Advanced video editing and manipulation tool with cross-platform support. Perform video processing, editing, format conversion, effects application, video analysis, and recording across Windows, Linux, macOS, Android, and iOS. Includes comprehensive screen recording, webcam capture, and window recording capabilities.
 
 ## Input Schema
-- **action** (required): Video editing action to perform. 'convert' for format conversion, 'trim' for cutting video segments, 'merge' for combining videos, 'split' for dividing videos, 'resize' for changing dimensions, 'apply_effects' for visual effects, 'extract_audio' for audio extraction, 'add_subtitles' for subtitle overlay, 'stabilize' for video stabilization, 'analyze' for video analysis, 'compress' for size reduction, 'enhance' for quality improvement.
-- **input_file** (required): Path to the input video file. Examples: './video.mp4', '/home/user/videos/input.avi', 'C:\\Users\\User\\Videos\\input.mov'.
+- **action** (required): Video editing action to perform. 'convert' for format conversion, 'trim' for cutting video segments, 'merge' for combining videos, 'split' for dividing videos, 'resize' for changing dimensions, 'apply_effects' for visual effects, 'extract_audio' for audio extraction, 'add_subtitles' for subtitle overlay, 'stabilize' for video stabilization, 'analyze' for video analysis, 'compress' for size reduction, 'enhance' for quality improvement, 'record' for general video recording, 'record_screen' for screen recording, 'record_webcam' for webcam recording, 'record_window' for specific window recording, 'record_region' for region recording.
+- **input_file** (required): Path to the input video file. Examples: './video.mp4', '/home/user/videos/input.avi', 'C:\\Users\\User\\Videos\\input.mov'. Required for all actions except recording actions.
 - **output_file** (optional): Path for the output video file. Examples: './output.mp4', '/home/user/videos/output.avi'. If not specified, auto-generates based on input file.
 - **format** (optional): Output video format. Examples: 'mp4', 'avi', 'mov', 'mkv', 'webm'. Defaults to input format if not specified.
 - **start_time** (optional): Start time for trim/split operations. Format: 'HH:MM:SS' or 'HH:MM:SS.mmm'. Examples: '00:00:10', '01:30:45.500'.
@@ -20,6 +20,18 @@ Advanced video editing and manipulation tool with cross-platform support. Perfor
 - **compression_level** (optional): Compression level for output video. Higher compression reduces file size but may affect quality.
 - **audio_codec** (optional): Audio codec for output. Examples: 'aac', 'mp3', 'opus', 'flac'.
 - **video_codec** (optional): Video codec for output. Examples: 'h264', 'h265', 'vp9', 'av1'.
+- **duration** (optional): Duration for recording operations in seconds. Examples: 30 for 30 seconds, 300 for 5 minutes.
+- **frame_rate** (optional): Frame rate for recording or processing in fps. Examples: 24 for film, 30 for standard, 60 for smooth motion.
+- **audio_source** (optional): Audio source for recording. Examples: 'default', 'microphone', 'system_audio', 'none'.
+- **video_source** (optional): Video source for recording. Examples: 'screen', 'webcam', 'window', 'region'.
+- **include_cursor** (optional): Whether to include mouse cursor in screen recordings. Set to true to capture cursor movements.
+- **include_audio** (optional): Whether to include audio in recordings. Set to false for silent recordings.
+- **recording_area** (optional): Specific area to record when using 'record_region' action.
+- **window_title** (optional): Title of the specific window to record when using 'record_window' action.
+- **webcam_device** (optional): Webcam device name for webcam recording. Examples: 'default', 'HD WebCam', 'USB Camera'.
+- **delay_seconds** (optional): Delay before starting recording in seconds. Useful for preparing the scene.
+- **auto_stop** (optional): Whether to automatically stop recording after the specified duration. Set to false for manual stop.
+- **show_recording_indicator** (optional): Whether to show a recording indicator during capture. Set to false for stealth recording.
 
 ## Output Schema
 - **success**: Whether the video editing operation was successful.
@@ -46,6 +58,10 @@ Users can request video editing operations using natural language:
 - "Add subtitles to my video"
 - "Stabilize shaky video footage"
 - "Enhance video quality"
+- "Record my screen for 5 minutes"
+- "Record from my webcam for 2 minutes"
+- "Record the Chrome window for 10 minutes"
+- "Record this specific area of my screen"
 
 ## Usage Examples
 
@@ -103,6 +119,63 @@ const result = await video_editing({
   input_file: "./hd_video.mp4",
   resolution: "1280x720",
   output_file: "./720p_video.mp4"
+});
+```
+
+### Screen Recording
+```javascript
+// Record screen for 60 seconds
+const result = await video_editing({
+  action: "record_screen",
+  duration: 60,
+  frame_rate: 30,
+  include_cursor: true,
+  include_audio: true,
+  format: "mp4"
+});
+```
+
+### Webcam Recording
+```javascript
+// Record from webcam for 30 seconds
+const result = await video_editing({
+  action: "record_webcam",
+  duration: 30,
+  frame_rate: 24,
+  audio_source: "microphone",
+  webcam_device: "HD WebCam",
+  format: "mp4"
+});
+```
+
+### Window Recording
+```javascript
+// Record specific application window
+const result = await video_editing({
+  action: "record_window",
+  window_title: "Chrome",
+  duration: 120,
+  include_cursor: true,
+  include_audio: false,
+  format: "mp4"
+});
+```
+
+### Region Recording
+```javascript
+// Record specific screen region
+const result = await video_editing({
+  action: "record_region",
+  recording_area: {
+    x: 100,
+    y: 100,
+    width: 800,
+    height: 600
+  },
+  duration: 45,
+  frame_rate: 30,
+  include_cursor: true,
+  format: "mp4"
 });
 ```
 
@@ -181,3 +254,10 @@ const result = await video_editing({
 - **Format Conversion**: Convert videos for different devices and platforms
 - **Video Analysis**: Analyze video quality and characteristics
 - **Batch Processing**: Process multiple videos simultaneously
+- **Screen Recording**: Capture screen content for tutorials and demos
+- **Webcam Recording**: Record video content from camera devices
+- **Window Recording**: Capture specific application windows
+- **Region Recording**: Record custom screen areas
+- **Tutorial Creation**: Create step-by-step video guides
+- **Bug Reporting**: Record software issues for developers
+- **Live Streaming**: Prepare content for streaming platforms

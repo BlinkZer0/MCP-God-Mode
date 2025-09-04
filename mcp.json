@@ -2,8 +2,7 @@
   "mcpServers": {
     "mcp-god-mode": {
       "command": "node",
-      "args": ["./start-mcp.js"],
-      "cwd": ".",
+      "args": ["./dev/dist/server-refactored.js"],
       "env": {
         "ALLOWED_ROOT": "",
         "WEB_ALLOWLIST": "",

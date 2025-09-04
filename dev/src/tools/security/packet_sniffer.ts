@@ -102,7 +102,13 @@ export function registerPacketSniffer(server: McpServer) {
           return await detectAnomalies();
           
         default:
-          throw new Error(`Unknown action: ${action}`);
+          return {
+          content: [{ type: "text", text: `Error: ${`Unknown action: ${action}`}` }],
+          structuredContent: {
+            success: false,
+            error: `${`Unknown action: ${action}`}`
+          }
+        };
       }
     } catch (error) {
       return {
@@ -445,7 +451,13 @@ async function exportPcap(outputFile: string | undefined): Promise<any> {
       }
     };
   } catch (error) {
-    throw new Error(`Failed to export PCAP: ${error instanceof Error ? error.message : 'Unknown error'}`);
+    return {
+          content: [{ type: "text", text: `Error: ${`Failed to export PCAP: ${error instanceof Error ? error.message : 'Unknown error'}`}` }],
+          structuredContent: {
+            success: false,
+            error: `${`Failed to export PCAP: ${error instanceof Error ? error.message : 'Unknown error'}`}`
+          }
+        };
   }
 }
 

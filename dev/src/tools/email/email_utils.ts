@@ -1,4 +1,4 @@
-import nodemailer from "nodemailer";
+import * as nodemailer from "nodemailer";
 
 // Email configuration cache
 const emailTransports = new Map<string, any>();
@@ -58,7 +58,13 @@ export async function getEmailTransport(config: any) {
     emailTransports.set(cacheKey, transport);
     return transport;
   } catch (error) {
-    throw new Error(`Failed to create email transport: ${error}`);
+    return {
+          content: [{ type: "text", text: `Error: ${`Failed to create email transport: ${error}`}` }],
+          structuredContent: {
+            success: false,
+            error: `${`Failed to create email transport: ${error}`}`
+          }
+        };
   }
 }
 

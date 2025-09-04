@@ -264,10 +264,10 @@ for (const url of urls) {
 - **v1.1**: Enhanced download features
 - **v1.2**: Advanced security features
 - **v1.3**: Cross-platform improvements
-- **v1.4**: Professional download features
+- **v1.4a**: Professional download features
 
 ---
 
 **⚠️ IMPORTANT: Always verify file sources and scan downloaded files for security threats before execution.**
 
-*This document is part of MCP God Mode v1.4 - Advanced AI Agent Toolkit*
+*This document is part of MCP God Mode v1.4a - Advanced AI Agent Toolkit*

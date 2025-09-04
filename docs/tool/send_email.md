@@ -316,10 +316,10 @@ console.log("Multi-recipient email result:", multiEmail);
 - **v1.1**: Enhanced service support
 - **v1.2**: Advanced attachment features
 - **v1.3**: Cross-platform improvements
-- **v1.4**: Professional email features
+- **v1.4a**: Professional email features
 
 ---
 
 **⚠️ IMPORTANT: Always use secure authentication methods and never share email credentials in code or configuration files.**
 
-*This document is part of MCP God Mode v1.4 - Advanced AI Agent Toolkit*
+*This document is part of MCP God Mode v1.4a - Advanced AI Agent Toolkit*

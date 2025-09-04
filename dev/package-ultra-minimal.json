@@ -1,6 +1,6 @@
 {
   "name": "mcp-ultra-minimal",
-  "version": "1.4",
+  "version": "1.4a",
   "private": true,
   "main": "dist/server-ultra-minimal.js",
   "scripts": {

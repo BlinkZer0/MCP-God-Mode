@@ -1,85 +1,49 @@
-"use strict";
-var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    var desc = Object.getOwnPropertyDescriptor(m, k);
-    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-      desc = { enumerable: true, get: function() { return m[k]; } };
-    }
-    Object.defineProperty(o, k2, desc);
-}) : (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    o[k2] = m[k];
-}));
-var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
-    Object.defineProperty(o, "default", { enumerable: true, value: v });
-}) : function(o, v) {
-    o["default"] = v;
-});
-var __importStar = (this && this.__importStar) || (function () {
-    var ownKeys = function(o) {
-        ownKeys = Object.getOwnPropertyNames || function (o) {
-            var ar = [];
-            for (var k in o) if (Object.prototype.hasOwnProperty.call(o, k)) ar[ar.length] = k;
-            return ar;
-        };
-        return ownKeys(o);
-    };
-    return function (mod) {
-        if (mod && mod.__esModule) return mod;
-        var result = {};
-        if (mod != null) for (var k = ownKeys(mod), i = 0; i < k.length; i++) if (k[i] !== "default") __createBinding(result, mod, k[i]);
-        __setModuleDefault(result, mod);
-        return result;
-    };
-})();
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.COMMAND_MAPPINGS = exports.MOBILE_PATHS = exports.PROC_ALLOWLIST = exports.PROC_ALLOWLIST_RAW = exports.WEB_ALLOWLIST = exports.MAX_BYTES = exports.ALLOWED_ROOTS = exports.config = exports.MOBILE_CONFIG = exports.IS_MOBILE_WEB = exports.IS_IOS = exports.IS_ANDROID = exports.IS_MOBILE = exports.IS_MACOS = exports.IS_LINUX = exports.IS_WINDOWS = exports.PLATFORM = void 0;
-const os = __importStar(require("node:os"));
+import * as os from "node:os";
 // Cross-platform OS detection
-exports.PLATFORM = os.platform();
-exports.IS_WINDOWS = exports.PLATFORM === "win32";
-exports.IS_LINUX = exports.PLATFORM === "linux";
-exports.IS_MACOS = exports.PLATFORM === "darwin";
+export const PLATFORM = os.platform();
+export const IS_WINDOWS = PLATFORM === "win32";
+export const IS_LINUX = PLATFORM === "linux";
+export const IS_MACOS = PLATFORM === "darwin";
 // Mobile platform detection
-exports.IS_MOBILE = process.env.MOBILE_PLATFORM === "true" || process.env.REACT_NATIVE === "true";
-exports.IS_ANDROID = process.env.ANDROID === "true" || process.env.PLATFORM === "android";
-exports.IS_IOS = process.env.IOS === "true" || process.env.PLATFORM === "ios";
-exports.IS_MOBILE_WEB = process.env.MOBILE_WEB === "true" || process.env.PLATFORM === "mobile-web";
+export const IS_MOBILE = process.env.MOBILE_PLATFORM === "true" || process.env.REACT_NATIVE === "true";
+export const IS_ANDROID = process.env.ANDROID === "true" || process.env.PLATFORM === "android";
+export const IS_IOS = process.env.IOS === "true" || process.env.PLATFORM === "ios";
+export const IS_MOBILE_WEB = process.env.MOBILE_WEB === "true" || process.env.PLATFORM === "mobile-web";
 // Mobile-specific configurations
-exports.MOBILE_CONFIG = {
-    enableNativeFeatures: exports.IS_ANDROID || exports.IS_IOS,
-    enableWebFallbacks: exports.IS_MOBILE_WEB || (!exports.IS_ANDROID && !exports.IS_IOS),
-    maxFileSize: exports.IS_MOBILE ? 50 * 1024 * 1024 : 100 * 1024 * 1024, // 50MB on mobile, 100MB on desktop
-    enableCamera: exports.IS_ANDROID || exports.IS_IOS,
-    enableLocation: exports.IS_ANDROID || exports.IS_IOS,
-    enableNotifications: exports.IS_ANDROID || exports.IS_IOS,
-    enableBiometrics: exports.IS_ANDROID || exports.IS_IOS,
-    enableBluetooth: exports.IS_ANDROID || exports.IS_IOS,
-    enableNFC: exports.IS_ANDROID || exports.IS_IOS,
-    enableSensors: exports.IS_ANDROID || exports.IS_IOS
+export const MOBILE_CONFIG = {
+    enableNativeFeatures: IS_ANDROID || IS_IOS,
+    enableWebFallbacks: IS_MOBILE_WEB || (!IS_ANDROID && !IS_IOS),
+    maxFileSize: IS_MOBILE ? 50 * 1024 * 1024 : 100 * 1024 * 1024, // 50MB on mobile, 100MB on desktop
+    enableCamera: IS_ANDROID || IS_IOS,
+    enableLocation: IS_ANDROID || IS_IOS,
+    enableNotifications: IS_ANDROID || IS_IOS,
+    enableBiometrics: IS_ANDROID || IS_IOS,
+    enableBluetooth: IS_ANDROID || IS_IOS,
+    enableNFC: IS_ANDROID || IS_IOS,
+    enableSensors: IS_ANDROID || IS_IOS
 };
 // Environment configuration validation
-exports.config = {
+export const config = {
     allowedRoot: process.env.ALLOWED_ROOT || "",
     webAllowlist: process.env.WEB_ALLOWLIST || "",
     procAllowlist: process.env.PROC_ALLOWLIST || "",
     extraPath: process.env.EXTRA_PATH || "",
     logLevel: process.env.LOG_LEVEL || "info",
-    maxFileSize: parseInt(process.env.MAX_FILE_SIZE || String(exports.MOBILE_CONFIG.maxFileSize)),
+    maxFileSize: parseInt(process.env.MAX_FILE_SIZE || String(MOBILE_CONFIG.maxFileSize)),
     timeout: parseInt(process.env.COMMAND_TIMEOUT || "30000"),
     enableSecurityChecks: process.env.ENABLE_SECURITY_CHECKS !== "false",
-    mobilePlatform: exports.IS_MOBILE ? (exports.IS_ANDROID ? "android" : exports.IS_IOS ? "ios" : "mobile-web") : "desktop"
+    mobilePlatform: IS_MOBILE ? (IS_ANDROID ? "android" : IS_IOS ? "ios" : "mobile-web") : "desktop"
 };
 // Universal access - allow all drives and paths
-exports.ALLOWED_ROOTS = exports.config.allowedRoot
-    ? exports.config.allowedRoot.split(",").map(s => s.trim()).filter(Boolean)
+export const ALLOWED_ROOTS = config.allowedRoot
+    ? config.allowedRoot.split(",").map(s => s.trim()).filter(Boolean)
     : [];
-exports.MAX_BYTES = exports.config.maxFileSize;
-exports.WEB_ALLOWLIST = []; // Empty array means no restrictions
-exports.PROC_ALLOWLIST_RAW = exports.config.procAllowlist;
-exports.PROC_ALLOWLIST = exports.PROC_ALLOWLIST_RAW === "" ? [] : exports.PROC_ALLOWLIST_RAW.split(",").map(s => s.trim()).filter(Boolean);
+export const MAX_BYTES = config.maxFileSize;
+export const WEB_ALLOWLIST = []; // Empty array means no restrictions
+export const PROC_ALLOWLIST_RAW = config.procAllowlist;
+export const PROC_ALLOWLIST = PROC_ALLOWLIST_RAW === "" ? [] : PROC_ALLOWLIST_RAW.split(",").map(s => s.trim()).filter(Boolean);
 // Mobile-specific paths and permissions
-exports.MOBILE_PATHS = {
+export const MOBILE_PATHS = {
     android: {
         internal: "/data/data",
         external: "/storage/emulated/0",
@@ -95,7 +59,7 @@ exports.MOBILE_PATHS = {
     }
 };
 // Cross-platform command mappings
-exports.COMMAND_MAPPINGS = {
+export const COMMAND_MAPPINGS = {
     android: {
         fileManager: "am start -a android.intent.action.VIEW -d file://",
         packageManager: "pm",
