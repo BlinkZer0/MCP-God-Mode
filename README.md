@@ -125,7 +125,7 @@ This MCP can do wild stuff:
 
 **The Competition:** This MCP uniquely combines AI with system control across platforms including mobile.
 
-**🎉 Ready to Join the Revolution?** Ask your AI: *"What can you do now that MCP God Mode is installed?"* and prepare to have your mind completely blown! Your AI just became the ultimate system administrator, network engineer, security expert, mobile developer, and productivity wizard – all rolled into one incredibly powerful package with 49 tools and 300+ operations!
+**🎉 Ready to Join the Revolution?** Ask your AI: *"What can you do now that MCP God Mode is installed?"* and prepare to have your mind completely blown! Your AI just became the ultimate system administrator, network engineer, security expert, mobile developer, and productivity wizard – all rolled into one incredibly powerful package with 50 tools and 300+ operations!
 
 ## 🎯 All the Features – With Hilarious Commentary
 
@@ -167,11 +167,11 @@ Here's the full arsenal (based on the MCP's capabilities). I've included humorou
 **Additional Tool Views:**
 ![Cursor Tools Enabled](docs/images/Toolscursor1.png)
 ![Cursor Tools Enabled 2](docs/images/Toolscursor2.png)
-*All 49 tools successfully mounted and ready to use in your MCP client*
+*All 50 tools successfully mounted and ready to use in your MCP client*
 
 **This screenshot proves:**
 - ✅ **Tools actually work** - Not just marketing hype
-- ✅ **Accurate count** - 49 tools as promised
+- ✅ **Accurate count** - 50 tools as promised
 - ✅ **Proper mounting** - MCP integration successful
 - ✅ **Ready to use** - Your AI can access everything
 
@@ -201,11 +201,11 @@ Here's the full arsenal (based on the MCP's capabilities). I've included humorou
 
 ### **🤖 LM Studio Integration Proof**
 ![LM Studio Proof](docs/images/lmstudioproof.png)
-*MCP God Mode successfully integrated with LM Studio - All 49 tools mounted and ready*
+*MCP God Mode successfully integrated with LM Studio - All 50 tools mounted and ready*
 
 **This screenshot proves:**
 - ✅ **LM Studio compatibility** - Works seamlessly with popular AI platforms
-- ✅ **Tool mounting success** - All 49 tools properly integrated
+- ✅ **Tool mounting success** - All 50 tools properly integrated
 - ✅ **Professional integration** - Enterprise-grade AI platform support
 - ✅ **Ready for production** - Stable and reliable tool deployment
 
@@ -430,7 +430,7 @@ These are the mcp_mcp-god-mode_ tools – where AGI gets scary powerful.
 - **[mcp_mcp-god-mode_exploit_framework](docs/tool/exploit_framework.md)**: Advanced vulnerability testing. *Function: Exploit simulation, safe mode operations, automated cleanup. Joke: AGI playing with digital fire – "This won't hurt... much!"*
 - **[mcp_mcp-god-mode_packet_sniffer](docs/tool/packet_sniffer.md)**: Network traffic analysis. *Function: Packet capture, protocol analysis, security monitoring. Joke: AGI eavesdropping on your network – "Big Brother is watching... and taking notes!"*
 
-**Grand Total: 49 Tools of Mayhem!** AGI with this arsenal? It's infosec god mode. Just don't let a stupid one loose – or your SillyTavern RP turns real.
+**Grand Total: 50 Tools of Mayhem!** AGI with this arsenal? It's infosec god mode. Just don't let a stupid one loose – or your SillyTavern RP turns real.
 
 **🎲 NEW: [Dice Rolling Tool](docs/tool/dice_rolling.md) - Gamble with Your AI Compadre!** 
 *"Roll a d20 to see if I get admin privileges!"* 😄 Your AI can now roll any sided dice, multiple dice, and apply modifiers. Perfect for settling disputes over who gets control of the computer! **Cross-platform support across Windows, Linux, macOS, Android, and iOS** - because gambling should work everywhere! 🎯
@@ -440,7 +440,7 @@ These are the mcp_mcp-god-mode_ tools – where AGI gets scary powerful.
 ![Dice Rolling Tool in Cursor](docs/images/Screenshot 2025-09-03 162804.png)
 *Watch as MCP God Mode demonstrates the dice rolling tool in Cursor - roll any sided dice, multiple dice, and apply modifiers for the ultimate AI gambling experience!*
 
-**🎉 Ready to Join the Revolution?** Ask your AI: *"What can you do now that MCP God Mode is installed?"* and prepare to have your mind blown! Your AI just became a system administrator, network engineer, security expert, mobile developer, and productivity wizard all rolled into one with 49 tools and 300+ operations!
+**🎉 Ready to Join the Revolution?** Ask your AI: *"What can you do now that MCP God Mode is installed?"* and prepare to have your mind blown! Your AI just became a system administrator, network engineer, security expert, mobile developer, and productivity wizard all rolled into one with 50 tools and 300+ operations!
 
 **🚀 BREAKING NEWS: Now with comprehensive Bluetooth security toolkit!** Your AI can now perform advanced Bluetooth security testing, device exploitation, and vulnerability assessment across all platforms!
 
@@ -908,7 +908,7 @@ https://github.com/user-attachments/assets/e0e80e6b-844e-464d-a18f-0ca993c2d7ea
 
 ---
 
-## 🎉 **THE GRAND TOTAL: 49 Tools, 300+ Operations!**
+## 🎉 **THE GRAND TOTAL: 50 Tools, 300+ Operations!**
 
 **This is absolutely unprecedented!** No other MCP comes close to this level of comprehensive functionality. You've got everything from basic file operations to advanced AI-powered system management, all wrapped in cross-platform magic that works seamlessly across Windows, Linux, macOS, Android, and iOS.
 
@@ -944,7 +944,7 @@ Every single tool in MCP God Mode has been put through the wringer with comprehe
 - **Integration Testing:** Tool interactions and dependency management
 
 **🎯 Testing Results:**
-- **100% Tool Coverage:** All 49 tools tested and verified working
+- **100% Tool Coverage:** All 50 tools tested and verified working
 - **Zero Half-Implemented Features:** Every feature is complete and functional
 - **Comprehensive Error Handling:** Graceful failures with informative messages
 - **Cross-Platform Validation:** Tested on all supported operating systems
@@ -1101,7 +1101,7 @@ When I'm not coding AI overlords, I'm practicing martial arts. Here are some of 
 
 ## 🤖 **Recommended AI Models & Platforms - Choose Your Digital Overlord Wisely!**
 
-**🚨 CRITICAL: This ain't your grandma's chatbot!** MCP God Mode is a beast with 49 tools and 300+ operations, comprehensive security toolkits, and massive context requirements. You need an AI model that can handle the heat! 🔥
+**🚨 CRITICAL: This ain't your grandma's chatbot!** MCP God Mode is a beast with 50 tools and 300+ operations, comprehensive security toolkits, and massive context requirements. You need an AI model that can handle the heat! 🔥
 
 ### **🎯 Context Requirements - Size Matters!**
 
@@ -1120,7 +1120,7 @@ When I'm not coding AI overlords, I'm practicing martial arts. Here are some of 
 **Choose your server based on your AI model's capabilities:**
 
 #### **🔥 Full-Featured Server (`server-refactored.ts`)**
-- **Tools:** 49 tools with 300+ operations
+- **Tools:** 50 tools with 300+ operations
 - **Context Required:** 200K+ tokens (400K+ recommended)
 - **Server Size:** 633KB compiled, 13,603 lines
 - **Best For:** Claude 3.5 Sonnet, Gemini 1.5 Pro, GPT-4 Turbo (limited)
@@ -1246,7 +1246,7 @@ When I'm not coding AI overlords, I'm practicing martial arts. Here are some of 
 **Based on your AI model, here's what to install:**
 
 #### **🎯 For Claude 3.5 Sonnet Users:**
-- **Best Choice:** Full server (49 tools, 300+ operations)
+- **Best Choice:** Full server (50 tools, 300+ operations)
 - **Alternative:** Minimal server (25 tools, 50+ operations) for faster performance
 - **Command:** `npm run install:full` or `npm run install:minimal`
 
@@ -1262,11 +1262,11 @@ When I'm not coding AI overlords, I'm practicing martial arts. Here are some of 
 
 #### **🎯 For Claude 3 Haiku Users:**
 - **Best Choice:** Minimal server (25 tools, 50+ operations)
-- **Alternative:** Full server (49 tools, 300+ operations) if you need everything
+- **Alternative:** Full server (50 tools, 300+ operations) if you need everything
 - **Command:** `npm run install:minimal` or `npm run install:full`
 
 #### **🎯 For Gemini 1.5 Pro Users:**
-- **Best Choice:** Full server (49 tools, 300+ operations)
+- **Best Choice:** Full server (50 tools, 300+ operations)
 - **Alternative:** Any server version - you have massive context capacity!
 - **Command:** `npm run install:full` (recommended)
 
@@ -1290,7 +1290,7 @@ When I'm not coding AI overlords, I'm practicing martial arts. Here are some of 
 
 **MCP God Mode is a professional-grade system that requires professional-grade AI models.** Don't handicap yourself with underpowered models when you're dealing with:
 
-- **49 sophisticated tools with 300+ operations** (including web scraping, browser automation, mobile device management, and comprehensive penetration testing)
+- **50 sophisticated tools with 300+ operations** (including web scraping, browser automation, mobile device management, and comprehensive penetration testing)
 - **Complex security operations**
 - **Cross-platform system management**  
 - **Advanced penetration testing**
@@ -1309,7 +1309,7 @@ When I'm not coding AI overlords, I'm practicing martial arts. Here are some of 
   - **Password Cracker:** Authentication testing and password security assessment
   - **Exploit Framework:** Advanced vulnerability testing and exploitation simulation
   - **Packet Sniffer:** Network traffic analysis and security monitoring
-- **Multiple Server Versions:** Choose from Full (49 tools), Minimal (25 tools), or Ultra-Minimal (15 tools) based on your AI model's capabilities
+- **Multiple Server Versions:** Choose from Full (50 tools), Minimal (25 tools), or Ultra-Minimal (15 tools) based on your AI model's capabilities
 - **Web Scraping Tool:** Extract data from websites with CSS selectors, multiple output formats, and link following
 - **Browser Control Tool:** Launch browsers, navigate pages, take screenshots across all platforms (Chrome, Firefox, Safari, Edge)  
 - **Mobile Device Tools:** Complete mobile support with file operations, system management, and hardware access
@@ -1663,7 +1663,7 @@ Instead of remembering technical commands, just ask naturally:
 **Choose the version that fits your needs:**
 
 ### **🚀 Full-Featured Version (`server-refactored.ts`)**
-- **All 49 tools with 300+ operations** including comprehensive security toolkits and penetration testing capabilities
+- **All 50 tools with 300+ operations** including comprehensive security toolkits and penetration testing capabilities
 - Full cross-platform support (Windows, Linux, macOS, Android, iOS)
 - Complete Wi-Fi, Bluetooth, and SDR security toolkits
 - Mobile platform tools and hardware access
