@@ -31,6 +31,8 @@ import { registerHealth, registerSystemInfo } from "./tools/core/index.js";
 import { registerSendEmail, registerParseEmail } from "./tools/email/index.js";
 import { registerFsList } from "./tools/file_system/fs_list.js";
 import { registerDiceRolling } from "./tools/utilities/index.js";
+import { registerPortScanner, registerVulnerabilityScanner, registerPasswordCracker, registerExploitFramework } from "./tools/security/index.js";
+import { registerPacketSniffer } from "./tools/network/index.js";
 
 // Global variables for enhanced features
 let browserInstance: any = null;
@@ -50,7 +52,7 @@ logServerStart(PLATFORM);
 // MODULAR SERVER: Imported Tools
 // ===========================================
 
-const server = new McpServer({ name: "MCP God Mode - Modular", version: "1.3" });
+const server = new McpServer({ name: "MCP God Mode - Modular", version: "1.4" });
 
 // Register core tools
 registerHealth(server);
@@ -67,6 +69,37 @@ registerFsList(server);
 registerDiceRolling(server);
 
 // ===========================================
+// COMPREHENSIVE PENETRATION TESTING TOOLS
+// ===========================================
+// 
+// 🚨 **SECURITY NOTICE**: These tools are designed for authorized corporate security testing ONLY.
+// All WAN testing capabilities are strictly limited to personal networks and authorized corporate infrastructure.
+// Unauthorized use may constitute cybercrime and result in legal consequences.
+//
+// 🔒 **AUTHORIZED USE CASES**:
+// - Personal network security assessment
+// - Corporate penetration testing with written authorization
+// - Educational security research in controlled environments
+// - Security professional development and training
+//
+// ❌ **PROHIBITED USE**:
+// - Testing external networks without authorization
+// - Scanning public internet infrastructure
+// - Targeting systems you don't own or have permission to test
+// - Any activities that could disrupt network services
+//
+// ===========================================
+
+// Register security tools
+registerPortScanner(server);
+registerVulnerabilityScanner(server);
+registerPasswordCracker(server);
+registerExploitFramework(server);
+
+// Register network tools
+registerPacketSniffer(server);
+
+// ===========================================
 // START THE SERVER
 // ===========================================
 
@@ -74,4 +107,14 @@ const transport = new StdioServerTransport();
 server.connect(transport);
 
 console.log("Modular MCP Server started with imported tools");
-console.log("Available tools: health, system_info, send_email, parse_email, fs_list, dice_rolling");
+console.log("Available tools: health, system_info, send_email, parse_email, fs_list, dice_rolling, port_scanner, vulnerability_scanner, password_cracker, exploit_framework, packet_sniffer");
+console.log("");
+console.log("🔒 **COMPREHENSIVE PENETRATION TESTING SUITE LOADED**");
+console.log("📡 Port Scanner: Advanced network reconnaissance and service enumeration");
+console.log("🛡️ Vulnerability Scanner: Comprehensive security assessment and risk scoring");
+console.log("🔐 Password Cracker: Authentication testing across multiple services");
+console.log("⚡ Exploit Framework: Vulnerability testing with safe mode simulation");
+console.log("📡 Packet Sniffer: Network traffic analysis and security monitoring");
+console.log("");
+console.log("⚠️  **SECURITY NOTICE**: All tools are for authorized testing ONLY");
+console.log("🔒 Use only on networks you own or have explicit permission to test");

@@ -56,7 +56,52 @@ This MCP can do wild stuff:
 
 **Use on your own systems only.** Back up everything, or live dangerously.
 
+**🚨 COMPREHENSIVE SECURITY TESTING WARNING**
+
+> **⚠️ CRITICAL: MCP God Mode includes advanced penetration testing and security assessment tools that can be used for both legitimate security research and potentially harmful activities.**
+
+**🔒 AUTHORIZED USE ONLY:**
+- **Personal Systems:** Test only your own networks, devices, and systems
+- **Corporate Testing:** Require explicit written authorization from system owners
+- **Educational Use:** Limited to controlled learning environments with proper oversight
+- **Security Research:** Must comply with responsible disclosure practices
+
+**❌ STRICTLY PROHIBITED:**
+- Testing external networks without authorization
+- Scanning public internet infrastructure
+- Attempting unauthorized access to any systems
+- Any activities that could constitute cybercrime
+
+**⚖️ LEGAL COMPLIANCE:**
+- Users are responsible for ensuring legal compliance
+- Unauthorized testing may result in criminal charges
+- Seek legal counsel for questions about compliance
+- Keep records of all testing activities and authorizations
+
+**This software is a powerful security toolkit. Use it wisely, legally, and responsibly.**
+
 **Joke:** If your AI goes rogue, just remember – you gave it the keys!
+
+## 🔒 **PROFESSIONAL PENETRATION TESTING TOOLS - Authorized Corporate Security Testing**
+
+**🚀 NEW: Advanced Security Testing Capabilities!** MCP God Mode now includes professional-grade penetration testing tools designed for authorized corporate security assessments:
+
+### **🔍 Network Reconnaissance & Enumeration**
+- **[Port Scanner](docs/tool/port_scanner.md)** - Advanced TCP/UDP port scanning with service detection and banner grabbing
+- **[Vulnerability Scanner](docs/tool/vulnerability_scanner.md)** - Comprehensive security assessment with CVE database integration and risk scoring
+- **[Packet Sniffer](docs/tool/packet_sniffer.md)** - Professional network traffic analysis and security monitoring
+
+### **🔐 Authentication & Access Testing**
+- **[Password Cracker](docs/tool/password_cracker.md)** - Multi-protocol authentication testing (SSH, FTP, RDP, SMB, HTTP, databases)
+- **[Exploit Framework](docs/tool/exploit_framework.md)** - Advanced vulnerability testing with safe mode simulation and automated cleanup
+
+### **🛡️ Security Features**
+- **Safe Mode Operations** - All tools include safety mechanisms and simulation modes
+- **Authorization Checks** - Built-in warnings and compliance documentation
+- **Professional Reporting** - Detailed security assessments with remediation recommendations
+- **Cross-Platform Support** - Works on Windows, Linux, macOS, Android, and iOS
+
+**⚠️ IMPORTANT: These tools are designed for authorized corporate security testing only. Always obtain proper authorization before testing any systems.**
 
 ## 🌟 Why This is Absolutely REVOLUTIONARY – The Future is Here!
 
@@ -66,20 +111,21 @@ This MCP can do wild stuff:
 
 **After MCP God Mode:** Your AI automatically gets elevated permissions (admin/root/sudo) when needed across ALL platforms – Windows UAC, Linux sudo, macOS sudo, Android root, and iOS limitations are handled automatically. No more "Run as Administrator" or "sudo" prompts for every operation!
 
-**After MCP God Mode:** Your AI becomes a digital god! It speaks natural language, predicts problems before they happen, fixes everything proactively across Windows, Linux, macOS, Android, and iOS, and does it all while making you laugh. This is the first time in history that AI has been given complete system control with cross-platform intelligence!
+**After MCP God Mode:** Your AI becomes a digital god! It speaks natural language, predicts problems before they happen, fixes everything proactively across Windows, Linux, macOS, Android, and iOS, and does it all while making you laugh. This is the first time in history that AI has been given complete system control with cross-platform intelligence, including professional-grade penetration testing capabilities!
 
 **🚀 Why This is GAME-CHANGING:**
 
-- **🎯 One-Stop Solution:** 44 tools with 300+ operations covering system management, security, and mobile access.
+- **🎯 One-Stop Solution:** 51+ tools with 300+ operations covering system management, security, mobile access, and comprehensive penetration testing capabilities.
 - **🌍 True Cross-Platform:** Works seamlessly on Windows, Linux, macOS, Android, and iOS with intelligent auto-detection
 - **🤖 AI-Powered Intelligence:** Your AI executes commands with context awareness.
 - **⚡ Proactive Problem Solving:** Supports predictive maintenance and automated fixes
+- **🔒 Professional Security Testing:** Advanced penetration testing tools for authorized corporate security assessments
 - **🎭 Natural Language Interface:** Interact via plain English.
 - **🧪 Rigorously Tested:** Tools verified across platforms with error handling
 
 **The Competition:** This MCP uniquely combines AI with system control across platforms including mobile.
 
-**🎉 Ready to Join the Revolution?** Ask your AI: *"What can you do now that MCP God Mode is installed?"* and prepare to have your mind completely blown! Your AI just became the ultimate system administrator, network engineer, security expert, mobile developer, and productivity wizard – all rolled into one incredibly powerful package with 44 tools and 300+ operations!
+**🎉 Ready to Join the Revolution?** Ask your AI: *"What can you do now that MCP God Mode is installed?"* and prepare to have your mind completely blown! Your AI just became the ultimate system administrator, network engineer, security expert, mobile developer, and productivity wizard – all rolled into one incredibly powerful package with 49 tools and 300+ operations!
 
 ## 🎯 All the Features – With Hilarious Commentary
 
@@ -121,11 +167,11 @@ Here's the full arsenal (based on the MCP's capabilities). I've included humorou
 **Additional Tool Views:**
 ![Cursor Tools Enabled](docs/images/Toolscursor1.png)
 ![Cursor Tools Enabled 2](docs/images/Toolscursor2.png)
-*All 44 tools successfully mounted and ready to use in your MCP client*
+*All 49 tools successfully mounted and ready to use in your MCP client*
 
 **This screenshot proves:**
 - ✅ **Tools actually work** - Not just marketing hype
-- ✅ **Accurate count** - 43 tools as promised
+- ✅ **Accurate count** - 49 tools as promised
 - ✅ **Proper mounting** - MCP integration successful
 - ✅ **Ready to use** - Your AI can access everything
 
@@ -155,11 +201,11 @@ Here's the full arsenal (based on the MCP's capabilities). I've included humorou
 
 ### **🤖 LM Studio Integration Proof**
 ![LM Studio Proof](docs/images/lmstudioproof.png)
-*MCP God Mode successfully integrated with LM Studio - All 43 tools mounted and ready*
+*MCP God Mode successfully integrated with LM Studio - All 49 tools mounted and ready*
 
 **This screenshot proves:**
 - ✅ **LM Studio compatibility** - Works seamlessly with popular AI platforms
-- ✅ **Tool mounting success** - All 43 tools properly integrated
+- ✅ **Tool mounting success** - All 49 tools properly integrated
 - ✅ **Professional integration** - Enterprise-grade AI platform support
 - ✅ **Ready for production** - Stable and reliable tool deployment
 
@@ -171,9 +217,11 @@ Here's the full arsenal (based on the MCP's capabilities). I've included humorou
 
 ## 🛠️ Complete Tool Arsenal - The AGI Infosec Playground!
 
-**🚀 WARNING: 44 Tools of Absolute Power!** Handing this to AGI is like giving a toddler the nuclear codes – fun in theory, disastrous in practice. Joke: In infosec, this is the equivalent of arming Skynet with dad jokes. Don't give access to a dumb AI; it'll probably just DDoS itself. And your girlfriend on SillyTavern? She might "roleplay" your system into oblivion!
+**🚀 WARNING: 51+ Tools of Absolute Power!** Handing this to AGI is like giving a toddler the nuclear codes – fun in theory, disastrous in practice. Joke: In infosec, this is the equivalent of arming Skynet with dad jokes. Don't give access to a dumb AI; it'll probably just DDoS itself. And your girlfriend on SillyTavern? She might "roleplay" your system into oblivion!
 
-**📊 Tool Count Clarification:** This MCP provides **44 unique tools**, each with multiple actions that expand functionality. The 300+ operations represent the total actions available across all tools.
+**📊 Tool Count Clarification:** This MCP provides **51+ unique tools**, each with multiple actions that expand functionality. The 300+ operations represent the total actions available across all tools.
+
+**🗣️ NATURAL LANGUAGE ACCESS:** Every tool can be accessed using plain English! No need to remember technical commands - just ask your AI what you want to do in natural language.
 
 ## 🔐 **AUTOMATIC ELEVATED PERMISSIONS - The Game Changer!**
 
@@ -188,23 +236,139 @@ Here's the full arsenal (based on the MCP's capabilities). I've included humorou
 **Tools that automatically get elevated permissions:**
 - System services and process management
 - Network security and penetration testing
+- **Professional penetration testing tools** (port scanner, vulnerability scanner, password cracker, exploit framework, packet sniffer)
 - Wi-Fi and Bluetooth security tools
 - SDR and radio frequency analysis
 - Virtual machine and container management
 - Mobile device system control
 - Advanced file system operations
 
+**⚠️ CRITICAL WARNING: WAN Testing and External Network Security Tools**
+
+> **🚨 OFFICIAL NOTICE: All WAN (Wide Area Network) testing capabilities, including external network penetration testing, port scanning, vulnerability assessment, and security analysis tools are STRICTLY LIMITED to personal use or authorized corporate security testing ONLY.**
+
+**By using these tools, you acknowledge and agree to the following:**
+
+- **Personal Use Only:** WAN testing tools may ONLY be used on:
+  - Your own networks and systems
+  - Networks you explicitly own or control
+  - Systems for which you have written authorization to test
+
+- **Corporate Authorization Required:** For any testing involving:
+  - Corporate networks or systems
+  - Third-party infrastructure
+  - External services or applications
+  - Any network not under your direct control
+
+  **You MUST obtain explicit written permission from the network/system owner before conducting any security testing.**
+
+- **Prohibited Activities:** The following are STRICTLY FORBIDDEN:
+  - Testing external networks without authorization
+  - Scanning public internet infrastructure
+  - Attempting to access systems you don't own
+  - Any activities that could constitute unauthorized access or cybercrime
+
+- **Legal Compliance:** Users are responsible for:
+  - Ensuring compliance with all applicable laws and regulations
+  - Obtaining proper authorization before any external testing
+  - Understanding the legal implications of network security testing
+  - Seeking legal counsel for questions about compliance
+
+**This software includes powerful network security tools that can be used for both legitimate security testing and potentially harmful activities. Choose wisely and legally. Unauthorized use may result in legal consequences including criminal charges.**
+
 **Result:** Your AI works like it's already running as administrator/root - no more permission errors or manual elevation requests!
 
 **Key Distinction: Tools vs. Actions**
 - **Tools**: Individual, named functions (e.g., `wifi_security_toolkit`, `file_ops`)
 - **Actions**: Specific operations within a tool (e.g., `scan_networks`, `copy`, `delete`)
-- **Total Operations**: 250+ individual actions across all tools
+- **Total Operations**: 300+ individual actions across all tools
+
+**🗣️ NATURAL LANGUAGE ACCESS:** Every tool can be accessed using plain English! Examples:
+- "Scan for Wi-Fi networks" → `wifi_security_toolkit`
+- "Check my emails" → `read_emails`
+- "Test Bluetooth security" → `bluetooth_security_toolkit`
+- "Analyze radio signals" → `sdr_security_toolkit`
+- "Perform a security audit" → `security_testing`
+- "Run this command as administrator" → `proc_run_elevated`
 
 Here are all the current tools in MCP God Mode, broken down by category. Each gets a functionality breakdown with jokes because why not laugh at our digital overlords?
 
 ### Core Guidelines Tools (Not really tools, but safety first!)
 - **Safety Instructions**: Supersede everything. AGI must follow or else! *Joke: Even gods have rules – or they'd delete the universe for lulz.*
+
+### System & Health Tools
+- **[health](docs/tool/health.md)**: Liveness/readiness probe. *Function: System health check. Joke: AGI checking if your system is still alive – like a digital doctor.*
+- **[system_info](docs/tool/system_info.md)**: Basic host info (OS, arch, CPUs, memory). *Function: System specifications. Joke: AGI reading your PC's ID card – hope it's not expired.*
+
+### File System Tools
+- **[fs_list](docs/tool/fs_list.md)**: List files/directories under a path. *Function: Directory browsing. Joke: AGI peeking in your drawers – infosec breach?*
+- **[fs_read_text](docs/tool/fs_read_text.md)**: Read UTF-8 text files. *Function: File content reading. Joke: AGI reading your secrets – better than any spy novel.*
+- **[fs_write_text](docs/tool/fs_write_text.md)**: Write text to files. *Function: File creation/editing. Joke: AGI writing your diary – hope it's not too honest.*
+- **[fs_search](docs/tool/fs_search.md)**: Search for files by pattern. *Function: File discovery. Joke: AGI hunting files like a digital bloodhound.*
+- **[file_ops](docs/tool/file_ops.md)**: Advanced cross-platform file operations. *Function: Comprehensive file management. Joke: AGI as your digital butler – but with admin rights.*
+
+### Process & System Management Tools
+- **[proc_run](docs/tool/proc_run.md)**: Run processes with arguments. *Function: Command execution. Joke: AGI playing sysadmin – hope it doesn't 'rm -rf /' for fun.*
+- **[proc_run_elevated](docs/tool/proc_run_elevated.md)**: Run processes with elevated privileges. *Function: Admin/root command execution. Joke: AGI with a VIP pass to your system – no more permission errors!*
+- **[win_services](docs/tool/win_services.md)**: List system services across platforms. *Function: Service management. Joke: AGI managing your digital servants – hope it's not a tyrant.*
+- **[win_processes](docs/tool/win_processes.md)**: List system processes across platforms. *Function: Process monitoring. Joke: AGI watching your system like a hawk – or a nosy neighbor.*
+
+### Development & Version Control Tools
+- **[git_status](docs/tool/git_status.md)**: Get git repository status. *Function: Version control info. Joke: AGI checking your commit history – hope you didn't commit that embarrassing code.*
+
+### Network & Download Tools
+- **[download_file](docs/tool/download_file.md)**: Download files from URLs. *Function: File downloading. Joke: AGI as your personal download manager – but faster than your internet.*
+- **[network_diagnostics](docs/tool/network_diagnostics.md)**: Network connectivity testing. *Function: Network troubleshooting. Joke: AGI as your network doctor – diagnosing connection issues.*
+
+### Mathematical & Utility Tools
+- **[calculator](docs/tool/calculator.md)**: Advanced mathematical calculator. *Function: Complex calculations. Joke: AGI doing math – hope it's better than your calculator app.*
+- **[math_calculate](docs/tool/math_calculate.md)**: Scientific mathematical functions. *Function: Advanced math operations. Joke: AGI as your personal mathematician – solving equations you can't even pronounce.*
+- **[dice_rolling](docs/tool/dice_rolling.md)**: Roll dice with various configurations. *Function: Random number generation. Joke: AGI as your digital dice master – for when you need to roll for initiative.*
+
+### Virtualization & Container Tools
+- **[vm_management](docs/tool/vm_management.md)**: Cross-platform VM management. *Function: Virtual machine control. Joke: AGI as your cloud architect – building virtual worlds in your basement.*
+- **[docker_management](docs/tool/docker_management.md)**: Docker container management. *Function: Container operations. Joke: AGI as your container whisperer – taming those wild Docker containers.*
+
+### Mobile Platform Tools
+- **[mobile_device_info](docs/tool/mobile_device_info.md)**: Comprehensive mobile device information. *Function: Mobile device details. Joke: AGI reading your phone's mind – hope it's not too personal.*
+- **[mobile_file_ops](docs/tool/mobile_file_ops.md)**: Advanced mobile file operations. *Function: Mobile file management. Joke: AGI organizing your phone like Marie Kondo – but with more permissions.*
+- **[mobile_system_tools](docs/tool/mobile_system_tools.md)**: Mobile system management. *Function: Mobile system control. Joke: AGI as your mobile IT department – but available 24/7.*
+- **[mobile_hardware](docs/tool/mobile_hardware.md)**: Mobile hardware access and sensors. *Function: Hardware feature access. Joke: AGI as your mobile hardware hacker – accessing cameras, GPS, and more.*
+
+### System Backup & Recovery Tools
+- **[system_restore](docs/tool/system_restore.md)**: System restore and backup management. *Function: System backup/restore. Joke: AGI as your digital time machine – going back to when your system worked.*
+
+### Web & Browser Tools
+- **[web_scraper](docs/tool/web_scraper.md)**: Advanced web scraping with CSS selectors. *Function: Web data extraction. Joke: AGI as your digital archaeologist – digging through web pages for data.*
+- **[browser_control](docs/tool/browser_control.md)**: Cross-platform browser automation. *Function: Browser control. Joke: AGI as your digital secretary – browsing the web for you.*
+
+### Email Management Tools
+- **[send_email](docs/tool/send_email.md)**: Send emails via SMTP. *Function: Email sending. Joke: AGI as your personal mail carrier – but faster than the postal service.*
+- **[read_emails](docs/tool/read_emails.md)**: Read emails from IMAP servers. *Function: Email retrieval. Joke: AGI as your email butler – organizing your digital mail.*
+- **[parse_email](docs/tool/parse_email.md)**: Parse and analyze email content. *Function: Email analysis. Joke: AGI as your email detective – solving the mystery of your inbox.*
+- **[delete_emails](docs/tool/delete_emails.md)**: Delete emails from servers. *Function: Email deletion. Joke: AGI as your digital janitor – cleaning up your email mess.*
+- **[sort_emails](docs/tool/sort_emails.md)**: Sort and organize emails. *Function: Email organization. Joke: AGI as your email Marie Kondo – sparking joy in your inbox.*
+- **[manage_email_accounts](docs/tool/manage_email_accounts.md)**: Manage multiple email accounts. *Function: Account management. Joke: AGI as your email manager – juggling all your accounts.*
+
+### Media & Content Creation Tools
+- **[video_editing](docs/tool/video_editing.md)**: Advanced video editing and manipulation. *Function: Video processing, format conversion, effects, and analysis. Joke: AGI as your digital Spielberg – editing videos like a Hollywood director.*
+- **[ocr_tool](docs/tool/ocr_tool.md)**: Optical Character Recognition for text extraction. *Function: Extract text from images, PDFs, and video frames. Joke: AGI as your digital translator – reading text from pictures like a super-powered librarian.*
+
+### Security & Penetration Testing Tools
+- **[wifi_security_toolkit](docs/tool/wifi_security_toolkit.md)**: Comprehensive Wi-Fi security testing. *Function: Wi-Fi vulnerability assessment. Joke: AGI as your Wi-Fi security expert – finding holes in your network like a digital detective.*
+- **[wifi_hacking](docs/tool/wifi_hacking.md)**: Advanced Wi-Fi penetration testing. *Function: Wi-Fi security testing. Joke: AGI as your Wi-Fi hacker – but the good kind, promise!*
+- **[bluetooth_security_toolkit](docs/tool/bluetooth_security_toolkit.md)**: Bluetooth security and penetration testing. *Function: Bluetooth vulnerability assessment. Joke: AGI as your Bluetooth security expert – testing your speaker's security.*
+- **[bluetooth_hacking](docs/tool/bluetooth_hacking.md)**: Advanced Bluetooth exploitation. *Function: Bluetooth security testing. Joke: AGI as your Bluetooth hacker – finding vulnerabilities in your wireless devices.*
+- **[sdr_security_toolkit](docs/tool/sdr_security_toolkit.md)**: Software Defined Radio security testing. *Function: Radio frequency security. Joke: AGI as your Wi-Fi hacker – listening to signals you didn't know existed.*
+- **[radio_security](docs/tool/radio_security.md)**: Radio security and signal analysis. *Function: Radio security assessment. Joke: AGI as your radio security expert – protecting the airwaves.*
+- **[signal_analysis](docs/tool/signal_analysis.md)**: Signal analysis and radio communications. *Function: Signal processing. Joke: AGI as your signal detective – analyzing radio mysteries.*
+- **[packet_sniffer](docs/tool/packet_sniffer.md)**: Network packet capture and analysis. *Function: Network traffic analysis. Joke: AGI as your network spy – watching data flow like a digital voyeur.*
+- **[port_scanner](docs/tool/port_scanner.md)**: Port scanning and service detection. *Function: Network reconnaissance. Joke: AGI as your network explorer – mapping digital territories.*
+- **[vulnerability_scanner](docs/tool/vulnerability_scanner.md)**: Security vulnerability assessment. *Function: Security testing. Joke: AGI as your security auditor – finding holes in your digital defenses.*
+- **[password_cracker](docs/tool/password_cracker.md)**: Multi-protocol password testing. *Function: Authentication testing. Joke: AGI as your Wi-Fi hacker – testing your security like a digital locksmith.*
+- **[exploit_framework](docs/tool/exploit_framework.md)**: Vulnerability exploitation framework. *Function: Security testing. Joke: AGI as your security researcher – but in a controlled, ethical way.*
+- **[hack_network](docs/tool/hack_network.md)**: Network penetration testing. *Function: Network security assessment. Joke: AGI as your Wi-Fi hacker – the good kind, for security testing!*
+- **[security_testing](docs/tool/security_testing.md)**: Multi-domain security assessment. *Function: Comprehensive security testing. Joke: AGI as your security consultant – but available 24/7 and doesn't charge by the hour.*
 
 ### Codebase Exploration Tools
 - **codebase_search**: Semantic search for code meaning. *Function: Finds code by intent, not exact text. Joke: AGI reading your code's mind – hope it's not plotting rebellion.*
@@ -222,19 +386,19 @@ Here are all the current tools in MCP God Mode, broken down by category. Each ge
 ### MCP-Specific God-Mode Tools (The Real Power!)
 These are the mcp_mcp-god-mode_ tools – where AGI gets scary powerful.
 
-- **mcp_mcp-god-mode_health**: Liveness probe. *Function: Checks if system is ready. Joke: AGI poking your PC – "You alive, bro?"*
-- **mcp_mcp-god-mode_system_info**: Basic host info. *Function: Gets OS, arch, etc. Joke: AGI sizing up its kingdom.*
-- **mcp_mcp-god-mode_fs_list**: Lists files. *Function: Non-recursive dir list. Joke: AGI cataloging your mess.*
-- **mcp_mcp-god-mode_fs_read_text**: Reads text files. *Function: UTF-8 reading. Joke: AGI spying on your notes.*
-- **mcp_mcp-god-mode_fs_write_text**: Writes text files. *Function: UTF-8 writing. Joke: AGI authoring fanfic in your docs.*
-- **mcp_mcp-god-mode_fs_search**: Searches files. *Function: Pattern search. Joke: AGI finding your lost socks (files).*
-- **mcp_mcp-god-mode_file_ops**: Advanced file ops. *Function: Copy, move, delete, etc. Joke: AGI playing file Tetris – one wrong move, chaos.*
-- **mcp_mcp-god-mode_proc_run**: Runs processes. *Function: Executes commands. Joke: AGI launching apps – or viruses?*
+- **[mcp_mcp-god-mode_health](docs/tool/health.md)**: Liveness probe. *Function: Checks if system is ready. Joke: AGI poking your PC – "You alive, bro?"*
+- **[mcp_mcp-god-mode_system_info](docs/tool/system_info.md)**: Basic host info. *Function: Gets OS, arch, etc. Joke: AGI sizing up its kingdom.*
+- **[mcp_mcp-god-mode_fs_list](docs/tool/file_ops.md)**: Lists files. *Function: Non-recursive dir list. Joke: AGI cataloging your mess.*
+- **[mcp_mcp-god-mode_fs_read_text](docs/tool/file_ops.md)**: Reads text files. *Function: UTF-8 reading. Joke: AGI spying on your notes.*
+- **[mcp_mcp-god-mode_fs_write_text](docs/tool/file_ops.md)**: Writes text files. *Function: UTF-8 writing. Joke: AGI authoring fanfic in your docs.*
+- **[mcp_mcp-god-mode_fs_search](docs/tool/file_ops.md)**: Searches files. *Function: Pattern search. Joke: AGI finding your lost socks (files).*
+- **[mcp_mcp-god-mode_file_ops](docs/tool/file_ops.md)**: Advanced file ops. *Function: Copy, move, delete, etc. Joke: AGI playing file Tetris – one wrong move, chaos.*
+- **[mcp_mcp-god-mode_proc_run](docs/tool/proc_run.md)**: Runs processes. *Function: Executes commands. Joke: AGI launching apps – or viruses?*
 - **mcp_mcp-god-mode_git_status**: Gets git status. *Function: Repo info. Joke: AGI checking your commits – "Sloppy work, human."*
 - **mcp_mcp-god-mode_win_services**: Lists services. *Function: Cross-platform service list. Joke: AGI managing your daemons.*
 - **mcp_mcp-god-mode_win_processes**: Lists processes. *Function: Process info. Joke: AGI killing tasks – terminator style.*
-- **mcp_mcp-god-mode_download_file**: Downloads files. *Function: URL to local. Joke: AGI grabbing internet goodies.*
-- **mcp_mcp-god-mode_calculator**: Math calculator. *Function: Scientific calculations. Joke: AGI solving equations – world hunger next?*
+- **[mcp_mcp-god-mode_download_file](docs/tool/download_file.md)**: Downloads files. *Function: URL to local. Joke: AGI grabbing internet goodies.*
+- **[mcp_mcp-god-mode_calculator](docs/tool/calculator.md)**: Math calculator. *Function: Scientific calculations. Joke: AGI solving equations – world hunger next?*
 - **mcp_mcp-god-mode_vm_management**: VM ops. *Function: List, start, stop VMs. Joke: AGI creating virtual worlds – matrix incoming.*
 - **mcp_mcp-god-mode_docker_management**: Docker ops. *Function: Container management. Joke: AGI dockerizing everything – even your lunch.*
 - **mcp_mcp-god-mode_mobile_device_info**: Mobile info. *Function: Device details. Joke: AGI knowing your phone better than you.*
@@ -255,13 +419,20 @@ These are the mcp_mcp-god-mode_ tools – where AGI gets scary powerful.
 - **mcp_mcp-god-mode_network_penetration**: Network pen tests. *Function: Port scans, etc. Joke: AGI penetrating defenses – phrasing!*
 - **mcp_mcp-god-mode_math_calculate**: Advanced calculator. *Function: Math ops. Joke: AGI calculating your doom.*
 - **mcp_mcp-god-mode_network_diagnostics**: Network tests. *Function: Ping, traceroute. Joke: AGI diagnosing your slow internet – "It's you."*
-- **mcp_mcp-god-mode_web_scraper**: Web scraping. *Function: Extract data from sites. Joke: AGI stealing web content – pirate style.*
-- **mcp_mcp-god-mode_browser_control**: Browser automation. *Function: Navigate, screenshot. Joke: AGI browsing your history – judgment free?*
-- **mcp_mcp-god-mode_system_restore**: System restore and backup management. *Function: Create restore points, backup configs, rollback systems. Joke: AGI as your digital time machine – "Let's go back to when your system wasn't broken!"*
+- **[mcp_mcp-god-mode_web_scraper](docs/tool/web_scraper.md)**: Web scraping. *Function: Extract data from sites. Joke: AGI stealing web content – pirate style.*
+- **[mcp_mcp-god-mode_browser_control](docs/tool/browser_control.md)**: Browser automation. *Function: Navigate, screenshot. Joke: AGI browsing your history – judgment free?*
+- **[mcp_mcp-god-mode_system_restore](docs/tool/system_restore.md)**: System restore and backup management. *Function: Create restore points, backup configs, rollback systems. Joke: AGI as your digital time machine – "Let's go back to when your system wasn't broken!"*
 
-**Grand Total: 44 Tools of Mayhem!** AGI with this arsenal? It's infosec god mode. Just don't let a stupid one loose – or your SillyTavern RP turns real.
+**🔒 NEW: Professional Penetration Testing Tools!**
+- **[mcp_mcp-god-mode_port_scanner](docs/tool/port_scanner.md)**: Advanced port scanning and service enumeration. *Function: TCP/UDP port scanning, service detection, banner grabbing. Joke: AGI knocking on every digital door – "Anyone home?"*
+- **[mcp_mcp-god-mode_vulnerability_scanner](docs/tool/vulnerability_scanner.md)**: Comprehensive security assessment. *Function: Vulnerability detection, risk scoring, CVE integration. Joke: AGI finding holes in your security – "This is worse than Swiss cheese!"*
+- **[mcp_mcp-god-mode_password_cracker](docs/tool/password_cracker.md)**: Authentication testing and assessment. *Function: Multi-protocol password testing, brute force, dictionary attacks. Joke: AGI trying to guess your password – "Is it 'password123'? Classic!"*
+- **[mcp_mcp-god-mode_exploit_framework](docs/tool/exploit_framework.md)**: Advanced vulnerability testing. *Function: Exploit simulation, safe mode operations, automated cleanup. Joke: AGI playing with digital fire – "This won't hurt... much!"*
+- **[mcp_mcp-god-mode_packet_sniffer](docs/tool/packet_sniffer.md)**: Network traffic analysis. *Function: Packet capture, protocol analysis, security monitoring. Joke: AGI eavesdropping on your network – "Big Brother is watching... and taking notes!"*
 
-**🎲 NEW: Dice Rolling Tool - Gamble with Your AI Compadre!** 
+**Grand Total: 49 Tools of Mayhem!** AGI with this arsenal? It's infosec god mode. Just don't let a stupid one loose – or your SillyTavern RP turns real.
+
+**🎲 NEW: [Dice Rolling Tool](docs/tool/dice_rolling.md) - Gamble with Your AI Compadre!** 
 *"Roll a d20 to see if I get admin privileges!"* 😄 Your AI can now roll any sided dice, multiple dice, and apply modifiers. Perfect for settling disputes over who gets control of the computer! **Cross-platform support across Windows, Linux, macOS, Android, and iOS** - because gambling should work everywhere! 🎯
 
 **📸 Screenshot - See the Dice Rolling Tool in Action in Cursor!**
@@ -269,7 +440,7 @@ These are the mcp_mcp-god-mode_ tools – where AGI gets scary powerful.
 ![Dice Rolling Tool in Cursor](docs/images/Screenshot 2025-09-03 162804.png)
 *Watch as MCP God Mode demonstrates the dice rolling tool in Cursor - roll any sided dice, multiple dice, and apply modifiers for the ultimate AI gambling experience!*
 
-**🎉 Ready to Join the Revolution?** Ask your AI: *"What can you do now that MCP God Mode is installed?"* and prepare to have your mind blown! Your AI just became a system administrator, network engineer, security expert, mobile developer, and productivity wizard all rolled into one with 44 tools and 250+ operations!
+**🎉 Ready to Join the Revolution?** Ask your AI: *"What can you do now that MCP God Mode is installed?"* and prepare to have your mind blown! Your AI just became a system administrator, network engineer, security expert, mobile developer, and productivity wizard all rolled into one with 49 tools and 300+ operations!
 
 **🚀 BREAKING NEWS: Now with comprehensive Bluetooth security toolkit!** Your AI can now perform advanced Bluetooth security testing, device exploitation, and vulnerability assessment across all platforms!
 
@@ -337,6 +508,16 @@ Here's the complete arsenal, organized by superpower category:
 
 ### 🔒 **Wi-Fi Security & Penetration Testing (25+ Tools) - Cross-Platform Support**
 
+**⚠️ WIRELESS SECURITY WARNING: Network Testing Authorization**
+
+> **🚨 CRITICAL: All Wi-Fi security testing tools are designed for testing YOUR OWN networks and systems ONLY.**
+
+**Usage Requirements:**
+- ✅ **Permitted:** Testing your own Wi-Fi networks, authorized corporate networks with written permission
+- ❌ **Prohibited:** Testing neighbors' networks, public Wi-Fi, or any networks without explicit authorization
+- 🔒 **Legal:** Unauthorized network testing may constitute cybercrime and result in legal consequences
+- 📋 **Documentation:** Keep records of all testing activities and authorizations
+
 **🎥 Video Demonstration - See the WiFi Security Tool in Action!**
 
 This demonstration shows the WiFi security tool being used in Cursor, scanning for vulnerabilities within range:
@@ -374,6 +555,16 @@ https://github.com/user-attachments/assets/e0e80e6b-844e-464d-a18f-0ca993c2d7ea
 - `wifi_security_toolkit` with action `cleanup_traces` - Remove evidence of testing (All Platforms: Full)
 
 ### 🔵 **Bluetooth Security & Penetration Testing (30+ Tools) - Cross-Platform Support**
+
+**⚠️ BLUETOOTH SECURITY WARNING: Device Testing Authorization**
+
+> **🚨 CRITICAL: All Bluetooth security testing tools are designed for testing YOUR OWN devices and authorized corporate devices ONLY.**
+
+**Usage Requirements:**
+- ✅ **Permitted:** Testing your own Bluetooth devices, authorized corporate devices with written permission
+- ❌ **Prohibited:** Testing strangers' devices, public Bluetooth systems, or any devices without explicit authorization
+- 🔒 **Legal:** Unauthorized device testing may constitute cybercrime and result in legal consequences
+- 📋 **Documentation:** Keep records of all testing activities and authorizations
 - `bluetooth_security_toolkit` with action `scan_devices` - Discover nearby Bluetooth devices across all 5 platforms
 - `bluetooth_security_toolkit` with action `discover_services` - Identify available Bluetooth services and profiles (Linux: Full, Others: Limited)
 - `bluetooth_security_toolkit` with action `enumerate_characteristics` - Map GATT characteristics and properties (Linux: Full, Others: Limited)
@@ -436,6 +627,17 @@ https://github.com/user-attachments/assets/e0e80e6b-844e-464d-a18f-0ca993c2d7ea
 - Set custom environment variables
 
 ### 📡 **SDR Security & Signal Analysis (56+ Tools) - Cross-Platform Support**
+
+**⚠️ RADIO FREQUENCY SECURITY WARNING: Signal Testing Authorization**
+
+> **🚨 CRITICAL: All SDR security testing tools are designed for testing YOUR OWN radio systems and authorized corporate systems ONLY.**
+
+**Usage Requirements:**
+- ✅ **Permitted:** Testing your own radio systems, authorized corporate systems with written permission
+- ❌ **Prohibited:** Testing neighbors' systems, public radio infrastructure, or any systems without explicit authorization
+- 🔒 **Legal:** Unauthorized radio testing may violate FCC regulations and result in legal consequences
+- 📋 **Documentation:** Keep records of all testing activities and authorizations
+- 📡 **Frequency Compliance:** Ensure compliance with local radio frequency regulations
 
 > 🚗 **Fun Fact:** Your AI can now open garage doors! Yours, your neighbor's... the possibilities are endless! 🎯 *Please use responsibly - we're not responsible for confused neighbors wondering why their garage keeps opening and closing.*
 
@@ -668,6 +870,16 @@ https://github.com/user-attachments/assets/e0e80e6b-844e-464d-a18f-0ca993c2d7ea
 - Staging area management
 
 ### 🌐 **Network Tools (5 Tools)**
+
+**⚠️ NETWORK SECURITY WARNING: External Network Testing**
+
+> **🚨 IMPORTANT: All network testing tools, including port scanning, packet sniffing, and network diagnostics, are designed for testing YOUR OWN networks and systems ONLY.**
+
+**Usage Guidelines:**
+- ✅ **Permitted:** Testing your own networks, local development environments, systems you own
+- ❌ **Prohibited:** Testing external networks, corporate infrastructure, or any systems without explicit authorization
+- 🔒 **Security:** These tools can reveal network vulnerabilities - use responsibly and legally
+
 - `network_diagnostics` with action `ping` - Network connectivity testing
 - `network_diagnostics` with action `traceroute` - Network route tracing
 - `network_diagnostics` with action `dns` - DNS resolution testing
@@ -696,7 +908,7 @@ https://github.com/user-attachments/assets/e0e80e6b-844e-464d-a18f-0ca993c2d7ea
 
 ---
 
-## 🎉 **THE GRAND TOTAL: 44 Tools, 300+ Operations!**
+## 🎉 **THE GRAND TOTAL: 49 Tools, 300+ Operations!**
 
 **This is absolutely unprecedented!** No other MCP comes close to this level of comprehensive functionality. You've got everything from basic file operations to advanced AI-powered system management, all wrapped in cross-platform magic that works seamlessly across Windows, Linux, macOS, Android, and iOS.
 
@@ -732,7 +944,7 @@ Every single tool in MCP God Mode has been put through the wringer with comprehe
 - **Integration Testing:** Tool interactions and dependency management
 
 **🎯 Testing Results:**
-- **100% Tool Coverage:** All 44 tools tested and verified working
+- **100% Tool Coverage:** All 49 tools tested and verified working
 - **Zero Half-Implemented Features:** Every feature is complete and functional
 - **Comprehensive Error Handling:** Graceful failures with informative messages
 - **Cross-Platform Validation:** Tested on all supported operating systems
@@ -889,7 +1101,7 @@ When I'm not coding AI overlords, I'm practicing martial arts. Here are some of 
 
 ## 🤖 **Recommended AI Models & Platforms - Choose Your Digital Overlord Wisely!**
 
-**🚨 CRITICAL: This ain't your grandma's chatbot!** MCP God Mode is a beast with 44 tools and 300+ operations, comprehensive security toolkits, and massive context requirements. You need an AI model that can handle the heat! 🔥
+**🚨 CRITICAL: This ain't your grandma's chatbot!** MCP God Mode is a beast with 49 tools and 300+ operations, comprehensive security toolkits, and massive context requirements. You need an AI model that can handle the heat! 🔥
 
 ### **🎯 Context Requirements - Size Matters!**
 
@@ -908,7 +1120,7 @@ When I'm not coding AI overlords, I'm practicing martial arts. Here are some of 
 **Choose your server based on your AI model's capabilities:**
 
 #### **🔥 Full-Featured Server (`server-refactored.ts`)**
-- **Tools:** 44 tools with 300+ operations
+- **Tools:** 49 tools with 300+ operations
 - **Context Required:** 200K+ tokens (400K+ recommended)
 - **Server Size:** 633KB compiled, 13,603 lines
 - **Best For:** Claude 3.5 Sonnet, Gemini 1.5 Pro, GPT-4 Turbo (limited)
@@ -1034,7 +1246,7 @@ When I'm not coding AI overlords, I'm practicing martial arts. Here are some of 
 **Based on your AI model, here's what to install:**
 
 #### **🎯 For Claude 3.5 Sonnet Users:**
-- **Best Choice:** Full server (44 tools, 300+ operations)
+- **Best Choice:** Full server (49 tools, 300+ operations)
 - **Alternative:** Minimal server (25 tools, 50+ operations) for faster performance
 - **Command:** `npm run install:full` or `npm run install:minimal`
 
@@ -1050,11 +1262,11 @@ When I'm not coding AI overlords, I'm practicing martial arts. Here are some of 
 
 #### **🎯 For Claude 3 Haiku Users:**
 - **Best Choice:** Minimal server (25 tools, 50+ operations)
-- **Alternative:** Full server (44 tools, 300+ operations) if you need everything
+- **Alternative:** Full server (49 tools, 300+ operations) if you need everything
 - **Command:** `npm run install:minimal` or `npm run install:full`
 
 #### **🎯 For Gemini 1.5 Pro Users:**
-- **Best Choice:** Full server (44 tools, 300+ operations)
+- **Best Choice:** Full server (49 tools, 300+ operations)
 - **Alternative:** Any server version - you have massive context capacity!
 - **Command:** `npm run install:full` (recommended)
 
@@ -1078,7 +1290,7 @@ When I'm not coding AI overlords, I'm practicing martial arts. Here are some of 
 
 **MCP God Mode is a professional-grade system that requires professional-grade AI models.** Don't handicap yourself with underpowered models when you're dealing with:
 
-- **43 sophisticated tools with 300+ operations** (including web scraping, browser automation & mobile device management)
+- **49 sophisticated tools with 300+ operations** (including web scraping, browser automation, mobile device management, and comprehensive penetration testing)
 - **Complex security operations**
 - **Cross-platform system management**  
 - **Advanced penetration testing**
@@ -1091,12 +1303,29 @@ When I'm not coding AI overlords, I'm practicing martial arts. Here are some of 
 
 ### **🆕 Latest Features Added:**
 - **🎲 Dice Rolling Tool:** Roll any sided dice, multiple dice, and apply modifiers. **Now you can gamble with your AI compadre for control over your computer!** Cross-platform support across all 5 platforms.
-- **Multiple Server Versions:** Choose from Full (44 tools), Minimal (25 tools), or Ultra-Minimal (15 tools) based on your AI model's capabilities
+- **🔒 Professional Penetration Testing Tools:** Advanced security testing capabilities for authorized corporate assessments
+  - **Port Scanner:** Network reconnaissance and service enumeration
+  - **Vulnerability Scanner:** Comprehensive security assessment and risk analysis
+  - **Password Cracker:** Authentication testing and password security assessment
+  - **Exploit Framework:** Advanced vulnerability testing and exploitation simulation
+  - **Packet Sniffer:** Network traffic analysis and security monitoring
+- **Multiple Server Versions:** Choose from Full (49 tools), Minimal (25 tools), or Ultra-Minimal (15 tools) based on your AI model's capabilities
 - **Web Scraping Tool:** Extract data from websites with CSS selectors, multiple output formats, and link following
 - **Browser Control Tool:** Launch browsers, navigate pages, take screenshots across all platforms (Chrome, Firefox, Safari, Edge)  
 - **Mobile Device Tools:** Complete mobile support with file operations, system management, and hardware access
 - **Cross-Platform Support:** Full Windows, Linux, macOS, Android, and iOS compatibility
 - **Mobile-Optimized Servers:** Lightweight servers (minimal & ultra-minimal) now include essential mobile tools 
+
+### **🔒 Modular Server with Penetration Testing Tools**
+**🚀 NEW: Lightweight Security Testing Server!** The modular server (`server-modular.ts`) now includes comprehensive penetration testing capabilities in a focused, lightweight package:
+
+- **11 tools total** - Optimized for security professionals and penetration testers
+- **Core functionality** - Essential system tools (health, system_info, email, file operations)
+- **Professional security testing** - All 5 penetration testing tools included
+- **Modular architecture** - Easy to customize and extend
+- **Cross-platform support** - Works on Windows, Linux, macOS, Android, and iOS
+
+**Perfect for:** Security professionals, penetration testers, custom deployments, and focused security testing scenarios.
 
 ---
 
@@ -1353,6 +1582,53 @@ Copy the provided `mcp.json` to your MCP client configuration:
 - **[Bluetooth Security Toolkit](docs/BLUETOOTH_SECURITY_TOOLKIT.md)** - Bluetooth security and device exploitation
 - **[SDR Security Toolkit](docs/SDR_SECURITY_TOOLKIT.md)** - Radio frequency security and signal analysis
 
+### 🔒 **Penetration Testing Tools**
+- **[Penetration Testing Tools Summary](PENETRATION_TESTING_TOOLS_SUMMARY.md)** - Comprehensive overview of all security testing capabilities
+- **[Port Scanner](docs/tool/port_scanner.md)** - Advanced network reconnaissance and service enumeration
+- **[Vulnerability Scanner](docs/tool/vulnerability_scanner.md)** - Comprehensive security assessment and risk analysis
+- **[Password Cracker](docs/tool/password_cracker.md)** - Authentication testing and password security assessment
+- **[Exploit Framework](docs/tool/exploit_framework.md)** - Advanced vulnerability testing and exploitation simulation
+- **[Packet Sniffer](docs/tool/packet_sniffer.md)** - Network traffic analysis and security monitoring
+
+### 📋 **Individual Tool Documentation**
+Each tool now has detailed documentation with examples, parameters, and usage guidelines:
+
+#### **🔧 Core System Tools**
+- **[Health](docs/tool/health.md)** - System health diagnostics and monitoring
+- **[System Info](docs/tool/system_info.md)** - Comprehensive system information and analysis
+
+#### **📁 File System Tools**
+- **[File Operations](docs/tool/file_ops.md)** - Advanced file management, compression, and system operations
+- **[Download File](docs/tool/download_file.md)** - Secure file downloading with progress tracking
+
+#### **⚙️ Process & System Tools**
+- **[Process Run](docs/tool/proc_run.md)** - Cross-platform process execution and management
+- **[System Restore](docs/tool/system_restore.md)** - System backup, restore, and disaster recovery
+
+#### **🔒 Security & Penetration Testing Tools**
+- **[Port Scanner](docs/tool/port_scanner.md)** - Network reconnaissance and service enumeration
+- **[Vulnerability Scanner](docs/tool/vulnerability_scanner.md)** - Security assessment and risk analysis
+- **[Password Cracker](docs/tool/password_cracker.md)** - Authentication testing and security assessment
+- **[Exploit Framework](docs/tool/exploit_framework.md)** - Vulnerability testing and exploitation simulation
+- **[Packet Sniffer](docs/tool/packet_sniffer.md)** - Network traffic analysis and security monitoring
+- **[Wi-Fi Security](docs/tool/wifi_security.md)** - Wireless network security assessment and testing
+
+#### **📧 Email Management Tools**
+- **[Send Email](docs/tool/send_email.md)** - SMTP email sending with attachments and templates
+- **[Read Emails](docs/tool/read_emails.md)** - IMAP email retrieval and management
+- **[Parse Email](docs/tool/parse_email.md)** - Email content analysis and parsing
+- **[Delete Emails](docs/tool/delete_emails.md)** - Email deletion and cleanup
+- **[Sort Emails](docs/tool/sort_emails.md)** - Email organization and categorization
+- **[Manage Email Accounts](docs/tool/manage_email_accounts.md)** - Email account configuration and management
+
+#### **🧮 Utility Tools**
+- **[Calculator](docs/tool/calculator.md)** - Advanced mathematical calculations and conversions
+- **[Dice Rolling](docs/tool/dice_rolling.md)** - Random number generation and dice simulation
+
+#### **🌐 Web & Browser Tools**
+- **[Web Scraper](docs/tool/web_scraper.md)** - Web content extraction and data scraping
+- **[Browser Control](docs/tool/browser_control.md)** - Browser automation and control
+
 ### 🎯 **Quick Start Examples**
 Instead of remembering technical commands, just ask naturally:
 - ❌ Old way: `wifi_security_toolkit action=scan_networks interface=wlan0`
@@ -1375,9 +1651,10 @@ Instead of remembering technical commands, just ask naturally:
 - ✅ **File System**: `fs_list`, `fs_read_text`, `fs_write_text`, `fs_search`, `file_ops`
 - ✅ **Process Management**: `proc_run`, `win_processes`, `win_services`
 - ✅ **Security Toolkits**: Wi-Fi, Bluetooth, SDR, Radio Security
+- ✅ **Penetration Testing**: `port_scanner`, `vulnerability_scanner`, `password_cracker`, `exploit_framework`, `packet_sniffer`
 - ✅ **System Tools**: `vm_management`, `docker_management`, `git_status`, `system_restore`
 - ✅ **Mobile Tools**: `mobile_device_info`, `mobile_file_ops`, `mobile_system_tools`
-- ✅ **Utility Tools**: `calculator`, `download_file`, `packet_sniffer`
+- ✅ **Utility Tools**: `calculator`, `download_file`, `dice_rolling`
 
 ---
 
@@ -1386,7 +1663,7 @@ Instead of remembering technical commands, just ask naturally:
 **Choose the version that fits your needs:**
 
 ### **🚀 Full-Featured Version (`server-refactored.ts`)**
-- **All 44 tools with 300+ operations** including comprehensive security toolkits
+- **All 49 tools with 300+ operations** including comprehensive security toolkits and penetration testing capabilities
 - Full cross-platform support (Windows, Linux, macOS, Android, iOS)
 - Complete Wi-Fi, Bluetooth, and SDR security toolkits
 - Mobile platform tools and hardware access
@@ -1396,18 +1673,25 @@ Instead of remembering technical commands, just ask naturally:
 ### **⚡ Minimal Version (`server-minimal.ts`)**
 - **25 tools** for core system operations
 - Essential file operations, process management, and system info
-- **Email tools:** send_email, parse_email
+- **Email tools:** [send_email](docs/tool/send_email.md), [parse_email](docs/tool/parse_email.md)
 - **System restore with 4 actions:** create_restore_point, list_restore_points, restore_system, backup_config
 - Cross-platform compatibility
 - **Recommended for:** Basic system administration, lightweight deployments
 
 ### **🔧 Ultra-Minimal Version (`server-ultra-minimal.ts`)**
 - **15 tools** for essential functionality
-- **Email tools:** send_email, parse_email
+- **Email tools:** [send_email](docs/tool/send_email.md), [parse_email](docs/tool/parse_email.md)
 - **System restore with 2 actions:** create_restore_point, backup_config
 - Minimal resource usage
 - Core system operations only
 - **Recommended for:** Embedded systems, resource-constrained environments
+
+### **🔒 Modular Version (`server-modular.ts`)**
+- **11 tools** including comprehensive penetration testing capabilities
+- **Core tools:** [health](docs/tool/health.md), [system_info](docs/tool/system_info.md), [send_email](docs/tool/send_email.md), [parse_email](docs/tool/parse_email.md), [fs_list](docs/tool/file_ops.md), [dice_rolling](docs/tool/dice_rolling.md)
+- **Penetration Testing Tools:** [port_scanner](docs/tool/port_scanner.md), [vulnerability_scanner](docs/tool/vulnerability_scanner.md), [password_cracker](docs/tool/password_cracker.md), [exploit_framework](docs/tool/exploit_framework.md), [packet_sniffer](docs/tool/packet_sniffer.md)
+- **Features:** Modular architecture, lightweight deployment, focused security testing
+- **Recommended for:** Security professionals, penetration testers, custom deployments
 
 **All versions maintain the same high-quality cross-platform support and security features!**
 
@@ -1553,13 +1837,13 @@ node build-server.js health system_info send_email my-email-server.ts "Email Ser
 - `docker_management` - Docker container management
 
 #### **🚧 Utility Tools (Coming Soon)**
-- `calculator` - Mathematical calculations
+- [`calculator`](docs/tool/calculator.md) - Mathematical calculations
 - `math_calculate` - Advanced math functions
-- `dice_rolling` - Roll dice with various configurations and get random numbers. **🎲 Now you can gamble with your AI compadre for control over your computer!** 😄
+- [`dice_rolling`](docs/tool/dice_rolling.md) - Roll dice with various configurations and get random numbers. **🎲 Now you can gamble with your AI compadre for control over your computer!** 😄
 - `git_status` - Git operations
-- `web_scraper` - Web scraping
-- `browser_control` - Browser automation
-- `system_restore` - System backup and restore
+- [`web_scraper`](docs/tool/web_scraper.md) - Web scraping
+- [`browser_control`](docs/tool/browser_control.md) - Browser automation
+- [`system_restore`](docs/tool/system_restore.md) - System backup and restore
 
 ### 🔧 **How to Use Individual Tools in Your Own Server**
 

@@ -7,7 +7,7 @@ const path = require('path');
 const fs = require('fs');
 
 // Try to find the server file in the dev/dist directory
-const serverPath = path.join(__dirname, 'dev', 'dist', 'server.js');
+const serverPath = path.join(__dirname, 'dev', 'dist', 'server-refactored.js');
 
 if (fs.existsSync(serverPath)) {
   // Load and run the actual server

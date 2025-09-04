@@ -42,8 +42,8 @@ const SERVER_CONFIGS = {
   },
   'full': {
     name: 'Full-Featured Server',
-    description: 'Complete MCP God Mode with all tools and capabilities',
-    tools: 44,
+    description: 'Complete MCP God Mode with all tools and capabilities including comprehensive penetration testing tools',
+    tools: 49,
     features: [
       'All minimal features',
       'Complete Wi-Fi security toolkit (25+ actions)',
@@ -56,25 +56,35 @@ const SERVER_CONFIGS = {
       'Network diagnostics and penetration testing',
       'Virtual machine and Docker management',
       'Advanced mathematics and calculations',
-      'Dice rolling utility'
+      'Dice rolling utility',
+      'Port scanner tool for network reconnaissance',
+      'Vulnerability scanner for security assessment',
+      'Password cracker for authentication testing',
+      'Exploit framework for vulnerability testing',
+      'Packet sniffer for network analysis'
     ],
-    useCase: 'Power users, security professionals, developers',
+    useCase: 'Power users, security professionals, developers, penetration testers',
     size: 'Large, comprehensive'
   },
   'modular': {
     name: 'Modular Server',
-    description: 'Custom-built server with imported tool modules - includes the dice tool',
-    tools: 6,
+    description: 'Custom-built server with imported tool modules including comprehensive penetration testing tools',
+    tools: 11,
     features: [
       'Core system tools (health, system_info)',
       'Email management (send_email, parse_email)',
       'File system operations (fs_list)',
       'Dice rolling utility (dice_rolling)',
+      'Port scanner tool for network reconnaissance',
+      'Vulnerability scanner for security assessment',
+      'Password cracker for authentication testing',
+      'Exploit framework for vulnerability testing',
+      'Packet sniffer for network analysis',
       'Modular architecture for easy customization',
       'Lightweight and focused functionality'
     ],
-    useCase: 'Custom deployments, specific tool requirements, development testing',
-    size: 'Very small, modular'
+    useCase: 'Custom deployments, specific tool requirements, development testing, security testing',
+    size: 'Small, modular with security focus'
   },
   'custom': {
     name: 'Custom Server',

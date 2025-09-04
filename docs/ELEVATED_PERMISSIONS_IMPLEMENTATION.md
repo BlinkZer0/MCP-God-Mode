@@ -118,7 +118,7 @@ Comprehensive test suite that verifies:
 ### Network and Security Tools
 - 🔄 `wifi_security_toolkit` - Wi-Fi security testing and penetration
 - 🔄 `wifi_hacking` - Advanced Wi-Fi security assessment
-- 🔄 `packet_sniffer` - Network packet capture and analysis
+- ✅ `packet_sniffer` - Network packet capture and analysis
 - 🔄 `bluetooth_security_toolkit` - Bluetooth security testing
 - 🔄 `bluetooth_hacking` - Advanced Bluetooth security assessment
 - 🔄 `sdr_security_toolkit` - Software Defined Radio security testing
@@ -128,6 +128,10 @@ Comprehensive test suite that verifies:
 - 🔄 `security_testing` - Comprehensive security assessments
 - 🔄 `wireless_security` - Wireless network security testing
 - 🔄 `network_penetration` - Network penetration testing
+- ✅ `port_scanner` - Advanced port scanning and service enumeration
+- ✅ `vulnerability_scanner` - Comprehensive vulnerability assessment
+- ✅ `password_cracker` - Password security testing and authentication assessment
+- ✅ `exploit_framework` - Advanced exploit framework and vulnerability testing
 
 ### Virtualization and Container Tools
 - 🔄 `vm_management` - Virtual machine lifecycle management

@@ -10,7 +10,7 @@ console.log('🔧 Building minimal MCP server...');
 console.log('📦 Installing minimal dependencies...');
 const minimalPackageJson = {
   "name": "mcp-god-mode-minimal",
-  "version": "1.3",
+  "version": "1.4",
   "private": true,
   "main": "dist/server-minimal.js",
   "scripts": {

@@ -25,7 +25,8 @@ exports.ELEVATED_TOOLS = {
         "wifi_security_toolkit", "wifi_hacking", "packet_sniffer",
         "bluetooth_security_toolkit", "bluetooth_hacking", "sdr_security_toolkit",
         "radio_security", "signal_analysis", "hack_network", "security_testing",
-        "wireless_security", "network_penetration"
+        "wireless_security", "network_penetration", "port_scanner", "vulnerability_scanner",
+        "password_cracker", "exploit_framework"
     ],
     // Virtualization and container tools
     virtualization: [

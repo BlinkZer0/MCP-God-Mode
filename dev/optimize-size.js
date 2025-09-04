@@ -37,7 +37,7 @@ try {
 console.log('\n📝 Creating minimal package.json...');
 const minimalPackage = {
   "name": "mcp-god-mode-minimal",
-  "version": "1.3",
+  "version": "1.4",
   "private": true,
   "main": "dist/server-minimal.js",
   "scripts": {

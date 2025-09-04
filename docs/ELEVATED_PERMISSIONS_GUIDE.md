@@ -65,6 +65,10 @@ These tools require elevated access for network interface operations:
 - **`security_testing`** - Comprehensive security assessments
 - **`wireless_security`** - Wireless network security testing
 - **`network_penetration`** - Network penetration testing
+- **`port_scanner`** - Advanced port scanning and service enumeration
+- **`vulnerability_scanner`** - Comprehensive vulnerability assessment
+- **`password_cracker`** - Password security testing and authentication assessment
+- **`exploit_framework`** - Advanced exploit framework and vulnerability testing
 
 ### Virtualization and Container Tools
 These tools need elevated access for system-level operations:
