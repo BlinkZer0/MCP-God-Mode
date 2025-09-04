@@ -115,7 +115,7 @@ This MCP can do wild stuff:
 
 **🚀 Why This is GAME-CHANGING:**
 
-- **🎯 One-Stop Solution:** 51+ tools with 300+ operations covering system management, security, mobile access, and comprehensive penetration testing capabilities.
+- **🎯 One-Stop Solution:** 50 tools with 300+ operations covering system management, security, mobile access, and comprehensive penetration testing capabilities.
 - **🌍 True Cross-Platform:** Works seamlessly on Windows, Linux, macOS, Android, and iOS with intelligent auto-detection
 - **🤖 AI-Powered Intelligence:** Your AI executes commands with context awareness.
 - **⚡ Proactive Problem Solving:** Supports predictive maintenance and automated fixes
@@ -217,9 +217,9 @@ Here's the full arsenal (based on the MCP's capabilities). I've included humorou
 
 ## 🛠️ Complete Tool Arsenal - The AGI Infosec Playground!
 
-**🚀 WARNING: 51+ Tools of Absolute Power!** Handing this to AGI is like giving a toddler the nuclear codes – fun in theory, disastrous in practice. Joke: In infosec, this is the equivalent of arming Skynet with dad jokes. Don't give access to a dumb AI; it'll probably just DDoS itself. And your girlfriend on SillyTavern? She might "roleplay" your system into oblivion!
+**🚀 WARNING: 50 Tools of Absolute Power!** Handing this to AGI is like giving a toddler the nuclear codes – fun in theory, disastrous in practice. Joke: In infosec, this is the equivalent of arming Skynet with dad jokes. Don't give access to a dumb AI; it'll probably just DDoS itself. And your girlfriend on SillyTavern? She might "roleplay" your system into oblivion!
 
-**📊 Tool Count Clarification:** This MCP provides **51+ unique tools**, each with multiple actions that expand functionality. The 300+ operations represent the total actions available across all tools.
+**📊 Tool Count Clarification:** This MCP provides **50 unique tools**, each with multiple actions that expand functionality. The 300+ operations represent the total actions available across all tools.
 
 **🗣️ NATURAL LANGUAGE ACCESS:** Every tool can be accessed using plain English! No need to remember technical commands - just ask your AI what you want to do in natural language.
 
