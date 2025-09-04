@@ -1,5 +1,5 @@
 # 🚀 MCP God Mode - Ultimate Cross-Platform Security & System Management Suite
-***Don't download 1.4a yet unless you want to help me bugfix. Check out the release section instead.***
+***Version 1.5 fully working***
 [![Platform Support](https://img.shields.io/badge/Windows-✅%20Supported-brightgreen)](docs/CROSS_PLATFORM_COMPATIBILITY.md)
 [![Platform Support](https://img.shields.io/badge/Linux-✅%20Supported-brightgreen)](docs/CROSS_PLATFORM_COMPATIBILITY.md)
 [![Platform Support](https://img.shields.io/badge/macOS-✅%20Supported-brightgreen)](docs/CROSS_PLATFORM_COMPATIBILITY.md)
