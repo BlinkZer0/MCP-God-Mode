@@ -18,7 +18,7 @@ const MobileAppDeploymentSchema = z.object({
 export function registerMobileAppDeploymentToolkit(server) {
     server.registerTool("mobile_app_deployment_toolkit", {
         description: "Comprehensive mobile app deployment and management toolkit",
-        inputSchema: MobileAppDeploymentSchema,
+        inputSchema: MobileAppDeploymentSchema.shape,
     }, async ({ action, platform, app_path, package_name, device_id, build_type, signing_config }) => {
         try {
             const targetPlatform = platform === "auto" ? (PLATFORM === "android" ? "android" : "ios") : platform;

@@ -12,7 +12,7 @@ const MobileAppSecuritySchema = z.object({
 export function registerMobileAppSecurityToolkit(server) {
     server.registerTool("mobile_app_security_toolkit", {
         description: "Comprehensive mobile app security testing and analysis toolkit",
-        inputSchema: MobileAppSecuritySchema,
+        inputSchema: MobileAppSecuritySchema.shape,
     }, async ({ action, platform, app_package, app_path, device_id, scan_type, output_format }) => {
         try {
             const targetPlatform = platform === "auto" ? (PLATFORM === "android" ? "android" : "ios") : platform;

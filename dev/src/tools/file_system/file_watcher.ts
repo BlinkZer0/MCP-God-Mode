@@ -17,7 +17,7 @@ const watcherEvents = new Map<string, any[]>();
 export function registerFileWatcher(server: McpServer) {
   server.registerTool("file_watcher", {
     description: "Advanced file system watching and monitoring capabilities",
-    inputSchema: FileWatcherSchema,
+    inputSchema: FileWatcherSchema.shape,
   }, async ({ action, path: watchPath, recursive, events, watcher_id }) => {
       try {
         switch (action) {

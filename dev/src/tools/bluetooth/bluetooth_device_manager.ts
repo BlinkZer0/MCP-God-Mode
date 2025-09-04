@@ -15,7 +15,7 @@ const BluetoothDeviceManagerSchema = z.object({
 export function registerBluetoothDeviceManager(server: McpServer) {
   server.registerTool("bluetooth_device_manager", {
     description: "Advanced Bluetooth device management and configuration toolkit",
-    inputSchema: BluetoothDeviceManagerSchema,
+    inputSchema: BluetoothDeviceManagerSchema.shape,
   }, async ({ action, device_address, device_name, timeout, scan_duration, output_format }) => {
       try {
         switch (action) {

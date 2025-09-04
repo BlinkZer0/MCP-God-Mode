@@ -166,19 +166,25 @@ export function registerNetworkTrafficAnalyzer(server) {
                                         packet_details: packets.slice(0, 100), // Limit output
                                     };
                                     resolve({
-                                        success: true,
-                                        message: `Network traffic analysis completed`,
-                                        platform: "linux",
-                                        capture_file: output_file,
-                                        analysis,
+                                        content: [{ type: "text", text: `Network traffic analysis completed` }],
+                                        structuredContent: {
+                                            success: true,
+                                            message: `Network traffic analysis completed`,
+                                            platform: "linux",
+                                            capture_file: output_file,
+                                            analysis,
+                                        }
                                     });
                                 }
                                 else {
                                     resolve({
-                                        success: false,
-                                        error: `Failed to analyze traffic: ${error || output}`,
-                                        platform: "linux",
-                                        capture_file: output_file,
+                                        content: [{ type: "text", text: `Failed to analyze traffic: ${error || output}` }],
+                                        structuredContent: {
+                                            success: false,
+                                            error: `Failed to analyze traffic: ${error || output}`,
+                                            platform: "linux",
+                                            capture_file: output_file,
+                                        }
                                     });
                                 }
                             });
@@ -219,13 +225,16 @@ export function registerNetworkTrafficAnalyzer(server) {
                                     .filter(line => line.trim())
                                     .length;
                                 resolve({
-                                    success: true,
-                                    message: `Network monitoring completed`,
-                                    platform: "linux",
-                                    duration,
-                                    packets_monitored: packets,
-                                    filter,
-                                    status: "Completed",
+                                    content: [{ type: "text", text: `Network monitoring completed` }],
+                                    structuredContent: {
+                                        success: true,
+                                        message: `Network monitoring completed`,
+                                        platform: "linux",
+                                        duration,
+                                        packets_monitored: packets,
+                                        filter,
+                                        status: "Completed",
+                                    }
                                 });
                             });
                         });
@@ -262,21 +271,27 @@ export function registerNetworkTrafficAnalyzer(server) {
                             child.on('close', (code) => {
                                 if (code === 0) {
                                     resolve({
-                                        success: true,
-                                        message: `Network traffic filtered successfully`,
-                                        platform: "linux",
-                                        original_file: output_file,
-                                        filtered_file: filteredFile,
-                                        filter,
-                                        status: "Completed",
+                                        content: [{ type: "text", text: `Network traffic filtered successfully` }],
+                                        structuredContent: {
+                                            success: true,
+                                            message: `Network traffic filtered successfully`,
+                                            platform: "linux",
+                                            original_file: output_file,
+                                            filtered_file: filteredFile,
+                                            filter,
+                                            status: "Completed",
+                                        }
                                     });
                                 }
                                 else {
                                     resolve({
-                                        success: false,
-                                        error: `Failed to filter traffic: ${error || output}`,
-                                        platform: "linux",
-                                        original_file: output_file,
+                                        content: [{ type: "text", text: `Failed to filter traffic: ${error || output}` }],
+                                        structuredContent: {
+                                            success: false,
+                                            error: `Failed to filter traffic: ${error || output}`,
+                                            platform: "linux",
+                                            original_file: output_file,
+                                        }
                                     });
                                 }
                             });

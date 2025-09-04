@@ -115,14 +115,14 @@ export function registerWebhookManager(server) {
                     if (!monitorWebhook) {
                         throw new Error(`No webhook found with ID: ${webhook_id}`);
                     }
-                    const logs = webhookLogs.get(webhook_id) || [];
+                    const monitorLogs = webhookLogs.get(webhook_id) || [];
                     return {
                         success: true,
                         message: `Webhook monitoring data retrieved for '${monitorWebhook.name}'`,
                         webhook_id,
                         webhook: monitorWebhook,
-                        logs: logs.slice(-50), // Last 50 logs
-                        total_logs: logs.length,
+                        logs: monitorLogs.slice(-50), // Last 50 logs
+                        total_logs: monitorLogs.length,
                         last_triggered: monitorWebhook.last_triggered,
                         trigger_count: monitorWebhook.trigger_count,
                     };

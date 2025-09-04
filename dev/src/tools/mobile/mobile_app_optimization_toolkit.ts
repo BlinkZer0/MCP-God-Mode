@@ -16,7 +16,7 @@ const MobileAppOptimizationSchema = z.object({
 export function registerMobileAppOptimizationToolkit(server: McpServer) {
   server.registerTool("mobile_app_optimization_toolkit", {
     description: "Mobile app performance optimization and analysis toolkit",
-    inputSchema: MobileAppOptimizationSchema,
+    inputSchema: MobileAppOptimizationSchema.shape,
   }, async ({ action, platform, app_package, device_id, optimization_type, duration, output_format }) => {
       try {
         const targetPlatform = platform === "auto" ? (PLATFORM === "android" ? "android" : "ios") : platform;
