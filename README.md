@@ -34,11 +34,9 @@ See MCP God Mode in action with Cursor IDE integration:
 
 <div align="center">
 
+![Cursor Tools Enabled](docs/images/Cursortoolsenabled.png)
 ![Cursor Tools Integration 1](docs/images/Toolscursor1.png)
 ![Cursor Tools Integration 2](docs/images/Toolscursor2.png)
-![Cursor Tools Integration 3](docs/images/Toolscursor3.png)
-![Cursor Tools Integration 4](docs/images/Toolscursor4.png)
-![Cursor Tools Enabled](docs/images/Cursortoolsenabled.png)
 
 </div>
 
@@ -94,6 +92,8 @@ See MCP God Mode in action with Cursor IDE integration:
 - **Wi-Fi Hacking** - Advanced wireless penetration testing
 - **Bluetooth Hacking** - Advanced Bluetooth security testing
 - **Wireless Network Scanner** - Advanced wireless discovery
+
+**🎥 Live Demo**: See our WiFi security tools in action! [Watch the demo video](docs/images/Recording%202025-09-03%20011615.mp4) showing real-time wireless security testing capabilities.
 
 **[📖 View All Wireless Tools](docs/TOOL_CATEGORY_INDEX.md#wireless--radio)**
 
