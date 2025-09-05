@@ -33,7 +33,7 @@ https://github.com/user-attachments/assets/932c43e4-159e-4ce2-9c02-4acf23fc47fd
 
 MCP God Mode is the ultimate cybersecurity and system management platform that provides **99 fully implemented tools** across **5 major platforms**. It's designed for security professionals, system administrators, penetration testers, and anyone who needs comprehensive system control and security testing capabilities. 
 
-**📝 Note**: We offer both monolithic and modular server architectures. Our **primary monolithic server** provides comprehensive functionality in a unified interface with **89 tools**. The modular server fragments complex actions into individual, focused tools (**99 tools total**) for granular control and better error handling. Each architecture serves different use cases and preferences.
+**📝 Note**: We offer both monolithic and modular server architectures. Our **primary monolithic server** provides comprehensive functionality in a unified interface with **89 tools**. The modular server fragments complex actions into individual, focused tools (**99 tools total**) for granular control, better error handling, and for the ease of an individual to extract a tool for their own server build. Tools are located in dev/src/tools. Each architecture serves different use cases and preferences.
 
 🎭 **Fun Fact**: One MCP to rule them all, one MCP to find them, one MCP to compile the tools, and in the God Mode bind them! 🎲⚡
 
