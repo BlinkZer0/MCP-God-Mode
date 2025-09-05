@@ -10,6 +10,15 @@
 
 **Version 1.5 - Production Ready**
 
+
+
+https://github.com/user-attachments/assets/932c43e4-159e-4ce2-9c02-4acf23fc47fd
+
+***Slow typing for that 90's dramatic vibe***
+
+***Bug Bounty $$$; find a nasty bug or somthing big I forgot and I will make and add a custom MPC tool in your honor***
+
+
 > **One MCP to rule them all, one MCP to find them, one MCP to compile the tools, and in the God Mode bind them.** 🎲⚡
 
 ## 📚 Quick Navigation
@@ -24,6 +33,7 @@
 
 MCP God Mode is the ultimate cybersecurity and system management platform that provides **99 fully implemented tools** across **5 major platforms**. It's designed for security professionals, system administrators, penetration testers, and anyone who needs comprehensive system control and security testing capabilities. 
 
+<<<<<<< HEAD
 **📝 Note**: We offer both monolithic and modular server architectures. Our **primary monolithic server** provides comprehensive functionality in a unified interface with **99 tools**. The modular server fragments complex actions into individual, focused tools (**96 tools total**) for granular control and better error handling. Each architecture serves different use cases and preferences.
 
 **🔢 Tool Counting Complexity**: Accurately counting tools in a comprehensive system like MCP God Mode is inherently challenging due to the distinction between **tools** (distinct MCP server functions) and **parameters/actions** (options within each tool). For example, a single "Wi-Fi Security Toolkit" tool may offer 25+ different actions (scan, crack, monitor, etc.), but it counts as one tool. Similarly, complex tools with multiple parameters can appear as multiple capabilities while remaining a single tool. Our counts represent the actual MCP server tool registrations, ensuring accuracy while acknowledging that each tool may provide numerous sub-capabilities.
@@ -71,6 +81,9 @@ The modular server has **96 tools** vs. the monolithic server's **99 tools** bec
 4. **No Functionality Loss**: All capabilities remain available, just organized differently
 
 **🎯 Bottom Line**: Both architectures provide the same comprehensive capabilities - the difference is in organization and granularity, not functionality.
+=======
+**📝 Note**: We offer both monolithic and modular server architectures. Our **primary monolithic server** provides comprehensive functionality in a unified interface with **89 tools**. The modular server fragments complex actions into individual, focused tools (**99 tools total**) for granular control, better error handling, and for the ease of an individual to extract a tool for their own server build. Tools are located in dev/src/tools. Each architecture serves different use cases and preferences.
+>>>>>>> 9733b750425e48b905b4677884969ad5f21d735d
 
 🎭 **Fun Fact**: One MCP to rule them all, one MCP to find them, one MCP to compile the tools, and in the God Mode bind them! 🎲⚡
 
@@ -523,6 +536,8 @@ This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) 
 ## 🥋 **About the Developer**
 
 ### **Meet Blink Zero (Shuriken Miasma)**
+
+MCP GOD MODE's official Discord server-> https://discord.gg/EuQBurC2
 
 The mastermind behind MCP God Mode is **Blink Zero**, a true renaissance developer who combines martial arts mastery with electronic jazz composition and cutting-edge cybersecurity development.
 

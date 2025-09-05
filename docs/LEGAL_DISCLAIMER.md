@@ -87,13 +87,13 @@ By using this software, you agree to:
 
 ### Security Issues
 If you discover a security vulnerability in this software, please report it responsibly:
-- **Email**: [Security Contact]
-- **GitHub**: [Security Advisory]
+- **Email**: [Blink]
+- **GitHub**: [Blink]
 - **Do not** publicly disclose vulnerabilities without coordination
 
 ### Legal Questions
 For legal questions or concerns:
-- **Email**: [Legal Contact]
+- **Email**: [Blink]
 - **Consult with qualified legal counsel** for specific legal advice
 
 ## 🌍 International Considerations
@@ -115,6 +115,6 @@ This software is licensed under the MIT License. See the [LICENSE](../LICENSE) f
 
 ---
 
-*Last Updated: [Current Date]*  
-*Version: 1.0*  
+*Last Updated: [9/4/25]*  
+*Version: 1.5*  
 *This disclaimer is legally binding and enforceable in all jurisdictions where this software is used.*
