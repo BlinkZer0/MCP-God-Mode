@@ -510,6 +510,6 @@ If MCP God Mode has been helpful to you, please consider giving it a star on Git
 
 <div align="center">
 
-**🚀 Ready to become a cybersecurity god? [Get Started Now](docs/COMPLETE_SETUP_GUIDE.md)! 🚀**
+**🚀 Ready to become a cybersecurity god? First, remember to be kind to one another and set your differences aside. This tool is not for malicious use. [Get Started Now](docs/COMPLETE_SETUP_GUIDE.md)! 🚀**
 
 </div>
