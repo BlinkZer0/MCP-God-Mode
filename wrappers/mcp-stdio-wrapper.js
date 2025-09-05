@@ -9,7 +9,7 @@ const fs = require('fs');
 console.log = console.error;
 
 // Resolve server path relative to this file
-const serverPath = path.resolve(__dirname, 'dev', 'dist', 'server-refactored.js');
+const serverPath = path.resolve(__dirname, '..', 'dev', 'dist', 'server-refactored.js');
 
 if (!fs.existsSync(serverPath)) {
   console.error(`[MCP Wrapper] Server not found at: ${serverPath}`);

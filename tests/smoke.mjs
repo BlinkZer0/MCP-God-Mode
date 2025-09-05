@@ -15,7 +15,7 @@ console.log('🚀 MCP God Mode Smoke Test Starting...\n');
 
 // Test configuration
 const TEST_CONFIG = {
-  serverPath: join(__dirname, 'dev', 'dist', 'server-refactored.js'),
+  serverPath: join(__dirname, '..', 'dev', 'dist', 'server-refactored.js'),
   timeout: 30000, // 30 seconds
   maxTools: 100
 };

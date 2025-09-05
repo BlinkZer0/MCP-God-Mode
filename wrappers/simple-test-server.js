@@ -7,7 +7,7 @@ const path = require('path');
 console.log('🚀 Simple MCP Test Server Starting...');
 
 // Start the actual server
-const serverPath = path.resolve(__dirname, 'dev', 'dist', 'server-refactored.js');
+const serverPath = path.resolve(__dirname, '..', 'dev', 'dist', 'server-refactored.js');
 console.log(`📂 Server path: ${serverPath}`);
 
 if (!require('fs').existsSync(serverPath)) {

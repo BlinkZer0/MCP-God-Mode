@@ -462,6 +462,12 @@ We welcome contributions from the community! Here's how you can help:
 - **v1.4a** - Enhanced security tools and mobile support
 - **v1.0** - Initial release with core functionality
 
+## ⚖️ Legal Disclaimer
+
+**IMPORTANT**: This software is designed for legitimate security testing and system administration purposes only. Users are responsible for ensuring they have proper authorization before using any security testing tools.
+
+**[📋 Read Full Legal Disclaimer](docs/LEGAL_DISCLAIMER.md)** - Terms of use, liability information, and prohibited uses
+
 ## 📄 License
 
 This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file for details.

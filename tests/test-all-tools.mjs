@@ -15,7 +15,7 @@ console.log('🧪 MCP God Mode - Testing All 69 Tools...\n');
 
 // Test configuration
 const TEST_CONFIG = {
-  serverPath: join(__dirname, 'dev', 'dist', 'server-refactored.js'),
+  serverPath: join(__dirname, '..', 'dev', 'dist', 'server-refactored.js'),
   timeout: 60000, // 60 seconds
   delayBetweenTests: 100 // 100ms between tool tests
 };

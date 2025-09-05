@@ -11,7 +11,7 @@ const __dirname = dirname(__filename);
 console.log('🧪 Testing MCP Protocol Communication...');
 
 // Start the server
-const server = spawn('node', [join(__dirname, 'dev/dist/server-refactored.js')], {
+const server = spawn('node', [join(__dirname, '../dev/dist/server-refactored.js')], {
   stdio: ['pipe', 'pipe', 'pipe']
 });
 
