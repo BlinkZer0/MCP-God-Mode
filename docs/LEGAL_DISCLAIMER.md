@@ -115,6 +115,6 @@ This software is licensed under the MIT License. See the [LICENSE](../LICENSE) f
 
 ---
 
-*Last Updated: [Current Date]*  
-*Version: 1.0*  
+*Last Updated: [9/4/25]*  
+*Version: 1.5*  
 *This disclaimer is legally binding and enforceable in all jurisdictions where this software is used.*
