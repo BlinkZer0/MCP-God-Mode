@@ -11,6 +11,11 @@
 ***Version 1.5 fully working***
 
 
+
+https://github.com/user-attachments/assets/932c43e4-159e-4ce2-9c02-4acf23fc47fd
+
+***Slow typing for that 90's dramatic vibe***
+
 ***Bug Bounty $$$; find a nasty bug or somthing big I forgot and I will make and add a custom MPC tool in your honor***
 
 
