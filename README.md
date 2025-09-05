@@ -9,7 +9,7 @@
 [![Documentation](https://img.shields.io/badge/Docs-100%25%20Complete-brightgreen)](docs/DOCUMENTATION_INDEX.md)
 
 ***Version 1.5 fully working***
-
+***Bug Bounty $$$; find a nasty bug or somthing big I forgot and I will make and add a custom MPC tool in your honor***
 > **One MCP to rule them all, one MCP to find them, one MCP to compile the tools, and in the God Mode bind them.** 🎲⚡
 
 ## 📚 Quick Navigation
