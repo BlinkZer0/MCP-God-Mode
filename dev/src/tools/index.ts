@@ -52,11 +52,14 @@ export { registerMalwareAnalysis } from "./security/malware_analysis.js";
 export { registerHackNetwork } from "./penetration/hack_network.js";
 export { registerSecurityTesting } from "./penetration/security_testing.js";
 export { registerNetworkPenetration } from "./penetration/network_penetration.js";
+export { registerPenetrationTestingToolkit } from "./penetration/penetration_testing_toolkit.js";
+export { registerSocialEngineeringToolkit } from "./penetration/social_engineering_toolkit.js";
 
 // Wireless Tools
 export { registerWifiSecurityToolkit } from "./wireless/wifi_security_toolkit.js";
 export { registerWifiHacking } from "./wireless/wifi_hacking.js";
 export { registerWirelessSecurity } from "./wireless/wireless_security.js";
+export { registerWirelessNetworkScanner } from "./wireless/wireless_network_scanner.js";
 
 // Bluetooth Tools
 export { registerBluetoothSecurityToolkit } from "./bluetooth/bluetooth_security_toolkit.js";
@@ -96,9 +99,15 @@ export { registerMobileDeviceInfo } from "./mobile/mobile_device_info.js";
 export { registerMobileFileOps } from "./mobile/mobile_file_ops.js";
 export { registerMobileSystemTools } from "./mobile/mobile_system_tools.js";
 export { registerMobileHardware } from "./mobile/mobile_hardware.js";
+export { registerMobileDeviceManagement } from "./mobile/mobile_device_management.js";
+export { registerMobileAppAnalyticsToolkit } from "./mobile/mobile_app_analytics_toolkit.js";
 export { registerMobileAppDeploymentToolkit } from "./mobile/mobile_app_deployment_toolkit.js";
 export { registerMobileAppOptimizationToolkit } from "./mobile/mobile_app_optimization_toolkit.js";
 export { registerMobileAppSecurityToolkit } from "./mobile/mobile_app_security_toolkit.js";
+export { registerMobileAppMonitoringToolkit } from "./mobile/mobile_app_monitoring_toolkit.js";
+export { registerMobileAppPerformanceToolkit } from "./mobile/mobile_app_performance_toolkit.js";
+export { registerMobileAppTestingToolkit } from "./mobile/mobile_app_testing_toolkit.js";
+export { registerMobileNetworkAnalyzer } from "./mobile/mobile_network_analyzer.js";
 
 // Virtualization Tools
 export { registerVmManagement } from "./virtualization/vm_management.js";
@@ -110,12 +119,21 @@ export { registerDiceRolling } from "./utilities/dice_rolling.js";
 export { registerMathCalculate } from "./utilities/math_calculate.js";
 export { registerDataAnalysis } from "./utilities/data_analysis.js";
 export { registerMachineLearning } from "./utilities/machine_learning.js";
+export { registerChartGenerator } from "./utilities/chart_generator.js";
+export { registerTextProcessor } from "./utilities/text_processor.js";
+export { registerPasswordGenerator } from "./utilities/password_generator.js";
+export { registerDataAnalyzer } from "./utilities/data_analyzer.js";
+export { registerDownloadFile } from "./utilities/download_file.js";
 
 // Cloud Tools
 export { registerCloudSecurity } from "./cloud/cloud_security.js";
+export { registerCloudInfrastructureManager } from "./cloud/cloud_infrastructure_manager.js";
+export { registerCloudSecurityToolkit } from "./cloud/cloud_security_toolkit.js";
 
 // Forensics Tools
 export { registerForensicsAnalysis } from "./forensics/forensics_analysis.js";
+export { registerForensicsToolkit } from "./forensics/forensics_toolkit.js";
+export { registerMalwareAnalysisToolkit } from "./forensics/malware_analysis_toolkit.js";
 
 // Discovery Tools
 export { registerToolDiscovery, registerExploreCategories } from "./discovery/index.js";

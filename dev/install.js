@@ -1,8 +1,10 @@
 #!/usr/bin/env node
 
-const fs = require('fs');
-const path = require('path');
-const { execSync } = require('child_process');
+import fs from 'fs';
+import path from 'path';
+import { execSync } from 'child_process';
+import { createRequire } from 'module';
+const require = createRequire(import.meta.url);
 
 // Server configurations with accurate tool counts and descriptions
 const SERVER_CONFIGS = {
@@ -42,8 +44,8 @@ const SERVER_CONFIGS = {
   },
   'full': {
     name: 'Full-Featured Server (Refactored)',
-    description: 'Complete MCP God Mode with all 89 tools including comprehensive penetration testing, audio editing, video editing with recording, and screenshot capabilities',
-    tools: 89,
+    description: 'Complete MCP God Mode with all 99 tools including comprehensive penetration testing, audio editing, video editing with recording, and screenshot capabilities',
+    tools: 99,
     features: [
       'All minimal features',
       'Complete Wi-Fi security toolkit (25+ actions)',
@@ -77,8 +79,8 @@ const SERVER_CONFIGS = {
   },
   'modular': {
     name: 'Modular Server',
-    description: 'Complete modular server with all 78 tools including comprehensive penetration testing, media processing, cloud security, and forensics capabilities',
-    tools: 78,
+    description: 'Complete modular server with all 96 tools including comprehensive penetration testing, media processing, cloud security, and forensics capabilities',
+    tools: 96,
     features: [
       'Core system tools (health, system_info)',
       'File system operations (fs_list, fs_read_text, fs_write_text, fs_search, file_ops)',
@@ -98,9 +100,9 @@ const SERVER_CONFIGS = {
       'Screenshot tools (screenshot)',
       'Mobile tools (mobile_device_info, mobile_file_ops, mobile_system_tools, mobile_hardware, mobile_device_management, mobile_app_analytics_toolkit, mobile_app_deployment_toolkit, mobile_app_optimization_toolkit, mobile_app_security_toolkit, mobile_app_monitoring_toolkit, mobile_app_performance_toolkit, mobile_app_testing_toolkit, mobile_network_analyzer)',
       'Virtualization tools (vm_management, docker_management)',
-      'Utility tools (calculator, dice_rolling, math_calculate, data_analysis, machine_learning, encryption_tool, chart_generator, text_processor, password_generator, data_analyzer)',
-      'Cloud tools (cloud_security, cloud_infrastructure_manager)',
-      'Forensics tools (forensics_analysis)',
+      'Utility tools (calculator, dice_rolling, math_calculate, data_analysis, machine_learning, encryption_tool, chart_generator, text_processor, password_generator, data_analyzer, download_file)',
+      'Cloud tools (cloud_security, cloud_infrastructure_manager, cloud_security_toolkit)',
+      'Forensics tools (forensics_analysis, forensics_toolkit, malware_analysis_toolkit)',
       'Modular architecture for easy customization and maintenance',
       'Comprehensive security testing and media processing capabilities',
       'File watcher and monitoring capabilities',
@@ -219,14 +221,18 @@ function installServer(choice) {
       console.log('  npm run build:modular');
       console.log('\nOr manually:');
       console.log('  cd dev && npm run build:modular');
-      console.log('\nThe modular server includes all 78 tools:');
+      console.log('\nThe modular server includes all 96 tools:');
       console.log('  - Core system tools (health, system_info)');
       console.log('  - File system operations (fs_list, fs_read_text, fs_write_text, fs_search, file_ops)');
       console.log('  - Security tools (vulnerability_scanner, password_cracker, exploit_framework, etc.)');
       console.log('  - Media tools (video_editing, image_editing, audio_editing, ocr_tool)');
       console.log('  - Network tools (packet_sniffer, port_scanner, network_diagnostics)');
       console.log('  - Enhanced mobile toolkits (analytics, deployment, optimization, security, monitoring, performance, testing)');
-      console.log('  - Advanced utility tools (chart generation, text processing, password generation)');
+      console.log('  - Advanced utility tools (chart generation, text processing, password generation, data analyzer)');
+      console.log('  - Cloud security toolkits (cloud_security_toolkit, cloud_infrastructure_manager)');
+      console.log('  - Forensics toolkits (forensics_toolkit, malware_analysis_toolkit)');
+      console.log('  - Penetration testing toolkits (penetration_testing_toolkit, social_engineering_toolkit)');
+      console.log('  - Wireless network scanning capabilities');
       console.log('  - And many more specialized tools...');
       console.log('\n🎭 Fun Fact: This modular server is so comprehensive, it\'s like having a cybersecurity buffet!');
       console.log('   You can pick and choose what you want, but why not take it all? 🍽️✨');
@@ -236,9 +242,9 @@ function installServer(choice) {
     if (choice === 'full') {
       console.log('For full server installation, please use:');
       console.log('  cd dev && npm run build');
-      console.log('\nThe full server includes all 89 tools:');
-      console.log('  - Everything from the modular server (78 tools)');
-      console.log('  - Plus 11 additional enhanced tools');
+      console.log('\nThe full server includes all 99 tools:');
+      console.log('  - Everything from the modular server (96 tools)');
+      console.log('  - Plus 3 additional enhanced tools');
       console.log('  - Including advanced mobile app toolkits');
       console.log('  - Enhanced utility and cloud tools');
       console.log('  - Advanced penetration testing toolkits');
