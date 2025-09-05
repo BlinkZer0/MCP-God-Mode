@@ -33,8 +33,7 @@ https://github.com/user-attachments/assets/932c43e4-159e-4ce2-9c02-4acf23fc47fd
 
 MCP God Mode is the ultimate cybersecurity and system management platform that provides **99 fully implemented tools** across **5 major platforms**. It's designed for security professionals, system administrators, penetration testers, and anyone who needs comprehensive system control and security testing capabilities. 
 
-<<<<<<< HEAD
-**📝 Note**: We offer both monolithic and modular server architectures. Our **primary monolithic server** provides comprehensive functionality in a unified interface with **99 tools**. The modular server fragments complex actions into individual, focused tools (**96 tools total**) for granular control and better error handling. Each architecture serves different use cases and preferences.
+**📝 Note**: We offer both monolithic and modular server architectures. Our **primary monolithic server** provides comprehensive functionality in a unified interface with **99 tools**. The modular server fragments complex actions into individual, focused tools (**96 tools total**) for granular control, better error handling, and for the ease of an individual to extract a tool for their own server build. Tools are located in dev/src/tools. Each architecture serves different use cases and preferences.
 
 **🔢 Tool Counting Complexity**: Accurately counting tools in a comprehensive system like MCP God Mode is inherently challenging due to the distinction between **tools** (distinct MCP server functions) and **parameters/actions** (options within each tool). For example, a single "Wi-Fi Security Toolkit" tool may offer 25+ different actions (scan, crack, monitor, etc.), but it counts as one tool. Similarly, complex tools with multiple parameters can appear as multiple capabilities while remaining a single tool. Our counts represent the actual MCP server tool registrations, ensuring accuracy while acknowledging that each tool may provide numerous sub-capabilities.
 
@@ -81,9 +80,6 @@ The modular server has **96 tools** vs. the monolithic server's **99 tools** bec
 4. **No Functionality Loss**: All capabilities remain available, just organized differently
 
 **🎯 Bottom Line**: Both architectures provide the same comprehensive capabilities - the difference is in organization and granularity, not functionality.
-=======
-**📝 Note**: We offer both monolithic and modular server architectures. Our **primary monolithic server** provides comprehensive functionality in a unified interface with **89 tools**. The modular server fragments complex actions into individual, focused tools (**99 tools total**) for granular control, better error handling, and for the ease of an individual to extract a tool for their own server build. Tools are located in dev/src/tools. Each architecture serves different use cases and preferences.
->>>>>>> 9733b750425e48b905b4677884969ad5f21d735d
 
 🎭 **Fun Fact**: One MCP to rule them all, one MCP to find them, one MCP to compile the tools, and in the God Mode bind them! 🎲⚡
 
@@ -395,6 +391,26 @@ python -m mcp_god_mode.tools.email.send_email \
 
 **[📖 View More Examples](docs/EXAMPLES_AND_TUTORIALS.md)**
 
+## 🛠️ Troubleshooting & Support
+
+### **Need Help?**
+If you encounter issues, need assistance, or have questions about MCP God Mode:
+
+**📞 Official Discord Server**: Join our community for real-time support, troubleshooting, and discussions: [https://discord.gg/EuQBurC2](https://discord.gg/EuQBurC2)
+
+**👨‍💻 Contact Blink Zero**: For technical support, bug reports, or advanced troubleshooting, reach out to Blink Zero directly on Discord.
+
+### **Common Issues**
+- **Installation Problems**: Check platform-specific setup guides
+- **Tool Not Working**: Verify dependencies and permissions
+- **Cross-Platform Issues**: Review compatibility matrix
+- **Performance Issues**: Check system requirements and resource usage
+
+### **Bug Reports & Feature Requests**
+- **Discord**: Report bugs and request features in our Discord server
+- **GitHub Issues**: For detailed bug reports and feature requests
+- **Security Issues**: Contact Blink Zero directly for security-related concerns
+
 ## 🌍 Cross-Platform Support
 
 ### Platform Matrix
@@ -522,6 +538,8 @@ We welcome contributions from the community! Here's how you can help:
 
 **[📋 Read Full Legal Disclaimer](docs/LEGAL_DISCLAIMER.md)** - Terms of use, liability information, and prohibited uses
 
+**📞 Contact for Legal Matters**: For legal questions, compliance inquiries, or authorization concerns, contact Blink Zero on our official Discord server: [https://discord.gg/EuQBurC2](https://discord.gg/EuQBurC2)
+
 ## 📄 License
 
 This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file for details.
@@ -537,7 +555,7 @@ This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) 
 
 ### **Meet Blink Zero (Shuriken Miasma)**
 
-MCP GOD MODE's official Discord server-> https://discord.gg/EuQBurC2
+**🎮 Join Our Community**: [MCP GOD MODE's Official Discord Server](https://discord.gg/EuQBurC2) - Connect with Blink Zero and the community for support, discussions, and updates.
 
 The mastermind behind MCP God Mode is **Blink Zero**, a true renaissance developer who combines martial arts mastery with electronic jazz composition and cutting-edge cybersecurity development.
 
