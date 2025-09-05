@@ -24,20 +24,20 @@ https://github.com/user-attachments/assets/932c43e4-159e-4ce2-9c02-4acf23fc47fd
 ## 📚 Quick Navigation
 
 - **[🚀 Quick Start](docs/COMPLETE_SETUP_GUIDE.md)** - Get up and running in minutes
-- **[📋 Complete Tool Index](docs/DOCUMENTATION_INDEX.md)** - Browse all 99 tools
+- **[📋 Complete Tool Index](docs/DOCUMENTATION_INDEX.md)** - Browse all 89 tools
 - **[🔧 Parameter Reference](docs/COMPLETE_PARAMETER_REFERENCE.md)** - Complete parameter documentation
 - **[💻 Examples & Tutorials](docs/EXAMPLES_AND_TUTORIALS.md)** - Real-world usage examples
 - **[🌍 Platform Compatibility](docs/CROSS_PLATFORM_COMPATIBILITY.md)** - Platform-specific details
 
 ## 🌟 What is MCP God Mode?
 
-MCP God Mode is the ultimate cybersecurity and system management platform that provides **99 fully implemented tools** across **5 major platforms**. It's designed for security professionals, system administrators, penetration testers, and anyone who needs comprehensive system control and security testing capabilities. 
+MCP God Mode is the ultimate cybersecurity and system management platform that provides **89 fully implemented tools** across **5 major platforms**. It's designed for security professionals, system administrators, penetration testers, and anyone who needs comprehensive system control and security testing capabilities. 
 
-**📝 Note**: We offer both monolithic and modular server architectures. Our **primary monolithic server** provides comprehensive functionality in a unified interface with **99 tools**. The modular server fragments complex actions into individual, focused tools (**96 tools total**) for granular control, better error handling, and for the ease of an individual to extract a tool for their own server build. Tools are located in dev/src/tools. Each architecture serves different use cases and preferences.
+**📝 Note**: We offer both monolithic and modular server architectures. Our **primary monolithic server** provides comprehensive functionality in a unified interface with **89 tools**. The modular server fragments complex actions into individual, focused tools (**96 tools total**) for granular control, better error handling, and for the ease of an individual to extract a tool for their own server build. Tools are located in dev/src/tools. Each architecture serves different use cases and preferences.
 
 **🔢 Tool Counting Complexity**: Accurately counting tools in a comprehensive system like MCP God Mode is inherently challenging due to the distinction between **tools** (distinct MCP server functions) and **parameters/actions** (options within each tool). For example, a single "Wi-Fi Security Toolkit" tool may offer 25+ different actions (scan, crack, monitor, etc.), but it counts as one tool. Similarly, complex tools with multiple parameters can appear as multiple capabilities while remaining a single tool. Our counts represent the actual MCP server tool registrations, ensuring accuracy while acknowledging that each tool may provide numerous sub-capabilities.
 
-**📊 Documentation Status**: All 99 tools now have comprehensive documentation with detailed usage examples, parameter references, and platform compatibility information.
+**📊 Documentation Status**: All 89 tools now have comprehensive documentation with detailed usage examples, parameter references, and platform compatibility information.
 
 ## 🔢 Understanding Tool Counts: Tools vs. Actions vs. Parameters
 
@@ -47,7 +47,7 @@ Tool counting in MCP God Mode presents unique challenges due to the multi-layere
 
 #### **🛠️ Tools (MCP Server Functions)**
 - **Definition**: Distinct MCP server tool registrations
-- **Count**: 99 tools (monolithic) / 96 tools (modular)
+- **Count**: 89 tools (monolithic) / 96 tools (modular)
 - **Example**: `wifi_security_toolkit` = 1 tool
 
 #### **⚡ Actions (Tool Capabilities)**
@@ -64,7 +64,7 @@ Tool counting in MCP God Mode presents unique challenges due to the multi-layere
 
 | Aspect | Monolithic Server | Modular Server |
 |--------|------------------|----------------|
-| **Tool Count** | 99 tools | 96 tools |
+| **Tool Count** | 89 tools | 96 tools |
 | **Architecture** | Unified interface | Individual focused tools |
 | **Complexity** | Multi-action tools | Single-action tools |
 | **Error Handling** | Centralized | Granular |
@@ -72,7 +72,7 @@ Tool counting in MCP God Mode presents unique challenges due to the multi-layere
 
 ### **Why the Count Difference?**
 
-The modular server has **96 tools** vs. the monolithic server's **99 tools** because:
+The modular server has **96 tools** vs. the monolithic server's **89 tools** because:
 
 1. **Tool Fragmentation**: Complex tools are broken into focused components
 2. **Action Separation**: Multi-action tools become multiple single-action tools
@@ -97,7 +97,7 @@ See MCP God Mode in action with Cursor IDE integration:
 
 </div>
 
-*MCP God Mode tools seamlessly integrated into Cursor IDE - providing instant access to 99 powerful security and system management tools across all major platforms! 🚀✨*
+*MCP God Mode tools seamlessly integrated into Cursor IDE - providing instant access to 89 powerful security and system management tools across all major platforms! 🚀✨*
 
 **🎭 Fun Fact**: We have so many visual proofs, even the screenshots are impressed! Each image shows different aspects of our comprehensive tool integration! 📸💻
 
@@ -297,18 +297,18 @@ https://github.com/user-attachments/assets/f074039c-1989-40fc-b769-5efa855e854d
 | **☁️ Cloud** | 3 | Cloud security, cloud infrastructure management |
 | **🪟 Windows-Specific** | 2 | Windows services and process management |
 
-**Total: 99 Tools** - All fully implemented, tested, and documented ✅
+**Total: 89 Tools** - All fully implemented, tested, and documented ✅
 
 ## 🎯 **Implementation Status: 100% Complete**
 
-✅ **All 99 tools are fully implemented and tested**  
+✅ **All 89 tools are fully implemented and tested**  
 ✅ **Cross-platform compatibility verified**  
 ✅ **MCP protocol integration complete**  
 ✅ **Natural language interface working**  
 ✅ **Comprehensive documentation available for all tools**  
 ✅ **Real-world testing completed**
 
-**🔧 Architecture Note**: We offer both monolithic and modular server architectures. Our **primary monolithic server** provides comprehensive functionality in a unified interface with **99 tools**. The modular server fragments complex actions into individual, focused tools (**96 tools total**) for granular control and better error handling. Each architecture serves different use cases and preferences.  
+**🔧 Architecture Note**: We offer both monolithic and modular server architectures. Our **primary monolithic server** provides comprehensive functionality in a unified interface with **89 tools**. The modular server fragments complex actions into individual, focused tools (**96 tools total**) for granular control and better error handling. Each architecture serves different use cases and preferences.  
 
 ### 🪟 Windows-Specific (2 Tools)
 - **Service Management** - Windows service control
@@ -416,11 +416,11 @@ If you encounter issues, need assistance, or have questions about MCP God Mode:
 ### Platform Matrix
 | Platform | Core Tools | Security Tools | Media Tools | Mobile Tools | Total Support |
 |----------|------------|----------------|-------------|--------------|---------------|
-| **Windows** | ✅ 100% | ✅ 100% | ✅ 100% | ✅ 100% | **99/99 (100%)** |
-| **Linux** | ✅ 100% | ✅ 100% | ✅ 100% | ✅ 100% | **99/99 (100%)** |
-| **macOS** | ✅ 100% | ✅ 100% | ✅ 100% | ✅ 100% | **99/99 (100%)** |
-| **Android** | ✅ 100% | ✅ 100% | ✅ 100% | ✅ 100% | **99/99 (100%)** |
-| **iOS** | ✅ 100% | ✅ 100% | ✅ 100% | ✅ 100% | **99/99 (100%)** |
+| **Windows** | ✅ 100% | ✅ 100% | ✅ 100% | ✅ 100% | **89/89 (100%)** |
+| **Linux** | ✅ 100% | ✅ 100% | ✅ 100% | ✅ 100% | **89/89 (100%)** |
+| **macOS** | ✅ 100% | ✅ 100% | ✅ 100% | ✅ 100% | **89/89 (100%)** |
+| **Android** | ✅ 100% | ✅ 100% | ✅ 100% | ✅ 100% | **89/89 (100%)** |
+| **iOS** | ✅ 100% | ✅ 100% | ✅ 100% | ✅ 100% | **89/89 (100%)** |
 
 **[📖 View Complete Compatibility Matrix](docs/CROSS_PLATFORM_COMPATIBILITY.md)**
 
@@ -528,7 +528,7 @@ We welcome contributions from the community! Here's how you can help:
 
 
 ### 🔄 Version History
-- **v1.5** (Current) - **99/99 tools complete (100%)**, comprehensive documentation, cross-platform support, MCP integration, accurate tool counting
+- **v1.5** (Current) - **89/89 tools complete (100%)**, comprehensive documentation, cross-platform support, MCP integration, accurate tool counting
 - **v1.4a** - Enhanced security tools and mobile support
 - **v1.0** - Initial release with core functionality
 
@@ -584,7 +584,7 @@ If MCP God Mode has been helpful to you, please consider giving it a star on Git
 
 *Last Updated: January 2025*  
 *MCP God Mode v1.5 - One MCP to rule them all - The Ultimate Cross-Platform Security Suite*  
-*All 99 tools tested, verified working, and fully documented ✅*
+*All 89 tools tested, verified working, and fully documented ✅*
 
 ---
 
