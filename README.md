@@ -485,6 +485,8 @@ This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) 
 
 ### **Meet Blink Zero (Shuriken Miasma)**
 
+MCP GOD MODE's official Discord server-> https://discord.gg/EuQBurC2
+
 The mastermind behind MCP God Mode is **Blink Zero**, a true renaissance developer who combines martial arts mastery with electronic jazz composition and cutting-edge cybersecurity development.
 
 #### **🥋 Martial Arts Mastery**
