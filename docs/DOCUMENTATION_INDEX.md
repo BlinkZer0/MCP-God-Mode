@@ -8,6 +8,14 @@ This index provides a comprehensive mapping of all tools, features, and document
 - **[Implementation Status](IMPLEMENTATION_COMPLETE.md)** - Current development status
 - **[Parameter Reference](PARAMETER_REFERENCE.md)** - Complete parameter documentation
 
+### ⚡ **Recommended: Use with Cursor AI Agent Mode**
+**For optimal performance, we recommend using this project with Cursor AI in Agent mode.** Agent mode empowers Cursor to autonomously handle complex coding tasks, such as multi-file edits and terminal command execution, which are integral to this project's functionality.
+
+**To activate Agent mode:**
+1. Open the Composer (Ctrl+I)
+2. Select the Agent icon
+3. Begin utilizing the enhanced features
+
 ## 🛠️ Core System Tools
 
 ### File System Operations

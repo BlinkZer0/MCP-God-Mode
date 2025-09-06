@@ -6,6 +6,17 @@ MCP God Mode is designed to be **completely portable** and work regardless of wh
 
 ## 🎯 Quick Start
 
+### ⚡ **Recommended: Use with Cursor AI Agent Mode**
+
+**For optimal performance, we recommend using this project with Cursor AI in Agent mode.** Agent mode empowers Cursor to autonomously handle complex coding tasks, such as multi-file edits and terminal command execution, which are integral to this project's functionality.
+
+**To activate Agent mode:**
+1. Open the Composer (Ctrl+I)
+2. Select the Agent icon
+3. Begin utilizing the enhanced features
+
+This mode provides the best experience for leveraging MCP God Mode's comprehensive toolset through natural language interaction.
+
 ### 1. **Clone/Download the Project**
 ```bash
 git clone https://github.com/blinkzero/mcp-god-mode.git
@@ -116,20 +127,39 @@ docker run -it mcp-god-mode
 
 ## 🔌 MCP Client Integration
 
-### **Cursor AI**
+### **🌐 Multi-Frontend Support**
+
+MCP God Mode is compatible with multiple frontends that support the Model Context Protocol. For comprehensive integration instructions, see our **[Frontend Integration Guide](MCP_FRONTEND_INTEGRATION_GUIDE.md)**.
+
+### **Supported Frontends:**
+- **Cursor AI** (Recommended) - Best overall experience with Agent mode
+- **LM Studio** - Excellent for local model integration  
+- **Claude** - Advanced AI tasks via bridge
+- **SillyTavern** - Roleplay and chat (beta)
+- **Continue** - VS Code extension
+- **Open WebUI** - Web-based interface
+
+### **Quick Setup - Cursor AI (Recommended)**
 1. Copy `mcp.json` to your Cursor AI MCP configuration
 2. Ensure the project path is correct
-3. Restart Cursor AI
+3. **Enable Agent mode** (recommended):
+   - Open Composer (Ctrl+I)
+   - Select the Agent icon
+   - This enables autonomous multi-file edits and terminal execution
+4. Restart Cursor AI
 
-### **LM Studio**
-1. Copy `mcp.json` to your LM Studio MCP configuration
-2. Set the working directory to the project root
+### **Quick Setup - LM Studio**
+1. Open LM Studio → Program tab → Install → Edit mcp.json
+2. Add MCP God Mode server configuration
 3. Restart LM Studio
 
-### **Other MCP Clients**
+### **Quick Setup - Other Clients**
 1. Use the provided `mcp.json` as a template
 2. Adjust paths if needed for your specific client
 3. Ensure the working directory points to the project root
+
+### **📖 Detailed Instructions**
+For complete setup instructions for all supported frontends, security considerations, and troubleshooting, see the **[Frontend Integration Guide](MCP_FRONTEND_INTEGRATION_GUIDE.md)**.
 
 ## 🚨 Troubleshooting
 

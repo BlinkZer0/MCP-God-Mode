@@ -24,6 +24,7 @@ https://github.com/user-attachments/assets/932c43e4-159e-4ce2-9c02-4acf23fc47fd
 ## 📚 Quick Navigation
 
 - **[🚀 Quick Start](docs/COMPLETE_SETUP_GUIDE.md)** - Get up and running in minutes
+- **[🌐 Frontend Integration Guide](docs/MCP_FRONTEND_INTEGRATION_GUIDE.md)** - Setup for Cursor, LM Studio, Claude, SillyTavern & more
 - **[📋 Complete Tool Index](docs/DOCUMENTATION_INDEX.md)** - Browse all 89 tools
 - **[🔧 Parameter Reference](docs/COMPLETE_PARAMETER_REFERENCE.md)** - Complete parameter documentation
 - **[💻 Examples & Tutorials](docs/EXAMPLES_AND_TUTORIALS.md)** - Real-world usage examples
@@ -105,6 +106,7 @@ See MCP God Mode in action with Cursor IDE integration:
 
 - **🔒 100% Complete Implementation** - Every tool is fully functional and tested
 - **🌍 Universal Platform Support** - Windows, Linux, macOS, Android, iOS
+- **🌐 Multi-Frontend Compatibility** - Works with Cursor, LM Studio, Claude, SillyTavern & more
 - **🛡️ Enterprise-Grade Security** - Professional penetration testing tools
 - **📱 Mobile-First Design** - Full mobile device support and management
 - **🔧 Natural Language Interface** - Use tools with simple commands
@@ -318,7 +320,28 @@ https://github.com/user-attachments/assets/f074039c-1989-40fc-b769-5efa855e854d
 
 ## 🚀 Quick Start
 
-### 1. Choose Your Platform
+### ⚡ **Recommended: Use with Cursor AI Agent Mode**
+
+**For optimal performance, we recommend using this project with Cursor AI in Agent mode.** Agent mode empowers Cursor to autonomously handle complex coding tasks, such as multi-file edits and terminal command execution, which are integral to this project's functionality.
+
+**To activate Agent mode:**
+1. Open the Composer (Ctrl+I)
+2. Select the Agent icon
+3. Begin utilizing the enhanced features
+
+This mode provides the best experience for leveraging MCP God Mode's comprehensive toolset through natural language interaction.
+
+### 1. Choose Your Frontend
+Select your preferred MCP-compatible frontend:
+
+- **[🖥️ Cursor AI](docs/MCP_FRONTEND_INTEGRATION_GUIDE.md#cursor-ai-integration)** - Recommended (Agent mode)
+- **[🎵 LM Studio](docs/MCP_FRONTEND_INTEGRATION_GUIDE.md#lm-studio-integration)** - Local AI models
+- **[🤖 Claude](docs/MCP_FRONTEND_INTEGRATION_GUIDE.md#claude-integration-via-bridge)** - Advanced AI tasks
+- **[🎭 SillyTavern](docs/MCP_FRONTEND_INTEGRATION_GUIDE.md#sillytavern-integration)** - Roleplay & chat
+- **[🔧 Continue](docs/MCP_FRONTEND_INTEGRATION_GUIDE.md#continue-integration)** - VS Code extension
+- **[🌐 Open WebUI](docs/MCP_FRONTEND_INTEGRATION_GUIDE.md#open-webui-integration)** - Web interface
+
+### 2. Choose Your Platform
 Select your operating system for specific installation instructions:
 
 - **[🪟 Windows Setup](docs/COMPLETE_SETUP_GUIDE.md#windows-setup)** - PowerShell, Chocolatey, or manual installation
@@ -327,7 +350,7 @@ Select your operating system for specific installation instructions:
 - **[🤖 Android Setup](docs/COMPLETE_SETUP_GUIDE.md#android-setup)** - Termux, ADB, or root installation
 - **[🍎 iOS Setup](docs/COMPLETE_SETUP_GUIDE.md#ios-setup)** - TestFlight, jailbreak, or manual deployment
 
-### 2. Install Dependencies
+### 3. Install Dependencies
 ```bash
 # Python 3.8+ required
 python --version
@@ -340,7 +363,7 @@ cd MCP-God-Mode
 pip install -r requirements.txt
 ```
 
-### 3. First Steps
+### 4. First Steps
 ```bash
 # Test installation
 python -m mcp_god_mode.tools.core.system_info
