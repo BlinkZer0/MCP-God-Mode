@@ -534,9 +534,9 @@ mcp_servers:
 | **Web Interface** | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ | ❌ | ✅ | ✅ |
 | **Desktop App** | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ |
 | **VS Code Integration** | ✅ | ❌ | ❌ | ❌ | ✅ | ❌ | ❌ | ❌ | ❌ |
-| **Roleplay Features** | ❌ | ❌ | ❌ | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ |
-| **D&D 5e Support** | ❌ | ❌ | ❌ | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ |
-| **Hacker RP Scenarios** | ❌ | ❌ | ❌ | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ |
+| **Roleplay Features** | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| **D&D 5e Support** | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| **Hacker RP Scenarios** | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | **Cloud API Support** | ❌ | ❌ | ✅ | ✅ | ❌ | ✅ | ✅ | ✅ | ❌ |
 | **Enterprise Features** | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ | ❌ |
 | **Multi-Agent Systems** | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ | ✅ | ❌ |
@@ -564,16 +564,18 @@ mcp_servers:
 - **Alternative**: Cursor AI
 
 ### **For Roleplay/Chat:**
-- **Primary**: SillyTavern (D&D 5e support, hacker RP scenarios, cloud APIs)
-- **Alternative**: Open WebUI
+- **Primary**: SillyTavern (optimized for RP with cloud APIs and specialized features)
+- **Alternative**: Any MCP-compatible frontend (all support RP through natural language)
+
+**Note**: All MCP-compatible platforms can technically support roleplay and D&D experiences since they all have access to our dice rolling tools and natural language interface. SillyTavern is optimized for these activities, but any frontend can be used for RP scenarios.
 
 ### **For D&D 5e Gaming:**
-- **Primary**: SillyTavern (full dice tool support, character integration)
-- **Alternative**: None (unique to SillyTavern)
+- **Primary**: SillyTavern (optimized for tabletop gaming with specialized features)
+- **Alternative**: Any MCP-compatible frontend (all support D&D 5e through dice tools)
 
 ### **For Cybersecurity Education/RP:**
 - **Primary**: SillyTavern (hacker character scenarios with real tools)
-- **Alternative**: Cursor AI (development focus)
+- **Alternative**: Any MCP-compatible frontend (all support cybersecurity RP scenarios)
 
 ### **For Web Interface:**
 - **Primary**: Open WebUI
