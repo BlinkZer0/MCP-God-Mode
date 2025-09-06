@@ -61,8 +61,10 @@ Our project is compatible with several automated MCP installers:
 
 ### **Why Cursor AI is Recommended:**
 - **Agent Mode** - Autonomous multi-file edits and terminal execution
+- **Multi-Agent Architecture** - Multiple chat tabs operate concurrently with isolated contexts
 - **Native MCP Support** - Seamless integration with comprehensive toolset
 - **Development Focus** - Optimized for coding and system administration tasks
+- **Parallel Task Execution** - Different agents can work on separate tasks simultaneously
 
 ### **Installation Steps:**
 1. **Copy Configuration:**
@@ -77,6 +79,28 @@ Our project is compatible with several automated MCP installers:
    - This enables autonomous task execution
 
 3. **Restart Cursor AI**
+
+### **Cursor's Unique Multi-Agent Architecture:**
+
+Cursor AI implements a distinctive multi-agent approach that differs from traditional multi-agent systems:
+
+#### **Multi-Chat Tab System:**
+- **Concurrent Operations** - Multiple chat tabs can run simultaneously
+- **Isolated Contexts** - Each tab maintains its own conversation history and context
+- **Independent Model Selection** - Different tabs can use different AI models
+- **Parallel Task Execution** - Agents can work on separate tasks without interference
+
+#### **How It Works:**
+1. **Open Multiple Tabs** - Create separate chat tabs for different tasks
+2. **Isolated Contexts** - Each tab operates independently
+3. **Shared MCP Tools** - All tabs have access to the same MCP God Mode tools
+4. **Coordinated Workflows** - Agents can reference each other's work when needed
+
+#### **Use Cases:**
+- **Parallel Development** - One agent handles frontend, another handles backend
+- **Specialized Tasks** - Different agents for debugging, testing, documentation
+- **Context Isolation** - Keep sensitive operations separate from general development
+- **Model Optimization** - Use different models for different types of tasks
 
 ### **Configuration Example:**
 ```json
@@ -504,6 +528,7 @@ mcp_servers:
 | Feature | Cursor AI | LM Studio | Claude Desktop | SillyTavern | Continue | Open WebUI | CAMEL-AI | Azure AI | MCP Bridge |
 |---------|-----------|-----------|----------------|-------------|----------|------------|----------|----------|------------|
 | **Agent Mode** | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ |
+| **Multi-Agent Support** | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ | ✅ | ❌ |
 | **Native MCP Support** | ✅ | ✅ | ✅ | 🔶 | ✅ | ✅ | ✅ | ✅ | ✅ |
 | **Local Models** | ❌ | ✅ | ❌ | ✅ | ❌ | ✅ | ✅ | ❌ | ❌ |
 | **Web Interface** | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ | ❌ | ✅ | ✅ |
@@ -527,7 +552,7 @@ mcp_servers:
 ## 🎯 Recommendations by Use Case
 
 ### **For Development:**
-- **Primary**: Cursor AI (Agent mode)
+- **Primary**: Cursor AI (Agent mode + multi-agent architecture)
 - **Alternative**: Continue (VS Code integration)
 
 ### **For Local AI Models:**
