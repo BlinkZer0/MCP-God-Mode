@@ -10,18 +10,50 @@ MCP God Mode is compatible with multiple frontends that support the Model Contex
 |----------|-------------|--------|----------|
 | **Cursor AI** | ✅ Full Support | Recommended | Development & Coding |
 | **LM Studio** | ✅ Full Support | Stable | Local AI Models |
-| **Claude** | ✅ Via Bridge | Stable | Advanced AI Tasks |
+| **Claude Desktop** | ✅ Native Support | Stable | Advanced AI Tasks |
 | **SillyTavern** | 🔄 In Development | Beta | Roleplay & Chat |
 | **Continue** | ✅ Full Support | Stable | VS Code Extension |
 | **Open WebUI** | ✅ Full Support | Stable | Web Interface |
+| **CAMEL-AI Agents** | ✅ Full Support | Stable | AI Agent Development |
+| **Azure AI Foundry** | ✅ Full Support | Stable | Enterprise AI Solutions |
+| **MCP Bridge** | ✅ Proxy Support | Stable | Mobile/Web Integration |
 
 ## 🚀 Quick Integration Summary
 
 ### **Recommended Setup Order:**
 1. **Cursor AI** - Best overall experience with Agent mode
-2. **LM Studio** - Excellent for local model integration
-3. **Continue** - Great VS Code alternative
-4. **Open WebUI** - Web-based interface option
+2. **Claude Desktop** - Native MCP support with advanced AI capabilities
+3. **LM Studio** - Excellent for local model integration
+4. **Continue** - Great VS Code alternative
+5. **Open WebUI** - Web-based interface option
+
+### **🛠️ Automated Installation Options:**
+
+#### **MCP God Mode Interactive Installer:**
+Our project includes a comprehensive interactive installer that supports multiple server configurations:
+
+```bash
+# Run the interactive installer
+./scripts/installers/install.sh    # Linux/macOS
+./scripts/installers/install.bat   # Windows
+
+# Or directly
+cd dev && node install.js
+```
+
+**Available Server Versions:**
+- **Ultra-Minimal** (15 tools) - Essential tools for embedded systems
+- **Minimal** (25 tools) - Core system administration tools
+- **Full** (99 tools) - Complete MCP God Mode with all capabilities
+- **Modular** (96 tools) - Organized modular architecture
+- **Custom** - Build your own with specific tools
+
+#### **Third-Party MCP Installers:**
+Our project is compatible with several automated MCP installers:
+
+- **MCP Installer** - Automates installation from npm, PyPI, or local sources
+- **MCP Easy Installer** - Supports Claude Desktop, Windsurf, Cursor, Roo Code, Cline, and GitHub Copilot
+- **SillyTavern MCP Extension** - WebSocket-based tool execution for SillyTavern
 
 ---
 
@@ -125,56 +157,93 @@ LM Studio (v0.3.17+) acts as an MCP Host, allowing connection to MCP servers and
 
 ---
 
-## 🤖 Claude Integration (Via Bridge)
+## 🤖 Claude Desktop Integration
 
-### **About Claude Integration:**
-Claude can be integrated with MCP God Mode using the Claude-LMStudio Bridge, enabling communication with locally running models.
+### **About Claude Desktop:**
+Claude Desktop application has native MCP support, enabling seamless integration with MCP God Mode tools. This provides direct access to all 89 tools through Claude's conversational interface.
 
-### **Installation Steps:**
+### **Installation Methods:**
 
-1. **Clone the Bridge Repository:**
+#### **Method 1: Desktop Extensions (DXT) - Recommended**
+1. **Download Claude Desktop:**
+   - Visit [Anthropic's website](https://claude.ai/download) to download Claude Desktop
+   - Install the application on your system
+
+2. **Install MCP God Mode Extension:**
+   - Open Claude Desktop
+   - Navigate to Extensions or MCP settings
+   - Look for MCP God Mode in the available extensions
+   - Click "Install" for one-click setup
+
+3. **Configure Extension:**
+   - The extension will automatically configure MCP God Mode
+   - No manual configuration required
+
+#### **Method 2: Manual Configuration**
+1. **Locate Claude Desktop Config:**
    ```bash
-   git clone https://github.com/infinitimeless/Claude-LMStudio-Bridge_V2.git
-   cd Claude-LMStudio-Bridge_V2
-   ```
-
-2. **Set Up Virtual Environment:**
-   ```bash
-   # Create virtual environment
-   python -m venv venv
+   # Windows
+   %APPDATA%\Claude\claude_desktop_config.json
    
-   # Activate (Linux/macOS)
-   source venv/bin/activate
+   # macOS
+   ~/Library/Application Support/Claude/claude_desktop_config.json
    
-   # Activate (Windows)
-   venv\Scripts\activate
+   # Linux
+   ~/.config/claude/claude_desktop_config.json
    ```
 
-3. **Install Dependencies:**
-   ```bash
-   pip install -r requirements.txt
+2. **Add MCP God Mode Server:**
+   ```json
+   {
+     "mcpServers": {
+       "mcp-god-mode": {
+         "command": "node",
+         "args": ["./start-mcp.js"],
+         "cwd": "/path/to/mcp-god-mode",
+         "env": {
+           "ALLOWED_ROOT": "",
+           "WEB_ALLOWLIST": "",
+           "PROC_ALLOWLIST": "",
+           "EXTRA_PATH": ""
+         }
+       }
+     }
+   }
    ```
 
-4. **Configure MCP God Mode:**
-   - Ensure MCP God Mode is running on your system
-   - Update bridge configuration to point to MCP God Mode server
+3. **Restart Claude Desktop**
 
-5. **Run the Bridge Server:**
-   ```bash
-   python lmstudio_bridge.py
-   ```
+#### **Method 3: Supermachine Integration**
+1. **Create Supermachine Account:**
+   - Visit [supermachine.ai](https://supermachine.ai)
+   - Create an account and set up MCP server
 
-6. **Configure Claude:**
-   - In Claude's interface, enable the MCP server
-   - Point it to your locally running bridge
+2. **Configure MCP God Mode:**
+   - Add MCP God Mode server configuration in Supermachine
+   - Set up necessary credentials and permissions
+
+3. **Connect to Claude Desktop:**
+   - Modify Claude Desktop configuration file
+   - Point to Supermachine MCP server
    - Test the connection
 
-### **Configuration Example:**
-```python
-# Bridge configuration
-MCP_SERVER_URL = "http://localhost:3000"  # MCP God Mode server
-CLAUDE_API_KEY = "your-claude-api-key"
+### **Usage Examples:**
+Once configured, you can use natural language to access MCP God Mode tools:
+
 ```
+"Scan my network for open ports"
+"Analyze this file for malware"
+"Generate a secure password"
+"Monitor system processes"
+"Test WiFi security on my network"
+```
+
+### **Key Benefits:**
+- **Native Integration** - Direct MCP support without bridges
+- **User-Friendly** - Simple installation and configuration
+- **Full Tool Access** - All 89 MCP God Mode tools available
+- **Natural Language** - Use tools through conversational interface
+- **Desktop App** - Dedicated application with better performance
 
 ---
 
@@ -432,18 +501,24 @@ mcp_servers:
 
 ## 📊 Frontend Comparison
 
-| Feature | Cursor AI | LM Studio | Claude | SillyTavern | Continue | Open WebUI |
-|---------|-----------|-----------|--------|-------------|----------|------------|
-| **Agent Mode** | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ |
-| **Local Models** | ❌ | ✅ | ❌ | ✅ | ❌ | ✅ |
-| **Web Interface** | ❌ | ❌ | ✅ | ❌ | ❌ | ✅ |
-| **VS Code Integration** | ✅ | ❌ | ❌ | ❌ | ✅ | ❌ |
-| **Roleplay Features** | ❌ | ❌ | ❌ | ✅ | ❌ | ❌ |
-| **D&D 5e Support** | ❌ | ❌ | ❌ | ✅ | ❌ | ❌ |
-| **Hacker RP Scenarios** | ❌ | ❌ | ❌ | ✅ | ❌ | ❌ |
-| **Cloud API Support** | ❌ | ❌ | ✅ | ✅ | ❌ | ✅ |
-| **Development Focus** | ✅ | ❌ | ✅ | ❌ | ✅ | ❌ |
-| **Ease of Setup** | ✅ | ✅ | 🔶 | 🔶 | ✅ | ✅ |
+| Feature | Cursor AI | LM Studio | Claude Desktop | SillyTavern | Continue | Open WebUI | CAMEL-AI | Azure AI | MCP Bridge |
+|---------|-----------|-----------|----------------|-------------|----------|------------|----------|----------|------------|
+| **Agent Mode** | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ |
+| **Native MCP Support** | ✅ | ✅ | ✅ | 🔶 | ✅ | ✅ | ✅ | ✅ | ✅ |
+| **Local Models** | ❌ | ✅ | ❌ | ✅ | ❌ | ✅ | ✅ | ❌ | ❌ |
+| **Web Interface** | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ | ❌ | ✅ | ✅ |
+| **Desktop App** | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ |
+| **VS Code Integration** | ✅ | ❌ | ❌ | ❌ | ✅ | ❌ | ❌ | ❌ | ❌ |
+| **Roleplay Features** | ❌ | ❌ | ❌ | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ |
+| **D&D 5e Support** | ❌ | ❌ | ❌ | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ |
+| **Hacker RP Scenarios** | ❌ | ❌ | ❌ | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ |
+| **Cloud API Support** | ❌ | ❌ | ✅ | ✅ | ❌ | ✅ | ✅ | ✅ | ❌ |
+| **Enterprise Features** | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ | ❌ |
+| **Multi-Agent Systems** | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ | ✅ | ❌ |
+| **Mobile Support** | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ |
+| **RESTful API** | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ |
+| **Development Focus** | ✅ | ❌ | ✅ | ❌ | ✅ | ❌ | ✅ | ❌ | ❌ |
+| **Ease of Setup** | ✅ | ✅ | ✅ | 🔶 | ✅ | ✅ | 🔶 | 🔶 | ✅ |
 
 **Legend:** ✅ Excellent | 🔶 Moderate | ❌ Not Available
 
@@ -460,7 +535,7 @@ mcp_servers:
 - **Alternative**: Open WebUI
 
 ### **For Advanced AI Tasks:**
-- **Primary**: Claude (via bridge)
+- **Primary**: Claude Desktop (native MCP support)
 - **Alternative**: Cursor AI
 
 ### **For Roleplay/Chat:**
@@ -477,7 +552,452 @@ mcp_servers:
 
 ### **For Web Interface:**
 - **Primary**: Open WebUI
-- **Alternative**: Claude (web interface)
+- **Alternative**: Azure AI Foundry (enterprise web interface)
+
+### **For AI Agent Development:**
+- **Primary**: CAMEL-AI Agents (multi-agent systems)
+- **Alternative**: Azure AI Foundry (enterprise agents)
+
+### **For Enterprise Solutions:**
+- **Primary**: Azure AI Foundry (cloud deployment, enterprise features)
+- **Alternative**: CAMEL-AI Agents (research and development)
+
+### **For Mobile/Web Integration:**
+- **Primary**: MCP Bridge (RESTful API, mobile support)
+- **Alternative**: Azure AI Foundry (web interface)
+
+### **For Custom Development:**
+- **Primary**: Custom MCP Clients (full control)
+- **Alternative**: MCP Bridge (RESTful API)
+
+---
+
+## 🤖 CAMEL-AI Agents Integration
+
+### **About CAMEL-AI:**
+CAMEL-AI Agents can connect to external tools via MCP, enhancing their capabilities by accessing additional data and functionalities. This makes it perfect for AI agent development and multi-agent systems.
+
+### **Installation Steps:**
+
+1. **Install CAMEL-AI:**
+   ```bash
+   pip install camel-ai
+   ```
+
+2. **Configure MCP Server:**
+   ```python
+   from camel.agents import ChatAgent
+   from camel.mcp import MCPServer
+   
+   # Initialize MCP server connection
+   mcp_server = MCPServer("mcp-god-mode", {
+       "command": "node",
+       "args": ["./start-mcp.js"],
+       "cwd": "/path/to/mcp-god-mode"
+   })
+   
+   # Create agent with MCP capabilities
+   agent = ChatAgent(
+       system_message="You are a cybersecurity expert with access to MCP God Mode tools.",
+       mcp_servers=[mcp_server]
+   )
+   ```
+
+3. **Use MCP Tools in Agent Conversations:**
+   ```python
+   # Agent can now use MCP God Mode tools
+   response = agent.step("Scan the network for vulnerabilities")
+   ```
+
+### **Key Benefits:**
+- **Multi-Agent Systems** - Multiple agents can share MCP tools
+- **AI Agent Development** - Build sophisticated AI agents with real capabilities
+- **Research Applications** - Perfect for AI research and experimentation
+- **Tool Orchestration** - Agents can coordinate complex tool usage
+
+---
+
+## ☁️ Azure AI Foundry Integration
+
+### **About Azure AI Foundry:**
+Microsoft's Azure AI Foundry supports MCP integration, allowing AI agents to interact with existing applications through MCP servers. This is ideal for enterprise solutions and cloud-based deployments.
+
+### **Installation Steps:**
+
+1. **Set Up Azure AI Foundry:**
+   - Create an Azure account and set up AI Foundry
+   - Configure your AI agent in the Azure portal
+
+2. **Deploy MCP God Mode Server:**
+   ```bash
+   # Deploy to Azure App Service
+   az webapp create --resource-group myResourceGroup --plan myAppServicePlan --name mcp-god-mode --runtime "NODE|18-lts"
+   
+   # Deploy the application
+   az webapp deployment source config --name mcp-god-mode --resource-group myResourceGroup --repo-url https://github.com/your-username/MCP-God-Mode.git --branch main --manual-integration
+   ```
+
+3. **Configure MCP Connection:**
+   ```json
+   {
+     "mcpServers": {
+       "mcp-god-mode": {
+         "url": "https://mcp-god-mode.azurewebsites.net",
+         "headers": {
+           "Authorization": "Bearer YOUR_AZURE_TOKEN"
+         }
+       }
+     }
+   }
+   ```
+
+4. **Connect to AI Foundry Agent:**
+   - In Azure AI Foundry, add MCP server configuration
+   - Test the connection and tool availability
+
+### **Key Benefits:**
+- **Enterprise Scale** - Cloud-based deployment and scaling
+- **Azure Integration** - Seamless integration with Azure services
+- **Security** - Enterprise-grade security and compliance
+- **Monitoring** - Built-in monitoring and analytics
+
+---
+
+## 🌉 MCP Bridge Integration
+
+### **About MCP Bridge:**
+MCP Bridge serves as a lightweight, LLM-agnostic RESTful proxy for environments where direct MCP connections are impractical, such as mobile devices or web browsers. It connects to multiple MCP servers and exposes their capabilities through a unified API.
+
+### **Installation Steps:**
+
+1. **Set Up MCP Bridge:**
+   ```bash
+   # Clone MCP Bridge repository
+   git clone https://github.com/modelcontextprotocol/bridge.git
+   cd bridge
+   
+   # Install dependencies
+   npm install
+   
+   # Configure MCP God Mode server
+   cp config.example.json config.json
+   ```
+
+2. **Configure MCP God Mode Connection:**
+   ```json
+   {
+     "servers": {
+       "mcp-god-mode": {
+         "command": "node",
+         "args": ["./start-mcp.js"],
+         "cwd": "/path/to/mcp-god-mode"
+       }
+     },
+     "bridge": {
+       "port": 3000,
+       "host": "localhost"
+     }
+   }
+   ```
+
+3. **Start MCP Bridge:**
+   ```bash
+   npm start
+   ```
+
+4. **Access via REST API:**
+   ```bash
+   # List available tools
+   curl http://localhost:3000/tools
+   
+   # Use a tool
+   curl -X POST http://localhost:3000/tools/port_scanner \
+     -H "Content-Type: application/json" \
+     -d '{"target": "192.168.1.1", "ports": "80,443,8080"}'
+   ```
+
+### **Key Benefits:**
+- **Mobile Support** - Access MCP tools from mobile devices
+- **Web Integration** - Use MCP tools in web applications
+- **RESTful API** - Standard HTTP interface for tool access
+- **Resource Efficient** - Lightweight proxy for constrained environments
+
+---
+
+## 🔧 Alternative Integration Methods
+
+### **Custom MCP Clients:**
+You can build custom MCP clients using the MCP SDK:
+
+```python
+from mcp import ClientSession, StdioServerParameters
+import asyncio
+
+async def main():
+    # Connect to MCP God Mode server
+    server_params = StdioServerParameters(
+        command="node",
+        args=["./start-mcp.js"],
+        cwd="/path/to/mcp-god-mode"
+    )
+    
+    async with ClientSession(server_params) as session:
+        # List available tools
+        tools = await session.list_tools()
+        print(f"Available tools: {[tool.name for tool in tools.tools]}")
+        
+        # Use a tool
+        result = await session.call_tool("port_scanner", {
+            "target": "192.168.1.1",
+            "ports": "80,443,8080"
+        })
+        print(f"Scan result: {result}")
+
+asyncio.run(main())
+```
+
+### **Webhook Integration:**
+Set up webhooks to trigger MCP God Mode tools:
+
+```python
+from flask import Flask, request
+import subprocess
+
+app = Flask(__name__)
+
+@app.route('/webhook/scan', methods=['POST'])
+def trigger_scan():
+    data = request.json
+    target = data.get('target')
+    
+    # Trigger MCP God Mode tool
+    result = subprocess.run([
+        'node', './start-mcp.js', '--tool', 'port_scanner',
+        '--target', target
+    ], capture_output=True, text=True)
+    
+    return {'result': result.stdout}
+
+if __name__ == '__main__':
+    app.run(port=5000)
+```
+
+### **Docker Integration:**
+Run MCP God Mode in containers for easy deployment:
+
+```dockerfile
+FROM node:18-alpine
+WORKDIR /app
+COPY . .
+RUN npm install
+EXPOSE 3000
+CMD ["node", "start-mcp.js"]
+```
+
+```bash
+# Build and run
+docker build -t mcp-god-mode .
+docker run -p 3000:3000 mcp-god-mode
+```
+
+---
+
+## 🛠️ Automated Installation Methods
+
+### **MCP God Mode Interactive Installer**
+
+Our project includes a comprehensive interactive installer that handles multiple server configurations and platform-specific requirements:
+
+#### **Features:**
+- **Multiple Server Versions** - Choose from ultra-minimal to full-featured
+- **Platform Detection** - Automatic detection of Windows, macOS, Linux
+- **Dependency Management** - Automatic installation of required packages
+- **Configuration Generation** - Creates appropriate config files for each frontend
+- **Validation** - Tests installation and verifies functionality
+
+#### **Usage:**
+```bash
+# Interactive installer
+./scripts/installers/install.sh    # Linux/macOS
+./scripts/installers/install.bat   # Windows
+
+# Direct execution
+cd dev && node install.js
+
+# With options
+node install.js --help             # Show help
+node install.js --version          # Show version
+```
+
+#### **Server Configuration Options:**
+1. **Ultra-Minimal** (15 tools) - Essential tools for embedded systems
+2. **Minimal** (25 tools) - Core system administration tools  
+3. **Full** (99 tools) - Complete MCP God Mode with all capabilities
+4. **Modular** (96 tools) - Organized modular architecture
+5. **Custom** - Build your own with specific tools
+
+### **Third-Party MCP Installers**
+
+#### **MCP Installer (mcplane.com)**
+Automates installation and registration of MCP servers from npm, PyPI, or local sources:
+
+```bash
+# Install MCP God Mode via MCP Installer
+mcp-installer install mcp-god-mode
+
+# Configure for specific frontend
+mcp-installer configure --frontend claude-desktop
+mcp-installer configure --frontend cursor
+mcp-installer configure --frontend lm-studio
+```
+
+**Supported Frontends:**
+- Claude Desktop
+- Cursor AI
+- LM Studio
+- Continue
+- Open WebUI
+
+#### **MCP Easy Installer (mcp.pizza)**
+Simplifies setup by automating installation, configuration, and repair tasks:
+
+```bash
+# Easy installation for multiple frontends
+mcp-easy-installer install mcp-god-mode --frontends cursor,claude,lm-studio
+
+# Auto-configure for all supported frontends
+mcp-easy-installer auto-configure mcp-god-mode
+```
+
+**Supported Applications:**
+- Claude Desktop
+- Windsurf
+- Cursor
+- Roo Code
+- Cline
+- GitHub Copilot
+
+#### **SillyTavern MCP Extension**
+WebSocket-based tool execution support for SillyTavern:
+
+```bash
+# Install SillyTavern MCP Extension
+git clone https://github.com/CG-Labs/SillyTavern-MCP-Extension.git
+cd SillyTavern-MCP-Extension
+
+# Configure for MCP God Mode
+python configure.py --mcp-server mcp-god-mode --path /path/to/mcp-god-mode
+```
+
+**Features:**
+- WebSocket-based tool execution
+- External tool registration
+- Standardized interface
+- SillyTavern web interface integration
+
+### **Platform-Specific Installation**
+
+#### **Windows:**
+```powershell
+# Using Chocolatey
+choco install mcp-god-mode
+
+# Using PowerShell installer
+Invoke-WebRequest -Uri "https://github.com/blinkzero/mcp-god-mode/releases/latest/download/install.ps1" -OutFile "install.ps1"
+.\install.ps1
+```
+
+#### **macOS:**
+```bash
+# Using Homebrew
+brew install mcp-god-mode
+
+# Using MacPorts
+sudo port install mcp-god-mode
+```
+
+#### **Linux:**
+```bash
+# Using package managers
+sudo apt install mcp-god-mode      # Ubuntu/Debian
+sudo yum install mcp-god-mode      # CentOS/RHEL
+sudo pacman -S mcp-god-mode        # Arch Linux
+```
+
+### **Docker Installation**
+
+```bash
+# Pull and run MCP God Mode container
+docker pull mcp-god-mode:latest
+docker run -d -p 3000:3000 --name mcp-god-mode mcp-god-mode:latest
+
+# With custom configuration
+docker run -d -p 3000:3000 \
+  -v /path/to/config:/app/config \
+  -v /path/to/tools:/app/tools \
+  --name mcp-god-mode mcp-god-mode:latest
+```
+
+### **Cloud Deployment**
+
+#### **Azure:**
+```bash
+# Deploy to Azure App Service
+az webapp create --resource-group myResourceGroup --plan myAppServicePlan --name mcp-god-mode --runtime "NODE|18-lts"
+az webapp deployment source config --name mcp-god-mode --resource-group myResourceGroup --repo-url https://github.com/blinkzero/mcp-god-mode.git --branch main
+```
+
+#### **AWS:**
+```bash
+# Deploy to AWS Elastic Beanstalk
+eb init mcp-god-mode
+eb create mcp-god-mode-env
+eb deploy
+```
+
+#### **Google Cloud:**
+```bash
+# Deploy to Google Cloud Run
+gcloud run deploy mcp-god-mode --source . --platform managed --region us-central1
+```
+
+### **Installation Verification**
+
+After installation, verify the setup:
+
+```bash
+# Test MCP God Mode installation
+node -e "console.log('MCP God Mode installed successfully!')"
+
+# Test specific tools
+node -e "require('./dev/dist/server-refactored.js')"
+
+# Test frontend integration
+# (Follow frontend-specific testing instructions)
+```
+
+### **Troubleshooting Installation**
+
+#### **Common Issues:**
+1. **Permission Errors** - Run with appropriate privileges
+2. **Dependency Conflicts** - Use virtual environments or containers
+3. **Path Issues** - Verify PATH and PYTHONPATH settings
+4. **Port Conflicts** - Check for port 3000 availability
+
+#### **Diagnostic Commands:**
+```bash
+# Check installation status
+node install.js --diagnose
+
+# Verify dependencies
+npm list --depth=0
+
+# Test server functionality
+npm test
+
+# Check frontend compatibility
+npm run test:frontends
+```
 
 ---
 
