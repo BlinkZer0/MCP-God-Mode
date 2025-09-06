@@ -106,7 +106,7 @@ See MCP God Mode in action with Cursor IDE integration:
 
 - **🔒 100% Complete Implementation** - Every tool is fully functional and tested
 - **🌍 Universal Platform Support** - Windows, Linux, macOS, Android, iOS
-- **🌐 Multi-Frontend Compatibility** - Works with Cursor, LM Studio, Claude, SillyTavern & more
+- **🌐 Multi-Frontend Compatibility** - Works with Cursor, LM Studio, Claude Desktop, SillyTavern, CAMEL-AI, Azure AI Foundry, MCP Bridge & more
 - **🛡️ Enterprise-Grade Security** - Professional penetration testing tools
 - **📱 Mobile-First Design** - Full mobile device support and management
 - **🔧 Natural Language Interface** - Use tools with simple commands
@@ -336,10 +336,13 @@ Select your preferred MCP-compatible frontend:
 
 - **[🖥️ Cursor AI](docs/MCP_FRONTEND_INTEGRATION_GUIDE.md#cursor-ai-integration)** - Recommended (Agent mode)
 - **[🎵 LM Studio](docs/MCP_FRONTEND_INTEGRATION_GUIDE.md#lm-studio-integration)** - Local AI models
-- **[🤖 Claude](docs/MCP_FRONTEND_INTEGRATION_GUIDE.md#claude-integration-via-bridge)** - Advanced AI tasks
+- **[🤖 Claude Desktop](docs/MCP_FRONTEND_INTEGRATION_GUIDE.md#claude-desktop-integration)** - Advanced AI tasks
 - **[🎭 SillyTavern](docs/MCP_FRONTEND_INTEGRATION_GUIDE.md#sillytavern-integration)** - Roleplay & chat
 - **[🔧 Continue](docs/MCP_FRONTEND_INTEGRATION_GUIDE.md#continue-integration)** - VS Code extension
 - **[🌐 Open WebUI](docs/MCP_FRONTEND_INTEGRATION_GUIDE.md#open-webui-integration)** - Web interface
+- **[🤖 CAMEL-AI Agents](docs/MCP_FRONTEND_INTEGRATION_GUIDE.md#camel-ai-agents-integration)** - AI agent development
+- **[☁️ Azure AI Foundry](docs/MCP_FRONTEND_INTEGRATION_GUIDE.md#azure-ai-foundry-integration)** - Enterprise solutions
+- **[🌉 MCP Bridge](docs/MCP_FRONTEND_INTEGRATION_GUIDE.md#mcp-bridge-integration)** - Mobile/web integration
 
 ### 2. Choose Your Platform
 Select your operating system for specific installation instructions:
