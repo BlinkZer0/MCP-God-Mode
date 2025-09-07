@@ -1,18 +1,21 @@
 # 🚀 MCP God Mode - Ultimate Cross-Platform Security & System Management Suite
 
-[![Platform Support](https://img.shields.io/badge/Windows-✅%20Supported-brightgreen)](docs/CROSS_PLATFORM_COMPATIBILITY.md)
-[![Platform Support](https://img.shields.io/badge/Linux-✅%20Supported-brightgreen)](docs/CROSS_PLATFORM_COMPATIBILITY.md)
-[![Platform Support](https://img.shields.io/badge/macOS-✅%20Supported-brightgreen)](docs/CROSS_PLATFORM_COMPATIBILITY.md)
-[![Platform Support](https://img.shields.io/badge/Android-✅%20Supported-brightgreen)](docs/CROSS_PLATFORM_COMPATIBILITY.md)
-[![Platform Support](https://img.shields.io/badge/iOS-✅%20Supported-brightgreen)](docs/CROSS_PLATFORM_COMPATIBILITY.md)
-[![Implementation](https://img.shields.io/badge/Status-100%25%20Complete-brightgreen)](docs/IMPLEMENTATION_COMPLETE.md)
-[![Documentation](https://img.shields.io/badge/Docs-100%25%20Complete-brightgreen)](docs/DOCUMENTATION_INDEX.md)
-[![Version](https://img.shields.io/badge/Version-1.7.0-blue)](docs/updates/VERSION_1.7_CHANGELOG.md)
+[![Version](https://img.shields.io/badge/Version-v1.7-blue)](docs/updates/VERSION_1.7_CHANGELOG.md)
+[![License](https://img.shields.io/badge/License-MIT-green)](LICENSE)
+[![Node](https://img.shields.io/badge/Node-%3E%3D%2018-brightgreen)](package.json)
+[![Platforms](https://img.shields.io/badge/Platforms-Win%20%7C%20macOS%20%7C%20Linux%20%7C%20Android%20%7C%20iOS-orange)](docs/CROSS_PLATFORM_COMPATIBILITY.md)
+[![GitHub Stars](https://img.shields.io/github/stars/BlinkZer0/MCP-God-Mode?style=social)](https://github.com/BlinkZer0/MCP-God-Mode)
+[![CI](https://img.shields.io/badge/CI-Smoke%20Tests-yellow)](scripts/smoke-test.js)
 [![Tools](https://img.shields.io/badge/Tools-135%20Total-orange)](docs/TOOL_CATALOG.md)
 
-**Version 1.7 - Perfect Parity & Modular Configuration Update**
+**Version 1.7 - Perfect Parity & MCP Web UI Bridge Update**
 
-
+### Tool Inventory (v1.7)
+| Profile         | Count |
+|-----------------|------:|
+| Refactored Set  | 135   |
+| Modular Set     | 135   |
+| Minimal Profile | 15    |
 
 https://github.com/user-attachments/assets/932c43e4-159e-4ce2-9c02-4acf23fc47fd
 
@@ -32,6 +35,36 @@ https://github.com/user-attachments/assets/932c43e4-159e-4ce2-9c02-4acf23fc47fd
 - **[💻 Examples & Tutorials](docs/EXAMPLES_AND_TUTORIALS.md)** - Real-world usage examples
 - **[🌍 Platform Compatibility](docs/CROSS_PLATFORM_COMPATIBILITY.md)** - Platform-specific details
 - **[📝 Version 1.7 Changelog](docs/updates/VERSION_1.7_CHANGELOG.md)** - What's new in the latest update
+
+## 🚀 Quick Start
+
+```bash
+# 1) Clone & enter
+git clone https://github.com/BlinkZer0/MCP-God-Mode.git
+cd MCP-God-Mode
+
+# 2) Setup
+cp .env.example .env   # edit if needed
+npm install
+
+# 3) Launch (choose one)
+npm run start:refactored   # full refactored server (135 tools)
+# or
+npm run start:modular      # modular loader (135 tools, grouped)
+# or minimal
+npm run start:minimal      # minimal profile (15 core tools)
+```
+
+### Windows (PowerShell)
+```powershell
+.\scripts\install-win.ps1
+npm run start:refactored
+```
+
+### Quick Health Check
+```bash
+npm run smoke
+```
 
 ## 🌟 What is MCP God Mode?
 
@@ -55,6 +88,17 @@ MCP God Mode is the ultimate cybersecurity and system management platform that p
 
 **⚖️ Legal Compliance & Forensic Readiness**: Both server architectures include comprehensive legal compliance capabilities including audit logging, evidence preservation, legal hold management, and chain of custody tracking. These features are disabled by default and can be enabled through environment variables for SOX, HIPAA, GDPR, PCI DSS, and ISO 27001 compliance. See [Legal Compliance Documentation](docs/LEGAL_COMPLIANCE.md) for detailed configuration and usage instructions.
 
+### Safety & Compliance Modes
+| Flag               | Default | Effect (summary)                                      |
+|--------------------|:-------:|-------------------------------------------------------|
+| MCPGM_AUDIT_ENABLED|  true   | Logs tool calls + params to audit log.                |
+| MCPGM_REQUIRE_CONFIRMATION | true | Prompts before high-risk actions.               |
+| MCPGM_MODE_SOX     |  false  | Extra logging & retention guidance.                   |
+| MCPGM_MODE_HIPAA   |  false  | Disables PHI-unsafe tools; stricter redaction.        |
+| MCPGM_MODE_GDPR    |  false  | Right-to-erasure helpers; data minimization.          |
+
+**⚠️ Threat Model / Safe-Use Notice**: This tool is intended for authorized testing and security assessment ONLY. Use only on networks and systems you own or have explicit written permission to test. Default audit logging is enabled; high-risk tools require confirmation. Do-not-target policy applies to all operations.
+
 ## 🔢 Understanding Tool Counts: Tools vs. Actions vs. Parameters
 
 ### **Why Tool Counting is Complex**
@@ -63,7 +107,7 @@ Tool counting in MCP God Mode presents unique challenges due to the multi-layere
 
 #### **🛠️ Tools (MCP Server Functions)**
 - **Definition**: Distinct MCP server tool registrations
-- **Count**: 125 tools (server-refactored) / 120 tools (modular)
+- **Count**: 135 tools (server-refactored) / 135 tools (modular)
 - **Example**: `wifi_security_toolkit` = 1 tool
 
 #### **⚡ Actions (Tool Capabilities)**
@@ -80,7 +124,7 @@ Tool counting in MCP God Mode presents unique challenges due to the multi-layere
 
 | Aspect | Server-Refactored | Modular Server |
 |--------|------------------|----------------|
-| **Tool Count** | 125 tools | 120 tools |
+| **Tool Count** | 135 tools | 135 tools |
 | **Architecture** | Unified interface | Individual focused tools |
 | **Complexity** | Multi-action tools | Single-action tools |
 | **Error Handling** | Centralized | Granular |
@@ -95,7 +139,7 @@ The server-refactored and modular servers have different tool counts because:
 3. **Enhanced Functionality**: Modular server provides more precise control with additional tools
 4. **Specialized Capabilities**: Modular server offers granular tools for specific tasks
 
-**🎯 Bottom Line**: Both server-refactored and modular server provide identical functionality with 129 tools for comprehensive operations and built-in legal compliance features. The modular server adds configurability for different deployment scenarios.
+**🎯 Bottom Line**: Both server-refactored and modular server provide identical functionality with 135 tools for comprehensive operations and built-in legal compliance features. The modular server adds configurability for different deployment scenarios.
 
 🎭 **Fun Fact**: One MCP to rule them all, one MCP to find them, one MCP to compile the tools, and in the God Mode bind them! 🎲⚡
 
@@ -560,6 +604,33 @@ python -m mcp_god_mode.tools.network.packet_sniffer \
 - **Secure Communication**: Encrypted network communications
 - **Compliance**: GDPR, HIPAA, and SOC2 compliant
 
+## 📦 Releases
+
+### v1.7 Release Assets
+The v1.7 release includes platform-specific archives for easy deployment:
+
+- **MCP-God-Mode-v1.7-win.zip** - Windows package with PowerShell installer
+- **MCP-God-Mode-v1.7-macos.tar.gz** - macOS package with shell installer  
+- **MCP-God-Mode-v1.7-linux.tar.gz** - Linux package with shell installer
+
+Each archive contains:
+- `/dist` - Compiled server files
+- `README-QUICKSTART.md` - Quick start guide
+- `scripts/` - Platform-specific installers
+- `.env.example` - Environment configuration template
+- One-shot launcher scripts
+
+### Download & Install
+```bash
+# Download latest release
+curl -L https://github.com/BlinkZer0/MCP-God-Mode/releases/latest/download/MCP-God-Mode-v1.7-linux.tar.gz | tar -xz
+cd MCP-God-Mode-v1.7
+
+# Run installer
+./scripts/install-unix.sh
+npm run start:refactored
+```
+
 ## 🤝 Contributing
 
 We welcome contributions from the community! Here's how you can help:
@@ -596,7 +667,7 @@ We welcome contributions from the community! Here's how you can help:
 
 
 ### 🔄 Version History
-- **v1.7** (Current) - **129 tools (both servers) complete (100%)**, perfect parity achieved, modular configuration system, comprehensive documentation, cross-platform support, MCP integration, accurate tool counting
+- **v1.7** (Current) - **135 tools (both servers) complete (100%)**, perfect parity achieved, MCP Web UI Bridge tools, modular configuration system, comprehensive documentation, cross-platform support, MCP integration, accurate tool counting
 - **v1.6d** - **125 tools (server-refactored) / 120 tools (modular) complete (100%)**, comprehensive documentation, cross-platform support, MCP integration, accurate tool counting, RAG toolkit integration
 - **v1.4a** - Enhanced security tools and mobile support
 - **v1.0** - Initial release with core functionality
