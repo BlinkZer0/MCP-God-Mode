@@ -3,7 +3,7 @@ import { exec } from "node:child_process";
 import { promisify } from "util";
 const execAsync = promisify(exec);
 export function registerSdrSecurityToolkit(server) {
-    server.registerTool("mcp_mcp-god-mode_sdr_security_toolkit", {
+    server.registerTool("sdr_security_toolkit", {
         description: "Comprehensive Software Defined Radio (SDR) security and signal analysis toolkit with cross-platform support. You can ask me to: detect SDR hardware, list devices, test connections, configure and calibrate SDRs, receive and analyze signals, scan frequencies, capture signals, decode protocols (ADS-B, POCSAG, APRS, AIS), perform spectrum analysis, test radio security, monitor wireless communications, and more. Just describe what you want to do in natural language!",
         inputSchema: {
             action: z.enum(["detect_sdr", "list_devices", "scan_frequencies", "capture_signal", "decode_protocol", "spectrum_analysis", "transmit_signal", "monitor_band", "analyze_modulation", "record_audio", "play_audio", "jam_frequency"]).describe("SDR action to perform"),

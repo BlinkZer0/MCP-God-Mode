@@ -3,7 +3,7 @@ import { exec } from "node:child_process";
 import { promisify } from "util";
 const execAsync = promisify(exec);
 export function registerWifiHacking(server) {
-    server.registerTool("mcp_mcp-god-mode_wifi_hacking", {
+    server.registerTool("wifi_hacking", {
         description: "Advanced Wi-Fi security penetration testing toolkit with comprehensive attack capabilities. Perform wireless network assessments, password cracking, evil twin attacks, WPS exploitation, and IoT device enumeration. Supports all Wi-Fi security protocols (WEP, WPA, WPA2, WPA3) across multiple platforms with ethical hacking methodologies.",
         inputSchema: {
             action: z.enum(["assess_network", "crack_wep", "crack_wpa", "evil_twin", "wps_exploit", "iot_enum", "deauth_attack", "handshake_capture", "password_attack", "rogue_ap", "traffic_analysis", "vulnerability_scan"]).describe("WiFi hacking action to perform"),

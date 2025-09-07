@@ -50,18 +50,28 @@ export function registerNetworkTrafficAnalyzer(server: McpServer) {
                 child.on('close', (code) => {
                   if (code === 0) {
                     resolve({
-                      success: true,
-                      message: `Network traffic exported successfully`,
-                      platform: "linux",
-                      export_data: "traffic_analysis_data",
-                      format: "json",
-      });
+                      content: [{
+                        type: "text",
+                        text: JSON.stringify({
+                          success: true,
+                          message: `Network traffic exported successfully`,
+                          platform: "linux",
+                          export_data: "traffic_analysis_data",
+                          format: "json",
+                        }, null, 2)
+                      }]
+                    });
                   } else {
                     resolve({
-                      success: false,
-                      error: `Failed to export traffic: ${error || output}`,
-                      platform: "linux",
-                      capture_file: output_file,
+                      content: [{
+                        type: "text",
+                        text: JSON.stringify({
+                          success: false,
+                          error: `Failed to export traffic: ${error || output}`,
+                          platform: "linux",
+                          capture_file: output_file,
+                        }, null, 2)
+                      }]
                     });
                   }
                 });

@@ -172,7 +172,7 @@ const SPECIALIZED_SEARCH = {
 
 export function registerWebSearch(server: McpServer) {
   // Universal Web Search Tool
-  server.registerTool("mcp_mcp-god-mode_web_search", {
+  server.registerTool("web_search", {
     description: "Universal web search across multiple search engines and specialized sites including Google, DuckDuckGo, Reddit, Wikipedia, GitHub, Stack Overflow, YouTube, and Amazon",
     inputSchema: {
       query: z.string().describe("Search query to execute"),
@@ -244,7 +244,7 @@ export function registerWebSearch(server: McpServer) {
   });
 
   // Multi-Engine Search Tool
-  server.registerTool("mcp_mcp-god-mode_multi_engine_search", {
+  server.registerTool("multi_engine_search", {
     description: "Search across multiple engines simultaneously and compare results",
     inputSchema: {
       query: z.string().describe("Search query to execute"),
@@ -313,7 +313,7 @@ export function registerWebSearch(server: McpServer) {
   });
 
   // Search Result Analysis Tool
-  server.registerTool("mcp_mcp-god-mode_search_analysis", {
+  server.registerTool("search_analysis", {
     description: "Analyze search results for trends, patterns, and insights",
     inputSchema: {
       results: z.array(z.object({

@@ -123,7 +123,7 @@ const VALIDATION_RULES = {
 };
 export function registerFormCompletion(server) {
     // Form Detection Tool
-    server.registerTool("mcp_mcp-god-mode_form_detection", {
+    server.registerTool("form_detection", {
         description: "Detect and analyze forms on web pages, identifying field types, patterns, and completion requirements",
         inputSchema: {
             url: z.string().describe("URL of the page containing the form"),
@@ -179,7 +179,7 @@ export function registerFormCompletion(server) {
         }
     });
     // Form Completion Tool
-    server.registerTool("mcp_mcp-god-mode_form_completion", {
+    server.registerTool("form_completion", {
         description: "Complete online forms automatically with intelligent field detection, validation, and CAPTCHA handling",
         inputSchema: {
             url: z.string().describe("URL of the form to complete"),
@@ -237,7 +237,7 @@ export function registerFormCompletion(server) {
         }
     });
     // Form Validation Tool
-    server.registerTool("mcp_mcp-god-mode_form_validation", {
+    server.registerTool("form_validation", {
         description: "Validate form data against field requirements, patterns, and business rules",
         inputSchema: {
             form_data: z.record(z.string()).describe("Form data to validate"),
@@ -298,7 +298,7 @@ export function registerFormCompletion(server) {
         }
     });
     // Form Pattern Recognition Tool
-    server.registerTool("mcp_mcp-god-mode_form_pattern_recognition", {
+    server.registerTool("form_pattern_recognition", {
         description: "Recognize common form patterns (contact, registration, login, checkout) and suggest appropriate field mappings",
         inputSchema: {
             url: z.string().describe("URL of the page containing the form"),

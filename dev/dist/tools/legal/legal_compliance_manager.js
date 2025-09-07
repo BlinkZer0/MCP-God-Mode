@@ -84,7 +84,6 @@ export function registerLegalComplianceManager(server) {
                 frameworks: z.array(z.string())
             }).optional(),
             legalHoldId: z.string().optional(),
-            evidenceId: z.string().optional(),
             custodyId: z.string().optional(),
             integrityResult: z.object({
                 valid: z.boolean(),
@@ -92,7 +91,8 @@ export function registerLegalComplianceManager(server) {
                 error: z.string().optional()
             }).optional()
         }
-    }, async ({ action, enableAuditLogging, enableEvidencePreservation, enableLegalHold, enableChainOfCustody, enableDataIntegrity, caseName, caseDescription, createdBy, affectedData, custodian, legalBasis, caseId, sourcePath, evidenceType, metadata, legalHoldIds, evidenceId, custodyAction, toCustodian, purpose, location, witnesses, notes, fromCustodian, complianceFrameworks, auditRetentionDays, auditLogLevel, filePath, startDate, endDate, limit }) => {
+    }, async (args) => {
+        const { action, enableAuditLogging, enableEvidencePreservation, enableLegalHold, enableChainOfCustody, enableDataIntegrity, caseName, caseDescription, createdBy, affectedData, custodian, legalBasis, caseId, sourcePath, evidenceType, metadata, legalHoldIds, evidenceId, custodyAction, toCustodian, purpose, location, witnesses, notes, fromCustodian, complianceFrameworks, auditRetentionDays, auditLogLevel, filePath, startDate, endDate, limit } = args;
         try {
             switch (action) {
                 case "enable_compliance":
@@ -248,7 +248,8 @@ export function registerLegalComplianceManager(server) {
                                 }]
                         };
                     }
-                    const custodyId = await legalCompliance.recordChainOfCustody(evidenceId || "", custodyAction, toCustodian, purpose, location, (witnesses || []).map(w => ({ name: w.name || '', email: w.email || '', signature: w.signature })), notes || "", fromCustodian, legalHoldIds?.[0] // Use first legal hold ID if provided
+                    const evidenceIdValue = args.evidenceId || `EVIDENCE-${Date.now()}`;
+                    const custodyId = await legalCompliance.recordChainOfCustody(evidenceIdValue, custodyAction, toCustodian, purpose, location, (witnesses || []).map(w => ({ name: w.name || '', email: w.email || '', signature: w.signature })), notes || "", fromCustodian, legalHoldIds?.[0] // Use first legal hold ID if provided
                     );
                     return {
                         content: [{

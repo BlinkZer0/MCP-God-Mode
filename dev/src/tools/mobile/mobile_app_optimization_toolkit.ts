@@ -49,15 +49,25 @@ export function registerMobileAppOptimizationToolkit(server: McpServer) {
               };
               
               return {
-                success: true,
-                message: `Performance analysis completed for ${app_package}`,
-                analysis,
+                content: [{
+                  type: "text",
+                  text: JSON.stringify({
+                    success: true,
+                    message: `Performance analysis completed for ${app_package}`,
+                    analysis,
+                  }, null, 2)
+                }]
               };
             } else {
               return {
-                success: false,
-                error: "iOS app analysis requires Xcode and device access",
-                platform: "ios",
+                content: [{
+                  type: "text",
+                  text: JSON.stringify({
+                    success: false,
+                    error: "iOS app analysis requires Xcode and device access",
+                    platform: "ios",
+                  }, null, 2)
+                }]
               };
             }
             
@@ -87,15 +97,25 @@ export function registerMobileAppOptimizationToolkit(server: McpServer) {
               };
               
               return {
-                success: true,
-                message: `Optimization completed for ${app_package}`,
-                optimization,
+                content: [{
+                  type: "text",
+                  text: JSON.stringify({
+                    success: true,
+                    message: `Optimization completed for ${app_package}`,
+                    optimization,
+                  }, null, 2)
+                }]
               };
             } else {
               return {
-                success: false,
-                error: "iOS app optimization requires Xcode and device access",
-                platform: "ios",
+                content: [{
+                  type: "text",
+                  text: JSON.stringify({
+                    success: false,
+                    error: "iOS app optimization requires Xcode and device access",
+                    platform: "ios",
+                  }, null, 2)
+                }]
               };
             }
             
@@ -136,15 +156,25 @@ export function registerMobileAppOptimizationToolkit(server: McpServer) {
               };
               
               return {
-                success: true,
-                message: `Profiling completed for ${app_package}`,
-                profile,
+                content: [{
+                  type: "text",
+                  text: JSON.stringify({
+                    success: true,
+                    message: `Profiling completed for ${app_package}`,
+                    profile,
+                  }, null, 2)
+                }]
               };
             } else {
               return {
-                success: false,
-                error: "iOS app profiling requires Xcode and device access",
-                platform: "ios",
+                content: [{
+                  type: "text",
+                  text: JSON.stringify({
+                    success: false,
+                    error: "iOS app profiling requires Xcode and device access",
+                    platform: "ios",
+                  }, null, 2)
+                }]
               };
             }
             
@@ -188,15 +218,25 @@ export function registerMobileAppOptimizationToolkit(server: McpServer) {
               };
               
               return {
-                success: true,
-                message: `Benchmark completed for ${app_package}`,
-                benchmark,
+                content: [{
+                  type: "text",
+                  text: JSON.stringify({
+                    success: true,
+                    message: `Benchmark completed for ${app_package}`,
+                    benchmark,
+                  }, null, 2)
+                }]
               };
             } else {
               return {
-                success: false,
-                error: "iOS app benchmarking requires Xcode and device access",
-                platform: "ios",
+                content: [{
+                  type: "text",
+                  text: JSON.stringify({
+                    success: false,
+                    error: "iOS app benchmarking requires Xcode and device access",
+                    platform: "ios",
+                  }, null, 2)
+                }]
               };
             }
             
@@ -206,9 +246,12 @@ export function registerMobileAppOptimizationToolkit(server: McpServer) {
             }
             
             return {
-              success: true,
-              message: `Memory analysis completed for ${app_package}`,
-              memory_analysis: {
+              content: [{
+                type: "text",
+                text: JSON.stringify({
+                  success: true,
+                  message: `Memory analysis completed for ${app_package}`,
+                  memory_analysis: {
                 app_package,
                 platform: targetPlatform,
                 timestamp: new Date().toISOString(),
@@ -228,7 +271,9 @@ export function registerMobileAppOptimizationToolkit(server: McpServer) {
                   "Use weak references for caches",
                 ],
               },
-            };
+            }, null, 2)
+          }]
+        };
             
           case "cpu_analysis":
             if (!app_package) {
@@ -236,9 +281,12 @@ export function registerMobileAppOptimizationToolkit(server: McpServer) {
             }
             
             return {
-              success: true,
-              message: `CPU analysis completed for ${app_package}`,
-              cpu_analysis: {
+              content: [{
+                type: "text",
+                text: JSON.stringify({
+                  success: true,
+                  message: `CPU analysis completed for ${app_package}`,
+                  cpu_analysis: {
                 app_package,
                 platform: targetPlatform,
                 timestamp: new Date().toISOString(),
@@ -258,7 +306,9 @@ export function registerMobileAppOptimizationToolkit(server: McpServer) {
                   "Implement efficient data structures",
                 ],
               },
-            };
+            }, null, 2)
+          }]
+        };
             
           case "battery_analysis":
             if (!app_package) {
@@ -266,9 +316,12 @@ export function registerMobileAppOptimizationToolkit(server: McpServer) {
             }
             
             return {
-              success: true,
-              message: `Battery analysis completed for ${app_package}`,
-              battery_analysis: {
+              content: [{
+                type: "text",
+                text: JSON.stringify({
+                  success: true,
+                  message: `Battery analysis completed for ${app_package}`,
+                  battery_analysis: {
                 app_package,
                 platform: targetPlatform,
                 timestamp: new Date().toISOString(),
@@ -290,7 +343,9 @@ export function registerMobileAppOptimizationToolkit(server: McpServer) {
                   "Optimize sensor usage",
                 ],
               },
-            };
+            }, null, 2)
+          }]
+        };
             
           case "network_analysis":
             if (!app_package) {
@@ -298,9 +353,12 @@ export function registerMobileAppOptimizationToolkit(server: McpServer) {
             }
             
             return {
-              success: true,
-              message: `Network analysis completed for ${app_package}`,
-              network_analysis: {
+              content: [{
+                type: "text",
+                text: JSON.stringify({
+                  success: true,
+                  message: `Network analysis completed for ${app_package}`,
+                  network_analysis: {
                 app_package,
                 platform: targetPlatform,
                 timestamp: new Date().toISOString(),
@@ -316,15 +374,22 @@ export function registerMobileAppOptimizationToolkit(server: McpServer) {
                   "Use compression for large payloads",
                 ],
               },
-            };
+            }, null, 2)
+          }]
+        };
             
           default:
             throw new Error(`Unknown action: ${action}`);
         }
       } catch (error) {
         return {
-          success: false,
-          error: error instanceof Error ? error.message : "Unknown error",
+          content: [{
+            type: "text",
+            text: JSON.stringify({
+              success: false,
+              error: error instanceof Error ? error.message : "Unknown error",
+            }, null, 2)
+          }]
         };
       }
     });

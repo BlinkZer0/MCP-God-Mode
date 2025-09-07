@@ -1,6 +1,7 @@
 import { z } from "zod";
 // Modular social account ripper with separate components
 export class SocialAccountRipper {
+    server;
     constructor(server) {
         this.server = server;
     }

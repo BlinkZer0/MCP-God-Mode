@@ -3,7 +3,7 @@ import { exec } from "node:child_process";
 import { promisify } from "util";
 const execAsync = promisify(exec);
 export function registerWifiSecurityToolkit(server) {
-    server.registerTool("mcp_mcp-god-mode_wifi_security_toolkit", {
+    server.registerTool("wifi_security_toolkit", {
         description: "Comprehensive Wi-Fi security and penetration testing toolkit with cross-platform support. You can ask me to: scan for Wi-Fi networks, capture handshakes, crack passwords, create evil twin attacks, perform deauthentication attacks, test WPS vulnerabilities, set up rogue access points, sniff packets, monitor clients, and more. Just describe what you want to do in natural language!",
         inputSchema: {
             action: z.enum(["scan_networks", "capture_handshake", "crack_password", "evil_twin", "deauth_attack", "wps_test", "rogue_ap", "packet_sniff", "monitor_clients", "wifi_jammer", "analyze_traffic", "test_security"]).describe("WiFi security action to perform"),

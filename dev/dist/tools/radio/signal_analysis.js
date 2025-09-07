@@ -69,7 +69,7 @@ export function registerSignalAnalysis(server) {
                 case "capture_signal":
                     if (!frequency)
                         throw new Error("Frequency required for signal capture");
-                    result = await captureSignal(frequency, sample_rate || 2048000, gain || 20, duration || 10, output_file, platform);
+                    result = await captureSignal(frequency, sample_rate || 2048000, gain || 20, duration || 10, output_file || `capture_${frequency}_${Date.now()}.wav`, platform);
                     break;
                 case "decode_protocol":
                     if (!frequency || !protocol)
@@ -84,7 +84,7 @@ export function registerSignalAnalysis(server) {
                 case "transmit_signal":
                     if (!frequency)
                         throw new Error("Frequency required for transmission");
-                    result = await transmitSignal(frequency, output_file, platform);
+                    result = await transmitSignal(frequency, output_file || `transmit_${frequency}_${Date.now()}.wav`, platform);
                     break;
                 case "monitor_band":
                     if (!frequency)
@@ -99,12 +99,12 @@ export function registerSignalAnalysis(server) {
                 case "record_audio":
                     if (!frequency)
                         throw new Error("Frequency required for audio recording");
-                    result = await recordAudio(frequency, sample_rate || 2048000, gain || 20, duration || 30, output_file, platform);
+                    result = await recordAudio(frequency, sample_rate || 2048000, gain || 20, duration || 30, output_file || `record_${frequency}_${Date.now()}.wav`, platform);
                     break;
                 case "play_audio":
                     if (!output_file)
                         throw new Error("Audio file required for playback");
-                    result = await playAudio(output_file, frequency, platform);
+                    result = await playAudio(output_file, frequency || 100000000, platform);
                     break;
                 case "jam_frequency":
                     if (!frequency)
@@ -121,10 +121,10 @@ export function registerSignalAnalysis(server) {
         }
         catch (error) {
             return {
-                content: [{ type: "text", text: `Signal analysis failed: ${error.message}` }],
+                content: [{ type: "text", text: `Signal analysis failed: ${error instanceof Error ? error instanceof Error ? error.message : 'Unknown error' : 'Unknown error'}` }],
                 structuredContent: {
                     success: false,
-                    message: `Signal analysis failed: ${error.message}`,
+                    message: `Signal analysis failed: ${error instanceof Error ? error instanceof Error ? error.message : 'Unknown error' : 'Unknown error'}`,
                     data: {}
                 }
             };
@@ -184,7 +184,7 @@ async function detectSdrDevices(platform) {
     catch (error) {
         return {
             success: false,
-            message: `SDR detection failed: ${error.message}`,
+            message: `SDR detection failed: ${error instanceof Error ? error.message : 'Unknown error'}`,
             data: { devices: [] }
         };
     }
@@ -220,7 +220,7 @@ async function scanFrequencies(frequency, sampleRate, gain, platform) {
     catch (error) {
         return {
             success: false,
-            message: `Frequency scanning failed: ${error.message}`,
+            message: `Frequency scanning failed: ${error instanceof Error ? error.message : 'Unknown error'}`,
             data: { signals: [] }
         };
     }
@@ -245,7 +245,7 @@ async function captureSignal(frequency, sampleRate, gain, duration, outputFile, 
     catch (error) {
         return {
             success: false,
-            message: `Signal capture failed: ${error.message}`,
+            message: `Signal capture failed: ${error instanceof Error ? error.message : 'Unknown error'}`,
             data: {}
         };
     }
@@ -304,7 +304,7 @@ async function decodeProtocol(frequency, protocol, sampleRate, gain, platform) {
     catch (error) {
         return {
             success: false,
-            message: `Protocol decoding failed: ${error.message}`,
+            message: `Protocol decoding failed: ${error instanceof Error ? error.message : 'Unknown error'}`,
             data: { decoded_data: [] }
         };
     }
@@ -339,7 +339,7 @@ async function performSpectrumAnalysis(frequency, sampleRate, gain, platform) {
     catch (error) {
         return {
             success: false,
-            message: `Spectrum analysis failed: ${error.message}`,
+            message: `Spectrum analysis failed: ${error instanceof Error ? error.message : 'Unknown error'}`,
             data: { spectrum: { frequencies: [], power_levels: [] } }
         };
     }
@@ -361,7 +361,7 @@ async function transmitSignal(frequency, audioFile, platform) {
     catch (error) {
         return {
             success: false,
-            message: `Signal transmission failed: ${error.message}`,
+            message: `Signal transmission failed: ${error instanceof Error ? error.message : 'Unknown error'}`,
             data: {}
         };
     }
@@ -378,7 +378,7 @@ async function monitorBand(frequency, sampleRate, gain, duration, platform) {
     catch (error) {
         return {
             success: false,
-            message: `Band monitoring failed: ${error.message}`,
+            message: `Band monitoring failed: ${error instanceof Error ? error.message : 'Unknown error'}`,
             data: { signals: [] }
         };
     }
@@ -401,7 +401,7 @@ async function analyzeModulation(frequency, sampleRate, gain, platform) {
     catch (error) {
         return {
             success: false,
-            message: `Modulation analysis failed: ${error.message}`,
+            message: `Modulation analysis failed: ${error instanceof Error ? error.message : 'Unknown error'}`,
             data: {}
         };
     }
@@ -424,7 +424,7 @@ async function recordAudio(frequency, sampleRate, gain, duration, outputFile, pl
     catch (error) {
         return {
             success: false,
-            message: `Audio recording failed: ${error.message}`,
+            message: `Audio recording failed: ${error instanceof Error ? error.message : 'Unknown error'}`,
             data: {}
         };
     }
@@ -444,7 +444,7 @@ async function playAudio(audioFile, frequency, platform) {
     catch (error) {
         return {
             success: false,
-            message: `Audio playback failed: ${error.message}`,
+            message: `Audio playback failed: ${error instanceof Error ? error.message : 'Unknown error'}`,
             data: {}
         };
     }
@@ -466,7 +466,7 @@ async function jamFrequency(frequency, gain, duration, platform) {
     catch (error) {
         return {
             success: false,
-            message: `Frequency jamming failed: ${error.message}`,
+            message: `Frequency jamming failed: ${error instanceof Error ? error.message : 'Unknown error'}`,
             data: {}
         };
     }

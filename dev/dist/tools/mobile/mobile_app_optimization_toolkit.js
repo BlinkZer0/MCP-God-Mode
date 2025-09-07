@@ -42,16 +42,26 @@ export function registerMobileAppOptimizationToolkit(server) {
                             ],
                         };
                         return {
-                            success: true,
-                            message: `Performance analysis completed for ${app_package}`,
-                            analysis,
+                            content: [{
+                                    type: "text",
+                                    text: JSON.stringify({
+                                        success: true,
+                                        message: `Performance analysis completed for ${app_package}`,
+                                        analysis,
+                                    }, null, 2)
+                                }]
                         };
                     }
                     else {
                         return {
-                            success: false,
-                            error: "iOS app analysis requires Xcode and device access",
-                            platform: "ios",
+                            content: [{
+                                    type: "text",
+                                    text: JSON.stringify({
+                                        success: false,
+                                        error: "iOS app analysis requires Xcode and device access",
+                                        platform: "ios",
+                                    }, null, 2)
+                                }]
                         };
                     }
                 case "optimize":
@@ -78,16 +88,26 @@ export function registerMobileAppOptimizationToolkit(server) {
                             },
                         };
                         return {
-                            success: true,
-                            message: `Optimization completed for ${app_package}`,
-                            optimization,
+                            content: [{
+                                    type: "text",
+                                    text: JSON.stringify({
+                                        success: true,
+                                        message: `Optimization completed for ${app_package}`,
+                                        optimization,
+                                    }, null, 2)
+                                }]
                         };
                     }
                     else {
                         return {
-                            success: false,
-                            error: "iOS app optimization requires Xcode and device access",
-                            platform: "ios",
+                            content: [{
+                                    type: "text",
+                                    text: JSON.stringify({
+                                        success: false,
+                                        error: "iOS app optimization requires Xcode and device access",
+                                        platform: "ios",
+                                    }, null, 2)
+                                }]
                         };
                     }
                 case "profile":
@@ -125,16 +145,26 @@ export function registerMobileAppOptimizationToolkit(server) {
                             },
                         };
                         return {
-                            success: true,
-                            message: `Profiling completed for ${app_package}`,
-                            profile,
+                            content: [{
+                                    type: "text",
+                                    text: JSON.stringify({
+                                        success: true,
+                                        message: `Profiling completed for ${app_package}`,
+                                        profile,
+                                    }, null, 2)
+                                }]
                         };
                     }
                     else {
                         return {
-                            success: false,
-                            error: "iOS app profiling requires Xcode and device access",
-                            platform: "ios",
+                            content: [{
+                                    type: "text",
+                                    text: JSON.stringify({
+                                        success: false,
+                                        error: "iOS app profiling requires Xcode and device access",
+                                        platform: "ios",
+                                    }, null, 2)
+                                }]
                         };
                     }
                 case "benchmark":
@@ -175,16 +205,26 @@ export function registerMobileAppOptimizationToolkit(server) {
                             },
                         };
                         return {
-                            success: true,
-                            message: `Benchmark completed for ${app_package}`,
-                            benchmark,
+                            content: [{
+                                    type: "text",
+                                    text: JSON.stringify({
+                                        success: true,
+                                        message: `Benchmark completed for ${app_package}`,
+                                        benchmark,
+                                    }, null, 2)
+                                }]
                         };
                     }
                     else {
                         return {
-                            success: false,
-                            error: "iOS app benchmarking requires Xcode and device access",
-                            platform: "ios",
+                            content: [{
+                                    type: "text",
+                                    text: JSON.stringify({
+                                        success: false,
+                                        error: "iOS app benchmarking requires Xcode and device access",
+                                        platform: "ios",
+                                    }, null, 2)
+                                }]
                         };
                     }
                 case "memory_analysis":
@@ -192,110 +232,130 @@ export function registerMobileAppOptimizationToolkit(server) {
                         throw new Error("App package is required for memory analysis");
                     }
                     return {
-                        success: true,
-                        message: `Memory analysis completed for ${app_package}`,
-                        memory_analysis: {
-                            app_package,
-                            platform: targetPlatform,
-                            timestamp: new Date().toISOString(),
-                            memory_usage: {
-                                heap_size: "89 MB",
-                                allocated: "67 MB",
-                                free: "22 MB",
-                                fragmentation: "12%",
-                            },
-                            memory_leaks: [
-                                { type: "Activity leak", severity: "Low", location: "MainActivity" },
-                                { type: "Bitmap cache", severity: "Medium", location: "ImageLoader" },
-                            ],
-                            recommendations: [
-                                "Implement proper lifecycle management",
-                                "Add bitmap recycling",
-                                "Use weak references for caches",
-                            ],
-                        },
+                        content: [{
+                                type: "text",
+                                text: JSON.stringify({
+                                    success: true,
+                                    message: `Memory analysis completed for ${app_package}`,
+                                    memory_analysis: {
+                                        app_package,
+                                        platform: targetPlatform,
+                                        timestamp: new Date().toISOString(),
+                                        memory_usage: {
+                                            heap_size: "89 MB",
+                                            allocated: "67 MB",
+                                            free: "22 MB",
+                                            fragmentation: "12%",
+                                        },
+                                        memory_leaks: [
+                                            { type: "Activity leak", severity: "Low", location: "MainActivity" },
+                                            { type: "Bitmap cache", severity: "Medium", location: "ImageLoader" },
+                                        ],
+                                        recommendations: [
+                                            "Implement proper lifecycle management",
+                                            "Add bitmap recycling",
+                                            "Use weak references for caches",
+                                        ],
+                                    },
+                                }, null, 2)
+                            }]
                     };
                 case "cpu_analysis":
                     if (!app_package) {
                         throw new Error("App package is required for CPU analysis");
                     }
                     return {
-                        success: true,
-                        message: `CPU analysis completed for ${app_package}`,
-                        cpu_analysis: {
-                            app_package,
-                            platform: targetPlatform,
-                            timestamp: new Date().toISOString(),
-                            cpu_usage: {
-                                main_thread: "65%",
-                                background_threads: "35%",
-                                peak_usage: "89%",
-                                average_usage: "45%",
-                            },
-                            performance_bottlenecks: [
-                                { location: "UI rendering", impact: "High", cpu_time: "45ms" },
-                                { location: "Data processing", impact: "Medium", cpu_time: "28ms" },
-                            ],
-                            recommendations: [
-                                "Move heavy operations to background threads",
-                                "Optimize UI rendering with ViewStub",
-                                "Implement efficient data structures",
-                            ],
-                        },
+                        content: [{
+                                type: "text",
+                                text: JSON.stringify({
+                                    success: true,
+                                    message: `CPU analysis completed for ${app_package}`,
+                                    cpu_analysis: {
+                                        app_package,
+                                        platform: targetPlatform,
+                                        timestamp: new Date().toISOString(),
+                                        cpu_usage: {
+                                            main_thread: "65%",
+                                            background_threads: "35%",
+                                            peak_usage: "89%",
+                                            average_usage: "45%",
+                                        },
+                                        performance_bottlenecks: [
+                                            { location: "UI rendering", impact: "High", cpu_time: "45ms" },
+                                            { location: "Data processing", impact: "Medium", cpu_time: "28ms" },
+                                        ],
+                                        recommendations: [
+                                            "Move heavy operations to background threads",
+                                            "Optimize UI rendering with ViewStub",
+                                            "Implement efficient data structures",
+                                        ],
+                                    },
+                                }, null, 2)
+                            }]
                     };
                 case "battery_analysis":
                     if (!app_package) {
                         throw new Error("App package is required for battery analysis");
                     }
                     return {
-                        success: true,
-                        message: `Battery analysis completed for ${app_package}`,
-                        battery_analysis: {
-                            app_package,
-                            platform: targetPlatform,
-                            timestamp: new Date().toISOString(),
-                            battery_impact: {
-                                per_hour: "3.2%",
-                                efficiency: "Excellent",
-                                optimization_potential: "Low",
-                            },
-                            power_consumption: {
-                                cpu: "45%",
-                                network: "25%",
-                                location: "15%",
-                                sensors: "10%",
-                                other: "5%",
-                            },
-                            recommendations: [
-                                "Reduce network polling frequency",
-                                "Implement location caching",
-                                "Optimize sensor usage",
-                            ],
-                        },
+                        content: [{
+                                type: "text",
+                                text: JSON.stringify({
+                                    success: true,
+                                    message: `Battery analysis completed for ${app_package}`,
+                                    battery_analysis: {
+                                        app_package,
+                                        platform: targetPlatform,
+                                        timestamp: new Date().toISOString(),
+                                        battery_impact: {
+                                            per_hour: "3.2%",
+                                            efficiency: "Excellent",
+                                            optimization_potential: "Low",
+                                        },
+                                        power_consumption: {
+                                            cpu: "45%",
+                                            network: "25%",
+                                            location: "15%",
+                                            sensors: "10%",
+                                            other: "5%",
+                                        },
+                                        recommendations: [
+                                            "Reduce network polling frequency",
+                                            "Implement location caching",
+                                            "Optimize sensor usage",
+                                        ],
+                                    },
+                                }, null, 2)
+                            }]
                     };
                 case "network_analysis":
                     if (!app_package) {
                         throw new Error("App package is required for network analysis");
                     }
                     return {
-                        success: true,
-                        message: `Network analysis completed for ${app_package}`,
-                        network_analysis: {
-                            app_package,
-                            platform: targetPlatform,
-                            timestamp: new Date().toISOString(),
-                            network_usage: {
-                                total_requests: 156,
-                                data_transferred: "2.3 MB",
-                                average_response_time: "245ms",
-                                cache_hit_rate: "78%",
-                            },
-                            optimization_opportunities: [
-                                "Implement request batching",
-                                "Add response caching",
-                                "Use compression for large payloads",
-                            ],
-                        },
+                        content: [{
+                                type: "text",
+                                text: JSON.stringify({
+                                    success: true,
+                                    message: `Network analysis completed for ${app_package}`,
+                                    network_analysis: {
+                                        app_package,
+                                        platform: targetPlatform,
+                                        timestamp: new Date().toISOString(),
+                                        network_usage: {
+                                            total_requests: 156,
+                                            data_transferred: "2.3 MB",
+                                            average_response_time: "245ms",
+                                            cache_hit_rate: "78%",
+                                        },
+                                        optimization_opportunities: [
+                                            "Implement request batching",
+                                            "Add response caching",
+                                            "Use compression for large payloads",
+                                        ],
+                                    },
+                                }, null, 2)
+                            }]
                     };
                 default:
                     throw new Error(`Unknown action: ${action}`);
@@ -303,8 +363,13 @@ export function registerMobileAppOptimizationToolkit(server) {
         }
         catch (error) {
             return {
-                success: false,
-                error: error instanceof Error ? error.message : "Unknown error",
+                content: [{
+                        type: "text",
+                        text: JSON.stringify({
+                            success: false,
+                            error: error instanceof Error ? error.message : "Unknown error",
+                        }, null, 2)
+                    }]
             };
         }
     });

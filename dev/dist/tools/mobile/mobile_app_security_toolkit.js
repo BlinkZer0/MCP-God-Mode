@@ -58,16 +58,26 @@ export function registerMobileAppSecurityToolkit(server) {
                             },
                         };
                         return {
-                            success: true,
-                            message: `Security scan completed for ${app_package || app_path}`,
-                            scan_results: scanResults,
+                            content: [{
+                                    type: "text",
+                                    text: JSON.stringify({
+                                        success: true,
+                                        message: `Security scan completed for ${app_package || app_path}`,
+                                        scan_results: scanResults,
+                                    }, null, 2)
+                                }]
                         };
                     }
                     else {
                         return {
-                            success: false,
-                            error: "iOS app security scanning requires Xcode and device access",
-                            platform: "ios",
+                            content: [{
+                                    type: "text",
+                                    text: JSON.stringify({
+                                        success: false,
+                                        error: "iOS app security scanning requires Xcode and device access",
+                                        platform: "ios",
+                                    }, null, 2)
+                                }]
                         };
                     }
                 case "analyze":
@@ -114,9 +124,14 @@ export function registerMobileAppSecurityToolkit(server) {
                         ],
                     };
                     return {
-                        success: true,
-                        message: `Security analysis completed for ${app_package || app_path}`,
-                        analysis,
+                        content: [{
+                                type: "text",
+                                text: JSON.stringify({
+                                    success: true,
+                                    message: `Security analysis completed for ${app_package || app_path}`,
+                                    analysis,
+                                }, null, 2)
+                            }]
                     };
                 case "test":
                     if (!app_package && !app_path) {
@@ -144,9 +159,14 @@ export function registerMobileAppSecurityToolkit(server) {
                         overall_security: "Moderate",
                     };
                     return {
-                        success: true,
-                        message: `Security testing completed for ${app_package || app_path}`,
-                        test_results: testResults,
+                        content: [{
+                                type: "text",
+                                text: JSON.stringify({
+                                    success: true,
+                                    message: `Security testing completed for ${app_package || app_path}`,
+                                    test_results: testResults,
+                                }, null, 2)
+                            }]
                     };
                 case "audit":
                     if (!app_package && !app_path) {
@@ -191,9 +211,14 @@ export function registerMobileAppSecurityToolkit(server) {
                         remediation_priority: "High",
                     };
                     return {
-                        success: true,
-                        message: `Security audit completed for ${app_package || app_path}`,
-                        audit_report: auditReport,
+                        content: [{
+                                type: "text",
+                                text: JSON.stringify({
+                                    success: true,
+                                    message: `Security audit completed for ${app_package || app_path}`,
+                                    audit_report: auditReport,
+                                }, null, 2)
+                            }]
                     };
                 case "penetration_test":
                     if (!app_package && !app_path) {
@@ -242,9 +267,14 @@ export function registerMobileAppSecurityToolkit(server) {
                         ],
                     };
                     return {
-                        success: true,
-                        message: `Penetration testing completed for ${app_package || app_path}`,
-                        penetration_test_results: penTestResults,
+                        content: [{
+                                type: "text",
+                                text: JSON.stringify({
+                                    success: true,
+                                    message: `Penetration testing completed for ${app_package || app_path}`,
+                                    penetration_test_results: penTestResults,
+                                }, null, 2)
+                            }]
                     };
                 case "vulnerability_assessment":
                     if (!app_package && !app_path) {
@@ -291,9 +321,14 @@ export function registerMobileAppSecurityToolkit(server) {
                         risk_level: "High",
                     };
                     return {
-                        success: true,
-                        message: `Vulnerability assessment completed for ${app_package || app_path}`,
-                        vulnerability_assessment: vulnAssessment,
+                        content: [{
+                                type: "text",
+                                text: JSON.stringify({
+                                    success: true,
+                                    message: `Vulnerability assessment completed for ${app_package || app_path}`,
+                                    vulnerability_assessment: vulnAssessment,
+                                }, null, 2)
+                            }]
                     };
                 case "security_report":
                     if (!app_package && !app_path) {
@@ -346,9 +381,14 @@ export function registerMobileAppSecurityToolkit(server) {
                         },
                     };
                     return {
-                        success: true,
-                        message: `Security report generated for ${app_package || app_path}`,
-                        security_report: securityReport,
+                        content: [{
+                                type: "text",
+                                text: JSON.stringify({
+                                    success: true,
+                                    message: `Security report generated for ${app_package || app_path}`,
+                                    security_report: securityReport,
+                                }, null, 2)
+                            }]
                     };
                 case "compliance_check":
                     if (!app_package && !app_path) {
@@ -405,9 +445,14 @@ export function registerMobileAppSecurityToolkit(server) {
                         ],
                     };
                     return {
-                        success: true,
-                        message: `Compliance check completed for ${app_package || app_path}`,
-                        compliance_check: complianceCheck,
+                        content: [{
+                                type: "text",
+                                text: JSON.stringify({
+                                    success: true,
+                                    message: `Compliance check completed for ${app_package || app_path}`,
+                                    compliance_check: complianceCheck,
+                                }, null, 2)
+                            }]
                     };
                 default:
                     throw new Error(`Unknown action: ${action}`);
@@ -415,8 +460,13 @@ export function registerMobileAppSecurityToolkit(server) {
         }
         catch (error) {
             return {
-                success: false,
-                error: error instanceof Error ? error.message : "Unknown error",
+                content: [{
+                        type: "text",
+                        text: JSON.stringify({
+                            success: false,
+                            error: error instanceof Error ? error.message : "Unknown error",
+                        }, null, 2)
+                    }]
             };
         }
     });

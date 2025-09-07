@@ -6,6 +6,15 @@ import { execSync } from 'child_process';
 import { createRequire } from 'module';
 const require = createRequire(import.meta.url);
 
+// Import tool configuration system
+import { 
+  createMinimalConfig, 
+  createFullConfig, 
+  createConfigFromCategories, 
+  saveToolConfig,
+  TOOL_CATEGORIES as CONFIG_TOOL_CATEGORIES 
+} from './dist/config/tool-config.js';
+
 // Auto-generated tool categories based on actual tools in src/tools/
 // Generated on: 2025-09-07T08:28:51.173Z
 // Total tools discovered: 117
@@ -537,6 +546,68 @@ async function runInstaller() {
   console.log('');
 }
 
+// Install minimal server
+async function installMinimalServer() {
+  console.log('🔧 Installing Minimal Server...');
+  console.log('================================');
+  
+  try {
+    const config = createMinimalConfig();
+    await saveToolConfig(config);
+    
+    console.log('✅ Minimal server configuration created');
+    console.log('📋 Enabled categories: Core, File System, Discovery');
+    console.log('🔧 Total tools: ~15 essential tools');
+    console.log('');
+    console.log('💡 Run: npm run build && node dist/server-modular.js');
+  } catch (error) {
+    console.error('❌ Failed to create minimal server configuration:', error);
+    console.error('Error details:', error.message);
+    console.error('Stack:', error.stack);
+  }
+}
+
+// Install modular server with user choice
+async function installModularServer() {
+  console.log('🔧 Installing Modular Server...');
+  console.log('================================');
+  console.log('');
+  console.log('Available tool categories:');
+  console.log('');
+  
+  Object.entries(CONFIG_TOOL_CATEGORIES).forEach(([key, category], index) => {
+    console.log(`${index + 1}. ${category.name} (${category.tools.length} tools)`);
+    console.log(`   ${category.description}`);
+    console.log('');
+  });
+  
+  console.log('💡 To install with specific categories, run:');
+  console.log('node install.js --modular --categories core,file_system,network');
+  console.log('');
+  console.log('💡 To install with all tools, run:');
+  console.log('node install.js --modular --all');
+  console.log('');
+}
+
+// Install full server
+async function installFullServer() {
+  console.log('🔧 Installing Full Server...');
+  console.log('=============================');
+  
+  try {
+    const config = createFullConfig();
+    await saveToolConfig(config);
+    
+    console.log('✅ Full server configuration created');
+    console.log('📋 All categories enabled (including enhanced tools)');
+    console.log('🔧 Total tools: ~124 tools (119 standard + 5 enhanced)');
+    console.log('');
+    console.log('💡 Run: npm run build && node dist/server-modular.js');
+  } catch (error) {
+    console.error('❌ Failed to create full server configuration:', error);
+  }
+}
+
 // Build custom server
 async function buildCustomServer() {
   console.log('🔧 Custom Server Builder');
@@ -558,15 +629,64 @@ async function buildCustomServer() {
   console.log('');
 }
 
+// Install modular server with specific categories
+async function installModularWithCategories(categories) {
+  console.log('🔧 Installing Modular Server with Selected Categories...');
+  console.log('=======================================================');
+  
+  try {
+    const config = createConfigFromCategories(categories);
+    await saveToolConfig(config);
+    
+    console.log('✅ Modular server configuration created');
+    console.log(`📋 Enabled categories: ${categories.join(', ')}`);
+    
+    // Count total tools
+    const totalTools = categories.reduce((count, category) => {
+      return count + (CONFIG_TOOL_CATEGORIES[category]?.tools.length || 0);
+    }, 0);
+    
+    console.log(`🔧 Total tools: ~${totalTools} tools`);
+    console.log('');
+    console.log('💡 Run: npm run build && node dist/server-modular.js');
+  } catch (error) {
+    console.error('❌ Failed to create modular server configuration:', error);
+  }
+}
+
 // Main execution
-if (import.meta.url === `file://${process.argv[1]}`) {
+if (import.meta.url === `file://${process.argv[1]}` || import.meta.url.endsWith('install.js')) {
   const args = process.argv.slice(2);
   
-  if (args.includes('--custom') || args.includes('-c')) {
-    buildCustomServer();
-  } else {
-    runInstaller();
+  async function main() {
+    if (args.includes('--minimal')) {
+      await installMinimalServer();
+    } else if (args.includes('--modular')) {
+      if (args.includes('--all')) {
+        await installFullServer();
+      } else if (args.includes('--categories')) {
+        const categoriesIndex = args.indexOf('--categories');
+        const categoriesArg = args[categoriesIndex + 1];
+        if (categoriesArg) {
+          const categories = categoriesArg.split(',').map(c => c.trim());
+          await installModularWithCategories(categories);
+        } else {
+          console.error('❌ Please specify categories after --categories');
+          console.log('Example: --categories core,file_system,network');
+        }
+      } else {
+        await installModularServer();
+      }
+    } else if (args.includes('--full')) {
+      await installFullServer();
+    } else if (args.includes('--custom') || args.includes('-c')) {
+      await buildCustomServer();
+    } else {
+      runInstaller();
+    }
   }
+  
+  main().catch(console.error);
 }
 
 export { TOOL_CATEGORIES, SERVER_CONFIGS };

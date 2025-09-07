@@ -3,7 +3,7 @@ import { exec } from "node:child_process";
 import { promisify } from "util";
 const execAsync = promisify(exec);
 export function registerSecurityTesting(server) {
-    server.registerTool("mcp_mcp-god-mode_security_testing", {
+    server.registerTool("security_testing", {
         description: "Advanced multi-domain security testing and vulnerability assessment platform. Perform comprehensive security evaluations across networks, devices, systems, wireless communications, Bluetooth connections, and radio frequencies. Provides intelligent recommendations for appropriate security toolkits and testing methodologies based on target analysis.",
         inputSchema: {
             test_type: z.enum(["penetration_test", "vulnerability_assessment", "security_audit", "red_team"]).describe("Type of security test to perform"),

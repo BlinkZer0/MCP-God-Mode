@@ -7,78 +7,119 @@ MCP God Mode provides two distinct server architectures to serve different use c
 ## 🏗️ Server Architectures
 
 ### Monolithic Server (`server-refactored.js`)
-- **Tool Count**: 113 tools
+- **Tool Count**: 129 tools
 - **Architecture**: Single unified server file
 - **Approach**: Comprehensive tools with multiple actions/parameters
 - **File Size**: ~200KB
 - **Use Case**: Production environments, full-featured deployments
 
 ### Modular Server (`server-modular.js`)
-- **Tool Count**: 119 tools
+- **Tool Count**: 129 tools (configurable)
 - **Architecture**: Dynamic tool loading from individual modules
-- **Approach**: Granular, specialized tools
+- **Approach**: Granular, specialized tools with configuration-based loading
 - **File Size**: ~3KB (plus individual tool modules)
-- **Use Case**: Development, customization, selective tool deployment
+- **Use Case**: Development, customization, selective tool deployment, configurable installations
 
-## 🔍 Tool Count Discrepancy Analysis
+## 🔍 Tool Count Analysis
 
-The modular server has **6 additional tools** compared to the monolithic server. This discrepancy occurs because the modular architecture breaks down complex monolithic tools into specialized functions.
+Both servers now have **identical tool counts (129 tools)**. The modular server adds configurability - it can be set to load minimal tools (10), specific categories, or all tools (129) based on user preference during installation.
 
-### Tools Only in Monolithic Server (5 tools)
-These tools are implemented as comprehensive functions in the monolithic server but are not available as separate tools in the modular server:
+### Enhanced Tools (Available in Both Servers)
+Both servers include the same 5 enhanced tools that provide advanced functionality beyond the standard tools:
 
-1. **`email_utils`** - Email utility functions
-2. **`captcha_defeating`** - Captcha solving capabilities
-3. **`form_completion`** - Form filling functionality
-4. **`universal_browser_operator`** - Browser automation
-5. **`web_search`** - Web search functionality
-
-### Tools Only in Modular Server (11 tools)
-These are specialized tools that break down complex monolithic functionality:
-
-1. **`mcp_mcp-god-mode_captcha_detection`** - Detect captcha types
-2. **`mcp_mcp-god-mode_captcha_solving`** - Solve specific captcha types
-3. **`mcp_mcp-god-mode_captcha_bypass`** - Bypass captcha mechanisms
-4. **`mcp_mcp-god-mode_captcha_analysis`** - Analyze captcha complexity
-5. **`mcp_mcp-god-mode_form_detection`** - Detect form elements
-6. **`mcp_mcp-god-mode_form_completion`** - Fill form fields
-7. **`mcp_mcp-god-mode_form_validation`** - Validate form data
-8. **`mcp_mcp-god-mode_form_pattern_recognition`** - Recognize form patterns
-9. **`mcp_mcp-god-mode_web_search`** - Web search functionality
-10. **`mcp_mcp-god-mode_ai_site_interaction`** - AI-powered site interaction
-11. **`mcp_mcp-god-mode_captcha_defeating`** - Advanced captcha defeating
+1. **`enhanced_legal_compliance`** - Advanced legal compliance with additional audit capabilities
+2. **`advanced_security_assessment`** - Comprehensive security evaluation with threat modeling
+3. **`cross_platform_system_manager`** - Unified system management across all platforms
+4. **`enterprise_integration_hub`** - Advanced enterprise system integration
+5. **`advanced_analytics_engine`** - Sophisticated data analysis with machine learning
 
 ## 📊 Architecture Comparison
 
 | Aspect | Monolithic Server | Modular Server |
 |--------|------------------|----------------|
-| **Tool Count** | 113 tools | 119 tools |
+| **Tool Count** | 129 tools | 129 tools (configurable) |
 | **File Size** | ~200KB | ~3KB + modules |
-| **Loading Time** | Fast (single file) | Slower (dynamic loading) |
-| **Memory Usage** | Higher (all tools loaded) | Lower (selective loading) |
-| **Customization** | Limited | High |
+| **Loading Time** | Fast (single file) | Variable (based on configuration) |
+| **Memory Usage** | Higher (all tools loaded) | Configurable (minimal to full) |
+| **Customization** | Limited | High (category-based selection) |
 | **Maintenance** | Single file | Multiple modules |
 | **Error Isolation** | Poor (one error affects all) | Good (isolated modules) |
 | **Tool Granularity** | Coarse (comprehensive tools) | Fine (specialized tools) |
 | **Development** | Harder to modify | Easier to extend |
-| **Production** | Recommended | Development/testing |
+| **Production** | Recommended | Recommended (with configuration) |
+| **Configuration** | Fixed (all tools) | Flexible (minimal/custom/full) |
 
 ## 🎯 When to Use Each Server
 
 ### Use Monolithic Server When:
 - ✅ **Production deployment** - Stable, tested environment
-- ✅ **Full functionality needed** - All 113 tools required
+- ✅ **Full functionality needed** - All 129 tools required
 - ✅ **Performance critical** - Fast loading and execution
 - ✅ **Simple deployment** - Single file distribution
 - ✅ **Standard use cases** - No need for customization
 
 ### Use Modular Server When:
+- ✅ **Configurable deployments** - Need specific tool subsets (minimal/custom/full)
 - ✅ **Development/testing** - Easy to modify and test
-- ✅ **Custom deployments** - Need specific tool subsets
 - ✅ **Tool extraction** - Want to use individual tools
 - ✅ **Learning/experimentation** - Understanding tool internals
 - ✅ **Selective functionality** - Don't need all tools
 - ✅ **Memory constraints** - Limited system resources
+- ✅ **Custom installations** - Want to choose specific tool categories
+
+## ⚙️ Modular Server Configuration System
+
+The modular server now includes a sophisticated configuration system that allows users to choose exactly which tools to load based on their needs.
+
+### Configuration Options
+
+#### 1. **Minimal Configuration** (~10 tools)
+```bash
+npm run install:minimal
+```
+- **Core Tools**: health, system_info
+- **File System Tools**: file_ops, file_watcher, fs_list, fs_read_text, fs_search, fs_write_text
+- **Discovery Tools**: explore_categories, tool_discovery
+- **Use Case**: Basic functionality, resource-constrained environments
+
+#### 2. **Custom Configuration** (Variable tools)
+```bash
+npm run install:modular -- --categories core,network,security
+```
+- **Selective Categories**: Choose specific tool categories
+- **Available Categories**: core, file_system, network, security, mobile, bluetooth, radio, media, email, cloud, forensics, penetration, utilities, web, wireless, system, process, legal, git, discovery, social, virtualization, windows, screenshot, enhanced
+- **Use Case**: Custom deployments, specific use cases
+
+#### 3. **Full Configuration** (129 tools)
+```bash
+npm run install:full
+```
+- **All Categories**: Every tool category enabled
+- **Enhanced Tools**: All 5 enhanced tools included
+- **Use Case**: Full functionality, production deployments
+
+### Configuration File
+The modular server uses a `tool-config.json` file to store the selected configuration:
+
+```json
+{
+  "enabledTools": [],
+  "disabledTools": [],
+  "toolCategories": {
+    "core": { "enabled": true, "tools": ["health", "system_info"] },
+    "file_system": { "enabled": true, "tools": [...] },
+    "network": { "enabled": false, "tools": [...] }
+  },
+  "customTools": []
+}
+```
+
+### Benefits of Configuration System
+- **Flexibility**: Choose exactly what you need
+- **Performance**: Load only required tools
+- **Security**: Exclude tools you don't need
+- **Customization**: Easy to modify configurations
+- **Scalability**: Different configurations for different environments
 
 ## 🔧 Technical Implementation Details
 

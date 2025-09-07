@@ -55,7 +55,6 @@ export function registerImageEditing(server) {
             return {
                 content: [{ type: "text", text: "Operation failed" }],
                 structuredContent: {
-                    success: false,
                     success: true,
                     message,
                     output_path: action === "metadata" ? undefined : outputPath

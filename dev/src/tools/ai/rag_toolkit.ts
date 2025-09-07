@@ -256,7 +256,7 @@ const RagToolkitSchema = z.object({
 });
 
 export function registerRagToolkit(server: McpServer) {
-  server.registerTool("mcp_mcp-god-mode_rag_toolkit", {
+  server.registerTool("rag_toolkit", {
     description: "🔍 **Advanced RAG (Retrieval-Augmented Generation) Toolkit** - Comprehensive document search, embedding, and context-aware question answering system. Perform semantic search across documents, generate embeddings, build searchable indexes, and create context-aware responses using state-of-the-art language models. **Cross-platform support** with Python ML libraries when available, JavaScript fallbacks for universal compatibility.",
     inputSchema: RagToolkitSchema.shape
   }, async ({ action, query, documents, text, top_k, context_length, similarity_threshold, model_name, index_path, answer_model }) => {

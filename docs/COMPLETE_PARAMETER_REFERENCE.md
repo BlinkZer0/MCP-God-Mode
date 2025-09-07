@@ -460,6 +460,58 @@ This document provides a comprehensive reference for all parameters used across 
 4. **Log parameter usage** for debugging
 5. **Handle parameter conflicts** gracefully
 
+## 🚀 Enhanced Tools (Server-Refactored & Modular)
+
+### Enhanced Legal Compliance (`enhanced_legal_compliance`)
+
+#### Parameters
+| Parameter | Type | Required | Description | Examples |
+|-----------|------|----------|-------------|----------|
+| `action` | string | ✅ | Enhanced legal compliance action | `'advanced_audit'`, `'chain_verification'`, `'regulatory_report'`, `'compliance_dashboard'`, `'evidence_analysis'` |
+| `audit_scope` | string | ❌ | Scope of advanced audit | `'full_system'`, `'specific_department'`, `'data_retention'` |
+| `report_format` | string | ❌ | Format for regulatory reports | `'pdf'`, `'excel'`, `'json'`, `'xml'` |
+| `dashboard_type` | string | ❌ | Type of compliance dashboard | `'executive'`, `'technical'`, `'audit'`, `'legal'` |
+
+### Advanced Security Assessment (`advanced_security_assessment`)
+
+#### Parameters
+| Parameter | Type | Required | Description | Examples |
+|-----------|------|----------|-------------|----------|
+| `assessment_type` | string | ✅ | Type of security assessment | `'threat_modeling'`, `'risk_analysis'`, `'compliance_validation'`, `'security_posture'`, `'vulnerability_prioritization'` |
+| `target_scope` | string | ✅ | Target system or network for assessment | `'192.168.1.0/24'`, `'web-application'`, `'database-server'` |
+| `assessment_depth` | string | ❌ | Depth of assessment | `'basic'`, `'comprehensive'`, `'enterprise'` |
+| `compliance_framework` | string | ❌ | Compliance framework to validate against | `'ISO27001'`, `'NIST'`, `'PCI-DSS'`, `'SOX'` |
+
+### Cross-Platform System Manager (`cross_platform_system_manager`)
+
+#### Parameters
+| Parameter | Type | Required | Description | Examples |
+|-----------|------|----------|-------------|----------|
+| `operation` | string | ✅ | Cross-platform operation | `'system_sync'`, `'cross_platform_deploy'`, `'unified_monitoring'`, `'platform_optimization'`, `'integration_testing'` |
+| `target_platforms` | array | ✅ | Target platforms for operation | `['windows', 'linux', 'macos']`, `['android', 'ios']` |
+| `operation_scope` | string | ✅ | Scope of the operation | `'full_system'`, `'specific_services'`, `'user_data'` |
+| `automation_level` | string | ❌ | Level of automation | `'manual'`, `'semi_automated'`, `'fully_automated'` |
+
+### Enterprise Integration Hub (`enterprise_integration_hub`)
+
+#### Parameters
+| Parameter | Type | Required | Description | Examples |
+|-----------|------|----------|-------------|----------|
+| `integration_type` | string | ✅ | Type of enterprise integration | `'api_management'`, `'workflow_automation'`, `'enterprise_security'`, `'data_integration'`, `'system_orchestration'` |
+| `target_systems` | array | ✅ | Target systems for integration | `['CRM', 'ERP', 'HRIS']`, `['Active Directory', 'LDAP']` |
+| `integration_scope` | string | ✅ | Scope of integration | `'full_enterprise'`, `'departmental'`, `'specific_workflows'` |
+| `security_level` | string | ❌ | Security level for integration | `'standard'`, `'enhanced'`, `'enterprise'` |
+
+### Advanced Analytics Engine (`advanced_analytics_engine`)
+
+#### Parameters
+| Parameter | Type | Required | Description | Examples |
+|-----------|------|----------|-------------|----------|
+| `analysis_type` | string | ✅ | Type of advanced analysis | `'predictive_analytics'`, `'real_time_insights'`, `'machine_learning'`, `'behavioral_analysis'`, `'trend_analysis'` |
+| `data_sources` | array | ✅ | Data sources for analysis | `['logs', 'metrics', 'user_data']`, `['network_traffic', 'system_events']` |
+| `analysis_parameters` | object | ❌ | Additional analysis parameters | `{'timeframe': '30d', 'confidence': 0.95}` |
+| `output_format` | string | ❌ | Output format for results | `'json'`, `'report'`, `'dashboard'`, `'visualization'` |
+
 ## 📚 Related Documentation
 
 - **[Tool Category Index](TOOL_CATEGORY_INDEX.md)** - Complete tool breakdown
@@ -469,5 +521,5 @@ This document provides a comprehensive reference for all parameters used across 
 
 ---
 
-*Last Updated: December 2024*  
-*MCP God Mode v2.0 - Complete Parameter Reference*
+*Last Updated: September 7th, 2025*  
+*MCP God Mode v1.7 - Complete Parameter Reference*

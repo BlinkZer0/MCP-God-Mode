@@ -9,7 +9,7 @@ import { promisify } from "util";
 const execAsync = promisify(exec);
 
 export function registerBluetoothHacking(server: McpServer) {
-  server.registerTool("mcp_mcp-god-mode_bluetooth_hacking", {
+  server.registerTool("bluetooth_hacking", {
     description: "Advanced Bluetooth security penetration testing and exploitation toolkit. Perform comprehensive Bluetooth device assessments, bypass pairing mechanisms, extract sensitive data, execute bluejacking/bluesnarfing/bluebugging attacks, and analyze Bluetooth Low Energy (BLE) devices. Supports all Bluetooth versions with cross-platform compatibility.",
     inputSchema: {
       action: z.enum(["scan_devices", "pair_bypass", "extract_data", "bluejacking", "bluesnarfing", "bluebugging", "ble_analysis", "spoof_device", "jam_bluetooth", "monitor_traffic", "test_security", "exploit_vulnerability"]).describe("Bluetooth hacking action to perform"),

@@ -52,6 +52,11 @@ export { registerThreatIntelligence } from "./security/threat_intelligence.js";
 export { registerComplianceAssessment } from "./security/compliance_assessment.js";
 export { registerSocialNetworkRipper } from "./security/social_network_ripper.js";
 export { registerMetadataExtractor } from "./security/metadata_extractor.js";
+export { registerSiemToolkit } from "./security/siem_toolkit.js";
+export { registerCloudSecurityAssessment } from "./security/cloud_security_assessment.js";
+export { registerApiSecurityTesting } from "./security/api_security_testing.js";
+export { registerEmailSecuritySuite } from "./security/email_security_suite.js";
+export { registerDatabaseSecurityToolkit } from "./security/database_security_toolkit.js";
 export { registerEncryptionTool } from "./utilities/encryption_tool.js";
 export { registerMalwareAnalysis } from "./security/malware_analysis.js";
 // Penetration Tools
@@ -60,6 +65,7 @@ export { registerSecurityTesting } from "./penetration/security_testing.js";
 export { registerNetworkPenetration } from "./penetration/network_penetration.js";
 export { registerPenetrationTestingToolkit } from "./penetration/penetration_testing_toolkit.js";
 export { registerSocialEngineeringToolkit } from "./penetration/social_engineering_toolkit.js";
+export { registerRedTeamToolkit } from "./penetration/red_team_toolkit.js";
 // Wireless Tools
 export { registerWifiSecurityToolkit } from "./wireless/wifi_security_toolkit.js";
 export { registerWifiHacking } from "./wireless/wifi_hacking.js";

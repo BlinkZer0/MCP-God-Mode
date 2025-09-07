@@ -3,22 +3,22 @@
 ## Overview
 MCP God Mode is an advanced security and network analysis platform. Current accurate counts after this sync:
 
-- **114 register functions** exported in code
-- **120 unique tool endpoints** in the modular server
-- **125 total endpoints** in the server‑refactored (adds 5 enhanced tools)
-- **123 wiki pages** maintained (some endpoints are aliases and share a page)
+- **119 register functions** exported in code
+- **135 total endpoints** in both servers (119 standard + 11 enhanced tools: 5 enhanced + 6 MCP Web UI Bridge)
+- **135 wiki pages** maintained (one page per tool)
+- **Configurable modular server** - can load minimal (10 tools), custom categories, or full (135 tools)
 
 This document provides detailed information about each tool, its capabilities, and use cases.
 
 ## Tool Count Summary
-- **Total TypeScript Files**: 145
-- **Exported Register Functions**: 114
-- **Modular Server (unique endpoints)**: 120
-- **Server‑Refactored (unique endpoints)**: 125
+- **Total TypeScript Files**: 152
+- **Exported Register Functions**: 119
+- **Server-Refactored (total endpoints)**: 135
+- **Modular Server (total endpoints)**: 135 (configurable)
 - **Server-Minimal**: 15 tools
 
-## Why Counts Differ
-The modular server calls all exported register functions (114). Several functions register more than one endpoint (e.g., multi‑engine web search), so you’ll see 120 unique endpoints at runtime. The server‑refactored adds 5 enhanced endpoints (advanced analytics, advanced security assessment, cross‑platform system manager, enterprise integration hub, enhanced legal compliance) for a total of 125.
+## Why Counts Are Now Identical
+Both servers now have identical tool counts. The modular server loads all 119 standard tools from the index plus the same 11 enhanced tools as server-refactored (5 enhanced + 6 MCP Web UI Bridge). The modular server adds configurability - it can be set to load minimal tools, specific categories, or all tools based on user preference during installation.
 
 Humor break: if the AI builds an enterprise integration hub and starts sending calendar invites to your toaster, that’s… technically integration.
 
@@ -228,18 +228,33 @@ Humor break: if the AI builds an enterprise integration hub and starts sending c
 | `mcp_mcp-god-mode_tool_discovery` | Discover and explore all available tools using natural language queries | `query`, `category`, `capability` |
 | `mcp_mcp-god-mode_explore_categories` | Explore all available tool categories and their capabilities | `category` |
 
+### 🌐 MCP Web UI Bridge Tools (6 tools)
+| Tool | Description | Parameters |
+|------|-------------|------------|
+| `web_ui_chat` | Chat with AI services through their web interfaces without APIs. Supports streaming responses and session persistence across ChatGPT, Grok, Claude, Hugging Face Chat, and custom providers | `provider`, `prompt`, `timeoutMs`, `variables`, `platform`, `headless` |
+| `providers_list` | List all available AI service providers and their capabilities, with platform-specific filtering | `platform` |
+| `provider_wizard` | Interactive wizard to set up custom AI service providers by capturing selectors and testing the configuration | `startUrl`, `providerName`, `platform`, `headless` |
+| `macro_record` | Record a macro by capturing user actions on a web page or app into a portable JSON script | `target`, `scope`, `name`, `description`, `platform` |
+| `macro_run` | Execute a saved macro with optional variable substitution and dry-run capability | `macroId`, `variables`, `dryRun` |
+| `session_management` | Manage encrypted sessions for AI service providers with list, clear, and cleanup operations | `action`, `provider`, `platform` |
+
+**Supported AI Services**: ChatGPT, Grok (x.ai), Claude (Anthropic), Hugging Face Chat, plus custom providers
+**Platforms**: Desktop (Windows/macOS/Linux), Android, iOS
+**Features**: Real-time streaming, encrypted session persistence, anti-bot friendly, macro recording/replay
+
 ## Server Implementations
 
-### Server-Refactored (116 tools)
-- **Primary server** with all 111 exported tools
-- **5 additional tools** registered separately
+### Server-Refactored (135 tools)
+- **Primary server** with all 119 exported tools
+- **11 additional tools** registered separately (5 enhanced + 6 MCP Web UI Bridge)
 - **Full feature set** with legal compliance
 - **Production ready** with comprehensive error handling
 
-### Server-Modular (111 tools)
+### Server-Modular (135 tools)
 - **Modular architecture** with imported tools
-- **111 exported tools** from index
-- **Streamlined implementation**
+- **119 exported tools** from index
+- **11 additional tools** registered separately (5 enhanced + 6 MCP Web UI Bridge)
+- **Configurable** - can load minimal, custom categories, or full toolset
 - **Development and testing focused**
 
 ### Server-Minimal (15 tools)

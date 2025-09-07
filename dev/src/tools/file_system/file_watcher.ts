@@ -42,11 +42,15 @@ export function registerFileWatcher(server: McpServer) {
             
             fileWatchers.set(watcher_id || watchPath, watcher);
             return {
-        success: true,
-              watcher_id: watcher_id || watchPath,
-              message: `Started watching ${watchPath
-      }`,
-              events: events,
+              content: [{
+                type: "text",
+                text: JSON.stringify({
+                  success: true,
+                  watcher_id: watcher_id || watchPath,
+                  message: `Started watching ${watchPath}`,
+                  events: events,
+                }, null, 2)
+              }]
             };
             
           case "unwatch":
@@ -61,9 +65,13 @@ export function registerFileWatcher(server: McpServer) {
               fileWatchers.delete(targetId);
               watcherEvents.delete(targetId);
               return {
-        success: true,
-                message: `Stopped watching ${targetId
-      }`,
+                content: [{
+                  type: "text",
+                  text: JSON.stringify({
+                    success: true,
+                    message: `Stopped watching ${targetId}`,
+                  }, null, 2)
+                }]
               };
             } else {
               throw new Error(`No active watcher found for ${targetId}`);
@@ -71,13 +79,18 @@ export function registerFileWatcher(server: McpServer) {
             
           case "list_watchers":
             return {
-        success: true,
-              watchers: Array.from(fileWatchers.keys()).map(id => ({
-                id,
-                path: id,
-                active: true,
-      })),
-              count: fileWatchers.size,
+              content: [{
+                type: "text",
+                text: JSON.stringify({
+                  success: true,
+                  watchers: Array.from(fileWatchers.keys()).map(id => ({
+                    id,
+                    path: id,
+                    active: true,
+                  })),
+                  count: fileWatchers.size,
+                }, null, 2)
+              }]
             };
             
           case "get_events":
@@ -88,21 +101,30 @@ export function registerFileWatcher(server: McpServer) {
             
             const events_list = watcherEvents.get(targetEventsId) || [];
             return {
-        success: true,
-              watcher_id: targetEventsId,
-              events: events_list,
-              count: events_list.length,
-      };
+              content: [{
+                type: "text",
+                text: JSON.stringify({
+                  success: true,
+                  watcher_id: targetEventsId,
+                  events: events_list,
+                  count: events_list.length,
+                }, null, 2)
+              }]
+            };
             
           default:
             throw new Error(`Unknown action: ${action}`);
         }
       } catch (error) {
         return {
-        content: [{ type: "text", text: "Operation completed successfully" }],
-        success: false,
-          error: error instanceof Error ? (error as Error).message : "Unknown error",
-      };
+          content: [{
+            type: "text",
+            text: JSON.stringify({
+              success: false,
+              error: error instanceof Error ? error.message : "Unknown error",
+            }, null, 2)
+          }]
+        };
       }
     });
 }

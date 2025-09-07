@@ -9,7 +9,7 @@ import { promisify } from "util";
 const execAsync = promisify(exec);
 
 export function registerRadioSecurity(server: McpServer) {
-  server.registerTool("mcp_mcp-god-mode_radio_security", {
+  server.registerTool("radio_security", {
     description: "Alias for SDR security toolkit - Software Defined Radio security and signal analysis. Ask me to scan radio frequencies, decode signals, test radio security, analyze wireless communications, or broadcast signals. You can ask me to transmit audio, jam frequencies, create interference, test transmission power, and more!",
     inputSchema: {
       action: z.enum(["scan_frequencies", "decode_signal", "test_security", "analyze_communication", "broadcast_signal", "transmit_audio", "jam_frequency", "create_interference", "test_power", "monitor_spectrum", "detect_signal", "analyze_modulation"]).describe("Radio security action to perform"),

@@ -1,0 +1,114 @@
+{
+  "chatgpt": {
+    "name": "ChatGPT",
+    "url": "https://chat.openai.com/",
+    "loginSignal": "textarea[placeholder*='message'], [data-testid='composer']",
+    "input": "textarea[placeholder*='message'], [data-testid='composer']",
+    "send": {
+      "gesture": "enter"
+    },
+    "assistantContainer": "div[data-testid='conversation-turn'] div[data-message-author-role='assistant'], [data-testid='conversation']",
+    "completionSignals": ["typing", "loading", "thinking"],
+    "platforms": ["desktop", "android", "ios"],
+    "capabilities": {
+      "streaming": true,
+      "fileUpload": true,
+      "codeExecution": false,
+      "imageGeneration": false
+    },
+    "selectors": {
+      "newChat": "[data-testid='new-chat-button'], button[aria-label*='New chat']",
+      "settings": "[data-testid='settings-button'], button[aria-label*='Settings']",
+      "modelSelector": "[data-testid='model-selector'], select[name='model']"
+    }
+  },
+  "grok": {
+    "name": "Grok (x.ai)",
+    "url": "https://x.ai/",
+    "loginSignal": "textarea, [data-testid='composer'], [role='textbox']",
+    "input": "textarea, [data-testid='composer'], [role='textbox']",
+    "send": {
+      "gesture": "enter"
+    },
+    "assistantContainer": "[data-testid='message-list'], .message, [role='log']",
+    "completionSignals": ["typing", "loading", "thinking"],
+    "platforms": ["desktop", "android", "ios"],
+    "capabilities": {
+      "streaming": true,
+      "fileUpload": false,
+      "codeExecution": false,
+      "imageGeneration": false
+    },
+    "selectors": {
+      "newChat": "button[aria-label*='New'], [data-testid='new-chat']",
+      "settings": "button[aria-label*='Settings'], [data-testid='settings']"
+    }
+  },
+  "claude": {
+    "name": "Claude (Anthropic)",
+    "url": "https://claude.ai/",
+    "loginSignal": "textarea, [data-testid='composer'], [role='textbox']",
+    "input": "textarea, [data-testid='composer'], [role='textbox']",
+    "send": {
+      "gesture": "enter"
+    },
+    "assistantContainer": "[data-testid='conversation'], .message, [role='log']",
+    "completionSignals": ["typing", "loading", "thinking"],
+    "platforms": ["desktop", "android", "ios"],
+    "capabilities": {
+      "streaming": true,
+      "fileUpload": true,
+      "codeExecution": false,
+      "imageGeneration": false
+    },
+    "selectors": {
+      "newChat": "button[aria-label*='New'], [data-testid='new-chat']",
+      "settings": "button[aria-label*='Settings'], [data-testid='settings']",
+      "modelSelector": "select[name='model'], [data-testid='model-selector']"
+    }
+  },
+  "huggingface": {
+    "name": "Hugging Face Chat",
+    "url": "https://huggingface.co/chat/",
+    "loginSignal": "textarea, [role='textbox']",
+    "input": "textarea, [role='textbox']",
+    "send": {
+      "gesture": "enter"
+    },
+    "assistantContainer": "main, .conversation, [role='log']",
+    "completionSignals": ["typing", "loading", "thinking"],
+    "platforms": ["desktop", "android", "ios"],
+    "capabilities": {
+      "streaming": true,
+      "fileUpload": false,
+      "codeExecution": false,
+      "imageGeneration": false
+    },
+    "selectors": {
+      "newChat": "button[aria-label*='New'], [data-testid='new-chat']",
+      "modelSelector": "select[name='model'], [data-testid='model-selector']"
+    }
+  },
+  "custom-template": {
+    "name": "Custom Provider Template",
+    "url": "https://example.com/chat",
+    "loginSignal": "textarea, [role='textbox'], input[type='text']",
+    "input": "textarea, [role='textbox'], input[type='text']",
+    "send": {
+      "gesture": "enter"
+    },
+    "assistantContainer": "main, .response, [role='log']",
+    "completionSignals": ["typing", "loading", "thinking"],
+    "platforms": ["desktop"],
+    "capabilities": {
+      "streaming": true,
+      "fileUpload": false,
+      "codeExecution": false,
+      "imageGeneration": false
+    },
+    "selectors": {
+      "newChat": "button[aria-label*='New']",
+      "settings": "button[aria-label*='Settings']"
+    }
+  }
+}

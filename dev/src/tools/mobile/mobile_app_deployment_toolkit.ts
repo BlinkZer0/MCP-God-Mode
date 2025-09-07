@@ -53,16 +53,26 @@ export function registerMobileAppDeploymentToolkit(server: McpServer) {
                 child.on('close', (code) => {
                   if (code === 0) {
                     resolve({
-                      success: true,
-                      message: `Android app deployed successfully from ${app_path}`,
-                      platform: "android",
-                      output,
+                      content: [{
+                        type: "text",
+                        text: JSON.stringify({
+                          success: true,
+                          message: `Android app deployed successfully from ${app_path}`,
+                          platform: "android",
+                          output,
+                        }, null, 2)
+                      }]
                     });
                   } else {
                     resolve({
-                      success: false,
-                      error: `Deployment failed with code ${code}: ${error}`,
-                      platform: "android",
+                      content: [{
+                        type: "text",
+                        text: JSON.stringify({
+                          success: false,
+                          error: `Deployment failed with code ${code}: ${error}`,
+                          platform: "android",
+                        }, null, 2)
+                      }]
                     });
                   }
                 });
@@ -102,16 +112,26 @@ export function registerMobileAppDeploymentToolkit(server: McpServer) {
                 child.on('close', (code) => {
                   if (code === 0) {
                     resolve({
-                      success: true,
-                      message: `Android app ${package_name} installed successfully`,
-                      platform: "android",
-                      output,
+                      content: [{
+                        type: "text",
+                        text: JSON.stringify({
+                          success: true,
+                          message: `Android app ${package_name} installed successfully`,
+                          platform: "android",
+                          output,
+                        }, null, 2)
+                      }]
                     });
                   } else {
                     resolve({
-                      success: false,
-                      error: `Installation failed with code ${code}: ${error}`,
-                      platform: "android",
+                      content: [{
+                        type: "text",
+                        text: JSON.stringify({
+                          success: false,
+                          error: `Installation failed with code ${code}: ${error}`,
+                          platform: "android",
+                        }, null, 2)
+                      }]
                     });
                   }
                 });
@@ -150,16 +170,26 @@ export function registerMobileAppDeploymentToolkit(server: McpServer) {
                 child.on('close', (code) => {
                   if (code === 0) {
                     resolve({
-                      success: true,
-                      message: `Android app ${package_name} uninstalled successfully`,
-                      platform: "android",
-                      output,
+                      content: [{
+                        type: "text",
+                        text: JSON.stringify({
+                          success: true,
+                          message: `Android app ${package_name} uninstalled successfully`,
+                          platform: "android",
+                          output,
+                        }, null, 2)
+                      }]
                     });
                   } else {
                     resolve({
-                      success: false,
-                      error: `Uninstallation failed with code ${code}: ${error}`,
-                      platform: "android",
+                      content: [{
+                        type: "text",
+                        text: JSON.stringify({
+                          success: false,
+                          error: `Uninstallation failed with code ${code}: ${error}`,
+                          platform: "android",
+                        }, null, 2)
+                      }]
                     });
                   }
                 });
@@ -198,17 +228,27 @@ export function registerMobileAppDeploymentToolkit(server: McpServer) {
                       .map(line => line.replace('package:', '').trim());
                     
                     resolve({
-                      success: true,
-                      message: `Found ${packages.length} third-party Android apps`,
-                      platform: "android",
-                      apps: packages,
-                      count: packages.length,
+                      content: [{
+                        type: "text",
+                        text: JSON.stringify({
+                          success: true,
+                          message: `Found ${packages.length} third-party Android apps`,
+                          platform: "android",
+                          apps: packages,
+                          count: packages.length,
+                        }, null, 2)
+                      }]
                     });
                   } else {
                     resolve({
-                      success: false,
-                      error: `Failed to list apps: ${error}`,
-                      platform: "android",
+                      content: [{
+                        type: "text",
+                        text: JSON.stringify({
+                          success: false,
+                          error: `Failed to list apps: ${error}`,
+                          platform: "android",
+                        }, null, 2)
+                      }]
                     });
                   }
                 });
@@ -251,18 +291,28 @@ export function registerMobileAppDeploymentToolkit(server: McpServer) {
                     const version = versionMatch ? versionMatch[1] : "Unknown";
                     
                     resolve({
-                      success: true,
-                      message: `Retrieved info for Android app ${package_name}`,
-                      platform: "android",
-                      package_name,
-                      version,
-                      info: output.substring(0, 1000) + "...", // Truncate for readability
+                      content: [{
+                        type: "text",
+                        text: JSON.stringify({
+                          success: true,
+                          message: `Retrieved info for Android app ${package_name}`,
+                          platform: "android",
+                          package_name,
+                          version,
+                          info: output.substring(0, 1000) + "...", // Truncate for readability
+                        }, null, 2)
+                      }]
                     });
                   } else {
                     resolve({
-                      success: false,
-                      error: `Failed to get app info: ${error}`,
-                      platform: "android",
+                      content: [{
+                        type: "text",
+                        text: JSON.stringify({
+                          success: false,
+                          error: `Failed to get app info: ${error}`,
+                          platform: "android",
+                        }, null, 2)
+                      }]
                     });
                   }
                 });

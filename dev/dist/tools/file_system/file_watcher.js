@@ -34,10 +34,15 @@ export function registerFileWatcher(server) {
                     });
                     fileWatchers.set(watcher_id || watchPath, watcher);
                     return {
-                        success: true,
-                        watcher_id: watcher_id || watchPath,
-                        message: `Started watching ${watchPath}`,
-                        events: events,
+                        content: [{
+                                type: "text",
+                                text: JSON.stringify({
+                                    success: true,
+                                    watcher_id: watcher_id || watchPath,
+                                    message: `Started watching ${watchPath}`,
+                                    events: events,
+                                }, null, 2)
+                            }]
                     };
                 case "unwatch":
                     const targetId = watcher_id || watchPath;
@@ -50,8 +55,13 @@ export function registerFileWatcher(server) {
                         fileWatchers.delete(targetId);
                         watcherEvents.delete(targetId);
                         return {
-                            success: true,
-                            message: `Stopped watching ${targetId}`,
+                            content: [{
+                                    type: "text",
+                                    text: JSON.stringify({
+                                        success: true,
+                                        message: `Stopped watching ${targetId}`,
+                                    }, null, 2)
+                                }]
                         };
                     }
                     else {
@@ -59,13 +69,18 @@ export function registerFileWatcher(server) {
                     }
                 case "list_watchers":
                     return {
-                        success: true,
-                        watchers: Array.from(fileWatchers.keys()).map(id => ({
-                            id,
-                            path: id,
-                            active: true,
-                        })),
-                        count: fileWatchers.size,
+                        content: [{
+                                type: "text",
+                                text: JSON.stringify({
+                                    success: true,
+                                    watchers: Array.from(fileWatchers.keys()).map(id => ({
+                                        id,
+                                        path: id,
+                                        active: true,
+                                    })),
+                                    count: fileWatchers.size,
+                                }, null, 2)
+                            }]
                     };
                 case "get_events":
                     const targetEventsId = watcher_id || watchPath;
@@ -74,10 +89,15 @@ export function registerFileWatcher(server) {
                     }
                     const events_list = watcherEvents.get(targetEventsId) || [];
                     return {
-                        success: true,
-                        watcher_id: targetEventsId,
-                        events: events_list,
-                        count: events_list.length,
+                        content: [{
+                                type: "text",
+                                text: JSON.stringify({
+                                    success: true,
+                                    watcher_id: targetEventsId,
+                                    events: events_list,
+                                    count: events_list.length,
+                                }, null, 2)
+                            }]
                     };
                 default:
                     throw new Error(`Unknown action: ${action}`);
@@ -85,9 +105,13 @@ export function registerFileWatcher(server) {
         }
         catch (error) {
             return {
-                content: [{ type: "text", text: "Operation completed successfully" }],
-                success: false,
-                error: error instanceof Error ? error.message : "Unknown error",
+                content: [{
+                        type: "text",
+                        text: JSON.stringify({
+                            success: false,
+                            error: error instanceof Error ? error.message : "Unknown error",
+                        }, null, 2)
+                    }]
             };
         }
     });

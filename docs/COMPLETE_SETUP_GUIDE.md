@@ -13,9 +13,63 @@ This guide provides complete setup instructions for MCP God Mode across all supp
 - **Permissions**: Administrative access (recommended)
 
 ### Software Requirements
-- **Python**: 3.8 or higher
+- **Node.js**: 18.0 or higher
+- **npm**: Latest version
 - **Git**: Latest version
 - **Package Manager**: Platform-specific (see below)
+
+## 🚀 MCP Server Installation
+
+### Quick Server Setup
+```bash
+# Clone the repository
+git clone https://github.com/your-username/MCP-God-Mode.git
+cd MCP-God-Mode/dev
+
+# Install dependencies
+npm install
+
+# Build the project
+npm run build
+```
+
+### Server Configuration Options
+
+#### 1. **Server-Refactored (Recommended for Production)**
+```bash
+# Start the full-featured server (129 tools)
+npm start
+# or
+node dist/server-refactored.js
+```
+
+#### 2. **Modular Server (Configurable)**
+```bash
+# Install minimal configuration (~10 tools)
+npm run install:minimal
+npm run build && node dist/server-modular.js
+
+# Install custom configuration (select categories)
+npm run install:modular -- --categories core,network,security
+npm run build && node dist/server-modular.js
+
+# Install full configuration (129 tools)
+npm run install:full
+npm run build && node dist/server-modular.js
+```
+
+#### 3. **Server-Minimal (Lightweight)**
+```bash
+# Start minimal server (15 tools)
+npm run start:minimal
+# or
+node dist/server-minimal.js
+```
+
+### Server Architecture Comparison
+- **Server-Refactored**: 129 tools, unified interface, production-ready
+- **Modular Server**: 129 tools (configurable), flexible deployment options
+- **Server-Minimal**: 15 tools, lightweight, resource-constrained environments
 
 ## 🪟 Windows Setup
 
