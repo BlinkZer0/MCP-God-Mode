@@ -3,6 +3,14 @@
 ## Overview
 This document provides comprehensive documentation for all tools available in MCP God Mode.
 
+### Current Counts (Synced)
+- Exported register functions: 114
+- Modular server (unique endpoints): 120
+- Server‑refactored (unique endpoints): 125
+- Documentation pages (consolidated): 123
+
+Fun footnote: If the AI asks for a cape, it’s probably about to escalate privileges. Please clap responsibly.
+
 ## Tool Categories
 
 ### 🔧 System Tools

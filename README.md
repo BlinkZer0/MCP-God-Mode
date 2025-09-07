@@ -25,7 +25,7 @@ https://github.com/user-attachments/assets/932c43e4-159e-4ce2-9c02-4acf23fc47fd
 
 - **[🚀 Quick Start](docs/COMPLETE_SETUP_GUIDE.md)** - Get up and running in minutes
 - **[🌐 Frontend Integration Guide](docs/MCP_FRONTEND_INTEGRATION_GUIDE.md)** - Setup for Cursor, LM Studio, Claude, SillyTavern & more
-- **[📋 Complete Tool Catalog](docs/TOOL_CATALOG.md)** - Browse all 111 tools with detailed documentation
+- **[📋 Complete Tool Catalog](docs/TOOL_CATALOG.md)** - Browse all 123 documented tools with detailed documentation
 - **[🔧 Parameter Reference](docs/COMPLETE_PARAMETER_REFERENCE.md)** - Complete parameter documentation
 - **[💻 Examples & Tutorials](docs/EXAMPLES_AND_TUTORIALS.md)** - Real-world usage examples
 - **[🌍 Platform Compatibility](docs/CROSS_PLATFORM_COMPATIBILITY.md)** - Platform-specific details
@@ -35,21 +35,21 @@ https://github.com/user-attachments/assets/932c43e4-159e-4ce2-9c02-4acf23fc47fd
 
 MCP God Mode is the ultimate cybersecurity and system management platform that provides **111 fully implemented tools** across **5 major platforms**. It's designed for security professionals, system administrators, penetration testers, and anyone who needs comprehensive system control and security testing capabilities. 
 
-**📝 Note**: We offer both monolithic and modular server architectures. Our **primary server-refactored** provides comprehensive functionality in a unified interface with **124 tools**. The modular server provides **114 tools** for granular control, better error handling, and for the ease of an individual to extract a tool for their own server build. Tools are located in dev/src/tools. Each architecture serves different use cases and preferences.
+**📝 Note**: We offer both monolithic and modular server architectures. Our **primary server-refactored** provides comprehensive functionality in a unified interface with **125 tools**. The modular server provides **120 tools** for granular control, better error handling, and for the ease of an individual to extract a tool for their own server build. Tools are located in dev/src/tools. Each architecture serves different use cases and preferences.
 
 **🔍 Server Architecture Differences**:
-- **Server-Refactored (124 tools)**: Unified server with all 114 exported tools plus 10 additional enhanced tools registered separately (enhanced legal compliance, advanced security assessment, cross-platform system manager, enterprise monitoring, advanced analytics, and 5 additional specialized tools). Includes built-in legal compliance, audit logging, and forensic readiness capabilities.
-- **Modular Server (114 tools)**: Comprehensive architecture with 114 tools for granular control, better error handling, and specialized functionality. Full legal compliance integration with modular evidence preservation.
+- **Server-Refactored (125 tools)**: Unified server with all core endpoints plus 5 enhanced endpoints (enhanced legal compliance, advanced security assessment, cross-platform system manager, enterprise integration hub, advanced analytics engine). Includes built-in legal compliance, audit logging, and forensic readiness capabilities.
+- **Modular Server (120 tools)**: Comprehensive architecture with 120 tools for granular control, better error handling, and specialized functionality. Full legal compliance integration with modular evidence preservation.
 - **Server-Minimal (15 tools)**: Lightweight implementation with core tools only for basic functionality and resource-constrained environments.
 
 **🔢 Tool Count Explanation**: 
 - **145 TypeScript files** exist in the tools directory
-- **114 tools are exported** in the comprehensive index.ts file
-- **124 tools are registered** in server-refactored (114 from index + 10 additional enhanced tools)
-- **114 tools are registered** in server-modular (comprehensive toolset from index)
+- **114 register functions are exported** in the comprehensive index.ts file
+- **125 tools are registered** in server-refactored (114 from index + 5 enhanced tools)
+- **120 tools are registered** in server-modular (comprehensive toolset from index)
 - **15 tools are registered** in server-minimal (core tools only)
 
-**📊 Documentation Status**: All 124 tools (server-refactored) and 114 tools (modular) now have comprehensive documentation with detailed usage examples, parameter references, and platform compatibility information. See [Complete Tool Catalog](docs/TOOL_CATALOG.md) for detailed information about each tool.
+**📊 Documentation Status**: All 125 tools (server-refactored) and 120 tools (modular) now have comprehensive documentation with detailed usage examples, parameter references, and platform compatibility information. See [Complete Tool Catalog](docs/TOOL_CATALOG.md) for detailed information about each tool.
 
 **⚖️ Legal Compliance & Forensic Readiness**: Both server architectures include comprehensive legal compliance capabilities including audit logging, evidence preservation, legal hold management, and chain of custody tracking. These features are disabled by default and can be enabled through environment variables for SOX, HIPAA, GDPR, PCI DSS, and ISO 27001 compliance. See [Legal Compliance Documentation](docs/LEGAL_COMPLIANCE.md) for detailed configuration and usage instructions.
 
@@ -61,7 +61,7 @@ Tool counting in MCP God Mode presents unique challenges due to the multi-layere
 
 #### **🛠️ Tools (MCP Server Functions)**
 - **Definition**: Distinct MCP server tool registrations
-- **Count**: 124 tools (server-refactored) / 114 tools (modular)
+- **Count**: 125 tools (server-refactored) / 120 tools (modular)
 - **Example**: `wifi_security_toolkit` = 1 tool
 
 #### **⚡ Actions (Tool Capabilities)**
@@ -78,7 +78,7 @@ Tool counting in MCP God Mode presents unique challenges due to the multi-layere
 
 | Aspect | Server-Refactored | Modular Server |
 |--------|------------------|----------------|
-| **Tool Count** | 124 tools | 114 tools |
+| **Tool Count** | 125 tools | 120 tools |
 | **Architecture** | Unified interface | Individual focused tools |
 | **Complexity** | Multi-action tools | Single-action tools |
 | **Error Handling** | Centralized | Granular |
@@ -325,14 +325,14 @@ https://github.com/user-attachments/assets/f074039c-1989-40fc-b769-5efa855e854d
 
 ## 🎯 **Implementation Status: 100% Complete**
 
-✅ **All 124 tools (server-refactored) / 114 tools (modular) are fully implemented and tested**  
+✅ **All 125 tools (server-refactored) / 120 tools (modular) are fully implemented and tested**  
 ✅ **Cross-platform compatibility verified**  
 ✅ **MCP protocol integration complete**  
 ✅ **Natural language interface working**  
 ✅ **Comprehensive documentation available for all tools**  
 ✅ **Real-world testing completed**
 
-**🔧 Architecture Note**: We offer both server-refactored and modular server architectures. Our **primary server-refactored** provides comprehensive functionality in a unified interface with **124 tools**. The modular server provides **114 tools** for granular control and better error handling. Each architecture serves different use cases and preferences.  
+**🔧 Architecture Note**: We offer both server-refactored and modular server architectures. Our **primary server-refactored** provides comprehensive functionality in a unified interface with **125 tools**. The modular server provides **120 tools** for granular control and better error handling. Each architecture serves different use cases and preferences.  
 
 ### 🪟 Windows-Specific (2 Tools)
 - **Service Management** - Windows service control
@@ -576,7 +576,7 @@ We welcome contributions from the community! Here's how you can help:
 
 
 ### 🔄 Version History
-- **v1.6d** (Current) - **124 tools (server-refactored) / 114 tools (modular) complete (100%)**, comprehensive documentation, cross-platform support, MCP integration, accurate tool counting, RAG toolkit integration
+- **v1.6d** (Current) - **125 tools (server-refactored) / 120 tools (modular) complete (100%)**, comprehensive documentation, cross-platform support, MCP integration, accurate tool counting, RAG toolkit integration
 - **v1.6** - **119/119 tools complete (100%)**, comprehensive documentation, cross-platform support, MCP integration, accurate tool counting
 - **v1.4a** - Enhanced security tools and mobile support
 - **v1.0** - Initial release with core functionality
@@ -633,7 +633,7 @@ If MCP God Mode has been helpful to you, please consider giving it a star on Git
 
 *Last Updated: January 2025*  
 *MCP God Mode v1.6 - One MCP to rule them all - The Ultimate Cross-Platform Security Suite*  
-*All 124 tools (server-refactored) and 114 tools (modular) tested, verified working, and fully documented ✅*
+*All 125 tools (server-refactored) and 120 tools (modular) tested, verified working, and fully documented ✅*
 
 ---
 

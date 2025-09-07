@@ -1,24 +1,26 @@
 # MCP God Mode - Comprehensive Tool Catalog
 
 ## Overview
-MCP God Mode is an advanced security and network analysis platform with **111 fully implemented tools** across multiple categories. This document provides detailed information about each tool, its capabilities, and use cases.
+MCP God Mode is an advanced security and network analysis platform. Current accurate counts after this sync:
+
+- **114 register functions** exported in code
+- **120 unique tool endpoints** in the modular server
+- **125 total endpoints** in the server‑refactored (adds 5 enhanced tools)
+- **123 wiki pages** maintained (some endpoints are aliases and share a page)
+
+This document provides detailed information about each tool, its capabilities, and use cases.
 
 ## Tool Count Summary
-- **Total TypeScript Files**: 143
-- **Exported Tools**: 111
-- **Actually Registered**: 116 (111 from index + 5 additional tools)
-- **Server-Refactored**: 116 tools
-- **Server-Modular**: 111 tools
+- **Total TypeScript Files**: 145
+- **Exported Register Functions**: 114
+- **Modular Server (unique endpoints)**: 120
+- **Server‑Refactored (unique endpoints)**: 125
 - **Server-Minimal**: 15 tools
 
-## Why Server-Refactored Has 116 Tools
-The server-refactored implementation includes:
-- **111 tools** from the comprehensive index.ts export
-- **5 additional tools** registered separately:
-  - Legal Compliance Manager
-  - Additional system utilities
-  - Enhanced security tools
-  - Cross-platform compatibility tools
+## Why Counts Differ
+The modular server calls all exported register functions (114). Several functions register more than one endpoint (e.g., multi‑engine web search), so you’ll see 120 unique endpoints at runtime. The server‑refactored adds 5 enhanced endpoints (advanced analytics, advanced security assessment, cross‑platform system manager, enterprise integration hub, enhanced legal compliance) for a total of 125.
+
+Humor break: if the AI builds an enterprise integration hub and starts sending calendar invites to your toaster, that’s… technically integration.
 
 ## Tool Categories
 

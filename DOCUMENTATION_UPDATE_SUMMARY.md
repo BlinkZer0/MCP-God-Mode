@@ -1,28 +1,19 @@
-# Documentation Update Summary
+# Documentation Update Summary (sync)
 
-## Updated Tool Counts
-- **Total Tools**: 114
-- **Monolithic Server**: 114 tools
-- **Modular Server**: 114 tools
-- **Build Server**: 114 tools
+- Modular server unique endpoints: 120
+- Server‑refactored unique endpoints: 125
+- Exported register functions: 114
+- Wiki pages maintained: 123 (aliases consolidated)
 
-## Files Updated
-- README.md
-- docs/TOOL_CATEGORY_INDEX.md
-- docs/DOCUMENTATION_INDEX.md
-- dev/install.js
+Changed
+- Added docs: advanced_analytics_engine, advanced_security_assessment, cross_platform_system_manager, enhanced_legal_compliance, enterprise_integration_hub, legal_compliance_manager
+- Removed stale docs: ai_site_interaction, captcha_analysis, captcha_bypass, captcha_detection, captcha_solving, DOCUMENTATION_STATUS, universal_browser_operator, wifi_security
 
-## Verification
-- ✅ Server parity confirmed (both servers have identical functionality)
-- ✅ Smoke test passes (114/114 tools working)
-- ✅ Documentation counts updated
-- ✅ Installer counts updated
+Notes
+- Counts are derived from static analysis of `dev/src/tools/**` plus the 5 enhanced endpoints in `server-refactored`.
+- Some exported functions register multiple endpoints (e.g., web search variants), which is why runtime endpoint counts exceed exported function count.
+- A few endpoints are aliases (e.g., a universal operator maps to Browser Control), so documentation consolidates to a single page per capability.
 
-## Cross-Platform Coverage
-- **Windows**: 114/114 tools (100%)
-- **Linux**: 112/114 tools (98%)
-- **macOS**: 112/114 tools (98%)
-- **Android**: 112/114 tools (98%)
-- **iOS**: 112/114 tools (98%)
+Humor
+- If the AI asks for a cape, it’s probably about to escalate privileges. Keep your coffee patched and your routers friendly.
 
-*Updated: 2025-09-07T05:51:00.028Z*
