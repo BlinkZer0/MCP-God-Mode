@@ -33,6 +33,16 @@ export { registerPortScanner } from "./network/port_scanner.js";
 export { registerNetworkDiagnostics } from "./network/network_diagnostics.js";
 export { registerDownloadFile } from "./network/download_file.js";
 export { registerNetworkTrafficAnalyzer } from "./network/network_traffic_analyzer.js";
+export { registerIpGeolocation } from "./network/ip_geolocation.js";
+export { registerNetworkTriangulation } from "./network/network_triangulation.js";
+export { registerOsintReconnaissance } from "./network/osint_reconnaissance.js";
+export { registerLatencyGeolocation } from "./network/latency_geolocation.js";
+export { registerNetworkDiscovery } from "./network/network_discovery.js";
+export { registerVulnerabilityAssessment } from "./network/vulnerability_assessment.js";
+export { registerTrafficAnalysis } from "./network/traffic_analysis.js";
+export { registerNetworkUtilities } from "./network/network_utilities.js";
+export { registerSocialAccountRipper } from "./network/social_account_ripper.js";
+export { registerSocialAccountRipperModular } from "./network/social_account_ripper_modular.js";
 
 // Security Tools
 export { registerVulnerabilityScanner } from "./security/vulnerability_scanner.js";
@@ -45,6 +55,8 @@ export { registerIotSecurity } from "./security/iot_security.js";
 export { registerSocialEngineering } from "./security/social_engineering.js";
 export { registerThreatIntelligence } from "./security/threat_intelligence.js";
 export { registerComplianceAssessment } from "./security/compliance_assessment.js";
+export { registerSocialNetworkRipper } from "./security/social_network_ripper.js";
+export { registerMetadataExtractor } from "./security/metadata_extractor.js";
 export { registerEncryptionTool } from "./utilities/encryption_tool.js";
 export { registerMalwareAnalysis } from "./security/malware_analysis.js";
 
@@ -76,6 +88,10 @@ export { registerWebScraper } from "./web/web_scraper.js";
 export { registerBrowserControl } from "./web/browser_control.js";
 export { registerWebAutomation } from "./web/web_automation.js";
 export { registerWebhookManager } from "./web/webhook_manager.js";
+export { registerUniversalBrowserOperator } from "./web/universal_browser_operator.js";
+export { registerWebSearch } from "./web/web_search.js";
+export { registerCaptchaDefeating } from "./web/captcha_defeating.js";
+export { registerFormCompletion } from "./web/form_completion.js";
 
 // Email Tools
 export { registerSendEmail } from "./email/send_email.js";
@@ -137,3 +153,6 @@ export { registerMalwareAnalysisToolkit } from "./forensics/malware_analysis_too
 
 // Discovery Tools
 export { registerToolDiscovery, registerExploreCategories } from "./discovery/index.js";
+
+// Social Tools
+export { registerSocialNetworkRipper } from "./social/index.js";

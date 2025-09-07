@@ -6,12 +6,300 @@ import { execSync } from 'child_process';
 import { createRequire } from 'module';
 const require = createRequire(import.meta.url);
 
+// Tool categories with accurate counts and descriptions
+const TOOL_CATEGORIES = {
+  'core': {
+    name: 'Core System Tools',
+    description: 'Essential system monitoring and health check tools',
+    tools: 2,
+    toolList: ['health', 'system_info'],
+    features: [
+      'System health monitoring',
+      'Basic system information retrieval',
+      'Essential for all server operations'
+    ]
+  },
+  'filesystem': {
+    name: 'File System Tools',
+    description: 'Complete file and directory management capabilities',
+    tools: 6,
+    toolList: ['fs_list', 'fs_read_text', 'fs_write_text', 'fs_search', 'file_ops', 'file_watcher'],
+    features: [
+      'Directory listing and navigation',
+      'Text file reading and writing',
+      'File search and discovery',
+      'Advanced file operations',
+      'Real-time file system monitoring'
+    ]
+  },
+  'process': {
+    name: 'Process Management',
+    description: 'Process execution and management tools',
+    tools: 2,
+    toolList: ['proc_run', 'proc_run_elevated'],
+    features: [
+      'Execute system commands',
+      'Run processes with elevated privileges',
+      'Cross-platform process management'
+    ]
+  },
+  'system': {
+    name: 'System Administration',
+    description: 'Advanced system management and monitoring',
+    tools: 4,
+    toolList: ['system_restore', 'elevated_permissions_manager', 'cron_job_manager', 'system_monitor'],
+    features: [
+      'System restore point management',
+      'Elevated permissions handling',
+      'Scheduled task management',
+      'System performance monitoring'
+    ]
+  },
+  'git': {
+    name: 'Git Integration',
+    description: 'Version control and repository management',
+    tools: 1,
+    toolList: ['git_status'],
+    features: [
+      'Git repository status checking',
+      'Version control integration'
+    ]
+  },
+  'windows': {
+    name: 'Windows Tools',
+    description: 'Windows-specific system management',
+    tools: 2,
+    toolList: ['win_services', 'win_processes'],
+    features: [
+      'Windows service management',
+      'Windows process control',
+      'Windows-specific operations'
+    ]
+  },
+  'network': {
+    name: 'Network Tools',
+    description: 'Comprehensive network analysis and reconnaissance',
+    tools: 14,
+    toolList: ['packet_sniffer', 'port_scanner', 'network_diagnostics', 'download_file', 'network_traffic_analyzer', 'ip_geolocation', 'network_triangulation', 'osint_reconnaissance', 'latency_geolocation', 'network_discovery', 'vulnerability_assessment', 'traffic_analysis', 'network_utilities', 'social_account_ripper', 'social_account_ripper_modular'],
+    features: [
+      'Network packet analysis',
+      'Port scanning and discovery',
+      'IP geolocation and triangulation',
+      'OSINT reconnaissance',
+      'Network vulnerability assessment',
+      'Traffic analysis and monitoring',
+      'Social media account discovery',
+      'Modular social account ripper'
+    ]
+  },
+  'security': {
+    name: 'Security Tools',
+    description: 'Advanced security testing and assessment',
+    tools: 12,
+    toolList: ['vulnerability_scanner', 'password_cracker', 'exploit_framework', 'network_security', 'blockchain_security', 'quantum_security', 'iot_security', 'social_engineering', 'threat_intelligence', 'compliance_assessment', 'social_network_ripper', 'metadata_extractor', 'encryption_tool', 'malware_analysis', 'social_network_ripper'],
+    features: [
+      'Vulnerability scanning and assessment',
+      'Password cracking and analysis',
+      'Exploit development framework',
+      'Blockchain and quantum security',
+      'IoT device security testing',
+      'Social engineering assessment',
+      'Threat intelligence gathering',
+      'Compliance framework assessment',
+      'Metadata extraction and analysis',
+      'Encryption and cryptographic operations',
+      'Malware analysis and detection',
+      'Social network ripper (duplicate entry)'
+    ]
+  },
+  'penetration': {
+    name: 'Penetration Testing',
+    description: 'Comprehensive penetration testing framework',
+    tools: 5,
+    toolList: ['hack_network', 'security_testing', 'network_penetration', 'penetration_testing_toolkit', 'social_engineering_toolkit'],
+    features: [
+      'Network penetration testing',
+      'Comprehensive security testing',
+      'Advanced attack simulation',
+      'Penetration testing toolkit',
+      'Social engineering toolkit'
+    ]
+  },
+  'wireless': {
+    name: 'Wireless Security',
+    description: 'Wi-Fi and wireless network security tools',
+    tools: 4,
+    toolList: ['wifi_security_toolkit', 'wifi_hacking', 'wireless_security', 'wireless_network_scanner'],
+    features: [
+      'Wi-Fi security assessment',
+      'Wireless network penetration testing',
+      'Wireless network scanning',
+      'Wireless security analysis'
+    ]
+  },
+  'bluetooth': {
+    name: 'Bluetooth Security',
+    description: 'Bluetooth device security and management',
+    tools: 3,
+    toolList: ['bluetooth_security_toolkit', 'bluetooth_hacking', 'bluetooth_device_manager'],
+    features: [
+      'Bluetooth security assessment',
+      'Bluetooth device penetration testing',
+      'Bluetooth device management'
+    ]
+  },
+  'radio': {
+    name: 'Radio & SDR',
+    description: 'Software Defined Radio and signal analysis',
+    tools: 3,
+    toolList: ['sdr_security_toolkit', 'radio_security', 'signal_analysis'],
+    features: [
+      'Software Defined Radio security',
+      'Radio frequency analysis',
+      'Signal processing and analysis'
+    ]
+  },
+  'web': {
+    name: 'Web Tools',
+    description: 'Web automation, scraping, and browser control',
+    tools: 7,
+    toolList: ['web_scraper', 'browser_control', 'web_automation', 'webhook_manager'],
+    features: [
+      'Web page scraping and data extraction',
+      'Browser automation and control',
+      'Webhook management and testing',
+      'Web application testing'
+    ]
+  },
+  'email': {
+    name: 'Email Management',
+    description: 'Complete email handling and management',
+    tools: 6,
+    toolList: ['send_email', 'read_emails', 'parse_email', 'delete_emails', 'sort_emails', 'manage_email_accounts'],
+    features: [
+      'Email sending and receiving',
+      'Email parsing and analysis',
+      'Email account management',
+      'Email organization and sorting'
+    ]
+  },
+  'media': {
+    name: 'Media Processing',
+    description: 'Video, image, and audio editing capabilities',
+    tools: 4,
+    toolList: ['video_editing', 'ocr_tool', 'image_editing', 'audio_editing'],
+    features: [
+      'Video editing and processing',
+      'Optical Character Recognition (OCR)',
+      'Image editing and manipulation',
+      'Audio editing and processing'
+    ]
+  },
+  'screenshot': {
+    name: 'Screenshot Tools',
+    description: 'Screen capture and screenshot capabilities',
+    tools: 1,
+    toolList: ['screenshot'],
+    features: [
+      'Screen capture functionality',
+      'Window and region screenshot',
+      'Cross-platform screenshot support'
+    ]
+  },
+  'mobile': {
+    name: 'Mobile Tools',
+    description: 'Comprehensive mobile device management and app development',
+    tools: 12,
+    toolList: ['mobile_device_info', 'mobile_file_ops', 'mobile_system_tools', 'mobile_hardware', 'mobile_device_management', 'mobile_app_analytics_toolkit', 'mobile_app_deployment_toolkit', 'mobile_app_optimization_toolkit', 'mobile_app_security_toolkit', 'mobile_app_monitoring_toolkit', 'mobile_app_performance_toolkit', 'mobile_app_testing_toolkit', 'mobile_network_analyzer'],
+    features: [
+      'Mobile device information and management',
+      'Mobile file operations',
+      'Mobile app analytics and monitoring',
+      'Mobile app deployment and optimization',
+      'Mobile app security testing',
+      'Mobile app performance analysis',
+      'Mobile network analysis'
+    ]
+  },
+  'virtualization': {
+    name: 'Virtualization',
+    description: 'Virtual machine and container management',
+    tools: 2,
+    toolList: ['vm_management', 'docker_management'],
+    features: [
+      'Virtual machine management',
+      'Docker container management',
+      'Virtualization platform support'
+    ]
+  },
+  'utilities': {
+    name: 'Utility Tools',
+    description: 'Mathematical, data analysis, and utility functions',
+    tools: 10,
+    toolList: ['calculator', 'dice_rolling', 'math_calculate', 'data_analysis', 'machine_learning', 'chart_generator', 'text_processor', 'password_generator', 'data_analyzer'],
+    features: [
+      'Mathematical calculations',
+      'Data analysis and processing',
+      'Machine learning capabilities',
+      'Chart and visualization generation',
+      'Text processing and analysis',
+      'Password generation',
+      'Dice rolling (essential for any toolkit! 🎲)'
+    ]
+  },
+  'cloud': {
+    name: 'Cloud Security',
+    description: 'Cloud infrastructure security and management',
+    tools: 3,
+    toolList: ['cloud_security', 'cloud_infrastructure_manager', 'cloud_security_toolkit'],
+    features: [
+      'Cloud security assessment',
+      'Cloud infrastructure management',
+      'Multi-cloud platform support',
+      'Cloud security toolkit'
+    ]
+  },
+  'forensics': {
+    name: 'Digital Forensics',
+    description: 'Digital forensics and malware analysis',
+    tools: 3,
+    toolList: ['forensics_analysis', 'forensics_toolkit', 'malware_analysis_toolkit'],
+    features: [
+      'Digital forensics analysis',
+      'Malware analysis and detection',
+      'Evidence collection and analysis'
+    ]
+  },
+  'discovery': {
+    name: 'Tool Discovery',
+    description: 'Tool discovery and category exploration',
+    tools: 2,
+    toolList: ['tool_discovery', 'explore_categories'],
+    features: [
+      'Tool discovery and listing',
+      'Category exploration',
+      'Tool information retrieval'
+    ]
+  },
+  'social': {
+    name: 'Social Tools',
+    description: 'Social media and social network tools',
+    tools: 1,
+    toolList: ['social_network_ripper'],
+    features: [
+      'Social network account discovery',
+      'Social media OSINT operations',
+      'Social network analysis'
+    ]
+  }
+};
+
 // Server configurations with accurate tool counts and descriptions
 const SERVER_CONFIGS = {
   'ultra-minimal': {
     name: 'Ultra-Minimal Server',
     description: 'Essential tools only - perfect for embedded systems and resource-constrained environments',
-    tools: 15,
+    tools: 20,
     features: [
       'Core system operations (health, system_info)',
       'Basic file operations (fs_list, fs_read_text, fs_write_text)',
@@ -28,7 +316,7 @@ const SERVER_CONFIGS = {
   'minimal': {
     name: 'Minimal Server',
     description: 'Core system administration tools - balanced functionality for production use',
-    tools: 25,
+    tools: 40,
     features: [
       'All ultra-minimal features',
       'Advanced file operations (fs_search, download_file)',
@@ -43,9 +331,9 @@ const SERVER_CONFIGS = {
     size: 'Medium, focused'
   },
   'full': {
-    name: 'Full-Featured Server (Refactored)',
-    description: 'Complete MCP God Mode with all 99 tools including comprehensive penetration testing, audio editing, video editing with recording, and screenshot capabilities',
-    tools: 99,
+    name: 'Full-Featured Server (Monolithic)',
+    description: 'Complete MCP God Mode with all 113 tools including comprehensive penetration testing, network reconnaissance, metadata extraction, and security testing capabilities',
+    tools: 113,
     features: [
       'All minimal features',
       'Complete Wi-Fi security toolkit (25+ actions)',
@@ -79,8 +367,8 @@ const SERVER_CONFIGS = {
   },
   'modular': {
     name: 'Modular Server',
-    description: 'Complete modular server with all 96 tools including comprehensive penetration testing, media processing, cloud security, and forensics capabilities',
-    tools: 96,
+    description: 'Complete modular server with all 119 tools including comprehensive penetration testing, network reconnaissance, metadata extraction, and security testing capabilities',
+    tools: 119,
     features: [
       'Core system tools (health, system_info)',
       'File system operations (fs_list, fs_read_text, fs_write_text, fs_search, file_ops)',
@@ -88,8 +376,8 @@ const SERVER_CONFIGS = {
       'System tools (system_restore, elevated_permissions_manager, cron_job_manager, system_monitor)',
       'Git integration (git_status)',
       'Windows tools (win_services, win_processes)',
-      'Network tools (packet_sniffer, port_scanner, network_diagnostics, download_file, network_traffic_analyzer)',
-      'Security tools (vulnerability_scanner, password_cracker, exploit_framework, network_security, blockchain_security, quantum_security, iot_security, social_engineering, threat_intelligence, compliance_assessment, malware_analysis)',
+      'Network tools (packet_sniffer, port_scanner, network_diagnostics, download_file, network_traffic_analyzer, ip_geolocation, network_triangulation, osint_reconnaissance, latency_geolocation, network_discovery, vulnerability_assessment, traffic_analysis, network_utilities)',
+      'Security tools (vulnerability_scanner, password_cracker, exploit_framework, network_security, blockchain_security, quantum_security, iot_security, social_engineering, threat_intelligence, compliance_assessment, social_network_ripper, metadata_extractor, malware_analysis)',
       'Penetration tools (hack_network, security_testing, network_penetration, penetration_testing_toolkit, social_engineering_toolkit)',
       'Wireless tools (wifi_security_toolkit, wifi_hacking, wireless_security, wireless_network_scanner)',
       'Bluetooth tools (bluetooth_security_toolkit, bluetooth_hacking, bluetooth_device_manager)',
@@ -133,6 +421,10 @@ function displayBanner() {
   console.log('\n🤖 MCP God Mode - Interactive Installer');
   console.log('=========================================\n');
   console.log('🎲 "With great power comes great responsibility... and the ability to roll dice!" 🎲\n');
+  console.log('📊 Server Architecture Information:');
+  console.log('   • Monolithic Server: 113 tools (unified, production-ready)');
+  console.log('   • Modular Server: 119 tools (granular, development-friendly)');
+  console.log('   • Tool count difference: Modular breaks complex tools into specialized functions\n');
 }
 
 function displayServerOptions() {
@@ -161,6 +453,100 @@ function getServerChoice() {
       resolve(answer.toLowerCase().trim());
     });
   });
+}
+
+function displayToolCategories() {
+  console.log('\n📋 Available Tool Categories:\n');
+  
+  Object.entries(TOOL_CATEGORIES).forEach(([key, category]) => {
+    console.log(`🔹 ${category.name.toUpperCase()}`);
+    console.log(`   Tools: ${category.tools}`);
+    console.log(`   Description: ${category.description}`);
+    console.log(`   Key Features:`);
+    category.features.forEach((feature, index) => {
+      console.log(`     ${index + 1}. ${feature}`);
+    });
+    console.log('');
+  });
+}
+
+function getToolSelection() {
+  const readline = require('readline');
+  const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout
+  });
+
+  return new Promise((resolve) => {
+    displayToolCategories();
+    
+    console.log('🎯 Tool Selection Options:');
+    console.log('  - Type "all" to select all categories');
+    console.log('  - Type category names separated by commas (e.g., "core,filesystem,network")');
+    console.log('  - Type "essential" for core system tools only');
+    console.log('  - Type "security" for security-focused tools');
+    console.log('  - Type "media" for media processing tools');
+    console.log('  - Type "mobile" for mobile development tools');
+    console.log('');
+    
+    rl.question('Which tool categories would you like to include? ', (answer) => {
+      rl.close();
+      resolve(answer.toLowerCase().trim());
+    });
+  });
+}
+
+function parseToolSelection(selection) {
+  const selectedCategories = new Set();
+  const allCategories = Object.keys(TOOL_CATEGORIES);
+  
+  if (selection === 'all') {
+    allCategories.forEach(cat => selectedCategories.add(cat));
+  } else if (selection === 'essential') {
+    ['core', 'filesystem', 'process', 'system'].forEach(cat => selectedCategories.add(cat));
+  } else if (selection === 'security') {
+    ['core', 'filesystem', 'process', 'network', 'security', 'penetration', 'wireless', 'bluetooth', 'radio'].forEach(cat => selectedCategories.add(cat));
+  } else if (selection === 'media') {
+    ['core', 'filesystem', 'process', 'media', 'web', 'utilities'].forEach(cat => selectedCategories.add(cat));
+  } else if (selection === 'mobile') {
+    ['core', 'filesystem', 'process', 'mobile', 'web', 'utilities'].forEach(cat => selectedCategories.add(cat));
+  } else {
+    // Parse comma-separated categories
+    const categories = selection.split(',').map(cat => cat.trim());
+    categories.forEach(cat => {
+      if (allCategories.includes(cat)) {
+        selectedCategories.add(cat);
+      } else {
+        console.log(`⚠️  Warning: Unknown category "${cat}" - skipping`);
+      }
+    });
+  }
+  
+  return Array.from(selectedCategories);
+}
+
+function displaySelectedTools(selectedCategories) {
+  console.log('\n📊 Selected Tool Configuration:');
+  console.log('='.repeat(50));
+  
+  let totalTools = 0;
+  const selectedTools = [];
+  
+  selectedCategories.forEach(categoryKey => {
+    const category = TOOL_CATEGORIES[categoryKey];
+    console.log(`\n🔹 ${category.name}`);
+    console.log(`   Tools: ${category.tools}`);
+    console.log(`   Description: ${category.description}`);
+    totalTools += category.tools;
+    selectedTools.push(...category.toolList);
+  });
+  
+  console.log(`\n📈 Summary:`);
+  console.log(`   Total Categories: ${selectedCategories.length}`);
+  console.log(`   Total Tools: ${totalTools}`);
+  console.log(`   Selected Categories: ${selectedCategories.join(', ')}`);
+  
+  return { totalTools, selectedTools };
 }
 
 function displayServerDetails(choice) {
@@ -203,7 +589,7 @@ function confirmInstallation(choice) {
   });
 }
 
-function installServer(choice) {
+async function installServer(choice) {
   console.log(`\n🚀 Installing ${SERVER_CONFIGS[choice].name}...\n`);
   
   try {
@@ -217,37 +603,77 @@ function installServer(choice) {
     }
     
     if (choice === 'modular') {
-      console.log('For modular server installation, please use:');
-      console.log('  npm run build:modular');
-      console.log('\nOr manually:');
-      console.log('  cd dev && npm run build:modular');
-      console.log('\nThe modular server includes all 96 tools:');
-      console.log('  - Core system tools (health, system_info)');
-      console.log('  - File system operations (fs_list, fs_read_text, fs_write_text, fs_search, file_ops)');
-      console.log('  - Security tools (vulnerability_scanner, password_cracker, exploit_framework, etc.)');
-      console.log('  - Media tools (video_editing, image_editing, audio_editing, ocr_tool)');
-      console.log('  - Network tools (packet_sniffer, port_scanner, network_diagnostics)');
-      console.log('  - Enhanced mobile toolkits (analytics, deployment, optimization, security, monitoring, performance, testing)');
-      console.log('  - Advanced utility tools (chart generation, text processing, password generation, data analyzer)');
-      console.log('  - Cloud security toolkits (cloud_security_toolkit, cloud_infrastructure_manager)');
-      console.log('  - Forensics toolkits (forensics_toolkit, malware_analysis_toolkit)');
-      console.log('  - Penetration testing toolkits (penetration_testing_toolkit, social_engineering_toolkit)');
-      console.log('  - Wireless network scanning capabilities');
-      console.log('  - And many more specialized tools...');
-      console.log('\n🎭 Fun Fact: This modular server is so comprehensive, it\'s like having a cybersecurity buffet!');
-      console.log('   You can pick and choose what you want, but why not take it all? 🍽️✨');
+      console.log('🔧 Modular Server - Custom Tool Selection');
+      console.log('==========================================');
+      
+      try {
+        // Get tool selection from user
+        const toolSelection = await getToolSelection();
+        const selectedCategories = parseToolSelection(toolSelection);
+        
+        if (selectedCategories.length === 0) {
+          console.log('❌ No valid categories selected. Please try again.');
+          return;
+        }
+        
+        // Display selected configuration
+        const { totalTools, selectedTools } = displaySelectedTools(selectedCategories);
+        
+        // Confirm installation
+        const readline = require('readline');
+        const rl = readline.createInterface({
+          input: process.stdin,
+          output: process.stdout
+        });
+        
+        const confirmed = await new Promise((resolve) => {
+          rl.question(`\nDo you want to proceed with this configuration? (yes/no): `, (answer) => {
+            rl.close();
+            resolve(answer.toLowerCase().trim() === 'yes' || answer.toLowerCase().trim() === 'y');
+          });
+        });
+        
+        if (!confirmed) {
+          console.log('❌ Installation cancelled.');
+          return;
+        }
+        
+        // Generate build command
+        console.log('\n🚀 Building Modular Server with Selected Tools...');
+        console.log(`📊 Configuration: ${totalTools} tools across ${selectedCategories.length} categories`);
+        
+        // Create build command
+        const buildCommand = `node build-server.js ${selectedTools.join(' ')}`;
+        console.log(`\n🔨 Build Command: ${buildCommand}`);
+        
+        // Execute build
+        console.log('\n📦 Building server...');
+        execSync(buildCommand, { stdio: 'inherit', cwd: 'dev' });
+        
+        console.log(`\n✅ Modular server built successfully with ${totalTools} tools!`);
+        console.log('\nTo start the server, run:');
+        console.log('  cd dev && npm start');
+        
+        console.log('\n🎭 Fun Fact: Your custom modular server is like a perfectly tailored suit!');
+        console.log('   It fits your needs exactly - no more, no less! 👔✨');
+        
+      } catch (error) {
+        console.error('\n❌ Modular server build failed:', error.message);
+        console.log('\nPlease check the error and try again.');
+        console.log('🎭 Remember: Even the best tools need proper configuration! 🔧');
+      }
       return;
     }
     
     if (choice === 'full') {
       console.log('For full server installation, please use:');
       console.log('  cd dev && npm run build');
-      console.log('\nThe full server includes all 99 tools:');
-      console.log('  - Everything from the modular server (96 tools)');
-      console.log('  - Plus 3 additional enhanced tools');
-      console.log('  - Including advanced mobile app toolkits');
-      console.log('  - Enhanced utility and cloud tools');
-      console.log('  - Advanced penetration testing toolkits');
+      console.log('\nThe full server includes all 113 tools:');
+      console.log('  - Core functionality with 113 tools (6 fewer than modular)');
+      console.log('  - Including comprehensive network reconnaissance tools');
+      console.log('  - Advanced metadata extraction capabilities');
+      console.log('  - Social network ripper for OSINT operations');
+      console.log('  - Enhanced security testing and penetration tools');
       console.log('\n🎭 Fun Fact: This server is so powerful, it could probably hack the Matrix!');
       console.log('   Neo would be proud (and maybe a little intimidated) 🕶️💻');
       return;
@@ -294,7 +720,7 @@ async function main() {
       return;
     }
     
-    installServer(choice);
+    await installServer(choice);
     
   } catch (error) {
     console.error('❌ An error occurred:', error.message);

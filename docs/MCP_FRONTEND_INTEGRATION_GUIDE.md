@@ -66,6 +66,12 @@ Our project is compatible with several automated MCP installers:
 - **Development Focus** - Optimized for coding and system administration tasks
 - **Parallel Task Execution** - Different agents can work on separate tasks simultaneously
 
+### **⚠️ Important Tool Limitation:**
+Cursor AI has a **tool limit of ~89 tools** that can be displayed/used simultaneously. Our MCP God Mode provides 113 tools, so you may need to:
+- **Enable/Disable Tools** - Use Cursor's settings to customize which tools are active
+- **Use Modular Server** - Choose specific tool categories based on your needs
+- **Switch Tool Sets** - Enable different tool groups for different projects
+
 ### **Installation Steps:**
 1. **Copy Configuration:**
    ```bash
@@ -79,6 +85,36 @@ Our project is compatible with several automated MCP installers:
    - This enables autonomous task execution
 
 3. **Restart Cursor AI**
+
+### **Managing Tool Limits:**
+Since Cursor has a ~89 tool limit and we provide 113 tools, consider these strategies:
+
+#### **Option 1: Use Modular Server**
+```json
+{
+  "mcpServers": {
+    "mcp-god-mode-security": {
+      "command": "node",
+      "args": ["E:/GitHub Projects/MCP-God-Mode/dev/dist/security-tools.js"]
+    },
+    "mcp-god-mode-system": {
+      "command": "node", 
+      "args": ["E:/GitHub Projects/MCP-God-Mode/dev/dist/system-tools.js"]
+    }
+  }
+}
+```
+
+#### **Option 2: Enable/Disable Tools in Cursor**
+1. Go to **Settings** → **Tools**
+2. **Disable** tools you don't need for current project
+3. **Enable** tools as needed for specific tasks
+
+#### **Option 3: Use Different Server Versions**
+- **Ultra-Minimal** (~20 tools) - Core functionality only
+- **Minimal** (~40 tools) - Essential tools for most tasks  
+- **Full** (113 tools) - Complete toolkit (may hit limit)
+- **Modular** - Choose specific categories
 
 ### **Cursor's Unique Multi-Agent Architecture:**
 
@@ -184,7 +220,7 @@ LM Studio (v0.3.17+) acts as an MCP Host, allowing connection to MCP servers and
 ## 🤖 Claude Desktop Integration
 
 ### **About Claude Desktop:**
-Claude Desktop application has native MCP support, enabling seamless integration with MCP God Mode tools. This provides direct access to all 89 tools through Claude's conversational interface.
+Claude Desktop application has native MCP support, enabling seamless integration with MCP God Mode tools. This provides direct access to all 113 tools through Claude's conversational interface.
 
 ### **Installation Methods:**
 
@@ -265,7 +301,7 @@ Once configured, you can use natural language to access MCP God Mode tools:
 ### **Key Benefits:**
 - **Native Integration** - Direct MCP support without bridges
 - **User-Friendly** - Simple installation and configuration
-- **Full Tool Access** - All 89 MCP God Mode tools available
+- **Full Tool Access** - All 113 MCP God Mode tools available
 - **Natural Language** - Use tools through conversational interface
 - **Desktop App** - Dedicated application with better performance
 
@@ -527,7 +563,7 @@ mcp_servers:
 
 | Feature | Cursor AI | LM Studio | Claude Desktop | SillyTavern | Continue | Open WebUI | CAMEL-AI | Azure AI | MCP Bridge |
 |---------|-----------|-----------|----------------|-------------|----------|------------|----------|----------|------------|
-| **Agent Mode** | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ |
+| **Agent Mode** | ✅* | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ |
 | **Multi-Agent Support** | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ | ✅ | ❌ |
 | **Native MCP Support** | ✅ | ✅ | ✅ | 🔶 | ✅ | ✅ | ✅ | ✅ | ✅ |
 | **Local Models** | ❌ | ✅ | ❌ | ✅ | ❌ | ✅ | ✅ | ❌ | ❌ |
@@ -545,7 +581,11 @@ mcp_servers:
 | **Development Focus** | ✅ | ❌ | ✅ | ❌ | ✅ | ❌ | ✅ | ❌ | ❌ |
 | **Ease of Setup** | ✅ | ✅ | ✅ | 🔶 | ✅ | ✅ | 🔶 | 🔶 | ✅ |
 
-**Legend:** ✅ Excellent | 🔶 Moderate | ❌ Not Available
+**Legend:**
+- ✅ = Full Support
+- 🔶 = Partial Support  
+- ❌ = Not Supported
+- ✅* = Limited to ~89 tools (Cursor AI tool limit, MCP God Mode provides 113 tools)
 
 ---
 

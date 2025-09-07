@@ -7,6 +7,7 @@ This index provides a comprehensive mapping of all tools, features, and document
 - **[Setup Guide](SETUP_GUIDE.md)** - Complete installation and configuration
 - **[Implementation Status](IMPLEMENTATION_COMPLETE.md)** - Current development status
 - **[Parameter Reference](PARAMETER_REFERENCE.md)** - Complete parameter documentation
+- **[Server Architecture Comparison](SERVER_ARCHITECTURE_COMPARISON.md)** - Monolithic vs Modular server differences
 
 ### ⚡ **Recommended: Use with Cursor AI Agent Mode**
 **For optimal performance, we recommend using this project with Cursor AI in Agent mode.** Agent mode empowers Cursor to autonomously handle complex coding tasks, such as multi-file edits and terminal command execution, which are integral to this project's functionality.
@@ -45,7 +46,19 @@ This index provides a comprehensive mapping of all tools, features, and document
 - **[Port Scanner](tool/port_scanner.md)** - Network port discovery and analysis
 - **[Packet Sniffer](tool/packet_sniffer.md)** - Network traffic capture and analysis
 
+### Geolocation & Reconnaissance
+- **[IP Geolocation](tool/ip_geolocation.md)** - IP-based geolocation using multiple databases
+- **[Network Triangulation](tool/network_triangulation.md)** - Wi-Fi and cell tower triangulation
+- **[OSINT Reconnaissance](tool/osint_reconnaissance.md)** - Open source intelligence gathering
+- **[Latency Geolocation](tool/latency_geolocation.md)** - Ping-based geolocation triangulation
+- **[Network Discovery](tool/network_discovery.md)** - Comprehensive network reconnaissance
+- **[Traffic Analysis](tool/traffic_analysis.md)** - Advanced packet and traffic analysis
+- **[Network Utilities](tool/network_utilities.md)** - Network utility tools and management
+
 ### Security Testing
+- **[Vulnerability Assessment](tool/vulnerability_assessment.md)** - Comprehensive security assessment
+- **[Social Network Ripper](tool/social_network_ripper.md)** - Social media account information extraction
+- **[Metadata Extractor](tool/metadata_extractor.md)** - Media metadata analysis and geolocation
 - **[Security Testing](tool/security_testing.md)** - Multi-domain security assessment
 - **[Network Penetration](tool/network_penetration.md)** - Network security testing
 - **[Vulnerability Scanner](tool/vulnerability_scanner.md)** - Security weakness identification
@@ -55,6 +68,7 @@ This index provides a comprehensive mapping of all tools, features, and document
 ### Penetration Testing
 - **[Hack Network](tool/hack_network.md)** - Comprehensive network penetration testing
 - **[Penetration Testing Summary](PENETRATION_TESTING_TOOLS_SUMMARY.md)** - Complete PT tool overview
+- **[Network Reconnaissance Tools](NETWORK_RECONNAISSANCE_TOOLS.md)** - Complete network recon overview
 
 ## 📡 Wireless & Radio Security
 
@@ -101,6 +115,10 @@ This index provides a comprehensive mapping of all tools, features, and document
 ### Web Automation
 - **[Browser Control](tool/browser_control.md)** - Cross-platform browser automation
 - **[Web Scraper](tool/web_scraper.md)** - Web content extraction and scraping
+- **[Universal Browser Operator](tool/universal_browser_operator.md)** - AI site interaction and browser automation
+- **[Web Search](tool/web_search.md)** - Multi-platform web search capabilities
+- **[Captcha Defeating](tool/captcha_defeating.md)** - CAPTCHA solving and bypass techniques
+- **[Form Completion](tool/form_completion.md)** - Intelligent automated form filling
 
 ## 📱 Mobile Device Tools
 

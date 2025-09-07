@@ -9,6 +9,8 @@ import { registerIotSecurity } from "./iot_security.js";
 import { registerSocialEngineering } from "./social_engineering.js";
 import { registerThreatIntelligence } from "./threat_intelligence.js";
 import { registerComplianceAssessment } from "./compliance_assessment.js";
+import { registerSocialNetworkRipper } from "./social_network_ripper.js";
+import { registerMetadataExtractor } from "./metadata_extractor.js";
 
 export { registerVulnerabilityScanner } from "./vulnerability_scanner.js";
 export { registerPortScanner } from "./port_scanner.js";
@@ -21,5 +23,7 @@ export { registerIotSecurity } from "./iot_security.js";
 export { registerSocialEngineering } from "./social_engineering.js";
 export { registerThreatIntelligence } from "./threat_intelligence.js";
 export { registerComplianceAssessment } from "./compliance_assessment.js";
+export { registerSocialNetworkRipper } from "./social_network_ripper.js";
+export { registerMetadataExtractor } from "./metadata_extractor.js";
 export { registerEncryptionTool } from "../utilities/encryption_tool.js";
 export { registerMalwareAnalysis } from "./malware_analysis.js";

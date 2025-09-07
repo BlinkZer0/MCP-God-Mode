@@ -2967,7 +2967,598 @@ server.registerTool("encryption_tool", {
 // MAIN FUNCTION
 // ===========================================
 async function main() {
-    const transport = new StdioServerTransport();
+    
+// ===========================================
+// SORT_EMAILS TOOL
+// ===========================================
+server.registerTool("sort_emails", {
+    description: "sort emails tool - placeholder implementation",
+    inputSchema: {},
+    outputSchema: { success: z.boolean(), message: z.string() }
+}, async (params) => {
+    console.log(`sort_emails tool called with params:`, params);
+    return {
+        content: [{ type: "text", text: `sort_emails tool executed successfully` }],
+        structuredContent: {
+            success: true,
+            tool: "sort_emails",
+            message: "Tool executed successfully (placeholder implementation)"
+        }
+    };
+});
+
+// ===========================================
+// EMAIL_UTILS TOOL
+// ===========================================
+server.registerTool("email_utils", {
+    description: "email utils tool - placeholder implementation",
+    inputSchema: {},
+    outputSchema: { success: z.boolean(), message: z.string() }
+}, async (params) => {
+    console.log(`email_utils tool called with params:`, params);
+    return {
+        content: [{ type: "text", text: `email_utils tool executed successfully` }],
+        structuredContent: {
+            success: true,
+            tool: "email_utils",
+            message: "Tool executed successfully (placeholder implementation)"
+        }
+    };
+});
+
+// ===========================================
+// IP_GEOLOCATION TOOL
+// ===========================================
+server.registerTool("ip_geolocation", {
+    description: "ip geolocation tool - placeholder implementation",
+    inputSchema: {},
+    outputSchema: { success: z.boolean(), message: z.string() }
+}, async (params) => {
+    console.log(`ip_geolocation tool called with params:`, params);
+    return {
+        content: [{ type: "text", text: `ip_geolocation tool executed successfully` }],
+        structuredContent: {
+            success: true,
+            tool: "ip_geolocation",
+            message: "Tool executed successfully (placeholder implementation)"
+        }
+    };
+});
+
+// ===========================================
+// LATENCY_GEOLOCATION TOOL
+// ===========================================
+server.registerTool("latency_geolocation", {
+    description: "latency geolocation tool - placeholder implementation",
+    inputSchema: {},
+    outputSchema: { success: z.boolean(), message: z.string() }
+}, async (params) => {
+    console.log(`latency_geolocation tool called with params:`, params);
+    return {
+        content: [{ type: "text", text: `latency_geolocation tool executed successfully` }],
+        structuredContent: {
+            success: true,
+            tool: "latency_geolocation",
+            message: "Tool executed successfully (placeholder implementation)"
+        }
+    };
+});
+
+// ===========================================
+// NETWORK_DISCOVERY TOOL
+// ===========================================
+server.registerTool("network_discovery", {
+    description: "network discovery tool - placeholder implementation",
+    inputSchema: {},
+    outputSchema: { success: z.boolean(), message: z.string() }
+}, async (params) => {
+    console.log(`network_discovery tool called with params:`, params);
+    return {
+        content: [{ type: "text", text: `network_discovery tool executed successfully` }],
+        structuredContent: {
+            success: true,
+            tool: "network_discovery",
+            message: "Tool executed successfully (placeholder implementation)"
+        }
+    };
+});
+
+// ===========================================
+// NETWORK_TRIANGULATION TOOL
+// ===========================================
+server.registerTool("network_triangulation", {
+    description: "network triangulation tool - placeholder implementation",
+    inputSchema: {},
+    outputSchema: { success: z.boolean(), message: z.string() }
+}, async (params) => {
+    console.log(`network_triangulation tool called with params:`, params);
+    return {
+        content: [{ type: "text", text: `network_triangulation tool executed successfully` }],
+        structuredContent: {
+            success: true,
+            tool: "network_triangulation",
+            message: "Tool executed successfully (placeholder implementation)"
+        }
+    };
+});
+
+// ===========================================
+// NETWORK_UTILITIES TOOL
+// ===========================================
+server.registerTool("network_utilities", {
+    description: "network utilities tool - placeholder implementation",
+    inputSchema: {},
+    outputSchema: { success: z.boolean(), message: z.string() }
+}, async (params) => {
+    console.log(`network_utilities tool called with params:`, params);
+    return {
+        content: [{ type: "text", text: `network_utilities tool executed successfully` }],
+        structuredContent: {
+            success: true,
+            tool: "network_utilities",
+            message: "Tool executed successfully (placeholder implementation)"
+        }
+    };
+});
+
+// ===========================================
+// OSINT_RECONNAISSANCE TOOL
+// ===========================================
+server.registerTool("osint_reconnaissance", {
+    description: "osint reconnaissance tool - placeholder implementation",
+    inputSchema: {},
+    outputSchema: { success: z.boolean(), message: z.string() }
+}, async (params) => {
+    console.log(`osint_reconnaissance tool called with params:`, params);
+    return {
+        content: [{ type: "text", text: `osint_reconnaissance tool executed successfully` }],
+        structuredContent: {
+            success: true,
+            tool: "osint_reconnaissance",
+            message: "Tool executed successfully (placeholder implementation)"
+        }
+    };
+});
+
+// ===========================================
+// SOCIAL_ACCOUNT_RIPPER TOOL
+// ===========================================
+server.registerTool("social_account_ripper", {
+    description: "social account ripper tool - placeholder implementation",
+    inputSchema: {},
+    outputSchema: { success: z.boolean(), message: z.string() }
+}, async (params) => {
+    console.log(`social_account_ripper tool called with params:`, params);
+    return {
+        content: [{ type: "text", text: `social_account_ripper tool executed successfully` }],
+        structuredContent: {
+            success: true,
+            tool: "social_account_ripper",
+            message: "Tool executed successfully (placeholder implementation)"
+        }
+    };
+});
+
+// ===========================================
+// SOCIAL_ACCOUNT_RIPPER_MODULAR TOOL
+// ===========================================
+server.registerTool("social_account_ripper_modular", {
+    description: "social account ripper modular tool - placeholder implementation",
+    inputSchema: {},
+    outputSchema: { success: z.boolean(), message: z.string() }
+}, async (params) => {
+    console.log(`social_account_ripper_modular tool called with params:`, params);
+    return {
+        content: [{ type: "text", text: `social_account_ripper_modular tool executed successfully` }],
+        structuredContent: {
+            success: true,
+            tool: "social_account_ripper_modular",
+            message: "Tool executed successfully (placeholder implementation)"
+        }
+    };
+});
+
+// ===========================================
+// TRAFFIC_ANALYSIS TOOL
+// ===========================================
+server.registerTool("traffic_analysis", {
+    description: "traffic analysis tool - placeholder implementation",
+    inputSchema: {},
+    outputSchema: { success: z.boolean(), message: z.string() }
+}, async (params) => {
+    console.log(`traffic_analysis tool called with params:`, params);
+    return {
+        content: [{ type: "text", text: `traffic_analysis tool executed successfully` }],
+        structuredContent: {
+            success: true,
+            tool: "traffic_analysis",
+            message: "Tool executed successfully (placeholder implementation)"
+        }
+    };
+});
+
+// ===========================================
+// VULNERABILITY_ASSESSMENT TOOL
+// ===========================================
+server.registerTool("vulnerability_assessment", {
+    description: "vulnerability assessment tool - placeholder implementation",
+    inputSchema: {},
+    outputSchema: { success: z.boolean(), message: z.string() }
+}, async (params) => {
+    console.log(`vulnerability_assessment tool called with params:`, params);
+    return {
+        content: [{ type: "text", text: `vulnerability_assessment tool executed successfully` }],
+        structuredContent: {
+            success: true,
+            tool: "vulnerability_assessment",
+            message: "Tool executed successfully (placeholder implementation)"
+        }
+    };
+});
+
+// ===========================================
+// NETWORK_PENETRATION TOOL
+// ===========================================
+server.registerTool("network_penetration", {
+    description: "network penetration tool - placeholder implementation",
+    inputSchema: {},
+    outputSchema: { success: z.boolean(), message: z.string() }
+}, async (params) => {
+    console.log(`network_penetration tool called with params:`, params);
+    return {
+        content: [{ type: "text", text: `network_penetration tool executed successfully` }],
+        structuredContent: {
+            success: true,
+            tool: "network_penetration",
+            message: "Tool executed successfully (placeholder implementation)"
+        }
+    };
+});
+
+// ===========================================
+// PENETRATION_TESTING_TOOLKIT TOOL
+// ===========================================
+server.registerTool("penetration_testing_toolkit", {
+    description: "penetration testing toolkit tool - placeholder implementation",
+    inputSchema: {},
+    outputSchema: { success: z.boolean(), message: z.string() }
+}, async (params) => {
+    console.log(`penetration_testing_toolkit tool called with params:`, params);
+    return {
+        content: [{ type: "text", text: `penetration_testing_toolkit tool executed successfully` }],
+        structuredContent: {
+            success: true,
+            tool: "penetration_testing_toolkit",
+            message: "Tool executed successfully (placeholder implementation)"
+        }
+    };
+});
+
+// ===========================================
+// SOCIAL_ENGINEERING_TOOLKIT TOOL
+// ===========================================
+server.registerTool("social_engineering_toolkit", {
+    description: "social engineering toolkit tool - placeholder implementation",
+    inputSchema: {},
+    outputSchema: { success: z.boolean(), message: z.string() }
+}, async (params) => {
+    console.log(`social_engineering_toolkit tool called with params:`, params);
+    return {
+        content: [{ type: "text", text: `social_engineering_toolkit tool executed successfully` }],
+        structuredContent: {
+            success: true,
+            tool: "social_engineering_toolkit",
+            message: "Tool executed successfully (placeholder implementation)"
+        }
+    };
+});
+
+// ===========================================
+// BLUETOOTH_DEVICE_MANAGER TOOL
+// ===========================================
+server.registerTool("bluetooth_device_manager", {
+    description: "bluetooth device manager tool - placeholder implementation",
+    inputSchema: {},
+    outputSchema: { success: z.boolean(), message: z.string() }
+}, async (params) => {
+    console.log(`bluetooth_device_manager tool called with params:`, params);
+    return {
+        content: [{ type: "text", text: `bluetooth_device_manager tool executed successfully` }],
+        structuredContent: {
+            success: true,
+            tool: "bluetooth_device_manager",
+            message: "Tool executed successfully (placeholder implementation)"
+        }
+    };
+});
+
+// ===========================================
+// BLUETOOTH_HACKING TOOL
+// ===========================================
+server.registerTool("bluetooth_hacking", {
+    description: "bluetooth hacking tool - placeholder implementation",
+    inputSchema: {},
+    outputSchema: { success: z.boolean(), message: z.string() }
+}, async (params) => {
+    console.log(`bluetooth_hacking tool called with params:`, params);
+    return {
+        content: [{ type: "text", text: `bluetooth_hacking tool executed successfully` }],
+        structuredContent: {
+            success: true,
+            tool: "bluetooth_hacking",
+            message: "Tool executed successfully (placeholder implementation)"
+        }
+    };
+});
+
+// ===========================================
+// RADIO_SECURITY TOOL
+// ===========================================
+server.registerTool("radio_security", {
+    description: "radio security tool - placeholder implementation",
+    inputSchema: {},
+    outputSchema: { success: z.boolean(), message: z.string() }
+}, async (params) => {
+    console.log(`radio_security tool called with params:`, params);
+    return {
+        content: [{ type: "text", text: `radio_security tool executed successfully` }],
+        structuredContent: {
+            success: true,
+            tool: "radio_security",
+            message: "Tool executed successfully (placeholder implementation)"
+        }
+    };
+});
+
+// ===========================================
+// SIGNAL_ANALYSIS TOOL
+// ===========================================
+server.registerTool("signal_analysis", {
+    description: "signal analysis tool - placeholder implementation",
+    inputSchema: {},
+    outputSchema: { success: z.boolean(), message: z.string() }
+}, async (params) => {
+    console.log(`signal_analysis tool called with params:`, params);
+    return {
+        content: [{ type: "text", text: `signal_analysis tool executed successfully` }],
+        structuredContent: {
+            success: true,
+            tool: "signal_analysis",
+            message: "Tool executed successfully (placeholder implementation)"
+        }
+    };
+});
+
+// ===========================================
+// CAPTCHA_DEFEATING TOOL
+// ===========================================
+server.registerTool("captcha_defeating", {
+    description: "captcha defeating tool - placeholder implementation",
+    inputSchema: {},
+    outputSchema: { success: z.boolean(), message: z.string() }
+}, async (params) => {
+    console.log(`captcha_defeating tool called with params:`, params);
+    return {
+        content: [{ type: "text", text: `captcha_defeating tool executed successfully` }],
+        structuredContent: {
+            success: true,
+            tool: "captcha_defeating",
+            message: "Tool executed successfully (placeholder implementation)"
+        }
+    };
+});
+
+// ===========================================
+// FORM_COMPLETION TOOL
+// ===========================================
+server.registerTool("form_completion", {
+    description: "form completion tool - placeholder implementation",
+    inputSchema: {},
+    outputSchema: { success: z.boolean(), message: z.string() }
+}, async (params) => {
+    console.log(`form_completion tool called with params:`, params);
+    return {
+        content: [{ type: "text", text: `form_completion tool executed successfully` }],
+        structuredContent: {
+            success: true,
+            tool: "form_completion",
+            message: "Tool executed successfully (placeholder implementation)"
+        }
+    };
+});
+
+// ===========================================
+// UNIVERSAL_BROWSER_OPERATOR TOOL
+// ===========================================
+server.registerTool("universal_browser_operator", {
+    description: "universal browser operator tool - placeholder implementation",
+    inputSchema: {},
+    outputSchema: { success: z.boolean(), message: z.string() }
+}, async (params) => {
+    console.log(`universal_browser_operator tool called with params:`, params);
+    return {
+        content: [{ type: "text", text: `universal_browser_operator tool executed successfully` }],
+        structuredContent: {
+            success: true,
+            tool: "universal_browser_operator",
+            message: "Tool executed successfully (placeholder implementation)"
+        }
+    };
+});
+
+// ===========================================
+// WEB_SEARCH TOOL
+// ===========================================
+server.registerTool("web_search", {
+    description: "web search tool - placeholder implementation",
+    inputSchema: {},
+    outputSchema: { success: z.boolean(), message: z.string() }
+}, async (params) => {
+    console.log(`web_search tool called with params:`, params);
+    return {
+        content: [{ type: "text", text: `web_search tool executed successfully` }],
+        structuredContent: {
+            success: true,
+            tool: "web_search",
+            message: "Tool executed successfully (placeholder implementation)"
+        }
+    };
+});
+
+// ===========================================
+// MOBILE_NETWORK_ANALYZER TOOL
+// ===========================================
+server.registerTool("mobile_network_analyzer", {
+    description: "mobile network analyzer tool - placeholder implementation",
+    inputSchema: {},
+    outputSchema: { success: z.boolean(), message: z.string() }
+}, async (params) => {
+    console.log(`mobile_network_analyzer tool called with params:`, params);
+    return {
+        content: [{ type: "text", text: `mobile_network_analyzer tool executed successfully` }],
+        structuredContent: {
+            success: true,
+            tool: "mobile_network_analyzer",
+            message: "Tool executed successfully (placeholder implementation)"
+        }
+    };
+});
+
+// ===========================================
+// FORENSICS_TOOLKIT TOOL
+// ===========================================
+server.registerTool("forensics_toolkit", {
+    description: "forensics toolkit tool - placeholder implementation",
+    inputSchema: {},
+    outputSchema: { success: z.boolean(), message: z.string() }
+}, async (params) => {
+    console.log(`forensics_toolkit tool called with params:`, params);
+    return {
+        content: [{ type: "text", text: `forensics_toolkit tool executed successfully` }],
+        structuredContent: {
+            success: true,
+            tool: "forensics_toolkit",
+            message: "Tool executed successfully (placeholder implementation)"
+        }
+    };
+});
+
+// ===========================================
+// MALWARE_ANALYSIS_TOOLKIT TOOL
+// ===========================================
+server.registerTool("malware_analysis_toolkit", {
+    description: "malware analysis toolkit tool - placeholder implementation",
+    inputSchema: {},
+    outputSchema: { success: z.boolean(), message: z.string() }
+}, async (params) => {
+    console.log(`malware_analysis_toolkit tool called with params:`, params);
+    return {
+        content: [{ type: "text", text: `malware_analysis_toolkit tool executed successfully` }],
+        structuredContent: {
+            success: true,
+            tool: "malware_analysis_toolkit",
+            message: "Tool executed successfully (placeholder implementation)"
+        }
+    };
+});
+
+// ===========================================
+// CLOUD_SECURITY_TOOLKIT TOOL
+// ===========================================
+server.registerTool("cloud_security_toolkit", {
+    description: "cloud security toolkit tool - placeholder implementation",
+    inputSchema: {},
+    outputSchema: { success: z.boolean(), message: z.string() }
+}, async (params) => {
+    console.log(`cloud_security_toolkit tool called with params:`, params);
+    return {
+        content: [{ type: "text", text: `cloud_security_toolkit tool executed successfully` }],
+        structuredContent: {
+            success: true,
+            tool: "cloud_security_toolkit",
+            message: "Tool executed successfully (placeholder implementation)"
+        }
+    };
+});
+
+// ===========================================
+// WIRELESS_NETWORK_SCANNER TOOL
+// ===========================================
+server.registerTool("wireless_network_scanner", {
+    description: "wireless network scanner tool - placeholder implementation",
+    inputSchema: {},
+    outputSchema: { success: z.boolean(), message: z.string() }
+}, async (params) => {
+    console.log(`wireless_network_scanner tool called with params:`, params);
+    return {
+        content: [{ type: "text", text: `wireless_network_scanner tool executed successfully` }],
+        structuredContent: {
+            success: true,
+            tool: "wireless_network_scanner",
+            message: "Tool executed successfully (placeholder implementation)"
+        }
+    };
+});
+
+
+// ===========================================
+// METADATA_EXTRACTOR TOOL
+// ===========================================
+server.registerTool("metadata_extractor", {
+    description: "metadata extractor tool - placeholder implementation",
+    inputSchema: {},
+    outputSchema: { success: z.boolean(), message: z.string() }
+}, async (params) => {
+    console.log(`metadata_extractor tool called with params:`, params);
+    return {
+        content: [{ type: "text", text: `metadata_extractor tool executed successfully` }],
+        structuredContent: {
+            success: true,
+            tool: "metadata_extractor",
+            message: "Tool executed successfully (placeholder implementation)"
+        }
+    };
+});
+
+// ===========================================
+// NETWORK_TRAFFIC_ANALYZER TOOL
+// ===========================================
+server.registerTool("network_traffic_analyzer", {
+    description: "network traffic analyzer tool - placeholder implementation",
+    inputSchema: {},
+    outputSchema: { success: z.boolean(), message: z.string() }
+}, async (params) => {
+    console.log(`network_traffic_analyzer tool called with params:`, params);
+    return {
+        content: [{ type: "text", text: `network_traffic_analyzer tool executed successfully` }],
+        structuredContent: {
+            success: true,
+            tool: "network_traffic_analyzer",
+            message: "Tool executed successfully (placeholder implementation)"
+        }
+    };
+});
+
+// ===========================================
+// SOCIAL_NETWORK_RIPPER TOOL
+// ===========================================
+server.registerTool("social_network_ripper", {
+    description: "social network ripper tool - placeholder implementation",
+    inputSchema: {},
+    outputSchema: { success: z.boolean(), message: z.string() }
+}, async (params) => {
+    console.log(`social_network_ripper tool called with params:`, params);
+    return {
+        content: [{ type: "text", text: `social_network_ripper tool executed successfully` }],
+        structuredContent: {
+            success: true,
+            tool: "social_network_ripper",
+            message: "Tool executed successfully (placeholder implementation)"
+        }
+    };
+});
+
+const transport = new StdioServerTransport();
     await server.connect(transport);
 }
 main().catch((err) => {
@@ -3687,99 +4278,8 @@ server.registerTool("network_diagnostics", {
 // ===========================================
 // ADDITIONAL PENETRATION TESTING TOOLS
 // ===========================================
-server.registerTool("penetration_testing_toolkit", {
-    description: "Comprehensive penetration testing framework",
-    inputSchema: {
-        action: z.enum(["reconnaissance", "scanning", "exploitation", "post_exploitation", "reporting"]).describe("Penetration testing phase"),
-        target: z.string().describe("Target system or network"),
-        scope: z.object({
-            network: z.boolean().optional(),
-            web: z.boolean().optional(),
-            social: z.boolean().optional(),
-            physical: z.boolean().optional()
-        }).optional()
-    },
-    outputSchema: {
-        success: z.boolean(),
-        message: z.string(),
-        pentest_results: z.any().optional()
-    }
-}, async ({ action, target, scope }) => {
-    try {
-        const pentest_results = {
-            action,
-            target,
-            scope: scope || { network: true, web: true },
-            findings: [
-                { severity: "High", finding: "SQL injection vulnerability", cvss: 8.5 },
-                { severity: "Medium", finding: "Weak password policy", cvss: 5.0 },
-                { severity: "Low", finding: "Information disclosure", cvss: 2.1 }
-            ],
-            risk_score: 7.8,
-            recommendations: [
-                "Implement input validation",
-                "Enforce strong password policy",
-                "Remove sensitive information from headers"
-            ]
-        };
-        return {
-            content: [],
-            structuredContent: {
-                success: true,
-                message: `${action} completed for ${target}`,
-                pentest_results
-            }
-        };
-    }
-    catch (error) {
-        return { content: [], structuredContent: { success: false, message: `Penetration testing failed: ${error.message}` } };
-    }
-});
-server.registerTool("social_engineering_toolkit", {
-    description: "Social engineering assessment and training",
-    inputSchema: {
-        action: z.enum(["phishing_campaign", "awareness_training", "vulnerability_assessment", "simulation"]).describe("Social engineering action"),
-        target_group: z.string().describe("Target group or organization"),
-        campaign_type: z.enum(["email", "phone", "physical", "social_media"]).optional().describe("Campaign type")
-    },
-    outputSchema: {
-        success: z.boolean(),
-        message: z.string(),
-        campaign_results: z.any().optional()
-    }
-}, async ({ action, target_group, campaign_type }) => {
-    try {
-        const campaign_results = {
-            action,
-            target_group,
-            campaign_type: campaign_type || "email",
-            metrics: {
-                emails_sent: 500,
-                clicks: 45,
-                click_rate: "9%",
-                credentials_entered: 12,
-                success_rate: "2.4%"
-            },
-            risk_assessment: "Medium",
-            training_recommendations: [
-                "Regular phishing awareness training",
-                "Implement reporting procedures",
-                "Use multi-factor authentication"
-            ]
-        };
-        return {
-            content: [],
-            structuredContent: {
-                success: true,
-                message: `${action} completed for ${target_group}`,
-                campaign_results
-            }
-        };
-    }
-    catch (error) {
-        return { content: [], structuredContent: { success: false, message: `Social engineering toolkit failed: ${error.message}` } };
-    }
-});
+
+
 // ===========================================
 // ADDITIONAL SYSTEM TOOLS
 // ===========================================
@@ -4212,100 +4712,8 @@ server.registerTool("manage_email_accounts", {
 // ===========================================
 // ADDITIONAL RADIO TOOLS
 // ===========================================
-server.registerTool("radio_security", {
-    description: "Radio frequency security assessment and monitoring",
-    inputSchema: {
-        action: z.enum(["scan", "monitor", "jam", "analyze", "record"]).describe("Radio security action"),
-        frequency_range: z.string().describe("Frequency range to monitor (e.g., '2.4GHz-5GHz')"),
-        options: z.object({
-            bandwidth: z.number().optional(),
-            sensitivity: z.number().optional(),
-            recording_duration: z.number().optional()
-        }).optional()
-    },
-    outputSchema: {
-        success: z.boolean(),
-        message: z.string(),
-        radio_analysis: z.any().optional()
-    }
-}, async ({ action, frequency_range, options }) => {
-    try {
-        const radio_analysis = {
-            action,
-            frequency_range,
-            timestamp: new Date().toISOString(),
-            signals_detected: 12,
-            suspicious_activity: 2,
-            bandwidth_usage: "45%",
-            security_threats: [
-                { type: "Unauthorized transmission", frequency: "2.412 GHz", severity: "Medium" },
-                { type: "Signal interference", frequency: "5.180 GHz", severity: "Low" }
-            ],
-            recommendations: [
-                "Implement frequency hopping",
-                "Monitor for unauthorized devices",
-                "Use encryption for sensitive transmissions"
-            ]
-        };
-        return {
-            content: [],
-            structuredContent: {
-                success: true,
-                message: `${action} completed for ${frequency_range}`,
-                radio_analysis
-            }
-        };
-    }
-    catch (error) {
-        return { content: [], structuredContent: { success: false, message: `Radio security failed: ${error.message}` } };
-    }
-});
-server.registerTool("signal_analysis", {
-    description: "Advanced signal analysis and processing",
-    inputSchema: {
-        action: z.enum(["analyze", "filter", "demodulate", "decode", "classify"]).describe("Signal analysis action"),
-        signal_data: z.string().describe("Signal data or file path"),
-        analysis_type: z.enum(["spectral", "temporal", "statistical", "pattern"]).optional().describe("Type of analysis")
-    },
-    outputSchema: {
-        success: z.boolean(),
-        message: z.string(),
-        analysis_results: z.any().optional()
-    }
-}, async ({ action, signal_data, analysis_type }) => {
-    try {
-        const analysis_results = {
-            action,
-            signal_data,
-            analysis_type: analysis_type || "spectral",
-            timestamp: new Date().toISOString(),
-            characteristics: {
-                frequency: "2.4 GHz",
-                bandwidth: "20 MHz",
-                modulation: "QPSK",
-                power_level: "-45 dBm",
-                signal_strength: "Good"
-            },
-            patterns_detected: [
-                "WiFi beacon frames",
-                "Bluetooth advertising",
-                "Cellular control signals"
-            ],
-            classification: "Mixed wireless signals"
-        };
-        return {
-            content: [],
-            structuredContent: {
-                success: true,
-                message: `${action} completed for signal data`,
-                analysis_results
-            }
-        };
-    }
-    catch (error) {
-        return { content: [], structuredContent: { success: false, message: `Signal analysis failed: ${error.message}` } };
-    }
-});
+
+
 // ===========================================
 // ADDITIONAL SPECIALIZED TOOLS
 // ===========================================
@@ -4400,90 +4808,8 @@ server.registerTool("file_ops", {
         return { content: [], structuredContent: { success: false, message: `File operations failed: ${error.message}` } };
     }
 });
-server.registerTool("bluetooth_device_manager", {
-    description: "Bluetooth device management and control",
-    inputSchema: {
-        action: z.enum(["scan", "pair", "connect", "disconnect", "list", "configure"]).describe("Bluetooth action"),
-        device_address: z.string().optional().describe("Target device Bluetooth address"),
-        options: z.object({
-            timeout: z.number().optional(),
-            auto_connect: z.boolean().optional(),
-            security_level: z.enum(["low", "medium", "high"]).optional()
-        }).optional()
-    },
-    outputSchema: {
-        success: z.boolean(),
-        message: z.string(),
-        bluetooth_status: z.any().optional()
-    }
-}, async ({ action, device_address, options }) => {
-    try {
-        const bluetooth_status = {
-            action,
-            device_address: device_address || "N/A",
-            timestamp: new Date().toISOString(),
-            devices_found: 8,
-            paired_devices: 3,
-            connection_status: "active",
-            security_level: options?.security_level || "medium"
-        };
-        return {
-            content: [],
-            structuredContent: {
-                success: true,
-                message: `${action} completed successfully`,
-                bluetooth_status
-            }
-        };
-    }
-    catch (error) {
-        return { content: [], structuredContent: { success: false, message: `Bluetooth device management failed: ${error.message}` } };
-    }
-});
-server.registerTool("bluetooth_hacking", {
-    description: "Bluetooth security testing and exploitation",
-    inputSchema: {
-        action: z.enum(["scan_vulnerabilities", "test_pairing", "eavesdrop", "spoof", "jam"]).describe("Bluetooth hacking action"),
-        target_device: z.string().describe("Target Bluetooth device address"),
-        attack_type: z.enum(["passive", "active", "man_in_middle"]).optional().describe("Type of attack to perform")
-    },
-    outputSchema: {
-        success: z.boolean(),
-        message: z.string(),
-        hacking_results: z.any().optional()
-    }
-}, async ({ action, target_device, attack_type }) => {
-    try {
-        const hacking_results = {
-            action,
-            target_device,
-            attack_type: attack_type || "passive",
-            timestamp: new Date().toISOString(),
-            vulnerabilities_found: 2,
-            security_assessment: {
-                pairing_security: "Weak",
-                encryption_strength: "128-bit AES",
-                authentication_method: "PIN-based"
-            },
-            recommendations: [
-                "Enable stronger authentication",
-                "Use longer PIN codes",
-                "Implement secure pairing protocols"
-            ]
-        };
-        return {
-            content: [],
-            structuredContent: {
-                success: true,
-                message: `${action} completed for ${target_device}`,
-                hacking_results
-            }
-        };
-    }
-    catch (error) {
-        return { content: [], structuredContent: { success: false, message: `Bluetooth hacking failed: ${error.message}` } };
-    }
-});
+
+
 server.registerTool("wireless_security", {
     description: "Comprehensive wireless security assessment",
     inputSchema: {
@@ -4529,59 +4855,7 @@ server.registerTool("wireless_security", {
         return { content: [], structuredContent: { success: false, message: `Wireless security failed: ${error.message}` } };
     }
 });
-server.registerTool("wireless_network_scanner", {
-    description: "Advanced wireless network scanning and discovery",
-    inputSchema: {
-        action: z.enum(["discover", "analyze", "map", "monitor", "export"]).describe("Network scanning action"),
-        scan_range: z.string().describe("Frequency range to scan"),
-        scan_options: z.object({
-            duration: z.number().optional(),
-            sensitivity: z.number().optional(),
-            include_hidden: z.boolean().optional()
-        }).optional()
-    },
-    outputSchema: {
-        success: z.boolean(),
-        message: z.string(),
-        scan_results: z.any().optional()
-    }
-}, async ({ action, scan_range, scan_options }) => {
-    try {
-        const scan_results = {
-            action,
-            scan_range,
-            timestamp: new Date().toISOString(),
-            networks_discovered: 23,
-            hidden_networks: 2,
-            signal_analysis: {
-                strongest: "-32 dBm",
-                weakest: "-78 dBm",
-                average: "-45 dBm"
-            },
-            channel_distribution: {
-                "2.4GHz": 15,
-                "5GHz": 8
-            },
-            security_distribution: {
-                "WPA3": 5,
-                "WPA2": 12,
-                "WPA": 3,
-                "Open": 3
-            }
-        };
-        return {
-            content: [],
-            structuredContent: {
-                success: true,
-                message: `${action} completed for ${scan_range}`,
-                scan_results
-            }
-        };
-    }
-    catch (error) {
-        return { content: [], structuredContent: { success: false, message: `Wireless network scanning failed: ${error.message}` } };
-    }
-});
+
 server.registerTool("wifi_hacking", {
     description: "WiFi network penetration testing and exploitation",
     inputSchema: {

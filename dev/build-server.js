@@ -41,6 +41,16 @@ const AVAILABLE_TOOLS = {
   network_diagnostics: './tools/network/network_diagnostics',
   download_file: './tools/network/download_file',
   network_traffic_analyzer: './tools/network/network_traffic_analyzer',
+  ip_geolocation: './tools/network/ip_geolocation',
+  network_triangulation: './tools/network/network_triangulation',
+  osint_reconnaissance: './tools/network/osint_reconnaissance',
+  latency_geolocation: './tools/network/latency_geolocation',
+  network_discovery: './tools/network/network_discovery',
+  vulnerability_assessment: './tools/network/vulnerability_assessment',
+  traffic_analysis: './tools/network/traffic_analysis',
+  network_utilities: './tools/network/network_utilities',
+  social_account_ripper: './tools/network/social_account_ripper',
+  social_account_ripper_modular: './tools/network/social_account_ripper_modular',
   
   // Security Tools
   vulnerability_scanner: './tools/security/vulnerability_scanner',
@@ -53,6 +63,8 @@ const AVAILABLE_TOOLS = {
   social_engineering: './tools/security/social_engineering',
   threat_intelligence: './tools/security/threat_intelligence',
   compliance_assessment: './tools/security/compliance_assessment',
+  social_network_ripper: './tools/security/social_network_ripper',
+  metadata_extractor: './tools/security/metadata_extractor',
   encryption_tool: './tools/utilities/encryption_tool',
   malware_analysis: './tools/security/malware_analysis',
   
@@ -84,6 +96,10 @@ const AVAILABLE_TOOLS = {
   browser_control: './tools/web/browser_control',
   web_automation: './tools/web/web_automation',
   webhook_manager: './tools/web/webhook_manager',
+  universal_browser_operator: './tools/web/universal_browser_operator',
+  web_search: './tools/web/web_search',
+  captcha_defeating: './tools/web/captcha_defeating',
+  form_completion: './tools/web/form_completion',
   
   // Email Tools
   send_email: './tools/email/send_email',
@@ -145,7 +161,10 @@ const AVAILABLE_TOOLS = {
   
   // Discovery Tools
   tool_discovery: './tools/discovery/tool_discovery',
-  explore_categories: './tools/discovery/explore_categories'
+  explore_categories: './tools/discovery/explore_categories',
+  
+  // Social Tools
+  social_network_ripper: './tools/social/social_network_ripper'
 };
 
 function buildCustomServer(toolList, outputPath, serverName = 'Custom Server') {

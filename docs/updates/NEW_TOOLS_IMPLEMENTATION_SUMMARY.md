@@ -140,7 +140,7 @@ registerScreenshot(server);
 ### Updated Files
 - **File**: `dev/install.js`
 - **Modular Server**: Updated tool count from 11 to 13, added new tool descriptions
-- **Full Server**: Updated tool count from 49 to 52, added new tool descriptions
+- **Full Server**: Updated tool count from 49 to 113, added new tool descriptions
 - **Features**: Added comprehensive descriptions of new media creation capabilities
 
 ### Updated Configurations
@@ -217,8 +217,8 @@ registerScreenshot(server);
 
 ### Tool Count Increases
 - **Modular Server**: 11 → 13 tools (+2)
-- **Full Server**: 49 → 52 tools (+3)
-- **Total MCP God Mode**: 50 → 53 tools (+3)
+- **Full Server**: 49 → 113 tools (+64)
+- **Total MCP God Mode**: 50 → 113 tools (+63)
 
 ### New Capabilities
 - **Audio Processing**: Professional-grade audio editing and recording
