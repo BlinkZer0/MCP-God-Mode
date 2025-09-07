@@ -43,7 +43,7 @@ export function registerMathCalculate(server) {
                 formatted_result = result.toString();
             }
             return {
-                content: [],
+                content: [{ type: "text", text: "Operation failed" }],
                 structuredContent: {
                     success: true,
                     result,

@@ -94,16 +94,16 @@ export function registerMobileNetworkAnalyzer(server: McpServer) {
           break;
       }
       
-      return { 
-        content: [], 
-        structuredContent: { 
-          success: true, 
+      return {
+        content: [{ type: "text", text: "Operation failed" }],
+        structuredContent: {
+          success: true,
           message,
           network_data: networkData
-        } 
+        }
       };
     } catch (error) {
-      return { content: [], structuredContent: { success: false, message: `Mobile network analysis failed: ${error.message}` } };
+      return { content: [], structuredContent: { success: false, message: `Mobile network analysis failed: ${(error as Error).message}` } };
     }
   });
 }

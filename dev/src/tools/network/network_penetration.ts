@@ -38,7 +38,7 @@ export function registerNetworkPenetration(server: McpServer) {
         } 
       };
     } catch (error) {
-      return { content: [], structuredContent: { success: false, message: `Network penetration failed: ${error.message}` } };
+      return { content: [], structuredContent: { success: false, message: `Network penetration failed: ${(error as Error).message}` } };
     }
   });
 }

@@ -60,7 +60,7 @@ export function registerBrowserControl(server: McpServer) {
         content: [], 
         structuredContent: { 
           success: false, 
-          message: `Browser control failed: ${error instanceof Error ? error.message : 'Unknown error'}` 
+          message: `Browser control failed: ${error instanceof Error ? (error as Error).message : 'Unknown error'}` 
         } 
       };
     }

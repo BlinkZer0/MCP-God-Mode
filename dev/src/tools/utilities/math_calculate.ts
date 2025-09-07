@@ -47,20 +47,20 @@ export function registerMathCalculate(server: McpServer) {
         formatted_result = result.toString();
       }
       
-      return { 
-        content: [], 
-        structuredContent: { 
-          success: true, 
+      return {
+        content: [{ type: "text", text: "Operation failed" }],
+        structuredContent: {
+          success: true,
           result,
-          formatted_result 
-        } 
+          formatted_result
+        }
       };
     } catch (error) {
       return { 
         content: [], 
         structuredContent: { 
           success: false, 
-          error: error instanceof Error ? error.message : 'Unknown error' 
+          error: error instanceof Error ? (error as Error).message : 'Unknown error' 
         } 
       };
     }

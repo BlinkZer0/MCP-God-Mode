@@ -49,7 +49,7 @@ export function registerWebScraper(server: McpServer) {
         content: [], 
         structuredContent: { 
           success: false, 
-          message: `Web scraping failed: ${error instanceof Error ? error.message : 'Unknown error'}` 
+          message: `Web scraping failed: ${error instanceof Error ? (error as Error).message : 'Unknown error'}` 
         } 
       };
     }

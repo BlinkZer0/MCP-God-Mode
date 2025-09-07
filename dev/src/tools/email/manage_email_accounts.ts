@@ -49,20 +49,20 @@ export function registerManageEmailAccounts(server: McpServer) {
           break;
       }
       
-      return { 
-        content: [], 
-        structuredContent: { 
-          success: true, 
+      return {
+        content: [{ type: "text", text: "Operation failed" }],
+        structuredContent: {
+          success: true,
           message,
           accounts: accounts.length > 0 ? accounts : undefined
-        } 
+        }
       };
     } catch (error) {
       return { 
         content: [], 
         structuredContent: { 
           success: false, 
-          message: `Email account management failed: ${error instanceof Error ? error.message : 'Unknown error'}` 
+          message: `Email account management failed: ${error instanceof Error ? (error as Error).message : 'Unknown error'}` 
         } 
       };
     }

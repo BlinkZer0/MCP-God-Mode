@@ -42,7 +42,7 @@ export function registerMachineLearning(server: McpServer) {
         content: [], 
         structuredContent: { 
           success: false, 
-          message: `Machine learning operation failed: ${error instanceof Error ? error.message : 'Unknown error'}` 
+          message: `Machine learning operation failed: ${error instanceof Error ? (error as Error).message : 'Unknown error'}` 
         } 
       };
     }

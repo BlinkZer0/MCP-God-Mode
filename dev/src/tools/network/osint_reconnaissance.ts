@@ -96,7 +96,7 @@ export function registerOsintReconnaissance(server: McpServer) {
           type: "text",
           text: JSON.stringify({
             success: false,
-            message: `Failed to perform reconnaissance on ${target}: ${error instanceof Error ? error.message : 'Unknown error'}`,
+            message: `Failed to perform reconnaissance on ${target}: ${error instanceof Error ? (error as Error).message : 'Unknown error'}`,
             recon_data: undefined
           }, null, 2)
         }]

@@ -42,7 +42,7 @@ export function registerDataAnalysis(server: McpServer) {
         content: [], 
         structuredContent: { 
           success: false, 
-          message: `Data analysis failed: ${error instanceof Error ? error.message : 'Unknown error'}` 
+          message: `Data analysis failed: ${error instanceof Error ? (error as Error).message : 'Unknown error'}` 
         } 
       };
     }

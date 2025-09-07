@@ -237,7 +237,7 @@ export function registerLegalComplianceManager(server) {
                             }]
                     };
                 case "record_custody":
-                    if (!evidenceId || !custodyAction || !toCustodian || !purpose || !location) {
+                    if (!custodyAction || !toCustodian || !purpose || !location) {
                         return {
                             content: [{
                                     type: "text",
@@ -248,7 +248,7 @@ export function registerLegalComplianceManager(server) {
                                 }]
                         };
                     }
-                    const custodyId = await legalCompliance.recordChainOfCustody(evidenceId, custodyAction, toCustodian, purpose, location, (witnesses || []).map(w => ({ name: w.name || '', email: w.email || '', signature: w.signature })), notes || "", fromCustodian, legalHoldIds?.[0] // Use first legal hold ID if provided
+                    const custodyId = await legalCompliance.recordChainOfCustody(evidenceId || "", custodyAction, toCustodian, purpose, location, (witnesses || []).map(w => ({ name: w.name || '', email: w.email || '', signature: w.signature })), notes || "", fromCustodian, legalHoldIds?.[0] // Use first legal hold ID if provided
                     );
                     return {
                         content: [{

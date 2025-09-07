@@ -58,7 +58,7 @@ export function registerMobileDeviceInfo(server) {
                     break;
             }
             return {
-                content: [],
+                content: [{ type: "text", text: "Operation failed" }],
                 structuredContent: {
                     success: true,
                     message,

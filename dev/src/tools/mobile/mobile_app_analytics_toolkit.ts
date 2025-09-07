@@ -155,16 +155,16 @@ export function registerMobileAppAnalyticsToolkit(server: McpServer) {
           break;
       }
       
-      return { 
-        content: [], 
-        structuredContent: { 
-          success: true, 
+      return {
+        content: [{ type: "text", text: "Operation failed" }],
+        structuredContent: {
+          success: true,
           message,
           analytics_data: analyticsData
-        } 
+        }
       };
     } catch (error) {
-      return { content: [], structuredContent: { success: false, message: `Mobile app analytics failed: ${error.message}` } };
+      return { content: [], structuredContent: { success: false, message: `Mobile app analytics failed: ${(error as Error).message}` } };
     }
   });
 }

@@ -62,16 +62,16 @@ export function registerMobileDeviceInfo(server: McpServer) {
           break;
       }
       
-      return { 
-        content: [], 
-        structuredContent: { 
-          success: true, 
+      return {
+        content: [{ type: "text", text: "Operation failed" }],
+        structuredContent: {
+          success: true,
           message,
-          device_info 
-        } 
+          device_info
+        }
       };
     } catch (error) {
-      return { content: [], structuredContent: { success: false, message: `Mobile device info failed: ${error.message}` } };
+      return { content: [], structuredContent: { success: false, message: `Mobile device info failed: ${(error as Error).message}` } };
     }
   });
 }

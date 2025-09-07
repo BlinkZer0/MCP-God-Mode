@@ -80,7 +80,7 @@ export function registerLatencyGeolocation(server: McpServer) {
           type: "text",
           text: JSON.stringify({
             success: false,
-            message: `Failed to geolocate ${target_ip}: ${error instanceof Error ? error.message : 'Unknown error'}`,
+            message: `Failed to geolocate ${target_ip}: ${error instanceof Error ? (error as Error).message : 'Unknown error'}`,
             geolocation_result: undefined
           }, null, 2)
         }]

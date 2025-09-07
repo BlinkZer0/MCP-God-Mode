@@ -194,31 +194,40 @@ export function registerWebSearch(server) {
             const searchConfig = engine in SEARCH_ENGINES ? SEARCH_ENGINES[engine] : SPECIALIZED_SEARCH[engine];
             if (!searchConfig) {
                 return {
-                    success: false,
-                    error: `Unsupported search engine: ${engine}`,
-                    search_engine: engine,
-                    query,
-                    result_count: 0
+                    content: [{ type: "text", text: `Unsupported search engine: ${engine}` }],
+                    structuredContent: {
+                        success: false,
+                        error: `Unsupported search engine: ${engine}`,
+                        search_engine: engine,
+                        query,
+                        result_count: 0
+                    }
                 };
             }
             const searchUrl = searchConfig.url + encodeURIComponent(query);
             const results = await performWebSearch(searchUrl, searchConfig, max_results, include_snippets, include_metadata, timeout, headless);
             return {
-                success: true,
-                results,
-                search_engine: searchConfig.name,
-                query,
-                result_count: results.length,
-                search_url: searchUrl
+                content: [{ type: "text", text: `Search completed successfully with ${results.length} results` }],
+                structuredContent: {
+                    success: true,
+                    results,
+                    search_engine: searchConfig.name,
+                    query,
+                    result_count: results.length,
+                    search_url: searchUrl
+                }
             };
         }
         catch (error) {
             return {
-                success: false,
-                error: `Search failed: ${error.message}`,
-                search_engine: engine,
-                query,
-                result_count: 0
+                content: [{ type: "text", text: `Search failed: ${error instanceof Error ? error.message : 'Unknown error'}` }],
+                structuredContent: {
+                    success: false,
+                    error: `Search failed: ${error instanceof Error ? error.message : 'Unknown error'}`,
+                    search_engine: engine,
+                    query,
+                    result_count: 0
+                }
             };
         }
     });
@@ -262,24 +271,30 @@ export function registerWebSearch(server) {
                 }
                 catch (error) {
                     results[engine] = [];
-                    console.error(`Search failed for ${engine}:`, error.message);
+                    console.error(`Search failed for ${engine}:`, error instanceof Error ? error.message : 'Unknown error');
                 }
             }
             return {
-                success: true,
-                results,
-                query,
-                engines_used: engines,
-                total_results: totalResults
+                content: [{ type: "text", text: `Multi-engine search completed with ${totalResults} total results across ${engines.length} engines` }],
+                structuredContent: {
+                    success: true,
+                    results,
+                    query,
+                    engines_used: engines,
+                    total_results: totalResults
+                }
             };
         }
         catch (error) {
             return {
-                success: false,
-                error: `Multi-engine search failed: ${error.message}`,
-                query,
-                engines_used: engines,
-                total_results: 0
+                content: [{ type: "text", text: `Multi-engine search failed: ${error instanceof Error ? error.message : 'Unknown error'}` }],
+                structuredContent: {
+                    success: false,
+                    error: `Multi-engine search failed: ${error instanceof Error ? error.message : 'Unknown error'}`,
+                    query,
+                    engines_used: engines,
+                    total_results: 0
+                }
             };
         }
     });
@@ -325,14 +340,20 @@ export function registerWebSearch(server) {
         try {
             const analysis = await analyzeSearchResults(results, analysis_type, include_visualization);
             return {
-                success: true,
-                analysis
+                content: [{ type: "text", text: `Search analysis completed successfully for ${results.length} results` }],
+                structuredContent: {
+                    success: true,
+                    analysis
+                }
             };
         }
         catch (error) {
             return {
-                success: false,
-                error: `Search analysis failed: ${error.message}`
+                content: [{ type: "text", text: `Search analysis failed: ${error instanceof Error ? error.message : 'Unknown error'}` }],
+                structuredContent: {
+                    success: false,
+                    error: `Search analysis failed: ${error instanceof Error ? error.message : 'Unknown error'}`
+                }
             };
         }
     });

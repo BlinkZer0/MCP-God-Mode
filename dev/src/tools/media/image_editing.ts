@@ -26,22 +26,51 @@ export function registerImageEditing(server: McpServer) {
     try {
       switch (action) {
         case "resize":
-          return { content: [], structuredContent: { success: true, message: "Image resized successfully", output_path: output_file } };
+          return {
+            content: [{ type: "text" as const, text: "Image resized successfully" }],
+            success: true,
+            message: "Image resized successfully",
+            output_path: output_file
+          };
         case "crop":
-          return { content: [], structuredContent: { success: true, message: "Image cropped successfully", output_path: output_file } };
+          return {
+            content: [{ type: "text" as const, text: "Image cropped successfully" }],
+            success: true,
+            message: "Image cropped successfully",
+            output_path: output_file
+          };
         case "filter":
-          return { content: [], structuredContent: { success: true, message: "Filter applied successfully", output_path: output_file } };
+          return {
+            content: [{ type: "text" as const, text: "Filter applied successfully" }],
+            success: true,
+            message: "Filter applied successfully",
+            output_path: output_file
+          };
         case "enhance":
-          return { content: [], structuredContent: { success: true, message: "Image enhanced successfully", output_path: output_file } };
+          return {
+            content: [{ type: "text" as const, text: "Image enhanced successfully" }],
+            success: true,
+            message: "Image enhanced successfully",
+            output_path: output_file
+          };
         case "convert":
-          return { content: [], structuredContent: { success: true, message: "Image converted successfully", output_path: output_file } };
+          return {
+            content: [{ type: "text" as const, text: "Image converted successfully" }],
+            success: true,
+            message: "Image converted successfully",
+            output_path: output_file
+          };
         case "metadata":
-          return { content: [], structuredContent: { success: true, message: "Metadata extracted successfully" } };
+          return {
+            content: [{ type: "text" as const, text: "Metadata extracted successfully" }],
+            success: true,
+            message: "Metadata extracted successfully"
+          };
         default:
           throw new Error(`Unknown image action: ${action}`);
       }
     } catch (error) {
-      return { content: [], structuredContent: { success: false, message: `Image operation failed: ${error.message}` } };
+      return { content: [], structuredContent: { success: false, message: `Image operation failed: ${(error as Error).message}` } };
     }
   });
 }

@@ -53,20 +53,20 @@ export function registerScreenshot(server: McpServer) {
           throw new Error(`Unknown screenshot action: ${action}`);
       }
       
-      return { 
-        content: [], 
-        structuredContent: { 
-          success: true, 
+      return {
+        content: [{ type: "text", text: "Operation failed" }],
+        structuredContent: {
+          success: true,
           message,
-          output_path: finalOutputPath 
-        } 
+          output_path: finalOutputPath
+        }
       };
     } catch (error) {
       return { 
         content: [], 
         structuredContent: { 
           success: false, 
-          message: `Screenshot operation failed: ${error instanceof Error ? error.message : 'Unknown error'}` 
+          message: `Screenshot operation failed: ${error instanceof Error ? (error as Error).message : 'Unknown error'}` 
         } 
       };
     }

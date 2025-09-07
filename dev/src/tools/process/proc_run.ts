@@ -45,7 +45,7 @@ export function registerProcRun(server: McpServer) {
         } 
       };
     } catch (error) {
-      return { content: [], structuredContent: { success: false, message: `Process execution failed: ${error.message}` } };
+      return { content: [], structuredContent: { success: false, message: `Process execution failed: ${(error as Error).message}` } };
     }
   });
 }

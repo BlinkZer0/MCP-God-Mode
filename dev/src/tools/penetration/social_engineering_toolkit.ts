@@ -33,7 +33,7 @@ export function registerSocialEngineeringToolkit(server: McpServer) {
       // Social engineering toolkit implementation
       let message = "";
       let assessmentResults = {};
-      let trainingMaterials = [];
+      let trainingMaterials: any[] = [];
       
       switch (action) {
         case "phishing_assessment":
@@ -70,17 +70,17 @@ export function registerSocialEngineeringToolkit(server: McpServer) {
           break;
       }
       
-      return { 
-        content: [], 
-        structuredContent: { 
-          success: true, 
+      return {
+        content: [{ type: "text", text: "Operation failed" }],
+        structuredContent: {
+          success: true,
           message,
           assessment_results: assessmentResults,
           training_materials: trainingMaterials
-        } 
+        }
       };
     } catch (error) {
-      return { content: [], structuredContent: { success: false, message: `Social engineering toolkit failed: ${error.message}` } };
+      return { content: [], structuredContent: { success: false, message: `Social engineering toolkit failed: ${(error as Error).message}` } };
     }
   });
 }

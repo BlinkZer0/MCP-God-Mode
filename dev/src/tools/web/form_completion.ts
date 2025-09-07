@@ -180,10 +180,10 @@ export function registerFormCompletion(server: McpServer) {
 
     } catch (error) {
       return {
-        content: [{ type: "text", text: `Form detection failed: ${error instanceof Error ? error.message : 'Unknown error'}` }],
+        content: [{ type: "text", text: `Form detection failed: ${error instanceof Error ? (error as Error).message : 'Unknown error'}` }],
         structuredContent: {
           success: false,
-          error: `Form detection failed: ${error instanceof Error ? error.message : 'Unknown error'}`,
+          error: `Form detection failed: ${error instanceof Error ? (error as Error).message : 'Unknown error'}`,
           forms: []
         }
       };
@@ -239,10 +239,10 @@ export function registerFormCompletion(server: McpServer) {
 
     } catch (error) {
       return {
-        content: [{ type: "text", text: `Form completion failed: ${error instanceof Error ? error.message : 'Unknown error'}` }],
+        content: [{ type: "text", text: `Form completion failed: ${error instanceof Error ? (error as Error).message : 'Unknown error'}` }],
         structuredContent: {
           success: false,
-          error: `Form completion failed: ${error instanceof Error ? error.message : 'Unknown error'}`,
+          error: `Form completion failed: ${error instanceof Error ? (error as Error).message : 'Unknown error'}`,
           fields_filled: 0,
           fields_detected: 0
         }
@@ -299,10 +299,10 @@ export function registerFormCompletion(server: McpServer) {
 
     } catch (error) {
       return {
-        content: [{ type: "text", text: `Form validation failed: ${error instanceof Error ? error.message : 'Unknown error'}` }],
+        content: [{ type: "text", text: `Form validation failed: ${error instanceof Error ? (error as Error).message : 'Unknown error'}` }],
         structuredContent: {
           success: false,
-          error: `Form validation failed: ${error instanceof Error ? error.message : 'Unknown error'}`,
+          error: `Form validation failed: ${error instanceof Error ? (error as Error).message : 'Unknown error'}`,
           valid: false,
           errors: [],
           warnings: [],
@@ -352,10 +352,10 @@ export function registerFormCompletion(server: McpServer) {
 
     } catch (error) {
       return {
-        content: [{ type: "text", text: `Form pattern recognition failed: ${error instanceof Error ? error.message : 'Unknown error'}` }],
+        content: [{ type: "text", text: `Form pattern recognition failed: ${error instanceof Error ? (error as Error).message : 'Unknown error'}` }],
         structuredContent: {
           success: false,
-          error: `Form pattern recognition failed: ${error instanceof Error ? error.message : 'Unknown error'}`,
+          error: `Form pattern recognition failed: ${error instanceof Error ? (error as Error).message : 'Unknown error'}`,
           detected_patterns: [],
           form_analysis: {
             total_fields: 0,
@@ -435,10 +435,33 @@ async function detectForms(url: string, formSelector?: string, timeout: number =
     // Detect forms
     const forms = await (page as any).evaluate((selector: string) => {
       const formElements = selector ? document.querySelectorAll(selector) : document.querySelectorAll('form');
-      const forms = [];
+      const forms: Array<{
+        form_id: string;
+        form_class: string;
+        form_action: string;
+        form_method: string;
+        fields: Array<{
+          name: string;
+          type: string;
+          required: boolean;
+          placeholder: string;
+          value: string;
+          options: string[];
+          validation: string;
+        }>;
+        complexity: 'low' | 'medium' | 'high';
+      }> = [];
       
       formElements.forEach((form, index) => {
-        const fields = [];
+        const fields: Array<{
+          name: string;
+          type: string;
+          required: boolean;
+          placeholder: string;
+          value: string;
+          options: string[];
+          validation: string;
+        }> = [];
         const inputs = form.querySelectorAll('input, textarea, select');
         
         inputs.forEach(input => {
@@ -448,7 +471,7 @@ async function detectForms(url: string, formSelector?: string, timeout: number =
             required: (input as any).required || (input as any).hasAttribute('required'),
             placeholder: (input as any).placeholder || '',
             value: (input as any).value || '',
-            options: [],
+            options: [] as string[],
             validation: ''
           };
           
@@ -456,6 +479,8 @@ async function detectForms(url: string, formSelector?: string, timeout: number =
           if (input.tagName.toLowerCase() === 'select') {
             const options = input.querySelectorAll('option');
             field.options = Array.from(options).map(option => (option as any).textContent || '');
+          } else {
+            field.options = [];
           }
           
           // Detect validation patterns
@@ -480,10 +505,11 @@ async function detectForms(url: string, formSelector?: string, timeout: number =
     }, formSelector);
     
     return {
-      forms,
+        content: [{ type: "text", text: "Operation completed successfully" }],
+        forms,
       screenshot: screenshotPath,
       title
-    };
+      };
   } finally {
     await browser.close();
   }
@@ -538,7 +564,7 @@ async function completeForm(url: string, formData: Record<string, string>, formS
         const field = await (page as any).$(`input[name="${fieldName}"], textarea[name="${fieldName}"], select[name="${fieldName}"], input[id="${fieldName}"], textarea[id="${fieldName}"], select[id="${fieldName}"]`);
         
         if (field) {
-          const fieldType = await field.getAttribute('type') || await field.evaluate(el => el.tagName.toLowerCase());
+          const fieldType = await field.getAttribute('type') || await field.evaluate((el: any) => el.tagName.toLowerCase());
           
           switch (fieldType) {
             case 'text':
@@ -578,7 +604,7 @@ async function completeForm(url: string, formData: Record<string, string>, formS
         }
       } catch (error) {
         summary.failedFields.push(fieldName);
-        console.error(`Failed to fill field ${fieldName}:`, error instanceof Error ? error.message : 'Unknown error');
+        console.error(`Failed to fill field ${fieldName}:`, error instanceof Error ? (error as Error).message : 'Unknown error');
       }
     }
     
@@ -594,7 +620,7 @@ async function completeForm(url: string, formData: Record<string, string>, formS
         }
       } catch (error) {
         summary.captchaStatus = 'error';
-        console.error('CAPTCHA handling failed:', error.message);
+        console.error('CAPTCHA handling failed:', (error as Error).message);
       }
     }
     
@@ -617,7 +643,7 @@ async function completeForm(url: string, formData: Record<string, string>, formS
           formSubmitted = true;
         }
       } catch (error) {
-        console.error('Form submission failed:', error instanceof Error ? error.message : 'Unknown error');
+        console.error('Form submission failed:', error instanceof Error ? (error as Error).message : 'Unknown error');
       }
     }
     
@@ -628,14 +654,15 @@ async function completeForm(url: string, formData: Record<string, string>, formS
     }
     
     return {
-      fieldsFilled,
+        content: [{ type: "text", text: "Operation completed successfully" }],
+        fieldsFilled,
       fieldsDetected,
       captchaSolved,
       formSubmitted,
       screenshot: screenshotPath,
       validationErrors,
       summary
-    };
+      };
   } finally {
     await browser.close();
   }
@@ -751,12 +778,13 @@ async function validateFormData(formData: Record<string, string>, validationRule
   }
   
   return {
-    valid: errors.length === 0,
+        content: [{ type: "text", text: "Operation completed successfully" }],
+        valid: errors.length === 0,
     errors,
     warnings,
     validatedFields,
     totalFields
-  };
+      };
 }
 
 async function recognizeFormPatterns(url: string, formSelector?: string, timeout: number = 30000) {
@@ -785,6 +813,7 @@ async function recognizeFormPatterns(url: string, formSelector?: string, timeout
       });
       
       return {
+        content: [{ type: "text", text: "Operation completed successfully" }],
         totalFields: fields.length,
         requiredFields: fields.filter(f => f.required).length,
         fieldTypes,
@@ -838,7 +867,8 @@ async function recognizeFormPatterns(url: string, formSelector?: string, timeout
     patterns.sort((a, b) => b.confidence - a.confidence);
     
     return {
-      patterns,
+        content: [{ type: "text", text: "Operation completed successfully" }],
+        patterns,
       analysis: {
         total_fields: formAnalysis.totalFields,
         required_fields: formAnalysis.requiredFields,
@@ -874,22 +904,34 @@ async function handleCaptcha(page: any, handling: string): Promise<{solved: bool
         switch (handling) {
           case 'solve':
             // Attempt to solve CAPTCHA
-            return { solved: false, method: 'solving_failed' };
+            return {
+        solved: false, method: 'solving_failed'
+      };
             
           case 'skip':
-            return { solved: true, method: 'skipped' };
+            return {
+        solved: true, method: 'skipped'
+      };
             
           case 'manual':
-            return { solved: false, method: 'manual_required' };
+            return {
+        solved: false, method: 'manual_required'
+      };
             
           default:
-            return { solved: false, method: 'auto_failed' };
+            return {
+        solved: false, method: 'auto_failed'
+      };
         }
       }
     }
     
-    return { solved: true, method: 'no_captcha' };
+    return {
+        solved: true, method: 'no_captcha'
+      };
   } catch (error) {
-    return { solved: false, method: 'error' };
+    return {
+        solved: false, method: 'error'
+      };
   }
 }

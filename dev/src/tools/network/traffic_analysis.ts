@@ -142,7 +142,7 @@ export function registerTrafficAnalysis(server: McpServer) {
           type: "text",
           text: JSON.stringify({
             success: false,
-            message: `Failed to perform traffic analysis: ${error instanceof Error ? error.message : 'Unknown error'}`,
+            message: `Failed to perform traffic analysis: ${error instanceof Error ? (error as Error).message : 'Unknown error'}`,
             analysis_results: undefined
           }, null, 2)
         }]

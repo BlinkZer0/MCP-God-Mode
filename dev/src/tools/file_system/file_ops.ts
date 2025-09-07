@@ -61,17 +61,17 @@ export function registerFileOps(server: McpServer) {
           break;
       }
       
-      return { 
-        content: [], 
-        structuredContent: { 
-          success: true, 
+      return {
+        content: [{ type: "text", text: "Operation failed" }],
+        structuredContent: {
+          success: true,
           message,
           files_processed: filesProcessed,
           operation_details: operationDetails
-        } 
+        }
       };
     } catch (error) {
-      return { content: [], structuredContent: { success: false, message: `File operation failed: ${error.message}` } };
+      return { content: [], structuredContent: { success: false, message: `File operation failed: ${(error as Error).message}` } };
     }
   });
 }

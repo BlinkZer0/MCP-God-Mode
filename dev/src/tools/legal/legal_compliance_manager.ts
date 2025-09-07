@@ -113,7 +113,7 @@ export function registerLegalComplianceManager(server: McpServer) {
     evidenceType, 
     metadata, 
     legalHoldIds,
-    evidenceId, 
+    evidenceId,
     custodyAction, 
     toCustodian, 
     purpose, 
@@ -301,7 +301,7 @@ export function registerLegalComplianceManager(server: McpServer) {
           };
 
         case "record_custody":
-          if (!evidenceId || !custodyAction || !toCustodian || !purpose || !location) {
+          if (!custodyAction || !toCustodian || !purpose || !location) {
             return {
               content: [{
                 type: "text",
@@ -314,7 +314,7 @@ export function registerLegalComplianceManager(server: McpServer) {
           }
 
           const custodyId = await legalCompliance.recordChainOfCustody(
-            evidenceId,
+            evidenceId || "",
             custodyAction,
             toCustodian,
             purpose,
@@ -353,7 +353,7 @@ export function registerLegalComplianceManager(server: McpServer) {
           type: "text",
           text: JSON.stringify({
             success: false,
-            message: `Legal compliance operation failed: ${error instanceof Error ? error.message : 'Unknown error'}`
+            message: `Legal compliance operation failed: ${error instanceof Error ? (error as Error).message : 'Unknown error'}`
           }, null, 2)
         }]
       };

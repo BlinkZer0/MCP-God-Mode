@@ -68,11 +68,11 @@ export function registerRadioSecurity(server: McpServer) {
       return {
         content: [{
           type: "text",
-          text: `Radio security operation failed: ${error instanceof Error ? error.message : 'Unknown error'}`
+          text: `Radio security operation failed: ${error instanceof Error ? (error as Error).message : 'Unknown error'}`
         }],
         structuredContent: {
           success: false,
-          error: `Radio security operation failed: ${error instanceof Error ? error.message : 'Unknown error'}`
+          error: `Radio security operation failed: ${error instanceof Error ? (error as Error).message : 'Unknown error'}`
         }
       };
     }
@@ -172,7 +172,7 @@ async function decodeSignal(frequency: number, modulation: string): Promise<stri
     "P25": "Decoded P25 signal: 'Public safety radio - encrypted communication'"
   };
 
-  return signals[modulation] || "Decoded signal: 'Unknown modulation type - raw data available'";
+  return (signals as any)[modulation] || "Decoded signal: 'Unknown modulation type - raw data available'";
 }
 
 async function testRadioSecurity(frequency: number) {
@@ -206,10 +206,11 @@ async function testRadioSecurity(frequency: number) {
   }
 
   return {
-    encryption_detected: Math.random() > 0.5,
+        content: [{ type: "text", text: "Operation completed successfully" }],
+        encryption_detected: Math.random() > 0.5,
     vulnerability_level: vulnerabilityLevel,
     recommendations: recommendations
-  };
+      };
 }
 
 async function analyzeCommunication(frequency: number): Promise<string> {
@@ -227,42 +228,47 @@ async function analyzeCommunication(frequency: number): Promise<string> {
 
 async function broadcastSignal(frequency: number, powerLevel: number, duration: number) {
   return {
-    power_used: powerLevel,
+        content: [{ type: "text", text: "Operation completed successfully" }],
+        power_used: powerLevel,
     range_achieved: powerLevel * 2, // Simulated range in km
     interference_created: powerLevel > 15
-  };
+      };
 }
 
 async function transmitAudio(frequency: number, audioFile: string, powerLevel: number) {
   return {
-    power_used: powerLevel,
+        content: [{ type: "text", text: "Operation completed successfully" }],
+        power_used: powerLevel,
     range_achieved: powerLevel * 1.5,
     interference_created: powerLevel > 10
-  };
+      };
 }
 
 async function jamFrequency(frequency: number, powerLevel: number, duration: number) {
   return {
-    power_used: powerLevel,
+        content: [{ type: "text", text: "Operation completed successfully" }],
+        power_used: powerLevel,
     range_achieved: powerLevel * 3,
     interference_created: true
-  };
+      };
 }
 
 async function createInterference(frequency: number, powerLevel: number, duration: number) {
   return {
-    power_used: powerLevel,
+        content: [{ type: "text", text: "Operation completed successfully" }],
+        power_used: powerLevel,
     range_achieved: powerLevel * 2.5,
     interference_created: true
-  };
+      };
 }
 
 async function testTransmissionPower(frequency: number, powerLevel: number) {
   return {
-    power_used: powerLevel,
+        content: [{ type: "text", text: "Operation completed successfully" }],
+        power_used: powerLevel,
     range_achieved: powerLevel * 2,
     interference_created: powerLevel > 20
-  };
+      };
 }
 
 async function monitorSpectrum(centerFreq: number, bandwidth: number, duration: number) {

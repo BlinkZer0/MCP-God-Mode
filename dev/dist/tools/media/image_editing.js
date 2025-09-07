@@ -20,17 +20,46 @@ export function registerImageEditing(server) {
         try {
             switch (action) {
                 case "resize":
-                    return { content: [], structuredContent: { success: true, message: "Image resized successfully", output_path: output_file } };
+                    return {
+                        content: [{ type: "text", text: "Image resized successfully" }],
+                        success: true,
+                        message: "Image resized successfully",
+                        output_path: output_file
+                    };
                 case "crop":
-                    return { content: [], structuredContent: { success: true, message: "Image cropped successfully", output_path: output_file } };
+                    return {
+                        content: [{ type: "text", text: "Image cropped successfully" }],
+                        success: true,
+                        message: "Image cropped successfully",
+                        output_path: output_file
+                    };
                 case "filter":
-                    return { content: [], structuredContent: { success: true, message: "Filter applied successfully", output_path: output_file } };
+                    return {
+                        content: [{ type: "text", text: "Filter applied successfully" }],
+                        success: true,
+                        message: "Filter applied successfully",
+                        output_path: output_file
+                    };
                 case "enhance":
-                    return { content: [], structuredContent: { success: true, message: "Image enhanced successfully", output_path: output_file } };
+                    return {
+                        content: [{ type: "text", text: "Image enhanced successfully" }],
+                        success: true,
+                        message: "Image enhanced successfully",
+                        output_path: output_file
+                    };
                 case "convert":
-                    return { content: [], structuredContent: { success: true, message: "Image converted successfully", output_path: output_file } };
+                    return {
+                        content: [{ type: "text", text: "Image converted successfully" }],
+                        success: true,
+                        message: "Image converted successfully",
+                        output_path: output_file
+                    };
                 case "metadata":
-                    return { content: [], structuredContent: { success: true, message: "Metadata extracted successfully" } };
+                    return {
+                        content: [{ type: "text", text: "Metadata extracted successfully" }],
+                        success: true,
+                        message: "Metadata extracted successfully"
+                    };
                 default:
                     throw new Error(`Unknown image action: ${action}`);
             }

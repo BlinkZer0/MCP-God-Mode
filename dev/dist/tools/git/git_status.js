@@ -32,7 +32,7 @@ export function registerGitStatus(server) {
                 untracked: show_untracked ? ["new_file.md"] : []
             };
             return {
-                content: [],
+                content: [{ type: "text", text: "Operation failed" }],
                 structuredContent: {
                     success: true,
                     message: "Git status retrieved successfully",

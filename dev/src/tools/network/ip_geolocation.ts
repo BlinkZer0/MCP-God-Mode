@@ -68,7 +68,7 @@ export function registerIpGeolocation(server: McpServer) {
           type: "text",
           text: JSON.stringify({
             success: false,
-            message: `Failed to geolocate IP ${ip_address}: ${error instanceof Error ? error.message : 'Unknown error'}`,
+            message: `Failed to geolocate IP ${ip_address}: ${error instanceof Error ? (error as Error).message : 'Unknown error'}`,
             geolocation_data: undefined
           }, null, 2)
         }]

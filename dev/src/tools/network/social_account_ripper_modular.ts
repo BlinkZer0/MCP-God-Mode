@@ -14,20 +14,23 @@ export class SocialAccountRipper {
   async searchAccounts(target: string, platforms: string[], method: string) {
     // Implementation for account search across platforms
     return {
-      target,
+        content: [{ type: "text", text: "Operation completed successfully" }],
+        target,
       platforms,
       method,
       accounts: []
-    };
+      };
   }
 
   // Profile analysis module
   async analyzeProfile(accountData: any) {
     // Implementation for profile analysis
     return {
-      themes: [],
+        content: [{ type: "text", text: "Operation completed successfully" }],
+        themes: [],
       interests: [],
-      patterns: {}
+      patterns: {
+      }
     };
   }
 
@@ -35,30 +38,33 @@ export class SocialAccountRipper {
   async analyzeContent(posts: any[]) {
     // Implementation for content analysis
     return {
-      sentiment: "neutral",
+        content: [{ type: "text", text: "Operation completed successfully" }],
+        sentiment: "neutral",
       themes: [],
       trends: []
-    };
+      };
   }
 
   // Geolocation analysis module
   async analyzeGeolocation(data: any) {
     // Implementation for location analysis
     return {
-      locations: [],
+        content: [{ type: "text", text: "Operation completed successfully" }],
+        locations: [],
       coordinates: [],
       confidence: 0
-    };
+      };
   }
 
   // Risk assessment module
   async assessRisk(profileData: any) {
     // Implementation for risk assessment
     return {
-      privacy_score: 0,
+        content: [{ type: "text", text: "Operation completed successfully" }],
+        privacy_score: 0,
       exposure_level: "low",
       recommendations: []
-    };
+      };
   }
 }
 
@@ -67,9 +73,11 @@ export class FacebookRipper {
   async searchUser(target: string) {
     // Facebook-specific search implementation
     return {
-      platform: "facebook",
+        content: [{ type: "text", text: "Operation completed successfully" }],
+        platform: "facebook",
       username: target,
-      profile_data: {}
+      profile_data: {
+      }
     };
   }
 }
@@ -78,9 +86,11 @@ export class TwitterRipper {
   async searchUser(target: string) {
     // Twitter-specific search implementation
     return {
-      platform: "twitter",
+        content: [{ type: "text", text: "Operation completed successfully" }],
+        platform: "twitter",
       username: target,
-      profile_data: {}
+      profile_data: {
+      }
     };
   }
 }
@@ -89,9 +99,11 @@ export class InstagramRipper {
   async searchUser(target: string) {
     // Instagram-specific search implementation
     return {
-      platform: "instagram",
+        content: [{ type: "text", text: "Operation completed successfully" }],
+        platform: "instagram",
       username: target,
-      profile_data: {}
+      profile_data: {
+      }
     };
   }
 }
@@ -100,9 +112,11 @@ export class LinkedInRipper {
   async searchUser(target: string) {
     // LinkedIn-specific search implementation
     return {
-      platform: "linkedin",
+        content: [{ type: "text", text: "Operation completed successfully" }],
+        platform: "linkedin",
       username: target,
-      profile_data: {}
+      profile_data: {
+      }
     };
   }
 }
@@ -111,9 +125,11 @@ export class TikTokRipper {
   async searchUser(target: string) {
     // TikTok-specific search implementation
     return {
-      platform: "tiktok",
+        content: [{ type: "text", text: "Operation completed successfully" }],
+        platform: "tiktok",
       username: target,
-      profile_data: {}
+      profile_data: {
+      }
     };
   }
 }
@@ -122,9 +138,11 @@ export class YouTubeRipper {
   async searchUser(target: string) {
     // YouTube-specific search implementation
     return {
-      platform: "youtube",
+        content: [{ type: "text", text: "Operation completed successfully" }],
+        platform: "youtube",
       username: target,
-      profile_data: {}
+      profile_data: {
+      }
     };
   }
 }
@@ -133,9 +151,11 @@ export class RedditRipper {
   async searchUser(target: string) {
     // Reddit-specific search implementation
     return {
-      platform: "reddit",
+        content: [{ type: "text", text: "Operation completed successfully" }],
+        platform: "reddit",
       username: target,
-      profile_data: {}
+      profile_data: {
+      }
     };
   }
 }
@@ -144,9 +164,11 @@ export class GitHubRipper {
   async searchUser(target: string) {
     // GitHub-specific search implementation
     return {
-      platform: "github",
+        content: [{ type: "text", text: "Operation completed successfully" }],
+        platform: "github",
       username: target,
-      profile_data: {}
+      profile_data: {
+      }
     };
   }
 }
@@ -331,7 +353,7 @@ export function registerSocialAccountRipperModular(server: McpServer) {
           type: "text",
           text: JSON.stringify({
             success: false,
-            message: `Failed to perform modular social account reconnaissance on ${target}: ${error instanceof Error ? error.message : 'Unknown error'}`,
+            message: `Failed to perform modular social account reconnaissance on ${target}: ${error instanceof Error ? (error as Error).message : 'Unknown error'}`,
             modular_results: undefined
           }, null, 2)
         }]

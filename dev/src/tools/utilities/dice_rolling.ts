@@ -64,7 +64,7 @@ export function registerDiceRolling(server: McpServer) {
         } 
       };
     } catch (error) {
-      return { content: [], structuredContent: { success: false, message: `Dice rolling failed: ${error.message}` } };
+      return { content: [], structuredContent: { success: false, message: `Dice rolling failed: ${(error as Error).message}` } };
     }
   });
 }

@@ -211,6 +211,7 @@ async function simulateAudioProcessing(action, params) {
         fileSizeReduction = 5;
     }
     return {
+        content: [{ type: "text", text: "Operation completed successfully" }],
         fileSizeReduction,
         audioMetrics
     };

@@ -74,18 +74,24 @@ export function registerWebhookManager(server: McpServer) {
             }
             
             return {
-              success: true,
-              message: `Webhook '${name}' created successfully`,
-              webhook_id: webhook.id,
-              webhook,
+              content: [{ type: "text", text: `Webhook '${name}' created successfully` }],
+              structuredContent: {
+                success: true,
+                message: `Webhook '${name}' created successfully`,
+                webhook_id: webhook.id,
+                webhook,
+              }
             };
             
           case "list":
             return {
-              success: true,
-              message: `Found ${webhooks.size} webhooks`,
-              webhooks: Array.from(webhooks.values()),
-              count: webhooks.size,
+              content: [{ type: "text", text: `Found ${webhooks.size} webhooks` }],
+              structuredContent: {
+                success: true,
+                message: `Found ${webhooks.size} webhooks`,
+                webhooks: Array.from(webhooks.values()),
+                count: webhooks.size,
+              }
             };
             
           case "delete":
@@ -99,9 +105,12 @@ export function registerWebhookManager(server: McpServer) {
               webhookLogs.delete(webhook_id);
               
               return {
-                success: true,
-                message: `Webhook '${deletedWebhook.name}' deleted successfully`,
-                deleted_webhook: deletedWebhook,
+                content: [{ type: "text", text: `Webhook '${deletedWebhook.name}' deleted successfully` }],
+                structuredContent: {
+                  success: true,
+                  message: `Webhook '${deletedWebhook.name}' deleted successfully`,
+                  deleted_webhook: deletedWebhook,
+                }
               };
             } else {
               throw new Error(`No webhook found with ID: ${webhook_id}`);
@@ -125,17 +134,23 @@ export function registerWebhookManager(server: McpServer) {
               });
               
               return {
-                success: true,
-                message: `Webhook '${testWebhook.name}' tested successfully`,
-                webhook_id,
-                test_response: response,
-                status: "Triggered",
+                content: [{ type: "text", text: `Webhook '${testWebhook.name}' tested successfully` }],
+                structuredContent: {
+                  success: true,
+                  message: `Webhook '${testWebhook.name}' tested successfully`,
+                  webhook_id,
+                  test_response: response,
+                  status: "Triggered",
+                }
               };
             } catch (error) {
               return {
-                success: false,
-                error: `Webhook test failed: ${error instanceof Error ? error.message : "Unknown error"}`,
-                webhook_id,
+                content: [{ type: "text", text: `Webhook test failed: ${error instanceof Error ? (error as Error).message : "Unknown error"}` }],
+                structuredContent: {
+                  success: false,
+                  error: `Webhook test failed: ${error instanceof Error ? (error as Error).message : "Unknown error"}`,
+                  webhook_id,
+                }
               };
             }
             
@@ -152,14 +167,17 @@ export function registerWebhookManager(server: McpServer) {
             const monitorLogs = webhookLogs.get(webhook_id) || [];
             
             return {
-              success: true,
-              message: `Webhook monitoring data retrieved for '${monitorWebhook.name}'`,
-              webhook_id,
-              webhook: monitorWebhook,
-              logs: monitorLogs.slice(-50), // Last 50 logs
-              total_logs: monitorLogs.length,
-              last_triggered: monitorWebhook.last_triggered,
-              trigger_count: monitorWebhook.trigger_count,
+              content: [{ type: "text", text: `Webhook monitoring data retrieved for '${monitorWebhook.name}'` }],
+              structuredContent: {
+                success: true,
+                message: `Webhook monitoring data retrieved for '${monitorWebhook.name}'`,
+                webhook_id,
+                webhook: monitorWebhook,
+                logs: monitorLogs.slice(-50), // Last 50 logs
+                total_logs: monitorLogs.length,
+                last_triggered: monitorWebhook.last_triggered,
+                trigger_count: monitorWebhook.trigger_count,
+              }
             };
             
           case "get_logs":
@@ -170,16 +188,19 @@ export function registerWebhookManager(server: McpServer) {
             const logs = webhookLogs.get(webhook_id) || [];
             
             return {
-              success: true,
-              message: `Webhook logs retrieved`,
-              webhook_id,
-              logs,
-              total_logs: logs.length,
-              log_summary: {
-                successful: logs.filter(log => log.success).length,
-                failed: logs.filter(log => !log.success).length,
-                total_requests: logs.length,
-              },
+              content: [{ type: "text", text: `Webhook logs retrieved` }],
+              structuredContent: {
+                success: true,
+                message: `Webhook logs retrieved`,
+                webhook_id,
+                logs,
+                total_logs: logs.length,
+                log_summary: {
+                  successful: logs.filter(log => log.success).length,
+                  failed: logs.filter(log => !log.success).length,
+                  total_requests: logs.length,
+                },
+              }
             };
             
           case "configure":
@@ -204,10 +225,13 @@ export function registerWebhookManager(server: McpServer) {
             if (secret) configWebhook.secret = secret;
             
             return {
-              success: true,
-              message: `Webhook '${configWebhook.name}' configured successfully`,
-              webhook_id,
-              updated_webhook: configWebhook,
+              content: [{ type: "text", text: `Webhook '${configWebhook.name}' configured successfully` }],
+              structuredContent: {
+                success: true,
+                message: `Webhook '${configWebhook.name}' configured successfully`,
+                webhook_id,
+                updated_webhook: configWebhook,
+              }
             };
             
           default:
@@ -215,8 +239,11 @@ export function registerWebhookManager(server: McpServer) {
         }
       } catch (error) {
         return {
-          success: false,
-          error: error instanceof Error ? error.message : "Unknown error",
+          content: [{ type: "text", text: `Webhook operation failed: ${error instanceof Error ? (error as Error).message : "Unknown error"}` }],
+          structuredContent: {
+            success: false,
+            error: error instanceof Error ? (error as Error).message : "Unknown error",
+          }
         };
       }
     });
@@ -299,7 +326,7 @@ async function triggerWebhook(webhook: Webhook, payload: any): Promise<any> {
     method: webhook.method,
     payload,
     success: false,
-    error: null,
+    error: null as string | null,
   };
   
   try {
@@ -323,16 +350,17 @@ async function triggerWebhook(webhook: Webhook, payload: any): Promise<any> {
       webhookLogs.get(webhook.id)!.push(logEntry);
       
       return {
+        content: [{ type: "text", text: "Operation completed successfully" }],
         status: response.status,
         statusText: response.statusText,
-        headers: Object.fromEntries(response.headers.entries()),
+        headers: Object.fromEntries(Array.from((response.headers as any).entries()) as [string, string][]),
         data: responseData,
       };
     } else {
       throw new Error(`HTTP ${response.status}: ${response.statusText}`);
     }
   } catch (error) {
-    logEntry.error = error instanceof Error ? error.message : "Unknown error";
+    logEntry.error = error instanceof Error ? (error as Error).message : "Unknown error";
     
     if (!webhookLogs.has(webhook.id)) {
       webhookLogs.set(webhook.id, []);
@@ -367,11 +395,12 @@ async function triggerWebhook(webhook: Webhook, payload: any): Promise<any> {
             webhookLogs.get(webhook.id)!.push(retryLogEntry);
             
             return {
-              status: retryResponse.status,
+        content: [{ type: "text", text: "Operation completed successfully" }],
+        status: retryResponse.status,
               statusText: retryResponse.statusText,
-              headers: Object.fromEntries(retryResponse.headers.entries()),
+              headers: Object.fromEntries(Array.from((retryResponse.headers as any).entries()) as [string, string][]),
               retry_attempts: i + 1,
-            };
+      };
           }
         } catch (retryError) {
           const retryLogEntry = {

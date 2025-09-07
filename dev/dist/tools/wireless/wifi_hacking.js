@@ -152,6 +152,7 @@ async function crackWEP(ssid, bssid, wifiInterface) {
     const success = Math.random() > 0.3; // 70% success rate for WEP
     const timeTaken = (Date.now() - startTime) / 1000;
     return {
+        content: [{ type: "text", text: "Operation completed successfully" }],
         password_cracked: success ? "12:34:56:78:9A" : undefined,
         handshake_captured: true,
         attack_successful: success,
@@ -165,6 +166,7 @@ async function crackWPA(ssid, bssid, wordlist, method, wifiInterface) {
     const timeTaken = (Date.now() - startTime) / 1000;
     const commonPasswords = ["password", "12345678", "admin", "welcome", "qwerty", "letmein", "password123"];
     return {
+        content: [{ type: "text", text: "Operation completed successfully" }],
         password_cracked: success ? commonPasswords[Math.floor(Math.random() * commonPasswords.length)] : undefined,
         handshake_captured: true,
         attack_successful: success,
@@ -174,6 +176,7 @@ async function crackWPA(ssid, bssid, wordlist, method, wifiInterface) {
 }
 async function createEvilTwin(ssid, wifiInterface) {
     return {
+        content: [{ type: "text", text: "Operation completed successfully" }],
         attack_successful: Math.random() > 0.4, // 60% success rate
         handshake_captured: false,
         time_taken: Math.random() * 30 + 10
@@ -184,6 +187,7 @@ async function exploitWPS(bssid, method, wifiInterface) {
     const success = Math.random() > 0.6; // 40% success rate
     const timeTaken = (Date.now() - startTime) / 1000;
     return {
+        content: [{ type: "text", text: "Operation completed successfully" }],
         password_cracked: success ? "12345670" : undefined,
         handshake_captured: false,
         attack_successful: success,
@@ -221,6 +225,7 @@ async function enumerateIoTDevices(ssid, wifiInterface) {
 }
 async function performDeauthAttack(bssid, wifiInterface, duration) {
     return {
+        content: [{ type: "text", text: "Operation completed successfully" }],
         attack_successful: Math.random() > 0.2, // 80% success rate
         handshake_captured: false,
         time_taken: duration || 30
@@ -228,6 +233,7 @@ async function performDeauthAttack(bssid, wifiInterface, duration) {
 }
 async function captureHandshake(ssid, bssid, wifiInterface) {
     return {
+        content: [{ type: "text", text: "Operation completed successfully" }],
         handshake_captured: Math.random() > 0.3, // 70% success rate
         attack_successful: true,
         time_taken: Math.random() * 60 + 30
@@ -239,6 +245,7 @@ async function performPasswordAttack(ssid, wordlist, method, wifiInterface) {
     const timeTaken = (Date.now() - startTime) / 1000;
     const commonPasswords = ["password", "12345678", "admin", "welcome", "qwerty"];
     return {
+        content: [{ type: "text", text: "Operation completed successfully" }],
         password_cracked: success ? commonPasswords[Math.floor(Math.random() * commonPasswords.length)] : undefined,
         handshake_captured: true,
         attack_successful: success,
@@ -248,6 +255,7 @@ async function performPasswordAttack(ssid, wordlist, method, wifiInterface) {
 }
 async function setupRogueAP(ssid, wifiInterface) {
     return {
+        content: [{ type: "text", text: "Operation completed successfully" }],
         attack_successful: Math.random() > 0.3, // 70% success rate
         handshake_captured: false,
         time_taken: Math.random() * 20 + 10
@@ -255,6 +263,7 @@ async function setupRogueAP(ssid, wifiInterface) {
 }
 async function analyzeTraffic(ssid, wifiInterface, duration) {
     return {
+        content: [{ type: "text", text: "Operation completed successfully" }],
         attack_successful: true,
         handshake_captured: false,
         time_taken: duration || 60,

@@ -45,7 +45,7 @@ export function registerProcRunElevated(server: McpServer) {
         } 
       };
     } catch (error) {
-      return { content: [], structuredContent: { success: false, message: `Elevated process execution failed: ${error.message}` } };
+      return { content: [], structuredContent: { success: false, message: `Elevated process execution failed: ${(error as Error).message}` } };
     }
   });
 }

@@ -81,6 +81,7 @@ export { registerWebhookManager } from "./web/webhook_manager.js";
 export { registerUniversalBrowserOperator } from "./web/universal_browser_operator.js";
 export { registerWebSearch } from "./web/web_search.js";
 export { registerFormCompletion } from "./web/form_completion.js";
+export { registerCaptchaDefeating } from "./web/captcha_defeating.js";
 // Email Tools
 export { registerSendEmail } from "./email/send_email.js";
 export { registerReadEmails } from "./email/read_emails.js";
@@ -112,6 +113,8 @@ export { registerMobileNetworkAnalyzer } from "./mobile/mobile_network_analyzer.
 // Virtualization Tools
 export { registerVmManagement } from "./virtualization/vm_management.js";
 export { registerDockerManagement } from "./virtualization/docker_management.js";
+// AI Tools
+export { registerRagToolkit } from "./ai/rag_toolkit.js";
 // Utility Tools
 export { registerCalculator } from "./utilities/calculator.js";
 export { registerDiceRolling } from "./utilities/dice_rolling.js";

@@ -172,7 +172,7 @@ export function registerPasswordCracker(server: McpServer) {
       return {
         content: [{
           type: "text",
-          text: `Password cracking failed: ${error instanceof Error ? error.message : 'Unknown error'}`
+          text: `Password cracking failed: ${error instanceof Error ? (error as Error).message : 'Unknown error'}`
         }],
         structuredContent: {
           target,
@@ -185,7 +185,7 @@ export function registerPasswordCracker(server: McpServer) {
           duration,
           attempts_made: 0,
           success_rate: 0,
-          summary: `Password cracking failed: ${error instanceof Error ? error.message : 'Unknown error'}`,
+          summary: `Password cracking failed: ${error instanceof Error ? (error as Error).message : 'Unknown error'}`,
           security_recommendations: ['Ensure target is accessible and service is running', 'Verify username and service configuration']
         }
       };
@@ -260,9 +260,7 @@ async function crackWindowsPassword(target: string, service: string, username: s
       
       if (success) {
         return {
-        password, attempts, status: 'cracked' 
-        
-        
+        password, attempts, status: 'cracked'
       };
       }
       
@@ -276,9 +274,7 @@ async function crackWindowsPassword(target: string, service: string, username: s
   }
   
   return {
-        attempts, status: 'failed' 
-        
-        
+        attempts, status: 'failed'
       };
 }
 
@@ -333,9 +329,7 @@ async function crackUnixPassword(target: string, service: string, username: stri
       
       if (success) {
         return {
-        password, attempts, status: 'cracked' 
-        
-        
+        password, attempts, status: 'cracked'
       };
       }
       
@@ -349,9 +343,7 @@ async function crackUnixPassword(target: string, service: string, username: stri
   }
   
   return {
-        attempts, status: 'failed' 
-        
-        
+        attempts, status: 'failed'
       };
 }
 
@@ -367,9 +359,7 @@ async function crackNodeJSPassword(target: string, service: string, username: st
       
       if (success) {
         return {
-        password, attempts, status: 'cracked' 
-        
-        
+        password, attempts, status: 'cracked'
       };
       }
       
@@ -383,9 +373,7 @@ async function crackNodeJSPassword(target: string, service: string, username: st
   }
   
   return {
-        attempts, status: 'failed' 
-        
-        
+        attempts, status: 'failed'
       };
 }
 

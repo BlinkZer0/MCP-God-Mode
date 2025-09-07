@@ -44,7 +44,7 @@ export function registerParseEmail(server: McpServer) {
         content: [], 
         structuredContent: { 
           success: false, 
-          message: `Email parsing failed: ${error instanceof Error ? error.message : 'Unknown error'}` 
+          message: `Email parsing failed: ${error instanceof Error ? (error as Error).message : 'Unknown error'}` 
         } 
       };
     }

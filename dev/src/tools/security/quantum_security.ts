@@ -42,7 +42,7 @@ export function registerQuantumSecurity(server: McpServer) {
         content: [], 
         structuredContent: { 
           success: false, 
-          message: `Quantum security operation failed: ${error instanceof Error ? error.message : 'Unknown error'}` 
+          message: `Quantum security operation failed: ${error instanceof Error ? (error as Error).message : 'Unknown error'}` 
         } 
       };
     }

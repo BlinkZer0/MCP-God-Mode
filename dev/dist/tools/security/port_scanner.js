@@ -235,7 +235,10 @@ async function scanNodeJS(target, ports, scanType, timeout, serviceDetection, ba
                 const socket = new net.Socket();
                 const timer = setTimeout(() => {
                     socket.destroy();
-                    resolve({ port, status: 'filtered' });
+                    resolve({
+                        content: [{ type: "text", text: "Operation completed successfully" }],
+                        port, status: 'filtered'
+                    });
                 }, timeout);
                 socket.connect(port, target, () => {
                     clearTimeout(timer);
@@ -252,7 +255,10 @@ async function scanNodeJS(target, ports, scanType, timeout, serviceDetection, ba
                 });
                 socket.on('error', () => {
                     clearTimeout(timer);
-                    resolve({ port, status: 'closed' });
+                    resolve({
+                        content: [{ type: "text", text: "Operation completed successfully" }],
+                        port, status: 'closed'
+                    });
                 });
             });
             if (result.status === 'open' && bannerGrabbing) {

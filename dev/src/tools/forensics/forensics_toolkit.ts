@@ -95,16 +95,16 @@ export function registerForensicsToolkit(server: McpServer) {
           break;
       }
       
-      return { 
-        content: [], 
-        structuredContent: { 
-          success: true, 
+      return {
+        content: [{ type: "text", text: "Operation failed" }],
+        structuredContent: {
+          success: true,
           message,
           analysis_results: analysisResults
-        } 
+        }
       };
     } catch (error) {
-      return { content: [], structuredContent: { success: false, message: `Forensics analysis failed: ${error.message}` } };
+      return { content: [], structuredContent: { success: false, message: `Forensics analysis failed: ${(error as Error).message}` } };
     }
   });
 }

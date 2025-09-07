@@ -60,20 +60,21 @@ export function registerImageEditing(server: McpServer) {
           throw new Error(`Unknown image action: ${action}`);
       }
       
-      return { 
-        content: [], 
-        structuredContent: { 
+      return {
+        content: [{ type: "text", text: "Operation failed" }],
+        structuredContent: {
+          success: false,
           success: true, 
           message,
-          output_path: action === "metadata" ? undefined : outputPath 
-        } 
+          output_path: action === "metadata" ? undefined : outputPath
+        }
       };
     } catch (error) {
       return { 
         content: [], 
         structuredContent: { 
           success: false, 
-          message: `Image operation failed: ${error instanceof Error ? error.message : 'Unknown error'}` 
+          message: `Image operation failed: ${error instanceof Error ? (error as Error).message : 'Unknown error'}` 
         } 
       };
     }

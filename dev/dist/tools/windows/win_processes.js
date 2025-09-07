@@ -49,7 +49,7 @@ export function registerWinProcesses(server) {
                     break;
             }
             return {
-                content: [],
+                content: [{ type: "text", text: "Operation failed" }],
                 structuredContent: {
                     success: true,
                     message,

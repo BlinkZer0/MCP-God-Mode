@@ -81,7 +81,7 @@ export function registerTextProcessor(server: McpServer) {
           break;
         case "remove_duplicates":
           const lines = text.split('\n');
-          const uniqueLines = [...new Set(lines)];
+          const uniqueLines = Array.from(new Set(lines));
           result = uniqueLines.join('\n');
           statistics = { line_count: uniqueLines.length };
           break;
@@ -97,7 +97,7 @@ export function registerTextProcessor(server: McpServer) {
         } 
       };
     } catch (error) {
-      return { content: [], structuredContent: { success: false, message: `Text processing failed: ${error.message}` } };
+      return { content: [], structuredContent: { success: false, message: `Text processing failed: ${(error as Error).message}` } };
     }
   });
 }

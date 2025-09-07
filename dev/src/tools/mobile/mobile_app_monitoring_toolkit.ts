@@ -136,16 +136,16 @@ export function registerMobileAppMonitoringToolkit(server: McpServer) {
           break;
       }
       
-      return { 
-        content: [], 
-        structuredContent: { 
-          success: true, 
+      return {
+        content: [{ type: "text", text: "Operation failed" }],
+        structuredContent: {
+          success: true,
           message,
           monitoring_data: monitoringData
-        } 
+        }
       };
     } catch (error) {
-      return { content: [], structuredContent: { success: false, message: `Mobile app monitoring failed: ${error.message}` } };
+      return { content: [], structuredContent: { success: false, message: `Mobile app monitoring failed: ${(error as Error).message}` } };
     }
   });
 }

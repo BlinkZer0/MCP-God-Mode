@@ -62,13 +62,13 @@ export function registerFsSearch(server: McpServer) {
       };
     } catch (error) {
       return {
-        content: [{ type: "text", text: `Failed to search files: ${error instanceof Error ? error.message : 'Unknown error'}` }],
+        content: [{ type: "text", text: `Failed to search files: ${error instanceof Error ? (error as Error).message : 'Unknown error'}` }],
         structuredContent: {
           files: [],
           count: 0,
           pattern,
           directory: searchDir,
-          error: error instanceof Error ? error.message : 'Unknown error'
+          error: error instanceof Error ? (error as Error).message : 'Unknown error'
         }
       };
     }

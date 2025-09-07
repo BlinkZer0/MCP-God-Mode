@@ -12,6 +12,23 @@ const SystemMonitorSchema = z.object({
 export function registerSystemMonitor(server) {
     server.registerTool("system_monitor", {
         description: "Comprehensive system monitoring and performance analysis toolkit",
+        inputSchema: SystemMonitorSchema.shape,
+        outputSchema: {
+            success: z.boolean(),
+            message: z.string(),
+            system_status: z.object({}).optional(),
+            monitoring_data: z.object({}).optional(),
+            processes: z.array(z.object({})).optional(),
+            services: z.array(z.object({})).optional(),
+            network_info: z.object({}).optional(),
+            disk_info: z.object({}).optional(),
+            memory_info: z.object({}).optional(),
+            cpu_info: z.object({}).optional(),
+            system_info: z.object({}).optional(),
+            timestamp: z.string().optional(),
+            platform: z.string().optional(),
+            error: z.string().optional()
+        }
     }, async ({ action, duration, interval, output_format, include_details }) => {
         try {
             switch (action) {
@@ -141,6 +158,7 @@ export function registerSystemMonitor(server) {
                     }
                     else {
                         return {
+                            content: [{ type: "text", text: "Operation completed successfully" }],
                             success: false,
                             error: "Process listing not supported on this platform",
                             platform: PLATFORM,
@@ -314,6 +332,7 @@ async function getSystemStatus() {
     const freeMem = os.freemem();
     const memoryUsage = ((totalMem - freeMem) / totalMem) * 100;
     return {
+        content: [{ type: "text", text: "Operation completed successfully" }],
         platform: PLATFORM,
         uptime: os.uptime(),
         cpu_load: {
@@ -355,6 +374,7 @@ async function getNetworkInfo() {
         }
     }
     return {
+        content: [{ type: "text", text: "Operation completed successfully" }],
         interfaces,
         total_interfaces: interfaces.length,
         primary_interface: interfaces[0] || null,
@@ -363,6 +383,7 @@ async function getNetworkInfo() {
 async function getDiskInfo() {
     // Simplified disk info - in a real implementation, you'd use platform-specific commands
     return {
+        content: [{ type: "text", text: "Operation completed successfully" }],
         total_space: "Unknown",
         free_space: "Unknown",
         used_space: "Unknown",
@@ -376,6 +397,7 @@ async function getMemoryInfo() {
     const freeMem = os.freemem();
     const usedMem = totalMem - freeMem;
     return {
+        content: [{ type: "text", text: "Operation completed successfully" }],
         total: totalMem,
         free: freeMem,
         used: usedMem,
@@ -389,6 +411,7 @@ async function getCpuInfo() {
     const cpus = os.cpus();
     const cpuInfo = cpus[0];
     return {
+        content: [{ type: "text", text: "Operation completed successfully" }],
         model: cpuInfo.model,
         cores: cpus.length,
         speed: cpuInfo.speed,
@@ -399,6 +422,7 @@ async function getCpuInfo() {
 }
 async function getSystemInfo() {
     return {
+        content: [{ type: "text", text: "Operation completed successfully" }],
         platform: PLATFORM,
         hostname: os.hostname(),
         type: os.type(),

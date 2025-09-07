@@ -30,7 +30,7 @@ export function registerCalculator(server) {
                 case "divide":
                     if (b === 0)
                         throw new Error("Division by zero");
-                    result = a / b;
+                    result = b !== undefined && b !== 0 ? a / b : Infinity;
                     break;
                 case "power":
                     result = Math.pow(a, b || 2);

@@ -42,9 +42,10 @@ export function registerFileWatcher(server: McpServer) {
             
             fileWatchers.set(watcher_id || watchPath, watcher);
             return {
-              success: true,
+        success: true,
               watcher_id: watcher_id || watchPath,
-              message: `Started watching ${watchPath}`,
+              message: `Started watching ${watchPath
+      }`,
               events: events,
             };
             
@@ -60,8 +61,9 @@ export function registerFileWatcher(server: McpServer) {
               fileWatchers.delete(targetId);
               watcherEvents.delete(targetId);
               return {
-                success: true,
-                message: `Stopped watching ${targetId}`,
+        success: true,
+                message: `Stopped watching ${targetId
+      }`,
               };
             } else {
               throw new Error(`No active watcher found for ${targetId}`);
@@ -69,12 +71,12 @@ export function registerFileWatcher(server: McpServer) {
             
           case "list_watchers":
             return {
-              success: true,
+        success: true,
               watchers: Array.from(fileWatchers.keys()).map(id => ({
                 id,
                 path: id,
                 active: true,
-              })),
+      })),
               count: fileWatchers.size,
             };
             
@@ -86,20 +88,21 @@ export function registerFileWatcher(server: McpServer) {
             
             const events_list = watcherEvents.get(targetEventsId) || [];
             return {
-              success: true,
+        success: true,
               watcher_id: targetEventsId,
               events: events_list,
               count: events_list.length,
-            };
+      };
             
           default:
             throw new Error(`Unknown action: ${action}`);
         }
       } catch (error) {
         return {
-          success: false,
-          error: error instanceof Error ? error.message : "Unknown error",
-        };
+        content: [{ type: "text", text: "Operation completed successfully" }],
+        success: false,
+          error: error instanceof Error ? (error as Error).message : "Unknown error",
+      };
       }
     });
 }

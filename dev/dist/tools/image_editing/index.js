@@ -53,8 +53,9 @@ export function registerImageEditing(server) {
                     throw new Error(`Unknown image action: ${action}`);
             }
             return {
-                content: [],
+                content: [{ type: "text", text: "Operation failed" }],
                 structuredContent: {
+                    success: false,
                     success: true,
                     message,
                     output_path: action === "metadata" ? undefined : outputPath

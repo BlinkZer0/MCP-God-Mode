@@ -135,16 +135,16 @@ export function registerMobileAppTestingToolkit(server: McpServer) {
           break;
       }
       
-      return { 
-        content: [], 
-        structuredContent: { 
-          success: true, 
+      return {
+        content: [{ type: "text", text: "Operation failed" }],
+        structuredContent: {
+          success: true,
           message,
           test_results: testResults
-        } 
+        }
       };
     } catch (error) {
-      return { content: [], structuredContent: { success: false, message: `Mobile app testing failed: ${error.message}` } };
+      return { content: [], structuredContent: { success: false, message: `Mobile app testing failed: ${(error as Error).message}` } };
     }
   });
 }

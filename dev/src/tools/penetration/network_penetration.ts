@@ -42,7 +42,7 @@ export function registerNetworkPenetration(server: McpServer) {
         content: [], 
         structuredContent: { 
           success: false, 
-          message: `Network penetration failed: ${error instanceof Error ? error.message : 'Unknown error'}` 
+          message: `Network penetration failed: ${error instanceof Error ? (error as Error).message : 'Unknown error'}` 
         } 
       };
     }

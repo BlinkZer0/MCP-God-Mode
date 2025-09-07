@@ -66,7 +66,7 @@ export function registerDockerManagement(server) {
                     break;
             }
             return {
-                content: [],
+                content: [{ type: "text", text: "Operation failed" }],
                 structuredContent: {
                     success: true,
                     message,

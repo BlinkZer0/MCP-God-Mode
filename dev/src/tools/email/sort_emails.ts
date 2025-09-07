@@ -51,7 +51,7 @@ export function registerSortEmails(server: McpServer) {
         content: [], 
         structuredContent: { 
           success: false, 
-          message: `Email sorting failed: ${error instanceof Error ? error.message : 'Unknown error'}` 
+          message: `Email sorting failed: ${error instanceof Error ? (error as Error).message : 'Unknown error'}` 
         } 
       };
     }

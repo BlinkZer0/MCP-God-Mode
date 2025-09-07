@@ -42,7 +42,7 @@ export function registerIotSecurity(server: McpServer) {
         content: [], 
         structuredContent: { 
           success: false, 
-          message: `IoT security operation failed: ${error instanceof Error ? error.message : 'Unknown error'}` 
+          message: `IoT security operation failed: ${error instanceof Error ? (error as Error).message : 'Unknown error'}` 
         } 
       };
     }

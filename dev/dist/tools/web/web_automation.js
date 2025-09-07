@@ -16,6 +16,7 @@ const WebAutomationSchema = z.object({
 export function registerWebAutomation(server) {
     server.registerTool("web_automation", {
         description: "Advanced web automation and browser control toolkit",
+        inputSchema: WebAutomationSchema.shape
     }, async ({ action, url, selector, text, script, wait_time, output_file, form_data, browser, headless }) => {
         try {
             const targetBrowser = browser === "auto" ?
@@ -46,6 +47,7 @@ export function registerWebAutomation(server) {
                             setTimeout(() => {
                                 child.kill();
                                 resolve({
+                                    content: [{ type: "text", text: `Navigated to ${url} using Chrome` }],
                                     success: true,
                                     message: `Navigated to ${url} using Chrome`,
                                     browser: "chrome",
@@ -77,6 +79,7 @@ export function registerWebAutomation(server) {
                             setTimeout(() => {
                                 child.kill();
                                 resolve({
+                                    content: [{ type: "text", text: `Navigated to ${url} using Firefox` }],
                                     success: true,
                                     message: `Navigated to ${url} using Firefox`,
                                     browser: "firefox",
@@ -89,6 +92,7 @@ export function registerWebAutomation(server) {
                     }
                     else {
                         return {
+                            content: [{ type: "text", text: `Browser ${targetBrowser} not supported on this platform` }],
                             success: false,
                             error: `Browser ${targetBrowser} not supported on this platform`,
                             platform: PLATFORM,
@@ -113,6 +117,7 @@ export function registerWebAutomation(server) {
                         element_found: true,
                     };
                     return {
+                        content: [{ type: "text", text: `Clicked element with selector: ${selector}` }],
                         success: true,
                         message: `Clicked element with selector: ${selector}`,
                         click_result: clickResult,
@@ -135,6 +140,7 @@ export function registerWebAutomation(server) {
                         characters_typed: text.length,
                     };
                     return {
+                        content: [{ type: "text", text: `Typed text into element with selector: ${selector}` }],
                         success: true,
                         message: `Typed text into element with selector: ${selector}`,
                         type_result: typeResult,
@@ -168,6 +174,7 @@ export function registerWebAutomation(server) {
                             setTimeout(() => {
                                 child.kill();
                                 resolve({
+                                    content: [{ type: "text", text: `Screenshot captured from ${url}` }],
                                     success: true,
                                     message: `Screenshot captured from ${url}`,
                                     browser: "chrome",
@@ -181,6 +188,7 @@ export function registerWebAutomation(server) {
                     }
                     else {
                         return {
+                            content: [{ type: "text", text: `Screenshot not supported with ${targetBrowser} on this platform` }],
                             success: false,
                             error: `Screenshot not supported with ${targetBrowser} on this platform`,
                             platform: PLATFORM,
@@ -212,6 +220,7 @@ export function registerWebAutomation(server) {
                         elements_found: 1,
                     };
                     return {
+                        content: [{ type: "text", text: `Content extracted from ${url} using selector: ${selector}` }],
                         success: true,
                         message: `Content extracted from ${url} using selector: ${selector}`,
                         extract_result: extractResult,
@@ -226,6 +235,7 @@ export function registerWebAutomation(server) {
                         result: `Waited for ${wait_time}ms`,
                     };
                     return {
+                        content: [{ type: "text", text: `Waited for ${wait_time}ms` }],
                         success: true,
                         message: `Waited for ${wait_time}ms`,
                         wait_result: waitResult,
@@ -245,6 +255,7 @@ export function registerWebAutomation(server) {
                         scroll_distance: "1000px",
                     };
                     return {
+                        content: [{ type: "text", text: `Page scrolled on ${url}` }],
                         success: true,
                         message: `Page scrolled on ${url}`,
                         scroll_result: scrollResult,
@@ -268,6 +279,7 @@ export function registerWebAutomation(server) {
                         execution_time: "150ms",
                     };
                     return {
+                        content: [{ type: "text", text: `Script executed on ${url}` }],
                         success: true,
                         message: `Script executed on ${url}`,
                         script_result: scriptResult,
@@ -291,6 +303,7 @@ export function registerWebAutomation(server) {
                         form_submitted: false,
                     };
                     return {
+                        content: [{ type: "text", text: `Form filled on ${url}` }],
                         success: true,
                         message: `Form filled on ${url}`,
                         form_fill_result: formFillResult,
@@ -332,6 +345,7 @@ export function registerWebAutomation(server) {
                         ],
                     };
                     return {
+                        content: [{ type: "text", text: `Elements retrieved from ${url} using selector: ${selector}` }],
                         success: true,
                         message: `Elements retrieved from ${url} using selector: ${selector}`,
                         elements_result: elementsResult,
@@ -342,6 +356,7 @@ export function registerWebAutomation(server) {
         }
         catch (error) {
             return {
+                content: [{ type: "text", text: error instanceof Error ? error.message : "Unknown error" }],
                 success: false,
                 error: error instanceof Error ? error.message : "Unknown error",
             };

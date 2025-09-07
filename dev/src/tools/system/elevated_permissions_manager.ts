@@ -50,20 +50,20 @@ export function registerElevatedPermissionsManager(server: McpServer) {
           throw new Error(`Unknown permission action: ${action}`);
       }
       
-      return { 
-        content: [], 
-        structuredContent: { 
-          success: true, 
+      return {
+        content: [{ type: "text", text: "Operation failed" }],
+        structuredContent: {
+          success: true,
           message,
           permissions: permissions.length > 0 ? permissions : undefined
-        } 
+        }
       };
     } catch (error) {
       return { 
         content: [], 
         structuredContent: { 
           success: false, 
-          message: `Permission operation failed: ${error instanceof Error ? error.message : 'Unknown error'}` 
+          message: `Permission operation failed: ${error instanceof Error ? (error as Error).message : 'Unknown error'}` 
         } 
       };
     }

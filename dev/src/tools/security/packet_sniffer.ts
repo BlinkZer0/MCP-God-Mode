@@ -114,7 +114,7 @@ export function registerPacketSniffer(server: McpServer) {
       return {
         content: [{
           type: "text",
-          text: `Packet sniffer action failed: ${error instanceof Error ? error.message : 'Unknown error'}`
+          text: `Packet sniffer action failed: ${error instanceof Error ? (error as Error).message : 'Unknown error'}`
         }],
         structuredContent: {
           action,
@@ -128,7 +128,7 @@ export function registerPacketSniffer(server: McpServer) {
           top_ports: [],
           bandwidth_usage: { bytes_per_second: 0, packets_per_second: 0, total_bytes: 0 },
           anomalies: [],
-          summary: `Action failed: ${error instanceof Error ? error.message : 'Unknown error'}`
+          summary: `Action failed: ${error instanceof Error ? (error as Error).message : 'Unknown error'}`
         }
       };
     }
@@ -452,10 +452,10 @@ async function exportPcap(outputFile: string | undefined): Promise<any> {
     };
   } catch (error) {
     return {
-          content: [{ type: "text", text: `Error: ${`Failed to export PCAP: ${error instanceof Error ? error.message : 'Unknown error'}`}` }],
+          content: [{ type: "text", text: `Error: ${`Failed to export PCAP: ${error instanceof Error ? (error as Error).message : 'Unknown error'}`}` }],
           structuredContent: {
             success: false,
-            error: `${`Failed to export PCAP: ${error instanceof Error ? error.message : 'Unknown error'}`}`
+            error: `${`Failed to export PCAP: ${error instanceof Error ? (error as Error).message : 'Unknown error'}`}`
           }
         };
   }
@@ -693,14 +693,15 @@ async function calculateStatistics(packets: PacketData[] = capturedPackets): Pro
   const duration = isCapturing ? (Date.now() - captureStartTime) / 1000 : 1;
   
   return {
-    protocols,
+        content: [{ type: "text", text: "Operation completed successfully" }],
+        protocols,
     top_ips: topIPs,
     top_ports: topPorts,
     bandwidth_usage: {
       bytes_per_second: totalBytes / duration,
       packets_per_second: packets.length / duration,
       total_bytes: totalBytes
-    }
+      }
   };
 }
 

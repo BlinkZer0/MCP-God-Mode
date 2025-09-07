@@ -69,16 +69,16 @@ export function registerMobileHardware(server: McpServer) {
           break;
       }
       
-      return { 
-        content: [], 
-        structuredContent: { 
-          success: true, 
+      return {
+        content: [{ type: "text", text: "Operation failed" }],
+        structuredContent: {
+          success: true,
           message,
-          hardware_info 
-        } 
+          hardware_info
+        }
       };
     } catch (error) {
-      return { content: [], structuredContent: { success: false, message: `Mobile hardware info failed: ${error.message}` } };
+      return { content: [], structuredContent: { success: false, message: `Mobile hardware info failed: ${(error as Error).message}` } };
     }
   });
 }

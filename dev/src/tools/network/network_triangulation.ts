@@ -64,7 +64,7 @@ export function registerNetworkTriangulation(server: McpServer) {
           type: "text",
           text: JSON.stringify({
             success: false,
-            message: `Failed to triangulate location: ${error instanceof Error ? error.message : 'Unknown error'}`,
+            message: `Failed to triangulate location: ${error instanceof Error ? (error as Error).message : 'Unknown error'}`,
             location_data: undefined
           }, null, 2)
         }]

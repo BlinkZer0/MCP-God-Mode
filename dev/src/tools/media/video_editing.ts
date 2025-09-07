@@ -66,20 +66,20 @@ export function registerVideoEditing(server: McpServer) {
           throw new Error(`Unknown video action: ${action}`);
       }
       
-      return { 
-        content: [], 
-        structuredContent: { 
-          success: true, 
+      return {
+        content: [{ type: "text", text: "Operation failed" }],
+        structuredContent: {
+          success: true,
           message,
-          output_path: outputPath 
-        } 
+          output_path: outputPath
+        }
       };
     } catch (error) {
       return { 
         content: [], 
         structuredContent: { 
           success: false, 
-          message: `Video editing failed: ${error instanceof Error ? error.message : 'Unknown error'}` 
+          message: `Video editing failed: ${error instanceof Error ? (error as Error).message : 'Unknown error'}` 
         } 
       };
     }

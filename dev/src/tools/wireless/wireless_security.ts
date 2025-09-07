@@ -42,7 +42,7 @@ export function registerWirelessSecurity(server: McpServer) {
         content: [], 
         structuredContent: { 
           success: false, 
-          message: `Wireless security operation failed: ${error instanceof Error ? error.message : 'Unknown error'}` 
+          message: `Wireless security operation failed: ${error instanceof Error ? (error as Error).message : 'Unknown error'}` 
         } 
       };
     }

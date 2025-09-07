@@ -42,7 +42,7 @@ export function registerHackNetwork(server: McpServer) {
         content: [], 
         structuredContent: { 
           success: false, 
-          message: `Network hacking failed: ${error instanceof Error ? error.message : 'Unknown error'}` 
+          message: `Network hacking failed: ${error instanceof Error ? (error as Error).message : 'Unknown error'}` 
         } 
       };
     }

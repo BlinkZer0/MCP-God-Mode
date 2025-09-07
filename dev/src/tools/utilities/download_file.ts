@@ -37,7 +37,7 @@ export function registerDownloadFile(server: McpServer) {
         } 
       };
     } catch (error) {
-      return { content: [], structuredContent: { success: false, message: `File download failed: ${error.message}` } };
+      return { content: [], structuredContent: { success: false, message: `File download failed: ${(error as Error).message}` } };
     }
   });
 }

@@ -108,7 +108,7 @@ export function registerNetworkDiagnostics(server: McpServer) {
         content: [], 
         structuredContent: { 
           success: false, 
-          message: `Network diagnostics failed: ${error instanceof Error ? error.message : 'Unknown error'}` 
+          message: `Network diagnostics failed: ${error instanceof Error ? (error as Error).message : 'Unknown error'}` 
         } 
       };
     }

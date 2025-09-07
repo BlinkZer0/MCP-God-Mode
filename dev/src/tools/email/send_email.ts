@@ -37,7 +37,7 @@ export function registerSendEmail(server: McpServer) {
         content: [], 
         structuredContent: { 
           success: false, 
-          message: `Email sending failed: ${error instanceof Error ? error.message : 'Unknown error'}` 
+          message: `Email sending failed: ${error instanceof Error ? (error as Error).message : 'Unknown error'}` 
         } 
       };
     }

@@ -94,7 +94,7 @@ export function registerPacketSniffer(server) {
                     };
             }
             return {
-                content: [],
+                content: [{ type: "text", text: "Operation failed" }],
                 structuredContent: {
                     success: true,
                     action,

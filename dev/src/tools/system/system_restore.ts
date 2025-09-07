@@ -27,7 +27,7 @@ export function registerSystemRestore(server: McpServer) {
     try {
       // System restore implementation
       let message = "";
-      let backups = [];
+      let backups: any[] = [];
       let backupPath = "";
       
       switch (action) {
@@ -50,17 +50,17 @@ export function registerSystemRestore(server: McpServer) {
           break;
       }
       
-      return { 
-        content: [], 
-        structuredContent: { 
-          success: true, 
+      return {
+        content: [{ type: "text", text: "Operation failed" }],
+        structuredContent: {
+          success: true,
           message,
           backups,
           backup_path: backupPath
-        } 
+        }
       };
     } catch (error) {
-      return { content: [], structuredContent: { success: false, message: `System restore failed: ${error.message}` } };
+      return { content: [], structuredContent: { success: false, message: `System restore failed: ${(error as Error).message}` } };
     }
   });
 }

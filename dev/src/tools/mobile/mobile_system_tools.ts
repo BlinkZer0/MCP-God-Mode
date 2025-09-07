@@ -31,7 +31,7 @@ export function registerMobileSystemTools(server: McpServer) {
     try {
       // Mobile system tools implementation
       let message = "";
-      let processes = [];
+      let processes: any[] = [];
       let systemInfo = {};
       
       switch (action) {
@@ -65,17 +65,17 @@ export function registerMobileSystemTools(server: McpServer) {
           break;
       }
       
-      return { 
-        content: [], 
-        structuredContent: { 
-          success: true, 
+      return {
+        content: [{ type: "text", text: "Operation failed" }],
+        structuredContent: {
+          success: true,
           message,
           processes,
           system_info: systemInfo
-        } 
+        }
       };
     } catch (error) {
-      return { content: [], structuredContent: { success: false, message: `Mobile system tool failed: ${error.message}` } };
+      return { content: [], structuredContent: { success: false, message: `Mobile system tool failed: ${(error as Error).message}` } };
     }
   });
 }

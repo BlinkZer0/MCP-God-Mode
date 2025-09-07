@@ -94,7 +94,7 @@ export function registerNetworkDiscovery(server: McpServer) {
           type: "text",
           text: JSON.stringify({
             success: false,
-            message: `Failed to perform discovery on ${target}: ${error instanceof Error ? error.message : 'Unknown error'}`,
+            message: `Failed to perform discovery on ${target}: ${error instanceof Error ? (error as Error).message : 'Unknown error'}`,
             discovery_results: undefined
           }, null, 2)
         }]

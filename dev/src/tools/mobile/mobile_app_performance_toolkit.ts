@@ -133,16 +133,16 @@ export function registerMobileAppPerformanceToolkit(server: McpServer) {
           break;
       }
       
-      return { 
-        content: [], 
-        structuredContent: { 
-          success: true, 
+      return {
+        content: [{ type: "text", text: "Operation failed" }],
+        structuredContent: {
+          success: true,
           message,
           performance_data: performanceData
-        } 
+        }
       };
     } catch (error) {
-      return { content: [], structuredContent: { success: false, message: `Mobile app performance analysis failed: ${error.message}` } };
+      return { content: [], structuredContent: { success: false, message: `Mobile app performance analysis failed: ${(error as Error).message}` } };
     }
   });
 }

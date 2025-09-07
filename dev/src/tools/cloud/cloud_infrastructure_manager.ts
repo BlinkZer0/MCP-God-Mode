@@ -38,7 +38,7 @@ export function registerCloudInfrastructureManager(server: McpServer) {
     try {
       // Cloud infrastructure management implementation
       let message = "";
-      let resources = [];
+      let resources: any[] = [];
       let operationResult = {};
       
       switch (action) {
@@ -91,17 +91,17 @@ export function registerCloudInfrastructureManager(server: McpServer) {
           break;
       }
       
-      return { 
-        content: [], 
-        structuredContent: { 
-          success: true, 
+      return {
+        content: [{ type: "text", text: "Operation failed" }],
+        structuredContent: {
+          success: true,
           message,
           resources,
           operation_result: operationResult
-        } 
+        }
       };
     } catch (error) {
-      return { content: [], structuredContent: { success: false, message: `Cloud infrastructure management failed: ${error.message}` } };
+      return { content: [], structuredContent: { success: false, message: `Cloud infrastructure management failed: ${(error as Error).message}` } };
     }
   });
 }

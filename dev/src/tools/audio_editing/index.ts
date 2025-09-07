@@ -167,8 +167,8 @@ export function registerAudioEditing(server: McpServer) {
           input_file: params.input_file || "N/A",
           output_file: params.output_file || "N/A",
           processing_time: 0,
-          message: `Audio ${params.action} failed: ${error.message}`,
-          error: error.message,
+          message: `Audio ${params.action} failed: ${(error as Error).message}`,
+          error: (error as Error).message,
           platform: PLATFORM,
           timestamp: new Date().toISOString()
         }
@@ -237,7 +237,8 @@ async function simulateAudioProcessing(action: string, params: any): Promise<any
   }
 
   return {
-    fileSizeReduction,
+        content: [{ type: "text", text: "Operation completed successfully" }],
+        fileSizeReduction,
     audioMetrics
-  };
+      };
 }

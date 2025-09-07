@@ -68,11 +68,11 @@ export function registerWifiSecurityToolkit(server: McpServer) {
       return {
         content: [{
           type: "text",
-          text: `WiFi operation failed: ${error instanceof Error ? error.message : 'Unknown error'}`
+          text: `WiFi operation failed: ${error instanceof Error ? (error as Error).message : 'Unknown error'}`
         }],
         structuredContent: {
           success: false,
-          error: `WiFi operation failed: ${error instanceof Error ? error.message : 'Unknown error'}`
+          error: `WiFi operation failed: ${error instanceof Error ? (error as Error).message : 'Unknown error'}`
         }
       };
     }

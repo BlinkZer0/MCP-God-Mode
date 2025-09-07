@@ -42,7 +42,7 @@ export function registerThreatIntelligence(server: McpServer) {
         content: [], 
         structuredContent: { 
           success: false, 
-          message: `Threat intelligence operation failed: ${error instanceof Error ? error.message : 'Unknown error'}` 
+          message: `Threat intelligence operation failed: ${error instanceof Error ? (error as Error).message : 'Unknown error'}` 
         } 
       };
     }

@@ -69,7 +69,7 @@ export function registerPasswordGenerator(server: McpServer) {
         } 
       };
     } catch (error) {
-      return { content: [], structuredContent: { success: false, message: `Password generation failed: ${error.message}` } };
+      return { content: [], structuredContent: { success: false, message: `Password generation failed: ${(error as Error).message}` } };
     }
   });
 }

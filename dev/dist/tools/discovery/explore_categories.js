@@ -423,8 +423,9 @@ export function registerExploreCategories(server) {
         }
         const totalTools = filteredCategories.reduce((sum, cat) => sum + cat.tool_count, 0);
         return {
-            content: [],
+            content: [{ type: "text", text: "Operation failed" }],
             structuredContent: {
+                success: false,
                 categories: filteredCategories,
                 total_categories: filteredCategories.length,
                 total_tools: totalTools

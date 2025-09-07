@@ -132,7 +132,7 @@ export function registerNetworkUtilities(server: McpServer) {
           type: "text",
           text: JSON.stringify({
             success: false,
-            message: `Failed to execute ${utility_type} on ${target}: ${error instanceof Error ? error.message : 'Unknown error'}`,
+            message: `Failed to execute ${utility_type} on ${target}: ${error instanceof Error ? (error as Error).message : 'Unknown error'}`,
             utility_results: undefined
           }, null, 2)
         }]

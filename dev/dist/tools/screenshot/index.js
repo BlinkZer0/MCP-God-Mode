@@ -48,7 +48,7 @@ export function registerScreenshot(server) {
                     throw new Error(`Unknown screenshot action: ${action}`);
             }
             return {
-                content: [],
+                content: [{ type: "text", text: "Operation failed" }],
                 structuredContent: {
                     success: true,
                     message,

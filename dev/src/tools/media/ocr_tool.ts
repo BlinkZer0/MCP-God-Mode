@@ -55,7 +55,7 @@ export function registerOcrTool(server: McpServer) {
         content: [], 
         structuredContent: { 
           success: false, 
-          message: `OCR processing failed: ${error instanceof Error ? error.message : 'Unknown error'}` 
+          message: `OCR processing failed: ${error instanceof Error ? (error as Error).message : 'Unknown error'}` 
         } 
       };
     }

@@ -20,7 +20,12 @@
     "start:minimal": "node dist/server-minimal.js",
     "build:email-only": "node build-server.js health system_info send_email parse_email",
     "build:core-only": "node build-server.js health system_info fs_list",
-    "build:custom": "node build-server.js"
+    "build:custom": "node build-server.js",
+    "install:minimal": "node install.js --minimal",
+    "install:modular": "node install.js --modular",
+    "install:full": "node install.js --full",
+    "update:installer": "node update-modular-installer.js",
+    "discover:tools": "node update-modular-installer.js --discover"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.2.0",
@@ -144,5 +149,10 @@
     "react-router-dom": "^7.8.2",
     "socket.io-client": "^4.8.1",
     "typescript": "^5.6.2"
+  },
+  "mcpGodMode": {
+    "totalTools": 117,
+    "lastUpdated": "2025-09-07T08:28:51.176Z",
+    "toolCategories": 23
   }
 }

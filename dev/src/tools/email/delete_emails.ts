@@ -36,7 +36,7 @@ export function registerDeleteEmails(server: McpServer) {
         content: [], 
         structuredContent: { 
           success: false, 
-          message: `Email deletion failed: ${error instanceof Error ? error.message : 'Unknown error'}` 
+          message: `Email deletion failed: ${error instanceof Error ? (error as Error).message : 'Unknown error'}` 
         } 
       };
     }

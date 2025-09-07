@@ -267,8 +267,9 @@ export function registerToolDiscovery(server) {
             return matchesQuery && matchesCategory && matchesCapability;
         });
         return {
-            content: [],
+            content: [{ type: "text", text: "Operation failed" }],
             structuredContent: {
+                success: false,
                 tools: filteredTools,
                 total_found: filteredTools.length,
                 query: query

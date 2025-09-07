@@ -611,6 +611,7 @@ async function calculateStatistics(packets = capturedPackets) {
         .map(([port, count]) => ({ port: parseInt(port), count }));
     const duration = isCapturing ? (Date.now() - captureStartTime) / 1000 : 1;
     return {
+        content: [{ type: "text", text: "Operation completed successfully" }],
         protocols,
         top_ips: topIPs,
         top_ports: topPorts,

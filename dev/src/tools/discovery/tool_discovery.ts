@@ -273,12 +273,13 @@ export function registerToolDiscovery(server: McpServer) {
     });
 
     return {
-      content: [],
-      structuredContent: {
-        tools: filteredTools,
+        content: [{ type: "text", text: "Operation failed" }],
+        structuredContent: {
+          success: false,
+          tools: filteredTools,
         total_found: filteredTools.length,
         query: query
-      }
-    };
+        }
+      };
   });
 }

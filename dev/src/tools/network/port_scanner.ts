@@ -41,7 +41,7 @@ export function registerPortScanner(server: McpServer) {
         } 
       };
     } catch (error) {
-      return { content: [], structuredContent: { success: false, message: `Port scanning failed: ${error.message}` } };
+      return { content: [], structuredContent: { success: false, message: `Port scanning failed: ${(error as Error).message}` } };
     }
   });
 }

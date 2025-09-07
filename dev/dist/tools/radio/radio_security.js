@@ -187,6 +187,7 @@ async function testRadioSecurity(frequency) {
         recommendations.push("Continue monitoring for vulnerabilities");
     }
     return {
+        content: [{ type: "text", text: "Operation completed successfully" }],
         encryption_detected: Math.random() > 0.5,
         vulnerability_level: vulnerabilityLevel,
         recommendations: recommendations
@@ -205,6 +206,7 @@ async function analyzeCommunication(frequency) {
 }
 async function broadcastSignal(frequency, powerLevel, duration) {
     return {
+        content: [{ type: "text", text: "Operation completed successfully" }],
         power_used: powerLevel,
         range_achieved: powerLevel * 2, // Simulated range in km
         interference_created: powerLevel > 15
@@ -212,6 +214,7 @@ async function broadcastSignal(frequency, powerLevel, duration) {
 }
 async function transmitAudio(frequency, audioFile, powerLevel) {
     return {
+        content: [{ type: "text", text: "Operation completed successfully" }],
         power_used: powerLevel,
         range_achieved: powerLevel * 1.5,
         interference_created: powerLevel > 10
@@ -219,6 +222,7 @@ async function transmitAudio(frequency, audioFile, powerLevel) {
 }
 async function jamFrequency(frequency, powerLevel, duration) {
     return {
+        content: [{ type: "text", text: "Operation completed successfully" }],
         power_used: powerLevel,
         range_achieved: powerLevel * 3,
         interference_created: true
@@ -226,6 +230,7 @@ async function jamFrequency(frequency, powerLevel, duration) {
 }
 async function createInterference(frequency, powerLevel, duration) {
     return {
+        content: [{ type: "text", text: "Operation completed successfully" }],
         power_used: powerLevel,
         range_achieved: powerLevel * 2.5,
         interference_created: true
@@ -233,6 +238,7 @@ async function createInterference(frequency, powerLevel, duration) {
 }
 async function testTransmissionPower(frequency, powerLevel) {
     return {
+        content: [{ type: "text", text: "Operation completed successfully" }],
         power_used: powerLevel,
         range_achieved: powerLevel * 2,
         interference_created: powerLevel > 20

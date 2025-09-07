@@ -114,7 +114,7 @@ export function registerPacketSniffer(server: McpServer) {
       }
 
       return {
-        content: [],
+        content: [{ type: "text", text: "Operation failed" }],
         structuredContent: {
           success: true,
           action,
@@ -134,7 +134,7 @@ export function registerPacketSniffer(server: McpServer) {
           action,
           result: null,
           platform: PLATFORM,
-          error: error.message
+          error: (error as Error).message
         }
       };
     }

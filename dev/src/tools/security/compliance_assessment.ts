@@ -42,7 +42,7 @@ export function registerComplianceAssessment(server: McpServer) {
         content: [], 
         structuredContent: { 
           success: false, 
-          message: `Compliance assessment failed: ${error instanceof Error ? error.message : 'Unknown error'}` 
+          message: `Compliance assessment failed: ${error instanceof Error ? (error as Error).message : 'Unknown error'}` 
         } 
       };
     }

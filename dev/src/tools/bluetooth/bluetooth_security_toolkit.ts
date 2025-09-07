@@ -32,7 +32,7 @@ export function registerBluetoothSecurityToolkit(server: McpServer) {
     try {
       // Bluetooth security testing implementation
       let message = "";
-      let vulnerabilities = [];
+      let vulnerabilities: any[] = [];
       let securityInfo = {};
       
       switch (action) {
@@ -69,17 +69,17 @@ export function registerBluetoothSecurityToolkit(server: McpServer) {
           break;
       }
       
-      return { 
-        content: [], 
-        structuredContent: { 
-          success: true, 
+      return {
+        content: [{ type: "text", text: "Operation failed" }],
+        structuredContent: {
+          success: true,
           message,
           vulnerabilities,
           security_info: securityInfo
-        } 
+        }
       };
     } catch (error) {
-      return { content: [], structuredContent: { success: false, message: `Bluetooth security testing failed: ${error.message}` } };
+      return { content: [], structuredContent: { success: false, message: `Bluetooth security testing failed: ${(error as Error).message}` } };
     }
   });
 }

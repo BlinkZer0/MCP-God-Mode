@@ -54,11 +54,6 @@ export const DEFAULT_LEGAL_CONFIG = {
 };
 // Legal compliance manager class
 export class LegalComplianceManager {
-    config;
-    auditLogPath;
-    evidencePath;
-    legalHoldPath;
-    chainOfCustodyPath;
     constructor(config) {
         this.config = { ...DEFAULT_LEGAL_CONFIG, ...config };
         this.auditLogPath = path.join(process.cwd(), 'legal', 'audit-logs');

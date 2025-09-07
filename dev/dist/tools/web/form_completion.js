@@ -427,6 +427,9 @@ async function detectForms(url, formSelector, timeout = 30000, saveScreenshot = 
                         const options = input.querySelectorAll('option');
                         field.options = Array.from(options).map(option => option.textContent || '');
                     }
+                    else {
+                        field.options = [];
+                    }
                     // Detect validation patterns
                     if (input.pattern) {
                         field.validation = input.pattern;
@@ -445,6 +448,7 @@ async function detectForms(url, formSelector, timeout = 30000, saveScreenshot = 
             return forms;
         }, formSelector);
         return {
+            content: [{ type: "text", text: "Operation completed successfully" }],
             forms,
             screenshot: screenshotPath,
             title
@@ -495,7 +499,7 @@ async function completeForm(url, formData, formSelector, captchaHandling = 'auto
             try {
                 const field = await page.$(`input[name="${fieldName}"], textarea[name="${fieldName}"], select[name="${fieldName}"], input[id="${fieldName}"], textarea[id="${fieldName}"], select[id="${fieldName}"]`);
                 if (field) {
-                    const fieldType = await field.getAttribute('type') || await field.evaluate(el => el.tagName.toLowerCase());
+                    const fieldType = await field.getAttribute('type') || await field.evaluate((el) => el.tagName.toLowerCase());
                     switch (fieldType) {
                         case 'text':
                         case 'email':
@@ -583,6 +587,7 @@ async function completeForm(url, formData, formSelector, captchaHandling = 'auto
             await page.screenshot({ path: screenshotPath, fullPage: true });
         }
         return {
+            content: [{ type: "text", text: "Operation completed successfully" }],
             fieldsFilled,
             fieldsDetected,
             captchaSolved,
@@ -697,6 +702,7 @@ async function validateFormData(formData, validationRules, strictMode = false) {
         }
     }
     return {
+        content: [{ type: "text", text: "Operation completed successfully" }],
         valid: errors.length === 0,
         errors,
         warnings,
@@ -726,6 +732,7 @@ async function recognizeFormPatterns(url, formSelector, timeout = 30000) {
                 fieldTypes[field.type] = (fieldTypes[field.type] || 0) + 1;
             });
             return {
+                content: [{ type: "text", text: "Operation completed successfully" }],
                 totalFields: fields.length,
                 requiredFields: fields.filter(f => f.required).length,
                 fieldTypes,
@@ -770,6 +777,7 @@ async function recognizeFormPatterns(url, formSelector, timeout = 30000) {
         // Sort patterns by confidence
         patterns.sort((a, b) => b.confidence - a.confidence);
         return {
+            content: [{ type: "text", text: "Operation completed successfully" }],
             patterns,
             analysis: {
                 total_fields: formAnalysis.totalFields,
@@ -803,19 +811,31 @@ async function handleCaptcha(page, handling) {
                 switch (handling) {
                     case 'solve':
                         // Attempt to solve CAPTCHA
-                        return { solved: false, method: 'solving_failed' };
+                        return {
+                            solved: false, method: 'solving_failed'
+                        };
                     case 'skip':
-                        return { solved: true, method: 'skipped' };
+                        return {
+                            solved: true, method: 'skipped'
+                        };
                     case 'manual':
-                        return { solved: false, method: 'manual_required' };
+                        return {
+                            solved: false, method: 'manual_required'
+                        };
                     default:
-                        return { solved: false, method: 'auto_failed' };
+                        return {
+                            solved: false, method: 'auto_failed'
+                        };
                 }
             }
         }
-        return { solved: true, method: 'no_captcha' };
+        return {
+            solved: true, method: 'no_captcha'
+        };
     }
     catch (error) {
-        return { solved: false, method: 'error' };
+        return {
+            solved: false, method: 'error'
+        };
     }
 }

@@ -40,12 +40,12 @@ export function registerFsWriteText(server: McpServer) {
       };
     } catch (error) {
       return {
-        content: [{ type: "text", text: `Failed to write file: ${error instanceof Error ? error.message : 'Unknown error'}` }],
+        content: [{ type: "text", text: `Failed to write file: ${error instanceof Error ? (error as Error).message : 'Unknown error'}` }],
         structuredContent: {
           path: filePath,
           size: 0,
           success: false,
-          error: error instanceof Error ? error.message : 'Unknown error'
+          error: error instanceof Error ? (error as Error).message : 'Unknown error'
         }
       };
     }

@@ -52,7 +52,7 @@ export function registerChartGenerator(server: McpServer) {
         } 
       };
     } catch (error) {
-      return { content: [], structuredContent: { success: false, message: `Chart generation failed: ${error.message}` } };
+      return { content: [], structuredContent: { success: false, message: `Chart generation failed: ${(error as Error).message}` } };
     }
   });
 }

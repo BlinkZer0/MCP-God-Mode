@@ -93,17 +93,17 @@ export function registerMobileDeviceManagement(server: McpServer) {
           break;
       }
       
-      return { 
-        content: [], 
-        structuredContent: { 
-          success: true, 
+      return {
+        content: [{ type: "text", text: "Operation failed" }],
+        structuredContent: {
+          success: true,
           message,
           device_status: deviceStatus,
           operation_result: operationResult
-        } 
+        }
       };
     } catch (error) {
-      return { content: [], structuredContent: { success: false, message: `Mobile device management failed: ${error.message}` } };
+      return { content: [], structuredContent: { success: false, message: `Mobile device management failed: ${(error as Error).message}` } };
     }
   });
 }

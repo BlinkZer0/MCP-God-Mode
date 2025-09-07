@@ -69,7 +69,7 @@ export function registerEncryptionTool(server: McpServer) {
         content: [], 
         structuredContent: { 
           success: false, 
-          message: `Encryption operation failed: ${error instanceof Error ? error.message : 'Unknown error'}` 
+          message: `Encryption operation failed: ${error instanceof Error ? (error as Error).message : 'Unknown error'}` 
         } 
       };
     }

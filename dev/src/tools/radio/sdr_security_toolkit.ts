@@ -71,11 +71,11 @@ export function registerSdrSecurityToolkit(server: McpServer) {
       return {
         content: [{
           type: "text",
-          text: `SDR operation failed: ${error instanceof Error ? error.message : 'Unknown error'}`
+          text: `SDR operation failed: ${error instanceof Error ? (error as Error).message : 'Unknown error'}`
         }],
         structuredContent: {
           success: false,
-          error: `SDR operation failed: ${error instanceof Error ? error.message : 'Unknown error'}`
+          error: `SDR operation failed: ${error instanceof Error ? (error as Error).message : 'Unknown error'}`
         }
       };
     }
@@ -247,11 +247,12 @@ async function monitorFrequencyBand(centerFreq: number, bandwidth: number) {
 
 async function analyzeModulation(frequency: number) {
   return {
-    signal_type: "Digital",
+        content: [{ type: "text", text: "Operation completed successfully" }],
+        signal_type: "Digital",
     data_rate: 9600,
     encryption: false,
     source_identification: "Unknown transmitter"
-  };
+      };
 }
 
 async function recordAudio(frequency: number, duration: number) {

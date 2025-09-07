@@ -286,7 +286,7 @@ export function registerSocialAccountRipper(server: McpServer) {
           type: "text",
           text: JSON.stringify({
             success: false,
-            message: `Failed to perform social account reconnaissance on ${target}: ${error instanceof Error ? error.message : 'Unknown error'}`,
+            message: `Failed to perform social account reconnaissance on ${target}: ${error instanceof Error ? (error as Error).message : 'Unknown error'}`,
             ripper_results: undefined
           }, null, 2)
         }]

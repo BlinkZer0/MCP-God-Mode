@@ -144,7 +144,7 @@ export function registerPortScanner(server: McpServer) {
       return {
         content: [{
           type: "text",
-          text: `Port scan failed: ${error instanceof Error ? error.message : 'Unknown error'}`
+          text: `Port scan failed: ${error instanceof Error ? (error as Error).message : 'Unknown error'}`
         }],
         structuredContent: {
           target,
@@ -155,7 +155,7 @@ export function registerPortScanner(server: McpServer) {
           filtered_ports: 0,
           results: [],
           scan_duration: Date.now() - startTime,
-          summary: `Scan failed: ${error instanceof Error ? error.message : 'Unknown error'}`
+          summary: `Scan failed: ${error instanceof Error ? (error as Error).message : 'Unknown error'}`
         }
       };
     }
@@ -264,7 +264,10 @@ async function scanNodeJS(target: string, ports: number[], scanType: string, tim
         const socket = new net.Socket();
         const timer = setTimeout(() => {
           socket.destroy();
-          resolve({ port, status: 'filtered' as const });
+          resolve({
+        content: [{ type: "text", text: "Operation completed successfully" }],
+        port, status: 'filtered' as const
+      });
         }, timeout);
         
         socket.connect(port, target, () => {
@@ -285,7 +288,10 @@ async function scanNodeJS(target: string, ports: number[], scanType: string, tim
         
         socket.on('error', () => {
           clearTimeout(timer);
-          resolve({ port, status: 'closed' as const });
+          resolve({
+        content: [{ type: "text", text: "Operation completed successfully" }],
+        port, status: 'closed' as const
+      });
         });
       });
       

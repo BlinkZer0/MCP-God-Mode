@@ -42,7 +42,7 @@ export function registerForensicsAnalysis(server: McpServer) {
         content: [], 
         structuredContent: { 
           success: false, 
-          message: `Forensics analysis failed: ${error instanceof Error ? error.message : 'Unknown error'}` 
+          message: `Forensics analysis failed: ${error instanceof Error ? (error as Error).message : 'Unknown error'}` 
         } 
       };
     }

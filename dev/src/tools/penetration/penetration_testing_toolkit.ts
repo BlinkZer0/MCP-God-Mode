@@ -34,7 +34,7 @@ export function registerPenetrationTestingToolkit(server: McpServer) {
     try {
       // Penetration testing implementation
       let message = "";
-      let findings = [];
+      let findings: any[] = [];
       let reportSummary = {};
       
       switch (action) {
@@ -70,17 +70,17 @@ export function registerPenetrationTestingToolkit(server: McpServer) {
           break;
       }
       
-      return { 
-        content: [], 
-        structuredContent: { 
-          success: true, 
+      return {
+        content: [{ type: "text", text: "Operation failed" }],
+        structuredContent: {
+          success: true,
           message,
           findings,
           report_summary: reportSummary
-        } 
+        }
       };
     } catch (error) {
-      return { content: [], structuredContent: { success: false, message: `Penetration testing failed: ${error.message}` } };
+      return { content: [], structuredContent: { success: false, message: `Penetration testing failed: ${(error as Error).message}` } };
     }
   });
 }

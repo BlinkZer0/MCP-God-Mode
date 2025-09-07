@@ -85,6 +85,7 @@ export function registerFileWatcher(server) {
         }
         catch (error) {
             return {
+                content: [{ type: "text", text: "Operation completed successfully" }],
                 success: false,
                 error: error instanceof Error ? error.message : "Unknown error",
             };

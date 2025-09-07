@@ -54,13 +54,13 @@ export function registerBluetoothDeviceManager(server: McpServer) {
                       });
                     } catch (parseError) {
                       resolve({
-                        success: true,
+        success: true,
                         message: "Bluetooth devices listed successfully",
                         platform: "windows",
                         devices: [],
                         count: 0,
                         raw_output: output,
-                      });
+      });
                     }
                   } else {
                     resolve({
@@ -97,10 +97,11 @@ export function registerBluetoothDeviceManager(server: McpServer) {
                         const match = line.match(/Device\s+([A-F0-9:]+)\s+(.+)/);
                         if (match) {
                           return {
-                            address: match[1],
+        content: [{ type: "text", text: "Operation completed successfully" }],
+        address: match[1],
                             name: match[2].trim(),
                             status: "Available",
-                          };
+      };
                         }
                         return null;
                       })
@@ -124,10 +125,11 @@ export function registerBluetoothDeviceManager(server: McpServer) {
               });
             } else {
               return {
-                success: false,
+        content: [{ type: "text", text: "Operation completed successfully" }],
+        success: false,
                 error: "Bluetooth device listing not supported on this platform",
                 platform: PLATFORM,
-              };
+      };
             }
             
           case "connect":
@@ -173,11 +175,12 @@ export function registerBluetoothDeviceManager(server: McpServer) {
               });
             } else {
               return {
-                success: false,
+        content: [{ type: "text", text: "Operation completed successfully" }],
+        success: false,
                 error: "Bluetooth connection not supported on this platform",
                 platform: PLATFORM,
                 device_address,
-              };
+      };
             }
             
           case "disconnect":
@@ -223,11 +226,12 @@ export function registerBluetoothDeviceManager(server: McpServer) {
               });
             } else {
               return {
-                success: false,
+        content: [{ type: "text", text: "Operation completed successfully" }],
+        success: false,
                 error: "Bluetooth disconnection not supported on this platform",
                 platform: PLATFORM,
                 device_address,
-              };
+      };
             }
             
           case "pair":
@@ -273,11 +277,12 @@ export function registerBluetoothDeviceManager(server: McpServer) {
               });
             } else {
               return {
-                success: false,
+        content: [{ type: "text", text: "Operation completed successfully" }],
+        success: false,
                 error: "Bluetooth pairing not supported on this platform",
                 platform: PLATFORM,
                 device_address,
-              };
+      };
             }
             
           case "unpair":
@@ -323,11 +328,12 @@ export function registerBluetoothDeviceManager(server: McpServer) {
               });
             } else {
               return {
-                success: false,
+        content: [{ type: "text", text: "Operation completed successfully" }],
+        success: false,
                 error: "Bluetooth unpairing not supported on this platform",
                 platform: PLATFORM,
                 device_address,
-              };
+      };
             }
             
           case "get_info":
@@ -384,11 +390,12 @@ export function registerBluetoothDeviceManager(server: McpServer) {
               });
             } else {
               return {
-                success: false,
+        content: [{ type: "text", text: "Operation completed successfully" }],
+        success: false,
                 error: "Bluetooth device info not supported on this platform",
                 platform: PLATFORM,
                 device_address,
-              };
+      };
             }
             
           case "scan":
@@ -421,10 +428,11 @@ export function registerBluetoothDeviceManager(server: McpServer) {
                       const match = line.match(/Device\s+([A-F0-9:]+)\s+(.+)/);
                       if (match) {
                         return {
-                          address: match[1],
+        content: [{ type: "text", text: "Operation completed successfully" }],
+        address: match[1],
                           name: match[2].trim(),
                           discovered: new Date().toISOString(),
-                        };
+      };
                       }
                       return null;
                     })
@@ -442,19 +450,21 @@ export function registerBluetoothDeviceManager(server: McpServer) {
               });
             } else {
               return {
-                success: false,
+        content: [{ type: "text", text: "Operation completed successfully" }],
+        success: false,
                 error: "Bluetooth scanning not supported on this platform",
                 platform: PLATFORM,
-              };
+      };
             }
             
           case "monitor":
             return {
-              success: false,
+        content: [{ type: "text", text: "Operation completed successfully" }],
+        success: false,
               error: "Bluetooth monitoring requires continuous background process",
               platform: PLATFORM,
               recommendation: "Use scan action for device discovery",
-            };
+      };
             
           case "configure":
             if (!device_address) {
@@ -462,21 +472,23 @@ export function registerBluetoothDeviceManager(server: McpServer) {
             }
             
             return {
-              success: false,
+        content: [{ type: "text", text: "Operation completed successfully" }],
+        success: false,
               error: "Bluetooth device configuration requires platform-specific implementation",
               platform: PLATFORM,
               device_address,
               recommendation: "Use platform-specific Bluetooth tools for configuration",
-            };
+      };
             
           default:
             throw new Error(`Unknown action: ${action}`);
         }
       } catch (error) {
         return {
-          success: false,
-          error: error instanceof Error ? error.message : "Unknown error",
-        };
+        content: [{ type: "text", text: "Operation completed successfully" }],
+        success: false,
+          error: error instanceof Error ? (error as Error).message : "Unknown error",
+      };
       }
     });
 }

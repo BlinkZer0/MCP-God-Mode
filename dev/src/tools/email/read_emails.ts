@@ -45,7 +45,7 @@ export function registerReadEmails(server: McpServer) {
         content: [], 
         structuredContent: { 
           success: false, 
-          message: `Email reading failed: ${error instanceof Error ? error.message : 'Unknown error'}` 
+          message: `Email reading failed: ${error instanceof Error ? (error as Error).message : 'Unknown error'}` 
         } 
       };
     }

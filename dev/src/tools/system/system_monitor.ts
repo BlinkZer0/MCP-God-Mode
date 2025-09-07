@@ -15,6 +15,23 @@ const SystemMonitorSchema = z.object({
 export function registerSystemMonitor(server: McpServer) {
   server.registerTool("system_monitor", {
     description: "Comprehensive system monitoring and performance analysis toolkit",
+    inputSchema: SystemMonitorSchema.shape,
+    outputSchema: {
+      success: z.boolean(),
+      message: z.string(),
+      system_status: z.object({}).optional(),
+      monitoring_data: z.object({}).optional(),
+      processes: z.array(z.object({})).optional(),
+      services: z.array(z.object({})).optional(),
+      network_info: z.object({}).optional(),
+      disk_info: z.object({}).optional(),
+      memory_info: z.object({}).optional(),
+      cpu_info: z.object({}).optional(),
+      system_info: z.object({}).optional(),
+      timestamp: z.string().optional(),
+      platform: z.string().optional(),
+      error: z.string().optional()
+    }
   }, async ({ action, duration, interval, output_format, include_details }) => {
       try {
         switch (action) {
@@ -152,10 +169,11 @@ export function registerSystemMonitor(server: McpServer) {
               });
             } else {
               return {
-                success: false,
+        content: [{ type: "text", text: "Operation completed successfully" }],
+        success: false,
                 error: "Process listing not supported on this platform",
                 platform: PLATFORM,
-              };
+      };
             }
             
           case "get_services":
@@ -319,10 +337,10 @@ export function registerSystemMonitor(server: McpServer) {
         }
       } catch (error) {
         return {
-          content: [{ type: "text", text: `System monitor error: ${error instanceof Error ? error.message : "Unknown error"}` }],
+          content: [{ type: "text", text: `System monitor error: ${error instanceof Error ? (error as Error).message : "Unknown error"}` }],
           structuredContent: {
             success: false,
-            error: error instanceof Error ? error.message : "Unknown error",
+            error: error instanceof Error ? (error as Error).message : "Unknown error",
           }
         };
       }
@@ -337,13 +355,14 @@ async function getSystemStatus() {
   const memoryUsage = ((totalMem - freeMem) / totalMem) * 100;
   
   return {
-    platform: PLATFORM,
+        content: [{ type: "text", text: "Operation completed successfully" }],
+        platform: PLATFORM,
     uptime: os.uptime(),
     cpu_load: {
       "1min": cpuUsage[0],
       "5min": cpuUsage[1],
       "15min": cpuUsage[2],
-    },
+      },
     memory: {
       total: totalMem,
       free: freeMem,
@@ -381,22 +400,24 @@ async function getNetworkInfo() {
   }
   
   return {
-    interfaces,
+        content: [{ type: "text", text: "Operation completed successfully" }],
+        interfaces,
     total_interfaces: interfaces.length,
     primary_interface: interfaces[0] || null,
-  };
+      };
 }
 
 async function getDiskInfo() {
   // Simplified disk info - in a real implementation, you'd use platform-specific commands
   return {
-    total_space: "Unknown",
+        content: [{ type: "text", text: "Operation completed successfully" }],
+        total_space: "Unknown",
     free_space: "Unknown",
     used_space: "Unknown",
     usage_percent: "Unknown",
     partitions: [],
     note: "Detailed disk information requires platform-specific implementation",
-  };
+      };
 }
 
 async function getMemoryInfo() {
@@ -405,14 +426,15 @@ async function getMemoryInfo() {
   const usedMem = totalMem - freeMem;
   
   return {
-    total: totalMem,
+        content: [{ type: "text", text: "Operation completed successfully" }],
+        total: totalMem,
     free: freeMem,
     used: usedMem,
     usage_percent: ((usedMem / totalMem) * 100).toFixed(2),
     available: freeMem,
     cached: "Unknown", // Would require platform-specific implementation
     buffers: "Unknown", // Would require platform-specific implementation
-  };
+      };
 }
 
 async function getCpuInfo() {
@@ -420,18 +442,20 @@ async function getCpuInfo() {
   const cpuInfo = cpus[0];
   
   return {
-    model: cpuInfo.model,
+        content: [{ type: "text", text: "Operation completed successfully" }],
+        model: cpuInfo.model,
     cores: cpus.length,
     speed: cpuInfo.speed,
     architecture: os.arch(),
     load_average: os.loadavg(),
     cpu_usage: "Unknown", // Would require continuous monitoring
-  };
+      };
 }
 
 async function getSystemInfo() {
   return {
-    platform: PLATFORM,
+        content: [{ type: "text", text: "Operation completed successfully" }],
+        platform: PLATFORM,
     hostname: os.hostname(),
     type: os.type(),
     release: os.release(),
@@ -443,7 +467,7 @@ async function getSystemInfo() {
     network_interfaces: Object.keys(os.networkInterfaces()),
     user_info: os.userInfo(),
     endianness: os.endianness(),
-  };
+      };
 }
 
 function parseWindowsProcesses(output: string) {

@@ -344,7 +344,7 @@ export function registerMetadataExtractor(server: McpServer) {
           type: "text",
           text: JSON.stringify({
             success: false,
-            message: `Failed to extract metadata from ${input_source}: ${error instanceof Error ? error.message : 'Unknown error'}`,
+            message: `Failed to extract metadata from ${input_source}: ${error instanceof Error ? (error as Error).message : 'Unknown error'}`,
             extraction_results: undefined
           }, null, 2)
         }]

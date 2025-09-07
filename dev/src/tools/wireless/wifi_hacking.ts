@@ -69,11 +69,11 @@ export function registerWifiHacking(server: McpServer) {
       return {
         content: [{
           type: "text",
-          text: `WiFi hacking operation failed: ${error instanceof Error ? error.message : 'Unknown error'}`
+          text: `WiFi hacking operation failed: ${error instanceof Error ? (error as Error).message : 'Unknown error'}`
         }],
         structuredContent: {
           success: false,
-          error: `WiFi hacking operation failed: ${error instanceof Error ? error.message : 'Unknown error'}`
+          error: `WiFi hacking operation failed: ${error instanceof Error ? (error as Error).message : 'Unknown error'}`
         }
       };
     }
@@ -164,12 +164,13 @@ async function crackWEP(ssid: string, bssid: string, wifiInterface?: string) {
   const timeTaken = (Date.now() - startTime) / 1000;
   
   return {
-    password_cracked: success ? "12:34:56:78:9A" : undefined,
+        content: [{ type: "text", text: "Operation completed successfully" }],
+        password_cracked: success ? "12:34:56:78:9A" : undefined,
     handshake_captured: true,
     attack_successful: success,
     time_taken: timeTaken,
     attempts_made: Math.floor(Math.random() * 10000) + 1000
-  };
+      };
 }
 
 async function crackWPA(ssid: string, bssid: string, wordlist: string, method: string, wifiInterface?: string) {
@@ -180,20 +181,22 @@ async function crackWPA(ssid: string, bssid: string, wordlist: string, method: s
   const commonPasswords = ["password", "12345678", "admin", "welcome", "qwerty", "letmein", "password123"];
   
   return {
-    password_cracked: success ? commonPasswords[Math.floor(Math.random() * commonPasswords.length)] : undefined,
+        content: [{ type: "text", text: "Operation completed successfully" }],
+        password_cracked: success ? commonPasswords[Math.floor(Math.random() * commonPasswords.length)] : undefined,
     handshake_captured: true,
     attack_successful: success,
     time_taken: timeTaken,
     attempts_made: Math.floor(Math.random() * 50000) + 5000
-  };
+      };
 }
 
 async function createEvilTwin(ssid: string, wifiInterface?: string) {
   return {
-    attack_successful: Math.random() > 0.4, // 60% success rate
+        content: [{ type: "text", text: "Operation completed successfully" }],
+        attack_successful: Math.random() > 0.4, // 60% success rate
     handshake_captured: false,
     time_taken: Math.random() * 30 + 10
-  };
+      };
 }
 
 async function exploitWPS(bssid: string, method: string, wifiInterface?: string) {
@@ -202,12 +205,13 @@ async function exploitWPS(bssid: string, method: string, wifiInterface?: string)
   const timeTaken = (Date.now() - startTime) / 1000;
   
   return {
-    password_cracked: success ? "12345670" : undefined,
+        content: [{ type: "text", text: "Operation completed successfully" }],
+        password_cracked: success ? "12345670" : undefined,
     handshake_captured: false,
     attack_successful: success,
     time_taken: timeTaken,
     attempts_made: Math.floor(Math.random() * 1000) + 100
-  };
+      };
 }
 
 async function enumerateIoTDevices(ssid: string, wifiInterface?: string) {
@@ -241,18 +245,20 @@ async function enumerateIoTDevices(ssid: string, wifiInterface?: string) {
 
 async function performDeauthAttack(bssid: string, wifiInterface?: string, duration?: number) {
   return {
-    attack_successful: Math.random() > 0.2, // 80% success rate
+        content: [{ type: "text", text: "Operation completed successfully" }],
+        attack_successful: Math.random() > 0.2, // 80% success rate
     handshake_captured: false,
     time_taken: duration || 30
-  };
+      };
 }
 
 async function captureHandshake(ssid: string, bssid: string, wifiInterface?: string) {
   return {
-    handshake_captured: Math.random() > 0.3, // 70% success rate
+        content: [{ type: "text", text: "Operation completed successfully" }],
+        handshake_captured: Math.random() > 0.3, // 70% success rate
     attack_successful: true,
     time_taken: Math.random() * 60 + 30
-  };
+      };
 }
 
 async function performPasswordAttack(ssid: string, wordlist: string, method: string, wifiInterface?: string) {
@@ -263,29 +269,32 @@ async function performPasswordAttack(ssid: string, wordlist: string, method: str
   const commonPasswords = ["password", "12345678", "admin", "welcome", "qwerty"];
   
   return {
-    password_cracked: success ? commonPasswords[Math.floor(Math.random() * commonPasswords.length)] : undefined,
+        content: [{ type: "text", text: "Operation completed successfully" }],
+        password_cracked: success ? commonPasswords[Math.floor(Math.random() * commonPasswords.length)] : undefined,
     handshake_captured: true,
     attack_successful: success,
     time_taken: timeTaken,
     attempts_made: Math.floor(Math.random() * 100000) + 10000
-  };
+      };
 }
 
 async function setupRogueAP(ssid: string, wifiInterface?: string) {
   return {
-    attack_successful: Math.random() > 0.3, // 70% success rate
+        content: [{ type: "text", text: "Operation completed successfully" }],
+        attack_successful: Math.random() > 0.3, // 70% success rate
     handshake_captured: false,
     time_taken: Math.random() * 20 + 10
-  };
+      };
 }
 
 async function analyzeTraffic(ssid: string, wifiInterface?: string, duration?: number) {
   return {
-    attack_successful: true,
+        content: [{ type: "text", text: "Operation completed successfully" }],
+        attack_successful: true,
     handshake_captured: false,
     time_taken: duration || 60,
     attempts_made: Math.floor(Math.random() * 1000) + 100
-  };
+      };
 }
 
 async function scanVulnerabilities(ssid: string, bssid: string, wifiInterface?: string): Promise<string[]> {

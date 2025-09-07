@@ -33,7 +33,7 @@ export function registerCalculator(server: McpServer) {
           break;
         case "divide":
           if (b === 0) throw new Error("Division by zero");
-          result = a / b;
+          result = b !== undefined && b !== 0 ? a / b : Infinity;
           break;
         case "power":
           result = Math.pow(a, b || 2);
@@ -63,7 +63,7 @@ export function registerCalculator(server: McpServer) {
         } 
       };
     } catch (error) {
-      return { content: [], structuredContent: { success: false, result: 0, operation, message: `Calculation failed: ${error.message}` } };
+      return { content: [], structuredContent: { success: false, result: 0, operation, message: `Calculation failed: ${(error as Error).message}` } };
     }
   });
 }

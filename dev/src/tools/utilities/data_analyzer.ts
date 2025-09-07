@@ -61,7 +61,7 @@ export function registerDataAnalyzer(server: McpServer) {
         } 
       };
     } catch (error) {
-      return { content: [], structuredContent: { success: false, message: `Data analysis failed: ${error.message}` } };
+      return { content: [], structuredContent: { success: false, message: `Data analysis failed: ${(error as Error).message}` } };
     }
   });
 }

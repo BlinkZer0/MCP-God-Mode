@@ -43,7 +43,7 @@ export function registerElevatedPermissionsManager(server) {
                     throw new Error(`Unknown permission action: ${action}`);
             }
             return {
-                content: [],
+                content: [{ type: "text", text: "Operation failed" }],
                 structuredContent: {
                     success: true,
                     message,

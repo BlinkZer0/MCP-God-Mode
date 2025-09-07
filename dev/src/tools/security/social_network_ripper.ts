@@ -231,7 +231,7 @@ export function registerSocialNetworkRipper(server: McpServer) {
           type: "text",
           text: JSON.stringify({
             success: false,
-            message: `Failed to extract information from ${platform} for target ${target}: ${error instanceof Error ? error.message : 'Unknown error'}`,
+            message: `Failed to extract information from ${platform} for target ${target}: ${error instanceof Error ? (error as Error).message : 'Unknown error'}`,
             extraction_results: undefined
           }, null, 2)
         }]

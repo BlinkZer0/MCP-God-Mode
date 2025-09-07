@@ -224,6 +224,7 @@ async function monitorFrequencyBand(centerFreq, bandwidth) {
 }
 async function analyzeModulation(frequency) {
     return {
+        content: [{ type: "text", text: "Operation completed successfully" }],
         signal_type: "Digital",
         data_rate: 9600,
         encryption: false,

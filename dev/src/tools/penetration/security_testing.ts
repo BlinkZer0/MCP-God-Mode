@@ -77,11 +77,11 @@ export function registerSecurityTesting(server: McpServer) {
       return {
         content: [{
           type: "text",
-          text: `Security testing failed: ${error instanceof Error ? error.message : 'Unknown error'}`
+          text: `Security testing failed: ${error instanceof Error ? (error as Error).message : 'Unknown error'}`
         }],
         structuredContent: {
           success: false,
-          error: `Security testing failed: ${error instanceof Error ? error.message : 'Unknown error'}`
+          error: `Security testing failed: ${error instanceof Error ? (error as Error).message : 'Unknown error'}`
         }
       };
     }

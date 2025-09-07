@@ -70,17 +70,17 @@ export function registerDockerManagement(server: McpServer) {
           break;
       }
       
-      return { 
-        content: [], 
-        structuredContent: { 
-          success: true, 
+      return {
+        content: [{ type: "text", text: "Operation failed" }],
+        structuredContent: {
+          success: true,
           message,
           containers,
           images
-        } 
+        }
       };
     } catch (error) {
-      return { content: [], structuredContent: { success: false, message: `Docker management failed: ${error instanceof Error ? error.message : "Unknown error"}` } };
+      return { content: [], structuredContent: { success: false, message: `Docker management failed: ${error instanceof Error ? (error as Error).message : "Unknown error"}` } };
     }
   });
 }

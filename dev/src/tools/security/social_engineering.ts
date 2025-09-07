@@ -42,7 +42,7 @@ export function registerSocialEngineering(server: McpServer) {
         content: [], 
         structuredContent: { 
           success: false, 
-          message: `Social engineering operation failed: ${error instanceof Error ? error.message : 'Unknown error'}` 
+          message: `Social engineering operation failed: ${error instanceof Error ? (error as Error).message : 'Unknown error'}` 
         } 
       };
     }

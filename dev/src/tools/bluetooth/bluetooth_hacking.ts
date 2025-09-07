@@ -59,11 +59,11 @@ export function registerBluetoothHacking(server: McpServer) {
       return {
         content: [{
           type: "text",
-          text: `Bluetooth operation failed: ${error instanceof Error ? error.message : 'Unknown error'}`
+          text: `Bluetooth operation failed: ${error instanceof Error ? (error as Error).message : 'Unknown error'}`
         }],
         structuredContent: {
           success: false,
-          error: `Bluetooth operation failed: ${error instanceof Error ? error.message : 'Unknown error'}`
+          error: `Bluetooth operation failed: ${error instanceof Error ? (error as Error).message : 'Unknown error'}`
         }
       };
     }

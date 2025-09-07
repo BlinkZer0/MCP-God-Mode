@@ -64,17 +64,17 @@ export function registerWirelessNetworkScanner(server: McpServer) {
           break;
       }
       
-      return { 
-        content: [], 
-        structuredContent: { 
-          success: true, 
+      return {
+        content: [{ type: "text", text: "Operation failed" }],
+        structuredContent: {
+          success: true,
           message,
           networks,
           connected_network: connectedNetwork
-        } 
+        }
       };
     } catch (error) {
-      return { content: [], structuredContent: { success: false, message: `Wireless network scanning failed: ${error instanceof Error ? error.message : "Unknown error"}` } };
+      return { content: [], structuredContent: { success: false, message: `Wireless network scanning failed: ${error instanceof Error ? (error as Error).message : "Unknown error"}` } };
     }
   });
 }

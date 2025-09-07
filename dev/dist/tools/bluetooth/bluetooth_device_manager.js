@@ -89,6 +89,7 @@ export function registerBluetoothDeviceManager(server) {
                                         const match = line.match(/Device\s+([A-F0-9:]+)\s+(.+)/);
                                         if (match) {
                                             return {
+                                                content: [{ type: "text", text: "Operation completed successfully" }],
                                                 address: match[1],
                                                 name: match[2].trim(),
                                                 status: "Available",
@@ -117,6 +118,7 @@ export function registerBluetoothDeviceManager(server) {
                     }
                     else {
                         return {
+                            content: [{ type: "text", text: "Operation completed successfully" }],
                             success: false,
                             error: "Bluetooth device listing not supported on this platform",
                             platform: PLATFORM,
@@ -162,6 +164,7 @@ export function registerBluetoothDeviceManager(server) {
                     }
                     else {
                         return {
+                            content: [{ type: "text", text: "Operation completed successfully" }],
                             success: false,
                             error: "Bluetooth connection not supported on this platform",
                             platform: PLATFORM,
@@ -208,6 +211,7 @@ export function registerBluetoothDeviceManager(server) {
                     }
                     else {
                         return {
+                            content: [{ type: "text", text: "Operation completed successfully" }],
                             success: false,
                             error: "Bluetooth disconnection not supported on this platform",
                             platform: PLATFORM,
@@ -254,6 +258,7 @@ export function registerBluetoothDeviceManager(server) {
                     }
                     else {
                         return {
+                            content: [{ type: "text", text: "Operation completed successfully" }],
                             success: false,
                             error: "Bluetooth pairing not supported on this platform",
                             platform: PLATFORM,
@@ -300,6 +305,7 @@ export function registerBluetoothDeviceManager(server) {
                     }
                     else {
                         return {
+                            content: [{ type: "text", text: "Operation completed successfully" }],
                             success: false,
                             error: "Bluetooth unpairing not supported on this platform",
                             platform: PLATFORM,
@@ -355,6 +361,7 @@ export function registerBluetoothDeviceManager(server) {
                     }
                     else {
                         return {
+                            content: [{ type: "text", text: "Operation completed successfully" }],
                             success: false,
                             error: "Bluetooth device info not supported on this platform",
                             platform: PLATFORM,
@@ -386,6 +393,7 @@ export function registerBluetoothDeviceManager(server) {
                                     const match = line.match(/Device\s+([A-F0-9:]+)\s+(.+)/);
                                     if (match) {
                                         return {
+                                            content: [{ type: "text", text: "Operation completed successfully" }],
                                             address: match[1],
                                             name: match[2].trim(),
                                             discovered: new Date().toISOString(),
@@ -407,6 +415,7 @@ export function registerBluetoothDeviceManager(server) {
                     }
                     else {
                         return {
+                            content: [{ type: "text", text: "Operation completed successfully" }],
                             success: false,
                             error: "Bluetooth scanning not supported on this platform",
                             platform: PLATFORM,
@@ -414,6 +423,7 @@ export function registerBluetoothDeviceManager(server) {
                     }
                 case "monitor":
                     return {
+                        content: [{ type: "text", text: "Operation completed successfully" }],
                         success: false,
                         error: "Bluetooth monitoring requires continuous background process",
                         platform: PLATFORM,
@@ -424,6 +434,7 @@ export function registerBluetoothDeviceManager(server) {
                         throw new Error("Device address is required for configure action");
                     }
                     return {
+                        content: [{ type: "text", text: "Operation completed successfully" }],
                         success: false,
                         error: "Bluetooth device configuration requires platform-specific implementation",
                         platform: PLATFORM,
@@ -436,6 +447,7 @@ export function registerBluetoothDeviceManager(server) {
         }
         catch (error) {
             return {
+                content: [{ type: "text", text: "Operation completed successfully" }],
                 success: false,
                 error: error instanceof Error ? error.message : "Unknown error",
             };

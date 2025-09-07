@@ -27,7 +27,7 @@ export function registerMobileFileOps(server: McpServer) {
     try {
       // Mobile file operations implementation
       let message = "";
-      let files = [];
+      let files: any[] = [];
       let fileContent = "";
       
       switch (action) {
@@ -59,17 +59,17 @@ export function registerMobileFileOps(server: McpServer) {
           break;
       }
       
-      return { 
-        content: [], 
-        structuredContent: { 
-          success: true, 
+      return {
+        content: [{ type: "text", text: "Operation failed" }],
+        structuredContent: {
+          success: true,
           message,
           files,
           content: fileContent
-        } 
+        }
       };
     } catch (error) {
-      return { content: [], structuredContent: { success: false, message: `Mobile file operation failed: ${error.message}` } };
+      return { content: [], structuredContent: { success: false, message: `Mobile file operation failed: ${(error as Error).message}` } };
     }
   });
 }

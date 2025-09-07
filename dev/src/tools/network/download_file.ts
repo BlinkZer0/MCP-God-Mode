@@ -102,7 +102,7 @@ export function registerDownloadFile(server: McpServer) {
       };
     } catch (error) {
       return {
-        content: [{ type: "text", text: `Download failed: ${error instanceof Error ? error.message : 'Unknown error'}` }],
+        content: [{ type: "text", text: `Download failed: ${error instanceof Error ? (error as Error).message : 'Unknown error'}` }],
         structuredContent: {
           success: false,
           url,
@@ -110,7 +110,7 @@ export function registerDownloadFile(server: McpServer) {
           size: 0,
           filename: "",
           contentType: "",
-          error: error instanceof Error ? error.message : 'Unknown error'
+          error: error instanceof Error ? (error as Error).message : 'Unknown error'
         }
       };
     }

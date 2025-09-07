@@ -35,16 +35,16 @@ export function registerGitStatus(server: McpServer) {
         untracked: show_untracked ? ["new_file.md"] : []
       };
       
-      return { 
-        content: [], 
-        structuredContent: { 
-          success: true, 
+      return {
+        content: [{ type: "text", text: "Operation failed" }],
+        structuredContent: {
+          success: true,
           message: "Git status retrieved successfully",
-          status 
-        } 
+          status
+        }
       };
     } catch (error) {
-      return { content: [], structuredContent: { success: false, message: `Git status failed: ${error.message}` } };
+      return { content: [], structuredContent: { success: false, message: `Git status failed: ${(error as Error).message}` } };
     }
   });
 }

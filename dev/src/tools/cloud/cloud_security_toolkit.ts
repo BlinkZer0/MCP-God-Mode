@@ -33,7 +33,7 @@ export function registerCloudSecurityToolkit(server: McpServer) {
     try {
       // Cloud security toolkit implementation
       let message = "";
-      let securityFindings = [];
+      let securityFindings: any[] = [];
       let complianceStatus = {};
       
       switch (action) {
@@ -76,17 +76,17 @@ export function registerCloudSecurityToolkit(server: McpServer) {
           break;
       }
       
-      return { 
-        content: [], 
-        structuredContent: { 
-          success: true, 
+      return {
+        content: [{ type: "text", text: "Operation failed" }],
+        structuredContent: {
+          success: true,
           message,
           security_findings: securityFindings,
           compliance_status: complianceStatus
-        } 
+        }
       };
     } catch (error) {
-      return { content: [], structuredContent: { success: false, message: `Cloud security assessment failed: ${error.message}` } };
+      return { content: [], structuredContent: { success: false, message: `Cloud security assessment failed: ${(error as Error).message}` } };
     }
   });
 }
