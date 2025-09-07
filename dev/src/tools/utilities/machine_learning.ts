@@ -9,7 +9,7 @@ export function registerMachineLearning(server: McpServer) {
       action: z.enum(["train", "predict", "evaluate", "optimize", "deploy"]).describe("ML action to perform"),
       model_type: z.enum(["classification", "regression", "clustering", "neural_network"]).describe("Type of ML model"),
       data_path: z.string().optional().describe("Path to training data"),
-      hyperparameters: z.record(z.any()).optional().describe("Model hyperparameters")
+      hyperparameters: z.record(z.string(), z.object({})).optional().describe("Model hyperparameters")
     },
     outputSchema: {
       success: z.boolean(),

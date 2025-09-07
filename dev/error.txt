@@ -1,0 +1,27 @@
+info: MCP Server starting {"config":{"allowedRoot":"unrestricted","procAllowlist":"unrestricted","webAllowlist":"unrestricted"},"platform":"win32","timestamp":"2025-09-07T22:29:31.659Z"}
+Warning: Tool flipper_list_devices is already registered, skipping duplicate registration
+Warning: Tool flipper_connect is already registered, skipping duplicate registration
+Warning: Tool flipper_disconnect is already registered, skipping duplicate registration
+Warning: Tool flipper_info is already registered, skipping duplicate registration
+Warning: Tool flipper_fs_list is already registered, skipping duplicate registration
+Warning: Tool flipper_fs_read is already registered, skipping duplicate registration
+Warning: Tool flipper_fs_write is already registered, skipping duplicate registration
+Warning: Tool flipper_fs_delete is already registered, skipping duplicate registration
+Warning: Tool flipper_ir_send is already registered, skipping duplicate registration
+Warning: Tool flipper_ir_send_raw is already registered, skipping duplicate registration
+Warning: Tool flipper_subghz_tx is already registered, skipping duplicate registration
+Warning: Tool flipper_subghz_tx_raw is already registered, skipping duplicate registration
+Warning: Tool flipper_nfc_read is already registered, skipping duplicate registration
+Warning: Tool flipper_nfc_dump is already registered, skipping duplicate registration
+Warning: Tool flipper_rfid_read is already registered, skipping duplicate registration
+Warning: Tool flipper_rfid_dump is already registered, skipping duplicate registration
+Warning: Tool flipper_badusb_send is already registered, skipping duplicate registration
+Warning: Tool flipper_badusb_ducky is already registered, skipping duplicate registration
+Warning: Tool flipper_uart_sniff is already registered, skipping duplicate registration
+Warning: Tool flipper_gpio_set is already registered, skipping duplicate registration
+Warning: Tool flipper_gpio_read is already registered, skipping duplicate registration
+Warning: Tool flipper_ble_scan is already registered, skipping duplicate registration
+Warning: Tool flipper_ble_pair is already registered, skipping duplicate registration
+Warning: Tool flipper_list_sessions is already registered, skipping duplicate registration
+Warning: Tool browser_control is already registered, skipping duplicate registration
+info: MCP God Mode - Advanced Security & Network Analysis Platform started successfully {"timestamp":"2025-09-07T22:29:31.707Z"}

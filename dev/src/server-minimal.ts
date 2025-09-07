@@ -477,7 +477,7 @@ server.registerTool("mobile_file_ops", {
   outputSchema: {
     success: z.boolean(),
     platform: z.string(),
-    result: z.any(),
+    result: z.object({}),
     error: z.string().optional()
   }
 }, async ({ action, source, destination, content, pattern }) => {
@@ -563,7 +563,7 @@ server.registerTool("mobile_system_tools", {
     success: z.boolean(),
     platform: z.string(),
     tool: z.string(),
-    result: z.any(),
+    result: z.object({}),
     error: z.string().optional()
   }
 }, async ({ tool, action = "list", filter }) => {
@@ -657,7 +657,7 @@ server.registerTool("mobile_hardware", {
     feature: z.string(),
     available: z.boolean(),
     status: z.string().optional(),
-    data: z.any().optional(),
+    data: z.object({}).optional(),
     error: z.string().optional()
   }
 }, async ({ feature, action }) => {
@@ -740,7 +740,7 @@ server.registerTool("web_scraper", {
     success: z.boolean(),
     url: z.string(),
     action: z.string(),
-    data: z.any(),
+    data: z.object({}),
     platform: z.string(),
     timestamp: z.string(),
     error: z.string().optional()
@@ -821,7 +821,7 @@ server.registerTool("browser_control", {
     success: z.boolean(),
     action: z.string(),
     browser: z.string(),
-    result: z.any(),
+    result: z.object({}),
     platform: z.string(),
     timestamp: z.string(),
     error: z.string().optional()
@@ -1045,7 +1045,7 @@ server.registerTool("system_restore", {
     success: z.boolean(),
     platform: z.string(),
     action: z.string(),
-    result: z.any(),
+    result: z.object({}),
     message: z.string(),
     error: z.string().optional()
   }

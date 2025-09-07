@@ -1,0 +1,16 @@
+# Installation
+> `npm install --save @types/mathjs`
+
+# Summary
+This package contains type definitions for mathjs (https://mathjs.org/).
+
+# Details
+Files were exported from https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/mathjs.
+
+### Additional Details
+ * Last updated: Tue, 04 May 2021 19:31:30 GMT
+ * Dependencies: [@types/decimal.js](https://npmjs.com/package/@types/decimal.js)
+ * Global values: `math`
+
+# Credits
+These definitions were written by [Ilya Shestakov](https://github.com/siavol), [Andy Patterson](https://github.com/andnp), [Brad Besserman](https://github.com/bradbesserman), [Pawel Krol](https://github.com/pawkrol), [Charlee Li](https://github.com/charlee), and [Mark Wiemer](https://github.com/mark-wiemer).

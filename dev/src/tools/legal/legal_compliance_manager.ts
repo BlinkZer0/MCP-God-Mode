@@ -39,7 +39,7 @@ export function registerLegalComplianceManager(server: McpServer) {
       // Evidence preservation parameters
       sourcePath: z.string().optional().describe("Source path for evidence preservation"),
       evidenceType: z.enum(["file", "data", "log", "system_state", "network_capture", "memory_dump"]).optional().describe("Type of evidence"),
-      metadata: z.record(z.any()).optional().describe("Additional metadata for evidence"),
+      metadata: z.record(z.string(), z.object({})).optional().describe("Additional metadata for evidence"),
       legalHoldIds: z.array(z.string()).optional().describe("Associated legal hold IDs"),
       // Chain of custody parameters
       evidenceId: z.string().optional().describe("Evidence ID for chain of custody"),
@@ -76,7 +76,7 @@ export function registerLegalComplianceManager(server: McpServer) {
     outputSchema: {
       success: z.boolean(),
       message: z.string(),
-      result: z.any().optional(),
+      result: z.object({}).optional(),
       complianceStatus: z.object({
         enabled: z.boolean(),
         auditLogging: z.boolean(),

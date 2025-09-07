@@ -199,8 +199,8 @@ export function registerSocialAccountRipperModular(server: McpServer) {
         account_data: z.array(z.object({
           platform: z.string(),
           username: z.string(),
-          profile_data: z.any(),
-          analysis_results: z.any()
+          profile_data: z.object({}),
+          analysis_results: z.object({})
         })),
         cross_platform_analysis: z.object({
           common_elements: z.array(z.string()),
@@ -209,12 +209,12 @@ export function registerSocialAccountRipperModular(server: McpServer) {
           risk_factors: z.array(z.string())
         }),
         module_outputs: z.object({
-          profile_analysis: z.any().optional(),
-          content_analysis: z.any().optional(),
-          geolocation_analysis: z.any().optional(),
-          risk_assessment: z.any().optional(),
-          connections_analysis: z.any().optional(),
-          employment_analysis: z.any().optional()
+          profile_analysis: z.object({}).optional(),
+          content_analysis: z.object({}).optional(),
+          geolocation_analysis: z.object({}).optional(),
+          risk_assessment: z.object({}).optional(),
+          connections_analysis: z.object({}).optional(),
+          employment_analysis: z.object({}).optional()
         }),
         search_metadata: z.object({
           search_duration: z.number(),

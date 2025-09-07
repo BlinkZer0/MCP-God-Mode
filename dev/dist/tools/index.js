@@ -121,6 +121,8 @@ export { registerVmManagement } from "./virtualization/vm_management.js";
 export { registerDockerManagement } from "./virtualization/docker_management.js";
 // AI Tools
 export { registerRagToolkit } from "./ai/rag_toolkit.js";
+// Flipper Zero Tools - Consolidated into single tool
+export { registerFlipperZeroTool, getFlipperZeroToolName, registerFlipperTools, getFlipperToolNames } from "./flipper/index.js";
 // Utility Tools
 export { registerCalculator } from "./utilities/calculator.js";
 export { registerDiceRolling } from "./utilities/dice_rolling.js";

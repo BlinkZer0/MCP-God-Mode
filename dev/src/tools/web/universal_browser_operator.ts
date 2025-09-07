@@ -31,7 +31,7 @@ const BROWSER_ENGINES = {
 
 export function registerUniversalBrowserOperator(server: McpServer) {
   // Universal Browser Control Tool
-  server.registerTool("browser_control", {
+  server.registerTool("universal_browser_operator", {
     description: "Universal browser automation and control tool with cross-platform support for web interaction, navigation, and automation tasks",
     inputSchema: {
       action: z.enum(["navigate", "click", "type", "screenshot", "get_text", "get_html", "evaluate", "wait", "scroll"]).describe("Browser action to perform"),

@@ -10,7 +10,7 @@ const WebhookManagerSchema = z.object({
   url: z.string().optional(),
   method: z.enum(["GET", "POST", "PUT", "DELETE"]).default("POST"),
   headers: z.record(z.string()).optional(),
-  payload: z.any().optional(),
+  payload: z.object({}).optional(),
   port: z.number().default(3000),
   timeout: z.number().default(5000),
   retry_count: z.number().default(3),

@@ -1,20 +1,20 @@
 # 🚀 MCP God Mode - Ultimate Cross-Platform Security & System Management Suite
 
-[![Version](https://img.shields.io/badge/Version-v1.7-blue)](docs/updates/VERSION_1.7_CHANGELOG.md)
+[![Version](https://img.shields.io/badge/Version-v1.7b-blue)](docs/updates/VERSION_1.7b_CHANGELOG.md)
 [![License](https://img.shields.io/badge/License-MIT-green)](LICENSE)
 [![Node](https://img.shields.io/badge/Node-%3E%3D%2018-brightgreen)](package.json)
 [![Platforms](https://img.shields.io/badge/Platforms-Win%20%7C%20macOS%20%7C%20Linux%20%7C%20Android%20%7C%20iOS-orange)](docs/CROSS_PLATFORM_COMPATIBILITY.md)
 [![GitHub Stars](https://img.shields.io/github/stars/BlinkZer0/MCP-God-Mode?style=social)](https://github.com/BlinkZer0/MCP-God-Mode)
 [![CI](https://img.shields.io/badge/CI-Smoke%20Tests-yellow)](scripts/smoke-test.js)
-[![Tools](https://img.shields.io/badge/Tools-135%20Total-orange)](docs/TOOL_CATALOG.md)
+[![Tools](https://img.shields.io/badge/Tools-147%20Total-orange)](docs/general/TOOL_CATALOG.md)
 
-**Version 1.7 - Perfect Parity & MCP Web UI Bridge Update**
+**Version 1.7b - Perfect Parity, MCP Web UI Bridge & Flipper Zero Integration**
 
-### Tool Inventory (v1.7)
+### Tool Inventory (v1.7b)
 | Profile         | Count |
 |-----------------|------:|
-| Refactored Set  | 135   |
-| Modular Set     | 135   |
+| Refactored Set  | 147   |
+| Modular Set     | 147   |
 | Minimal Profile | 15    |
 
 https://github.com/user-attachments/assets/932c43e4-159e-4ce2-9c02-4acf23fc47fd
@@ -28,13 +28,13 @@ https://github.com/user-attachments/assets/932c43e4-159e-4ce2-9c02-4acf23fc47fd
 
 ## 📚 Quick Navigation
 
-- **[🚀 Quick Start](docs/COMPLETE_SETUP_GUIDE.md)** - Get up and running in minutes
-- **[🌐 Frontend Integration Guide](docs/MCP_FRONTEND_INTEGRATION_GUIDE.md)** - Setup for Cursor, LM Studio, Claude, SillyTavern & more
-- **[📋 Complete Tool Catalog](docs/TOOL_CATALOG.md)** - Browse all 135 documented tools with detailed documentation
-- **[🔧 Parameter Reference](docs/COMPLETE_PARAMETER_REFERENCE.md)** - Complete parameter documentation
-- **[💻 Examples & Tutorials](docs/EXAMPLES_AND_TUTORIALS.md)** - Real-world usage examples
-- **[🌍 Platform Compatibility](docs/CROSS_PLATFORM_COMPATIBILITY.md)** - Platform-specific details
-- **[📝 Version 1.7 Changelog](docs/updates/VERSION_1.7_CHANGELOG.md)** - What's new in the latest update
+- **[🚀 Quick Start](docs/guides/COMPLETE_SETUP_GUIDE.md)** - Get up and running in minutes
+- **[🌐 Frontend Integration Guide](docs/guides/MCP_FRONTEND_INTEGRATION_GUIDE.md)** - Setup for Cursor, LM Studio, Claude, SillyTavern & more
+- **[📋 Complete Tool Catalog](docs/general/TOOL_CATALOG.md)** - Browse all 147 documented tools with detailed documentation
+- **[🔧 Parameter Reference](docs/general/COMPLETE_PARAMETER_REFERENCE.md)** - Complete parameter documentation
+- **[💻 Examples & Tutorials](docs/guides/EXAMPLES_AND_TUTORIALS.md)** - Real-world usage examples
+- **[🌍 Platform Compatibility](docs/general/CROSS_PLATFORM_COMPATIBILITY.md)** - Platform-specific details
+- **[📝 Version 1.7b Changelog](docs/updates/VERSION_1.7b_CHANGELOG.md)** - What's new in the latest update
 
 ## 🚀 Quick Start
 
@@ -48,9 +48,9 @@ cp .env.example .env   # edit if needed
 npm install
 
 # 3) Launch (choose one)
-npm run start:refactored   # full refactored server (135 tools)
+npm run start:refactored   # full refactored server (147 tools)
 # or
-npm run start:modular      # modular loader (135 tools, grouped)
+npm run start:modular      # modular loader (147 tools, grouped)
 # or minimal
 npm run start:minimal      # minimal profile (15 core tools)
 ```
@@ -68,23 +68,23 @@ npm run smoke
 
 ## 🌟 What is MCP God Mode?
 
-MCP God Mode is the ultimate cybersecurity and system management platform that provides **135 fully implemented tools** across **5 major platforms**. It's designed for security professionals, system administrators, penetration testers, and anyone who needs comprehensive system control and security testing capabilities. 
+MCP God Mode is the ultimate cybersecurity and system management platform that provides **147 fully implemented tools** across **5 major platforms**. It's designed for security professionals, system administrators, penetration testers, and anyone who needs comprehensive system control and security testing capabilities. 
 
-**📝 Note**: We offer both monolithic and modular server architectures. Our **primary server-refactored** provides comprehensive functionality in a unified interface with **135 tools**. The modular server provides **135 tools** (configurable) for granular control, better error handling, and for the ease of an individual to extract a tool for their own server build. Tools are located in dev/src/tools. Each architecture serves different use cases and preferences.
+**📝 Note**: We offer both monolithic and modular server architectures. Our **primary server-refactored** provides comprehensive functionality in a unified interface with **147 tools**. The modular server provides **147 tools** (configurable) for granular control, better error handling, and for the ease of an individual to extract a tool for their own server build. Tools are located in dev/src/tools. Each architecture serves different use cases and preferences.
 
 **🔍 Server Architecture Differences**:
-- **Server-Refactored (135 tools)**: Unified server with all core endpoints plus 11 enhanced endpoints (5 enhanced tools + 6 MCP Web UI Bridge tools). Includes built-in legal compliance, audit logging, and forensic readiness capabilities.
-- **Modular Server (135 tools, configurable)**: Comprehensive architecture with 135 tools for granular control, better error handling, and specialized functionality. **Configurable** - can be set to load minimal (10 tools), custom categories, or full (135 tools). Full legal compliance integration with modular evidence preservation.
+- **Server-Refactored (147 tools)**: Unified server with all core endpoints plus enhanced endpoints (Flipper Zero suite + MCP Web UI Bridge + advanced tools). Includes built-in legal compliance, audit logging, and forensic readiness capabilities.
+- **Modular Server (147 tools, configurable)**: Comprehensive architecture with 147 tools for granular control, better error handling, and specialized functionality. **Configurable** - can be set to load minimal (10 tools), custom categories, or full (147 tools). Full legal compliance integration with modular evidence preservation.
 - **Server-Minimal (15 tools)**: Lightweight implementation with core tools only for basic functionality and resource-constrained environments.
 
 **🔢 Tool Count Explanation**: 
 - **152 TypeScript files** exist in the tools directory
-- **119 register functions are exported** in the comprehensive index.ts file
-- **135 tools are registered** in server-refactored (119 from index + 11 enhanced tools: 5 enhanced + 6 MCP Web UI Bridge)
-- **135 tools are registered** in server-modular (119 from index + 11 enhanced tools: 5 enhanced + 6 MCP Web UI Bridge, configurable)
+- **120 register functions are exported** in the comprehensive index.ts file (including Flipper Zero tools)
+- **147 tools are registered** in server-refactored (120 exports + Flipper suite + MCP Web UI Bridge + advanced endpoints)
+- **147 tools are registered** in server-modular (identical set, configurable)
 - **15 tools are registered** in server-minimal (core tools only)
 
-**📊 Documentation Status**: All 135 tools (both servers) now have comprehensive documentation with detailed usage examples, parameter references, and platform compatibility information. See [Complete Tool Catalog](docs/TOOL_CATALOG.md) for detailed information about each tool.
+**📊 Documentation Status**: All 147 tools (both servers) now have comprehensive documentation with detailed usage examples, parameter references, and platform compatibility information. See [Complete Tool Catalog](docs/general/TOOL_CATALOG.md) for detailed information about each tool.
 
 **⚖️ Legal Compliance & Forensic Readiness**: Both server architectures include comprehensive legal compliance capabilities including audit logging, evidence preservation, legal hold management, and chain of custody tracking. These features are disabled by default and can be enabled through environment variables for SOX, HIPAA, GDPR, PCI DSS, and ISO 27001 compliance. See [Legal Compliance Documentation](docs/LEGAL_COMPLIANCE.md) for detailed configuration and usage instructions.
 
@@ -99,6 +99,100 @@ MCP God Mode is the ultimate cybersecurity and system management platform that p
 
 **⚠️ Threat Model / Safe-Use Notice**: This tool is intended for authorized testing and security assessment ONLY. Use only on networks and systems you own or have explicit written permission to test. Default audit logging is enabled; high-risk tools require confirmation. Do-not-target policy applies to all operations.
 
+## 🐬 Flipper Zero Integration
+
+MCP-God-Mode includes comprehensive Flipper Zero integration with cross-platform support for both USB CDC Serial and BLE GATT transports. A single consolidated tool `flipper_zero` provides all Flipper Zero operations in both server modes.
+
+See full documentation at `docs/tool/flipper_zero.md`.
+
+### 🔧 Setup
+
+1. **Enable Flipper Integration**:
+   ```bash
+   # Copy environment template
+   cp dev/flipper.env.example .env
+   
+   # Edit .env to enable Flipper Zero
+   MCPGM_FLIPPER_ENABLED=true
+   MCPGM_FLIPPER_USB_ENABLED=true
+   MCPGM_FLIPPER_BLE_ENABLED=true
+   ```
+
+2. **Install Dependencies**:
+   ```bash
+   cd dev
+   npm install
+   ```
+
+3. **Start Server**:
+   ```bash
+   npm run start:refactored
+   # or
+   npm run start:modular
+   ```
+
+### 🚀 Quick Examples
+
+**List Available Devices**:
+```javascript
+// List all Flipper Zero devices (USB and BLE)
+flipper_zero({\n  action: "list_devices",\n  scan_ble: true,\n  scan_usb: true,\n  include_bridge: true\n})
+```
+
+**Connect and Get Device Info**:
+```javascript
+// Connect to device
+const connectResult = flipper_zero({\n  action: "connect",\n  device_id: "usb:/dev/tty.usbmodem123"\n})
+
+// Get device information
+const info = flipper_zero({\n  action: "get_info",\n  session_id: connectResult.sessionId\n})
+```
+
+**File Operations**:
+```javascript
+// List files in root directory
+flipper_zero({\n  action: "fs_list",\n  session_id: sessionId,\n  path: "/"\n})
+
+// Read a file
+flipper_zero({\n  action: "fs_read",\n  session_id: sessionId,\n  path: "/ext/ir/remote.ir"\n})
+```
+
+**NFC/RFID Operations**:
+```javascript
+// Read NFC card
+flipper_zero({\n  action: "nfc_read",\n  session_id: sessionId\n})
+
+// Dump RFID to file
+flipper_zero({\n  action: "rfid_dump",\n  session_id: sessionId,\n  filename: "/ext/nfc/dump.nfc"\n})
+```
+
+### 🔒 Safety Features
+
+- **Transmission Lock**: IR, Sub-GHz, and BadUSB operations are disabled by default
+- **Audit Logging**: All operations are logged for security and compliance
+- **Session Management**: Automatic session cleanup and timeout handling
+- **Environment Guards**: Multiple layers of permission checking
+
+### 🌍 Cross-Platform Support
+
+- **Windows**: USB CDC appears as COM ports, BLE requires Windows 10+
+- **macOS**: USB CDC appears as `/dev/tty.usbmodem*`, BLE requires permissions
+- **Linux**: USB CDC requires `dialout` group, BLE requires `noble` permissions
+
+### ?? Available Operations (Consolidated)
+
+- Use the single tool:  `flipper_zero` with the `action` parameter (see docs/tool/flipper_zero.md). 
+- Common actions:  `list_devices`, `connect`, `disconnect`, `get_info`, `list_sessions`, `fs_list`, `fs_read`, `fs_write`, `fs_delete`, `ir_send`, `ir_send_raw`, `subghz_tx`, `subghz_tx_raw`, `nfc_read`, `nfc_dump`, `rfid_read`, `rfid_dump`, `badusb_send`, `badusb_ducky`, `uart_sniff`, `gpio_set`, `gpio_read`, `ble_scan`, `ble_pair`. 
+
+### ⚠️ Legal and Safety Notice
+
+Flipper Zero transmission operations (IR, Sub-GHz, BadUSB) may be regulated in your jurisdiction. Always ensure you have proper authorization before using transmission features. The integration includes multiple safety mechanisms:
+
+- Hard-locked transmission by default
+- Audit logging for all operations
+- Session-based security
+- Environment-based permission controls
+
 ## 🔢 Understanding Tool Counts: Tools vs. Actions vs. Parameters
 
 ### **Why Tool Counting is Complex**
@@ -107,7 +201,7 @@ Tool counting in MCP God Mode presents unique challenges due to the multi-layere
 
 #### **🛠️ Tools (MCP Server Functions)**
 - **Definition**: Distinct MCP server tool registrations
-- **Count**: 135 tools (server-refactored) / 135 tools (modular)
+- **Count**: 147 tools (server-refactored) / 147 tools (modular)
 - **Example**: `wifi_security_toolkit` = 1 tool
 
 #### **⚡ Actions (Tool Capabilities)**
@@ -124,7 +218,7 @@ Tool counting in MCP God Mode presents unique challenges due to the multi-layere
 
 | Aspect | Server-Refactored | Modular Server |
 |--------|------------------|----------------|
-| **Tool Count** | 135 tools | 135 tools |
+| **Tool Count** | 147 tools | 147 tools |
 | **Architecture** | Unified interface | Individual focused tools |
 | **Complexity** | Multi-action tools | Single-action tools |
 | **Error Handling** | Centralized | Granular |
@@ -139,7 +233,7 @@ The server-refactored and modular servers have different tool counts because:
 3. **Enhanced Functionality**: Modular server provides more precise control with additional tools
 4. **Specialized Capabilities**: Modular server offers granular tools for specific tasks
 
-**🎯 Bottom Line**: Both server-refactored and modular server provide identical functionality with 135 tools for comprehensive operations and built-in legal compliance features. The modular server adds configurability for different deployment scenarios.
+**🎯 Bottom Line**: Both server-refactored and modular server provide identical functionality with 147 tools for comprehensive operations and built-in legal compliance features. The modular server adds configurability for different deployment scenarios.
 
 🎭 **Fun Fact**: One MCP to rule them all, one MCP to find them, one MCP to compile the tools, and in the God Mode bind them! 🎲⚡
 
@@ -157,7 +251,7 @@ See MCP God Mode in action with Cursor IDE integration:
 
 </div>
 
-*MCP God Mode tools seamlessly integrated into Cursor IDE - providing instant access to 135 powerful security and system management tools across all major platforms! 🚀✨*
+*MCP God Mode tools seamlessly integrated into Cursor IDE - providing instant access to 147 powerful security and system management tools across all major platforms! 🚀✨*
 
 **🎭 Fun Fact**: We have so many visual proofs, even the screenshots are impressed! Each image shows different aspects of our comprehensive tool integration! 📸💻
 
@@ -185,7 +279,7 @@ See MCP God Mode in action with Cursor IDE integration:
 - **File Watcher** - File system monitoring
 - **Cron Job Management** - Scheduled task management
 
-**[📖 View All Core Tools](docs/TOOL_CATEGORY_INDEX.md#core-system-tools)**
+**[📖 View All Core Tools](docs/general/TOOL_CATEGORY_INDEX.md#core-system-tools)**
 
 ### 🌐 Network & Security (19 Tools)
 - **Network Diagnostics** - Ping, traceroute, DNS, port scanning
@@ -208,7 +302,7 @@ See MCP God Mode in action with Cursor IDE integration:
 - **Security Testing** - Multi-domain vulnerability assessment
 - **Download File** - File downloading capabilities
 
-**[📖 View All Network Tools](docs/TOOL_CATEGORY_INDEX.md#network--security)**
+**[📖 View All Network Tools](docs/general/TOOL_CATEGORY_INDEX.md#network--security)**
 
 ### 📡 Wireless & Radio (7 Tools)
 - **Wi-Fi Security** - Complete wireless security testing toolkit
@@ -225,7 +319,25 @@ https://github.com/user-attachments/assets/f074039c-1989-40fc-b769-5efa855e854d
 
  showing real-time wireless security testing capabilities.
 
-**[📖 View All Wireless Tools](docs/TOOL_CATEGORY_INDEX.md#wireless--radio)**
+**[📖 View All Wireless Tools](docs/general/TOOL_CATEGORY_INDEX.md#wireless--radio)**
+
+### 🐬 Flipper Zero Integration (24 Tools)
+-- **Device Management** - Connect, disconnect, and manage Flipper Zero devices
+-- **File System** - Read, write, list, and delete files on Flipper Zero storage
+-- **Infrared (IR)** - Send IR signals and raw IR data (requires TX permission)
+-- **Sub-GHz** - Transmit Sub-GHz signals and raw data (requires TX permission)
+-- **NFC/RFID** - Read and dump NFC cards and RFID tags
+-- **BadUSB** - Send BadUSB scripts and DuckyScript (requires TX permission)
+-- **UART** - Sniff UART communication
+-- **GPIO** - Set and read GPIO pin values
+-- **Bluetooth** - Scan and pair with Bluetooth devices
+-- **Cross-Platform** - USB CDC Serial and BLE GATT transport support
+-- **Safety Features** - Hard-locked transmission with audit logging
+-- **Session Management** - Secure session handling with automatic cleanup
+
+**🔒 Safety Notice**: Flipper Zero transmission operations (IR, Sub-GHz, BadUSB) are disabled by default and require explicit environment configuration. All operations are logged for audit purposes.
+
+**[?? Flipper Zero (Consolidated) — Full Docs](docs/tool/flipper_zero.md)**
 
 ### 📧 Email Management (6 Tools)
 - **SMTP Operations** - Send emails across all platforms
@@ -233,7 +345,7 @@ https://github.com/user-attachments/assets/f074039c-1989-40fc-b769-5efa855e854d
 - **Email Security** - Threat analysis and filtering
 - **Account Management** - Multi-account email operations
 
-**[📖 View All Email Tools](docs/TOOL_CATEGORY_INDEX.md#email-management)**
+**[📖 View All Email Tools](docs/general/TOOL_CATEGORY_INDEX.md#email-management)**
 
 ### 🎵 Media & Content (5 Tools)
 - **Audio Processing** - Recording, editing, and conversion
@@ -242,7 +354,7 @@ https://github.com/user-attachments/assets/f074039c-1989-40fc-b769-5efa855e854d
 - **Screenshot Tools** - Advanced screen capture capabilities
 - **OCR Tools** - Text extraction from images
 
-**[📖 View All Media Tools](docs/TOOL_CATEGORY_INDEX.md#media--content)**
+**[📖 View All Media Tools](docs/general/TOOL_CATEGORY_INDEX.md#media--content)**
 
 ### 🖥️ Web & Browser (4 Tools)
 - **Browser Automation** - Cross-platform browser control
@@ -250,7 +362,7 @@ https://github.com/user-attachments/assets/f074039c-1989-40fc-b769-5efa855e854d
 - **Web Automation** - Advanced web automation
 - **Webhook Manager** - Webhook endpoint management
 
-**[📖 View All Web Tools](docs/TOOL_CATEGORY_INDEX.md#web--browser)**
+**[📖 View All Web Tools](docs/general/TOOL_CATEGORY_INDEX.md#web--browser)**
 
 ### 🌐 MCP Web UI Bridge (6 Tools)
 - **Web UI Chat** - Chat with AI services through their web interfaces without APIs
@@ -264,7 +376,7 @@ https://github.com/user-attachments/assets/f074039c-1989-40fc-b769-5efa855e854d
 **Platforms**: Desktop (Windows/macOS/Linux), Android, iOS
 **Features**: Real-time streaming, encrypted session persistence, anti-bot friendly, macro recording/replay
 
-**[📖 View All MCP Web UI Bridge Tools](docs/TOOL_CATEGORY_INDEX.md#mcp-web-ui-bridge)**
+**[📖 View All MCP Web UI Bridge Tools](docs/general/TOOL_CATEGORY_INDEX.md#mcp-web-ui-bridge)**
 
 ### 📱 Mobile Device (13 Tools)
 - **Device Information** - Hardware and software details
@@ -281,13 +393,13 @@ https://github.com/user-attachments/assets/f074039c-1989-40fc-b769-5efa855e854d
 - **Network Analyzer** - Mobile network analysis and diagnostics
 - **Performance Toolkit** - Mobile app performance testing and benchmarking
 
-**[📖 View All Mobile Tools](docs/TOOL_CATEGORY_INDEX.md#mobile-device)**
+**[📖 View All Mobile Tools](docs/general/TOOL_CATEGORY_INDEX.md#mobile-device)**
 
 ### 🖥️ Virtualization (2 Tools)
 - **VM Management** - Virtual machine operations
 - **Docker Management** - Container orchestration
 
-**[📖 View All Virtualization Tools](docs/TOOL_CATEGORY_INDEX.md#virtualization--containers)**
+**[📖 View All Virtualization Tools](docs/general/TOOL_CATEGORY_INDEX.md#virtualization--containers)**
 
 ### 🔒 Advanced Security (17 Tools)
 - **Blockchain Security** - Cryptocurrency and blockchain analysis
@@ -307,7 +419,7 @@ https://github.com/user-attachments/assets/f074039c-1989-40fc-b769-5efa855e854d
 - **Packet Sniffer** - Network traffic analysis
 - **Port Scanner** - Security port scanning
 
-**[📖 View All Advanced Security Tools](docs/TOOL_CATEGORY_INDEX.md#advanced-security)**
+**[📖 View All Advanced Security Tools](docs/general/TOOL_CATEGORY_INDEX.md#advanced-security)**
 
 ### 🧮 Utilities (12 Tools)
 - **Mathematical Tools** - Advanced calculations and statistics
@@ -323,18 +435,18 @@ https://github.com/user-attachments/assets/f074039c-1989-40fc-b769-5efa855e854d
 - **Calculator** - Basic mathematical operations
 - **Tool Discovery** - Natural language tool search and exploration
 
-**[📖 View All Utility Tools](docs/TOOL_CATEGORY_INDEX.md#utilities)**
+**[📖 View All Utility Tools](docs/general/TOOL_CATEGORY_INDEX.md#utilities)**
 
 ### 🔄 System Restore (1 Tool)
 - **System Backup** - Cross-platform system restore points and backup management
 
-**[📖 View All System Restore Tools](docs/TOOL_CATEGORY_INDEX.md#system-restore)**
+**[📖 View All System Restore Tools](docs/general/TOOL_CATEGORY_INDEX.md#system-restore)**
 
 ### 🔧 Tool Discovery (2 Tools)
 - **Natural Language Search** - Find tools using natural language queries
 - **Category Explorer** - Browse tools by category and capability
 
-**[📖 View All Discovery Tools](docs/TOOL_CATEGORY_INDEX.md#tool-discovery)**
+**[📖 View All Discovery Tools](docs/general/TOOL_CATEGORY_INDEX.md#tool-discovery)**
 
 ### 📁 File System (6 Tools)
 - **File Operations** - Advanced file management
@@ -344,21 +456,21 @@ https://github.com/user-attachments/assets/f074039c-1989-40fc-b769-5efa855e854d
 - **File Write** - Text file writing
 - **File Search** - Content-based search
 
-**[📖 View All File System Tools](docs/TOOL_CATEGORY_INDEX.md#file-system)**
+**[📖 View All File System Tools](docs/general/TOOL_CATEGORY_INDEX.md#file-system)**
 
 ### 🔍 Forensics (3 Tools)
 - **Forensics Analysis** - Digital forensics and incident response
 - **Forensics Toolkit** - Complete forensics framework
 - **Malware Analysis Toolkit** - Malicious software analysis
 
-**[📖 View All Forensics Tools](docs/TOOL_CATEGORY_INDEX.md#forensics)**
+**[📖 View All Forensics Tools](docs/general/TOOL_CATEGORY_INDEX.md#forensics)**
 
 ### ☁️ Cloud (3 Tools)
 - **Cloud Security** - Cloud infrastructure security assessment
 - **Cloud Security Toolkit** - Comprehensive cloud security
 - **Cloud Infrastructure Manager** - Cloud resource management
 
-**[📖 View All Cloud Tools](docs/TOOL_CATEGORY_INDEX.md#cloud)**
+**[📖 View All Cloud Tools](docs/general/TOOL_CATEGORY_INDEX.md#cloud)**
 
 ## 📊 **Complete Tool Summary**
 
@@ -402,7 +514,7 @@ https://github.com/user-attachments/assets/f074039c-1989-40fc-b769-5efa855e854d
 - **Service Management** - Windows service control
 - **Process Management** - Windows process administration
 
-**[📖 View All Windows Tools](docs/TOOL_CATEGORY_INDEX.md#windows-specific)**
+**[📖 View All Windows Tools](docs/general/TOOL_CATEGORY_INDEX.md#windows-specific)**
 
 ## 🚀 Quick Start
 
@@ -420,24 +532,24 @@ This mode provides the best experience for leveraging MCP God Mode's comprehensi
 ### 1. Choose Your Frontend
 Select your preferred MCP-compatible frontend:
 
-- **[🖥️ Cursor AI](docs/MCP_FRONTEND_INTEGRATION_GUIDE.md#cursor-ai-integration)** - Recommended (Agent mode)
-- **[🎵 LM Studio](docs/MCP_FRONTEND_INTEGRATION_GUIDE.md#lm-studio-integration)** - Local AI models
-- **[🤖 Claude Desktop](docs/MCP_FRONTEND_INTEGRATION_GUIDE.md#claude-desktop-integration)** - Advanced AI tasks
-- **[🎭 SillyTavern](docs/MCP_FRONTEND_INTEGRATION_GUIDE.md#sillytavern-integration)** - Roleplay & chat
-- **[🔧 Continue](docs/MCP_FRONTEND_INTEGRATION_GUIDE.md#continue-integration)** - VS Code extension
-- **[🌐 Open WebUI](docs/MCP_FRONTEND_INTEGRATION_GUIDE.md#open-webui-integration)** - Web interface
-- **[🤖 CAMEL-AI Agents](docs/MCP_FRONTEND_INTEGRATION_GUIDE.md#camel-ai-agents-integration)** - AI agent development
-- **[☁️ Azure AI Foundry](docs/MCP_FRONTEND_INTEGRATION_GUIDE.md#azure-ai-foundry-integration)** - Enterprise solutions
-- **[🌉 MCP Bridge](docs/MCP_FRONTEND_INTEGRATION_GUIDE.md#mcp-bridge-integration)** - Mobile/web integration
+- **[🖥️ Cursor AI](docs/guides/MCP_FRONTEND_INTEGRATION_GUIDE.md#cursor-ai-integration)** - Recommended (Agent mode)
+- **[🎵 LM Studio](docs/guides/MCP_FRONTEND_INTEGRATION_GUIDE.md#lm-studio-integration)** - Local AI models
+- **[🤖 Claude Desktop](docs/guides/MCP_FRONTEND_INTEGRATION_GUIDE.md#claude-desktop-integration)** - Advanced AI tasks
+- **[🎭 SillyTavern](docs/guides/MCP_FRONTEND_INTEGRATION_GUIDE.md#sillytavern-integration)** - Roleplay & chat
+- **[🔧 Continue](docs/guides/MCP_FRONTEND_INTEGRATION_GUIDE.md#continue-integration)** - VS Code extension
+- **[🌐 Open WebUI](docs/guides/MCP_FRONTEND_INTEGRATION_GUIDE.md#open-webui-integration)** - Web interface
+- **[🤖 CAMEL-AI Agents](docs/guides/MCP_FRONTEND_INTEGRATION_GUIDE.md#camel-ai-agents-integration)** - AI agent development
+- **[☁️ Azure AI Foundry](docs/guides/MCP_FRONTEND_INTEGRATION_GUIDE.md#azure-ai-foundry-integration)** - Enterprise solutions
+- **[🌉 MCP Bridge](docs/guides/MCP_FRONTEND_INTEGRATION_GUIDE.md#mcp-bridge-integration)** - Mobile/web integration
 
 ### 2. Choose Your Platform
 Select your operating system for specific installation instructions:
 
-- **[🪟 Windows Setup](docs/COMPLETE_SETUP_GUIDE.md#windows-setup)** - PowerShell, Chocolatey, or manual installation
-- **[🐧 Linux Setup](docs/COMPLETE_SETUP_GUIDE.md#linux-setup)** - Ubuntu, CentOS, Arch, and more
-- **[🍎 macOS Setup](docs/COMPLETE_SETUP_GUIDE.md#macos-setup)** - Homebrew or MacPorts installation
-- **[🤖 Android Setup](docs/COMPLETE_SETUP_GUIDE.md#android-setup)** - Termux, ADB, or root installation
-- **[🍎 iOS Setup](docs/COMPLETE_SETUP_GUIDE.md#ios-setup)** - TestFlight, jailbreak, or manual deployment
+- **[🪟 Windows Setup](docs/guides/COMPLETE_SETUP_GUIDE.md#windows-setup)** - PowerShell, Chocolatey, or manual installation
+- **[🐧 Linux Setup](docs/guides/COMPLETE_SETUP_GUIDE.md#linux-setup)** - Ubuntu, CentOS, Arch, and more
+- **[🍎 macOS Setup](docs/guides/COMPLETE_SETUP_GUIDE.md#macos-setup)** - Homebrew or MacPorts installation
+- **[🤖 Android Setup](docs/guides/COMPLETE_SETUP_GUIDE.md#android-setup)** - Termux, ADB, or root installation
+- **[🍎 iOS Setup](docs/guides/COMPLETE_SETUP_GUIDE.md#ios-setup)** - TestFlight, jailbreak, or manual deployment
 
 ### 3. Install Dependencies
 ```bash
@@ -501,7 +613,7 @@ python -m mcp_god_mode.tools.email.send_email \
   --email_config '{"service":"gmail","email":"sender@gmail.com","password":"app_password"}'
 ```
 
-**[📖 View More Examples](docs/EXAMPLES_AND_TUTORIALS.md)**
+**[📖 View More Examples](docs/guides/EXAMPLES_AND_TUTORIALS.md)**
 
 ## 🛠️ Troubleshooting & Support
 
@@ -534,7 +646,7 @@ If you encounter issues, need assistance, or have questions about MCP God Mode:
 | **Android** | ✅ 100% | ✅ 100% | ✅ 100% | ✅ 100% | **129/129 (100%)** |
 | **iOS** | ✅ 100% | ✅ 100% | ✅ 100% | ✅ 100% | **129/129 (100%)** |
 
-**[📖 View Complete Compatibility Matrix](docs/CROSS_PLATFORM_COMPATIBILITY.md)**
+**[📖 View Complete Compatibility Matrix](docs/general/CROSS_PLATFORM_COMPATIBILITY.md)**
 
 ### Platform-Specific Features
 - **Windows**: Native Windows Services, Process Management, Registry Operations
@@ -651,23 +763,29 @@ We welcome contributions from the community! Here's how you can help:
 ## 📚 Documentation
 
 ### 📖 Complete Documentation Index
-- **[Main Index](docs/DOCUMENTATION_INDEX.md)** - Navigate all documentation
-- **[Tool Categories](docs/TOOL_CATEGORY_INDEX.md)** - Browse tools by category
-- **[Parameter Reference](docs/COMPLETE_PARAMETER_REFERENCE.md)** - Complete parameter documentation
+- **[Main Index](docs/general/DOCUMENTATION_INDEX.md)** - Navigate all documentation
+- **[Tool Categories](docs/general/TOOL_CATEGORY_INDEX.md)** - Browse tools by category
+- **[Parameter Reference](docs/general/COMPLETE_PARAMETER_REFERENCE.md)** - Complete parameter documentation
 
 ### 🚀 Getting Started
-- **[Setup Guide](docs/COMPLETE_SETUP_GUIDE.md)** - Installation and configuration
-- **[Examples & Tutorials](docs/EXAMPLES_AND_TUTORIALS.md)** - Real-world usage examples
-- **[Platform Compatibility](docs/CROSS_PLATFORM_COMPATIBILITY.md)** - Platform-specific details
+- **[Setup Guide](docs/guides/COMPLETE_SETUP_GUIDE.md)** - Installation and configuration
+- **[Examples & Tutorials](docs/guides/EXAMPLES_AND_TUTORIALS.md)** - Real-world usage examples
+- **[Platform Compatibility](docs/general/CROSS_PLATFORM_COMPATIBILITY.md)** - Platform-specific details
 
 ### 🔧 Advanced Topics
-- **[Development Guide](docs/DEVELOPMENT.md)** - Contributing and development
-- **[API Reference](docs/API_REFERENCE.md)** - Programmatic interface
-- **[Performance Tuning](docs/PERFORMANCE.md)** - Optimization and benchmarking
+- **[Development Guide](docs/guides/DEVELOPMENT.md)** - Contributing and development
+- **[API Reference](docs/general/API_REFERENCE.md)** - Programmatic interface
+- **[Performance Tuning](docs/general/PERFORMANCE.md)** - Optimization and benchmarking
+
+### 📁 Organized Documentation
+- **[Implementation Docs](dev/src/docs/)** - Technical implementation details
+- **[Project Summaries](dev/src/docs/summaries/)** - Feature and milestone summaries
+- **[Tool Documentation](dev/src/docs/tools/)** - Individual tool guides
+- **[Documentation Index](dev/src/docs/DOCUMENTATION_INDEX.md)** - Complete documentation index
 
 
 ### 🔄 Version History
-- **v1.7** (Current) - **135 tools (both servers) complete (100%)**, perfect parity achieved, MCP Web UI Bridge tools, modular configuration system, comprehensive documentation, cross-platform support, MCP integration, accurate tool counting
+- **v1.7** (Current) - **147 tools (both servers) complete (100%)**, perfect parity achieved, MCP Web UI Bridge tools, modular configuration system, comprehensive documentation, cross-platform support, MCP integration, accurate tool counting
 - **v1.6d** - **125 tools (server-refactored) / 120 tools (modular) complete (100%)**, comprehensive documentation, cross-platform support, MCP integration, accurate tool counting, RAG toolkit integration
 - **v1.4a** - Enhanced security tools and mobile support
 - **v1.0** - Initial release with core functionality
@@ -676,7 +794,7 @@ We welcome contributions from the community! Here's how you can help:
 
 **IMPORTANT**: This software is designed for legitimate security testing and system administration purposes only. Users are responsible for ensuring they have proper authorization before using any security testing tools.
 
-**[📋 Read Full Legal Disclaimer](docs/LEGAL_DISCLAIMER.md)** - Terms of use, liability information, and prohibited uses
+**[📋 Read Full Legal Disclaimer](docs/legal/LEGAL_DISCLAIMER.md)** - Terms of use, liability information, and prohibited uses
 
 **📞 Contact for Legal Matters**: For legal questions, compliance inquiries, or authorization concerns, contact Blink Zero on our official Discord server: [https://discord.gg/EuQBurC2](https://discord.gg/EuQBurC2)
 
@@ -708,7 +826,7 @@ With **111 electronic jazz songs** and counting, Blink Zero creates innovative m
 #### **💻 Development Philosophy**
 Just as in martial arts, Blink Zero approaches software development with technical precision, creative innovation, and reliable performance. MCP God Mode represents the culmination of years of cybersecurity expertise, martial arts discipline, and musical creativity.
 
-**[📖 View Full Developer Showcase](docs/DEVELOPER_SHOWCASE.md)** - Learn more about the developer behind the tools
+**[📖 View Full Developer Showcase](docs/general/DEVELOPER_SHOWCASE.md)** - Learn more about the developer behind the tools
 
 
 
@@ -730,6 +848,11 @@ If MCP God Mode has been helpful to you, please consider giving it a star on Git
 
 <div align="center">
 
-**🚀 Ready to become a cybersecurity god? First, remember to be kind to one another and set your differences aside. This tool is not for malicious use. [Get Started Now](docs/COMPLETE_SETUP_GUIDE.md)! 🚀**
+**🚀 Ready to become a cybersecurity god? First, remember to be kind to one another and set your differences aside. This tool is not for malicious use. [Get Started Now](docs/guides/COMPLETE_SETUP_GUIDE.md)! 🚀**
 
 </div>
+
+
+
+
+

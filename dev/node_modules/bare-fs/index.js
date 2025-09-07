@@ -1960,16 +1960,33 @@ function readFileSync(filepath, opts) {
   try {
     const st = fstatSync(fd)
 
-    let buffer = Buffer.allocUnsafe(st.size)
+    let buffer
     let len = 0
 
-    while (true) {
-      const r = readSync(fd, len ? buffer.subarray(len) : buffer)
-      len += r
-      if (r === 0 || len === buffer.byteLength) break
+    if (st.size === 0) {
+      const buffers = []
+
+      while (true) {
+        buffer = Buffer.allocUnsafe(8192)
+        const r = readSync(fd, buffer, 0, 8192)
+        len += r
+        if (r === 0) break
+        buffers.push(buffer.subarray(0, r))
+      }
+
+      buffer = Buffer.concat(buffers)
+    } else {
+      buffer = Buffer.allocUnsafe(st.size)
+
+      while (true) {
+        const r = readSync(fd, len ? buffer.subarray(len) : buffer)
+        len += r
+        if (r === 0 || len === buffer.byteLength) break
+      }
+
+      if (len !== buffer.byteLength) buffer = buffer.subarray(0, len)
     }
 
-    if (len !== buffer.byteLength) buffer = buffer.subarray(0, len)
     if (encoding !== 'buffer') buffer = buffer.toString(encoding)
     return buffer
   } finally {

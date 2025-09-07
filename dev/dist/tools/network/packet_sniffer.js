@@ -24,11 +24,11 @@ export function registerPacketSniffer(server) {
         outputSchema: {
             success: z.boolean(),
             action: z.string(),
-            result: z.any(),
+            result: z.object({}),
             platform: z.string(),
             interface: z.string().optional(),
             packets_captured: z.number().optional(),
-            statistics: z.any().optional(),
+            statistics: z.object({}).optional(),
             error: z.string().optional()
         }
     }, async ({ action, interface: iface, filter, duration, max_packets, protocol, source_ip, dest_ip, source_port, dest_port, output_file }) => {

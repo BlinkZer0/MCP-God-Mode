@@ -1,0 +1,28 @@
+{
+  "name": "napi-thread-safe-callback",
+  "version": "0.0.6",
+  "description": "C++ utility class to perform callbacks into JavaScript from any thread",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm run test-rebuild && npm run test-run",
+    "test-build": "node-gyp build --directory test --debug",
+    "test-configure": "node-gyp configure --directory test --debug",
+    "test-rebuild": "node-gyp rebuild --directory test --debug",
+    "test-run": "mocha --reporter spec"
+  },
+  "keywords": [
+    "napi",
+    "c++",
+    "callback",
+    "thread"
+  ],
+  "author": "Mika Fischer <mika.fischer@zoopnet.de> (https://github.com/mika-fischer)",
+  "license": "ISC",
+  "homepage": "https://github.com/mika-fischer/napi-thread-safe-callback",
+  "bugs": "https://github.com/mika-fischer/napi-thread-safe-callback/issues",
+  "repository": "github:mika-fischer/napi-thread-safe-callback",
+  "devDependencies": {
+    "mocha": "^5.0.5",
+    "node-addon-api": "^1.2.0"
+  }
+}

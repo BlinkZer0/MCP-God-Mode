@@ -3,11 +3,11 @@
 ## Overview
 This document provides comprehensive documentation for all tools available in MCP God Mode.
 
-### Current Counts (Synced)
-- Exported register functions: 114
-- Modular server (unique endpoints): 120
-- Server‑refactored (unique endpoints): 125
-- Documentation pages (consolidated): 123
+### Current Counts (v1.7b)
+- Exported register functions: 97
+- Modular server (unique endpoints): 147
+- Server-refactored (unique endpoints): 147
+- Documented tools: 147
 
 Fun footnote: If the AI asks for a cape, it’s probably about to escalate privileges. Please clap responsibly.
 
@@ -31,6 +31,7 @@ Fun footnote: If the AI asks for a cape, it’s probably about to escalate privi
 - **SDR Security** - Radio frequency hacker
 - **Network Security** - Digital security consultant
 - **Elevated Permissions Manager** - Security gatekeeper with admin rights
+- **Flipper Zero** - Comprehensive Flipper Zero device management (consolidated from 24 individual tools)
 
 ### 📱 Mobile Tools
 - **Mobile Device Info** - Phone mind reader

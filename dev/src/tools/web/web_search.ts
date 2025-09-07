@@ -346,7 +346,7 @@ export function registerWebSearch(server: McpServer) {
           neutral: z.number()
         }).optional(),
         trends: z.array(z.string()).optional(),
-        visualization_data: z.record(z.any()).optional()
+        visualization_data: z.record(z.string(), z.object({})).optional()
       }).optional(),
       error: z.string().optional()
     }

@@ -25,15 +25,20 @@
     "install:modular": "node install.js --modular",
     "install:full": "node install.js --full",
     "update:installer": "node update-modular-installer.js",
-    "discover:tools": "node update-modular-installer.js --discover"
+    "discover:tools": "node update-modular-installer.js --discover",
+    "smoke:flipper": "node scripts/smoke-flipper.js",
+    "flipper:bridge": "node dist/tools/flipper/bridge-server.js"
   },
   "dependencies": {
-    "@modelcontextprotocol/sdk": "^1.2.0",
+    "@babel/runtime": "^7.28.4",
+    "@modelcontextprotocol/sdk": "^1.17.5",
     "@mui/icons-material": "^7.3.1",
+    "@serialport/parser-readline": "^12.0.0",
     "@types/cookie-parser": "^1.4.9",
     "@types/plotly.js": "^3.0.3",
     "@vitejs/plugin-react": "^4.2.1",
     "ajv": "^8.12.0",
+    "async": "^3.2.6",
     "autoprefixer": "^10.4.16",
     "axios": "^1.7.0",
     "bcryptjs": "^2.4.3",
@@ -100,6 +105,7 @@
     "react-dom": "^18.2.0",
     "redis": "^4.6.10",
     "sanitize-html": "^2.12.1",
+    "serialport": "^12.0.0",
     "sharp": "^0.33.2",
     "shell-escape": "^0.2.0",
     "simple-git": "^3.24.0",
@@ -115,7 +121,12 @@
     "xlsx": "^0.18.5",
     "xml2js": "^0.6.2",
     "yaml": "^2.3.4",
-    "zod": "^3.23.8"
+    "zod": "^3.23.8",
+    "zod-to-json-schema": "^3.24.6"
+  },
+  "optionalDependencies": {
+    "@abandonware/noble": "^1.9.2-15",
+    "node-hid": "^2.2.0"
   },
   "devDependencies": {
     "@emotion/react": "^11.14.0",
@@ -132,6 +143,7 @@
     "@types/jsonwebtoken": "^9.0.5",
     "@types/lodash": "^4.14.202",
     "@types/mailparser": "^3.4.6",
+    "@types/mathjs": "^6.0.12",
     "@types/moment": "^2.13.0",
     "@types/morgan": "^1.9.9",
     "@types/multer": "^1.4.11",
@@ -148,7 +160,7 @@
     "@types/ws": "^8.5.10",
     "react-router-dom": "^7.8.2",
     "socket.io-client": "^4.8.1",
-    "typescript": "^5.6.2"
+    "typescript": "^5.9.2"
   },
   "mcpGodMode": {
     "totalTools": 117,
