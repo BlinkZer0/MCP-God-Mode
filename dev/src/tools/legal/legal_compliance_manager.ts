@@ -319,7 +319,7 @@ export function registerLegalComplianceManager(server: McpServer) {
             toCustodian,
             purpose,
             location,
-            witnesses || [],
+            (witnesses || []).map(w => ({ name: w.name || '', email: w.email || '', signature: w.signature })),
             notes || "",
             fromCustodian,
             legalHoldIds?.[0] // Use first legal hold ID if provided

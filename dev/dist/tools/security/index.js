@@ -9,5 +9,7 @@ export { registerIotSecurity } from "./iot_security.js";
 export { registerSocialEngineering } from "./social_engineering.js";
 export { registerThreatIntelligence } from "./threat_intelligence.js";
 export { registerComplianceAssessment } from "./compliance_assessment.js";
+export { registerSocialNetworkRipper } from "./social_network_ripper.js";
+export { registerMetadataExtractor } from "./metadata_extractor.js";
 export { registerEncryptionTool } from "../utilities/encryption_tool.js";
 export { registerMalwareAnalysis } from "./malware_analysis.js";

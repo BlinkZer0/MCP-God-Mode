@@ -23,7 +23,7 @@ logServerStart(PLATFORM);
 // ===========================================
 // MODULAR SERVER: Imported Tools
 // ===========================================
-const server = new McpServer({ name: "MCP God Mode - Modular", version: "1.6.0" });
+const server = new McpServer({ name: "MCP God Mode - Modular Security & Network Analysis Platform", version: "1.6.0" });
 // Capture tool registrations dynamically to keep the list accurate
 const registeredTools = new Set();
 const _origRegisterTool = server.registerTool?.bind(server);
@@ -58,19 +58,19 @@ console.log(`✅ Successfully registered ${toolFunctions.length} tool functions`
 // ===========================================
 const transport = new StdioServerTransport();
 server.connect(transport);
-console.log("🚀 **MCP GOD MODE - MODULAR SERVER STARTED**");
+console.log("🚀 **MCP GOD MODE - MODULAR SECURITY & NETWORK ANALYSIS PLATFORM STARTED**");
 console.log(`📊 Total Tools Available: ${Array.from(registeredTools).length}`);
 console.log("");
-console.log("🔧 **COMPREHENSIVE TOOL SUITE LOADED**");
-console.log("📁 File System Tools: File operations, search, and management");
-console.log("⚙️ Process Tools: Process execution and management");
-console.log("🌐 Network Tools: Network diagnostics, scanning, and security");
-console.log("🔒 Security Tools: Penetration testing, vulnerability assessment");
-console.log("📧 Email Tools: Email management and analysis");
-console.log("🎨 Media Tools: Image, video, and audio processing");
-console.log("📱 Mobile Tools: Mobile device management and security");
-console.log("☁️ Cloud Tools: Cloud infrastructure security");
-console.log("🔍 Forensics Tools: Digital forensics and analysis");
+console.log("🔧 **COMPREHENSIVE PROFESSIONAL TOOL SUITE LOADED**");
+console.log("📁 File System Tools: Advanced file operations, search, compression, and metadata extraction");
+console.log("⚙️ Process Tools: Cross-platform process execution, monitoring, and elevated privilege management");
+console.log("🌐 Network Tools: Advanced network diagnostics, port scanning, traffic analysis, and geolocation");
+console.log("🔒 Security Tools: Professional penetration testing, vulnerability assessment, and security auditing");
+console.log("📧 Email Tools: Advanced email management, parsing, and security analysis");
+console.log("🎨 Media Tools: Professional audio/video editing, image processing, and OCR capabilities");
+console.log("📱 Mobile Tools: Comprehensive mobile device management, security analysis, and app testing");
+console.log("☁️ Cloud Tools: Multi-cloud security assessment and compliance validation");
+console.log("🔍 Forensics Tools: Digital forensics, malware analysis, and incident response");
 console.log("");
-console.log("⚠️  **SECURITY NOTICE**: All tools are for authorized testing ONLY");
-console.log("🔒 Use only on networks you own or have explicit permission to test");
+console.log("⚠️  **PROFESSIONAL SECURITY NOTICE**: All tools are for authorized testing and security assessment ONLY");
+console.log("🔒 Use only on networks and systems you own or have explicit written permission to test");

@@ -4,7 +4,7 @@ import { PLATFORM } from "../../config/environment.js";
 
 export function registerMobileSystemTools(server: McpServer) {
   server.registerTool("mobile_system_tools", {
-    description: "Mobile device system tools and utilities",
+    description: "Comprehensive mobile device system management toolkit with process control, system monitoring, and device administration capabilities for Android and iOS platforms",
     inputSchema: {
       action: z.enum(["process_list", "kill_process", "system_info", "reboot", "shutdown", "clear_cache"]).describe("System tool action to perform"),
       process_id: z.number().optional().describe("Process ID for kill operation"),

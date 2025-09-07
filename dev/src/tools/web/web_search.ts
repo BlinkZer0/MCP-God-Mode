@@ -413,13 +413,13 @@ async function performWebSearch(url: string, config: any, maxResults: number, in
     }
     
     // Navigate to search URL
-    await page.goto(url, { waitUntil: 'networkidle2', timeout });
+    await page.goto(url, { waitUntil: 'domcontentloaded', timeout });
     
     // Wait for results to load
-    await page.waitForSelector(config.selectors.results, { timeout: 10000 });
+    await (page as any).waitForSelector(config.selectors.results, { timeout: 10000 });
     
     // Extract results
-    const results = await page.evaluate((selectors, maxResults, includeSnippets, includeMetadata) => {
+    const results = await (page as any).evaluate((selectors: any, maxResults: number, includeSnippets: boolean, includeMetadata: boolean) => {
       const resultElements = document.querySelectorAll(selectors.results);
       const results = [];
       

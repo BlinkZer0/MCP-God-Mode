@@ -4,7 +4,7 @@ import { PLATFORM } from "../../config/environment.js";
 
 export function registerForensicsToolkit(server: McpServer) {
   server.registerTool("forensics_toolkit", {
-    description: "Digital forensics and evidence analysis toolkit",
+    description: "Advanced digital forensics and evidence analysis toolkit with comprehensive memory analysis, file carving, timeline reconstruction, and chain of custody management",
     inputSchema: {
       action: z.enum(["image_analysis", "memory_analysis", "file_carving", "timeline_analysis", "artifact_extraction"]).describe("Forensics action to perform"),
       evidence_source: z.string().describe("Source of evidence to analyze"),

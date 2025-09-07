@@ -32,7 +32,60 @@ export const config = {
     maxFileSize: parseInt(process.env.MAX_FILE_SIZE || String(MOBILE_CONFIG.maxFileSize)),
     timeout: parseInt(process.env.COMMAND_TIMEOUT || "30000"),
     enableSecurityChecks: process.env.ENABLE_SECURITY_CHECKS !== "false",
-    mobilePlatform: IS_MOBILE ? (IS_ANDROID ? "android" : IS_IOS ? "ios" : "mobile-web") : "desktop"
+    mobilePlatform: IS_MOBILE ? (IS_ANDROID ? "android" : IS_IOS ? "ios" : "mobile-web") : "desktop",
+    // Legal compliance configuration
+    legalCompliance: {
+        enabled: process.env.LEGAL_COMPLIANCE_ENABLED === "true",
+        auditLogging: {
+            enabled: process.env.AUDIT_LOGGING_ENABLED === "true",
+            logLevel: process.env.AUDIT_LOG_LEVEL || 'standard',
+            retentionDays: parseInt(process.env.AUDIT_RETENTION_DAYS || "2555"), // 7 years default
+            includeUserActions: process.env.AUDIT_INCLUDE_USER_ACTIONS !== "false",
+            includeSystemEvents: process.env.AUDIT_INCLUDE_SYSTEM_EVENTS !== "false",
+            includeDataAccess: process.env.AUDIT_INCLUDE_DATA_ACCESS !== "false",
+            includeSecurityEvents: process.env.AUDIT_INCLUDE_SECURITY_EVENTS !== "false"
+        },
+        evidencePreservation: {
+            enabled: process.env.EVIDENCE_PRESERVATION_ENABLED === "true",
+            autoPreserve: process.env.EVIDENCE_AUTO_PRESERVE === "true",
+            preservationPath: process.env.EVIDENCE_PRESERVATION_PATH || "./legal/evidence",
+            hashAlgorithm: process.env.EVIDENCE_HASH_ALGORITHM || 'sha256',
+            includeMetadata: process.env.EVIDENCE_INCLUDE_METADATA !== "false",
+            includeTimestamps: process.env.EVIDENCE_INCLUDE_TIMESTAMPS !== "false",
+            includeUserContext: process.env.EVIDENCE_INCLUDE_USER_CONTEXT !== "false"
+        },
+        legalHold: {
+            enabled: process.env.LEGAL_HOLD_ENABLED === "true",
+            holdPath: process.env.LEGAL_HOLD_PATH || "./legal/holds",
+            retentionPolicy: process.env.LEGAL_HOLD_RETENTION_POLICY || 'manual',
+            scheduledRetentionDays: parseInt(process.env.LEGAL_HOLD_SCHEDULED_DAYS || "30"),
+            includeNotifications: process.env.LEGAL_HOLD_NOTIFICATIONS === "true",
+            notificationEmail: process.env.LEGAL_HOLD_NOTIFICATION_EMAIL || undefined
+        },
+        chainOfCustody: {
+            enabled: process.env.CHAIN_OF_CUSTODY_ENABLED === "true",
+            includeDigitalSignatures: process.env.CHAIN_OF_CUSTODY_SIGNATURES === "true",
+            includeWitnesses: process.env.CHAIN_OF_CUSTODY_WITNESSES === "true",
+            witnessEmails: process.env.CHAIN_OF_CUSTODY_WITNESS_EMAILS?.split(',').map(e => e.trim()) || [],
+            requireApproval: process.env.CHAIN_OF_CUSTODY_APPROVAL === "true",
+            approvalWorkflow: process.env.CHAIN_OF_CUSTODY_WORKFLOW || 'single'
+        },
+        dataIntegrity: {
+            enabled: process.env.DATA_INTEGRITY_ENABLED === "true",
+            verifyOnAccess: process.env.DATA_INTEGRITY_VERIFY_ACCESS === "true",
+            verifyOnModification: process.env.DATA_INTEGRITY_VERIFY_MODIFICATION !== "false",
+            backupBeforeModification: process.env.DATA_INTEGRITY_BACKUP_BEFORE_MOD === "true",
+            includeChecksums: process.env.DATA_INTEGRITY_INCLUDE_CHECKSUMS !== "false"
+        },
+        complianceFrameworks: {
+            sox: process.env.COMPLIANCE_SOX === "true",
+            hipaa: process.env.COMPLIANCE_HIPAA === "true",
+            gdpr: process.env.COMPLIANCE_GDPR === "true",
+            pci: process.env.COMPLIANCE_PCI === "true",
+            iso27001: process.env.COMPLIANCE_ISO27001 === "true",
+            custom: process.env.COMPLIANCE_CUSTOM === "true"
+        }
+    }
 };
 // Universal access - allow all drives and paths
 export const ALLOWED_ROOTS = config.allowedRoot

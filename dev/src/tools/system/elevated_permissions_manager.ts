@@ -7,7 +7,7 @@ import { PLATFORM } from "../../config/environment.js";
 
 export function registerElevatedPermissionsManager(server: McpServer) {
   server.registerTool("elevated_permissions_manager", {
-    description: "Manage and control elevated permissions across platforms",
+    description: "Advanced elevated permissions management system with cross-platform support for privilege escalation, access control, and security policy enforcement",
     inputSchema: {
       action: z.enum(["check", "request", "grant", "revoke", "list"]).describe("Permission action to perform"),
       permission: z.string().optional().describe("Specific permission to manage"),

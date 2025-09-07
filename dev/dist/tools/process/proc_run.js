@@ -1,7 +1,7 @@
 import { z } from "zod";
 export function registerProcRun(server) {
     server.registerTool("proc_run", {
-        description: "Cross-platform process execution and management",
+        description: "Advanced cross-platform process execution and management with comprehensive output capture, timeout handling, and security controls",
         inputSchema: {
             command: z.string().describe("Command to execute"),
             args: z.array(z.string()).optional().describe("Command line arguments"),

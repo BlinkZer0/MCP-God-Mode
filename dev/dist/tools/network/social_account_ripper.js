@@ -1,20 +1,20 @@
 import { z } from "zod";
 export function registerSocialAccountRipper(server) {
     server.registerTool("social_account_ripper", {
-        description: "Comprehensive social network account reconnaissance and information gathering tool",
+        description: "Professional social media intelligence and OSINT reconnaissance tool. Performs comprehensive account discovery, profile analysis, content correlation, and risk assessment across multiple platforms including Facebook, Twitter, Instagram, LinkedIn, TikTok, YouTube, and others.",
         inputSchema: {
-            target: z.string().describe("Target username, email, phone number, or profile URL"),
-            platforms: z.array(z.enum(["facebook", "twitter", "instagram", "linkedin", "tiktok", "youtube", "snapchat", "telegram", "discord", "reddit", "github", "all"])).describe("Social media platforms to search"),
-            search_method: z.enum(["username", "email", "phone", "profile_url", "comprehensive"]).describe("Search method to use"),
-            include_historical: z.boolean().optional().describe("Include historical posts and activity"),
-            include_connections: z.boolean().optional().describe("Include friend/follower connections"),
-            include_metadata: z.boolean().optional().describe("Include profile metadata and EXIF data"),
-            include_geolocation: z.boolean().optional().describe("Include location data from posts"),
-            include_employment: z.boolean().optional().describe("Include employment and education history"),
-            include_photos: z.boolean().optional().describe("Include photo analysis and reverse image search"),
-            include_posts: z.boolean().optional().describe("Include recent posts and content analysis"),
-            include_sentiment: z.boolean().optional().describe("Include sentiment analysis of posts"),
-            output_format: z.enum(["json", "csv", "html", "pdf"]).optional().describe("Output format for results")
+            target: z.string().describe("Target identifier: username, email address, phone number, or direct profile URL"),
+            platforms: z.array(z.enum(["facebook", "twitter", "instagram", "linkedin", "tiktok", "youtube", "snapchat", "telegram", "discord", "reddit", "github", "all"])).describe("Social media platforms to search (select 'all' for comprehensive coverage)"),
+            search_method: z.enum(["username", "email", "phone", "profile_url", "comprehensive"]).describe("Search methodology: username lookup, email correlation, phone number search, direct URL analysis, or comprehensive multi-method approach"),
+            include_historical: z.boolean().optional().describe("Include historical posts, activity patterns, and timeline analysis"),
+            include_connections: z.boolean().optional().describe("Include friend/follower network analysis and mutual connections"),
+            include_metadata: z.boolean().optional().describe("Include profile metadata, EXIF data, and technical information"),
+            include_geolocation: z.boolean().optional().describe("Include location data extraction from posts and check-ins"),
+            include_employment: z.boolean().optional().describe("Include employment history, education, and professional connections"),
+            include_photos: z.boolean().optional().describe("Include photo analysis, reverse image search, and visual content correlation"),
+            include_posts: z.boolean().optional().describe("Include recent posts analysis, content themes, and engagement patterns"),
+            include_sentiment: z.boolean().optional().describe("Include sentiment analysis of posts and content emotional tone"),
+            output_format: z.enum(["json", "csv", "html", "pdf"]).optional().describe("Report output format: JSON for API integration, CSV for spreadsheet analysis, HTML for web viewing, or PDF for documentation")
         },
         outputSchema: {
             success: z.boolean(),

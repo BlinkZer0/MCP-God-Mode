@@ -1,7 +1,7 @@
 import { z } from "zod";
 export function registerCloudSecurityToolkit(server) {
     server.registerTool("cloud_security_toolkit", {
-        description: "Cloud security assessment and compliance toolkit",
+        description: "Advanced cloud security assessment and compliance toolkit with comprehensive multi-cloud support, automated security scanning, and regulatory compliance validation",
         inputSchema: {
             action: z.enum(["security_scan", "compliance_check", "misconfiguration_audit", "access_review", "threat_modeling"]).describe("Cloud security action to perform"),
             cloud_provider: z.enum(["aws", "azure", "gcp", "multicloud"]).describe("Cloud provider to assess"),

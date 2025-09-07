@@ -6,7 +6,7 @@ import { ensureInsideRoot } from "../../utils/fileSystem.js";
 
 export function registerFsReadText(server: McpServer) {
   server.registerTool("fs_read_text", {
-    description: "Read a UTF-8 text file within the sandbox",
+    description: "Advanced text file reader with UTF-8 encoding support, path validation, and comprehensive error handling for secure file access",
     inputSchema: {
       path: z.string().describe("The file path to read from. Can be relative or absolute path. Examples: './config.txt', '/home/user/documents/readme.md', 'C:\\Users\\User\\Desktop\\notes.txt'."),
     },

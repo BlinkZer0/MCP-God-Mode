@@ -137,7 +137,7 @@ export class GitHubRipper {
 export function registerSocialAccountRipperModular(server) {
     const ripper = new SocialAccountRipper(server);
     server.registerTool("social_account_ripper_modular", {
-        description: "Modular social network account reconnaissance tool with component-based architecture",
+        description: "Advanced modular social network account reconnaissance tool with component-based architecture and comprehensive analysis modules",
         inputSchema: {
             target: z.string().describe("Target username, email, phone number, or profile URL"),
             platforms: z.array(z.enum(["facebook", "twitter", "instagram", "linkedin", "tiktok", "youtube", "reddit", "github", "all"])).describe("Social media platforms to search"),

@@ -389,7 +389,7 @@ async function performWebSearch(url, config, maxResults, includeSnippets, includ
             await page.setExtraHTTPHeaders(config.headers);
         }
         // Navigate to search URL
-        await page.goto(url, { waitUntil: 'networkidle2', timeout });
+        await page.goto(url, { waitUntil: 'domcontentloaded', timeout });
         // Wait for results to load
         await page.waitForSelector(config.selectors.results, { timeout: 10000 });
         // Extract results

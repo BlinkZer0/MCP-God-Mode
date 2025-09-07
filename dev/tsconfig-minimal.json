@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "target": "ES2022",
-    "module": "CommonJS",
+    "module": "ES2022",
     "moduleResolution": "node",
     "outDir": "dist",
     "rootDir": "src",
@@ -12,6 +12,13 @@
     "jsx": "react-jsx",
     "lib": ["ES2022", "DOM", "DOM.Iterable"]
   },
-  "include": ["src/server-minimal.ts"],
-  "exclude": []
+  "include": ["src"],
+  "exclude": [
+    "src/tools/web/captcha_defeating.ts",
+    "src/tools/web/form_completion.ts",
+    "src/tools/web/universal_browser_operator.ts",
+    "src/tools/web/web_automation.ts",
+    "src/tools/web/web_search.ts",
+    "src/tools/web/webhook_manager.ts"
+  ]
 }

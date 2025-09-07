@@ -1,13 +1,13 @@
 import { z } from "zod";
 export function registerPortScanner(server) {
     server.registerTool("port_scanner", {
-        description: "Network port scanning and analysis",
+        description: "Advanced network port scanning and analysis tool with multiple scan types, service detection, and comprehensive reporting",
         inputSchema: {
-            target: z.string().describe("Target host or IP address to scan"),
-            ports: z.array(z.number()).optional().describe("Specific ports to scan"),
-            port_range: z.string().optional().describe("Port range (e.g., '1-1000', '80,443,8080')"),
-            scan_type: z.enum(["tcp", "udp", "both"]).optional().describe("Type of port scan to perform"),
-            timeout: z.number().optional().describe("Connection timeout in milliseconds")
+            target: z.string().describe("Target hostname, IP address, or network range to scan"),
+            ports: z.array(z.number()).optional().describe("Specific port numbers to scan (e.g., [80, 443, 8080])"),
+            port_range: z.string().optional().describe("Port range specification (e.g., '1-1000', '80,443,8080', 'common')"),
+            scan_type: z.enum(["tcp", "udp", "both"]).optional().describe("Port scan protocol type - TCP for connection-oriented, UDP for datagram, both for comprehensive"),
+            timeout: z.number().optional().describe("Connection timeout in milliseconds (default: 5000ms)")
         },
         outputSchema: {
             success: z.boolean(),

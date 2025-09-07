@@ -1,7 +1,7 @@
 import { z } from "zod";
 export function registerTrafficAnalysis(server) {
     server.registerTool("traffic_analysis", {
-        description: "Advanced packet and traffic analysis for network monitoring and security",
+        description: "Comprehensive packet and traffic analysis tool for network monitoring, security assessment, and performance analysis",
         inputSchema: {
             interface: z.string().describe("Network interface to capture from"),
             capture_duration: z.number().optional().describe("Capture duration in seconds"),

@@ -169,17 +169,23 @@ export function registerFormCompletion(server: McpServer) {
       const result = await detectForms(url, form_selector, timeout, save_screenshot);
 
       return {
-        success: true,
-        forms: result.forms,
-        screenshot_path: result.screenshot,
-        page_title: result.title
+        content: [{ type: "text", text: `Form detection completed. Found ${result.forms.length} forms.` }],
+        structuredContent: {
+          success: true,
+          forms: result.forms,
+          screenshot_path: result.screenshot,
+          page_title: result.title
+        }
       };
 
     } catch (error) {
       return {
-        success: false,
-        error: `Form detection failed: ${error.message}`,
-        forms: []
+        content: [{ type: "text", text: `Form detection failed: ${error instanceof Error ? error.message : 'Unknown error'}` }],
+        structuredContent: {
+          success: false,
+          error: `Form detection failed: ${error instanceof Error ? error.message : 'Unknown error'}`,
+          forms: []
+        }
       };
     }
   });
@@ -218,22 +224,28 @@ export function registerFormCompletion(server: McpServer) {
       const result = await completeForm(url, form_data, form_selector, captcha_handling, validation, submit_form, timeout, save_screenshot);
 
       return {
-        success: true,
-        fields_filled: result.fieldsFilled,
-        fields_detected: result.fieldsDetected,
-        captcha_solved: result.captchaSolved,
-        form_submitted: result.formSubmitted,
-        screenshot_path: result.screenshot,
-        validation_errors: result.validationErrors,
-        completion_summary: result.summary
+        content: [{ type: "text", text: `Form completion completed. Filled ${result.fieldsFilled} fields.` }],
+        structuredContent: {
+          success: true,
+          fields_filled: result.fieldsFilled,
+          fields_detected: result.fieldsDetected,
+          captcha_solved: result.captchaSolved,
+          form_submitted: result.formSubmitted,
+          screenshot_path: result.screenshot,
+          validation_errors: result.validationErrors,
+          completion_summary: result.summary
+        }
       };
 
     } catch (error) {
       return {
-        success: false,
-        error: `Form completion failed: ${error.message}`,
-        fields_filled: 0,
-        fields_detected: 0
+        content: [{ type: "text", text: `Form completion failed: ${error instanceof Error ? error.message : 'Unknown error'}` }],
+        structuredContent: {
+          success: false,
+          error: `Form completion failed: ${error instanceof Error ? error.message : 'Unknown error'}`,
+          fields_filled: 0,
+          fields_detected: 0
+        }
       };
     }
   });
@@ -274,23 +286,29 @@ export function registerFormCompletion(server: McpServer) {
       const result = await validateFormData(form_data, validation_rules, strict_mode);
 
       return {
-        success: true,
-        valid: result.valid,
-        errors: result.errors,
-        warnings: result.warnings,
-        validated_fields: result.validatedFields,
-        total_fields: result.totalFields
+        content: [{ type: "text", text: `Form validation completed. ${result.valid ? 'Valid' : 'Invalid'} - ${result.errors.length} errors, ${result.warnings.length} warnings.` }],
+        structuredContent: {
+          success: true,
+          valid: result.valid,
+          errors: result.errors,
+          warnings: result.warnings,
+          validated_fields: result.validatedFields,
+          total_fields: result.totalFields
+        }
       };
 
     } catch (error) {
       return {
-        success: false,
-        error: `Form validation failed: ${error.message}`,
-        valid: false,
-        errors: [],
-        warnings: [],
-        validated_fields: 0,
-        total_fields: 0
+        content: [{ type: "text", text: `Form validation failed: ${error instanceof Error ? error.message : 'Unknown error'}` }],
+        structuredContent: {
+          success: false,
+          error: `Form validation failed: ${error instanceof Error ? error.message : 'Unknown error'}`,
+          valid: false,
+          errors: [],
+          warnings: [],
+          validated_fields: 0,
+          total_fields: 0
+        }
       };
     }
   });
@@ -324,21 +342,27 @@ export function registerFormCompletion(server: McpServer) {
       const result = await recognizeFormPatterns(url, form_selector, timeout);
 
       return {
-        success: true,
-        detected_patterns: result.patterns,
-        form_analysis: result.analysis
+        content: [{ type: "text", text: `Form pattern recognition completed. Found ${result.patterns.length} patterns.` }],
+        structuredContent: {
+          success: true,
+          detected_patterns: result.patterns,
+          form_analysis: result.analysis
+        }
       };
 
     } catch (error) {
       return {
-        success: false,
-        error: `Form pattern recognition failed: ${error.message}`,
-        detected_patterns: [],
-        form_analysis: {
-          total_fields: 0,
-          required_fields: 0,
-          field_types: {},
-          complexity_score: 0
+        content: [{ type: "text", text: `Form pattern recognition failed: ${error instanceof Error ? error.message : 'Unknown error'}` }],
+        structuredContent: {
+          success: false,
+          error: `Form pattern recognition failed: ${error instanceof Error ? error.message : 'Unknown error'}`,
+          detected_patterns: [],
+          form_analysis: {
+            total_fields: 0,
+            required_fields: 0,
+            field_types: {},
+            complexity_score: 0
+          }
         }
       };
     }
@@ -398,7 +422,7 @@ async function detectForms(url: string, formSelector?: string, timeout: number =
   
   try {
     const page = await browser.newPage();
-    await page.goto(url, { waitUntil: 'networkidle2', timeout });
+    await page.goto(url, { waitUntil: 'domcontentloaded', timeout });
     
     const title = await page.title();
     let screenshotPath = '';
@@ -409,7 +433,7 @@ async function detectForms(url: string, formSelector?: string, timeout: number =
     }
     
     // Detect forms
-    const forms = await page.evaluate((selector) => {
+    const forms = await (page as any).evaluate((selector: string) => {
       const formElements = selector ? document.querySelectorAll(selector) : document.querySelectorAll('form');
       const forms = [];
       
@@ -419,11 +443,11 @@ async function detectForms(url: string, formSelector?: string, timeout: number =
         
         inputs.forEach(input => {
           const field = {
-            name: input.name || input.id || `field_${index}`,
-            type: input.type || input.tagName.toLowerCase(),
-            required: input.required || input.hasAttribute('required'),
-            placeholder: input.placeholder || '',
-            value: input.value || '',
+            name: (input as any).name || (input as any).id || `field_${index}`,
+            type: (input as any).type || (input as any).tagName.toLowerCase(),
+            required: (input as any).required || (input as any).hasAttribute('required'),
+            placeholder: (input as any).placeholder || '',
+            value: (input as any).value || '',
             options: [],
             validation: ''
           };
@@ -431,12 +455,12 @@ async function detectForms(url: string, formSelector?: string, timeout: number =
           // Handle select options
           if (input.tagName.toLowerCase() === 'select') {
             const options = input.querySelectorAll('option');
-            field.options = Array.from(options).map(option => option.textContent || '');
+            field.options = Array.from(options).map(option => (option as any).textContent || '');
           }
           
           // Detect validation patterns
-          if (input.pattern) {
-            field.validation = input.pattern;
+          if ((input as any).pattern) {
+            field.validation = (input as any).pattern;
           }
           
           fields.push(field);
@@ -445,8 +469,8 @@ async function detectForms(url: string, formSelector?: string, timeout: number =
         forms.push({
           form_id: form.id || `form_${index}`,
           form_class: form.className || '',
-          form_action: form.action || '',
-          form_method: form.method || 'get',
+          form_action: (form as any).action || '',
+          form_method: (form as any).method || 'get',
           fields,
           complexity: fields.length > 10 ? 'high' : fields.length > 5 ? 'medium' : 'low'
         });
@@ -471,7 +495,7 @@ async function completeForm(url: string, formData: Record<string, string>, formS
   
   try {
     const page = await browser.newPage();
-    await page.goto(url, { waitUntil: 'networkidle2', timeout });
+    await page.goto(url, { waitUntil: 'domcontentloaded', timeout });
     
     let fieldsFilled = 0;
     let fieldsDetected = 0;
@@ -488,21 +512,21 @@ async function completeForm(url: string, formData: Record<string, string>, formS
     };
     
     // Get form element
-    const formElement = formSelector ? await page.$(formSelector) : await page.$('form');
+    const formElement = formSelector ? await (page as any).$(formSelector) : await (page as any).$('form');
     if (!formElement) {
       throw new Error('No form found on the page');
     }
     
     // Detect all form fields
-    const detectedFields = await page.evaluate((selector) => {
+    const detectedFields = await (page as any).evaluate((selector: string) => {
       const form = selector ? document.querySelector(selector) : document.querySelector('form');
       if (!form) return [];
       
       const inputs = form.querySelectorAll('input, textarea, select');
       return Array.from(inputs).map(input => ({
-        name: input.name || input.id || '',
-        type: input.type || input.tagName.toLowerCase(),
-        required: input.required || input.hasAttribute('required')
+        name: (input as any).name || (input as any).id || '',
+        type: (input as any).type || (input as any).tagName.toLowerCase(),
+        required: (input as any).required || (input as any).hasAttribute('required')
       }));
     }, formSelector);
     
@@ -511,7 +535,7 @@ async function completeForm(url: string, formData: Record<string, string>, formS
     // Fill form fields
     for (const [fieldName, value] of Object.entries(formData)) {
       try {
-        const field = await page.$(`input[name="${fieldName}"], textarea[name="${fieldName}"], select[name="${fieldName}"], input[id="${fieldName}"], textarea[id="${fieldName}"], select[id="${fieldName}"]`);
+        const field = await (page as any).$(`input[name="${fieldName}"], textarea[name="${fieldName}"], select[name="${fieldName}"], input[id="${fieldName}"], textarea[id="${fieldName}"], select[id="${fieldName}"]`);
         
         if (field) {
           const fieldType = await field.getAttribute('type') || await field.evaluate(el => el.tagName.toLowerCase());
@@ -554,7 +578,7 @@ async function completeForm(url: string, formData: Record<string, string>, formS
         }
       } catch (error) {
         summary.failedFields.push(fieldName);
-        console.error(`Failed to fill field ${fieldName}:`, error.message);
+        console.error(`Failed to fill field ${fieldName}:`, error instanceof Error ? error.message : 'Unknown error');
       }
     }
     
@@ -576,24 +600,24 @@ async function completeForm(url: string, formData: Record<string, string>, formS
     
     // Validate form if requested
     if (validation) {
-      const errors = await page.evaluate(() => {
+      const errors = await (page as any).evaluate(() => {
         const errorElements = document.querySelectorAll('.error, .invalid, [aria-invalid="true"], .field-error');
         return Array.from(errorElements).map(el => el.textContent || '');
       });
-      validationErrors = errors.filter(error => error.trim());
+      validationErrors = errors.filter((error: string) => error.trim());
     }
     
     // Submit form if requested and no validation errors
     if (submitForm && validationErrors.length === 0) {
       try {
-        const submitButton = await page.$('button[type="submit"], input[type="submit"], button:not([type])');
+        const submitButton = await (page as any).$('button[type="submit"], input[type="submit"], button:not([type])');
         if (submitButton) {
           await submitButton.click();
           await page.waitForNavigation({ timeout: 10000 });
           formSubmitted = true;
         }
       } catch (error) {
-        console.error('Form submission failed:', error.message);
+        console.error('Form submission failed:', error instanceof Error ? error.message : 'Unknown error');
       }
     }
     
@@ -741,18 +765,18 @@ async function recognizeFormPatterns(url: string, formSelector?: string, timeout
   
   try {
     const page = await browser.newPage();
-    await page.goto(url, { waitUntil: 'networkidle2', timeout });
+    await page.goto(url, { waitUntil: 'domcontentloaded', timeout });
     
     // Analyze form structure
-    const formAnalysis = await page.evaluate((selector) => {
+    const formAnalysis = await (page as any).evaluate((selector: string) => {
       const form = selector ? document.querySelector(selector) : document.querySelector('form');
       if (!form) return null;
       
       const inputs = form.querySelectorAll('input, textarea, select');
       const fields = Array.from(inputs).map(input => ({
-        name: (input.name || input.id || '').toLowerCase(),
-        type: input.type || input.tagName.toLowerCase(),
-        required: input.required || input.hasAttribute('required')
+        name: ((input as any).name || (input as any).id || '').toLowerCase(),
+        type: (input as any).type || (input as any).tagName.toLowerCase(),
+        required: (input as any).required || (input as any).hasAttribute('required')
       }));
       
       const fieldTypes: Record<string, number> = {};

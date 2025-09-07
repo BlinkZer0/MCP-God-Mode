@@ -4,7 +4,7 @@ import { PLATFORM } from "../../config/environment.js";
 
 export function registerSocialEngineeringToolkit(server: McpServer) {
   server.registerTool("social_engineering_toolkit", {
-    description: "Social engineering assessment and awareness tools",
+    description: "Comprehensive social engineering assessment and awareness toolkit with phishing simulation, training modules, and vulnerability analysis",
     inputSchema: {
       action: z.enum(["phishing_assessment", "awareness_training", "vulnerability_analysis", "simulation", "reporting"]).describe("Social engineering action to perform"),
       target_group: z.string().optional().describe("Target group for assessment"),

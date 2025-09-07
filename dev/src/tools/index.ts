@@ -93,7 +93,6 @@ export { registerWebAutomation } from "./web/web_automation.js";
 export { registerWebhookManager } from "./web/webhook_manager.js";
 export { registerUniversalBrowserOperator } from "./web/universal_browser_operator.js";
 export { registerWebSearch } from "./web/web_search.js";
-export { registerCaptchaDefeating } from "./web/captcha_defeating.js";
 export { registerFormCompletion } from "./web/form_completion.js";
 
 // Email Tools
@@ -142,7 +141,6 @@ export { registerChartGenerator } from "./utilities/chart_generator.js";
 export { registerTextProcessor } from "./utilities/text_processor.js";
 export { registerPasswordGenerator } from "./utilities/password_generator.js";
 export { registerDataAnalyzer } from "./utilities/data_analyzer.js";
-export { registerDownloadFile } from "./utilities/download_file.js";
 
 // Cloud Tools
 export { registerCloudSecurity } from "./cloud/cloud_security.js";
@@ -158,4 +156,3 @@ export { registerMalwareAnalysisToolkit } from "./forensics/malware_analysis_too
 export { registerToolDiscovery, registerExploreCategories } from "./discovery/index.js";
 
 // Social Tools
-export { registerSocialNetworkRipper } from "./social/index.js";

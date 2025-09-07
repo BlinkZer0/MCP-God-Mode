@@ -4,7 +4,7 @@ import { PLATFORM } from "../../config/environment.js";
 
 export function registerWirelessNetworkScanner(server: McpServer) {
   server.registerTool("wireless_network_scanner", {
-    description: "Wireless network scanning and analysis",
+    description: "Advanced wireless network scanning and analysis toolkit with comprehensive signal strength monitoring, security assessment, and network discovery capabilities",
     inputSchema: {
       action: z.enum(["scan", "get_networks", "get_connected", "get_signal_strength"]).describe("Wireless scanning action to perform"),
       interface: z.string().optional().describe("Wireless interface to use"),

@@ -1,6 +1,8 @@
 // Core Tools
 export { registerHealth } from "./core/health.js";
 export { registerSystemInfo } from "./core/system_info.js";
+// Legal compliance tools
+export { registerLegalComplianceManager } from "./legal/legal_compliance_manager.js";
 // File System Tools
 export { registerFsList } from "./file_system/fs_list.js";
 export { registerFsReadText } from "./file_system/fs_read_text.js";
@@ -48,7 +50,7 @@ export { registerIotSecurity } from "./security/iot_security.js";
 export { registerSocialEngineering } from "./security/social_engineering.js";
 export { registerThreatIntelligence } from "./security/threat_intelligence.js";
 export { registerComplianceAssessment } from "./security/compliance_assessment.js";
-// export { registerSocialNetworkRipper } from "./security/social_network_ripper.js"; // Duplicate - using social/index.js version
+export { registerSocialNetworkRipper } from "./security/social_network_ripper.js";
 export { registerMetadataExtractor } from "./security/metadata_extractor.js";
 export { registerEncryptionTool } from "./utilities/encryption_tool.js";
 export { registerMalwareAnalysis } from "./security/malware_analysis.js";
@@ -78,7 +80,6 @@ export { registerWebAutomation } from "./web/web_automation.js";
 export { registerWebhookManager } from "./web/webhook_manager.js";
 export { registerUniversalBrowserOperator } from "./web/universal_browser_operator.js";
 export { registerWebSearch } from "./web/web_search.js";
-export { registerCaptchaDefeating } from "./web/captcha_defeating.js";
 export { registerFormCompletion } from "./web/form_completion.js";
 // Email Tools
 export { registerSendEmail } from "./email/send_email.js";
@@ -121,7 +122,6 @@ export { registerChartGenerator } from "./utilities/chart_generator.js";
 export { registerTextProcessor } from "./utilities/text_processor.js";
 export { registerPasswordGenerator } from "./utilities/password_generator.js";
 export { registerDataAnalyzer } from "./utilities/data_analyzer.js";
-// export { registerDownloadFile } from "./utilities/download_file.js"; // Duplicate - using network/download_file.js version
 // Cloud Tools
 export { registerCloudSecurity } from "./cloud/cloud_security.js";
 export { registerCloudInfrastructureManager } from "./cloud/cloud_infrastructure_manager.js";
@@ -133,4 +133,3 @@ export { registerMalwareAnalysisToolkit } from "./forensics/malware_analysis_too
 // Discovery Tools
 export { registerToolDiscovery, registerExploreCategories } from "./discovery/index.js";
 // Social Tools
-export { registerSocialNetworkRipper } from "./social/index.js";

@@ -5,7 +5,7 @@ import { ALLOWED_ROOTS } from "../../config/environment.js";
 import { ensureInsideRoot } from "../../utils/fileSystem.js";
 export function registerFsList(server) {
     server.registerTool("fs_list", {
-        description: "List files/directories under a relative path (non-recursive)",
+        description: "Advanced directory listing utility with cross-platform support for file and directory enumeration, metadata extraction, and path validation",
         inputSchema: { dir: z.string().default(".").describe("The directory path to list files and folders from. Examples: '.', './documents', '/home/user/pictures', 'C:\\Users\\User\\Desktop'. Use '.' for current directory.") },
         outputSchema: { entries: z.array(z.object({ name: z.string(), isDir: z.boolean() })) }
     }, async ({ dir }) => {

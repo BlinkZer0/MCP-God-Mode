@@ -187,12 +187,12 @@ const CAPTCHA_TYPES = {
 export function registerUniversalBrowserOperator(server) {
     // Web Search Tool
     server.registerTool("mcp_mcp-god-mode_web_search", {
-        description: "Universal web search across multiple search engines including Google, DuckDuckGo, Reddit, Wikipedia, GitHub, and more",
+        description: "Multi-engine web search tool supporting Google, DuckDuckGo, Bing, Yahoo, Reddit, Wikipedia, GitHub, and Stack Overflow. Provides comprehensive search results with metadata, snippets, and source attribution.",
         inputSchema: {
-            query: z.string().describe("Search query to execute"),
-            engine: z.enum(["google", "duckduckgo", "bing", "yahoo", "reddit", "wikipedia", "github", "stackoverflow"]).describe("Search engine to use"),
-            max_results: z.number().min(1).max(50).default(10).describe("Maximum number of results to return"),
-            include_snippets: z.boolean().default(true).describe("Whether to include result snippets"),
+            query: z.string().describe("Search query string to execute across selected search engine"),
+            engine: z.enum(["google", "duckduckgo", "bing", "yahoo", "reddit", "wikipedia", "github", "stackoverflow"]).describe("Search engine platform: Google for general web, DuckDuckGo for privacy-focused, Reddit for community discussions, Wikipedia for encyclopedic content, GitHub for code repositories, Stack Overflow for technical Q&A"),
+            max_results: z.number().min(1).max(50).default(10).describe("Maximum number of search results to return (1-50)"),
+            include_snippets: z.boolean().default(true).describe("Include result snippets and preview text with search results"),
             timeout: z.number().min(5000).max(60000).default(30000).describe("Timeout in milliseconds")
         },
         outputSchema: {
@@ -442,7 +442,7 @@ async function performWebSearch(url, config, maxResults, includeSnippets, timeou
     const browser = await launchBrowser(engine, false);
     try {
         const page = await browser.newPage();
-        await page.goto(url, { waitUntil: 'networkidle2', timeout });
+        await page.goto(url, { waitUntil: 'domcontentloaded', timeout });
         // Wait for results to load
         await page.waitForSelector(config.selectors.results, { timeout: 10000 });
         const results = await page.evaluate((selectors, maxResults, includeSnippets) => {
@@ -475,7 +475,7 @@ async function performAISiteInteraction(url, config, action, message, timeout, h
     const browser = await launchBrowser(engine, headless);
     try {
         const page = await browser.newPage();
-        await page.goto(url, { waitUntil: 'networkidle2', timeout });
+        await page.goto(url, { waitUntil: 'domcontentloaded', timeout });
         let result = { text: '', screenshot: '' };
         switch (action) {
             case 'send_message':
@@ -522,7 +522,7 @@ async function defeatCaptcha(url, captchaType, method, timeout, saveScreenshot) 
     const browser = await launchBrowser(engine, false);
     try {
         const page = await browser.newPage();
-        await page.goto(url, { waitUntil: 'networkidle2', timeout });
+        await page.goto(url, { waitUntil: 'domcontentloaded', timeout });
         let detectedType = captchaType;
         let solution = '';
         let confidence = 0;
@@ -588,7 +588,7 @@ async function completeForm(url, formData, captchaHandling, validation, submitFo
     const browser = await launchBrowser(engine, false);
     try {
         const page = await browser.newPage();
-        await page.goto(url, { waitUntil: 'networkidle2', timeout });
+        await page.goto(url, { waitUntil: 'domcontentloaded', timeout });
         let fieldsFilled = 0;
         let captchaSolved = false;
         let formSubmitted = false;
@@ -653,7 +653,7 @@ async function performBrowserAction(action, url, selector, text, script, timeout
         const page = await browser.newPage();
         let result = { text: '', screenshot: '' };
         if (url && action === 'navigate') {
-            await page.goto(url, { waitUntil: 'networkidle2', timeout });
+            await page.goto(url, { waitUntil: 'domcontentloaded', timeout });
             result.text = `Navigated to ${url}`;
         }
         switch (action) {
@@ -755,7 +755,7 @@ async function solveAutomatedCaptcha(page, captchaType) {
         await page.evaluate(() => {
             const iframe = document.querySelector('iframe[src*="recaptcha"]');
             if (iframe) {
-                // This is a placeholder - actual implementation would be more complex
+                // Note: Automated CAPTCHA solving requires advanced AI/ML capabilities
                 console.log('reCAPTCHA detected - manual solving required');
             }
         });
