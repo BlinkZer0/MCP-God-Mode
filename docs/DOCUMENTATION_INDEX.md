@@ -25,6 +25,7 @@ This index provides a comprehensive mapping of all tools, features, and document
 - **[File Read](tool/fs_read_text.md)** - Text file reading operations
 - **[File Write](tool/fs_write_text.md)** - Text file writing operations
 - **[File Search](tool/fs_search.md)** - Content-based file searching
+- **[File Watcher](tool/file_watcher.md)** - File system monitoring and change detection
 
 ### Process Management
 - **[Process Run](tool/proc_run.md)** - Execute commands and processes
@@ -35,6 +36,8 @@ This index provides a comprehensive mapping of all tools, features, and document
 - **[System Info](tool/system_info.md)** - Host system details and specifications
 - **[Health Check](tool/health.md)** - System health and status monitoring
 - **[System Restore](tool/system_restore.md)** - Backup and recovery operations
+- **[System Monitor](tool/system_monitor.md)** - Real-time system monitoring and performance tracking
+- **[Cron Job Manager](tool/cron_job_manager.md)** - Scheduled task management and automation
 
 ### Git Operations
 - **[Git Status](tool/git_status.md)** - Repository status and management
@@ -45,6 +48,8 @@ This index provides a comprehensive mapping of all tools, features, and document
 - **[Network Diagnostics](tool/network_diagnostics.md)** - Ping, traceroute, DNS, port scanning
 - **[Port Scanner](tool/port_scanner.md)** - Network port discovery and analysis
 - **[Packet Sniffer](tool/packet_sniffer.md)** - Network traffic capture and analysis
+- **[Network Traffic Analyzer](tool/network_traffic_analyzer.md)** - Advanced network traffic analysis and monitoring
+- **[Network Security](tool/network_security.md)** - Comprehensive network security assessment
 
 ### Geolocation & Reconnaissance
 - **[IP Geolocation](tool/ip_geolocation.md)** - IP-based geolocation using multiple databases
@@ -58,15 +63,27 @@ This index provides a comprehensive mapping of all tools, features, and document
 ### Security Testing
 - **[Vulnerability Assessment](tool/vulnerability_assessment.md)** - Comprehensive security assessment
 - **[Social Network Ripper](tool/social_network_ripper.md)** - Social media account information extraction
+- **[Social Account Ripper](tool/social_account_ripper.md)** - Social media account information extraction
+- **[Social Account Ripper Modular](tool/social_account_ripper_modular.md)** - Modular social media account extraction
 - **[Metadata Extractor](tool/metadata_extractor.md)** - Media metadata analysis and geolocation
 - **[Security Testing](tool/security_testing.md)** - Multi-domain security assessment
 - **[Network Penetration](tool/network_penetration.md)** - Network security testing
 - **[Vulnerability Scanner](tool/vulnerability_scanner.md)** - Security weakness identification
 - **[Password Cracker](tool/password_cracker.md)** - Authentication testing
 - **[Exploit Framework](tool/exploit_framework.md)** - Vulnerability exploitation testing
+- **[Blockchain Security](tool/blockchain_security.md)** - Blockchain and cryptocurrency security analysis
+- **[Quantum Security](tool/quantum_security.md)** - Quantum-resistant cryptography assessment
+- **[IoT Security](tool/iot_security.md)** - Internet of Things device security testing
+- **[Encryption Tool](tool/encryption_tool.md)** - Cryptographic operations and security
+- **[Malware Analysis](tool/malware_analysis.md)** - Malicious software detection and analysis
+- **[Threat Intelligence](tool/threat_intelligence.md)** - Security threat analysis and monitoring
+- **[Compliance Assessment](tool/compliance_assessment.md)** - Regulatory compliance testing
 
 ### Penetration Testing
 - **[Hack Network](tool/hack_network.md)** - Comprehensive network penetration testing
+- **[Penetration Testing Toolkit](tool/penetration_testing_toolkit.md)** - Complete penetration testing framework
+- **[Social Engineering Toolkit](tool/social_engineering_toolkit.md)** - Social engineering assessment tools
+- **[Social Engineering](tool/social_engineering.md)** - Human factor security testing
 - **[Penetration Testing Summary](PENETRATION_TESTING_TOOLS_SUMMARY.md)** - Complete PT tool overview
 - **[Network Reconnaissance Tools](NETWORK_RECONNAISSANCE_TOOLS.md)** - Complete network recon overview
 
@@ -81,6 +98,8 @@ This index provides a comprehensive mapping of all tools, features, and document
 ### Bluetooth Security
 - **[Bluetooth Security Toolkit](tool/bluetooth_security_toolkit.md)** - Bluetooth security assessment
 - **[Bluetooth Hacking](tool/bluetooth_hacking.md)** - Advanced Bluetooth penetration testing
+- **[Bluetooth Device Manager](tool/bluetooth_device_manager.md)** - Bluetooth device management and control
+- **[Wireless Network Scanner](tool/wireless_network_scanner.md)** - Advanced wireless network discovery
 
 ### Radio & SDR
 - **[SDR Security Toolkit](tool/sdr_security_toolkit.md)** - Software Defined Radio security
@@ -117,8 +136,20 @@ This index provides a comprehensive mapping of all tools, features, and document
 - **[Web Scraper](tool/web_scraper.md)** - Web content extraction and scraping
 - **[Universal Browser Operator](tool/universal_browser_operator.md)** - AI site interaction and browser automation
 - **[Web Search](tool/web_search.md)** - Multi-platform web search capabilities
+- **[Web Automation](tool/web_automation.md)** - Advanced web automation and interaction
+- **[Webhook Manager](tool/webhook_manager.md)** - Webhook endpoint management and testing
 - **[Captcha Defeating](tool/captcha_defeating.md)** - CAPTCHA solving and bypass techniques
 - **[Form Completion](tool/form_completion.md)** - Intelligent automated form filling
+- **[Form Detection](tool/form_detection.md)** - Automated form detection and analysis
+- **[Form Validation](tool/form_validation.md)** - Form validation and verification
+- **[Form Pattern Recognition](tool/form_pattern_recognition.md)** - Form pattern analysis and recognition
+- **[Captcha Detection](tool/captcha_detection.md)** - CAPTCHA detection and identification
+- **[Captcha Solving](tool/captcha_solving.md)** - CAPTCHA solving algorithms
+- **[Captcha Bypass](tool/captcha_bypass.md)** - CAPTCHA bypass techniques
+- **[Captcha Analysis](tool/captcha_analysis.md)** - CAPTCHA analysis and assessment
+- **[Multi Engine Search](tool/multi_engine_search.md)** - Multi-search engine capabilities
+- **[Search Analysis](tool/search_analysis.md)** - Search result analysis and processing
+- **[AI Site Interaction](tool/ai_site_interaction.md)** - AI-powered website interaction
 
 ## 📱 Mobile Device Tools
 
@@ -127,6 +158,17 @@ This index provides a comprehensive mapping of all tools, features, and document
 - **[Mobile File Operations](tool/mobile_file_ops.md)** - Mobile file management
 - **[Mobile Hardware](tool/mobile_hardware.md)** - Hardware feature access
 - **[Mobile System Tools](tool/mobile_system_tools.md)** - Mobile system management
+- **[Mobile Device Management](tool/mobile_device_management.md)** - Mobile device administration
+- **[Mobile Network Analyzer](tool/mobile_network_analyzer.md)** - Mobile network analysis and diagnostics
+
+### Mobile App Tools
+- **[Mobile App Analytics Toolkit](tool/mobile_app_analytics_toolkit.md)** - Mobile application analytics and user behavior tracking
+- **[Mobile App Deployment Toolkit](tool/mobile_app_deployment_toolkit.md)** - Mobile app deployment and distribution toolkit
+- **[Mobile App Monitoring Toolkit](tool/mobile_app_monitoring_toolkit.md)** - Mobile app monitoring and performance tracking
+- **[Mobile App Optimization Toolkit](tool/mobile_app_optimization_toolkit.md)** - Mobile app performance optimization
+- **[Mobile App Security Toolkit](tool/mobile_app_security_toolkit.md)** - Mobile app security testing and assessment
+- **[Mobile App Testing Toolkit](tool/mobile_app_testing_toolkit.md)** - Mobile app testing and quality assurance toolkit
+- **[Mobile App Performance Toolkit](tool/mobile_app_performance_toolkit.md)** - Mobile app performance testing and benchmarking
 
 ## 🖥️ Virtualization & Containers
 
@@ -142,11 +184,42 @@ This index provides a comprehensive mapping of all tools, features, and document
 - **[Calculator](tool/calculator.md)** - Advanced mathematical calculations
 - **[Math Calculate](tool/math_calculate.md)** - Scientific and statistical calculations
 
+### Data Analysis & Processing
+- **[Data Analysis](tool/data_analysis.md)** - Statistical analysis and data processing
+- **[Data Analyzer](tool/data_analyzer.md)** - Advanced data analysis and visualization
+- **[Machine Learning](tool/machine_learning.md)** - AI-powered analysis and model training
+- **[Chart Generator](tool/chart_generator.md)** - Data visualization and chart generation
+- **[Text Processor](tool/text_processor.md)** - Advanced text processing and analysis
+
 ### Random & Gaming
 - **[Dice Rolling](tool/dice_rolling.md)** - Dice simulation and random numbers
 
+### Security & Encryption
+- **[Password Generator](tool/password_generator.md)** - Secure password generation
+- **[Encryption Tool](tool/encryption_tool.md)** - Cryptographic operations and security
+
 ### File Operations
 - **[Download File](tool/download_file.md)** - File downloading from URLs
+
+## ☁️ Cloud & Infrastructure Tools
+
+### Cloud Security
+- **[Cloud Security](tool/cloud_security.md)** - Cloud infrastructure security assessment
+- **[Cloud Security Toolkit](tool/cloud_security_toolkit.md)** - Comprehensive cloud security framework
+- **[Cloud Infrastructure Manager](tool/cloud_infrastructure_manager.md)** - Cloud resource management
+
+## 🔍 Forensics & Analysis Tools
+
+### Digital Forensics
+- **[Forensics Analysis](tool/forensics_analysis.md)** - Digital forensics and incident response
+- **[Forensics Toolkit](tool/forensics_toolkit.md)** - Complete forensics framework
+- **[Malware Analysis Toolkit](tool/malware_analysis_toolkit.md)** - Malicious software analysis
+
+## 🔧 Tool Discovery & Management
+
+### Tool Discovery
+- **[Tool Discovery](tool/tool_discovery.md)** - Natural language tool search and exploration
+- **[Explore Categories](tool/explore_categories.md)** - Browse tools by category and capability
 
 ## 🪟 Windows-Specific Tools
 
