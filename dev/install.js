@@ -746,7 +746,7 @@ if (process.argv.includes('--help') || process.argv.includes('-h')) {
 }
 
 if (process.argv.includes('--version') || process.argv.includes('-v')) {
-  console.log('MCP God Mode Installer v1.5');
+  console.log('MCP God Mode Installer v1.6');
   console.log('🎭 "Version numbers are like jokes - they\'re better when they\'re current!" 🎲');
   process.exit(0);
 }

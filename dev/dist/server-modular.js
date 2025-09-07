@@ -23,7 +23,7 @@ logServerStart(PLATFORM);
 // ===========================================
 // MODULAR SERVER: Imported Tools
 // ===========================================
-const server = new McpServer({ name: "MCP God Mode - Modular", version: "1.4a" });
+const server = new McpServer({ name: "MCP God Mode - Modular", version: "1.6.0" });
 // Capture tool registrations dynamically to keep the list accurate
 const registeredTools = new Set();
 const _origRegisterTool = server.registerTool?.bind(server);

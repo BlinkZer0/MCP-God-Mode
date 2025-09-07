@@ -26,7 +26,7 @@ logServerStart(PLATFORM);
 // ===========================================
 // CORE TOOLS
 // ===========================================
-const server = new McpServer({ name: "MCP God Mode - Refactored", version: "1.4a" });
+const server = new McpServer({ name: "MCP God Mode - Refactored", version: "1.6.0" });
 server.registerTool("health", {
     description: "Liveness/readiness probe",
     outputSchema: { ok: z.boolean(), roots: z.array(z.string()), cwd: z.string() }

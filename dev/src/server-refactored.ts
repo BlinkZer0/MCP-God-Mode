@@ -47,7 +47,7 @@ logServerStart(PLATFORM);
 // MONOLITHIC SERVER: Direct Tool Registration
 // ===========================================
 
-const server = new McpServer({ name: "MCP God Mode - Monolithic", version: "1.4a" });
+const server = new McpServer({ name: "MCP God Mode - Monolithic", version: "1.6.0" });
 
 // Capture tool registrations dynamically to keep the list accurate
 const registeredTools = new Set<string>();

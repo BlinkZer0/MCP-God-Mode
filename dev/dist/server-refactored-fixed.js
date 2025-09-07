@@ -28,7 +28,7 @@ logServerStart(PLATFORM);
 // ===========================================
 // CORE TOOLS
 // ===========================================
-const server = new McpServer({ name: "MCP God Mode", version: "1.4a" });
+const server = new McpServer({ name: "MCP God Mode", version: "1.6.0" });
 // Register elevated permissions manager (parity with modular server)
 registerElevatedPermissionsManager(server);
 server.registerTool("health", {
