@@ -2,6 +2,9 @@
 export { registerHealth } from "./core/health.js";
 export { registerSystemInfo } from "./core/system_info.js";
 
+// Legal compliance tools
+export { registerLegalComplianceManager } from "./legal/legal_compliance_manager.js";
+
 // File System Tools
 export { registerFsList } from "./file_system/fs_list.js";
 export { registerFsReadText } from "./file_system/fs_read_text.js";

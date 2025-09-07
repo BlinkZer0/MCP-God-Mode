@@ -37,13 +37,15 @@ MCP God Mode is the ultimate cybersecurity and system management platform that p
 **📝 Note**: We offer both monolithic and modular server architectures. Our **primary server-refactored** provides comprehensive functionality in a unified interface with **113 tools**. The modular server fragments complex actions into individual, focused tools (**119 tools total**) for granular control, better error handling, and for the ease of an individual to extract a tool for their own server build. Tools are located in dev/src/tools. Each architecture serves different use cases and preferences.
 
 **🔍 Server Architecture Differences**:
-- **Server-Refactored (113 tools)**: Unified server with all tools in a single file. Some complex tools are implemented as single comprehensive functions.
-- **Modular Server (119 tools)**: Fragmented architecture where complex tools are broken down into multiple specialized functions. For example, a single "web automation" tool in the server-refactored becomes multiple specialized tools like "form detection", "form completion", "captcha solving", etc. in the modular server.
+- **Server-Refactored (113 tools)**: Unified server with all tools in a single file. Some complex tools are implemented as single comprehensive functions. Includes built-in legal compliance, audit logging, and forensic readiness capabilities.
+- **Modular Server (119 tools)**: Fragmented architecture where complex tools are broken down into multiple specialized functions. For example, a single "web automation" tool in the server-refactored becomes multiple specialized tools like "form detection", "form completion", "captcha solving", etc. in the modular server. Full legal compliance integration with modular evidence preservation.
 - **Tool Count Discrepancy**: The modular server has 6 additional tools because it breaks down complex server-refactored tools into granular, specialized functions. This provides more precise control but requires more tool registrations.
 
 **🔢 Tool Counting Complexity**: Accurately counting tools in a comprehensive system like MCP God Mode is inherently challenging due to the distinction between **tools** (distinct MCP server functions) and **parameters/actions** (options within each tool). For example, a single "Wi-Fi Security Toolkit" tool may offer 25+ different actions (scan, crack, monitor, etc.), but it counts as one tool. Similarly, complex tools with multiple parameters can appear as multiple capabilities while remaining a single tool. Our counts represent the actual MCP server tool registrations, ensuring accuracy while acknowledging that each tool may provide numerous sub-capabilities.
 
 **📊 Documentation Status**: All 119 tools now have comprehensive documentation with detailed usage examples, parameter references, and platform compatibility information.
+
+**⚖️ Legal Compliance & Forensic Readiness**: Both server architectures include comprehensive legal compliance capabilities including audit logging, evidence preservation, legal hold management, and chain of custody tracking. These features are disabled by default and can be enabled through environment variables for SOX, HIPAA, GDPR, PCI DSS, and ISO 27001 compliance. See [Legal Compliance Documentation](docs/LEGAL_COMPLIANCE.md) for detailed configuration and usage instructions.
 
 ## 🔢 Understanding Tool Counts: Tools vs. Actions vs. Parameters
 

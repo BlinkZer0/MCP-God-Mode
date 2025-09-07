@@ -422,9 +422,10 @@ function displayBanner() {
   console.log('=========================================\n');
   console.log('🎲 "With great power comes great responsibility... and the ability to roll dice!" 🎲\n');
   console.log('📊 Server Architecture Information:');
-  console.log('   • Monolithic Server: 113 tools (unified, production-ready)');
+  console.log('   • Server-Refactored: 113 tools (unified, production-ready)');
   console.log('   • Modular Server: 119 tools (granular, development-friendly)');
-  console.log('   • Tool count difference: Modular breaks complex tools into specialized functions\n');
+  console.log('   • Tool count difference: Modular breaks complex tools into specialized functions');
+  console.log('   • Legal Compliance: Built-in audit logging, evidence preservation, and forensic readiness\n');
 }
 
 function displayServerOptions() {
@@ -674,8 +675,13 @@ async function installServer(choice) {
       console.log('  - Advanced metadata extraction capabilities');
       console.log('  - Social network ripper for OSINT operations');
       console.log('  - Enhanced security testing and penetration tools');
+      console.log('  - Legal compliance and forensic readiness capabilities');
       console.log('\n🎭 Fun Fact: This server is so powerful, it could probably hack the Matrix!');
       console.log('   Neo would be proud (and maybe a little intimidated) 🕶️💻');
+      console.log('\n⚖️ Legal Compliance Setup:');
+      console.log('   To enable legal compliance features, copy and configure:');
+      console.log('   cp dev/legal-compliance.env.template .env');
+      console.log('   See docs/LEGAL_COMPLIANCE.md for detailed configuration');
       return;
     }
     

@@ -25,9 +25,13 @@ import { ALLOWED_ROOTS_ARRAY, getPlatformCommand, getMobilePermissions, isMobile
 import { sanitizeCommand, isDangerousCommand, shouldPerformSecurityChecks } from "./utils/security.js";
 import { ensureInsideRoot, limitString } from "./utils/fileSystem.js";
 import { logger, logServerStart } from "./utils/logger.js";
+import { legalCompliance, LegalComplianceConfig } from "./utils/legal-compliance.js";
 
 // Import all tools from the comprehensive index
 import * as allTools from "./tools/index.js";
+
+// Import legal compliance tools
+import { registerLegalComplianceManager } from "./tools/legal/legal_compliance_manager.js";
 
 // Global variables for enhanced features
 let browserInstance: any = null;
@@ -42,6 +46,46 @@ const execAsync = promisify(exec);
 
 // Log server startup
 logServerStart(PLATFORM);
+
+// Initialize legal compliance system
+async function initializeLegalCompliance() {
+  try {
+    // Configure legal compliance from environment
+    const legalConfig: LegalComplianceConfig = {
+      enabled: config.legalCompliance.enabled,
+      auditLogging: config.legalCompliance.auditLogging,
+      evidencePreservation: config.legalCompliance.evidencePreservation,
+      legalHold: config.legalCompliance.legalHold,
+      chainOfCustody: config.legalCompliance.chainOfCustody,
+      dataIntegrity: config.legalCompliance.dataIntegrity,
+      complianceFrameworks: config.legalCompliance.complianceFrameworks
+    };
+
+    await legalCompliance.updateConfig(legalConfig);
+    await legalCompliance.initialize();
+
+    if (legalConfig.enabled) {
+      console.log("🔒 Legal compliance system initialized and enabled");
+      console.log(`   📊 Audit Logging: ${legalConfig.auditLogging.enabled ? '✅' : '❌'}`);
+      console.log(`   🗃️ Evidence Preservation: ${legalConfig.evidencePreservation.enabled ? '✅' : '❌'}`);
+      console.log(`   ⚖️ Legal Hold: ${legalConfig.legalHold.enabled ? '✅' : '❌'}`);
+      console.log(`   🔗 Chain of Custody: ${legalConfig.chainOfCustody.enabled ? '✅' : '❌'}`);
+      console.log(`   🔐 Data Integrity: ${legalConfig.dataIntegrity.enabled ? '✅' : '❌'}`);
+      
+      const frameworks = Object.entries(legalConfig.complianceFrameworks)
+        .filter(([_, enabled]) => enabled)
+        .map(([framework, _]) => framework.toUpperCase());
+      
+      if (frameworks.length > 0) {
+        console.log(`   📋 Compliance Frameworks: ${frameworks.join(', ')}`);
+      }
+    } else {
+      console.log("🔓 Legal compliance system disabled (default)");
+    }
+  } catch (error) {
+    console.warn("⚠️ Failed to initialize legal compliance system:", error);
+  }
+}
 
 // ===========================================
 // MONOLITHIC SERVER: Direct Tool Registration
@@ -77,13 +121,24 @@ toolFunctions.forEach((toolFunction: any) => {
   }
 });
 
-console.log(`✅ Successfully registered ${toolFunctions.length} tool functions`);
+// Register legal compliance manager
+try {
+  registerLegalComplianceManager(server);
+  console.log("✅ Legal compliance manager registered");
+} catch (error) {
+  console.warn("Warning: Failed to register legal compliance manager:", error);
+}
+
+console.log(`✅ Successfully registered ${toolFunctions.length} tool functions + legal compliance manager`);
 
 // ===========================================
 // START THE SERVER
 // ===========================================
 
 async function main() {
+  // Initialize legal compliance system first
+  await initializeLegalCompliance();
+  
   const transport = new StdioServerTransport();
   await server.connect(transport);
   logger.info("MCP God Mode - Monolithic Server started successfully");
@@ -103,6 +158,7 @@ async function main() {
   console.log("🖥️ Virtualization: VM and container management");
   console.log("🧮 Utility Tools: Mathematical and data processing");
   console.log("🪟 Windows Tools: Windows-specific system management");
+  console.log("⚖️ Legal Tools: Legal compliance, audit logging, evidence preservation");
   console.log("");
   console.log("🎯 **READY FOR OPERATION**");
 }
