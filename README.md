@@ -343,6 +343,10 @@ See MCP God Mode in action with Cursor IDE integration:
 <details>
   <summary><b>Core System Tools</b> - File operations, process management, system info, health monitoring</summary>
 
+<picture>
+  <img src="docs/headers/svg/system.svg" alt="Core System Tools" width="100%" />
+</picture>
+
 ### 🔐 Core System Tools (8 Tools)
 - **File Operations** - Advanced cross-platform file management
 - **Process Management** - Command execution and elevated permissions
@@ -359,6 +363,10 @@ See MCP God Mode in action with Cursor IDE integration:
 
 <details>
   <summary><b>Network & Security Tools</b> - Network diagnostics, penetration testing, packet analysis, port scanning</summary>
+
+<picture>
+  <img src="docs/headers/svg/network.svg" alt="Network & Security Tools" width="100%" />
+</picture>
 
 ### 🌐 Network & Security (19 Tools)
 - **Network Diagnostics** - Ping, traceroute, DNS, port scanning
@@ -387,6 +395,10 @@ See MCP God Mode in action with Cursor IDE integration:
 
 <details>
   <summary><b>Wireless & Radio Tools</b> - Wi-Fi, Bluetooth, SDR security testing, signal analysis</summary>
+
+<picture>
+  <img src="docs/headers/svg/radio.svg" alt="Wireless & Radio Tools" width="100%" />
+</picture>
 
 ### 📡 Wireless & Radio (7 Tools)
 - **Wi-Fi Security** - Complete wireless security testing toolkit
@@ -433,6 +445,10 @@ https://github.com/user-attachments/assets/f074039c-1989-40fc-b769-5efa855e854d
 <details>
   <summary><b>Email Management Tools</b> - SMTP, IMAP, email security, account management</summary>
 
+<picture>
+  <img src="docs/headers/svg/email.svg" alt="Email Management Tools" width="100%" />
+</picture>
+
 ### 📧 Email Management (6 Tools)
 - **SMTP Operations** - Send emails across all platforms
 - **IMAP Operations** - Read, parse, and manage emails
@@ -445,6 +461,10 @@ https://github.com/user-attachments/assets/f074039c-1989-40fc-b769-5efa855e854d
 
 <details>
   <summary><b>Media & Content Tools</b> - Audio, video, image processing, OCR, screenshots</summary>
+
+<picture>
+  <img src="docs/headers/svg/media.svg" alt="Media & Content Tools" width="100%" />
+</picture>
 
 ### 🎵 Media & Content (5 Tools)
 - **Audio Processing** - Recording, editing, and conversion
@@ -459,6 +479,10 @@ https://github.com/user-attachments/assets/f074039c-1989-40fc-b769-5efa855e854d
 
 <details>
   <summary><b>Web & Browser Tools</b> - Browser automation, web scraping, web automation, webhooks</summary>
+
+<picture>
+  <img src="docs/headers/svg/web.svg" alt="Web & Browser Tools" width="100%" />
+</picture>
 
 ### 🖥️ Web & Browser (4 Tools)
 - **Browser Automation** - Cross-platform browser control
@@ -482,6 +506,10 @@ https://github.com/user-attachments/assets/f074039c-1989-40fc-b769-5efa855e854d
 
 **[📖 View All MCP Web UI Bridge Tools](docs/general/TOOL_CATEGORY_INDEX.md#mcp-web-ui-bridge)**
 
+<picture>
+  <img src="docs/headers/svg/mobile.svg" alt="Mobile Device Tools" width="100%" />
+</picture>
+
 ### 📱 Mobile Device (13 Tools)
 - **Device Information** - Hardware and software details
 - **File Operations** - Mobile file management
@@ -499,11 +527,19 @@ https://github.com/user-attachments/assets/f074039c-1989-40fc-b769-5efa855e854d
 
 **[📖 View All Mobile Tools](docs/general/TOOL_CATEGORY_INDEX.md#mobile-device)**
 
+<picture>
+  <img src="docs/headers/svg/virtualization.svg" alt="Virtualization Tools" width="100%" />
+</picture>
+
 ### 🖥️ Virtualization (2 Tools)
 - **VM Management** - Virtual machine operations
 - **Docker Management** - Container orchestration
 
 **[📖 View All Virtualization Tools](docs/general/TOOL_CATEGORY_INDEX.md#virtualization--containers)**
+
+<picture>
+  <img src="docs/headers/svg/security.svg" alt="Advanced Security Tools" width="100%" />
+</picture>
 
 ### 🔒 Advanced Security (17 Tools)
 - **Blockchain Security** - Cryptocurrency and blockchain analysis
