@@ -41,6 +41,14 @@ The **Social Engineering Toolkit Tool** (`mcp_mcp-god-mode_social_engineering_to
 }
 ```
 
+
+## Natural Language Access
+Users can request social engineering toolkit operations using natural language:
+- "Perform social engineering test"
+- "Assess human security"
+- "Test phishing resistance"
+- "Simulate social attacks"
+- "Check awareness training"
 ## Usage Examples
 
 ### Basic Usage

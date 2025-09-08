@@ -41,6 +41,14 @@ The **Multi Engine Search Tool** (`mcp_mcp-god-mode_multi_engine_search`) is a c
 }
 ```
 
+
+## Natural Language Access
+Users can request multi engine search operations using natural language:
+- "Search across multiple engines"
+- "Perform comprehensive search"
+- "Search multiple sources"
+- "Aggregate search results"
+- "Cross-reference search data"
 ## Usage Examples
 
 ### Basic Usage

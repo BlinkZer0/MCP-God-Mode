@@ -67,6 +67,14 @@ The **Send Email Tool** (`mcp_mcp-god-mode_send_email`) is a comprehensive email
 }
 ```
 
+
+## Natural Language Access
+Users can request send email operations using natural language:
+- "Send email messages"
+- "Deliver email content"
+- "Transmit email communications"
+- "Send email notifications"
+- "Dispatch email messages"
 ## Usage Examples
 
 ### Basic Email Sending

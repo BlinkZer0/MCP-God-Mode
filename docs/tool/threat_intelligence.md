@@ -25,6 +25,14 @@ The Threat Intelligence tool provides comprehensive threat analysis, monitoring,
 - **sources** (array): Threat intelligence sources to use
 - **ioc_types** (array): Types of IOCs to focus on
 
+
+## Natural Language Access
+Users can request threat intelligence operations using natural language:
+- "Gather threat intelligence"
+- "Analyze security threats"
+- "Check threat indicators"
+- "Monitor threat landscape"
+- "Assess threat level"
 ## Usage Examples
 
 ### Gather Threat Intelligence

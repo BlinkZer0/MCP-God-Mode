@@ -70,6 +70,14 @@ The **Network Triangulation Tool** provides advanced device location capabilitie
 }
 ```
 
+## Natural Language Access
+Users can request network triangulation operations using natural language:
+- "Triangulate device location"
+- "Find device position"
+- "Locate network device"
+- "Track device location"
+- "Determine device position"
+
 ## Usage Examples
 
 ### Wi-Fi Triangulation

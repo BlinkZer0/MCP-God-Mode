@@ -41,6 +41,14 @@ The **Quantum Security Tool** (`mcp_mcp-god-mode_quantum_security`) is a compreh
 }
 ```
 
+
+## Natural Language Access
+Users can request quantum security operations using natural language:
+- "Assess quantum security"
+- "Test quantum resistance"
+- "Check quantum vulnerabilities"
+- "Analyze quantum threats"
+- "Evaluate quantum security"
 ## Usage Examples
 
 ### Basic Usage

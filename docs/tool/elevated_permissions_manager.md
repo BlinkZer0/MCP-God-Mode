@@ -77,6 +77,14 @@ The **Elevated Permissions Manager** is a comprehensive security and control sys
 }
 ```
 
+## Natural Language Access
+Users can request elevated permissions manager operations using natural language:
+- "Manage elevated permissions"
+- "Control system privileges"
+- "Grant admin access"
+- "Manage user permissions"
+- "Control system rights"
+
 ## Usage Examples
 
 ### Get Current Configuration

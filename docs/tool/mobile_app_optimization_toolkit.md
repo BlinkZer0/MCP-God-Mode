@@ -41,6 +41,14 @@ The **Mobile App Optimization Toolkit Tool** (`mcp_mcp-god-mode_mobile_app_optim
 }
 ```
 
+
+## Natural Language Access
+Users can request mobile app optimization toolkit operations using natural language:
+- "Optimize mobile app performance"
+- "Improve app efficiency"
+- "Enhance app speed"
+- "Optimize app resources"
+- "Boost app performance"
 ## Usage Examples
 
 ### Basic Usage

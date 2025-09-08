@@ -117,6 +117,14 @@ The **Web Scraper Tool** (`mcp_mcp-god-mode_web_scraper`) is an advanced web scr
 }
 ```
 
+
+## Natural Language Access
+Users can request web scraper operations using natural language:
+- "Scrape web content"
+- "Extract web data"
+- "Collect web information"
+- "Gather web content"
+- "Harvest web data"
 ## Usage Examples
 
 ### Basic Page Scraping

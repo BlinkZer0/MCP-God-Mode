@@ -15,3 +15,11 @@ Notes
 - Great for holistic posture snapshots and executive summaries.
 - Humor: If the AI recommends “add more firewalls” around your coffee machine, that’s defense-in-depth… caffeine edition.
 
+
+## Natural Language Access
+Users can request advanced security assessment operations using natural language:
+- "Assess the security of my system"
+- "Perform a comprehensive security evaluation"
+- "Check for security vulnerabilities"
+- "Analyze security posture"
+- "Test security defenses"

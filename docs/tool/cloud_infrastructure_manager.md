@@ -41,6 +41,14 @@ The **Cloud Infrastructure Manager Tool** (`mcp_mcp-god-mode_cloud_infrastructur
 }
 ```
 
+
+## Natural Language Access
+Users can request cloud infrastructure manager operations using natural language:
+- "Manage cloud infrastructure"
+- "Control cloud resources"
+- "Deploy cloud services"
+- "Monitor cloud performance"
+- "Manage cloud lifecycle"
 ## Usage Examples
 
 ### Basic Usage

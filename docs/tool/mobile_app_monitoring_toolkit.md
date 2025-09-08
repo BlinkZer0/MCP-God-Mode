@@ -25,6 +25,14 @@ The Mobile App Monitoring Toolkit provides comprehensive monitoring and alerting
 - **monitoring_duration** (number): Duration for monitoring session
 - **report_format** (string): Format for generated reports
 
+
+## Natural Language Access
+Users can request mobile app monitoring toolkit operations using natural language:
+- "Monitor mobile app performance"
+- "Track app health"
+- "Watch app metrics"
+- "Monitor app status"
+- "Track app activity"
 ## Usage Examples
 
 ### Start Monitoring

@@ -93,6 +93,14 @@ The **Network Discovery Tool** provides comprehensive network reconnaissance and
 }
 ```
 
+## Natural Language Access
+Users can request network discovery operations using natural language:
+- "Discover network devices"
+- "Scan network topology"
+- "Find network resources"
+- "Map network infrastructure"
+- "Identify network components"
+
 ## Usage Examples
 
 ### Basic Port Scan

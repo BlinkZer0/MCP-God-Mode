@@ -43,6 +43,14 @@ The **Windows Processes Tool** is a comprehensive system process management and 
 - **Service Processes**: Background service processes
 - **Hardware Processes**: Device hardware processes
 
+
+## Natural Language Access
+Users can request win processes operations using natural language:
+- "Manage Windows processes"
+- "Control Windows services"
+- "Monitor Windows tasks"
+- "Manage Windows applications"
+- "Control Windows programs"
 ## Usage Examples
 
 ### List All Processes

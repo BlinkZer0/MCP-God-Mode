@@ -60,6 +60,14 @@ The **Dice Rolling Tool** (`mcp_mcp-god-mode_dice_rolling`) is a comprehensive d
 }
 ```
 
+
+## Natural Language Access
+Users can request dice rolling operations using natural language:
+- "Roll dice for games"
+- "Generate random dice results"
+- "Simulate dice rolls"
+- "Create dice combinations"
+- "Roll tabletop game dice"
 ## Usage Examples
 
 ### Basic Single Die Roll

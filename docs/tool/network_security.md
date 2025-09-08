@@ -41,6 +41,14 @@ The **Network Security Tool** (`mcp_mcp-god-mode_network_security`) is a compreh
 }
 ```
 
+
+## Natural Language Access
+Users can request network security operations using natural language:
+- "Check network security"
+- "Test network defenses"
+- "Assess network vulnerabilities"
+- "Monitor network traffic"
+- "Analyze network security"
 ## Usage Examples
 
 ### Basic Usage

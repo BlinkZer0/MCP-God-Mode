@@ -41,6 +41,14 @@ The **Web Automation Tool** (`mcp_mcp-god-mode_web_automation`) is a comprehensi
 }
 ```
 
+
+## Natural Language Access
+Users can request web automation operations using natural language:
+- "Automate web tasks"
+- "Control web applications"
+- "Interact with websites"
+- "Navigate web interfaces"
+- "Manage web workflows"
 ## Usage Examples
 
 ### Basic Usage

@@ -28,6 +28,14 @@ The Mobile App Analytics Toolkit provides comprehensive analytics and performanc
 - **time_range** (string): Time range for analysis
 - **metrics** (array): Specific metrics to analyze
 
+
+## Natural Language Access
+Users can request mobile app analytics toolkit operations using natural language:
+- "Analyze mobile app usage"
+- "Track app performance"
+- "Monitor app analytics"
+- "Generate app insights"
+- "Create app reports"
 ## Usage Examples
 
 ### Track Custom Events

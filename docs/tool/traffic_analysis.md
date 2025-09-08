@@ -112,6 +112,14 @@ The **Traffic Analysis Tool** provides advanced packet and traffic analysis capa
 }
 ```
 
+## Natural Language Access
+Users can request traffic analysis operations using natural language:
+- "Analyze network traffic"
+- "Examine traffic patterns"
+- "Process traffic data"
+- "Generate traffic insights"
+- "Create traffic analytics"
+
 ## Usage Examples
 
 ### Basic Traffic Analysis

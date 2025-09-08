@@ -190,6 +190,14 @@ The tool returns comprehensive information about the screenshot operation:
 }
 ```
 
+## Natural Language Access
+Users can request screenshot operations using natural language:
+- "Take a screenshot"
+- "Capture screen image"
+- "Save screen capture"
+- "Record screen content"
+- "Capture desktop image"
+
 ## Supported Formats
 
 ### Input Sources

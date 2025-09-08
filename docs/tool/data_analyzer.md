@@ -41,6 +41,14 @@ The **Data Analyzer Tool** (`mcp_mcp-god-mode_data_analyzer`) is a comprehensive
 }
 ```
 
+
+## Natural Language Access
+Users can request data analyzer operations using natural language:
+- "Analyze statistical data"
+- "Process numerical data"
+- "Generate data statistics"
+- "Examine data correlations"
+- "Create data analysis"
 ## Usage Examples
 
 ### Basic Usage

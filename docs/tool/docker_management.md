@@ -39,6 +39,14 @@ The **Docker Management Tool** is a comprehensive container management and orche
 - **Backup and Restore**: Volume backup and restoration capabilities
 - **Storage Optimization**: Optimize storage usage and performance
 
+
+## Natural Language Access
+Users can request docker management operations using natural language:
+- "Manage Docker containers"
+- "Control Docker services"
+- "Deploy containerized apps"
+- "Monitor Docker resources"
+- "Manage container lifecycle"
 ## Usage Examples
 
 ### List Containers

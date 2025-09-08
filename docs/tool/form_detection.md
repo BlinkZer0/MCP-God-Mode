@@ -41,6 +41,14 @@ The **Form Detection Tool** (`mcp_mcp-god-mode_form_detection`) is a comprehensi
 }
 ```
 
+
+## Natural Language Access
+Users can request form detection operations using natural language:
+- "Detect web forms"
+- "Find form elements"
+- "Identify form fields"
+- "Analyze form structure"
+- "Examine form components"
 ## Usage Examples
 
 ### Basic Usage

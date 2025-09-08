@@ -41,6 +41,14 @@ The **Bluetooth Device Manager Tool** (`mcp_mcp-god-mode_bluetooth_device_manage
 }
 ```
 
+
+## Natural Language Access
+Users can request bluetooth device manager operations using natural language:
+- "Use bluetooth device manager functionality"
+- "Access bluetooth device manager features"
+- "Control bluetooth device manager operations"
+- "Manage bluetooth device manager tasks"
+- "Execute bluetooth device manager functions"
 ## Usage Examples
 
 ### Basic Usage

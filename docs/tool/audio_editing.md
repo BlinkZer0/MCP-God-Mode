@@ -175,6 +175,14 @@ The tool returns comprehensive information about the audio processing operation:
 }
 ```
 
+## Natural Language Access
+Users can request audio editing operations using natural language:
+- "Edit audio files"
+- "Process audio content"
+- "Modify audio recordings"
+- "Enhance audio quality"
+- "Convert audio formats"
+
 ## Supported Formats
 
 ### Input Formats

@@ -41,6 +41,14 @@ The **Encryption Tool Tool** (`mcp_mcp-god-mode_encryption_tool`) is a comprehen
 }
 ```
 
+
+## Natural Language Access
+Users can request encryption tool operations using natural language:
+- "Encrypt or decrypt data"
+- "Secure file contents"
+- "Protect sensitive information"
+- "Handle cryptographic operations"
+- "Manage data encryption"
 ## Usage Examples
 
 ### Basic Usage

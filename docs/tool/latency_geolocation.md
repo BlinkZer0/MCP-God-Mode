@@ -78,6 +78,14 @@ The **Latency Geolocation Tool** provides geolocation capabilities using ping tr
 }
 ```
 
+## Natural Language Access
+Users can request latency geolocation operations using natural language:
+- "Use latency geolocation functionality"
+- "Access latency geolocation features"
+- "Control latency geolocation operations"
+- "Manage latency geolocation tasks"
+- "Execute latency geolocation functions"
+
 ## Usage Examples
 
 ### Basic Triangulation

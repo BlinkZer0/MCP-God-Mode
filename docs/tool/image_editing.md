@@ -351,3 +351,11 @@ The **Image Editing Tool** is a comprehensive, cross-platform image manipulation
 *This document is part of MCP God Mode v1.4a - Advanced AI Agent Toolkit*
 
 *For technical support or feature requests, please refer to the project documentation.*
+
+## Natural Language Access
+Users can request image editing operations using natural language:
+- "Edit images"
+- "Process image files"
+- "Modify image content"
+- "Enhance image quality"
+- "Convert image formats"

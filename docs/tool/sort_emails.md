@@ -43,6 +43,14 @@ The **Sort Emails Tool** is a comprehensive email organization and management sy
 - **Authentication**: Email + Password
 - **Folders**: Custom folder structure
 
+
+## Natural Language Access
+Users can request sort emails operations using natural language:
+- "Sort email messages"
+- "Organize email content"
+- "Categorize emails"
+- "Filter email messages"
+- "Manage email organization"
 ## Usage Examples
 
 ### Basic Email Sorting

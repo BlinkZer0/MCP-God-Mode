@@ -41,6 +41,14 @@ The **Cloud Security Toolkit Tool** (`mcp_mcp-god-mode_cloud_security_toolkit`) 
 }
 ```
 
+
+## Natural Language Access
+Users can request cloud security toolkit operations using natural language:
+- "Perform cloud security assessment"
+- "Check cloud configuration"
+- "Test cloud security controls"
+- "Audit cloud infrastructure"
+- "Scan cloud vulnerabilities"
 ## Usage Examples
 
 ### Basic Usage

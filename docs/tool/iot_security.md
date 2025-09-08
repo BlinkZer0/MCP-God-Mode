@@ -41,6 +41,14 @@ The **Iot Security Tool** (`mcp_mcp-god-mode_iot_security`) is a comprehensive u
 }
 ```
 
+
+## Natural Language Access
+Users can request iot security operations using natural language:
+- "Test IoT device security"
+- "Check smart device vulnerabilities"
+- "Assess IoT network security"
+- "Scan IoT devices"
+- "Test connected device security"
 ## Usage Examples
 
 ### Basic Usage

@@ -41,6 +41,14 @@ The **Cloud Security Tool** (`mcp_mcp-god-mode_cloud_security`) is a comprehensi
 }
 ```
 
+
+## Natural Language Access
+Users can request cloud security operations using natural language:
+- "Check my cloud security"
+- "Audit cloud infrastructure"
+- "Test cloud vulnerabilities"
+- "Assess cloud compliance"
+- "Scan cloud resources"
 ## Usage Examples
 
 ### Basic Usage

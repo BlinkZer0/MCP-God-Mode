@@ -20,6 +20,14 @@ The Explore Categories tool provides comprehensive browsing and exploration of t
 - **include_examples** (boolean): Include usage examples
 - **platform_filter** (string): Filter by platform compatibility
 
+
+## Natural Language Access
+Users can request explore categories operations using natural language:
+- "Explore tool categories"
+- "Browse available tools"
+- "Discover tool options"
+- "Find relevant tools"
+- "Search tool categories"
 ## Usage Examples
 
 ### Full Category Overview

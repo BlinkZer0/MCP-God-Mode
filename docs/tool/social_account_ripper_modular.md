@@ -41,6 +41,14 @@ The **Social Account Ripper Modular Tool** (`mcp_mcp-god-mode_social_account_rip
 }
 ```
 
+
+## Natural Language Access
+Users can request social account ripper modular operations using natural language:
+- "Use social account ripper modular functionality"
+- "Access social account ripper modular features"
+- "Control social account ripper modular operations"
+- "Manage social account ripper modular tasks"
+- "Execute social account ripper modular functions"
 ## Usage Examples
 
 ### Basic Usage

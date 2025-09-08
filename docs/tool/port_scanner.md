@@ -60,6 +60,14 @@ The **Port Scanner Tool** (`mcp_mcp-god-mode_port_scanner`) is an advanced cross
 }
 ```
 
+
+## Natural Language Access
+Users can request port scanner operations using natural language:
+- "Scan network ports"
+- "Check open ports"
+- "Test port connectivity"
+- "Find open services"
+- "Scan for vulnerabilities"
 ## Usage Examples
 
 ### Basic Port Scan

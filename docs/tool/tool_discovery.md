@@ -19,6 +19,14 @@ The Tool Discovery tool provides natural language search capabilities to find an
 - **category** (string): Filter results by tool category
 - **capability** (string): Filter by specific capability or function
 
+
+## Natural Language Access
+Users can request tool discovery operations using natural language:
+- "Discover available tools"
+- "Find relevant tools"
+- "Search tool capabilities"
+- "Explore tool options"
+- "Identify useful tools"
 ## Usage Examples
 
 ### Natural Language Search

@@ -72,6 +72,14 @@ Watch this demonstration of the calculator tool being used to model Mississippi 
 
 This example showcases how the calculator tool can be used for complex scientific modeling, statistical analysis, and environmental forecasting applications.
 
+
+## Natural Language Access
+Users can request calculator operations using natural language:
+- "Calculate mathematical expressions"
+- "Solve math problems"
+- "Perform calculations"
+- "Compute mathematical results"
+- "Evaluate mathematical formulas"
 ## Usage Examples
 
 ### Basic Arithmetic

@@ -129,6 +129,14 @@ The **Network Utilities Tool** provides essential network utility functions incl
 }
 ```
 
+## Natural Language Access
+Users can request network utilities operations using natural language:
+- "Use network utilities"
+- "Run network commands"
+- "Test network connectivity"
+- "Check network status"
+- "Diagnose network issues"
+
 ## Usage Examples
 
 ### Traceroute with Geolocation

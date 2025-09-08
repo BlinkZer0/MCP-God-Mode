@@ -35,6 +35,14 @@ Hello world!
 - MIME-formatted text
 - Custom email formats
 
+
+## Natural Language Access
+Users can request parse email operations using natural language:
+- "Parse email content"
+- "Analyze email messages"
+- "Extract email information"
+- "Process email data"
+- "Examine email structure"
 ## Usage Examples
 
 ### Basic Email Parsing

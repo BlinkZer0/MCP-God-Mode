@@ -123,6 +123,14 @@ The **Health Check Tool** (`mcp_mcp-god-mode_health`) is a comprehensive system 
 }
 ```
 
+
+## Natural Language Access
+Users can request health operations using natural language:
+- "Check system health"
+- "Monitor system status"
+- "Test system readiness"
+- "Verify system health"
+- "Check system condition"
 ## Usage Examples
 
 ### Basic Health Check

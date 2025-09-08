@@ -41,6 +41,14 @@ The **Wireless Network Scanner Tool** (`mcp_mcp-god-mode_wireless_network_scanne
 }
 ```
 
+
+## Natural Language Access
+Users can request wireless network scanner operations using natural language:
+- "Scan wireless networks"
+- "Find Wi-Fi networks"
+- "Check wireless signals"
+- "Discover wireless devices"
+- "Analyze wireless spectrum"
 ## Usage Examples
 
 ### Basic Usage

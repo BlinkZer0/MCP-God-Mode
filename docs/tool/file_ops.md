@@ -99,6 +99,14 @@ The **File Operations Tool** (`mcp_mcp-god-mode_file_ops`) is a comprehensive fi
 }
 ```
 
+
+## Natural Language Access
+Users can request file ops operations using natural language:
+- "Manage files and folders"
+- "Copy or move files"
+- "Organize file system"
+- "Backup files"
+- "Sync file operations"
 ## Usage Examples
 
 ### Basic File Copy

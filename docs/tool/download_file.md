@@ -48,6 +48,14 @@ The **Download File Tool** (`mcp_mcp-god-mode_download_file`) is a comprehensive
 }
 ```
 
+
+## Natural Language Access
+Users can request download file operations using natural language:
+- "Download files from URL"
+- "Save web content"
+- "Retrieve online files"
+- "Fetch remote files"
+- "Download web resources"
 ## Usage Examples
 
 ### Basic File Download

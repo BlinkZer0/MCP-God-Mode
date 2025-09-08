@@ -41,6 +41,14 @@ The **Form Pattern Recognition Tool** (`mcp_mcp-god-mode_form_pattern_recognitio
 }
 ```
 
+
+## Natural Language Access
+Users can request form pattern recognition operations using natural language:
+- "Recognize form patterns"
+- "Identify form types"
+- "Classify form structures"
+- "Analyze form layouts"
+- "Detect form patterns"
 ## Usage Examples
 
 ### Basic Usage

@@ -107,6 +107,14 @@ The **Network Diagnostics Tool** (`mcp_mcp-god-mode_network_diagnostics`) is a c
 }
 ```
 
+
+## Natural Language Access
+Users can request network diagnostics operations using natural language:
+- "Diagnose network issues"
+- "Check network connectivity"
+- "Test network performance"
+- "Troubleshoot network problems"
+- "Analyze network health"
 ## Usage Examples
 
 ### Basic Ping Test

@@ -41,6 +41,14 @@ The **Password Generator Tool** (`mcp_mcp-god-mode_password_generator`) is a com
 }
 ```
 
+
+## Natural Language Access
+Users can request password generator operations using natural language:
+- "Generate secure passwords"
+- "Create strong passwords"
+- "Generate random passwords"
+- "Create password suggestions"
+- "Generate password lists"
 ## Usage Examples
 
 ### Basic Usage

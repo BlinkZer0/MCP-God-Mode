@@ -122,6 +122,14 @@ The **Browser Control Tool** (`mcp_mcp-god-mode_browser_control`) is a comprehen
 }
 ```
 
+
+## Natural Language Access
+Users can request browser control operations using natural language:
+- "Control web browser"
+- "Automate browser actions"
+- "Navigate web pages"
+- "Interact with websites"
+- "Manage browser sessions"
 ## Usage Examples
 
 ### Launch Browser and Navigate

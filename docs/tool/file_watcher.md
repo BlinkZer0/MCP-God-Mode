@@ -41,6 +41,14 @@ The **File Watcher Tool** (`mcp_mcp-god-mode_file_watcher`) is a comprehensive u
 }
 ```
 
+
+## Natural Language Access
+Users can request file watcher operations using natural language:
+- "Monitor file changes"
+- "Watch file system"
+- "Track file modifications"
+- "Monitor directory changes"
+- "Watch for file events"
 ## Usage Examples
 
 ### Basic Usage

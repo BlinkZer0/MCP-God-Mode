@@ -41,6 +41,14 @@ The **Webhook Manager Tool** (`mcp_mcp-god-mode_webhook_manager`) is a comprehen
 }
 ```
 
+
+## Natural Language Access
+Users can request webhook manager operations using natural language:
+- "Manage webhooks"
+- "Configure webhook endpoints"
+- "Monitor webhook events"
+- "Process webhook data"
+- "Control webhook services"
 ## Usage Examples
 
 ### Basic Usage

@@ -49,6 +49,14 @@ The **Manage Email Accounts Tool** is a comprehensive email account management s
 - **Authentication**: Email + Password
 - **Features**: Custom server capabilities
 
+
+## Natural Language Access
+Users can request manage email accounts operations using natural language:
+- "Manage email accounts"
+- "Configure email settings"
+- "Control email access"
+- "Handle email accounts"
+- "Manage email configuration"
 ## Usage Examples
 
 ### Add New Email Account

@@ -15,3 +15,11 @@ Notes
 - Great when you need quick signal from noisy data.
 - Humor: If it predicts your coffee consumption, that’s not surveillance—it’s survival.
 
+
+## Natural Language Access
+Users can request advanced analytics engine operations using natural language:
+- "Run advanced analytics"
+- "Analyze data patterns"
+- "Generate insights"
+- "Process large datasets"
+- "Create analytical models"

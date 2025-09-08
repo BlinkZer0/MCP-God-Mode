@@ -289,6 +289,14 @@ pip install sentence-transformers scikit-learn numpy
 - **Error Handling**: Graceful fallback between Python and JavaScript implementations
 - **Data Privacy**: No external API calls, all processing is local
 
+
+## Natural Language Access
+Users can request RAG TOOLKIT operations using natural language:
+- "Use RAG TOOLKIT functionality"
+- "Access RAG TOOLKIT features"
+- "Control RAG TOOLKIT operations"
+- "Manage RAG TOOLKIT tasks"
+- "Execute RAG TOOLKIT functions"
 ## Examples
 
 ### Security Documentation Search

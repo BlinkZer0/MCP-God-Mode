@@ -27,6 +27,14 @@ The Mobile App Security Toolkit provides comprehensive security testing and asse
 - **compliance_framework** (string): Security compliance framework
 - **threat_model** (string): Threat model to use for assessment
 
+
+## Natural Language Access
+Users can request mobile app security toolkit operations using natural language:
+- "Test mobile app security"
+- "Scan app vulnerabilities"
+- "Assess app security"
+- "Check app permissions"
+- "Audit app security"
 ## Usage Examples
 
 ### Vulnerability Scanning

@@ -41,6 +41,14 @@ The **Penetration Testing Toolkit Tool** (`mcp_mcp-god-mode_penetration_testing_
 }
 ```
 
+
+## Natural Language Access
+Users can request penetration testing toolkit operations using natural language:
+- "Run penetration test"
+- "Test system security"
+- "Perform security assessment"
+- "Check for vulnerabilities"
+- "Simulate cyber attack"
 ## Usage Examples
 
 ### Basic Usage

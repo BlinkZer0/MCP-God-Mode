@@ -41,6 +41,14 @@ The **Forensics Analysis Tool** (`mcp_mcp-god-mode_forensics_analysis`) is a com
 }
 ```
 
+
+## Natural Language Access
+Users can request forensics analysis operations using natural language:
+- "Analyze digital evidence"
+- "Perform forensic investigation"
+- "Examine system artifacts"
+- "Investigate security incident"
+- "Recover deleted data"
 ## Usage Examples
 
 ### Basic Usage

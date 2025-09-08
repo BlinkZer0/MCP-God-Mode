@@ -109,6 +109,14 @@ The tool respects the following environment variables:
 - `MCPGM_FLIPPER_ALLOW_TX` - Allow transmission operations (default: false)
 - `MCPGM_FLIPPER_BRIDGE_URL` - WebSocket bridge URL for mobile/remote access
 
+
+## Natural Language Access
+Users can request flipper zero operations using natural language:
+- "Use flipper zero functionality"
+- "Access flipper zero features"
+- "Control flipper zero operations"
+- "Manage flipper zero tasks"
+- "Execute flipper zero functions"
 ## Examples
 
 ### List Available Devices

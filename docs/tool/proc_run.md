@@ -55,6 +55,14 @@ The **Process Run Tool** (`mcp_mcp-god-mode_proc_run`) is a comprehensive proces
 }
 ```
 
+
+## Natural Language Access
+Users can request proc run operations using natural language:
+- "Run system processes"
+- "Execute commands"
+- "Start system programs"
+- "Launch applications"
+- "Execute system tasks"
 ## Usage Examples
 
 ### Basic Command Execution

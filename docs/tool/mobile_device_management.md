@@ -41,6 +41,14 @@ The **Mobile Device Management Tool** (`mcp_mcp-god-mode_mobile_device_managemen
 }
 ```
 
+
+## Natural Language Access
+Users can request mobile device management operations using natural language:
+- "Manage mobile devices"
+- "Control device policies"
+- "Configure device settings"
+- "Monitor device status"
+- "Manage device lifecycle"
 ## Usage Examples
 
 ### Basic Usage

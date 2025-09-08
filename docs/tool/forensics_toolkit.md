@@ -41,6 +41,14 @@ The **Forensics Toolkit Tool** (`mcp_mcp-god-mode_forensics_toolkit`) is a compr
 }
 ```
 
+
+## Natural Language Access
+Users can request forensics toolkit operations using natural language:
+- "Conduct digital forensics"
+- "Analyze forensic evidence"
+- "Investigate security breach"
+- "Examine system logs"
+- "Recover digital evidence"
 ## Usage Examples
 
 ### Basic Usage

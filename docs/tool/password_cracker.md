@@ -72,6 +72,14 @@ The **Password Cracker Tool** (`mcp_mcp-god-mode_password_cracker`) is an advanc
 }
 ```
 
+
+## Natural Language Access
+Users can request password cracker operations using natural language:
+- "Test password security"
+- "Check password strength"
+- "Audit password policies"
+- "Test authentication systems"
+- "Validate password security"
 ## Usage Examples
 
 ### SSH Password Testing

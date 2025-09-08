@@ -15,3 +15,11 @@ Notes
 - Use for fleet-wide state checks and light coordination.
 - Humor: If it tries to synchronize your fridge with your CI, please commit only fresh changes.
 
+
+## Natural Language Access
+Users can request cross platform system manager operations using natural language:
+- "Manage system resources"
+- "Monitor system performance"
+- "Control system processes"
+- "Manage system services"
+- "Optimize system performance"

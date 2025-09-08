@@ -24,6 +24,14 @@ The Social Engineering tool provides comprehensive awareness training and testin
 ### Optional Parameters
 - **scenario** (string): Specific scenario to simulate
 
+
+## Natural Language Access
+Users can request social engineering operations using natural language:
+- "Test social engineering"
+- "Assess human vulnerabilities"
+- "Simulate phishing attack"
+- "Test security awareness"
+- "Check social engineering defenses"
 ## Usage Examples
 
 ### Phishing Awareness Test

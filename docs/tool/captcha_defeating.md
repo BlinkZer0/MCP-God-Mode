@@ -287,6 +287,14 @@ const analysis = await captchaAnalysis({
    - User agent spoofing
    - IP rotation
 
+
+## Natural Language Access
+Users can request captcha defeating operations using natural language:
+- "Solve CAPTCHA challenges"
+- "Bypass CAPTCHA protection"
+- "Handle CAPTCHA verification"
+- "Process CAPTCHA images"
+- "Defeat CAPTCHA systems"
 ## Usage Examples
 
 ### Basic CAPTCHA Detection

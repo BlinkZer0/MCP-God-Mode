@@ -41,6 +41,14 @@ The **Data Analysis Tool** (`mcp_mcp-god-mode_data_analysis`) is a comprehensive
 }
 ```
 
+
+## Natural Language Access
+Users can request data analysis operations using natural language:
+- "Analyze data patterns"
+- "Process data insights"
+- "Generate data reports"
+- "Examine data trends"
+- "Create data visualizations"
 ## Usage Examples
 
 ### Basic Usage

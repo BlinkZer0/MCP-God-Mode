@@ -29,6 +29,14 @@ The Mobile App Deployment Toolkit provides comprehensive deployment and distribu
 - **test_suite** (string): Test suite to run before deployment
 - **release_notes** (string): Release notes for the deployment
 
+
+## Natural Language Access
+Users can request mobile app deployment toolkit operations using natural language:
+- "Deploy mobile applications"
+- "Install mobile apps"
+- "Manage app deployment"
+- "Control app distribution"
+- "Handle app installation"
 ## Usage Examples
 
 ### Build Application

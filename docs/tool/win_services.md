@@ -41,6 +41,14 @@ The **Windows Services Tool** is a comprehensive system service management and m
 - **Framework Services**: Mobile framework services
 - **Hardware Services**: Device hardware services
 
+
+## Natural Language Access
+Users can request win services operations using natural language:
+- "Manage Windows services"
+- "Control Windows daemons"
+- "Start or stop services"
+- "Configure Windows services"
+- "Monitor Windows services"
 ## Usage Examples
 
 ### List All Services

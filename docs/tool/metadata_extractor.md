@@ -217,6 +217,14 @@ The **Metadata Extractor Tool** provides comprehensive metadata extraction and g
 }
 ```
 
+## Natural Language Access
+Users can request metadata extractor operations using natural language:
+- "Extract file metadata"
+- "Read file information"
+- "Analyze file properties"
+- "Extract file details"
+- "Process file metadata"
+
 ## Usage Examples
 
 ### Basic Metadata Extraction

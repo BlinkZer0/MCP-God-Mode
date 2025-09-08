@@ -41,6 +41,14 @@ The **Cron Job Manager Tool** (`mcp_mcp-god-mode_cron_job_manager`) is a compreh
 }
 ```
 
+
+## Natural Language Access
+Users can request cron job manager operations using natural language:
+- "Manage scheduled tasks"
+- "Create cron jobs"
+- "Schedule system tasks"
+- "Manage automated jobs"
+- "Control task scheduling"
 ## Usage Examples
 
 ### Basic Usage

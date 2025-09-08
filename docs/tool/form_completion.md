@@ -281,6 +281,14 @@ patterns.detected_patterns.forEach(pattern => {
 - **Validation**: Token validation, CSRF protection
 - **Examples**: csrf_token, session_id
 
+
+## Natural Language Access
+Users can request form completion operations using natural language:
+- "Fill out web forms"
+- "Complete online forms"
+- "Submit form data"
+- "Process form information"
+- "Handle form validation"
 ## Usage Examples
 
 ### Basic Form Completion

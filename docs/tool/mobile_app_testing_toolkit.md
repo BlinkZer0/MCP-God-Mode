@@ -26,6 +26,14 @@ The Mobile App Testing Toolkit provides comprehensive testing and quality assura
 - **test_coverage** (boolean): Include test coverage analysis
 - **test_report** (boolean): Generate detailed test reports
 
+
+## Natural Language Access
+Users can request mobile app testing toolkit operations using natural language:
+- "Test mobile applications"
+- "Run app tests"
+- "Validate app functionality"
+- "Check app quality"
+- "Perform app testing"
 ## Usage Examples
 
 ### Unit Testing

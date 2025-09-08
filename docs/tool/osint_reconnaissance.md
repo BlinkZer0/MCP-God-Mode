@@ -93,6 +93,14 @@ The **OSINT Reconnaissance Tool** provides comprehensive Open Source Intelligenc
 }
 ```
 
+## Natural Language Access
+Users can request osint reconnaissance operations using natural language:
+- "Gather open source intelligence"
+- "Collect OSINT data"
+- "Research target information"
+- "Analyze public information"
+- "Conduct intelligence gathering"
+
 ## Usage Examples
 
 ### Basic WHOIS Lookup

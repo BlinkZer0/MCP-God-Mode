@@ -127,6 +127,14 @@ The **System Info Tool** (`mcp_mcp-god-mode_system_info`) is a comprehensive sys
 }
 ```
 
+
+## Natural Language Access
+Users can request system info operations using natural language:
+- "Get system information"
+- "Check system details"
+- "View system specs"
+- "Display system data"
+- "Show system configuration"
 ## Usage Examples
 
 ### Basic System Information

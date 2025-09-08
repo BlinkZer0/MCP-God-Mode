@@ -166,6 +166,6 @@ export { registerForensicsToolkit } from "./forensics/forensics_toolkit.js";
 export { registerMalwareAnalysisToolkit } from "./forensics/malware_analysis_toolkit.js";
 
 // Discovery Tools
-export { registerToolDiscovery, registerExploreCategories } from "./discovery/index.js";
+export { registerToolDiscovery, registerExploreCategories, registerNaturalLanguageRouter } from "./discovery/index.js";
 
 // Social Tools

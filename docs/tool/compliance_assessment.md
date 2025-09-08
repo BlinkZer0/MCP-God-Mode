@@ -26,6 +26,14 @@ The Compliance Assessment tool provides comprehensive regulatory compliance test
 - **risk_scoring** (boolean): Include risk scoring and prioritization
 - **evidence_collection** (boolean): Collect compliance evidence
 
+
+## Natural Language Access
+Users can request compliance assessment operations using natural language:
+- "Check compliance with regulations"
+- "Assess regulatory compliance"
+- "Audit compliance requirements"
+- "Test compliance controls"
+- "Generate compliance report"
 ## Usage Examples
 
 ### ISO 27001 Assessment

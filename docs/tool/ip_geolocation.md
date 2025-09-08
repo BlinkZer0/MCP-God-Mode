@@ -59,6 +59,14 @@ The **IP Geolocation Tool** provides comprehensive IP-based geolocation capabili
 }
 ```
 
+## Natural Language Access
+Users can request ip geolocation operations using natural language:
+- "Use ip geolocation functionality"
+- "Access ip geolocation features"
+- "Control ip geolocation operations"
+- "Manage ip geolocation tasks"
+- "Execute ip geolocation functions"
+
 ## Usage Examples
 
 ### Basic Geolocation

@@ -15,3 +15,11 @@ Notes
 - Complements the standard Legal Compliance Manager with enterprise-grade workflows.
 - Humor: Ensures your logs are so compliant they’d pass a courtroom’s lint check.
 
+
+## Natural Language Access
+Users can request enhanced legal compliance operations using natural language:
+- "Ensure legal compliance"
+- "Check legal requirements"
+- "Audit legal compliance"
+- "Generate compliance documentation"
+- "Monitor legal obligations"

@@ -43,6 +43,14 @@ The **Delete Emails Tool** is a comprehensive email management system that allow
 - **Authentication**: Email + Password
 - **Trash Folder**: Configurable
 
+
+## Natural Language Access
+Users can request delete emails operations using natural language:
+- "Delete email messages"
+- "Remove email content"
+- "Clean up email inbox"
+- "Purge email messages"
+- "Clear email data"
 ## Usage Examples
 
 ### Delete Single Email

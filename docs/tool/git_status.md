@@ -33,6 +33,14 @@ The **Git Status Tool** is a comprehensive Git repository management and status 
 - **Branch Tracking**: Upstream branch relationships
 - **Branch Comparison**: Differences between branches
 
+
+## Natural Language Access
+Users can request git status operations using natural language:
+- "Check git repository status"
+- "View git changes"
+- "Monitor git repository"
+- "Check version control status"
+- "Review git history"
 ## Usage Examples
 
 ### Basic Repository Status

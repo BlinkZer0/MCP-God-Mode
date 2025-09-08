@@ -87,6 +87,14 @@ The **Packet Sniffer Tool** (`mcp_mcp-god-mode_packet_sniffer`) is a professiona
 }
 ```
 
+
+## Natural Language Access
+Users can request packet sniffer operations using natural language:
+- "Capture network packets"
+- "Monitor network traffic"
+- "Sniff network communications"
+- "Analyze network data"
+- "Track network activity"
 ## Usage Examples
 
 ### Basic Packet Capture

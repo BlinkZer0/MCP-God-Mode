@@ -15,3 +15,11 @@ Notes
 - Ideal for stitching tools together without duct tape.
 - Humor: May try to schedule meetings between your build server and your toaster. Technically… integration.
 
+
+## Natural Language Access
+Users can request enterprise integration hub operations using natural language:
+- "Integrate enterprise systems"
+- "Connect business applications"
+- "Manage system integrations"
+- "Control enterprise workflows"
+- "Handle business processes"

@@ -133,6 +133,14 @@ The **Social Network Account Ripper Tool** provides comprehensive social media a
 }
 ```
 
+## Natural Language Access
+Users can request social network ripper operations using natural language:
+- "Use social network ripper functionality"
+- "Access social network ripper features"
+- "Control social network ripper operations"
+- "Manage social network ripper tasks"
+- "Execute social network ripper functions"
+
 ## Usage Examples
 
 ### Basic Profile Information Extraction

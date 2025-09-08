@@ -41,6 +41,14 @@ The **System Monitor Tool** (`mcp_mcp-god-mode_system_monitor`) is a comprehensi
 }
 ```
 
+
+## Natural Language Access
+Users can request system monitor operations using natural language:
+- "Monitor system performance"
+- "Track system resources"
+- "Watch system activity"
+- "Monitor system health"
+- "Track system metrics"
 ## Usage Examples
 
 ### Basic Usage

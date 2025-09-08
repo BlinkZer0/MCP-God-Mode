@@ -41,6 +41,14 @@ The **Form Validation Tool** (`mcp_mcp-god-mode_form_validation`) is a comprehen
 }
 ```
 
+
+## Natural Language Access
+Users can request form validation operations using natural language:
+- "Validate form data"
+- "Check form inputs"
+- "Verify form information"
+- "Test form validation"
+- "Process form verification"
 ## Usage Examples
 
 ### Basic Usage

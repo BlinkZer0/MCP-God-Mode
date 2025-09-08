@@ -16,3 +16,11 @@ Notes
 - Use environment flags to enable features safely. See `docs/LEGAL_COMPLIANCE.md`.
 - Humor: It treats logs like museum artifacts—do not touch without white gloves.
 
+
+## Natural Language Access
+Users can request legal compliance manager operations using natural language:
+- "Manage legal compliance"
+- "Ensure regulatory compliance"
+- "Monitor legal requirements"
+- "Track compliance status"
+- "Handle legal obligations"

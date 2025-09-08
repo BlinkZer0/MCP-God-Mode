@@ -41,6 +41,14 @@ The **Search Analysis Tool** (`mcp_mcp-god-mode_search_analysis`) is a comprehen
 }
 ```
 
+
+## Natural Language Access
+Users can request search analysis operations using natural language:
+- "Analyze search results"
+- "Process search data"
+- "Examine search patterns"
+- "Generate search insights"
+- "Create search analytics"
 ## Usage Examples
 
 ### Basic Usage

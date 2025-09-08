@@ -41,6 +41,14 @@ The **Chart Generator Tool** (`mcp_mcp-god-mode_chart_generator`) is a comprehen
 }
 ```
 
+
+## Natural Language Access
+Users can request chart generator operations using natural language:
+- "Create charts and graphs"
+- "Generate data visualizations"
+- "Build chart displays"
+- "Create graphical reports"
+- "Generate visual analytics"
 ## Usage Examples
 
 ### Basic Usage

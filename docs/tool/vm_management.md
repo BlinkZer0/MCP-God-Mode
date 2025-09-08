@@ -39,6 +39,14 @@ The **VM Management Tool** is a comprehensive virtual machine management and adm
 - **Limitations**: Windows-only host support
 - **Best For**: Windows server environments
 
+
+## Natural Language Access
+Users can request vm management operations using natural language:
+- "Manage virtual machines"
+- "Control VM resources"
+- "Deploy virtual machines"
+- "Monitor VM performance"
+- "Manage VM lifecycle"
 ## Usage Examples
 
 ### List Virtual Machines

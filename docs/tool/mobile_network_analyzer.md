@@ -41,6 +41,14 @@ The **Mobile Network Analyzer Tool** (`mcp_mcp-god-mode_mobile_network_analyzer`
 }
 ```
 
+
+## Natural Language Access
+Users can request mobile network analyzer operations using natural language:
+- "Analyze mobile network"
+- "Monitor mobile connectivity"
+- "Check mobile network status"
+- "Examine mobile traffic"
+- "Track mobile network usage"
 ## Usage Examples
 
 ### Basic Usage

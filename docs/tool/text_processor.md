@@ -41,6 +41,14 @@ The **Text Processor Tool** (`mcp_mcp-god-mode_text_processor`) is a comprehensi
 }
 ```
 
+
+## Natural Language Access
+Users can request text processor operations using natural language:
+- "Process text content"
+- "Analyze text data"
+- "Extract text information"
+- "Transform text format"
+- "Generate text insights"
 ## Usage Examples
 
 ### Basic Usage

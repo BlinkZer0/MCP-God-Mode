@@ -41,6 +41,14 @@ The **Blockchain Security Tool** (`mcp_mcp-god-mode_blockchain_security`) is a c
 }
 ```
 
+
+## Natural Language Access
+Users can request blockchain security operations using natural language:
+- "Audit my smart contract"
+- "Check blockchain security"
+- "Analyze cryptocurrency security"
+- "Test blockchain vulnerabilities"
+- "Assess DeFi security"
 ## Usage Examples
 
 ### Basic Usage

@@ -172,6 +172,14 @@ const analysis = await searchAnalysis({
 - **Reviews and Ratings**: Customer feedback
 - **Product Categories**: Organized by type and brand
 
+
+## Natural Language Access
+Users can request web search operations using natural language:
+- "Search the web"
+- "Find web information"
+- "Query search engines"
+- "Search online content"
+- "Look up web data"
 ## Usage Examples
 
 ### Basic Search

@@ -104,6 +104,14 @@ The **System Restore Tool** (`mcp_mcp-god-mode_system_restore`) is a comprehensi
 }
 ```
 
+
+## Natural Language Access
+Users can request system restore operations using natural language:
+- "Restore system state"
+- "Recover system backup"
+- "Reset system configuration"
+- "Restore system files"
+- "Recover system settings"
 ## Usage Examples
 
 ### Create System Restore Point

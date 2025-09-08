@@ -41,6 +41,14 @@ The **Social Account Ripper Tool** (`mcp_mcp-god-mode_social_account_ripper`) is
 }
 ```
 
+
+## Natural Language Access
+Users can request social account ripper operations using natural language:
+- "Use social account ripper functionality"
+- "Access social account ripper features"
+- "Control social account ripper operations"
+- "Manage social account ripper tasks"
+- "Execute social account ripper functions"
 ## Usage Examples
 
 ### Basic Usage

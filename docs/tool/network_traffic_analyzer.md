@@ -41,6 +41,14 @@ The **Network Traffic Analyzer Tool** (`mcp_mcp-god-mode_network_traffic_analyze
 }
 ```
 
+
+## Natural Language Access
+Users can request network traffic analyzer operations using natural language:
+- "Analyze network traffic"
+- "Monitor network communications"
+- "Check network activity"
+- "Examine network packets"
+- "Track network usage"
 ## Usage Examples
 
 ### Basic Usage

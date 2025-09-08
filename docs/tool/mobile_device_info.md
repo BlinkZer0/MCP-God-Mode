@@ -31,6 +31,14 @@ The **Mobile Device Info Tool** is a comprehensive mobile device information and
 - **Network Information**: Wi-Fi, cellular, and Bluetooth details
 - **Security Features**: Face ID, Touch ID, and security enclave
 
+
+## Natural Language Access
+Users can request mobile device info operations using natural language:
+- "Get mobile device information"
+- "Check device details"
+- "View device specs"
+- "Display device data"
+- "Show device configuration"
 ## Usage Examples
 
 ### Get Basic Device Information

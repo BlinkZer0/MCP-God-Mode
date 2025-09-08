@@ -22,6 +22,14 @@ The Machine Learning tool provides comprehensive AI-powered analysis capabilitie
 - **data_path** (string): Path to training data file
 - **hyperparameters** (object): Model hyperparameters for optimization
 
+
+## Natural Language Access
+Users can request machine learning operations using natural language:
+- "Train machine learning model"
+- "Create ML predictions"
+- "Build ML algorithms"
+- "Process ML data"
+- "Generate ML insights"
 ## Usage Examples
 
 ### Training a Classification Model

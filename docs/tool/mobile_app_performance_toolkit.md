@@ -26,6 +26,14 @@ The Mobile App Performance Toolkit provides comprehensive performance testing, o
 - **performance_targets** (object): Performance targets and thresholds
 - **optimization_level** (string): Level of optimization to apply
 
+
+## Natural Language Access
+Users can request mobile app performance toolkit operations using natural language:
+- "Test mobile app performance"
+- "Measure app speed"
+- "Analyze app metrics"
+- "Benchmark app performance"
+- "Evaluate app efficiency"
 ## Usage Examples
 
 ### Performance Benchmarking
