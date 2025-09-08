@@ -11,6 +11,12 @@ import {
   createMinimalConfig, 
   createFullConfig, 
   createConfigFromCategories, 
+  createConfigFromTools,
+  createConfigFromMixed,
+  validateToolNames,
+  validateToolDependencies,
+  includeToolDependencies,
+  getAllAvailableTools,
   saveToolConfig,
   TOOL_CATEGORIES as CONFIG_TOOL_CATEGORIES 
 } from './dist/config/tool-config.js';
@@ -544,6 +550,14 @@ async function runInstaller() {
   console.log('npm run install:full       # Install full server');
   console.log('node build-server.js       # Build custom server');
   console.log('');
+  console.log('🔧 Advanced Installation Options:');
+  console.log('');
+  console.log('node install.js --modular --categories core,network    # Install specific categories');
+  console.log('node install.js --modular --tools health,fs_list       # Install individual tools');
+  console.log('node install.js --modular --tools port_scanner --auto-deps  # Auto-include dependencies');
+  console.log('node install.js --modular --categories core --tools packet_sniffer  # Mixed configuration');
+  console.log('node install.js --list-tools                           # List all available tools');
+  console.log('');
 }
 
 // Install minimal server
@@ -654,16 +668,149 @@ async function installModularWithCategories(categories) {
   }
 }
 
+// Install modular server with individual tools
+async function installModularWithTools(tools, autoIncludeDependencies = true) {
+  console.log('🔧 Installing Modular Server with Individual Tools...');
+  console.log('====================================================');
+  
+  try {
+    // Validate tool names and dependencies
+    const validation = validateToolDependencies(tools);
+    
+    if (validation.missing.length > 0) {
+      console.log('❌ Invalid tools found:');
+      validation.missing.forEach(tool => console.log(`   - ${tool}`));
+      console.log('');
+      console.log('💡 Use --list-tools to see all available tools');
+      return;
+    }
+    
+    let finalTools = validation.valid;
+    
+    // Show dependency warnings
+    if (validation.warnings.length > 0) {
+      console.log('⚠️ Dependency warnings:');
+      validation.warnings.forEach(warning => console.log(`   - ${warning}`));
+      console.log('');
+      
+      if (autoIncludeDependencies) {
+        console.log('🔧 Auto-including missing dependencies...');
+        finalTools = includeToolDependencies(validation.valid);
+        const addedDependencies = finalTools.filter(tool => !validation.valid.includes(tool));
+        
+        if (addedDependencies.length > 0) {
+          console.log('📦 Added dependencies:');
+          addedDependencies.forEach(tool => console.log(`   - ${tool}`));
+          console.log('');
+        }
+      } else {
+        console.log('💡 Use --auto-deps to automatically include missing dependencies');
+        console.log('');
+      }
+    }
+    
+    const config = createConfigFromTools(finalTools);
+    await saveToolConfig(config);
+    
+    console.log('✅ Modular server configuration created');
+    console.log(`📋 Enabled tools: ${finalTools.length} tools (${validation.valid.length} requested + ${finalTools.length - validation.valid.length} dependencies)`);
+    console.log('');
+    console.log('🔧 Final tool list:');
+    finalTools.forEach(tool => {
+      const isDependency = !validation.valid.includes(tool);
+      console.log(`   - ${tool}${isDependency ? ' (dependency)' : ''}`);
+    });
+    console.log('');
+    console.log('💡 Run: npm run build && node dist/server-modular.js');
+  } catch (error) {
+    console.error('❌ Failed to create modular server configuration:', error);
+  }
+}
+
+// Install modular server with mixed configuration (categories + individual tools)
+async function installModularWithMixed(categories, tools) {
+  console.log('🔧 Installing Modular Server with Mixed Configuration...');
+  console.log('=======================================================');
+  
+  try {
+    // Validate tool names
+    const validation = validateToolNames(tools);
+    
+    if (validation.invalid.length > 0) {
+      console.log('❌ Invalid tools found:');
+      validation.invalid.forEach(tool => console.log(`   - ${tool}`));
+      console.log('');
+      console.log('💡 Use --list-tools to see all available tools');
+      return;
+    }
+    
+    const config = createConfigFromMixed(categories, validation.valid);
+    await saveToolConfig(config);
+    
+    console.log('✅ Modular server configuration created');
+    console.log(`📋 Enabled categories: ${categories.join(', ')}`);
+    console.log(`📋 Additional individual tools: ${validation.valid.length}`);
+    console.log('');
+    console.log('🔧 Additional tools:');
+    validation.valid.forEach(tool => console.log(`   - ${tool}`));
+    console.log('');
+    console.log('💡 Run: npm run build && node dist/server-modular.js');
+  } catch (error) {
+    console.error('❌ Failed to create modular server configuration:', error);
+  }
+}
+
+// List all available tools
+async function listAllTools() {
+  console.log('📋 All Available Tools:');
+  console.log('========================');
+  console.log('');
+  
+  const allTools = getAllAvailableTools();
+  
+  Object.entries(CONFIG_TOOL_CATEGORIES).forEach(([category, data]) => {
+    console.log(`🔹 ${data.name}:`);
+    data.tools.forEach(tool => {
+      console.log(`   - ${tool}`);
+    });
+    console.log('');
+  });
+  
+  console.log(`📊 Total tools available: ${allTools.length}`);
+  console.log('');
+  console.log('💡 Usage examples:');
+  console.log('   node install.js --modular --tools health,system_info,fs_list');
+  console.log('   node install.js --modular --categories core,network --tools packet_sniffer');
+  console.log('');
+}
+
 // Main execution
 if (import.meta.url === `file://${process.argv[1]}` || import.meta.url.endsWith('install.js')) {
   const args = process.argv.slice(2);
   
   async function main() {
-    if (args.includes('--minimal')) {
+    if (args.includes('--list-tools')) {
+      await listAllTools();
+    } else if (args.includes('--minimal')) {
       await installMinimalServer();
     } else if (args.includes('--modular')) {
       if (args.includes('--all')) {
         await installFullServer();
+      } else if (args.includes('--categories') && args.includes('--tools')) {
+        // Mixed configuration: categories + individual tools
+        const categoriesIndex = args.indexOf('--categories');
+        const toolsIndex = args.indexOf('--tools');
+        const categoriesArg = args[categoriesIndex + 1];
+        const toolsArg = args[toolsIndex + 1];
+        
+        if (categoriesArg && toolsArg) {
+          const categories = categoriesArg.split(',').map(c => c.trim());
+          const tools = toolsArg.split(',').map(t => t.trim());
+          await installModularWithMixed(categories, tools);
+        } else {
+          console.error('❌ Please specify both categories and tools');
+          console.log('Example: --categories core,network --tools packet_sniffer');
+        }
       } else if (args.includes('--categories')) {
         const categoriesIndex = args.indexOf('--categories');
         const categoriesArg = args[categoriesIndex + 1];
@@ -673,6 +820,18 @@ if (import.meta.url === `file://${process.argv[1]}` || import.meta.url.endsWith(
         } else {
           console.error('❌ Please specify categories after --categories');
           console.log('Example: --categories core,file_system,network');
+        }
+      } else if (args.includes('--tools')) {
+        const toolsIndex = args.indexOf('--tools');
+        const toolsArg = args[toolsIndex + 1];
+        const autoIncludeDeps = args.includes('--auto-deps');
+        
+        if (toolsArg) {
+          const tools = toolsArg.split(',').map(t => t.trim());
+          await installModularWithTools(tools, autoIncludeDeps);
+        } else {
+          console.error('❌ Please specify tools after --tools');
+          console.log('Example: --tools health,system_info,fs_list');
         }
       } else {
         await installModularServer();

@@ -607,6 +607,9 @@ async function buildCustomServer(requestedTools, outputFile = 'custom-server.ts'
   console.log(`   npx tsc ${outputFile} --outDir dist`);
   console.log(`   node dist/${outputFile.replace('.ts', '.js')}`);
   console.log('');
+  console.log('💡 Alternative: Use the modular installer for better integration:');
+  console.log(`   node install.js --modular --tools ${validTools.join(',')}`);
+  console.log('');
 }
 
 /**
@@ -699,6 +702,64 @@ main().catch((error) => {
 }
 
 /**
+ * Build modular server configuration from individual tools
+ */
+async function buildModularConfigFromTools(requestedTools) {
+  console.log('🔧 Building Modular Server Configuration...');
+  console.log('==========================================');
+  console.log('');
+  
+  // Validate requested tools
+  const validTools = [];
+  const invalidTools = [];
+  
+  requestedTools.forEach(tool => {
+    if (AVAILABLE_TOOLS[tool]) {
+      validTools.push(tool);
+    } else {
+      invalidTools.push(tool);
+    }
+  });
+  
+  if (invalidTools.length > 0) {
+    console.log('❌ Invalid tools:');
+    invalidTools.forEach(tool => console.log(`   - ${tool}`));
+    console.log('');
+  }
+  
+  if (validTools.length === 0) {
+    console.log('❌ No valid tools specified!');
+    console.log('');
+    showAvailableTools();
+    return;
+  }
+  
+  console.log(`✅ Creating modular configuration with ${validTools.length} tools:`);
+  validTools.forEach(tool => console.log(`   - ${tool}`));
+  console.log('');
+  
+  try {
+    // Import the tool configuration system
+    const { createConfigFromTools, saveToolConfig } = await import('./dist/config/tool-config.js');
+    
+    const config = createConfigFromTools(validTools);
+    await saveToolConfig(config);
+    
+    console.log('✅ Modular server configuration created');
+    console.log('📁 Configuration saved to: tool-config.json');
+    console.log('');
+    console.log('🚀 To use your modular server:');
+    console.log('   npm run build && node dist/server-modular.js');
+    console.log('');
+  } catch (error) {
+    console.error('❌ Failed to create modular configuration:', error);
+    console.log('');
+    console.log('💡 Fallback: Use the custom server builder instead');
+    await buildCustomServer(validTools);
+  }
+}
+
+/**
  * Show available tools organized by category
  */
 function showAvailableTools() {
@@ -717,6 +778,10 @@ function showAvailableTools() {
   console.log('💡 Usage: node build-server.js <tool1> <tool2> ... <toolN>');
   console.log('Example: node build-server.js health system_info fs_list');
   console.log('');
+  console.log('🔧 Modular Configuration:');
+  console.log('   node build-server.js --modular <tool1> <tool2> ... <toolN>');
+  console.log('Example: node build-server.js --modular health system_info fs_list');
+  console.log('');
 }
 
 // Main execution
@@ -733,7 +798,23 @@ if (import.meta.url === `file://${process.argv[1]}`) {
     return;
   }
   
-  // Extract tools and options
+  // Check for modular configuration
+  if (args.includes('--modular')) {
+    // Extract tools (excluding --modular and other flags)
+    const tools = args.filter(arg => !arg.startsWith('--') && !arg.startsWith('-'));
+    
+    if (tools.length === 0) {
+      console.log('❌ No tools specified for modular configuration!');
+      console.log('');
+      showAvailableTools();
+      return;
+    }
+    
+    buildModularConfigFromTools(tools);
+    return;
+  }
+  
+  // Extract tools and options for custom server
   const tools = args.filter(arg => !arg.startsWith('--') && !arg.startsWith('-'));
   const outputFile = args.includes('--output') ? args[args.indexOf('--output') + 1] : 'custom-server.ts';
   const serverName = args.includes('--name') ? args[args.indexOf('--name') + 1] : 'Custom MCP Server';

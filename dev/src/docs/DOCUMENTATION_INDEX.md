@@ -52,6 +52,13 @@ Located in `/tools/`:
 
 - **[RAG Toolkit](tools/RAG_TOOLKIT.md)** - Retrieval-Augmented Generation toolkit documentation
 
+## 📖 User Guides
+
+Located in `/guides/`:
+
+### Installation & Setup
+- **[Individual Tool Installation Guide](guides/INDIVIDUAL_TOOL_INSTALLATION.md)** - Complete guide for installing specific tools
+
 ## 📈 Updates & Changelogs
 
 Located in `/updates/`:

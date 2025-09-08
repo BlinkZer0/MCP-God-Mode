@@ -265,6 +265,175 @@ export function createConfigFromCategories(enabledCategories: string[], customTo
   return config;
 }
 
+// Create configuration from individual tools
+export function createConfigFromTools(enabledTools: string[], disabledTools?: string[]): ToolConfig {
+  const config: ToolConfig = {
+    enabledTools: enabledTools,
+    disabledTools: disabledTools || [],
+    toolCategories: {},
+    customTools: []
+  };
+  
+  // Set up category configurations (all disabled by default when using individual tools)
+  Object.keys(TOOL_CATEGORIES).forEach(category => {
+    config.toolCategories[category] = {
+      enabled: false,
+      tools: TOOL_CATEGORIES[category as keyof typeof TOOL_CATEGORIES].tools
+    };
+  });
+  
+  return config;
+}
+
+// Create configuration from mixed sources (categories + individual tools)
+export function createConfigFromMixed(enabledCategories: string[], enabledTools: string[], disabledTools?: string[]): ToolConfig {
+  const config: ToolConfig = {
+    enabledTools: enabledTools,
+    disabledTools: disabledTools || [],
+    toolCategories: {},
+    customTools: []
+  };
+  
+  // Set up category configurations
+  Object.keys(TOOL_CATEGORIES).forEach(category => {
+    config.toolCategories[category] = {
+      enabled: enabledCategories.includes(category),
+      tools: TOOL_CATEGORIES[category as keyof typeof TOOL_CATEGORIES].tools
+    };
+  });
+  
+  return config;
+}
+
+// Validate individual tool names
+export function validateToolNames(toolNames: string[]): { valid: string[], invalid: string[] } {
+  const allTools = new Set<string>();
+  
+  // Collect all available tools from categories
+  Object.values(TOOL_CATEGORIES).forEach(category => {
+    category.tools.forEach(tool => allTools.add(tool));
+  });
+  
+  const valid: string[] = [];
+  const invalid: string[] = [];
+  
+  toolNames.forEach(tool => {
+    if (allTools.has(tool)) {
+      valid.push(tool);
+    } else {
+      invalid.push(tool);
+    }
+  });
+  
+  return { valid, invalid };
+}
+
+// Get all available tool names
+export function getAllAvailableTools(): string[] {
+  const allTools = new Set<string>();
+  
+  Object.values(TOOL_CATEGORIES).forEach(category => {
+    category.tools.forEach(tool => allTools.add(tool));
+  });
+  
+  return Array.from(allTools).sort();
+}
+
+// Tool dependencies mapping
+export const TOOL_DEPENDENCIES: { [tool: string]: string[] } = {
+  // Core tools that other tools might depend on
+  "health": [],
+  "system_info": [],
+  
+  // File system tools
+  "fs_list": [],
+  "fs_read_text": [],
+  "fs_write_text": [],
+  "fs_search": [],
+  "file_ops": [],
+  "file_watcher": [],
+  
+  // Process tools
+  "proc_run": [],
+  "proc_run_elevated": [],
+  
+  // Network tools that might depend on basic process execution
+  "network_diagnostics": ["proc_run"],
+  "network_discovery": ["proc_run"],
+  "port_scanner": ["proc_run"],
+  "packet_sniffer": ["proc_run"],
+  
+  // Security tools that might depend on network tools
+  "vulnerability_scanner": ["network_discovery", "port_scanner"],
+  "penetration_testing_toolkit": ["network_discovery", "port_scanner", "vulnerability_scanner"],
+  
+  // Mobile tools that might depend on basic system tools
+  "mobile_device_info": ["system_info"],
+  "mobile_device_management": ["system_info"],
+  
+  // Enhanced tools that depend on basic versions
+  "enhanced_legal_compliance": ["legal_compliance_manager"],
+  "advanced_security_assessment": ["security_testing"],
+  
+  // Default: no dependencies for most tools
+};
+
+// Validate tool dependencies
+export function validateToolDependencies(requestedTools: string[]): { 
+  valid: string[], 
+  missing: string[], 
+  warnings: string[] 
+} {
+  const valid: string[] = [];
+  const missing: string[] = [];
+  const warnings: string[] = [];
+  
+  const allAvailableTools = getAllAvailableTools();
+  const requestedSet = new Set(requestedTools);
+  
+  requestedTools.forEach(tool => {
+    if (!allAvailableTools.includes(tool)) {
+      missing.push(tool);
+      return;
+    }
+    
+    valid.push(tool);
+    
+    // Check dependencies
+    const dependencies = TOOL_DEPENDENCIES[tool] || [];
+    dependencies.forEach(dep => {
+      if (!requestedSet.has(dep)) {
+        warnings.push(`${tool} depends on ${dep}, but ${dep} is not included`);
+      }
+    });
+  });
+  
+  return { valid, missing, warnings };
+}
+
+// Auto-include dependencies for a tool list
+export function includeToolDependencies(tools: string[]): string[] {
+  const result = new Set(tools);
+  let changed = true;
+  
+  while (changed) {
+    changed = false;
+    const currentTools = Array.from(result);
+    
+    currentTools.forEach(tool => {
+      const dependencies = TOOL_DEPENDENCIES[tool] || [];
+      dependencies.forEach(dep => {
+        if (!result.has(dep)) {
+          result.add(dep);
+          changed = true;
+        }
+      });
+    });
+  }
+  
+  return Array.from(result).sort();
+}
+
 // Create minimal configuration (core tools only)
 export function createMinimalConfig(): ToolConfig {
   return createConfigFromCategories(["core", "file_system", "discovery"]);

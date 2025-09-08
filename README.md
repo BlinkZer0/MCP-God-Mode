@@ -55,6 +55,26 @@ npm run start:modular      # modular loader (147 tools, grouped)
 npm run start:minimal      # minimal profile (15 core tools)
 ```
 
+### Individual Tool Installation (NEW!)
+
+Install only the specific tools you need:
+
+```bash
+# Install specific tools
+node install.js --modular --tools health,system_info,fs_list
+
+# Install with automatic dependencies
+node install.js --modular --tools port_scanner --auto-deps
+
+# Install categories + individual tools
+node install.js --modular --categories core,network --tools packet_sniffer
+
+# List all available tools
+node install.js --list-tools
+```
+
+**📖 [Complete Individual Tool Installation Guide](dev/src/docs/guides/INDIVIDUAL_TOOL_INSTALLATION.md)**
+
 ### Windows (PowerShell)
 ```powershell
 .\scripts\install-win.ps1
