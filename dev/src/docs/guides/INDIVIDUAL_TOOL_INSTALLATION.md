@@ -2,7 +2,7 @@
 
 ## Overview
 
-The MCP God Mode modular server now supports individual tool specification, allowing users to install only the specific tools they need rather than entire categories. This provides fine-grained control over the server configuration and helps reduce resource usage.
+The MCP God Mode modular server (v1.7c) supports individual tool specification, allowing users to install only the specific tools they need rather than entire categories. This provides fine-grained control over the server configuration and helps reduce resource usage. The system also includes consolidated Flipper Zero support with a single comprehensive tool interface.
 
 ## Installation Methods
 
@@ -73,6 +73,17 @@ node build-server.js health,system_info,fs_list
 - `mobile_device_management` - Mobile device management
 - `mobile_app_security_toolkit` - Mobile app security testing
 
+### Flipper Zero (Consolidated)
+- `flipper_zero` - Comprehensive Flipper Zero device management (replaces 24 individual tools)
+  - Device discovery and connection management
+  - File system operations (list, read, write, delete)
+  - IR transmission and raw data sending
+  - Sub-GHz transmission capabilities
+  - NFC/RFID operations and dumping
+  - BadUSB scripting and DuckyScript support
+  - UART sniffing and GPIO control
+  - Bluetooth Low Energy scanning and pairing
+
 ### And many more...
 
 ## Tool Dependencies
@@ -140,6 +151,12 @@ node install.js --modular --tools fs_list,fs_read_text,fs_write_text,file_ops
 node install.js --modular --tools mobile_device_info,mobile_app_security_toolkit --auto-deps
 ```
 
+### Flipper Zero Operations
+
+```bash
+node install.js --modular --tools flipper_zero
+```
+
 ### Mixed Configuration
 
 ```bash
@@ -170,6 +187,7 @@ node dist/server-modular.js
 3. **Test Configuration**: Verify your tool selection works before production use
 4. **Document Choices**: Keep track of why specific tools were selected
 5. **Regular Updates**: Review and update tool selections as needs change
+6. **Flipper Zero**: Use the consolidated `flipper_zero` tool instead of individual Flipper tools
 
 ## Troubleshooting
 
@@ -209,6 +227,9 @@ node install.js --modular --tools network_discovery,port_scanner,vulnerability_s
 
 # Mobile development environment
 node install.js --modular --tools mobile_device_info,mobile_app_security_toolkit,mobile_app_testing_toolkit --auto-deps
+
+# Flipper Zero operations environment
+node install.js --modular --tools flipper_zero,network_discovery,port_scanner --auto-deps
 ```
 
 ### Integration with CI/CD
@@ -223,3 +244,17 @@ node dist/server-modular.js
 ```
 
 This approach provides maximum flexibility while maintaining the power and capabilities of the MCP God Mode platform.
+
+## Flipper Zero Consolidation Benefits (v1.7c)
+
+The Flipper Zero tool has been consolidated from 24 individual tools into a single comprehensive interface:
+
+### Benefits
+- **Simplified Interface**: Single tool with action-based parameters
+- **Better Organization**: All Flipper Zero operations in one place
+- **Reduced Complexity**: Easier to discover and use Flipper Zero features
+- **Consistent Parameters**: Unified parameter structure across all operations
+- **Backward Compatibility**: Legacy function names still work
+
+### Migration
+If you were using individual Flipper Zero tools, simply use the consolidated `flipper_zero` tool with the appropriate `action` parameter instead of separate tool calls.

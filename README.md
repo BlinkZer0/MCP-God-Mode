@@ -1,6 +1,6 @@
 # 🚀 MCP God Mode - Ultimate Cross-Platform Security & System Management Suite
 
-[![Version](https://img.shields.io/badge/Version-v1.7b-blue)](docs/updates/VERSION_1.7b_CHANGELOG.md)
+[![Version](https://img.shields.io/badge/Version-v1.7c-blue)](docs/updates/VERSION_1.7c_CHANGELOG.md)
 [![License](https://img.shields.io/badge/License-MIT-green)](LICENSE)
 [![Node](https://img.shields.io/badge/Node-%3E%3D%2018-brightgreen)](package.json)
 [![Platforms](https://img.shields.io/badge/Platforms-Win%20%7C%20macOS%20%7C%20Linux%20%7C%20Android%20%7C%20iOS-orange)](docs/CROSS_PLATFORM_COMPATIBILITY.md)
@@ -8,9 +8,9 @@
 [![CI](https://img.shields.io/badge/CI-Smoke%20Tests-yellow)](scripts/smoke-test.js)
 [![Tools](https://img.shields.io/badge/Tools-147%20Total-orange)](docs/general/TOOL_CATALOG.md)
 
-**Version 1.7b - Perfect Parity, MCP Web UI Bridge & Flipper Zero Integration**
+**Version 1.7c - Individual Tool Installation & Consolidated Flipper Zero Support**
 
-### Tool Inventory (v1.7b)
+### Tool Inventory (v1.7c)
 | Profile         | Count |
 |-----------------|------:|
 | Refactored Set  | 147   |
@@ -34,7 +34,7 @@ https://github.com/user-attachments/assets/932c43e4-159e-4ce2-9c02-4acf23fc47fd
 - **[🔧 Parameter Reference](docs/general/COMPLETE_PARAMETER_REFERENCE.md)** - Complete parameter documentation
 - **[💻 Examples & Tutorials](docs/guides/EXAMPLES_AND_TUTORIALS.md)** - Real-world usage examples
 - **[🌍 Platform Compatibility](docs/general/CROSS_PLATFORM_COMPATIBILITY.md)** - Platform-specific details
-- **[📝 Version 1.7b Changelog](docs/updates/VERSION_1.7b_CHANGELOG.md)** - What's new in the latest update
+- **[📝 Version 1.7c Changelog](docs/updates/VERSION_1.7c_CHANGELOG.md)** - What's new in the latest update
 
 ## 🚀 Quick Start
 
