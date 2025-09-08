@@ -1,0 +1,111 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 420" width="1400" height="420" role="img" aria-label="One MCP to rule them all, one MCP to find them, one MCP to compile the tools, and in the God Mode bind them.">
+  <!-- Background (dark, looks good in GitHub dark/light) -->
+  <rect width="100%" height="100%" fill="#0d1117"/>
+
+  <!-- Gradients -->
+  <defs>
+    <!-- Animated flame gradient for the text fill -->
+    <linearGradient id="flameFill" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#fff3b0">
+        <animate attributeName="stop-color" values="#fff3b0;#ffd166;#ffe08a;#fff3b0" dur="5s" repeatCount="indefinite"/>
+      </stop>
+      <stop offset="45%" stop-color="#ffd166">
+        <animate attributeName="stop-color" values="#ffd166;#ff9e42;#ffd166" dur="3.5s" repeatCount="indefinite"/>
+      </stop>
+      <stop offset="75%" stop-color="#ff6a3d">
+        <animate attributeName="stop-color" values="#ff6a3d;#ff3b2f;#ff6a3d" dur="4.5s" repeatCount="indefinite"/>
+      </stop>
+      <stop offset="100%" stop-color="#b42010">
+        <animate attributeName="stop-color" values="#b42010;#7a1812;#b42010" dur="6s" repeatCount="indefinite"/>
+      </stop>
+    </linearGradient>
+
+    <!-- Hot core glow color -->
+    <radialGradient id="coreGlow" cx="50%" cy="40%" r="60%">
+      <stop offset="0%" stop-color="#fff3b0" stop-opacity="0.9"/>
+      <stop offset="60%" stop-color="#ff8c3b" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#000" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Flicker / heat-haze filter applied to text -->
+    <filter id="flameFlicker" x="-20%" y="-30%" width="140%" height="180%">
+      <!-- Turbulence to distort the glyphs like rising heat -->
+      <feTurbulence type="fractalNoise" baseFrequency="0.012 0.09" numOctaves="3" seed="7" result="noise">
+        <animate attributeName="baseFrequency" values="0.012 0.09;0.018 0.12;0.012 0.09" dur="2.2s" repeatCount="indefinite"/>
+      </feTurbulence>
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="7" xChannelSelector="R" yChannelSelector="G">
+        <animate attributeName="scale" values="6;10;6" dur="2.2s" repeatCount="indefinite"/>
+      </feDisplacementMap>
+    </filter>
+
+    <!-- Outer glow filter -->
+    <filter id="textGlow" x="-30%" y="-50%" width="160%" height="200%">
+      <feGaussianBlur stdDeviation="6" result="b1"/>
+      <feColorMatrix in="b1" type="matrix"
+        values="1 0 0 0 0
+                0 1 0 0 0
+                0 0 1 0 0
+                0 0 0 1 0" />
+      <feMerge>
+        <feMergeNode in="b1"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <!-- Subtle ember particles -->
+    <symbol id="ember" viewBox="0 0 10 10">
+      <circle cx="5" cy="5" r="3" fill="#ffd166"/>
+    </symbol>
+  </defs>
+
+  <!-- Core glow behind text -->
+  <ellipse cx="700" cy="190" rx="520" ry="120" fill="url(#coreGlow)" opacity="0.55">
+    <animate attributeName="opacity" values="0.45;0.65;0.45" dur="4s" repeatCount="indefinite"/>
+  </ellipse>
+
+  <!-- TEXT: three layers (glow, fill+stroke/haze, crisp top) -->
+  <!-- 1) Soft glow silhouette -->
+  <g filter="url(#textGlow)" opacity="0.65">
+    <text x="50%" y="120" text-anchor="middle" font-family="system-ui, Segoe UI, Arial, sans-serif" font-weight="800" font-size="44" fill="#ff8c3b">One MCP to rule them all,</text>
+    <text x="50%" y="190" text-anchor="middle" font-family="system-ui, Segoe UI, Arial, sans-serif" font-weight="800" font-size="44" fill="#ff8c3b">one MCP to find them,</text>
+    <text x="50%" y="260" text-anchor="middle" font-family="system-ui, Segoe UI, Arial, sans-serif" font-weight="800" font-size="44" fill="#ff8c3b">one MCP to compile the tools,</text>
+    <text x="50%" y="330" text-anchor="middle" font-family="system-ui, Segoe UI, Arial, sans-serif" font-weight="900" font-size="46" fill="#ffd166">and in the God Mode bind them.</text>
+  </g>
+
+  <!-- 2) Flame-filled main text with heat-haze -->
+  <g filter="url(#flameFlicker)">
+    <text x="50%" y="120" text-anchor="middle" font-family="system-ui, Segoe UI, Arial, sans-serif" font-weight="900" font-size="44" fill="url(#flameFill)" stroke="#3b0b06" stroke-width="1.2">One MCP to rule them all,</text>
+    <text x="50%" y="190" text-anchor="middle" font-family="system-ui, Segoe UI, Arial, sans-serif" font-weight="900" font-size="44" fill="url(#flameFill)" stroke="#3b0b06" stroke-width="1.2">one MCP to find them,</text>
+    <text x="50%" y="260" text-anchor="middle" font-family="system-ui, Segoe UI, Arial, sans-serif" font-weight="900" font-size="44" fill="url(#flameFill)" stroke="#3b0b06" stroke-width="1.2">one MCP to compile the tools,</text>
+    <text x="50%" y="330" text-anchor="middle" font-family="system-ui, Segoe UI, Arial, sans-serif" font-weight="1000" font-size="46" fill="url(#flameFill)" stroke="#3b0b06" stroke-width="1.3">and in the God Mode bind them.</text>
+  </g>
+
+  <!-- 3) Crisp highlight layer to keep readability -->
+  <g>
+    <text x="50%" y="120" text-anchor="middle" font-family="system-ui, Segoe UI, Arial, sans-serif" font-weight="800" font-size="44" fill="rgba(255,255,255,0.35)">One MCP to rule them all,</text>
+    <text x="50%" y="190" text-anchor="middle" font-family="system-ui, Segoe UI, Arial, sans-serif" font-weight="800" font-size="44" fill="rgba(255,255,255,0.35)">one MCP to find them,</text>
+    <text x="50%" y="260" text-anchor="middle" font-family="system-ui, Segoe UI, Arial, sans-serif" font-weight="800" font-size="44" fill="rgba(255,255,255,0.35)">one MCP to compile the tools,</text>
+    <text x="50%" y="330" text-anchor="middle" font-family="system-ui, Segoe UI, Arial, sans-serif" font-weight="900" font-size="46" fill="rgba(255,255,255,0.35)">and in the God Mode bind them.</text>
+  </g>
+
+  <!-- Rising ember particles (subtle) -->
+  <g opacity="0.75">
+    <!-- Repeat a few embers with slight variations -->
+    <use href="#ember" x="220" y="320">
+      <animate attributeName="y" values="320;120" dur="6s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0;1;0" dur="6s" repeatCount="indefinite"/>
+    </use>
+    <use href="#ember" x="1180" y="340">
+      <animate attributeName="y" values="340;140" dur="7s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0;1;0" dur="7s" repeatCount="indefinite"/>
+    </use>
+    <use href="#ember" x="760" y="330">
+      <animate attributeName="y" values="330;130" dur="5.5s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0;1;0" dur="5.5s" repeatCount="indefinite"/>
+    </use>
+    <use href="#ember" x="500" y="345">
+      <animate attributeName="y" values="345;145" dur="6.5s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0;1;0" dur="6.5s" repeatCount="indefinite"/>
+    </use>
+  </g>
+</svg>

@@ -300,7 +300,7 @@ The server-refactored and modular servers have different tool counts because:
 <img src="assets/wave-divider.svg" alt="" width="100%" />
 
 <p align="center">
-  <img src="assets/sparkline.svg" alt="Activity sparkline" width="60%" />
+  <img src="assets/flame-text.svg" alt="One MCP to rule them all, one MCP to find them, one MCP to compile the tools, and in the God Mode bind them." width="100%" />
 </p>
 
 ## 🖥️ Visual Demo
