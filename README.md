@@ -3,12 +3,12 @@
 </picture>
 
 <p align="center">
-  <a href="#-what-is-mcp-god-mode">What is MCP God Mode?</a> •
+  <a href="#-quick-start">Quick Start</a> •
   <a href="#-flipper-zero-integration">Flipper Zero</a> •
   <a href="#️-tool-categories">Tool Categories</a> •
-  <a href="#-quick-start">Quick Start</a> •
   <a href="#-usage-examples">Usage Examples</a> •
-  <a href="#-legal-disclaimer">Legal</a>
+  <a href="#-cross-platform-support">Platform Support</a> •
+  <a href="#️-legal-disclaimer">Legal</a>
 </p>
 
 One MCP to rule them all, one MCP to find them, one MCP to compile the tools, and in the God Mode bind them. 🎲⚡
@@ -34,12 +34,11 @@ One MCP to rule them all, one MCP to find them, one MCP to compile the tools, an
 - **[📝 Version 1.7c Changelog](docs/updates/VERSION_1.7c_CHANGELOG.md)** - What's new in the latest update
 
 ## Table of Contents
-- [What is MCP God Mode?](#-what-is-mcp-god-mode)
+- [Quick Start](#-quick-start)
 - [Flipper Zero Integration](#-flipper-zero-integration)
 - [Understanding Tool Counts](#-understanding-tool-counts-tools-vs-actions-vs-parameters)
 - [Visual Demo](#️-visual-demo)
 - [Tool Categories](#️-tool-categories)
-- [Quick Start](#-quick-start)
 - [Usage Examples](#-usage-examples)
 - [Cross-Platform Support](#-cross-platform-support)
 - [Documentation](#-documentation)
