@@ -1,5 +1,5 @@
 <picture>
-  <img src="assets/hero-flame.svg" alt="One MCP to rule them all, one MCP to find them, one MCP to compile the tools, and in the God Mode bind them." width="100%" />
+  <img src="assets/hero-animated.svg" alt="MCP God Mode - Ultimate Cross-Platform Security & System Management Suite" width="100%" />
 </picture>
 
 <p align="center">
