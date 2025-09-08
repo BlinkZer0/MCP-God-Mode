@@ -10,6 +10,8 @@
   <a href="#-disclaimer">Disclaimer</a>
 </p>
 
+One MCP to rule them all, one MCP to find them, one MCP to compile the tools, and in the God Mode bind them. 🎲⚡
+
 [![Version](https://img.shields.io/badge/Version-v1.7c-blue)](docs/updates/VERSION_1.7c_CHANGELOG.md)
 [![License](https://img.shields.io/badge/License-MIT-green)](LICENSE)
 [![Node](https://img.shields.io/badge/Node-%3E%3D%2018-brightgreen)](package.json)
@@ -42,9 +44,6 @@ https://github.com/user-attachments/assets/932c43e4-159e-4ce2-9c02-4acf23fc47fd
 ***Slow typing for that 90's dramatic vibe in this demonstration of proc_run, the tool get's the elevated permissions it needs.***
 
 ***Bug Bounty $$$; find a nasty bug or somthing big I forgot and I will make and add a custom MPC tool in your honor***
-
-
-> **One MCP to rule them all, one MCP to find them, one MCP to compile the tools, and in the God Mode bind them.** 🎲⚡
 
 ## 📚 Quick Navigation
 
