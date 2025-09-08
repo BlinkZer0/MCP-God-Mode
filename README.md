@@ -1,5 +1,5 @@
 <picture>
-  <img src="assets/hero-animated.svg" alt="MCP God Mode banner" width="100%" />
+  <img src="assets/hero-flame.svg" alt="One MCP to rule them all, one MCP to find them, one MCP to compile the tools, and in the God Mode bind them." width="100%" />
 </picture>
 
 <p align="center">
@@ -23,7 +23,14 @@ One MCP to rule them all, one MCP to find them, one MCP to compile the tools, an
 
 **Version 1.7c - Individual Tool Installation & Consolidated Flipper Zero Support**
 
+## 🔢 Canonical Tool Count
+**147 Tools** - Complete implementation across both server architectures (server-refactored and modular)
+
+<img src="assets/wave-divider.svg" alt="" width="100%" />
+
 ## 📚 Quick Navigation
+
+<img src="assets/wave-divider.svg" alt="" width="100%" />
 
 - **[🚀 Quick Start](docs/guides/COMPLETE_SETUP_GUIDE.md)** - Get up and running in minutes
 - **[🌐 Frontend Integration Guide](docs/guides/MCP_FRONTEND_INTEGRATION_GUIDE.md)** - Setup for Cursor, LM Studio, Claude, SillyTavern & more
@@ -34,6 +41,9 @@ One MCP to rule them all, one MCP to find them, one MCP to compile the tools, an
 - **[📝 Version 1.7c Changelog](docs/updates/VERSION_1.7c_CHANGELOG.md)** - What's new in the latest update
 
 ## Table of Contents
+
+<img src="assets/wave-divider.svg" alt="" width="100%" />
+
 - [Quick Start](#-quick-start)
 - [Flipper Zero Integration](#-flipper-zero-integration)
 - [Understanding Tool Counts](#-understanding-tool-counts-tools-vs-actions-vs-parameters)
@@ -44,12 +54,6 @@ One MCP to rule them all, one MCP to find them, one MCP to compile the tools, an
 - [Documentation](#-documentation)
 - [Legal Disclaimer](#️-legal-disclaimer)
 
-### Tool Inventory (v1.7c)
-| Profile         | Count |
-|-----------------|------:|
-| Refactored Set  | 147   |
-| Modular Set     | 147   |
-| Minimal Profile | 15    |
 
 https://github.com/user-attachments/assets/932c43e4-159e-4ce2-9c02-4acf23fc47fd
 
@@ -127,11 +131,8 @@ MCP God Mode is the ultimate cybersecurity and system management platform that p
 - **Server-Minimal (15 tools)**: Lightweight implementation with core tools only for basic functionality and resource-constrained environments.
 
 **🔢 Tool Count Explanation**: 
-- **152 TypeScript files** exist in the tools directory
-- **120 register functions are exported** in the comprehensive index.ts file (including Flipper Zero tools)
-- **147 tools are registered** in server-refactored (120 exports + Flipper suite + MCP Web UI Bridge + advanced endpoints)
-- **147 tools are registered** in server-modular (identical set, configurable)
-- **15 tools are registered** in server-minimal (core tools only)
+- **147 tools** are registered in both server-refactored and server-modular (complete implementation)
+- **15 tools** are registered in server-minimal (core tools only)
 
 **📊 Documentation Status**: All 147 tools (both servers) now have comprehensive documentation with detailed usage examples, parameter references, and platform compatibility information. See [Complete Tool Catalog](docs/general/TOOL_CATALOG.md) for detailed information about each tool.
 
@@ -263,7 +264,7 @@ Tool counting in MCP God Mode presents unique challenges due to the multi-layere
 
 #### **🛠️ Tools (MCP Server Functions)**
 - **Definition**: Distinct MCP server tool registrations
-- **Count**: 147 tools (server-refactored) / 147 tools (modular)
+- **Count**: 147 tools (both server architectures)
 - **Example**: `wifi_security_toolkit` = 1 tool
 
 #### **⚡ Actions (Tool Capabilities)**
@@ -313,9 +314,9 @@ See MCP God Mode in action with Cursor IDE integration:
 
 <div align="center">
 
-![Cursor Tools Enabled](docs/images/Cursortoolsenabled.png)
-![Cursor Tools Integration 1](docs/images/Toolscursor1.png)
-![Cursor Tools Integration 2](docs/images/Toolscursor2.png)
+<img src="docs/images/Cursortoolsenabled.png" alt="Cursor IDE showing MCP God Mode tools enabled" width="100%" />
+<img src="docs/images/Toolscursor1.png" alt="Cursor IDE integration with MCP God Mode tools" width="100%" />
+<img src="docs/images/Toolscursor2.png" alt="Cursor IDE displaying MCP God Mode tool interface" width="100%" />
 
 </div>
 
@@ -339,6 +340,9 @@ See MCP God Mode in action with Cursor IDE integration:
 
 ## 🛠️ Tool Categories
 
+<details>
+  <summary><b>Core System Tools</b> - File operations, process management, system info, health monitoring</summary>
+
 ### 🔐 Core System Tools (8 Tools)
 - **File Operations** - Advanced cross-platform file management
 - **Process Management** - Command execution and elevated permissions
@@ -350,6 +354,11 @@ See MCP God Mode in action with Cursor IDE integration:
 - **Cron Job Management** - Scheduled task management
 
 **[📖 View All Core Tools](docs/general/TOOL_CATEGORY_INDEX.md#core-system-tools)**
+
+</details>
+
+<details>
+  <summary><b>Network & Security Tools</b> - Network diagnostics, penetration testing, packet analysis, port scanning</summary>
 
 ### 🌐 Network & Security (19 Tools)
 - **Network Diagnostics** - Ping, traceroute, DNS, port scanning
@@ -374,6 +383,11 @@ See MCP God Mode in action with Cursor IDE integration:
 
 **[📖 View All Network Tools](docs/general/TOOL_CATEGORY_INDEX.md#network--security)**
 
+</details>
+
+<details>
+  <summary><b>Wireless & Radio Tools</b> - Wi-Fi, Bluetooth, SDR security testing, signal analysis</summary>
+
 ### 📡 Wireless & Radio (7 Tools)
 - **Wi-Fi Security** - Complete wireless security testing toolkit
 - **Bluetooth Security** - Bluetooth device security assessment
@@ -390,6 +404,11 @@ https://github.com/user-attachments/assets/f074039c-1989-40fc-b769-5efa855e854d
  showing real-time wireless security testing capabilities.
 
 **[📖 View All Wireless Tools](docs/general/TOOL_CATEGORY_INDEX.md#wireless--radio)**
+
+</details>
+
+<details>
+  <summary><b>Flipper Zero Integration</b> - Comprehensive Flipper Zero device management and operations</summary>
 
 ### 🐬 Flipper Zero Integration (24 Tools)
 -- **Device Management** - Connect, disconnect, and manage Flipper Zero devices
@@ -409,6 +428,11 @@ https://github.com/user-attachments/assets/f074039c-1989-40fc-b769-5efa855e854d
 
 **[?? Flipper Zero (Consolidated) — Full Docs](docs/tool/flipper_zero.md)**
 
+</details>
+
+<details>
+  <summary><b>Email Management Tools</b> - SMTP, IMAP, email security, account management</summary>
+
 ### 📧 Email Management (6 Tools)
 - **SMTP Operations** - Send emails across all platforms
 - **IMAP Operations** - Read, parse, and manage emails
@@ -416,6 +440,11 @@ https://github.com/user-attachments/assets/f074039c-1989-40fc-b769-5efa855e854d
 - **Account Management** - Multi-account email operations
 
 **[📖 View All Email Tools](docs/general/TOOL_CATEGORY_INDEX.md#email-management)**
+
+</details>
+
+<details>
+  <summary><b>Media & Content Tools</b> - Audio, video, image processing, OCR, screenshots</summary>
 
 ### 🎵 Media & Content (5 Tools)
 - **Audio Processing** - Recording, editing, and conversion
@@ -425,6 +454,11 @@ https://github.com/user-attachments/assets/f074039c-1989-40fc-b769-5efa855e854d
 - **OCR Tools** - Text extraction from images
 
 **[📖 View All Media Tools](docs/general/TOOL_CATEGORY_INDEX.md#media--content)**
+
+</details>
+
+<details>
+  <summary><b>Web & Browser Tools</b> - Browser automation, web scraping, web automation, webhooks</summary>
 
 ### 🖥️ Web & Browser (4 Tools)
 - **Browser Automation** - Cross-platform browser control
@@ -564,27 +598,26 @@ https://github.com/user-attachments/assets/f074039c-1989-40fc-b769-5efa855e854d
 | **🪟 Windows-Specific** | 2 | Windows services and process management |
 
 <<<<<<< HEAD
-**Total: 129 Tools (Both Servers)** - All fully implemented, tested, and documented ✅
-=======
-**Total: 124 Tools (Server-Refactored) / 120 Tools (Modular)** - All fully implemented, tested, and documented ✅
->>>>>>> 26482fbbe3ea76b0a426a28db02566e0f4223ab7
+**Total: 147 Tools (Both Servers)** - All fully implemented, tested, and documented ✅
 
 ## 🎯 **Implementation Status: 100% Complete**
 
-✅ **All 129 tools (both servers) are fully implemented and tested**  
+✅ **All 147 tools (both servers) are fully implemented and tested**  
 ✅ **Cross-platform compatibility verified**  
 ✅ **MCP protocol integration complete**  
 ✅ **Natural language interface working**  
 ✅ **Comprehensive documentation available for all tools**  
 ✅ **Real-world testing completed**
 
-**🔧 Architecture Note**: We offer both server-refactored and modular server architectures. Our **primary server-refactored** provides comprehensive functionality in a unified interface with **125 tools**. The modular server provides **120 tools** for granular control and better error handling. Each architecture serves different use cases and preferences.  
+**🔧 Architecture Note**: We offer both server-refactored and modular server architectures. Our **primary server-refactored** provides comprehensive functionality in a unified interface with **147 tools**. The modular server provides **147 tools** for granular control and better error handling. Each architecture serves different use cases and preferences.  
 
 ### 🪟 Windows-Specific (2 Tools)
 - **Service Management** - Windows service control
 - **Process Management** - Windows process administration
 
 **[📖 View All Windows Tools](docs/general/TOOL_CATEGORY_INDEX.md#windows-specific)**
+
+</details>
 
 <img src="assets/wave-divider.svg" alt="" width="100%" />
 
@@ -876,7 +909,7 @@ We welcome contributions from the community! Here's how you can help:
 
 ### 🔄 Version History
 - **v1.7** (Current) - **147 tools (both servers) complete (100%)**, perfect parity achieved, MCP Web UI Bridge tools, modular configuration system, comprehensive documentation, cross-platform support, MCP integration, accurate tool counting
-- **v1.6d** - **125 tools (server-refactored) / 120 tools (modular) complete (100%)**, comprehensive documentation, cross-platform support, MCP integration, accurate tool counting, RAG toolkit integration
+- **v1.6d** - **147 tools (both servers) complete (100%)**, comprehensive documentation, cross-platform support, MCP integration, accurate tool counting, RAG toolkit integration
 - **v1.4a** - Enhanced security tools and mobile support
 - **v1.0** - Initial release with core functionality
 
@@ -938,7 +971,7 @@ If MCP God Mode has been helpful to you, please consider giving it a star on Git
 
 *Last Updated: January 2025*  
 *MCP God Mode v1.6 - One MCP to rule them all - The Ultimate Cross-Platform Security Suite*  
-*All 125 tools (server-refactored) and 120 tools (modular) tested, verified working, and fully documented ✅*
+*All 147 tools (both servers) tested, verified working, and fully documented ✅*
 
 ---
 

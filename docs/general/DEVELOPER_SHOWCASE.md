@@ -15,16 +15,16 @@ Blink Zero is a dedicated martial artist whose skills transcend the digital real
 
 <div align="center">
 
-![Spinning Back Kick Ground Touch](images/spinning-back-kick-ground-touch.gif)
+<img src="images/spinning-back-kick-ground-touch.gif" alt="Spinning back kick demonstration with ground touch" width="100%" />
 *Spinning Back Kick with Ground Touch - Demonstrating exceptional balance and control*
 
-![Nunchaku Mastery](images/nunchaku-shuriken-miasma.gif)
+<img src="images/nunchaku-shuriken-miasma.gif" alt="Nunchaku mastery demonstration" width="100%" />
 *Nunchaku Mastery - Lightning-fast strikes with perfect form*
 
-![Jumping Switch Front Kick](images/jumping-switch-front-kick-shuriken-miasma.gif)
+<img src="images/jumping-switch-front-kick-shuriken-miasma.gif" alt="Jumping switch front kick demonstration" width="100%" />
 *Jumping Switch Front Kick - Explosive power and aerial control*
 
-![Three Section Staff](images/3section-stall-sanjiegun.gif)
+<img src="images/3section-stall-sanjiegun.gif" alt="Three section staff demonstration" width="100%" />
 *Three Section Staff Mastery - Complex weapon manipulation*
 
 </div>
