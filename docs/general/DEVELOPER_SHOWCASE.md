@@ -1,3 +1,7 @@
+<picture>
+  <img src="../headers/svg/developer_matrix.svg" alt="The Developer: Blink Zero" width="100%" />
+</picture>
+
 # 🥋 Developer Showcase: Blink Zero (Shuriken Miasma)
 
 ## 🎭 **The Developer Behind MCP God Mode**

@@ -3,7 +3,7 @@
 ## Overview
 MCP God Mode is an advanced security and network analysis platform. Current accurate counts (v1.7c):
 
-- **120 register functions** exported in code
+- **137 register functions** exported in code
 - **148 total endpoints** in both servers (includes consolidated Flipper Zero tool, MCP Web UI Bridge, and advanced endpoints)
 - **148 documented tools** in the wiki
 - **Configurable modular server** - can load minimal (10 tools), custom categories, or full (148 tools)
@@ -12,7 +12,7 @@ This document provides detailed information about each tool, its capabilities, a
 
 ## Tool Count Summary
 - **Total TypeScript Files**: 152
-- **Exported Register Functions**: 120
+- **Exported Register Functions**: 137
 - **Server-Refactored (total endpoints)**: 148
 - **Modular Server (total endpoints)**: 148 (configurable)
 - **Server-Minimal**: 15 tools
@@ -249,6 +249,20 @@ Humor break: if the AI builds an enterprise integration hub and starts sending c
 **Platforms**: Desktop (Windows/macOS/Linux), Android, iOS
 **Features**: Real-time streaming, encrypted session persistence, anti-bot friendly, macro recording/replay
 
+### 🔒 Advanced Security Suite (10 tools)
+| Tool | Description | Parameters |
+|------|-------------|------------|
+| `advanced_threat_hunting` | Sophisticated threat detection and hunting with behavioral analysis, IOC tracking, and advanced correlation | `action`, `target`, `timeframe` |
+| `cyber_deception_platform` | Deception tech with honeypots, decoy systems, and threat misdirection | `action`, `deception_type`, `monitoring_level` |
+| `zero_trust_architect` | Zero trust security implementation with continuous verification and micro-segmentation | `action`, `scope`, `trust_level` |
+| `quantum_cryptography_suite` | Quantum-resistant cryptography with post-quantum algorithms and key distribution | `action`, `algorithm`, `security_level` |
+| `ai_security_orchestrator` | AI-powered security automation with ML threat detection and automated response | `action`, `ai_model`, `automation_level` |
+| `blockchain_forensics` | Blockchain investigation with transaction tracing and wallet analysis | `action`, `blockchain`, `address` |
+| `supply_chain_security` | Supply chain risk assessment with vendor analysis and dependency scanning | `action`, `scope`, `risk_level` |
+| `privacy_engineering` | Privacy protection with data minimization, anonymization, and compliance validation | `action`, `data_type`, `regulation` |
+| `incident_commander` | Incident response coordination with automated workflows and recovery orchestration | `action`, `incident_type`, `severity` |
+| `security_metrics_dashboard` | Security KPI tracking with real-time metrics, trend analysis, and reporting | `action`, `metric_type`, `timeframe` |
+
 ## Server Implementations
 
 ### Server-Refactored (148 tools)
@@ -306,4 +320,4 @@ Humor break: if the AI builds an enterprise integration hub and starts sending c
 ---
 
 *Last Updated: December 2024*
-*Total Tools: 120 exported, 148 registered in server-refactored*
+*Total Tools: 137 exported, 148 registered in server-refactored*

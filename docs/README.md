@@ -22,7 +22,7 @@ Welcome to the comprehensive documentation for MCP God Mode - the ultimate cross
 - **[Examples & Tutorials](./guides/EXAMPLES_AND_TUTORIALS.md)** - Real-world usage examples
 
 ### 🛠️ Tool Documentation
-- **[Complete Tool Catalog](./general/TOOL_CATALOG.md)** - Browse all 147 documented tools
+- **[Complete Tool Catalog](./general/TOOL_CATALOG.md)** - Browse all 148 documented tools
 - **[Tool Category Index](./general/TOOL_CATEGORY_INDEX.md)** - Browse tools by category
 - **[Parameter Reference](./general/COMPLETE_PARAMETER_REFERENCE.md)** - Complete parameter documentation
 - **[Individual Tool Docs](./tool/)** - Detailed documentation for each tool

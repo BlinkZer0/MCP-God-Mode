@@ -1,0 +1,3 @@
+All headers are 1200×180, preserveAspectRatio="xMidYMid slice", with a soft gradient, a faint grid, and a subtle inner glow. Colors chosen for good contrast in both themes.
+Animation is intentionally omitted for GitHub safety and small size.
+

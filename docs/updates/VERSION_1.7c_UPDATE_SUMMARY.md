@@ -121,7 +121,7 @@ node install.js --modular --tools mobile_device_info,mobile_app_security_toolkit
 ## 📊 Impact
 
 ### Tool Count
-- **Total Tools**: 147 (maintained)
+- **Total Tools**: 148 (maintained)
 - **Flipper Zero Tools**: Consolidated from 24 to 1
 - **New Installation Methods**: 4
 - **New Configuration Options**: 6
