@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="320" height="60" viewBox="0 0 320 60" role="img" aria-label="Project activity sparkline">
+  <polyline fill="none" stroke="#00d4ff" stroke-width="3"
+    points="0,40 30,22 60,26 90,10 120,18 150,14 180,24 210,8 240,20 270,12 300,16"/>
+  <circle cx="300" cy="16" r="4" fill="#00d4ff"/>
+</svg>

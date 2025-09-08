@@ -1,4 +1,14 @@
-# 🚀 MCP God Mode - Ultimate Cross-Platform Security & System Management Suite
+<picture>
+  <img src="assets/hero-animated.svg" alt="MCP God Mode banner" width="100%" />
+</picture>
+
+<p align="center">
+  <a href="#-features">Features</a> •
+  <a href="#-install">Install</a> •
+  <a href="#-usage">Usage</a> •
+  <a href="#-docs">Docs</a> •
+  <a href="#-disclaimer">Disclaimer</a>
+</p>
 
 [![Version](https://img.shields.io/badge/Version-v1.7c-blue)](docs/updates/VERSION_1.7c_CHANGELOG.md)
 [![License](https://img.shields.io/badge/License-MIT-green)](LICENSE)
@@ -9,6 +19,16 @@
 [![Tools](https://img.shields.io/badge/Tools-147%20Total-orange)](docs/general/TOOL_CATALOG.md)
 
 **Version 1.7c - Individual Tool Installation & Consolidated Flipper Zero Support**
+
+## Table of Contents
+- [What is MCP God Mode?](#-what-is-mcp-god-mode)
+- [Flipper Zero Integration](#-flipper-zero-integration)
+- [Tool Categories](#️-tool-categories)
+- [Quick Start](#-quick-start)
+- [Usage Examples](#-usage-examples)
+- [Cross-Platform Support](#-cross-platform-support)
+- [Documentation](#-documentation)
+- [Legal Disclaimer](#️-legal-disclaimer)
 
 ### Tool Inventory (v1.7c)
 | Profile         | Count |
@@ -86,9 +106,17 @@ npm run start:refactored
 npm run smoke
 ```
 
-## 🌟 What is MCP God Mode?
+<img src="assets/wave-divider.svg" alt="" width="100%" />
 
-MCP God Mode is the ultimate cybersecurity and system management platform that provides **147 fully implemented tools** across **5 major platforms**. It's designed for security professionals, system administrators, penetration testers, and anyone who needs comprehensive system control and security testing capabilities. 
+<details open>
+  <summary><b>TL;DR</b> — What is MCP God Mode?</summary>
+
+MCP God Mode is the ultimate cybersecurity and system management platform that provides **147 fully implemented tools** across **5 major platforms**. It's designed for security professionals, system administrators, penetration testers, and anyone who needs comprehensive system control and security testing capabilities.
+
+</details>
+
+<details>
+  <summary><b>Deep Dive</b> — Architecture & Safety</summary> 
 
 **📝 Note**: We offer both monolithic and modular server architectures. Our **primary server-refactored** provides comprehensive functionality in a unified interface with **147 tools**. The modular server provides **147 tools** (configurable) for granular control, better error handling, and for the ease of an individual to extract a tool for their own server build. Tools are located in dev/src/tools. Each architecture serves different use cases and preferences.
 
@@ -119,7 +147,18 @@ MCP God Mode is the ultimate cybersecurity and system management platform that p
 
 **⚠️ Threat Model / Safe-Use Notice**: This tool is intended for authorized testing and security assessment ONLY. Use only on networks and systems you own or have explicit written permission to test. Default audit logging is enabled; high-risk tools require confirmation. Do-not-target policy applies to all operations.
 
+</details>
+
+<img src="assets/wave-divider.svg" alt="" width="100%" />
+
 ## 🐬 Flipper Zero Integration
+
+<table>
+  <tr>
+    <td width="6"><img src="assets/callout-info.svg" alt="" width="6"/></td>
+    <td><strong>Heads up:</strong> Run in a controlled environment first. See <a href="#-disclaimer">Disclaimer</a>.</td>
+  </tr>
+</table>
 
 MCP-God-Mode includes comprehensive Flipper Zero integration with cross-platform support for both USB CDC Serial and BLE GATT transports. A single consolidated tool `flipper_zero` provides all Flipper Zero operations in both server modes.
 
@@ -213,6 +252,8 @@ Flipper Zero transmission operations (IR, Sub-GHz, BadUSB) may be regulated in y
 - Session-based security
 - Environment-based permission controls
 
+<img src="assets/wave-divider.svg" alt="" width="100%" />
+
 ## 🔢 Understanding Tool Counts: Tools vs. Actions vs. Parameters
 
 ### **Why Tool Counting is Complex**
@@ -257,6 +298,12 @@ The server-refactored and modular servers have different tool counts because:
 
 🎭 **Fun Fact**: One MCP to rule them all, one MCP to find them, one MCP to compile the tools, and in the God Mode bind them! 🎲⚡
 
+<img src="assets/wave-divider.svg" alt="" width="100%" />
+
+<p align="center">
+  <img src="assets/sparkline.svg" alt="Activity sparkline" width="60%" />
+</p>
+
 ## 🖥️ Visual Demo
 
 See MCP God Mode in action with Cursor IDE integration:
@@ -286,6 +333,8 @@ See MCP God Mode in action with Cursor IDE integration:
 - **📊 Real-Time Monitoring** - Live system and network analysis
 - **🔄 Automated Workflows** - Batch processing and automation
 - **📚 Comprehensive Documentation** - Wiki-style documentation with examples
+
+<img src="assets/wave-divider.svg" alt="" width="100%" />
 
 ## 🛠️ Tool Categories
 
@@ -536,6 +585,8 @@ https://github.com/user-attachments/assets/f074039c-1989-40fc-b769-5efa855e854d
 
 **[📖 View All Windows Tools](docs/general/TOOL_CATEGORY_INDEX.md#windows-specific)**
 
+<img src="assets/wave-divider.svg" alt="" width="100%" />
+
 ## 🚀 Quick Start
 
 ### ⚡ **Recommended: Use with Cursor AI Agent Mode**
@@ -596,6 +647,8 @@ python -m mcp_god_mode.tools.core.health
 python -m mcp_god_mode.tools.network.network_diagnostics --action ping --target "8.8.8.8"
 ```
 
+<img src="assets/wave-divider.svg" alt="" width="100%" />
+
 ## 💡 Usage Examples
 
 ### 🔒 Security Testing
@@ -635,6 +688,8 @@ python -m mcp_god_mode.tools.email.send_email \
 
 **[📖 View More Examples](docs/guides/EXAMPLES_AND_TUTORIALS.md)**
 
+<img src="assets/wave-divider.svg" alt="" width="100%" />
+
 ## 🛠️ Troubleshooting & Support
 
 ### **Need Help?**
@@ -655,6 +710,8 @@ If you encounter issues, need assistance, or have questions about MCP God Mode:
 - **GitHub Issues**: For detailed bug reports and feature requests
 - **Security Issues**: Contact Blink Zero directly for security-related concerns
 
+<img src="assets/wave-divider.svg" alt="" width="100%" />
+
 ## 🌍 Cross-Platform Support
 
 ### Platform Matrix
@@ -674,6 +731,8 @@ If you encounter issues, need assistance, or have questions about MCP God Mode:
 - **macOS**: LaunchDaemon Support, Gatekeeper Integration, Time Machine
 - **Android**: ADB Integration, Root Access, Hardware Sensors
 - **iOS**: Jailbreak Support, Hardware Access, System Integration
+
+<img src="assets/wave-divider.svg" alt="" width="100%" />
 
 ## 🔧 Advanced Features
 
@@ -708,6 +767,8 @@ python -m mcp_god_mode.tools.network.packet_sniffer \
   --duration 3600
 ```
 
+<img src="assets/wave-divider.svg" alt="" width="100%" />
+
 ## 📊 Performance & Benchmarks
 
 ### Tool Performance
@@ -722,6 +783,8 @@ python -m mcp_god_mode.tools.network.packet_sniffer \
 - **Storage**: Efficient compression and caching
 - **Network**: Bandwidth-optimized operations
 
+<img src="assets/wave-divider.svg" alt="" width="100%" />
+
 ## 🔒 Security & Privacy
 
 ### Built-in Security Features
@@ -735,6 +798,8 @@ python -m mcp_god_mode.tools.network.packet_sniffer \
 - **Local Processing**: Process data locally when possible
 - **Secure Communication**: Encrypted network communications
 - **Compliance**: GDPR, HIPAA, and SOC2 compliant
+
+<img src="assets/wave-divider.svg" alt="" width="100%" />
 
 ## 📦 Releases
 
@@ -763,6 +828,8 @@ cd MCP-God-Mode-v1.7
 npm run start:refactored
 ```
 
+<img src="assets/wave-divider.svg" alt="" width="100%" />
+
 ## 🤝 Contributing
 
 We welcome contributions from the community! Here's how you can help:
@@ -779,6 +846,8 @@ We welcome contributions from the community! Here's how you can help:
 - **[Contributing Guide](CONTRIBUTING.md)** - Learn how to contribute
 - **[Development Setup](docs/DEVELOPMENT.md)** - Set up development environment
 - **[Code Standards](docs/CODE_STANDARDS.md)** - Follow our coding standards
+
+<img src="assets/wave-divider.svg" alt="" width="100%" />
 
 ## 📚 Documentation
 
@@ -810,6 +879,8 @@ We welcome contributions from the community! Here's how you can help:
 - **v1.4a** - Enhanced security tools and mobile support
 - **v1.0** - Initial release with core functionality
 
+<img src="assets/wave-divider.svg" alt="" width="100%" />
+
 ## ⚖️ Legal Disclaimer
 
 **IMPORTANT**: This software is designed for legitimate security testing and system administration purposes only. Users are responsible for ensuring they have proper authorization before using any security testing tools.
@@ -817,6 +888,8 @@ We welcome contributions from the community! Here's how you can help:
 **[📋 Read Full Legal Disclaimer](docs/legal/LEGAL_DISCLAIMER.md)** - Terms of use, liability information, and prohibited uses
 
 **📞 Contact for Legal Matters**: For legal questions, compliance inquiries, or authorization concerns, contact Blink Zero on our official Discord server: [https://discord.gg/EuQBurC2](https://discord.gg/EuQBurC2)
+
+<img src="assets/wave-divider.svg" alt="" width="100%" />
 
 ## 📄 License
 
@@ -828,6 +901,8 @@ This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) 
 - **Open Source Contributors** - For building amazing tools
 - **Platform Developers** - For creating robust operating systems
 - **Users** - For valuable feedback and feature requests
+
+<img src="assets/wave-divider.svg" alt="" width="100%" />
 
 ## 🥋 **About the Developer**
 

@@ -1,3 +1,7 @@
+<picture>
+  <img src="../assets/hero-animated.svg" alt="MCP God Mode banner" width="100%" />
+</picture>
+
 # 🛠️ MCP God Mode Tools Documentation
 
 ## Overview
@@ -11,6 +15,8 @@ This document provides comprehensive documentation for all tools available in MC
 - Individual tool installation: Supported
 
 Fun footnote: If the AI asks for a cape, it’s probably about to escalate privileges. Please clap responsibly.
+
+<img src="../assets/wave-divider.svg" alt="" width="100%" />
 
 ## Tool Categories
 
@@ -48,7 +54,14 @@ Fun footnote: If the AI asks for a cape, it’s probably about to escalate privi
 - **VM Management** - Cloud architect
 - **Docker Management** - Container whisperer
 
+<img src="../assets/wave-divider.svg" alt="" width="100%" />
+
 ## For detailed information about each tool, see the individual tool documentation in the `docs/tool/` folder.
+
+<details>
+  <summary><b>Why no JS in README?</b></summary>
+  GitHub sanitizes scripts/styles. We use SVG/HTML that GitHub allows so it works everywhere.
+</details>
 
 ---
 *This documentation is automatically generated and maintained as part of MCP God Mode.*

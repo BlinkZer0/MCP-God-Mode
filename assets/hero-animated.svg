@@ -1,0 +1,16 @@
+<svg width="1200" height="340" viewBox="0 0 1200 340" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="MCP God Mode — One MCP to rule them all">
+  <defs>
+    <linearGradient id="g1" x1="0" x2="1" y1="0" y2="0">
+      <stop offset="0%" stop-color="#8A2BE2">
+        <animate attributeName="offset" values="0;1;0" dur="12s" repeatCount="indefinite"/>
+      </stop>
+      <stop offset="100%" stop-color="#00D4FF">
+        <animate attributeName="offset" values="1;0;1" dur="12s" repeatCount="indefinite"/>
+      </stop>
+    </linearGradient>
+    <filter id="glow"><feGaussianBlur stdDeviation="2.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs>
+  <rect width="1200" height="340" fill="#0d1117"/>
+  <text x="50%" y="44%" fill="url(#g1)" text-anchor="middle" font-size="56" font-family="system-ui,Segoe UI,Arial" filter="url(#glow)">MCP GOD MODE</text>
+  <text x="50%" y="64%" fill="#c9d1d9" text-anchor="middle" font-size="22" font-family="system-ui,Segoe UI,Arial">One MCP to rule them all — cross-platform AI superpowers</text>
+</svg>
