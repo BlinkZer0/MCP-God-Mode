@@ -3,11 +3,12 @@
 </picture>
 
 <p align="center">
-  <a href="#-features">Features</a> •
-  <a href="#-install">Install</a> •
-  <a href="#-usage">Usage</a> •
-  <a href="#-docs">Docs</a> •
-  <a href="#-disclaimer">Disclaimer</a>
+  <a href="#-what-is-mcp-god-mode">What is MCP God Mode?</a> •
+  <a href="#-flipper-zero-integration">Flipper Zero</a> •
+  <a href="#️-tool-categories">Tool Categories</a> •
+  <a href="#-quick-start">Quick Start</a> •
+  <a href="#-usage-examples">Usage Examples</a> •
+  <a href="#-legal-disclaimer">Legal</a>
 </p>
 
 One MCP to rule them all, one MCP to find them, one MCP to compile the tools, and in the God Mode bind them. 🎲⚡
@@ -22,9 +23,21 @@ One MCP to rule them all, one MCP to find them, one MCP to compile the tools, an
 
 **Version 1.7c - Individual Tool Installation & Consolidated Flipper Zero Support**
 
+## 📚 Quick Navigation
+
+- **[🚀 Quick Start](docs/guides/COMPLETE_SETUP_GUIDE.md)** - Get up and running in minutes
+- **[🌐 Frontend Integration Guide](docs/guides/MCP_FRONTEND_INTEGRATION_GUIDE.md)** - Setup for Cursor, LM Studio, Claude, SillyTavern & more
+- **[📋 Complete Tool Catalog](docs/general/TOOL_CATALOG.md)** - Browse all 147 documented tools with detailed documentation
+- **[🔧 Parameter Reference](docs/general/COMPLETE_PARAMETER_REFERENCE.md)** - Complete parameter documentation
+- **[💻 Examples & Tutorials](docs/guides/EXAMPLES_AND_TUTORIALS.md)** - Real-world usage examples
+- **[🌍 Platform Compatibility](docs/general/CROSS_PLATFORM_COMPATIBILITY.md)** - Platform-specific details
+- **[📝 Version 1.7c Changelog](docs/updates/VERSION_1.7c_CHANGELOG.md)** - What's new in the latest update
+
 ## Table of Contents
 - [What is MCP God Mode?](#-what-is-mcp-god-mode)
 - [Flipper Zero Integration](#-flipper-zero-integration)
+- [Understanding Tool Counts](#-understanding-tool-counts-tools-vs-actions-vs-parameters)
+- [Visual Demo](#️-visual-demo)
 - [Tool Categories](#️-tool-categories)
 - [Quick Start](#-quick-start)
 - [Usage Examples](#-usage-examples)
@@ -44,16 +57,6 @@ https://github.com/user-attachments/assets/932c43e4-159e-4ce2-9c02-4acf23fc47fd
 ***Slow typing for that 90's dramatic vibe in this demonstration of proc_run, the tool get's the elevated permissions it needs.***
 
 ***Bug Bounty $$$; find a nasty bug or somthing big I forgot and I will make and add a custom MPC tool in your honor***
-
-## 📚 Quick Navigation
-
-- **[🚀 Quick Start](docs/guides/COMPLETE_SETUP_GUIDE.md)** - Get up and running in minutes
-- **[🌐 Frontend Integration Guide](docs/guides/MCP_FRONTEND_INTEGRATION_GUIDE.md)** - Setup for Cursor, LM Studio, Claude, SillyTavern & more
-- **[📋 Complete Tool Catalog](docs/general/TOOL_CATALOG.md)** - Browse all 147 documented tools with detailed documentation
-- **[🔧 Parameter Reference](docs/general/COMPLETE_PARAMETER_REFERENCE.md)** - Complete parameter documentation
-- **[💻 Examples & Tutorials](docs/guides/EXAMPLES_AND_TUTORIALS.md)** - Real-world usage examples
-- **[🌍 Platform Compatibility](docs/general/CROSS_PLATFORM_COMPATIBILITY.md)** - Platform-specific details
-- **[📝 Version 1.7c Changelog](docs/updates/VERSION_1.7c_CHANGELOG.md)** - What's new in the latest update
 
 ## 🚀 Quick Start
 
