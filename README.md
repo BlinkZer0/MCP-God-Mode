@@ -16,7 +16,7 @@ One MCP to rule them all, one MCP to find them, one MCP to compile the tools, an
 [![Version](https://img.shields.io/badge/Version-v1.7c-blue)](docs/updates/VERSION_1.7c_CHANGELOG.md)
 [![License](https://img.shields.io/badge/License-MIT-green)](LICENSE)
 [![Node](https://img.shields.io/badge/Node-%3E%3D%2018-brightgreen)](package.json)
-[![Platforms](https://img.shields.io/badge/Platforms-Win%20%7C%20macOS%20%7C%20Linux%20%7C%20Android%20%7C%20iOS-orange)](docs/CROSS_PLATFORM_COMPATIBILITY.md)
+[![Platforms](https://img.shields.io/badge/Platforms-Win%20%7C%20macOS%20%7C%20Linux%20%7C%20Android%20%7C%20iOS-orange)](docs/general/CROSS_PLATFORM_COMPATIBILITY.md)
 [![GitHub Stars](https://img.shields.io/github/stars/BlinkZer0/MCP-God-Mode?style=social)](https://github.com/BlinkZer0/MCP-God-Mode)
 [![CI](https://img.shields.io/badge/CI-Smoke%20Tests-yellow)](scripts/smoke-test.js)
 [![Tools](https://img.shields.io/badge/Tools-148%20Total-orange)](docs/general/TOOL_CATALOG.md)
@@ -785,13 +785,13 @@ If you encounter issues, need assistance, or have questions about MCP God Mode:
 ## 🌍 Cross-Platform Support
 
 ### Platform Matrix
-| Platform | Core Tools | Security Tools | Media Tools | Mobile Tools | Total Support |
-|----------|------------|----------------|-------------|--------------|---------------|
-| **Windows** | ✅ 100% | ✅ 100% | ✅ 100% | ✅ 100% | **129/129 (100%)** |
-| **Linux** | ✅ 100% | ✅ 100% | ✅ 100% | ✅ 100% | **129/129 (100%)** |
-| **macOS** | ✅ 100% | ✅ 100% | ✅ 100% | ✅ 100% | **129/129 (100%)** |
-| **Android** | ✅ 100% | ✅ 100% | ✅ 100% | ✅ 100% | **129/129 (100%)** |
-| **iOS** | ✅ 100% | ✅ 100% | ✅ 100% | ✅ 100% | **129/129 (100%)** |
+| Platform | Core Functionality | Security Tools | Network Tools | Media Tools | File Operations | Overall |
+|----------|---------------------|----------------|---------------|-------------|-----------------|---------|
+| **Windows** | ✅ 100% | ✅ 100% | ✅ 100% | ✅ 100% | ✅ 100% | ✅ 100% |
+| **Linux**   | ✅ 100% | ✅ 100% | ✅ 100% | ✅ 100% | ✅ 100% | ✅ 100% |
+| **macOS**   | ✅ 100% | ✅ 100% | ✅ 100% | ✅ 100% | ✅ 100% | ✅ 100% |
+| **Android** | ✅ 95%  | ✅ 90%  | ✅ 95%  | ✅ 90%  | ✅ 95%  | ✅ 93%  |
+| **iOS**     | ✅ 90%  | ✅ 85%  | ✅ 90%  | ✅ 85%  | ✅ 90%  | ✅ 88%  |
 
 **[📖 View Complete Compatibility Matrix](docs/general/CROSS_PLATFORM_COMPATIBILITY.md)**
 
