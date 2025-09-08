@@ -295,7 +295,7 @@ The server-refactored and modular servers have different tool counts because:
 
 **🎯 Bottom Line**: Both server-refactored and modular server provide identical functionality with 147 tools for comprehensive operations and built-in legal compliance features. The modular server adds configurability for different deployment scenarios.
 
-🎭 **Fun Fact**: One MCP to rule them all, one MCP to find them, one MCP to compile the tools, and in the God Mode bind them! 🎲⚡
+**HELLO SPIDER NETWORK**
 
 <img src="assets/wave-divider.svg" alt="" width="100%" />
 
