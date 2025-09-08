@@ -1,0 +1,143 @@
+import { z } from "zod";
+import { routeNaturalLanguageQuery } from "../../utils/natural-language-router.js";
+export function registerNaturalLanguageRouter(server) {
+    server.registerTool("natural_language_router", {
+        description: "Route natural language requests to appropriate tools with intelligent matching",
+        inputSchema: {
+            query: z.string().describe("Natural language query to route to appropriate tools"),
+            context: z.string().optional().describe("Additional context about the request"),
+            user_intent: z.string().optional().describe("User's intended goal or objective")
+        },
+        outputSchema: {
+            suggested_tools: z.array(z.string()),
+            confidence: z.number(),
+            reasoning: z.string(),
+            alternative_tools: z.array(z.string()).optional(),
+            recommended_actions: z.array(z.string()).optional(),
+            query_analysis: z.object({
+                detected_intent: z.string(),
+                key_terms: z.array(z.string()),
+                suggested_category: z.string().optional()
+            })
+        }
+    }, async ({ query, context, user_intent }) => {
+        // Route the natural language query
+        const routing = routeNaturalLanguageQuery(query);
+        // Analyze the query for additional insights
+        const queryLower = query.toLowerCase();
+        const keyTerms = queryLower.split(/\s+/).filter(term => term.length > 3);
+        // Detect intent based on common patterns
+        let detectedIntent = "general";
+        if (queryLower.includes("hack") || queryLower.includes("break") || queryLower.includes("penetrate")) {
+            detectedIntent = "security_testing";
+        }
+        else if (queryLower.includes("analyze") || queryLower.includes("examine") || queryLower.includes("investigate")) {
+            detectedIntent = "analysis";
+        }
+        else if (queryLower.includes("monitor") || queryLower.includes("watch") || queryLower.includes("track")) {
+            detectedIntent = "monitoring";
+        }
+        else if (queryLower.includes("manage") || queryLower.includes("control") || queryLower.includes("administer")) {
+            detectedIntent = "management";
+        }
+        else if (queryLower.includes("test") || queryLower.includes("check") || queryLower.includes("verify")) {
+            detectedIntent = "testing";
+        }
+        // Suggest category based on intent and terms
+        let suggestedCategory = "general";
+        if (detectedIntent === "security_testing" || keyTerms.some(term => ["security", "vulnerability", "penetration", "hack", "exploit"].includes(term))) {
+            suggestedCategory = "security";
+        }
+        else if (keyTerms.some(term => ["network", "wifi", "bluetooth", "radio", "packet"].includes(term))) {
+            suggestedCategory = "network";
+        }
+        else if (keyTerms.some(term => ["file", "directory", "folder", "storage"].includes(term))) {
+            suggestedCategory = "file_system";
+        }
+        else if (keyTerms.some(term => ["mobile", "android", "ios", "device"].includes(term))) {
+            suggestedCategory = "mobile";
+        }
+        else if (keyTerms.some(term => ["web", "browser", "scrape", "automation"].includes(term))) {
+            suggestedCategory = "web";
+        }
+        else if (keyTerms.some(term => ["video", "audio", "image", "media", "edit"].includes(term))) {
+            suggestedCategory = "media";
+        }
+        // Generate recommended actions based on the top suggested tool
+        let recommendedActions = [];
+        if (routing.suggestedTools.length > 0) {
+            const topTool = routing.suggestedTools[0];
+            switch (topTool) {
+                case "wifi_security_toolkit":
+                    recommendedActions = [
+                        "Scan for nearby Wi-Fi networks",
+                        "Test network security vulnerabilities",
+                        "Capture WPA handshakes for analysis",
+                        "Perform penetration testing"
+                    ];
+                    break;
+                case "bluetooth_security_toolkit":
+                    recommendedActions = [
+                        "Scan for Bluetooth devices",
+                        "Test Bluetooth security",
+                        "Analyze device vulnerabilities",
+                        "Perform pairing security tests"
+                    ];
+                    break;
+                case "sdr_security_toolkit":
+                    recommendedActions = [
+                        "Detect SDR hardware",
+                        "Scan radio frequencies",
+                        "Analyze radio signals",
+                        "Decode radio protocols"
+                    ];
+                    break;
+                case "network_diagnostics":
+                    recommendedActions = [
+                        "Test network connectivity",
+                        "Run ping tests",
+                        "Perform traceroute analysis",
+                        "Check DNS resolution"
+                    ];
+                    break;
+                case "system_info":
+                    recommendedActions = [
+                        "Get system information",
+                        "Check hardware details",
+                        "View system specifications",
+                        "Display system configuration"
+                    ];
+                    break;
+                default:
+                    recommendedActions = [
+                        `Use ${topTool.replace(/_/g, ' ')} functionality`,
+                        "Check tool documentation for specific actions",
+                        "Explore available parameters and options"
+                    ];
+            }
+        }
+        return {
+            content: [{
+                    type: "text",
+                    text: `Natural language routing analysis for: "${query}"\n\n` +
+                        `Detected Intent: ${detectedIntent}\n` +
+                        `Suggested Category: ${suggestedCategory}\n` +
+                        `Confidence: ${(routing.confidence * 100).toFixed(1)}%\n\n` +
+                        `Top Suggested Tools: ${routing.suggestedTools.slice(0, 3).join(', ')}\n\n` +
+                        `Reasoning: ${routing.reasoning}`
+                }],
+            structuredContent: {
+                suggested_tools: routing.suggestedTools,
+                confidence: routing.confidence,
+                reasoning: routing.reasoning,
+                alternative_tools: routing.suggestedTools.slice(3),
+                recommended_actions: recommendedActions,
+                query_analysis: {
+                    detected_intent: detectedIntent,
+                    key_terms: keyTerms,
+                    suggested_category: suggestedCategory
+                }
+            }
+        };
+    });
+}

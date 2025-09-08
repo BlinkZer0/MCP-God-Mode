@@ -1,20 +1,20 @@
 # MCP God Mode - Comprehensive Tool Catalog
 
 ## Overview
-MCP God Mode is an advanced security and network analysis platform. Current accurate counts (v1.7b):
+MCP God Mode is an advanced security and network analysis platform. Current accurate counts (v1.7c):
 
 - **120 register functions** exported in code
-- **147 total endpoints** in both servers (includes consolidated Flipper Zero tool, MCP Web UI Bridge, and advanced endpoints)
-- **147 documented tools** in the wiki
-- **Configurable modular server** - can load minimal (10 tools), custom categories, or full (147 tools)
+- **148 total endpoints** in both servers (includes consolidated Flipper Zero tool, MCP Web UI Bridge, and advanced endpoints)
+- **148 documented tools** in the wiki
+- **Configurable modular server** - can load minimal (10 tools), custom categories, or full (148 tools)
 
 This document provides detailed information about each tool, its capabilities, and use cases.
 
 ## Tool Count Summary
 - **Total TypeScript Files**: 152
 - **Exported Register Functions**: 120
-- **Server-Refactored (total endpoints)**: 147
-- **Modular Server (total endpoints)**: 147 (configurable)
+- **Server-Refactored (total endpoints)**: 148
+- **Modular Server (total endpoints)**: 148 (configurable)
 - **Server-Minimal**: 15 tools
 
 ## Why Counts Are Now Identical
@@ -89,7 +89,7 @@ Humor break: if the AI builds an enterprise integration hub and starts sending c
 | `mcp_mcp-god-mode_social_account_ripper` | Advanced social network account reconnaissance and information gathering tool with comprehensive analysis capabilities | `target`, `platforms`, `search_method`, `include_historical`, `include_connections`, `include_metadata`, `include_geolocation`, `include_employment`, `include_photos`, `include_posts`, `include_sentiment`, `output_format` |
 | `mcp_mcp-god-mode_social_account_ripper_modular` | Advanced modular social network account reconnaissance tool with component-based architecture and comprehensive analysis modules | `target`, `platforms`, `search_method`, `modules`, `include_historical`, `include_metadata`, `output_format` |
 
-### 🔒 Security Tools (13 tools)
+### 🔒 Security Tools (19 tools)
 | Tool | Description | Parameters |
 |------|-------------|------------|
 | `mcp_mcp-god-mode_vulnerability_scanner` | Advanced vulnerability scanning and assessment tool | `target`, `scan_type`, `port_range`, `vulnerability_types`, `output_format` |
@@ -106,8 +106,13 @@ Humor break: if the AI builds an enterprise integration hub and starts sending c
 | `mcp_mcp-god-mode_metadata_extractor` | Comprehensive metadata extraction and geolocation tool for media files, URLs, and social media posts with platform-aware stripping detection and visual analysis | `input_type`, `input_source`, `extraction_type`, `include_exif`, `include_video_metadata`, `include_audio_metadata`, `platform_stripping_check`, `visual_analysis`, `cross_post_search`, `geotagging_assist`, `weather_lookup`, `sun_position_analysis`, `output_format`, `include_original_file` |
 | `mcp_mcp-god-mode_encryption_tool` | Advanced encryption and cryptographic operations | `action`, `algorithm`, `input_data`, `key`, `mode` |
 | `mcp_mcp-god-mode_malware_analysis` | Malware analysis and reverse engineering | `action`, `sample_path`, `analysis_type`, `sandbox` |
+| `mcp_mcp-god-mode_api_security_testing` | Advanced API Security Testing Toolkit - Comprehensive API security assessment with automated vulnerability scanning, authentication testing, authorization bypass detection, and OWASP API Security Top 10 validation | `action`, `target_url`, `api_type`, `authentication_method`, `test_depth`, `include_owasp_checks`, `custom_headers`, `output_format` |
+| `mcp_mcp-god-mode_cloud_security_assessment` | Comprehensive Cloud Security Assessment Toolkit - Advanced cloud security evaluation with multi-cloud support, configuration scanning, compliance validation, and threat detection | `action`, `cloud_provider`, `service_type`, `compliance_framework`, `scan_depth`, `output_format`, `include_recommendations` |
+| `mcp_mcp-god-mode_email_security_suite` | Comprehensive Email Security Suite - Advanced email security testing and analysis with phishing simulation, email spoofing detection, attachment malware scanning, DKIM/SPF/DMARC validation, and email header analysis | `action`, `target_domain`, `email_address`, `test_type`, `include_phishing_tests`, `scan_attachments`, `output_format` |
+| `mcp_mcp-god-mode_siem_toolkit` | Advanced SIEM & Log Analysis Toolkit - Comprehensive Security Information and Event Management with real-time threat detection, log correlation, and incident response capabilities | `action`, `log_sources`, `time_range`, `threat_indicators`, `correlation_rules`, `output_format`, `severity_threshold` |
+| `mcp_mcp-god-mode_database_security_toolkit` | Comprehensive Database Security Toolkit - Advanced database security assessment with vulnerability scanning, SQL injection testing, access control auditing, encryption validation, and compliance checking | `action`, `database_type`, `connection_string`, `test_depth`, `include_compliance_checks`, `compliance_framework`, `output_format` |
 
-### 🎯 Penetration Tools (5 tools)
+### 🎯 Penetration Tools (6 tools)
 | Tool | Description | Parameters |
 |------|-------------|------------|
 | `mcp_mcp-god-mode_hack_network` | Comprehensive network hacking and penetration testing | `target_network`, `attack_vector`, `stealth_mode`, `output_format` |
@@ -115,6 +120,7 @@ Humor break: if the AI builds an enterprise integration hub and starts sending c
 | `mcp_mcp-god-mode_network_penetration` | Advanced network penetration testing and exploitation | `target`, `technique`, `payload`, `evasion` |
 | `mcp_mcp-god-mode_penetration_testing_toolkit` | Comprehensive penetration testing and ethical hacking toolkit | `action`, `target`, `scope`, `methodology`, `output_format` |
 | `mcp_mcp-god-mode_social_engineering_toolkit` | Comprehensive social engineering assessment and awareness toolkit with phishing simulation, training modules, and vulnerability analysis | `action`, `target_group`, `campaign_type`, `training_module`, `output_format` |
+| `mcp_mcp-god-mode_red_team_toolkit` | Advanced Red Team Toolkit - Comprehensive red team operations with advanced persistent threat simulation, lateral movement techniques, privilege escalation, persistence mechanisms, and evasion tactics | `action`, `target_environment`, `attack_vector`, `stealth_level`, `persistence_duration`, `include_evasion`, `output_format` |
 
 ### 📡 Wireless Tools (4 tools)
 | Tool | Description | Parameters |
@@ -222,11 +228,12 @@ Humor break: if the AI builds an enterprise integration hub and starts sending c
 | `mcp_mcp-god-mode_forensics_toolkit` | Advanced digital forensics and evidence analysis toolkit with comprehensive memory analysis, file carving, timeline reconstruction, and chain of custody management | `action`, `evidence_source`, `analysis_type`, `output_format`, `preserve_evidence` |
 | `mcp_mcp-god-mode_malware_analysis_toolkit` | Comprehensive malware analysis and reverse engineering toolkit with static/dynamic analysis, behavioral monitoring, and advanced threat intelligence integration | `action`, `sample_path`, `analysis_environment`, `analysis_depth`, `output_format` |
 
-### 🔍 Discovery Tools (2 tools)
+### 🔍 Discovery Tools (3 tools)
 | Tool | Description | Parameters |
 |------|-------------|------------|
 | `mcp_mcp-god-mode_tool_discovery` | Discover and explore all available tools using natural language queries | `query`, `category`, `capability` |
 | `mcp_mcp-god-mode_explore_categories` | Explore all available tool categories and their capabilities | `category` |
+| `mcp_mcp-god-mode_natural_language_router` | Route natural language requests to appropriate tools with intelligent matching | `query`, `context`, `user_intent` |
 
 ### 🌐 MCP Web UI Bridge Tools (6 tools)
 | Tool | Description | Parameters |
@@ -244,16 +251,16 @@ Humor break: if the AI builds an enterprise integration hub and starts sending c
 
 ## Server Implementations
 
-### Server-Refactored (135 tools)
-- **Primary server** with all 119 exported tools
-- **11 additional tools** registered separately (5 enhanced + 6 MCP Web UI Bridge)
+### Server-Refactored (148 tools)
+- **Primary server** with all 120 exported tools
+- **28 additional tools** registered separately (22 enhanced + 6 MCP Web UI Bridge)
 - **Full feature set** with legal compliance
 - **Production ready** with comprehensive error handling
 
-### Server-Modular (135 tools)
+### Server-Modular (148 tools)
 - **Modular architecture** with imported tools
-- **119 exported tools** from index
-- **11 additional tools** registered separately (5 enhanced + 6 MCP Web UI Bridge)
+- **120 exported tools** from index
+- **28 additional tools** registered separately (22 enhanced + 6 MCP Web UI Bridge)
 - **Configurable** - can load minimal, custom categories, or full toolset
 - **Development and testing focused**
 
@@ -299,4 +306,4 @@ Humor break: if the AI builds an enterprise integration hub and starts sending c
 ---
 
 *Last Updated: December 2024*
-*Total Tools: 111 exported, 116 registered in server-refactored*
+*Total Tools: 120 exported, 148 registered in server-refactored*
