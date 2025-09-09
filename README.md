@@ -1,3 +1,5 @@
+[![MseeP.ai Security Assessment Badge](https://mseep.net/pr/blinkzer0-mcp-god-mode-badge.png)](https://mseep.ai/app/blinkzer0-mcp-god-mode)
+
 <picture>
   <img src="assets/hero-animated.svg" alt="MCP God Mode - Ultimate Cross-Platform Security & System Management Suite" width="100%" />
 </picture>
