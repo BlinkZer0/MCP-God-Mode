@@ -8,10 +8,10 @@
 This document provides comprehensive documentation for all tools available in MCP God Mode.
 
 ### Current Counts (v1.7c)
-- Exported register functions: 97
+- Exported register functions: 120
 - Modular server (unique endpoints): 147
 - Server-refactored (unique endpoints): 147
-- Documented tools: 147
+- Documented tools: 152
 - Individual tool installation: Supported
 
 Fun footnote: If the AI asks for a cape, it’s probably about to escalate privileges. Please clap responsibly.
@@ -40,6 +40,13 @@ Fun footnote: If the AI asks for a cape, it’s probably about to escalate privi
 - **Elevated Permissions Manager** - Security gatekeeper with admin rights
 - **Flipper Zero** - Comprehensive Flipper Zero device management (consolidated from 24 individual tools)
 
+
+### 🚁 Drone Management
+- **Drone Defense (Enhanced)** - Cross‑platform defensive operations, NLP aware
+- **Drone Offense (Enhanced)** - Tightly gated counter‑measures with safety controls
+- **Drone Natural Language** - Interprets free‑form commands safely
+- **Drone Mobile Optimized** - Battery/network‑aware mobile operations
+
 ### 📱 Mobile Tools
 - **Mobile Device Info** - Phone mind reader
 - **Mobile File Ops** - Mobile Marie Kondo
@@ -65,3 +72,4 @@ Fun footnote: If the AI asks for a cape, it’s probably about to escalate privi
 
 ---
 *This documentation is automatically generated and maintained as part of MCP God Mode.*
+

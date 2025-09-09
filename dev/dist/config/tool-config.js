@@ -133,6 +133,11 @@ export const TOOL_CATEGORIES = {
         description: "Social media analysis and intelligence gathering",
         tools: ["social_network_ripper"]
     },
+    "drone": {
+        name: "Drone Management",
+        description: "Advanced drone deployment for cybersecurity threat response",
+        tools: ["drone_defense", "drone_offense"]
+    },
     "virtualization": {
         name: "Virtualization",
         description: "Virtual machine and container management",

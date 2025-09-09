@@ -1,0 +1,106 @@
+{
+  "summary": {
+    "total_tests": 13,
+    "passed_tests": 11,
+    "failed_tests": 2,
+    "success_rate": 84.61538461538461,
+    "platform": "windows",
+    "is_mobile": false,
+    "node_available": true,
+    "python_available": true,
+    "timestamp": "2025-09-08T23:45:20.531153"
+  },
+  "test_results": [
+    {
+      "test_name": "Python Enhanced Drone Defense - Basic",
+      "success": true,
+      "details": "Operation ID: drone_def_1757393120355",
+      "platform": "windows",
+      "timestamp": "2025-09-08T23:45:20.379828"
+    },
+    {
+      "test_name": "Python Enhanced Drone Defense - Natural Language",
+      "success": true,
+      "details": "Natural language parsing successful",
+      "platform": "windows",
+      "timestamp": "2025-09-08T23:45:20.461045"
+    },
+    {
+      "test_name": "TypeScript Compilation",
+      "success": false,
+      "details": "Exception: [WinError 2] The system cannot find the file specified",
+      "platform": "windows",
+      "timestamp": "2025-09-08T23:45:20.462266"
+    },
+    {
+      "test_name": "TypeScript Enhanced Drone Tools - Test Suite",
+      "success": true,
+      "details": "Test suite executed successfully",
+      "platform": "windows",
+      "timestamp": "2025-09-08T23:45:20.491500"
+    },
+    {
+      "test_name": "TypeScript Enhanced Drone Tools - Success Rate",
+      "success": false,
+      "details": "Could not parse success rate",
+      "platform": "windows",
+      "timestamp": "2025-09-08T23:45:20.491563"
+    },
+    {
+      "test_name": "Cross-Platform Detection - Python",
+      "success": true,
+      "details": "Platform: windows, Mobile: False, Capabilities: 0",
+      "platform": "windows",
+      "timestamp": "2025-09-08T23:45:20.508296"
+    },
+    {
+      "test_name": "Desktop Platform Detection - Python",
+      "success": true,
+      "details": "Running on desktop platform: windows",
+      "platform": "windows",
+      "timestamp": "2025-09-08T23:45:20.508367"
+    },
+    {
+      "test_name": "Natural Language Processing - Python",
+      "success": true,
+      "details": "Successfully parsed 5/5 commands",
+      "platform": "windows",
+      "timestamp": "2025-09-08T23:45:20.508420"
+    },
+    {
+      "test_name": "Mobile Optimizations",
+      "success": true,
+      "details": "Skipped - not running on mobile platform",
+      "platform": "windows",
+      "timestamp": "2025-09-08T23:45:20.508440"
+    },
+    {
+      "test_name": "Audit Logging - Python",
+      "success": true,
+      "details": "Generated 3 audit log entries",
+      "platform": "windows",
+      "timestamp": "2025-09-08T23:45:20.508960"
+    },
+    {
+      "test_name": "Natural Language Response Generation - Python",
+      "success": true,
+      "details": "Generated response length: 224 characters",
+      "platform": "windows",
+      "timestamp": "2025-09-08T23:45:20.509298"
+    },
+    {
+      "test_name": "Environment Configuration",
+      "success": true,
+      "details": "Found 1/4 environment variables",
+      "platform": "windows",
+      "timestamp": "2025-09-08T23:45:20.509336"
+    },
+    {
+      "test_name": "File Structure - Required Files",
+      "success": true,
+      "details": "Found 8/8 required files",
+      "platform": "windows",
+      "timestamp": "2025-09-08T23:45:20.509503"
+    }
+  ]
+}

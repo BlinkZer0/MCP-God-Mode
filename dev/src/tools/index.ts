@@ -168,4 +168,10 @@ export { registerMalwareAnalysisToolkit } from "./forensics/malware_analysis_too
 // Discovery Tools
 export { registerToolDiscovery, registerExploreCategories, registerNaturalLanguageRouter } from "./discovery/index.js";
 
+// Enhanced Drone Tools - Cross-platform with natural language interface
+export { registerDroneDefenseEnhanced } from "./droneDefenseEnhanced.js";
+export { registerDroneOffenseEnhanced } from "./droneOffenseEnhanced.js";
+export { registerDroneNaturalLanguageInterface } from "./droneNaturalLanguageInterface.js";
+export { registerDroneMobileOptimized } from "./droneMobileOptimized.js";
+
 // Social Tools

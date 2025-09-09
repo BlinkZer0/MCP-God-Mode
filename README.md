@@ -12,7 +12,7 @@
 
 One MCP to rule them all, one MCP to find them, one MCP to compile the tools, and in the God Mode bind them. 🎲⚡
 
-[![Version](https://img.shields.io/badge/Version-v1.7c-blue)](docs/updates/VERSION_1.7c_CHANGELOG.md)
+[![Version](https://img.shields.io/badge/Version-v1.8.0-blue)](docs/updates/VERSION_1.8.0_CHANGELOG.md)
 [![License](https://img.shields.io/badge/License-MIT-green)](LICENSE)
 [![Node](https://img.shields.io/badge/Node-%3E%3D%2018-brightgreen)](package.json)
 [![Platforms](https://img.shields.io/badge/Platforms-Win%20%7C%20macOS%20%7C%20Linux%20%7C%20Android%20%7C%20iOS-orange)](docs/CROSS_PLATFORM_COMPATIBILITY.md)
@@ -74,19 +74,37 @@ npm run start:modular      # modular loader (147 tools, grouped)
 npm run start:minimal      # minimal profile (15 core tools)
 ```
 
-### Individual Tool Installation (NEW!)
+### Interactive Installer (NEW in v1.8!)
+
+**🎯 Enhanced Interactive Installation with Comprehensive Tool Selection:**
+
+```bash
+# Launch the interactive installer
+npm run install:interactive
+# or
+node interactive-installer.js
+```
+
+**Features:**
+- 🎯 **Quick Install Options** - Pre-configured setups (Minimal, Security Focused, Drone Operations, etc.)
+- 🛠️ **Custom Category Selection** - Choose from 25 tool categories
+- 🔍 **Individual Tool Selection** - Pick specific tools from 121 available options
+- 📋 **Browse All Tools** - Explore all available tools and their capabilities
+- 🔧 **Guided Installation** - Step-by-step installation process
+
+### Individual Tool Installation
 
 Install only the specific tools you need:
 
 ```bash
-# Install specific tools
-node install.js --modular --tools health,system_info,fs_list
+# Install specific tools (including drone tools)
+node install.js --modular --tools health,system_info,drone_defense,drone_offense
 
 # Install with automatic dependencies
 node install.js --modular --tools port_scanner --auto-deps
 
 # Install categories + individual tools
-node install.js --modular --categories core,network --tools packet_sniffer
+node install.js --modular --categories core,network,drone --tools packet_sniffer
 
 # List all available tools
 node install.js --list-tools
@@ -332,6 +350,8 @@ See MCP God Mode in action with Cursor IDE integration:
 - **📊 Real-Time Monitoring** - Live system and network analysis
 - **🔄 Automated Workflows** - Batch processing and automation
 - **📚 Comprehensive Documentation** - Wiki-style documentation with examples
+- **🛸 NEW in v1.8: Drone Management** - Advanced drone deployment for cybersecurity threat response
+- **🎯 NEW in v1.8: Interactive Installer** - Comprehensive tool selection with guided installation
 
 <img src="assets/wave-divider.svg" alt="" width="100%" />
 
@@ -445,6 +465,19 @@ https://github.com/user-attachments/assets/f074039c-1989-40fc-b769-5efa855e854d
 **Features**: Real-time streaming, encrypted session persistence, anti-bot friendly, macro recording/replay
 
 **[📖 View All MCP Web UI Bridge Tools](docs/general/TOOL_CATEGORY_INDEX.md#mcp-web-ui-bridge)**
+
+### 🛸 Drone Management (2 Tools) - NEW in v1.8
+- **Defensive Operations** - Deploy defensive drones to scan, shield, or evade attacks
+- **Offensive Operations** - Deploy offensive drones for counter-strikes with safety controls
+- **Threat Response** - Automated threat detection and response capabilities
+- **Flipper Zero Integration** - Real hardware control via BLE/USB bridge
+- **Simulation Mode** - Safe testing with virtual drone operations
+- **Legal Compliance** - Comprehensive audit logging and safety controls
+
+**Features**: Threat detection, automated response, real hardware control, simulation mode, audit logging
+**Safety**: Risk acknowledgment, double confirmation, compliance modes (HIPAA/GDPR), legal disclaimers
+
+**[🛸 Drone Management Tools — Full Docs](dev/DRONE_TOOLS_README.md)**
 
 ### 📱 Mobile Device (13 Tools)
 - **Device Information** - Hardware and software details

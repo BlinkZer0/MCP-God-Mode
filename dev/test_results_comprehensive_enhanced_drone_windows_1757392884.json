@@ -1,0 +1,99 @@
+{
+  "summary": {
+    "total_tests": 12,
+    "passed_tests": 10,
+    "failed_tests": 2,
+    "success_rate": 83.33333333333334,
+    "platform": "windows",
+    "is_mobile": false,
+    "node_available": true,
+    "python_available": true,
+    "timestamp": "2025-09-08T23:41:24.553720"
+  },
+  "test_results": [
+    {
+      "test_name": "Python Enhanced Drone Defense - Basic",
+      "success": true,
+      "details": "Operation ID: drone_def_1757392884268",
+      "platform": "windows",
+      "timestamp": "2025-09-08T23:41:24.293040"
+    },
+    {
+      "test_name": "Python Enhanced Drone Defense - Natural Language",
+      "success": true,
+      "details": "Natural language parsing successful",
+      "platform": "windows",
+      "timestamp": "2025-09-08T23:41:24.371375"
+    },
+    {
+      "test_name": "TypeScript Compilation",
+      "success": false,
+      "details": "Exception: [WinError 2] The system cannot find the file specified",
+      "platform": "windows",
+      "timestamp": "2025-09-08T23:41:24.373457"
+    },
+    {
+      "test_name": "TypeScript Enhanced Drone Tools - Test Suite",
+      "success": false,
+      "details": "Test suite failed: file:///E:/GitHub%20Projects/MCP-God-Mode/dev/test_enhanced_drone_tools_ts.js:7\nconst fs = require('fs');\n           ^\n\nReferenceError: require is not defined in ES module scope, you can use import instead\nThis file is being treated as an ES module because it has a '.js' file extension and 'E:\\GitHub Projects\\MCP-God-Mode\\dev\\package.json' contains \"type\": \"module\". To treat it as a CommonJS script, rename it to use the '.cjs' file extension.\n    at file:///E:/GitHub%20Projects/MCP-God-Mode/dev/test_enhanced_drone_tools_ts.js:7:12\n    at ModuleJob.run (node:internal/modules/esm/module_job:343:25)\n    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:647:26)\n    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5)\n\nNode.js v22.18.0\n",
+      "platform": "windows",
+      "timestamp": "2025-09-08T23:41:24.401541"
+    },
+    {
+      "test_name": "Cross-Platform Detection - Python",
+      "success": true,
+      "details": "Platform: windows, Mobile: False, Capabilities: 0",
+      "platform": "windows",
+      "timestamp": "2025-09-08T23:41:24.550866"
+    },
+    {
+      "test_name": "Desktop Platform Detection - Python",
+      "success": true,
+      "details": "Running on desktop platform: windows",
+      "platform": "windows",
+      "timestamp": "2025-09-08T23:41:24.550930"
+    },
+    {
+      "test_name": "Natural Language Processing - Python",
+      "success": true,
+      "details": "Successfully parsed 5/5 commands",
+      "platform": "windows",
+      "timestamp": "2025-09-08T23:41:24.550980"
+    },
+    {
+      "test_name": "Mobile Optimizations",
+      "success": true,
+      "details": "Skipped - not running on mobile platform",
+      "platform": "windows",
+      "timestamp": "2025-09-08T23:41:24.551112"
+    },
+    {
+      "test_name": "Audit Logging - Python",
+      "success": true,
+      "details": "Generated 3 audit log entries",
+      "platform": "windows",
+      "timestamp": "2025-09-08T23:41:24.552255"
+    },
+    {
+      "test_name": "Natural Language Response Generation - Python",
+      "success": true,
+      "details": "Generated response length: 224 characters",
+      "platform": "windows",
+      "timestamp": "2025-09-08T23:41:24.552832"
+    },
+    {
+      "test_name": "Environment Configuration",
+      "success": true,
+      "details": "Found 1/4 environment variables",
+      "platform": "windows",
+      "timestamp": "2025-09-08T23:41:24.552884"
+    },
+    {
+      "test_name": "File Structure - Required Files",
+      "success": true,
+      "details": "Found 8/8 required files",
+      "platform": "windows",
+      "timestamp": "2025-09-08T23:41:24.553062"
+    }
+  ]
+}

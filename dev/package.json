@@ -1,6 +1,6 @@
 {
   "name": "mcp-god-mode",
-  "version": "1.7.3",
+  "version": "1.8.0",
   "private": true,
   "type": "module",
   "scripts": {
@@ -24,6 +24,7 @@
     "install:minimal": "node install.js --minimal",
     "install:modular": "node install.js --modular",
     "install:full": "node install.js --full",
+    "install:interactive": "node interactive-installer.js",
     "update:installer": "node update-modular-installer.js",
     "discover:tools": "node update-modular-installer.js --discover",
     "smoke:flipper": "node scripts/smoke-flipper.js",
@@ -163,8 +164,15 @@
     "typescript": "^5.9.2"
   },
   "mcpGodMode": {
-    "totalTools": 117,
-    "lastUpdated": "2025-09-07T08:28:51.176Z",
-    "toolCategories": 23
+    "totalTools": 121,
+    "lastUpdated": "2025-01-27T15:30:00.000Z",
+    "toolCategories": 25,
+    "version": "1.8.0",
+    "features": [
+      "Drone Management Tools",
+      "Enhanced Interactive Installer",
+      "Comprehensive Tool Selection",
+      "Advanced Security Operations"
+    ]
   }
 }

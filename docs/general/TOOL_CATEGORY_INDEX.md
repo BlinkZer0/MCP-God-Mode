@@ -1,4 +1,18 @@
 # MCP God Mode - Tool Category Index
+*MCP God Mode v1.7b - Counts & Docs Synced*
+*Last Updated: September 2025*  
+
+## ?? Drone Management & Operations
+
+| Tool | Status | Documentation | Cross-Platform | Notes |
+|------|--------|----------------|----------------|-------|
+| Drone Defense (Enhanced) | ? Complete | [drone_defense_enhanced.md](tool/drone_defense_enhanced.md) | Windows, Linux, macOS, Android, iOS | NLP + mobile-optimized |
+| Drone Offense (Enhanced) | ? Complete | [drone_offense_enhanced.md](tool/drone_offense_enhanced.md) | Windows, Linux, macOS, Android, iOS | Safety gates + NLP |
+| Drone Natural Language | ? Complete | [drone_natural_language.md](tool/drone_natural_language.md) | Windows, Linux, macOS, Android, iOS | Intent parsing + safety |
+| Drone Mobile Optimized | ? Complete | [drone_mobile_optimized.md](tool/drone_mobile_optimized.md) | Android, iOS | Battery/network optimized |
+
+*MCP God Mode v1.7b - Counts & Docs Synced*
+# MCP God Mode - Tool Category Index
 
 ## 📊 Complete Tool Implementation Matrix
 

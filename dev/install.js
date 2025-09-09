@@ -22,8 +22,8 @@ import {
 } from './dist/config/tool-config.js';
 
 // Auto-generated tool categories based on actual tools in src/tools/
-// Generated on: 2025-09-07T08:28:51.173Z
-// Total tools discovered: 117
+// Generated on: 2025-01-27T15:30:00.000Z
+// Total tools discovered: 121 (including drone management tools)
 
 const TOOL_CATEGORIES = {
   "bluetooth": {
@@ -454,6 +454,22 @@ const TOOL_CATEGORIES = {
       "wireless_network_scanner",
       "wireless_security"
     ]
+  },
+  "drone": {
+    "name": "Drone Management",
+    "description": "Advanced drone deployment for cybersecurity threat response",
+    "features": [
+      "Defensive drone deployment",
+      "Offensive drone operations",
+      "Threat response automation",
+      "Flipper Zero integration",
+      "Simulation and real hardware modes"
+    ],
+    "tools": 2,
+    "toolList": [
+      "drone_defense",
+      "drone_offense"
+    ]
   }
 };
 
@@ -474,23 +490,25 @@ const SERVER_CONFIGS = {
   'modular': {
     name: 'Modular Server',
     description: 'All available tools in modular architecture',
-    tools: 117,
+    tools: 121,
     categories: Object.keys(TOOL_CATEGORIES),
     features: [
       'Complete tool coverage',
       'Modular architecture',
-      'All 117 tools available',
+      'All 121 tools available',
+      'Drone management capabilities',
       'Professional security platform'
     ]
   },
   'full': {
     name: 'Full Server',
     description: 'Complete server with all tools',
-    tools: 122, // +5 for additional tools in server-refactored
+    tools: 121, // Updated to reflect actual tool count
     categories: Object.keys(TOOL_CATEGORIES),
     features: [
       'Complete tool coverage',
       'Enhanced security tools',
+      'Drone management tools',
       'Legal compliance features',
       'Professional-grade platform'
     ]
@@ -536,11 +554,12 @@ async function runInstaller() {
   console.log('✅ Installation Options:');
   console.log('');
   console.log('1. Install Minimal Server (15 tools)');
-  console.log('2. Install Modular Server (117 tools)');
-  console.log('3. Install Full Server (122 tools)');
+  console.log('2. Install Modular Server (121 tools)');
+  console.log('3. Install Full Server (121 tools)');
   console.log('4. Build Custom Server');
   console.log('5. Show Tool Information');
-  console.log('6. Exit');
+  console.log('6. Interactive Installer (NEW in v1.8)');
+  console.log('7. Exit');
   console.log('');
 
   console.log('💡 To install, run one of these commands:');
@@ -548,12 +567,13 @@ async function runInstaller() {
   console.log('npm run install:minimal    # Install minimal server');
   console.log('npm run install:modular    # Install modular server');
   console.log('npm run install:full       # Install full server');
+  console.log('node interactive-installer.js  # Interactive installer (NEW in v1.8)');
   console.log('node build-server.js       # Build custom server');
   console.log('');
   console.log('🔧 Advanced Installation Options:');
   console.log('');
-  console.log('node install.js --modular --categories core,network    # Install specific categories');
-  console.log('node install.js --modular --tools health,fs_list       # Install individual tools');
+  console.log('node install.js --modular --categories core,network,drone  # Install specific categories');
+  console.log('node install.js --modular --tools health,fs_list,drone_defense  # Install individual tools');
   console.log('node install.js --modular --tools port_scanner --auto-deps  # Auto-include dependencies');
   console.log('node install.js --modular --categories core --tools packet_sniffer  # Mixed configuration');
   console.log('node install.js --list-tools                           # List all available tools');

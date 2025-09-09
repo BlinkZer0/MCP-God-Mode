@@ -1,11 +1,11 @@
 # MCP God Mode - Comprehensive Tool Catalog
 
 ## Overview
-MCP God Mode is an advanced security and network analysis platform. Current accurate counts (v1.7b):
+MCP God Mode is an advanced security and network analysis platform. Current counts (v1.8):
 
 - **120 register functions** exported in code
 - **147 total endpoints** in both servers (includes consolidated Flipper Zero tool, MCP Web UI Bridge, and advanced endpoints)
-- **147 documented tools** in the wiki
+- **152 documented tools** in the wiki
 - **Configurable modular server** - can load minimal (10 tools), custom categories, or full (147 tools)
 
 This document provides detailed information about each tool, its capabilities, and use cases.
@@ -137,6 +137,16 @@ Humor break: if the AI builds an enterprise integration hub and starts sending c
 | `mcp_mcp-god-mode_sdr_security_toolkit` | Comprehensive Software Defined Radio (SDR) security and signal analysis toolkit with cross-platform support | `action`, `frequency`, `bandwidth`, `modulation`, `protocol`, `duration`, `output_file`, `device_id` |
 | `mcp_mcp-god-mode_radio_security` | Software Defined Radio security and signal analysis | `action`, `frequency`, `bandwidth`, `modulation`, `power_level`, `duration`, `audio_file`, `output_file` |
 | `mcp_mcp-god-mode_signal_analysis` | Advanced radio signal analysis and SDR toolkit with cross-platform support | `action`, `frequency`, `sample_rate`, `gain`, `protocol`, `duration`, `output_file`, `device_index` |
+
+
+
+### 🚁 Drone Management Tools (4 tools)
+| Tool | Description | Parameters |
+|------|-------------|------------|
+| `mcp_mcp-god-mode_drone_defense_enhanced` | Enhanced cross‑platform defensive drone operations with natural‑language option and mobile‑optimized behavior | `action`, `threatType`, `target`, `autoConfirm`, `naturalLanguageCommand` |
+| `mcp_mcp-god-mode_drone_offense_enhanced` | Cross‑platform offensive operations with strict legal/safety gates and NLP support | `action`, `targetIp`, `intensity`, `riskAcknowledged`, `threatLevel`, `autoConfirm`, `naturalLanguageCommand` |
+| `mcp_mcp-god-mode_drone_natural_language` | Natural‑language parser that returns structured drone actions with safety checks | `command`, `context`, `userIntent`, `platform` |
+| `mcp_mcp-god-mode_drone_mobile_optimized` | Mobile‑first drone runner returning battery/data/time metrics and limitations | `operationType`, `parameters`, `enableBatteryOptimization`, `enableNetworkOptimization`, `enableBackgroundMode` |
 
 ### 🖥️ Web Tools (7 tools)
 | Tool | Description | Parameters |
@@ -298,5 +308,7 @@ Humor break: if the AI builds an enterprise integration hub and starts sending c
 
 ---
 
-*Last Updated: December 2024*
-*Total Tools: 111 exported, 116 registered in server-refactored*
+*Last Updated: 9/8/2025*
+*Totals: 152 registered tools across servers*
+
+
