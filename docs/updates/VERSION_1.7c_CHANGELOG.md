@@ -166,7 +166,7 @@ The new system creates `tool-config.json` with enhanced structure:
 
 ## 📊 Statistics
 
-- **Total Tools**: 148 (maintained)
+- **Total Tools**: 147 (maintained)
 - **New Installation Methods**: 4
 - **New Configuration Options**: 6
 - **Documentation Pages Added**: 1

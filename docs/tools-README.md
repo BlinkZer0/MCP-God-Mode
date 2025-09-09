@@ -8,10 +8,10 @@
 This document provides comprehensive documentation for all tools available in MCP God Mode.
 
 ### Current Counts (v1.7c)
-- Exported register functions: 137
-- Modular server (unique endpoints): 148
-- Server-refactored (unique endpoints): 148
-- Documented tools: 148
+- Exported register functions: 97
+- Modular server (unique endpoints): 147
+- Server-refactored (unique endpoints): 147
+- Documented tools: 147
 - Individual tool installation: Supported
 
 Fun footnote: If the AI asks for a cape, it’s probably about to escalate privileges. Please clap responsibly.
@@ -20,29 +20,17 @@ Fun footnote: If the AI asks for a cape, it’s probably about to escalate privi
 
 ## Tool Categories
 
-<picture>
-  <img src="../headers/svg/system.svg" alt="System Tools" width="100%" />
-</picture>
-
 ### 🔧 System Tools
 - **System Health** - Digital doctor for your PC
 - **System Info** - Your PC's ID card reader  
 - **File Operations** - Digital butler with admin rights
 - **Process Management** - AI hitman for rogue processes
 
-<picture>
-  <img src="../headers/svg/media.svg" alt="Media Tools" width="100%" />
-</picture>
-
 ### 🎵 Media Tools
 - **Audio Editing** - Digital sound engineer
 - **Video Editing** - Digital Spielberg
 - **Screenshot** - Digital paparazzi
 - **OCR Tool** - Super-powered librarian
-
-<picture>
-  <img src="../headers/svg/security.svg" alt="Security Tools" width="100%" />
-</picture>
 
 ### 🔒 Security Tools
 - **Wi-Fi Security** - Wi-Fi security expert
@@ -51,10 +39,6 @@ Fun footnote: If the AI asks for a cape, it’s probably about to escalate privi
 - **Network Security** - Digital security consultant
 - **Elevated Permissions Manager** - Security gatekeeper with admin rights
 - **Flipper Zero** - Comprehensive Flipper Zero device management (consolidated from 24 individual tools)
-
-<picture>
-  <img src="../headers/svg/mobile.svg" alt="Mobile Tools" width="100%" />
-</picture>
 
 ### 📱 Mobile Tools
 - **Mobile Device Info** - Phone mind reader

@@ -88,11 +88,6 @@ export { registerUniversalBrowserOperator } from "./web/universal_browser_operat
 export { registerWebSearch } from "./web/web_search.js";
 export { registerFormCompletion } from "./web/form_completion.js";
 export { registerCaptchaDefeating } from "./web/captcha_defeating.js";
-export { registerFormDetection } from "./web/form_detection.js";
-export { registerFormValidation } from "./web/form_validation.js";
-export { registerFormPatternRecognition } from "./web/form_pattern_recognition.js";
-export { registerMultiEngineSearch } from "./web/multi_engine_search.js";
-export { registerSearchAnalysis } from "./web/search_analysis.js";
 // Email Tools
 export { registerSendEmail } from "./email/send_email.js";
 export { registerReadEmails } from "./email/read_emails.js";

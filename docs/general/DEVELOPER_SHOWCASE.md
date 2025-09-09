@@ -1,7 +1,3 @@
-<picture>
-  <img src="../headers/svg/developer_matrix.svg" alt="The Developer: Blink Zero" width="100%" />
-</picture>
-
 # 🥋 Developer Showcase: Blink Zero (Shuriken Miasma)
 
 ## 🎭 **The Developer Behind MCP God Mode**
@@ -19,16 +15,16 @@ Blink Zero is a dedicated martial artist whose skills transcend the digital real
 
 <div align="center">
 
-<img src="../images/spinning-back-kick-ground-touch.gif" alt="Spinning back kick demonstration with ground touch" width="100%" />
+![Spinning Back Kick Ground Touch](images/spinning-back-kick-ground-touch.gif)
 *Spinning Back Kick with Ground Touch - Demonstrating exceptional balance and control*
 
-<img src="../images/nunchaku-shuriken-miasma.gif" alt="Nunchaku mastery demonstration" width="100%" />
+![Nunchaku Mastery](images/nunchaku-shuriken-miasma.gif)
 *Nunchaku Mastery - Lightning-fast strikes with perfect form*
 
-<img src="../images/jumping-switch-front-kick-shuriken-miasma.gif" alt="Jumping switch front kick demonstration" width="100%" />
+![Jumping Switch Front Kick](images/jumping-switch-front-kick-shuriken-miasma.gif)
 *Jumping Switch Front Kick - Explosive power and aerial control*
 
-<img src="../images/3section-stall-sanjiegun.gif" alt="Three section staff demonstration" width="100%" />
+![Three Section Staff](images/3section-stall-sanjiegun.gif)
 *Three Section Staff Mastery - Complex weapon manipulation*
 
 </div>
