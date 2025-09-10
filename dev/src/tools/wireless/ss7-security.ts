@@ -6,58 +6,8 @@
  * Provides consent management, audit logging, and abuse prevention.
  */
 
-import * as crypto from 'node:crypto';
-
-// SS7 Configuration Manager (simplified)
-interface SS7AuditLog {
-  timestamp: string;
-  user_id: string;
-  action: string;
-  result: string;
-  ip_address?: string;
-  user_agent?: string;
-}
-
-class SS7ConfigManager {
-  private authorizedUsers: Set<string> = new Set(['admin', 'system']);
-  private rateLimits: Map<string, { count: number; resetTime: number }> = new Map();
-
-  async isUserAuthorized(userId: string): Promise<boolean> {
-    return this.authorizedUsers.has(userId);
-  }
-
-  async checkRateLimit(userId: string): Promise<{ allowed: boolean; resetTime?: number }> {
-    const now = Date.now();
-    const userLimit = this.rateLimits.get(userId);
-    
-    if (!userLimit || now > userLimit.resetTime) {
-      this.rateLimits.set(userId, { count: 1, resetTime: now + 3600000 }); // 1 hour
-      return { allowed: true };
-    }
-    
-    if (userLimit.count >= 100) { // 100 requests per hour
-      return { allowed: false, resetTime: userLimit.resetTime };
-    }
-    
-    userLimit.count++;
-    return { allowed: true };
-  }
-
-  async checkLegalCompliance(phoneNumber: string, userId: string): Promise<{ compliant: boolean; reason?: string }> {
-    // Simplified compliance check
-    if (phoneNumber.startsWith('+1555') || phoneNumber.startsWith('+1556')) {
-      return { compliant: true }; // Test numbers
-    }
-    
-    return { compliant: true }; // Assume compliant for now
-  }
-
-  async logOperation(log: SS7AuditLog): Promise<void> {
-    console.log(`SS7 Audit: ${log.timestamp} - ${log.user_id} - ${log.action} - ${log.result}`);
-  }
-}
-
-const ss7ConfigManager = new SS7ConfigManager();
+import { ss7ConfigManager, SS7AuditLog } from '../../config/ss7-config.js';
+import * as crypto from 'crypto';
 
 export interface ConsentRecord {
   phone_number: string;

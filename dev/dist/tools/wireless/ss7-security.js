@@ -5,37 +5,7 @@
  * Implements security measures and legal compliance for SS7 operations.
  * Provides consent management, audit logging, and abuse prevention.
  */
-class SS7ConfigManager {
-    authorizedUsers = new Set(['admin', 'system']);
-    rateLimits = new Map();
-    async isUserAuthorized(userId) {
-        return this.authorizedUsers.has(userId);
-    }
-    async checkRateLimit(userId) {
-        const now = Date.now();
-        const userLimit = this.rateLimits.get(userId);
-        if (!userLimit || now > userLimit.resetTime) {
-            this.rateLimits.set(userId, { count: 1, resetTime: now + 3600000 }); // 1 hour
-            return { allowed: true };
-        }
-        if (userLimit.count >= 100) { // 100 requests per hour
-            return { allowed: false, resetTime: userLimit.resetTime };
-        }
-        userLimit.count++;
-        return { allowed: true };
-    }
-    async checkLegalCompliance(phoneNumber, userId) {
-        // Simplified compliance check
-        if (phoneNumber.startsWith('+1555') || phoneNumber.startsWith('+1556')) {
-            return { compliant: true }; // Test numbers
-        }
-        return { compliant: true }; // Assume compliant for now
-    }
-    async logOperation(log) {
-        console.log(`SS7 Audit: ${log.timestamp} - ${log.user_id} - ${log.action} - ${log.result}`);
-    }
-}
-const ss7ConfigManager = new SS7ConfigManager();
+import { ss7ConfigManager } from '../../config/ss7-config.js';
 class SS7SecurityManager {
     consentDatabase = new Map();
     abuseDetection = new Map();

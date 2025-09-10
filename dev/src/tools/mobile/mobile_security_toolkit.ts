@@ -289,7 +289,7 @@ async function performDeviceAnalysis(deviceId: string, platform: string): Promis
 
 async function performAppSecurityTest(deviceId: string, testDepth: string): Promise<any> {
   // Simulate app security testing
-  const vulnerabilities: any[] = [];
+  const vulnerabilities = [];
   
   if (testDepth === 'deep') {
     vulnerabilities.push({

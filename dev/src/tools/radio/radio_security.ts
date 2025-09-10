@@ -137,7 +137,7 @@ async function performRadioAction(action: string, frequency?: number, bandwidth?
 }
 
 async function scanFrequencyRange(centerFreq: number, bandwidth: number) {
-    const spectrumData: any[] = [];
+  const spectrumData = [];
   const startFreq = centerFreq - (bandwidth / 2);
   const endFreq = centerFreq + (bandwidth / 2);
   const step = bandwidth / 100;
@@ -176,7 +176,7 @@ async function decodeSignal(frequency: number, modulation: string): Promise<stri
 }
 
 async function testRadioSecurity(frequency: number) {
-    const vulnerabilities: string[] = [];
+  const vulnerabilities = [];
   let vulnerabilityLevel = "Low";
 
   if (Math.random() > 0.7) {
@@ -195,7 +195,7 @@ async function testRadioSecurity(frequency: number) {
     vulnerabilityLevel = "Critical";
   }
 
-    const recommendations: string[] = [];
+  const recommendations = [];
   if (vulnerabilities.length > 0) {
     recommendations.push("Implement strong encryption");
     recommendations.push("Use secure authentication protocols");

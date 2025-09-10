@@ -166,7 +166,7 @@ export function bleTransport(peripheralId: string): Transport {
       peripheral = foundPeripheral;
 
       // Connect to peripheral
-      peripheral?.connect((error?: Error) => {
+      peripheral.connect((error?: Error) => {
         if (error) {
           reject(new FlipperTransportError(`BLE connect failed: ${error.message}`));
           return;
