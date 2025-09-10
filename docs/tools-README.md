@@ -7,11 +7,11 @@
 ## Overview
 This document provides comprehensive documentation for all tools available in MCP God Mode.
 
-### Current Counts (v1.7c)
-- Exported register functions: 120
-- Modular server (unique endpoints): 147
-- Server-refactored (unique endpoints): 147
-- Documented tools: 152
+### Current Counts (v1.8b)
+- Exported register functions: comprehensive index + enhanced endpoints
+- Modular server (unique endpoints): 159
+- Server-refactored (unique endpoints): 159
+- Documented tools: 159
 - Individual tool installation: Supported
 
 Fun footnote: If the AI asks for a cape, it’s probably about to escalate privileges. Please clap responsibly.
@@ -34,6 +34,8 @@ Fun footnote: If the AI asks for a cape, it’s probably about to escalate privi
 
 ### 🔒 Security Tools
 - **Wi-Fi Security** - Wi-Fi security expert
+- **Wi-Fi Disrupt** - Protocol-aware Wi-Fi interference and disruption tool
+- **Cellular Triangulate** - Location estimation using cellular tower signals
 - **Bluetooth Security** - Bluetooth security expert
 - **SDR Security** - Radio frequency hacker
 - **Network Security** - Digital security consultant
@@ -51,6 +53,7 @@ Fun footnote: If the AI asks for a cape, it’s probably about to escalate privi
 - **Mobile Device Info** - Phone mind reader
 - **Mobile File Ops** - Mobile Marie Kondo
 - **Mobile Hardware** - Mobile hardware hacker
+- **Mobile Security Toolkit** - Comprehensive mobile device security testing and analysis
 
 ### 🌐 Web Tools
 - **Web Scraper** - Digital archaeologist

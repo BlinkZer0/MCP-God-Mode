@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Location Collection</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .status {
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+            text-align: center;
+            font-weight: bold;
+        }
+        .status.waiting {
+            background-color: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeaa7;
+        }
+        .status.success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .status.error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .info {
+            background-color: #e7f3ff;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+            border-left: 4px solid #007bff;
+        }
+        .button {
+            background-color: #007bff;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px 5px;
+        }
+        .button:hover {
+            background-color: #0056b3;
+        }
+        .button:disabled {
+            background-color: #6c757d;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Location Collection</h1>
+        <div id="status" class="status waiting">Waiting for location...</div>
+        
+        <div class="info">
+            <strong>Privacy Notice:</strong> This page will request your location to help with cellular triangulation. 
+            Your location data will be sent securely to the server and will not be stored permanently.
+        </div>
+        
+        <div style="text-align: center;">
+            <button id="getLocationBtn" class="button" onclick="getLocation()">Get My Location</button>
+            <button id="retryBtn" class="button" onclick="retryLocation()" style="display: none;">Retry</button>
+        </div>
+        
+        <div id="details" style="margin-top: 20px; display: none;">
+            <h3>Location Details:</h3>
+            <div id="locationInfo"></div>
+        </div>
+    </div>
+
+    <script>
+        let token = null;
+        let locationData = null;
+
+        // Get token from URL
+        function getTokenFromUrl() {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get('t');
+        }
+
+        // Initialize on page load
+        window.onload = function() {
+            token = getTokenFromUrl();
+            if (!token) {
+                showError('No token provided in URL');
+                return;
+            }
+            
+            // Auto-try to get location
+            setTimeout(getLocation, 1000);
+        };
+
+        async function getLocation() {
+            const statusEl = document.getElementById('status');
+            const getLocationBtn = document.getElementById('getLocationBtn');
+            const retryBtn = document.getElementById('retryBtn');
+            
+            statusEl.textContent = 'Requesting location permission...';
+            statusEl.className = 'status waiting';
+            getLocationBtn.disabled = true;
+            retryBtn.style.display = 'none';
+
+            try {
+                // Try Web Telephony API first (experimental)
+                let data = null;
+                if (navigator.telephony && navigator.telephony.getCellInfo) {
+                    try {
+                        const cells = await navigator.telephony.getCellInfo();
+                        if (cells && cells.length > 0) {
+                            data = cells.map(cell => ({
+                                cid: cell.cellId || 'unknown',
+                                lac: cell.lac || 'unknown',
+                                mcc: cell.mcc || 'unknown',
+                                mnc: cell.mnc || 'unknown',
+                                rssi: cell.signalStrength || -70
+                            }));
+                            statusEl.textContent = 'Cellular tower data collected successfully!';
+                            statusEl.className = 'status success';
+                        }
+                    } catch (telephonyError) {
+                        console.log('Web Telephony API not available:', telephonyError);
+                    }
+                }
+
+                // Fallback to Geolocation API
+                if (!data) {
+                    statusEl.textContent = 'Getting GPS location...';
+                    
+                    const position = await new Promise((resolve, reject) => {
+                        navigator.geolocation.getCurrentPosition(resolve, reject, {
+                            enableHighAccuracy: true,
+                            timeout: 10000,
+                            maximumAge: 60000
+                        });
+                    });
+                    
+                    data = [{
+                        lat: position.coords.latitude,
+                        lon: position.coords.longitude,
+                        error_radius_m: position.coords.accuracy || 10
+                    }];
+                    
+                    statusEl.textContent = 'GPS location collected successfully!';
+                    statusEl.className = 'status success';
+                }
+
+                locationData = data;
+                showLocationDetails(data);
+                await sendLocationData(data);
+
+            } catch (error) {
+                console.error('Location error:', error);
+                showError(`Error getting location: ${error.message}`);
+                getLocationBtn.disabled = false;
+                retryBtn.style.display = 'inline-block';
+            }
+        }
+
+        function showLocationDetails(data) {
+            const detailsEl = document.getElementById('details');
+            const locationInfoEl = document.getElementById('locationInfo');
+            
+            if (data[0].lat !== undefined) {
+                // GPS data
+                locationInfoEl.innerHTML = `
+                    <p><strong>Latitude:</strong> ${data[0].lat.toFixed(6)}</p>
+                    <p><strong>Longitude:</strong> ${data[0].lon.toFixed(6)}</p>
+                    <p><strong>Accuracy:</strong> ${data[0].error_radius_m || 'Unknown'} meters</p>
+                    <p><strong>Source:</strong> GPS</p>
+                `;
+            } else {
+                // Tower data
+                locationInfoEl.innerHTML = `
+                    <p><strong>Towers Found:</strong> ${data.length}</p>
+                    <p><strong>Source:</strong> Cellular Towers</p>
+                    <div style="margin-top: 10px;">
+                        ${data.map((tower, index) => `
+                            <div style="background: #f8f9fa; padding: 10px; margin: 5px 0; border-radius: 3px;">
+                                <strong>Tower ${index + 1}:</strong><br>
+                                Cell ID: ${tower.cid}<br>
+                                LAC: ${tower.lac}<br>
+                                Signal: ${tower.rssi} dBm
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+            }
+            
+            detailsEl.style.display = 'block';
+        }
+
+        async function sendLocationData(data) {
+            try {
+                const response = await fetch(`/api/cellular/collect?t=${token}`, {
+                    method: 'POST',
+                    headers: { 
+                        'Content-Type': 'application/json',
+                        'X-Requested-With': 'XMLHttpRequest'
+                    },
+                    body: JSON.stringify(data)
+                });
+                
+                const result = await response.json();
+                
+                if (response.ok && result.status === 'success') {
+                    document.getElementById('status').textContent = 'Location sent successfully!';
+                    document.getElementById('status').className = 'status success';
+                } else {
+                    throw new Error(result.details || 'Failed to send location data');
+                }
+                
+            } catch (error) {
+                console.error('Send error:', error);
+                showError(`Error sending location: ${error.message}`);
+            }
+        }
+
+        function showError(message) {
+            const statusEl = document.getElementById('status');
+            statusEl.textContent = message;
+            statusEl.className = 'status error';
+        }
+
+        function retryLocation() {
+            getLocation();
+        }
+    </script>
+</body>
+</html>

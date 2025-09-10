@@ -11,6 +11,7 @@ import { registerMobileAppMonitoringToolkit } from "./mobile_app_monitoring_tool
 import { registerMobileAppPerformanceToolkit } from "./mobile_app_performance_toolkit.js";
 import { registerMobileAppTestingToolkit } from "./mobile_app_testing_toolkit.js";
 import { registerMobileNetworkAnalyzer } from "./mobile_network_analyzer.js";
+import { registerMobileSecurityToolkit } from "./mobile_security_toolkit.js";
 
 export { registerMobileDeviceInfo } from "./mobile_device_info.js";
 export { registerMobileFileOps } from "./mobile_file_ops.js";
@@ -25,3 +26,4 @@ export { registerMobileAppMonitoringToolkit } from "./mobile_app_monitoring_tool
 export { registerMobileAppPerformanceToolkit } from "./mobile_app_performance_toolkit.js";
 export { registerMobileAppTestingToolkit } from "./mobile_app_testing_toolkit.js";
 export { registerMobileNetworkAnalyzer } from "./mobile_network_analyzer.js";
+export { registerMobileSecurityToolkit } from "./mobile_security_toolkit.js";

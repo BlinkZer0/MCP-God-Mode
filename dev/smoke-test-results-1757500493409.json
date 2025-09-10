@@ -1,0 +1,56 @@
+{
+  "passed": [],
+  "failed": [
+    {
+      "tool": "mcp_mcp-god-mode_health",
+      "error": "node:internal/modules/cjs/loader:1368\r\n  throw err;\r\n  ^\r\n\r\nError: Cannot find module 'E:\\GitHub Projects\\MCP-God-Mode\\dev\\tests\\dist\\server-refactored.js'\r\n    at Function._resolveFilename (node:internal/modules/cjs/loader:1365:15)\r\n    at defaultResolveImpl (node:internal/modules/cjs/loader:1021:19)\r\n    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1026:22)\r\n    at Function._load (node:internal/modules/cjs/loader:1175:37)\r\n    at TracingChannel.traceSync (node:diagnostics_channel:322:14)\r\n    at wrapModuleLoad (node:internal/modules/cjs/loader:235:24)\r\n    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)\r\n    at node:internal/main/run_main_module:36:49 {\r\n  code: 'MODULE_NOT_FOUND',\r\n  requireStack: []\r\n}\r\n\r\nNode.js v22.18.0\r\n",
+      "output": ""
+    },
+    {
+      "tool": "mcp_mcp-god-mode_calculator",
+      "error": "node:internal/modules/cjs/loader:1368\r\n  throw err;\r\n  ^\r\n\r\nError: Cannot find module 'E:\\GitHub Projects\\MCP-God-Mode\\dev\\tests\\dist\\server-refactored.js'\r\n    at Function._resolveFilename (node:internal/modules/cjs/loader:1365:15)\r\n    at defaultResolveImpl (node:internal/modules/cjs/loader:1021:19)\r\n    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1026:22)\r\n    at Function._load (node:internal/modules/cjs/loader:1175:37)\r\n    at TracingChannel.traceSync (node:diagnostics_channel:322:14)\r\n    at wrapModuleLoad (node:internal/modules/cjs/loader:235:24)\r\n    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)\r\n    at node:internal/main/run_main_module:36:49 {\r\n  code: 'MODULE_NOT_FOUND',\r\n  requireStack: []\r\n}\r\n\r\nNode.js v22.18.0\r\n",
+      "output": ""
+    },
+    {
+      "tool": "mcp_mcp-god-mode_dice_rolling",
+      "error": "node:internal/modules/cjs/loader:1368\r\n  throw err;\r\n  ^\r\n\r\nError: Cannot find module 'E:\\GitHub Projects\\MCP-God-Mode\\dev\\tests\\dist\\server-refactored.js'\r\n    at Function._resolveFilename (node:internal/modules/cjs/loader:1365:15)\r\n    at defaultResolveImpl (node:internal/modules/cjs/loader:1021:19)\r\n    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1026:22)\r\n    at Function._load (node:internal/modules/cjs/loader:1175:37)\r\n    at TracingChannel.traceSync (node:diagnostics_channel:322:14)\r\n    at wrapModuleLoad (node:internal/modules/cjs/loader:235:24)\r\n    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)\r\n    at node:internal/main/run_main_module:36:49 {\r\n  code: 'MODULE_NOT_FOUND',\r\n  requireStack: []\r\n}\r\n\r\nNode.js v22.18.0\r\n",
+      "output": ""
+    },
+    {
+      "tool": "mcp_mcp-god-mode_password_generator",
+      "error": "node:internal/modules/cjs/loader:1368\r\n  throw err;\r\n  ^\r\n\r\nError: Cannot find module 'E:\\GitHub Projects\\MCP-God-Mode\\dev\\tests\\dist\\server-refactored.js'\r\n    at Function._resolveFilename (node:internal/modules/cjs/loader:1365:15)\r\n    at defaultResolveImpl (node:internal/modules/cjs/loader:1021:19)\r\n    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1026:22)\r\n    at Function._load (node:internal/modules/cjs/loader:1175:37)\r\n    at TracingChannel.traceSync (node:diagnostics_channel:322:14)\r\n    at wrapModuleLoad (node:internal/modules/cjs/loader:235:24)\r\n    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)\r\n    at node:internal/main/run_main_module:36:49 {\r\n  code: 'MODULE_NOT_FOUND',\r\n  requireStack: []\r\n}\r\n\r\nNode.js v22.18.0\r\n",
+      "output": ""
+    },
+    {
+      "tool": "mcp_mcp-god-mode_fs_list",
+      "error": "node:internal/modules/cjs/loader:1368\r\n  throw err;\r\n  ^\r\n\r\nError: Cannot find module 'E:\\GitHub Projects\\MCP-God-Mode\\dev\\tests\\dist\\server-refactored.js'\r\n    at Function._resolveFilename (node:internal/modules/cjs/loader:1365:15)\r\n    at defaultResolveImpl (node:internal/modules/cjs/loader:1021:19)\r\n    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1026:22)\r\n    at Function._load (node:internal/modules/cjs/loader:1175:37)\r\n    at TracingChannel.traceSync (node:diagnostics_channel:322:14)\r\n    at wrapModuleLoad (node:internal/modules/cjs/loader:235:24)\r\n    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)\r\n    at node:internal/main/run_main_module:36:49 {\r\n  code: 'MODULE_NOT_FOUND',\r\n  requireStack: []\r\n}\r\n\r\nNode.js v22.18.0\r\n",
+      "output": ""
+    },
+    {
+      "tool": "mcp_mcp-god-mode_fs_read_text",
+      "error": "node:internal/modules/cjs/loader:1368\r\n  throw err;\r\n  ^\r\n\r\nError: Cannot find module 'E:\\GitHub Projects\\MCP-God-Mode\\dev\\tests\\dist\\server-refactored.js'\r\n    at Function._resolveFilename (node:internal/modules/cjs/loader:1365:15)\r\n    at defaultResolveImpl (node:internal/modules/cjs/loader:1021:19)\r\n    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1026:22)\r\n    at Function._load (node:internal/modules/cjs/loader:1175:37)\r\n    at TracingChannel.traceSync (node:diagnostics_channel:322:14)\r\n    at wrapModuleLoad (node:internal/modules/cjs/loader:235:24)\r\n    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)\r\n    at node:internal/main/run_main_module:36:49 {\r\n  code: 'MODULE_NOT_FOUND',\r\n  requireStack: []\r\n}\r\n\r\nNode.js v22.18.0\r\n",
+      "output": ""
+    },
+    {
+      "tool": "mcp_mcp-god-mode_math_calculate",
+      "error": "node:internal/modules/cjs/loader:1368\r\n  throw err;\r\n  ^\r\n\r\nError: Cannot find module 'E:\\GitHub Projects\\MCP-God-Mode\\dev\\tests\\dist\\server-refactored.js'\r\n    at Function._resolveFilename (node:internal/modules/cjs/loader:1365:15)\r\n    at defaultResolveImpl (node:internal/modules/cjs/loader:1021:19)\r\n    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1026:22)\r\n    at Function._load (node:internal/modules/cjs/loader:1175:37)\r\n    at TracingChannel.traceSync (node:diagnostics_channel:322:14)\r\n    at wrapModuleLoad (node:internal/modules/cjs/loader:235:24)\r\n    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)\r\n    at node:internal/main/run_main_module:36:49 {\r\n  code: 'MODULE_NOT_FOUND',\r\n  requireStack: []\r\n}\r\n\r\nNode.js v22.18.0\r\n",
+      "output": ""
+    },
+    {
+      "tool": "mcp_mcp-god-mode_git_status",
+      "error": "node:internal/modules/cjs/loader:1368\r\n  throw err;\r\n  ^\r\n\r\nError: Cannot find module 'E:\\GitHub Projects\\MCP-God-Mode\\dev\\tests\\dist\\server-refactored.js'\r\n    at Function._resolveFilename (node:internal/modules/cjs/loader:1365:15)\r\n    at defaultResolveImpl (node:internal/modules/cjs/loader:1021:19)\r\n    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1026:22)\r\n    at Function._load (node:internal/modules/cjs/loader:1175:37)\r\n    at TracingChannel.traceSync (node:diagnostics_channel:322:14)\r\n    at wrapModuleLoad (node:internal/modules/cjs/loader:235:24)\r\n    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)\r\n    at node:internal/main/run_main_module:36:49 {\r\n  code: 'MODULE_NOT_FOUND',\r\n  requireStack: []\r\n}\r\n\r\nNode.js v22.18.0\r\n",
+      "output": ""
+    },
+    {
+      "tool": "mcp_mcp-god-mode_proc_run",
+      "error": "node:internal/modules/cjs/loader:1368\r\n  throw err;\r\n  ^\r\n\r\nError: Cannot find module 'E:\\GitHub Projects\\MCP-God-Mode\\dev\\tests\\dist\\server-refactored.js'\r\n    at Function._resolveFilename (node:internal/modules/cjs/loader:1365:15)\r\n    at defaultResolveImpl (node:internal/modules/cjs/loader:1021:19)\r\n    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1026:22)\r\n    at Function._load (node:internal/modules/cjs/loader:1175:37)\r\n    at TracingChannel.traceSync (node:diagnostics_channel:322:14)\r\n    at wrapModuleLoad (node:internal/modules/cjs/loader:235:24)\r\n    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)\r\n    at node:internal/main/run_main_module:36:49 {\r\n  code: 'MODULE_NOT_FOUND',\r\n  requireStack: []\r\n}\r\n\r\nNode.js v22.18.0\r\n",
+      "output": ""
+    },
+    {
+      "tool": "mcp_mcp-god-mode_encryption_tool",
+      "error": "node:internal/modules/cjs/loader:1368\r\n  throw err;\r\n  ^\r\n\r\nError: Cannot find module 'E:\\GitHub Projects\\MCP-God-Mode\\dev\\tests\\dist\\server-refactored.js'\r\n    at Function._resolveFilename (node:internal/modules/cjs/loader:1365:15)\r\n    at defaultResolveImpl (node:internal/modules/cjs/loader:1021:19)\r\n    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1026:22)\r\n    at Function._load (node:internal/modules/cjs/loader:1175:37)\r\n    at TracingChannel.traceSync (node:diagnostics_channel:322:14)\r\n    at wrapModuleLoad (node:internal/modules/cjs/loader:235:24)\r\n    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)\r\n    at node:internal/main/run_main_module:36:49 {\r\n  code: 'MODULE_NOT_FOUND',\r\n  requireStack: []\r\n}\r\n\r\nNode.js v22.18.0\r\n",
+      "output": ""
+    }
+  ],
+  "errors": []
+}

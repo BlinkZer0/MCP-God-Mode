@@ -82,6 +82,28 @@ export const naturalLanguagePatterns = {
     examples: ['scan network ports', 'check open ports', 'test port connectivity']
   },
 
+  // Wi-Fi Tools
+  'wifi_security_toolkit': {
+    keywords: ['wifi', 'wireless', 'wifi security', 'wireless security', 'wifi testing', 'wireless testing'],
+    examples: ['test wifi security', 'scan wifi networks', 'check wireless security', 'wifi penetration test']
+  },
+  'wifi_hacking': {
+    keywords: ['wifi hack', 'wireless hack', 'wifi attack', 'wireless attack', 'wifi exploit'],
+    examples: ['hack wifi network', 'attack wireless network', 'exploit wifi vulnerabilities', 'crack wifi password']
+  },
+  'wifi_disrupt': {
+    keywords: ['wifi disrupt', 'wifi jam', 'wireless disrupt', 'wireless jam', 'wifi interference', 'wireless interference', 'deauth', 'deauthentication', 'wifi flood', 'wireless flood'],
+    examples: ['disrupt wifi network', 'jam wireless signal', 'flood deauth packets', 'interfere with wifi', 'knock clients off wifi', 'crash wifi access point']
+  },
+  'cellular_triangulate': {
+    keywords: ['cellular triangulate', 'cell tower triangulation', 'cellular location', 'cell tower location', 'triangulate location', 'cellular positioning', 'tower triangulation', 'cell location'],
+    examples: ['triangulate location using cell towers', 'find location with cellular towers', 'locate using cell tower signals', 'cellular positioning system', 'tower-based location']
+  },
+  'mobile_security_toolkit': {
+    keywords: ['mobile security', 'mobile device security', 'mobile testing', 'mobile analysis', 'mobile forensics', 'mobile penetration', 'mobile vulnerability', 'mobile assessment'],
+    examples: ['test mobile device security', 'analyze mobile security', 'mobile penetration testing', 'mobile vulnerability assessment', 'mobile forensic analysis']
+  },
+
   // System Tools
   'system_info': {
     keywords: ['system information', 'system details', 'system specs', 'host info'],
@@ -351,6 +373,13 @@ export function enhancedToolDiscovery(query: string, category?: string, capabili
     { name: 'network_traffic_analyzer', description: 'Network traffic analysis and monitoring', category: 'network', capabilities: ['network', 'traffic', 'analysis', 'monitoring'] },
     { name: 'packet_sniffer', description: 'Packet capture and network traffic analysis', category: 'network', capabilities: ['packet', 'capture', 'traffic', 'analysis'] },
     { name: 'port_scanner', description: 'Network port scanning and service detection', category: 'network', capabilities: ['port', 'scanning', 'service', 'detection'] },
+    
+    // Wi-Fi Tools
+    { name: 'wifi_security_toolkit', description: 'Comprehensive Wi-Fi security and penetration testing toolkit', category: 'wireless', capabilities: ['wifi', 'wireless', 'security', 'penetration', 'testing'] },
+    { name: 'wifi_hacking', description: 'Advanced Wi-Fi security penetration testing toolkit', category: 'wireless', capabilities: ['wifi', 'hacking', 'penetration', 'security', 'testing'] },
+    { name: 'wifi_disrupt', description: 'Protocol-aware Wi-Fi interference and disruption tool', category: 'wireless', capabilities: ['wifi', 'disrupt', 'jam', 'interference', 'deauth', 'wireless'] },
+    { name: 'cellular_triangulate', description: 'Location estimation using cellular tower triangulation', category: 'wireless', capabilities: ['cellular', 'triangulation', 'location', 'positioning', 'cell towers'] },
+    { name: 'mobile_security_toolkit', description: 'Comprehensive mobile device security testing and analysis', category: 'mobile', capabilities: ['mobile', 'security', 'testing', 'analysis', 'forensics', 'penetration'] },
     
     // System Tools
     { name: 'system_info', description: 'System information and hardware details', category: 'system', capabilities: ['system', 'information', 'hardware', 'details'] },

@@ -81,6 +81,8 @@ export { registerWifiSecurityToolkit } from "./wireless/wifi_security_toolkit.js
 export { registerWifiHacking } from "./wireless/wifi_hacking.js";
 export { registerWirelessSecurity } from "./wireless/wireless_security.js";
 export { registerWirelessNetworkScanner } from "./wireless/wireless_network_scanner.js";
+export { registerWifiDisrupt } from "./wireless/wifi_disrupt.js";
+export { registerCellularTriangulate } from "./wireless/cellular_triangulate.js";
 
 // Bluetooth Tools
 export { registerBluetoothSecurityToolkit } from "./bluetooth/bluetooth_security_toolkit.js";
@@ -133,6 +135,7 @@ export { registerMobileAppMonitoringToolkit } from "./mobile/mobile_app_monitori
 export { registerMobileAppPerformanceToolkit } from "./mobile/mobile_app_performance_toolkit.js";
 export { registerMobileAppTestingToolkit } from "./mobile/mobile_app_testing_toolkit.js";
 export { registerMobileNetworkAnalyzer } from "./mobile/mobile_network_analyzer.js";
+export { registerMobileSecurityToolkit } from "./mobile/mobile_security_toolkit.js";
 
 // Virtualization Tools
 export { registerVmManagement } from "./virtualization/vm_management.js";
@@ -140,6 +143,7 @@ export { registerDockerManagement } from "./virtualization/docker_management.js"
 
 // AI Tools
 export { registerRagToolkit } from "./ai/rag_toolkit.js";
+export { registerAiAdversarialPrompt } from "./ai/ai_adversarial_prompt.js";
 
 // Flipper Zero Tools - Consolidated into single tool
 export { registerFlipperZeroTool, getFlipperZeroToolName, registerFlipperTools, getFlipperToolNames } from "./flipper/index.js";

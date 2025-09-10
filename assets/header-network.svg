@@ -1,0 +1,16 @@
+<svg width="1200" height="120" viewBox="0 0 1200 120" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Network & Security">
+  <defs>
+    <linearGradient id="gradNet" x1="0" x2="1" y1="0" y2="0">
+      <stop offset="0%" stop-color="#10B981">
+        <animate attributeName="offset" values="0;1;0" dur="8s" repeatCount="indefinite"/>
+      </stop>
+      <stop offset="100%" stop-color="#60A5FA">
+        <animate attributeName="offset" values="1;0;1" dur="8s" repeatCount="indefinite"/>
+      </stop>
+    </linearGradient>
+    <filter id="softGlowNet"><feGaussianBlur stdDeviation="1.8" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs>
+  <rect width="1200" height="120" fill="#0d1117"/>
+  <text x="50%" y="62" fill="url(#gradNet)" text-anchor="middle" font-size="36" font-family="system-ui,Segoe UI,Arial" filter="url(#softGlowNet)">Network & Security</text>
+</svg>
+

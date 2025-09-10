@@ -12,15 +12,15 @@
 
 One MCP to rule them all, one MCP to find them, one MCP to compile the tools, and in the God Mode bind them. 🎲⚡
 
-[![Version](https://img.shields.io/badge/Version-v1.8.0-blue)](docs/updates/VERSION_1.8.0_CHANGELOG.md)
+[![Version](https://img.shields.io/badge/Version-v1.8b-blue)](docs/updates/VERSION_1.8b_CHANGELOG.md)
 [![License](https://img.shields.io/badge/License-MIT-green)](LICENSE)
 [![Node](https://img.shields.io/badge/Node-%3E%3D%2018-brightgreen)](package.json)
 [![Platforms](https://img.shields.io/badge/Platforms-Win%20%7C%20macOS%20%7C%20Linux%20%7C%20Android%20%7C%20iOS-orange)](docs/CROSS_PLATFORM_COMPATIBILITY.md)
 [![GitHub Stars](https://img.shields.io/github/stars/BlinkZer0/MCP-God-Mode?style=social)](https://github.com/BlinkZer0/MCP-God-Mode)
 [![CI](https://img.shields.io/badge/CI-Smoke%20Tests-yellow)](scripts/smoke-test.js)
-[![Tools](https://img.shields.io/badge/Tools-152%20Total-orange)](docs/general/TOOL_CATALOG.md)
+[![Tools](https://img.shields.io/badge/Tools-159%20Total-orange)](docs/general/TOOL_CATALOG.md)
 
-**Version 1.8.0 - Drone Operations & Enhanced Interactive Installer**
+**Version 1.8b - Drone Operations & Enhanced Interactive Installer** — Last edited 2025-09-10
 
 ## Table of Contents
 - [What is MCP God Mode?](#-what-is-mcp-god-mode)
@@ -32,11 +32,11 @@ One MCP to rule them all, one MCP to find them, one MCP to compile the tools, an
 - [Documentation](#-documentation)
 - [Legal Disclaimer](#️-legal-disclaimer)
 
-### Tool Inventory (v1.8.0)
+### Tool Inventory (v1.8b)
 | Profile         | Count |
 |-----------------|------:|
-| Refactored Set  | 152   |
-| Modular Set     | 152   |
+| Refactored Set  | 159   |
+| Modular Set     | 159   |
 | Minimal Profile | 15    |
 
 https://github.com/user-attachments/assets/932c43e4-159e-4ce2-9c02-4acf23fc47fd
@@ -49,11 +49,11 @@ https://github.com/user-attachments/assets/932c43e4-159e-4ce2-9c02-4acf23fc47fd
 
 - **[🚀 Quick Start](docs/guides/COMPLETE_SETUP_GUIDE.md)** - Get up and running in minutes
 - **[🌐 Frontend Integration Guide](docs/guides/MCP_FRONTEND_INTEGRATION_GUIDE.md)** - Setup for Cursor, LM Studio, Claude, SillyTavern & more
-- **[📋 Complete Tool Catalog](docs/general/TOOL_CATALOG.md)** - Browse all 152 documented tools with detailed documentation
+- **[📋 Complete Tool Catalog](docs/general/TOOL_CATALOG.md)** - Browse all 159 documented tools with detailed documentation
 - **[🔧 Parameter Reference](docs/general/COMPLETE_PARAMETER_REFERENCE.md)** - Complete parameter documentation
 - **[💻 Examples & Tutorials](docs/guides/EXAMPLES_AND_TUTORIALS.md)** - Real-world usage examples
 - **[🌍 Platform Compatibility](docs/general/CROSS_PLATFORM_COMPATIBILITY.md)** - Platform-specific details
-- **[📝 Version 1.8.0 Changelog](docs/updates/VERSION_1.8.0_CHANGELOG.md)** - What's new in the latest update
+- **[📝 Version 1.8b Changelog](docs/updates/VERSION_1.8b_CHANGELOG.md)** - What's new in the latest update
 
 ## 🚀 Quick Start
 
@@ -67,9 +67,9 @@ cp .env.example .env   # edit if needed
 npm install
 
 # 3) Launch (choose one)
-npm run start:refactored   # full refactored server (152 tools)
+npm run start:refactored   # full refactored server (159 tools)
 # or
-npm run start:modular      # modular loader (152 tools, grouped)
+npm run start:modular      # modular loader (159 tools, grouped)
 # or minimal
 npm run start:minimal      # minimal profile (15 core tools)
 ```
@@ -88,7 +88,7 @@ node interactive-installer.js
 **Features:**
 - 🎯 **Quick Install Options** - Pre-configured setups (Minimal, Security Focused, Drone Operations, etc.)
 - 🛠️ **Custom Category Selection** - Choose from 25 tool categories
-- 🔍 **Individual Tool Selection** - Pick specific tools from 152 available options
+- 🔍 **Individual Tool Selection** - Pick specific tools from 159 available options
 - 📋 **Browse All Tools** - Explore all available tools and their capabilities
 - 🔧 **Guided Installation** - Step-by-step installation process
 
@@ -128,28 +128,28 @@ npm run smoke
 <details open>
   <summary><b>TL;DR</b> — What is MCP God Mode?</summary>
 
-MCP God Mode is the ultimate cybersecurity and system management platform that provides **152 fully implemented tools** across **5 major platforms**. It's designed for security professionals, system administrators, penetration testers, and anyone who needs comprehensive system control and security testing capabilities.
+MCP God Mode is the ultimate cybersecurity and system management platform that provides **159 fully implemented tools** across **5 major platforms**. It's designed for security professionals, system administrators, penetration testers, and anyone who needs comprehensive system control and security testing capabilities.
 
 </details>
 
 <details>
   <summary><b>Deep Dive</b> — Architecture & Safety</summary> 
 
-**📝 Note**: We offer both monolithic and modular server architectures. Our **primary server-refactored** provides comprehensive functionality in a unified interface with **152 tools**. The modular server provides **152 tools** (configurable) for granular control, better error handling, and for the ease of an individual to extract a tool for their own server build. Tools are located in dev/src/tools. Each architecture serves different use cases and preferences.
+**📝 Note**: We offer both monolithic and modular server architectures. Our **primary server-refactored** provides comprehensive functionality in a unified interface with **159 tools**. The modular server provides **159 tools** (configurable) for granular control, better error handling, and for the ease of an individual to extract a tool for their own server build. Tools are located in dev/src/tools. Each architecture serves different use cases and preferences.
 
 **🔍 Server Architecture Differences**:
-- **Server-Refactored (152 tools)**: Unified server with all core endpoints plus enhanced endpoints (Flipper Zero suite + MCP Web UI Bridge + advanced tools). Includes built-in legal compliance, audit logging, and forensic readiness capabilities.
-- **Modular Server (152 tools, configurable)**: Comprehensive architecture with 152 tools for granular control, better error handling, and specialized functionality. **Configurable** - can be set to load minimal (10 tools), custom categories, or full (152 tools). Full legal compliance integration with modular evidence preservation.
+- **Server-Refactored (159 tools)**: Unified server with all core endpoints plus enhanced endpoints (Flipper Zero suite + MCP Web UI Bridge + advanced tools). Includes built-in legal compliance, audit logging, and forensic readiness capabilities.
+- **Modular Server (159 tools, configurable)**: Comprehensive architecture with 159 tools for granular control, better error handling, and specialized functionality. **Configurable** - can be set to load minimal (10 tools), custom categories, or full (159 tools). Full legal compliance integration with modular evidence preservation.
 - **Server-Minimal (15 tools)**: Lightweight implementation with core tools only for basic functionality and resource-constrained environments.
 
 **🔢 Tool Count Explanation**: 
-- **152 TypeScript files** exist in the tools directory
+- **Comprehensive toolset implemented** in the tools directory
 - **124 register functions are exported** in the comprehensive index.ts file (including Flipper Zero tools)
-- **152 tools are registered** in server-refactored (124 exports + Flipper suite + MCP Web UI Bridge + advanced endpoints)
-- **152 tools are registered** in server-modular (identical set, configurable)
+- **159 tools are registered** in server-refactored (index exports + Flipper suite + MCP Web UI Bridge + advanced endpoints)
+- **159 tools are registered** in server-modular (identical set, configurable)
 - **15 tools are registered** in server-minimal (core tools only)
 
-**📊 Documentation Status**: All 152 tools (both servers) now have comprehensive documentation with detailed usage examples, parameter references, and platform compatibility information. See [Complete Tool Catalog](docs/general/TOOL_CATALOG.md) for detailed information about each tool.
+**📊 Documentation Status**: All 159 tools (both servers) now have comprehensive documentation with detailed usage examples, parameter references, and platform compatibility information. See [Complete Tool Catalog](docs/general/TOOL_CATALOG.md) for detailed information about each tool.
 
 **⚖️ Legal Compliance & Forensic Readiness**: Both server architectures include comprehensive legal compliance capabilities including audit logging, evidence preservation, legal hold management, and chain of custody tracking. These features are disabled by default and can be enabled through environment variables for SOX, HIPAA, GDPR, PCI DSS, and ISO 27001 compliance. See [Legal Compliance Documentation](docs/LEGAL_COMPLIANCE.md) for detailed configuration and usage instructions.
 
@@ -279,7 +279,7 @@ Tool counting in MCP God Mode presents unique challenges due to the multi-layere
 
 #### **🛠️ Tools (MCP Server Functions)**
 - **Definition**: Distinct MCP server tool registrations
-- **Count**: 152 tools (server-refactored) / 152 tools (modular)
+- **Count**: 159 tools (server-refactored) / 159 tools (modular)
 - **Example**: `wifi_security_toolkit` = 1 tool
 
 #### **⚡ Actions (Tool Capabilities)**
@@ -296,7 +296,7 @@ Tool counting in MCP God Mode presents unique challenges due to the multi-layere
 
 | Aspect | Server-Refactored | Modular Server |
 |--------|------------------|----------------|
-| **Tool Count** | 152 tools | 152 tools |
+| **Tool Count** | 159 tools | 159 tools |
 | **Architecture** | Unified interface | Individual focused tools |
 | **Complexity** | Multi-action tools | Single-action tools |
 | **Error Handling** | Centralized | Granular |
@@ -311,7 +311,7 @@ The server-refactored and modular servers have different tool counts because:
 3. **Enhanced Functionality**: Modular server provides more precise control with additional tools
 4. **Specialized Capabilities**: Modular server offers granular tools for specific tasks
 
-**🎯 Bottom Line**: Both server-refactored and modular server provide identical functionality with 152 tools for comprehensive operations and built-in legal compliance features. The modular server adds configurability for different deployment scenarios.
+**🎯 Bottom Line**: Both server-refactored and modular server provide identical functionality with 159 tools for comprehensive operations and built-in legal compliance features. The modular server adds configurability for different deployment scenarios.
 
 🎭 **Fun Fact**: One MCP to rule them all, one MCP to find them, one MCP to compile the tools, and in the God Mode bind them! 🎲⚡
 
@@ -335,7 +335,7 @@ See MCP God Mode in action with Cursor IDE integration:
 
 </div>
 
-*MCP God Mode tools seamlessly integrated into Cursor IDE - providing instant access to 152 powerful security and system management tools across all major platforms! 🚀✨*
+*MCP God Mode tools seamlessly integrated into Cursor IDE - providing instant access to 159 powerful security and system management tools across all major platforms! 🚀✨*
 
 **🎭 Fun Fact**: We have so many visual proofs, even the screenshots are impressed! Each image shows different aspects of our comprehensive tool integration! 📸💻
 
@@ -357,6 +357,8 @@ See MCP God Mode in action with Cursor IDE integration:
 
 ## 🛠️ Tool Categories
 
+<img src="assets/header-core.svg" alt="Core System Tools" width="100%" />
+
 ### 🔐 Core System Tools (8 Tools)
 - **File Operations** - Advanced cross-platform file management
 - **Process Management** - Command execution and elevated permissions
@@ -368,6 +370,8 @@ See MCP God Mode in action with Cursor IDE integration:
 - **Cron Job Management** - Scheduled task management
 
 **[📖 View All Core Tools](docs/general/TOOL_CATEGORY_INDEX.md#core-system-tools)**
+
+<img src="assets/header-network.svg" alt="Network & Security" width="100%" />
 
 ### 🌐 Network & Security (19 Tools)
 - **Network Diagnostics** - Ping, traceroute, DNS, port scanning
@@ -391,6 +395,8 @@ See MCP God Mode in action with Cursor IDE integration:
 - **Download File** - File downloading capabilities
 
 **[📖 View All Network Tools](docs/general/TOOL_CATEGORY_INDEX.md#network--security)**
+
+<img src="assets/header-wireless.svg" alt="Wireless & Radio" width="100%" />
 
 ### 📡 Wireless & Radio (7 Tools)
 - **Wi-Fi Security** - Complete wireless security testing toolkit
@@ -427,6 +433,8 @@ https://github.com/user-attachments/assets/f074039c-1989-40fc-b769-5efa855e854d
 
 **[?? Flipper Zero (Consolidated) — Full Docs](docs/tool/flipper_zero.md)**
 
+<img src="assets/header-email.svg" alt="Email Management" width="100%" />
+
 ### 📧 Email Management (6 Tools)
 - **SMTP Operations** - Send emails across all platforms
 - **IMAP Operations** - Read, parse, and manage emails
@@ -434,6 +442,8 @@ https://github.com/user-attachments/assets/f074039c-1989-40fc-b769-5efa855e854d
 - **Account Management** - Multi-account email operations
 
 **[📖 View All Email Tools](docs/general/TOOL_CATEGORY_INDEX.md#email-management)**
+
+<img src="assets/header-media.svg" alt="Media & Content" width="100%" />
 
 ### 🎵 Media & Content (5 Tools)
 - **Audio Processing** - Recording, editing, and conversion
@@ -444,6 +454,8 @@ https://github.com/user-attachments/assets/f074039c-1989-40fc-b769-5efa855e854d
 
 **[📖 View All Media Tools](docs/general/TOOL_CATEGORY_INDEX.md#media--content)**
 
+<img src="assets/header-web.svg" alt="Web & Browser" width="100%" />
+
 ### 🖥️ Web & Browser (4 Tools)
 - **Browser Automation** - Cross-platform browser control
 - **Web Scraping** - Advanced content extraction and analysis
@@ -451,6 +463,8 @@ https://github.com/user-attachments/assets/f074039c-1989-40fc-b769-5efa855e854d
 - **Webhook Manager** - Webhook endpoint management
 
 **[📖 View All Web Tools](docs/general/TOOL_CATEGORY_INDEX.md#web--browser)**
+
+<img src="assets/header-web.svg" alt="MCP Web UI Bridge" width="100%" />
 
 ### 🌐 MCP Web UI Bridge (6 Tools)
 - **Web UI Chat** - Chat with AI services through their web interfaces without APIs
@@ -466,6 +480,8 @@ https://github.com/user-attachments/assets/f074039c-1989-40fc-b769-5efa855e854d
 
 **[📖 View All MCP Web UI Bridge Tools](docs/general/TOOL_CATEGORY_INDEX.md#mcp-web-ui-bridge)**
 
+<img src="assets/header-drone.svg" alt="Drone Management" width="100%" />
+
 ### 🛸 Drone Management (2 Tools) - NEW in v1.8
 - **Defensive Operations** - Deploy defensive drones to scan, shield, or evade attacks
 - **Offensive Operations** - Deploy offensive drones for counter-strikes with safety controls
@@ -478,6 +494,8 @@ https://github.com/user-attachments/assets/f074039c-1989-40fc-b769-5efa855e854d
 **Safety**: Risk acknowledgment, double confirmation, compliance modes (HIPAA/GDPR), legal disclaimers
 
 **[🛸 Drone Management Tools — Full Docs](dev/DRONE_TOOLS_README.md)**
+
+<img src="assets/header-mobile.svg" alt="Mobile Tools" width="100%" />
 
 ### 📱 Mobile Device (13 Tools)
 - **Device Information** - Hardware and software details
@@ -496,11 +514,15 @@ https://github.com/user-attachments/assets/f074039c-1989-40fc-b769-5efa855e854d
 
 **[📖 View All Mobile Tools](docs/general/TOOL_CATEGORY_INDEX.md#mobile-device)**
 
+<img src="assets/header-cloud.svg" alt="Virtualization" width="100%" />
+
 ### 🖥️ Virtualization (2 Tools)
 - **VM Management** - Virtual machine operations
 - **Docker Management** - Container orchestration
 
 **[📖 View All Virtualization Tools](docs/general/TOOL_CATEGORY_INDEX.md#virtualization--containers)**
+
+<img src="assets/header-forensics.svg" alt="Advanced Security" width="100%" />
 
 ### 🔒 Advanced Security (17 Tools)
 - **Blockchain Security** - Cryptocurrency and blockchain analysis
@@ -521,6 +543,8 @@ https://github.com/user-attachments/assets/f074039c-1989-40fc-b769-5efa855e854d
 - **Port Scanner** - Security port scanning
 
 **[📖 View All Advanced Security Tools](docs/general/TOOL_CATEGORY_INDEX.md#advanced-security)**
+
+<img src="assets/header-core.svg" alt="Utilities" width="100%" />
 
 ### 🧮 Utilities (12 Tools)
 - **Mathematical Tools** - Advanced calculations and statistics
@@ -543,11 +567,15 @@ https://github.com/user-attachments/assets/f074039c-1989-40fc-b769-5efa855e854d
 
 **[📖 View All System Restore Tools](docs/general/TOOL_CATEGORY_INDEX.md#system-restore)**
 
+<img src="assets/header-core.svg" alt="Tool Discovery" width="100%" />
+
 ### 🔧 Tool Discovery (2 Tools)
 - **Natural Language Search** - Find tools using natural language queries
 - **Category Explorer** - Browse tools by category and capability
 
 **[📖 View All Discovery Tools](docs/general/TOOL_CATEGORY_INDEX.md#tool-discovery)**
+
+<img src="assets/header-core.svg" alt="File System" width="100%" />
 
 ### 📁 File System (6 Tools)
 - **File Operations** - Advanced file management
@@ -559,12 +587,16 @@ https://github.com/user-attachments/assets/f074039c-1989-40fc-b769-5efa855e854d
 
 **[📖 View All File System Tools](docs/general/TOOL_CATEGORY_INDEX.md#file-system)**
 
+<img src="assets/header-forensics.svg" alt="Forensics" width="100%" />
+
 ### 🔍 Forensics (3 Tools)
 - **Forensics Analysis** - Digital forensics and incident response
 - **Forensics Toolkit** - Complete forensics framework
 - **Malware Analysis Toolkit** - Malicious software analysis
 
 **[📖 View All Forensics Tools](docs/general/TOOL_CATEGORY_INDEX.md#forensics)**
+
+<img src="assets/header-cloud.svg" alt="Cloud" width="100%" />
 
 ### ☁️ Cloud (3 Tools)
 - **Cloud Security** - Cloud infrastructure security assessment
@@ -602,14 +634,16 @@ https://github.com/user-attachments/assets/f074039c-1989-40fc-b769-5efa855e854d
 
 ## 🎯 **Implementation Status: 100% Complete**
 
-✅ **All 152 tools (both servers) are fully implemented and tested**  
+✅ **All 159 tools (both servers) are fully implemented and tested**  
 ✅ **Cross-platform compatibility verified**  
 ✅ **MCP protocol integration complete**  
 ✅ **Natural language interface working**  
 ✅ **Comprehensive documentation available for all tools**  
 ✅ **Real-world testing completed**
 
-**🔧 Architecture Note**: We offer both server-refactored and modular server architectures. Our **primary server-refactored** provides comprehensive functionality in a unified interface with **152 tools**. The modular server provides **152 tools** for granular control and better error handling. Each architecture serves different use cases and preferences.  
+**🔧 Architecture Note**: We offer both server-refactored and modular server architectures. Our **primary server-refactored** provides comprehensive functionality in a unified interface with **159 tools**. The modular server provides **159 tools** for granular control and better error handling. Each architecture serves different use cases and preferences.  
+
+<img src="assets/header-core.svg" alt="Windows" width="100%" />
 
 ### 🪟 Windows-Specific (2 Tools)
 - **Service Management** - Windows service control
@@ -749,11 +783,11 @@ If you encounter issues, need assistance, or have questions about MCP God Mode:
 ### Platform Matrix
 | Platform | Core Tools | Security Tools | Media Tools | Mobile Tools | Total Support |
 |----------|------------|----------------|-------------|--------------|---------------|
-| **Windows** | ✅ 100% | ✅ 100% | ✅ 100% | ✅ 100% | **152/152 (100%)** |
-| **Linux** | ✅ 100% | ✅ 100% | ✅ 100% | ✅ 100% | **152/152 (100%)** |
-| **macOS** | ✅ 100% | ✅ 100% | ✅ 100% | ✅ 100% | **152/152 (100%)** |
-| **Android** | ✅ 100% | ✅ 100% | ✅ 100% | ✅ 100% | **152/152 (100%)** |
-| **iOS** | ✅ 100% | ✅ 100% | ✅ 100% | ✅ 100% | **152/152 (100%)** |
+| **Windows** | ✅ 100% | ✅ 100% | ✅ 100% | ✅ 100% | **159/159 (100%)** |
+| **Linux** | ✅ 100% | ✅ 100% | ✅ 100% | ✅ 100% | **159/159 (100%)** |
+| **macOS** | ✅ 100% | ✅ 100% | ✅ 100% | ✅ 100% | **159/159 (100%)** |
+| **Android** | ✅ 100% | ✅ 100% | ✅ 100% | ✅ 100% | **159/159 (100%)** |
+| **iOS** | ✅ 100% | ✅ 100% | ✅ 100% | ✅ 100% | **159/159 (100%)** |
 
 **[📖 View Complete Compatibility Matrix](docs/general/CROSS_PLATFORM_COMPATIBILITY.md)**
 
@@ -906,7 +940,7 @@ We welcome contributions from the community! Here's how you can help:
 
 
 ### 🔄 Version History
-- **v1.8.0** (Current) - **152 tools (both servers) complete (100%)**, drone operations, enhanced interactive installer, perfect parity achieved, MCP Web UI Bridge tools, modular configuration system, comprehensive documentation, cross-platform support, MCP integration, accurate tool counting
+- **v1.8b** (Current, docs) - **159 tools (both servers) complete (100%)**, drone operations, enhanced interactive installer, perfect parity achieved, MCP Web UI Bridge tools, modular configuration system, comprehensive documentation, cross-platform support, MCP integration, accurate tool counting. Last edited 2025-09-10.
 - **v1.7** - **147 tools (both servers) complete (100%)**, perfect parity achieved, MCP Web UI Bridge tools, modular configuration system, comprehensive documentation, cross-platform support, MCP integration, accurate tool counting
 - **v1.6d** - **125 tools (server-refactored) / 120 tools (modular) complete (100%)**, comprehensive documentation, cross-platform support, MCP integration, accurate tool counting, RAG toolkit integration
 - **v1.4a** - Enhanced security tools and mobile support
@@ -969,8 +1003,8 @@ If MCP God Mode has been helpful to you, please consider giving it a star on Git
 ---
 
 *Last Updated: January 2025*  
-*MCP God Mode v1.8.0 - One MCP to rule them all - The Ultimate Cross-Platform Security Suite*  
-*All 152 tools (both servers) tested, verified working, and fully documented ✅*
+*MCP God Mode v1.8b - One MCP to rule them all - The Ultimate Cross-Platform Security Suite*  
+*All 159 tools (both servers) tested, verified working, and fully documented ✅*
 
 ---
 
@@ -979,8 +1013,3 @@ If MCP God Mode has been helpful to you, please consider giving it a star on Git
 **🚀 Ready to become a cybersecurity god? First, remember to be kind to one another and set your differences aside. This tool is not for malicious use. [Get Started Now](docs/guides/COMPLETE_SETUP_GUIDE.md)! 🚀**
 
 </div>
-
-
-
-
-

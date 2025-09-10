@@ -11,3 +11,4 @@ export { registerMobileAppMonitoringToolkit } from "./mobile_app_monitoring_tool
 export { registerMobileAppPerformanceToolkit } from "./mobile_app_performance_toolkit.js";
 export { registerMobileAppTestingToolkit } from "./mobile_app_testing_toolkit.js";
 export { registerMobileNetworkAnalyzer } from "./mobile_network_analyzer.js";
+export { registerMobileSecurityToolkit } from "./mobile_security_toolkit.js";

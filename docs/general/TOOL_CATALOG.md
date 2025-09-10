@@ -1,20 +1,19 @@
 # MCP God Mode - Comprehensive Tool Catalog
 
 ## Overview
-MCP God Mode is an advanced security and network analysis platform. Current counts (v1.8):
+MCP God Mode is an advanced security and network analysis platform. Current counts (v1.8b):
 
-- **120 register functions** exported in code
-- **147 total endpoints** in both servers (includes consolidated Flipper Zero tool, MCP Web UI Bridge, and advanced endpoints)
-- **152 documented tools** in the wiki
-- **Configurable modular server** - can load minimal (10 tools), custom categories, or full (147 tools)
+- **Comprehensive index + enhanced endpoints** exported in code
+- **159 total endpoints** across both servers (includes consolidated Flipper Zero tool, MCP Web UI Bridge, and advanced endpoints)
+- **159 documented tools** in the wiki
+- **Configurable modular server** - can load minimal (10 tools), custom categories, or full (159 tools)
 
 This document provides detailed information about each tool, its capabilities, and use cases.
 
 ## Tool Count Summary
-- **Total TypeScript Files**: 152
-- **Exported Register Functions**: 120
-- **Server-Refactored (total endpoints)**: 147
-- **Modular Server (total endpoints)**: 147 (configurable)
+- **Documented Tools**: 159
+- **Server-Refactored (total endpoints)**: 159
+- **Modular Server (total endpoints)**: 159 (configurable)
 - **Server-Minimal**: 15 tools
 
 ## Why Counts Are Now Identical
@@ -116,13 +115,15 @@ Humor break: if the AI builds an enterprise integration hub and starts sending c
 | `mcp_mcp-god-mode_penetration_testing_toolkit` | Comprehensive penetration testing and ethical hacking toolkit | `action`, `target`, `scope`, `methodology`, `output_format` |
 | `mcp_mcp-god-mode_social_engineering_toolkit` | Comprehensive social engineering assessment and awareness toolkit with phishing simulation, training modules, and vulnerability analysis | `action`, `target_group`, `campaign_type`, `training_module`, `output_format` |
 
-### 📡 Wireless Tools (4 tools)
+### 📡 Wireless Tools (6 tools)
 | Tool | Description | Parameters |
 |------|-------------|------------|
 | `mcp_mcp-god-mode_wifi_security_toolkit` | Advanced Wi-Fi security assessment and penetration testing toolkit with comprehensive network analysis, vulnerability scanning, and security validation | `action`, `target_network`, `wifiInterface`, `attack_type`, `output_format`, `stealth_mode` |
 | `mcp_mcp-god-mode_wifi_hacking` | Advanced Wi-Fi penetration testing and security assessment toolkit | `action`, `target_network`, `wifiInterface`, `attack_type`, `output_format`, `stealth_mode` |
 | `mcp_mcp-god-mode_wireless_security` | Wireless network security assessment and protection | `action`, `network_type`, `security_protocol`, `encryption_type` |
 | `mcp_mcp-god-mode_wireless_network_scanner` | Advanced wireless network scanning and analysis toolkit with comprehensive signal strength monitoring, security assessment, and network discovery capabilities | `action`, `interface`, `scan_type`, `output_format`, `include_hidden` |
+| `mcp_mcp-god-mode_wifi_disrupt` | Protocol-aware Wi-Fi interference and disruption tool using 802.11 frame manipulation for targeted service disruption through deauthentication attacks, malformed packet flooding, and airtime occupation | `action`, `interface`, `mode`, `target_bssid`, `channel`, `duration`, `power`, `nl_command`, `auto_confirm` |
+| `mcp_mcp-god-mode_cellular_triangulate` | Location estimation using cellular tower triangulation with RSSI and TDOA methods, integrating with OpenCellID API for tower location lookup and cross-platform cellular modem support | `action`, `modem`, `mode`, `towers`, `api_key`, `max_towers`, `nl_command`, `auto_confirm` |
 
 ### 📶 Bluetooth Tools (3 tools)
 | Tool | Description | Parameters |
@@ -182,7 +183,7 @@ Humor break: if the AI builds an enterprise integration hub and starts sending c
 |------|-------------|------------|
 | `mcp_mcp-god-mode_screenshot` | Cross-platform screenshot capture and management tool | `action`, `output_path`, `area`, `delay`, `format` |
 
-### 📱 Mobile Tools (13 tools)
+### 📱 Mobile Tools (14 tools)
 | Tool | Description | Parameters |
 |------|-------------|------------|
 | `mcp_mcp-god-mode_mobile_device_info` | Mobile device information and diagnostics | `action`, `device_id`, `detailed` |
@@ -198,6 +199,7 @@ Humor break: if the AI builds an enterprise integration hub and starts sending c
 | `mcp_mcp-god-mode_mobile_app_performance_toolkit` | Mobile application performance testing and optimization | `action`, `app_package`, `test_duration`, `test_scenario`, `output_format` |
 | `mcp_mcp-god-mode_mobile_app_testing_toolkit` | Mobile application testing and quality assurance toolkit | `action`, `app_package`, `test_type`, `test_environment`, `output_format` |
 | `mcp_mcp-god-mode_mobile_network_analyzer` | Mobile network traffic analysis and monitoring | `action`, `device_id`, `capture_duration`, `filter_protocol`, `output_format` |
+| `mcp_mcp-god-mode_mobile_security_toolkit` | Comprehensive mobile device security testing and analysis with cellular triangulation, device assessment, app security testing, and network monitoring for Android and iOS platforms | `action`, `device_id`, `platform`, `cellular_modem`, `api_key`, `test_depth`, `output_format`, `auto_confirm` |
 
 ### 🖥️ Virtualization Tools (2 tools)
 | Tool | Description | Parameters |
@@ -310,5 +312,3 @@ Humor break: if the AI builds an enterprise integration hub and starts sending c
 
 *Last Updated: 9/8/2025*
 *Totals: 152 registered tools across servers*
-
-

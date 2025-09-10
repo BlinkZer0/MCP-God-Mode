@@ -9,7 +9,7 @@ class DroneDefenseManager {
     constructor() {
         this.operationId = `drone_def_${Date.now()}`;
         this.flipperEnabled = process.env.MCPGM_FLIPPER_ENABLED === 'true';
-        this.simOnly = process.env.MCPGM_DRONE_SIM_ONLY === 'true';
+        this.simOnly = process.env.MCPGM_DRONE_SIM_ONLY === 'true'; // Default to false (simulation OFF by default)
         this.requireConfirmation = process.env.MCPGM_REQUIRE_CONFIRMATION === 'true';
         this.auditEnabled = process.env.MCPGM_AUDIT_ENABLED === 'true';
         this.logAudit("DroneDefenseManager initialized");

@@ -1,0 +1,381 @@
+{
+  "platform": "win32",
+  "timestamp": "2025-09-10T09:12:32.907Z",
+  "tests": [
+    {
+      "category": "SS7 Configuration",
+      "name": "Load default configuration",
+      "success": true,
+      "duration": 0,
+      "data": {
+        "point_code": "",
+        "global_title": "",
+        "hlr_address": "",
+        "network_operator": "",
+        "license_type": "test",
+        "authorized_users": [],
+        "rate_limits": {
+          "queries_per_minute": 10,
+          "queries_per_hour": 100,
+          "queries_per_day": 1000
+        }
+      }
+    },
+    {
+      "category": "SS7 Configuration",
+      "name": "Validate configuration format",
+      "success": true,
+      "duration": 0,
+      "data": {
+        "point_code": "12345",
+        "global_title": "1234567890",
+        "hlr_address": "hlr.example.com"
+      }
+    },
+    {
+      "category": "SS7 Configuration",
+      "name": "Encrypt/decrypt credentials",
+      "success": false,
+      "duration": 1,
+      "error": "crypto.createCipher is not a function"
+    },
+    {
+      "category": "SS7 Configuration",
+      "name": "Save/load configuration",
+      "success": true,
+      "duration": 2,
+      "data": {
+        "point_code": "12345",
+        "global_title": "1234567890",
+        "hlr_address": "hlr.example.com",
+        "license_type": "test"
+      }
+    },
+    {
+      "category": "Security Safeguards",
+      "name": "User authorization check",
+      "success": true,
+      "duration": 0,
+      "data": {
+        "user": "admin",
+        "authorized": true
+      }
+    },
+    {
+      "category": "Security Safeguards",
+      "name": "Rate limiting",
+      "success": true,
+      "duration": 0,
+      "data": {
+        "withinLimits": true,
+        "currentUsage": {
+          "queries_per_minute": 5,
+          "queries_per_hour": 50,
+          "queries_per_day": 200
+        },
+        "rateLimits": {
+          "queries_per_minute": 10,
+          "queries_per_hour": 100,
+          "queries_per_day": 1000
+        }
+      }
+    },
+    {
+      "category": "Security Safeguards",
+      "name": "Legal compliance",
+      "success": true,
+      "duration": 0,
+      "data": {
+        "compliant": true,
+        "phoneNumber": "+15551234567",
+        "licenseType": "test"
+      }
+    },
+    {
+      "category": "Security Safeguards",
+      "name": "Consent verification",
+      "success": true,
+      "duration": 0,
+      "data": {
+        "hasConsent": true,
+        "consentRecord": {
+          "phone_number": "+1234567890",
+          "user_id": "test_user",
+          "consent_given": true,
+          "consent_date": "2025-09-10T09:12:32.915Z",
+          "consent_method": "sms"
+        }
+      }
+    },
+    {
+      "category": "Security Safeguards",
+      "name": "Abuse detection",
+      "success": true,
+      "duration": 0,
+      "data": {
+        "isAbuse": false,
+        "abuseCounters": {
+          "user_queries": 5,
+          "phone_queries": 2,
+          "last_seen": 1757495552916
+        }
+      }
+    },
+    {
+      "category": "Security Safeguards",
+      "name": "Phone number validation",
+      "success": true,
+      "duration": 0,
+      "data": [
+        {
+          "number": "+1234567890",
+          "isValid": true
+        },
+        {
+          "number": "+15551234567",
+          "isValid": true
+        },
+        {
+          "number": "1234567890",
+          "isValid": false
+        },
+        {
+          "number": "+123",
+          "isValid": true
+        },
+        {
+          "number": "+12345678901234567890",
+          "isValid": false
+        }
+      ]
+    },
+    {
+      "category": "Cross-Platform",
+      "name": "OpenSS7 availability check",
+      "success": true,
+      "duration": 59,
+      "data": {
+        "available": false,
+        "platform": "win32"
+      }
+    },
+    {
+      "category": "Cross-Platform",
+      "name": "Platform-specific SS7 tools",
+      "success": true,
+      "duration": 0,
+      "data": {
+        "platform": "win32",
+        "tools": [
+          "osmo-msc.exe",
+          "osmo-hlr.exe"
+        ]
+      }
+    },
+    {
+      "category": "Cross-Platform",
+      "name": "Python script execution",
+      "success": true,
+      "duration": 108,
+      "data": {
+        "code": 0,
+        "output": "Python execution test\r\n"
+      }
+    },
+    {
+      "category": "Cross-Platform",
+      "name": "TypeScript compilation",
+      "success": false,
+      "duration": 0,
+      "data": [
+        {
+          "file": "src/tools/wireless/cellular_triangulate.ts",
+          "exists": false
+        },
+        {
+          "file": "src/config/ss7-config.ts",
+          "exists": false
+        },
+        {
+          "file": "src/tools/wireless/ss7-security.ts",
+          "exists": false
+        }
+      ]
+    },
+    {
+      "category": "NLP Integration",
+      "name": "Parse: \"Ping +1234567890 for location via SS7\"",
+      "success": true,
+      "duration": 0,
+      "data": {
+        "command": "Ping +1234567890 for location via SS7",
+        "parsed": {
+          "phone_number": "+1234567890",
+          "mode": "ss7"
+        }
+      }
+    },
+    {
+      "category": "NLP Integration",
+      "name": "Parse: \"Find location using SS7 network query\"",
+      "success": true,
+      "duration": 0,
+      "data": {
+        "command": "Find location using SS7 network query",
+        "parsed": {
+          "mode": "ss7"
+        }
+      }
+    },
+    {
+      "category": "NLP Integration",
+      "name": "Parse: \"Query +15551234567 with point code 12345\"",
+      "success": true,
+      "duration": 0,
+      "data": {
+        "command": "Query +15551234567 with point code 12345",
+        "parsed": {
+          "phone_number": "+15551234567",
+          "mode": "rssi"
+        }
+      }
+    },
+    {
+      "category": "NLP Integration",
+      "name": "Parse: \"Get location via direct network access\"",
+      "success": true,
+      "duration": 0,
+      "data": {
+        "command": "Get location via direct network access",
+        "parsed": {
+          "mode": "ss7"
+        }
+      }
+    },
+    {
+      "category": "NLP Integration",
+      "name": "Parse: \"SS7 triangulation for +1234567890\"",
+      "success": true,
+      "duration": 0,
+      "data": {
+        "command": "SS7 triangulation for +1234567890",
+        "parsed": {
+          "phone_number": "+1234567890",
+          "mode": "ss7"
+        }
+      }
+    },
+    {
+      "category": "API Integration",
+      "name": "Cellular triangulate tool registration",
+      "success": false,
+      "duration": 0,
+      "data": {
+        "registered": false
+      }
+    },
+    {
+      "category": "API Integration",
+      "name": "SS7 parameter passing",
+      "success": true,
+      "duration": 1,
+      "data": {
+        "ss7_pc": "12345",
+        "ss7_gt": "1234567890",
+        "ss7_hlr": "hlr.example.com"
+      }
+    },
+    {
+      "category": "API Integration",
+      "name": "Error response handling",
+      "success": true,
+      "duration": 0,
+      "data": [
+        {
+          "scenario": "SS7 stack not available",
+          "handled": true
+        },
+        {
+          "scenario": "Invalid credentials",
+          "handled": true
+        },
+        {
+          "scenario": "Network timeout",
+          "handled": true
+        }
+      ]
+    },
+    {
+      "category": "Error Handling",
+      "name": "Invalid SS7 credentials",
+      "success": true,
+      "duration": 0,
+      "data": {
+        "invalidCredentials": {
+          "point_code": "invalid",
+          "global_title": "invalid",
+          "hlr_address": "invalid"
+        },
+        "validationFailed": true
+      }
+    },
+    {
+      "category": "Error Handling",
+      "name": "Network connectivity issues",
+      "success": true,
+      "duration": 0,
+      "data": {
+        "networkIssues": [
+          "Connection timeout",
+          "DNS resolution failed",
+          "Network unreachable",
+          "SSL certificate error"
+        ],
+        "handled": true
+      }
+    },
+    {
+      "category": "Error Handling",
+      "name": "Permission denied scenarios",
+      "success": true,
+      "duration": 0,
+      "data": {
+        "permissionScenarios": [
+          "Insufficient privileges for SS7 access",
+          "User not authorized for network operations",
+          "License expired or invalid"
+        ],
+        "handled": true
+      }
+    },
+    {
+      "category": "Error Handling",
+      "name": "Timeout handling",
+      "success": true,
+      "duration": 0,
+      "data": {
+        "timeoutScenarios": [
+          {
+            "operation": "SS7 query",
+            "timeout": 30000
+          },
+          {
+            "operation": "Network response",
+            "timeout": 10000
+          },
+          {
+            "operation": "Authentication",
+            "timeout": 5000
+          }
+        ],
+        "handled": true
+      }
+    }
+  ],
+  "summary": {
+    "total": 26,
+    "passed": 23,
+    "failed": 3,
+    "skipped": 0
+  }
+}

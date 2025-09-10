@@ -137,19 +137,6 @@ declare module 'zod' {
     ZodLiteral: any;
     ZodEnum: any;
     ZodNativeEnum: any;
-    ZodOptional: any;
-    ZodNullable: any;
-    ZodDefault: any;
-    ZodReadonly: any;
-    ZodBranded: any;
-    ZodPipeline: any;
-    ZodCatch: any;
-    ZodTransform: any;
-    ZodRefine: any;
-    ZodSuperRefine: any;
-    ZodEffects: any;
-    ZodIssueCode: any;
-    ZodParsedType: any;
   };
   export default z;
 }
@@ -166,42 +153,7 @@ declare module 'serialport' {
   }
 }
 
-// Node.js built-in modules
-declare module 'node:path' {
-  export * from 'path';
-}
-
-declare module 'node:os' {
-  export * from 'os';
-}
-
-declare module 'node:fs/promises' {
-  export * from 'fs/promises';
-}
-
-declare module 'node:child_process' {
-  export { spawn, exec } from 'child_process';
-}
-
-declare module 'node:util' {
-  export { promisify } from 'util';
-}
-
-declare module 'node:fs' {
-  export { createWriteStream, createReadStream } from 'fs';
-}
-
-declare module 'node:stream/promises' {
-  export { pipeline } from 'stream/promises';
-}
-
-declare module 'node:stream' {
-  export { Transform, Readable } from 'stream';
-}
-
-declare module 'node:crypto' {
-  export * from 'crypto';
-}
+// Node.js built-in modules - use skipLibCheck to avoid conflicts
 
 // MCP SDK modules
 declare module '@modelcontextprotocol/sdk/server/mcp' {

@@ -11,9 +11,9 @@ export { registerFlipperZeroTool, getFlipperZeroToolName } from './flipper_zero_
  * Legacy function name for backward compatibility
  * @deprecated Use registerFlipperZeroTool instead
  */
-export function registerFlipperTools(server, deps) {
+export async function registerFlipperTools(server, deps) {
     console.log('[Flipper] Using legacy registerFlipperTools - consider updating to registerFlipperZeroTool');
-    const { registerFlipperZeroTool } = require('./flipper_zero_consolidated.js');
+    const { registerFlipperZeroTool } = await import('./flipper_zero_consolidated.js');
     registerFlipperZeroTool(server);
 }
 /**

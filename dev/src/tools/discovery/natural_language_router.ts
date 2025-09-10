@@ -95,6 +95,22 @@ export function registerNaturalLanguageRouter(server: McpServer) {
             "Decode radio protocols"
           ];
           break;
+        case "wifi_disrupt":
+          recommendedActions = [
+            "Perform deauthentication attacks",
+            "Flood malformed packets",
+            "Occupy airtime to disrupt networks",
+            "Test Wi-Fi interference capabilities"
+          ];
+          break;
+        case "cellular_triangulate":
+          recommendedActions = [
+            "Triangulate location using cell towers",
+            "Scan for nearby cellular towers",
+            "Estimate location with RSSI signals",
+            "Query tower locations via OpenCellID API"
+          ];
+          break;
         case "network_diagnostics":
           recommendedActions = [
             "Test network connectivity",

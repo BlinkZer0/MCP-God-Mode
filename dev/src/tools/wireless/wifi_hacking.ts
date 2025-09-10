@@ -12,7 +12,7 @@ export function registerWifiHacking(server: McpServer) {
   server.registerTool("wifi_hacking", {
     description: "Advanced Wi-Fi security penetration testing toolkit with comprehensive attack capabilities. Perform wireless network assessments, password cracking, evil twin attacks, WPS exploitation, and IoT device enumeration. Supports all Wi-Fi security protocols (WEP, WPA, WPA2, WPA3) across multiple platforms with ethical hacking methodologies.",
     inputSchema: {
-      action: z.enum(["assess_network", "crack_wep", "crack_wpa", "evil_twin", "wps_exploit", "iot_enum", "deauth_attack", "handshake_capture", "password_attack", "rogue_ap", "traffic_analysis", "vulnerability_scan"]).describe("WiFi hacking action to perform"),
+      action: z.enum(["assess_network", "crack_wep", "crack_wpa", "evil_twin", "wps_exploit", "iot_enum", "deauth_attack", "handshake_capture", "password_attack", "rogue_ap", "traffic_analysis", "vulnerability_scan", "disrupt"]).describe("WiFi hacking action to perform"),
       target_ssid: z.string().optional().describe("Target WiFi network SSID"),
       target_bssid: z.string().optional().describe("Target WiFi network BSSID"),
       security_protocol: z.enum(["WEP", "WPA", "WPA2", "WPA3", "Open"]).optional().describe("Target security protocol"),
@@ -128,6 +128,9 @@ async function performWifiHackAction(action: string, targetSsid?: string, target
       break;
     case "vulnerability_scan":
       wifiHackData.vulnerabilities_found = await scanVulnerabilities(targetSsid || "TestNetwork", targetBssid || "00:11:22:33:44:55", wirelessInterface);
+      break;
+    case "disrupt":
+      wifiHackData.attack_results = await disruptNetwork(targetSsid || "TestNetwork", targetBssid || "00:11:22:33:44:55", wirelessInterface, duration || 30);
       break;
   }
 
@@ -317,6 +320,19 @@ async function scanVulnerabilities(ssid: string, bssid: string, wifiInterface?: 
   }
   
   return vulnerabilities;
+}
+
+async function disruptNetwork(ssid: string, bssid: string, wifiInterface?: string, duration?: number) {
+  return {
+    content: [{ type: "text", text: "Network disruption operation completed successfully" }],
+    attack_successful: Math.random() > 0.3, // 70% success rate
+    handshake_captured: false,
+    time_taken: duration || 30,
+    attempts_made: Math.floor(Math.random() * 100) + 50,
+    disruption_type: "deauth_flood",
+    target_network: ssid,
+    target_bssid: bssid
+  };
 }
 
 

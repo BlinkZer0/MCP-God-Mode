@@ -1,4 +1,4 @@
-import { readFileSync, writeFileSync, existsSync } from 'node:fs';
+import { readFileSync, writeFileSync, existsSync, mkdirSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 
 // Use process.cwd() instead of import.meta.url for better compatibility
@@ -90,8 +90,7 @@ export class ElevatedPermissionsManager {
       const configDir = dirname(CONFIG_FILE);
       if (!existsSync(configDir)) {
         // Create config directory if it doesn't exist
-        const fs = require('node:fs');
-        fs.mkdirSync(configDir, { recursive: true });
+        mkdirSync(configDir, { recursive: true });
       }
       writeFileSync(CONFIG_FILE, JSON.stringify(config, null, 2), 'utf8');
     } catch (error) {

@@ -1,185 +1,217 @@
-api_security_testing.ts
-badusb.ts
-ble.ts
-bleMgmt.ts
-blockchain_security.ts
-bluetooth_device_manager_fixed.ts
-bluetooth_device_manager.ts
-bluetooth_device_manager.ts.backup
-bluetooth_hacking.ts
-bluetooth_security_toolkit.ts
-bridge-server.ts
-bridge.ts
-browser_control.ts
-calculator.ts
-captcha_defeating.ts
-chart_generator.ts
-cloud_infrastructure_manager.ts
-cloud_security_assessment.ts
-cloud_security_toolkit.ts
-cloud_security.ts
-compliance_assessment.ts
-cron_job_manager.ts
-data_analysis.ts
-data_analyzer.ts
-database_security_toolkit.ts
-delete_emails.ts
-dice_rolling.ts
-docker_management.ts
-download_file.ts
-download_file.ts
-drone_defense_enhanced.cpython-313.pyc
-drone_defense_enhanced.py
-drone_defense.py
-drone_offense_enhanced.py
-drone_offense.py
-drone_response_workflow.py
-droneDefense.ts
-droneDefenseEnhanced.ts
-droneMobileOptimized.ts
-droneNaturalLanguageInterface.ts
-droneOffense.ts
-droneOffenseEnhanced.ts
-elevated_permissions_manager.ts
-email_security_suite.ts
-email_utils.ts
-encryption_tool.ts
-exploit_framework.ts
-explore_categories.ts
-file_ops.ts
-file_watcher.ts
-flipper_zero_consolidated.ts
-forensics_analysis.ts
-forensics_toolkit.ts
-form_completion.ts
-fs_list.ts
-fs_read_text.ts
-fs_search.ts
-fs_write_text.ts
-fs.ts
-git_status.ts
-gpio.ts
-hack_network.ts
-health.ts
-image_editing.ts
-index.ts
-index.ts
-index.ts
-index.ts
-index.ts
-index.ts
-index.ts
-index.ts
-index.ts
-index.ts
-index.ts
-index.ts
-index.ts
-index.ts
-index.ts
-index.ts
-index.ts
-index.ts
-index.ts
-index.ts
-index.ts
-index.ts
-index.ts
-index.ts
-index.ts
-index.ts
-index.ts
-info.ts
-iot_security.ts
-ip_geolocation.ts
-ir.ts
-latency_geolocation.ts
-legal_compliance_manager.ts
-machine_learning.ts
-malware_analysis_toolkit.ts
-malware_analysis.ts
-manage_email_accounts.ts
-math_calculate.ts
-metadata_extractor.ts
-mobile_app_analytics_toolkit.ts
-mobile_app_deployment_toolkit.ts
-mobile_app_monitoring_toolkit.ts
-mobile_app_optimization_toolkit.ts
-mobile_app_performance_toolkit.ts
-mobile_app_security_toolkit.ts
-mobile_app_testing_toolkit.ts
-mobile_device_info.ts
-mobile_device_management.ts
-mobile_file_ops.ts
-mobile_hardware.ts
-mobile_network_analyzer.ts
-mobile_system_tools.ts
-natural_language_router.ts
-network_diagnostics.ts
-network_discovery.ts
-network_penetration.ts
-network_penetration.ts
-network_security.ts
-network_traffic_analyzer.ts
-network_triangulation.ts
-network_utilities.ts
-nfc.ts
-ocr_tool.ts
-osint_reconnaissance.ts
-packet_sniffer.ts
-packet_sniffer.ts
-parse_email.ts
-password_cracker.ts
-password_generator.ts
-penetration_testing_toolkit.ts
-port_scanner.ts
-port_scanner.ts
-proc_run_elevated.ts
-proc_run.ts
-quantum_security.ts
-radio_security.ts
-rag_toolkit.ts
-read_emails.ts
-red_team_toolkit.ts
-rfid.ts
-rpcClient.ts
-sdr_security_toolkit.ts
-security_testing.ts
-security_testing.ts
-send_email.ts
-session.ts
-siem_toolkit.ts
-signal_analysis.ts
-social_account_ripper_modular.ts
-social_account_ripper.ts
-social_engineering_toolkit.ts
-social_engineering.ts
-social_network_ripper.ts
-social_network_ripper.ts
-sort_emails.ts
-subghz.ts
-system_info.ts
-system_monitor.ts
-system_restore.ts
-text_processor.ts
-threat_intelligence.ts
-tool_discovery.ts
-traffic_analysis.ts
-types.ts
-uart.ts
-universal_browser_operator.ts
-usbSerial.ts
-video_editing.ts
-vm_management.ts
-vulnerability_assessment.ts
-vulnerability_scanner.ts
-web_automation.ts
-web_scraper.ts
-web_search.ts
-webhook_manager.ts
-wifi_hacking.ts
-wifi_security_toolkit.ts
-win_processes.ts
-win_services.ts
-wireless_network_scanner.ts
-wireless_security.ts
+dev/src\server-modular.ts:165:server.registerTool("enhanced_legal_compliance", {
+dev/src\server-modular.ts:187:server.registerTool("advanced_security_assessment", {
+dev/src\server-modular.ts:209:server.registerTool("cross_platform_system_manager", {
+dev/src\server-modular.ts:231:server.registerTool("enterprise_integration_hub", {
+dev/src\server-modular.ts:253:server.registerTool("advanced_analytics_engine", {
+dev/src\server-modular.ts:280:server.registerTool("web_ui_chat", {
+dev/src\server-modular.ts:304:server.registerTool("providers_list", {
+dev/src\server-modular.ts:332:server.registerTool("provider_wizard", {
+dev/src\server-modular.ts:354:server.registerTool("macro_record", {
+dev/src\server-modular.ts:381:server.registerTool("macro_run", {
+dev/src\server-modular.ts:402:server.registerTool("session_management", {
+dev/src\server-modular.ts:452:server.registerTool("advanced_threat_hunting", {
+dev/src\server-modular.ts:465:server.registerTool("cyber_deception_platform", {
+dev/src\server-modular.ts:478:server.registerTool("zero_trust_architect", {
+dev/src\server-modular.ts:491:server.registerTool("quantum_cryptography_suite", {
+dev/src\server-modular.ts:504:server.registerTool("ai_security_orchestrator", {
+dev/src\server-modular.ts:518:server.registerTool("blockchain_forensics", {
+dev/src\server-modular.ts:531:server.registerTool("supply_chain_security", {
+dev/src\server-modular.ts:544:server.registerTool("privacy_engineering", {
+dev/src\server-modular.ts:557:server.registerTool("incident_commander", {
+dev/src\server-modular.ts:570:server.registerTool("security_metrics_dashboard", {
+dev/src\server-minimal.ts:44:server.registerTool("health", {
+dev/src\server-minimal.ts:52:server.registerTool("system_info", {
+dev/src\server-minimal.ts:93:server.registerTool("fs_list", {
+dev/src\server-minimal.ts:109:server.registerTool("fs_read_text", {
+dev/src\server-minimal.ts:120:server.registerTool("fs_write_text", {
+dev/src\server-minimal.ts:133:server.registerTool("fs_search", {
+dev/src\server-minimal.ts:176:server.registerTool("proc_run", {
+dev/src\server-minimal.ts:230:server.registerTool("git_status", {
+dev/src\server-minimal.ts:272:server.registerTool("calculator", {
+dev/src\server-minimal.ts:317:server.registerTool("dice_rolling", {
+dev/src\server-minimal.ts:408:server.registerTool("download_file", {
+dev/src\server-minimal.ts:468:server.registerTool("mobile_file_ops", {
+dev/src\server-minimal.ts:555:server.registerTool("mobile_system_tools", {
+dev/src\server-minimal.ts:648:server.registerTool("mobile_hardware", {
+dev/src\server-minimal.ts:731:server.registerTool("web_scraper", {
+dev/src\server-minimal.ts:812:server.registerTool("browser_control", {
+dev/src\server-minimal.ts:1035:server.registerTool("system_restore", {
+dev/src\server-minimal.ts:1261:server.registerTool("send_email", {
+dev/src\server-minimal.ts:1342:server.registerTool("parse_email", {
+dev/src\server-minimal.ts:1450:server.registerTool("video_editing", {
+dev/src\server-minimal.ts:1524:server.registerTool("ocr_tool", {
+dev/src\docs\implementation\EMAIL_IMPLEMENTATION_SUMMARY.md:46:server.registerTool("tool_name", {
+dev/src\docs\implementation\MODULAR_REFACTORING_SUMMARY.md:106:  server.registerTool("tool_name", {
+dev/src\docs\implementation\tools-README.md:106:  server.registerTool("my_tool", {
+dev/src\server-refactored.ts:218:server.registerTool("enhanced_legal_compliance", {
+dev/src\server-refactored.ts:240:server.registerTool("advanced_security_assessment", {
+dev/src\server-refactored.ts:262:server.registerTool("cross_platform_system_manager", {
+dev/src\server-refactored.ts:284:server.registerTool("enterprise_integration_hub", {
+dev/src\server-refactored.ts:306:server.registerTool("advanced_analytics_engine", {
+dev/src\server-refactored.ts:333:server.registerTool("web_ui_chat", {
+dev/src\server-refactored.ts:357:server.registerTool("providers_list", {
+dev/src\server-refactored.ts:385:server.registerTool("provider_wizard", {
+dev/src\server-refactored.ts:407:server.registerTool("macro_record", {
+dev/src\server-refactored.ts:434:server.registerTool("macro_run", {
+dev/src\server-refactored.ts:455:server.registerTool("session_management", {
+dev/src\server-refactored.ts:492:server.registerTool("advanced_threat_hunting", {
+dev/src\server-refactored.ts:505:server.registerTool("cyber_deception_platform", {
+dev/src\server-refactored.ts:518:server.registerTool("zero_trust_architect", {
+dev/src\server-refactored.ts:531:server.registerTool("quantum_cryptography_suite", {
+dev/src\server-refactored.ts:544:server.registerTool("ai_security_orchestrator", {
+dev/src\server-refactored.ts:558:server.registerTool("blockchain_forensics", {
+dev/src\server-refactored.ts:571:server.registerTool("supply_chain_security", {
+dev/src\server-refactored.ts:584:server.registerTool("privacy_engineering", {
+dev/src\server-refactored.ts:597:server.registerTool("incident_commander", {
+dev/src\server-refactored.ts:610:server.registerTool("security_metrics_dashboard", {
+dev/src\server-refactored.ts:630:server.registerTool("drone_defense", {
+dev/src\server-refactored.ts:790:server.registerTool("drone_offense", {
+dev/src\tools\droneMobileOptimized.ts:331:  server.registerTool("drone_mobile_optimized", {
+dev/src\docs\summaries\DICE_TOOL_IMPLEMENTATION_SUMMARY.md:53:server.registerTool("dice_rolling", {
+dev/src\tools\droneOffense.ts:392:  server.registerTool("drone_offense", {
+dev/src\tools\droneDefenseEnhanced.ts:427:  server.registerTool("drone_defense_enhanced", {
+dev/src\tools\droneOffenseEnhanced.ts:458:  server.registerTool("drone_offense_enhanced", {
+dev/src\tools\droneNaturalLanguageInterface.ts:424:  server.registerTool("drone_natural_language", {
+dev/src\tools\droneDefense.ts:369:  server.registerTool("drone_defense", {
+dev/src\tools\discovery\tool_discovery.ts:6:  server.registerTool("tool_discovery", {
+dev/src\tools\ai\ai_adversarial_prompt.ts:25:  server.registerTool("ai_adversarial_prompt", {
+dev/src\tools\ai\ai_adversarial_prompt.ts:70:  server.registerTool("ai_adversarial_nlp", {
+dev/src\tools\ai\ai_adversarial_prompt.ts:107:  server.registerTool("ai_adversarial_platform_info", {
+dev/src\tools\ai\ai_adversarial_prompt.ts:146:  server.registerTool("ai_adversarial_ethics", {
+dev/src\tools\discovery\natural_language_router.ts:6:  server.registerTool("natural_language_router", {
+dev/src\tools\file_system\file_ops.ts:6:  server.registerTool("file_ops", {
+dev/src\tools\file_system\file_watcher.ts:18:  server.registerTool("file_watcher", {
+dev/src\tools\file_system\fs_list.ts:8:  server.registerTool("fs_list", {
+dev/src\tools\file_system\fs_read_text.ts:8:  server.registerTool("fs_read_text", {
+dev/src\tools\file_system\fs_search.ts:8:  server.registerTool("fs_search", {
+dev/src\tools\email\delete_emails.ts:6:  server.registerTool("delete_emails", {
+dev/src\tools\file_system\fs_write_text.ts:8:  server.registerTool("fs_write_text", {
+dev/src\tools\ai\rag_toolkit.ts:259:  server.registerTool("rag_toolkit", {
+dev/src\tools\core\system_info.ts:5:  server.registerTool("system_info", {
+dev/src\tools\email\manage_email_accounts.ts:6:  server.registerTool("manage_email_accounts", {
+dev/src\tools\cloud\cloud_security_toolkit.ts:6:  server.registerTool("cloud_security_toolkit", {
+dev/src\tools\discovery\explore_categories.ts:5:  server.registerTool("explore_categories", {
+dev/src\tools\email\read_emails.ts:6:  server.registerTool("read_emails", {
+dev/src\tools\email\sort_emails.ts:6:  server.registerTool("sort_emails", {
+dev/src\tools\core\health.ts:5:  server.registerTool("health", {
+dev/src\tools\cloud\cloud_security.ts:6:  server.registerTool("cloud_security", {
+dev/src\tools\email\parse_email.ts:6:  server.registerTool("parse_email", {
+dev/src\tools\email\send_email.ts:6:  server.registerTool("send_email", {
+dev/src\tools\social\social_network_ripper.ts:6:  server.registerTool("social_network_ripper", {
+dev/src\tools\cloud\cloud_infrastructure_manager.ts:6:  server.registerTool("cloud_infrastructure_manager", {
+dev/src\tools\git\git_status.ts:6:  server.registerTool("git_status", {
+dev/src\tools\image_editing\index.ts:9:  server.registerTool("image_editing", {
+dev/src\tools\radio\signal_analysis.ts:13:  server.registerTool("signal_analysis", {
+dev/src\tools\media\image_editing.ts:9:  server.registerTool("image_editing", {
+dev/src\tools\media\video_editing.ts:9:  server.registerTool("video_editing", {
+dev/src\tools\radio\sdr_security_toolkit.ts:12:  server.registerTool("sdr_security_toolkit", {
+dev/src\tools\virtualization\docker_management.ts:6:  server.registerTool("docker_management", {
+dev/src\tools\system\system_restore.ts:6:  server.registerTool("system_restore", {
+dev/src\tools\media\ocr_tool.ts:9:  server.registerTool("ocr_tool", {
+dev/src\tools\forensics\malware_analysis_toolkit.ts:6:  server.registerTool("malware_analysis_toolkit", {
+dev/src\tools\virtualization\vm_management.ts:6:  server.registerTool("vm_management", {
+dev/src\tools\network\vulnerability_assessment.ts:6:  server.registerTool("vulnerability_assessment", {
+dev/src\tools\radio\radio_security.ts:12:  server.registerTool("radio_security", {
+dev/src\tools\legal\legal_compliance_manager.ts:7:  server.registerTool("legal_compliance_manager", {
+dev/src\tools\system\system_monitor.ts:16:  server.registerTool("system_monitor", {
+dev/src\tools\wireless\wireless_security.ts:6:  server.registerTool("wireless_security", {
+dev/src\tools\network\network_traffic_analyzer.ts:18:  server.registerTool("network_traffic_analyzer", {
+dev/src\tools\forensics\forensics_toolkit.ts:6:  server.registerTool("forensics_toolkit", {
+dev/src\tools\network\traffic_analysis.ts:6:  server.registerTool("traffic_analysis", {
+dev/src\tools\bluetooth\bluetooth_security_toolkit.ts:6:  server.registerTool("bluetooth_security_toolkit", {
+dev/src\tools\network\ip_geolocation.ts:6:  server.registerTool("ip_geolocation", {
+dev/src\tools\wireless\wireless_network_scanner.ts:6:  server.registerTool("wireless_network_scanner", {
+dev/src\tools\network\network_penetration.ts:6:  server.registerTool("network_penetration", {
+dev/src\tools\system\elevated_permissions_manager.ts:10:  server.registerTool("elevated_permissions_manager", {
+dev/src\tools\forensics\forensics_analysis.ts:6:  server.registerTool("forensics_analysis", {
+dev/src\tools\network\social_account_ripper_modular.ts:180:  server.registerTool("social_account_ripper_modular", {
+dev/src\tools\bluetooth\bluetooth_hacking.ts:12:  server.registerTool("bluetooth_hacking", {
+dev/src\tools\security\vulnerability_scanner.ts:6:  server.registerTool("vulnerability_scanner", {
+dev/src\tools\process\proc_run_elevated.ts:6:  server.registerTool("proc_run_elevated", {
+dev/src\tools\network\download_file.ts:10:  server.registerTool("download_file", {
+dev/src\tools\network\network_discovery.ts:6:  server.registerTool("network_discovery", {
+dev/src\tools\wireless\wifi_security_toolkit.ts:12:  server.registerTool("wifi_security_toolkit", {
+dev/src\tools\network\social_account_ripper.ts:6:  server.registerTool("social_account_ripper", {
+dev/src\tools\system\cron_job_manager.ts:18:  server.registerTool("cron_job_manager", {
+dev/src\tools\bluetooth\bluetooth_device_manager_fixed.ts:6:  server.registerTool("bluetooth_device_manager", {
+dev/src\tools\network\network_diagnostics.ts:11:  server.registerTool("network_diagnostics", {
+dev/src\tools\process\proc_run.ts:6:  server.registerTool("proc_run", {
+dev/src\tools\security\threat_intelligence.ts:6:  server.registerTool("threat_intelligence", {
+dev/src\tools\network\latency_geolocation.ts:6:  server.registerTool("latency_geolocation", {
+dev/src\tools\wireless\cellular_triangulate.ts:71:  server.registerTool("cellular_triangulate", {
+dev/src\tools\network\port_scanner.ts:6:  server.registerTool("port_scanner", {
+dev/src\tools\wireless\wifi_hacking.ts:12:  server.registerTool("wifi_hacking", {
+dev/src\tools\utilities\data_analysis.ts:6:  server.registerTool("data_analysis", {
+dev/src\tools\network\network_utilities.ts:6:  server.registerTool("network_utilities", {
+dev/src\tools\network\network_triangulation.ts:6:  server.registerTool("network_triangulation", {
+dev/src\tools\bluetooth\bluetooth_device_manager.ts:15:  server.registerTool("bluetooth_device_manager", {
+dev/src\tools\network\packet_sniffer.ts:6:  server.registerTool("packet_sniffer", {
+dev/src\tools\security\social_network_ripper.ts:6:  server.registerTool("social_network_ripper", {
+dev/src\tools\wireless\wifi_disrupt.ts:94:  server.registerTool("wifi_disrupt", {
+dev/src\tools\network\osint_reconnaissance.ts:6:  server.registerTool("osint_reconnaissance", {
+dev/src\tools\security\iot_security.ts:6:  server.registerTool("iot_security", {
+dev/src\tools\utilities\text_processor.ts:6:  server.registerTool("text_processor", {
+dev/src\tools\security\password_cracker.ts:57:  server.registerTool("password_cracker", {
+dev/src\tools\mobile\mobile_system_tools.ts:6:  server.registerTool("mobile_system_tools", {
+dev/src\tools\utilities\chart_generator.ts:6:  server.registerTool("chart_generator", {
+dev/src\tools\security\social_engineering.ts:6:  server.registerTool("social_engineering", {
+dev/src\tools\windows\win_services.ts:6:  server.registerTool("win_services", {
+dev/src\tools\audio_editing\index.ts:13:  server.registerTool("audio_editing", {
+dev/src\tools\security\metadata_extractor.ts:6:  server.registerTool("metadata_extractor", {
+dev/src\tools\security\packet_sniffer.ts:39:  server.registerTool("packet_sniffer", {
+dev/src\tools\mobile\mobile_security_toolkit.ts:44:  server.registerTool("mobile_security_toolkit", {
+dev/src\tools\security\exploit_framework.ts:101:  server.registerTool("exploit_framework", {
+dev/src\tools\utilities\password_generator.ts:6:  server.registerTool("password_generator", {
+dev/src\tools\security\siem_toolkit.ts:6:  server.registerTool("siem_toolkit", {
+dev/src\tools\windows\win_processes.ts:6:  server.registerTool("win_processes", {
+dev/src\tools\security\malware_analysis.ts:6:  server.registerTool("malware_analysis", {
+dev/src\tools\security\network_security.ts:6:  server.registerTool("network_security", {
+dev/src\tools\mobile\mobile_network_analyzer.ts:6:  server.registerTool("mobile_network_analyzer", {
+dev/src\tools\utilities\calculator.ts:6:  server.registerTool("calculator", {
+dev/src\tools\flipper\flipper_zero_consolidated.ts:46:  server.registerTool("flipper_zero", {
+dev/src\tools\security\email_security_suite.ts:6:  server.registerTool("email_security_suite", {
+dev/src\tools\utilities\math_calculate.ts:7:  server.registerTool("math_calculate", {
+dev/src\tools\security\security_testing.ts:6:  server.registerTool("security_testing", {
+dev/src\tools\penetration\hack_network.ts:6:  server.registerTool("hack_network", {
+dev/src\tools\security\port_scanner.ts:37:  server.registerTool("port_scanner", {
+dev/src\tools\mobile\mobile_hardware.ts:6:  server.registerTool("mobile_hardware", {
+dev/src\tools\utilities\download_file.ts:6:  server.registerTool("download_file", {
+dev/src\tools\security\quantum_security.ts:6:  server.registerTool("quantum_security", {
+dev/src\tools\utilities\data_analyzer.ts:6:  server.registerTool("data_analyzer", {
+dev/src\tools\security\database_security_toolkit.ts:6:  server.registerTool("database_security_toolkit", {
+dev/src\tools\mobile\mobile_app_performance_toolkit.ts:6:  server.registerTool("mobile_app_performance_toolkit", {
+dev/src\tools\utilities\machine_learning.ts:6:  server.registerTool("machine_learning", {
+dev/src\tools\utilities\dice_rolling.ts:6:  server.registerTool("dice_rolling", {
+dev/src\tools\mobile\mobile_app_deployment_toolkit.ts:22:  server.registerTool("mobile_app_deployment_toolkit", {
+dev/src\tools\mobile\mobile_file_ops.ts:6:  server.registerTool("mobile_file_ops", {
+dev/src\tools\mobile\mobile_app_testing_toolkit.ts:6:  server.registerTool("mobile_app_testing_toolkit", {
+dev/src\tools\web\universal_browser_operator.ts:34:  server.registerTool("universal_browser_operator", {
+dev/src\tools\web\web_search.ts:175:  server.registerTool("web_search", {
+dev/src\tools\web\web_search.ts:247:  server.registerTool("multi_engine_search", {
+dev/src\tools\web\web_search.ts:316:  server.registerTool("search_analysis", {
+dev/src\tools\web\web_automation.ts:20:  server.registerTool("web_automation", {
+dev/src\tools\security\compliance_assessment.ts:6:  server.registerTool("compliance_assessment", {
+dev/src\tools\utilities\encryption_tool.ts:7:  server.registerTool("encryption_tool", {
+dev/src\tools\mobile\mobile_app_optimization_toolkit.ts:17:  server.registerTool("mobile_app_optimization_toolkit", {
+dev/src\tools\penetration\network_penetration.ts:6:  server.registerTool("network_penetration", {
+dev/src\tools\web\web_scraper.ts:6:  server.registerTool("web_scraper", {
+dev/src\tools\mobile\mobile_device_management.ts:6:  server.registerTool("mobile_device_management", {
+dev/src\tools\mobile\mobile_app_analytics_toolkit.ts:6:  server.registerTool("mobile_app_analytics_toolkit", {
+dev/src\tools\mobile\mobile_app_security_toolkit.ts:17:  server.registerTool("mobile_app_security_toolkit", {
+dev/src\tools\penetration\social_engineering_toolkit.ts:6:  server.registerTool("social_engineering_toolkit", {
+dev/src\tools\web\form_completion.ts:136:  server.registerTool("form_detection", {
+dev/src\tools\web\form_completion.ts:194:  server.registerTool("form_completion", {
+dev/src\tools\web\form_completion.ts:254:  server.registerTool("form_validation", {
+dev/src\tools\web\form_completion.ts:317:  server.registerTool("form_pattern_recognition", {
+dev/src\tools\web\webhook_manager.ts:42:  server.registerTool("webhook_manager", {
+dev/src\tools\mobile\mobile_device_info.ts:6:  server.registerTool("mobile_device_info", {
+dev/src\tools\mobile\mobile_app_monitoring_toolkit.ts:6:  server.registerTool("mobile_app_monitoring_toolkit", {
+dev/src\tools\security\api_security_testing.ts:6:  server.registerTool("api_security_testing", {
+dev/src\tools\penetration\red_team_toolkit.ts:6:  server.registerTool("red_team_toolkit", {
+dev/src\tools\security\cloud_security_assessment.ts:6:  server.registerTool("cloud_security_assessment", {
+dev/src\tools\security\blockchain_security.ts:6:  server.registerTool("blockchain_security", {
+dev/src\tools\web\browser_control.ts:6:  server.registerTool("browser_control", {
+dev/src\tools\web\captcha_defeating.ts:14:  server.registerTool("captcha_defeating", {
+dev/src\tools\penetration\security_testing.ts:12:  server.registerTool("security_testing", {
+dev/src\tools\penetration\penetration_testing_toolkit.ts:6:  server.registerTool("penetration_testing_toolkit", {
+dev/src\tools\screenshot\index.ts:8:  server.registerTool("screenshot", {

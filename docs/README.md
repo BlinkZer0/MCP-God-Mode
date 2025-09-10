@@ -22,7 +22,8 @@ Welcome to the comprehensive documentation for MCP God Mode - the ultimate cross
 - **[Examples & Tutorials](./guides/EXAMPLES_AND_TUTORIALS.md)** - Real-world usage examples
 
 ### 🛠️ Tool Documentation
-- **[Complete Tool Catalog](./general/TOOL_CATALOG.md)** - Browse all 152 documented tools
+- **[Complete Tool Catalog](./general/TOOL_CATALOG.md)** - Browse all 159 documented tools
+- **[New Tools Documentation](./tool/NEW_TOOLS_DOCUMENTATION.md)** - WiFi Disrupt & Cellular Triangulate tools
 - **[Tool Category Index](./general/TOOL_CATEGORY_INDEX.md)** - Browse tools by category
 - **[Parameter Reference](./general/COMPLETE_PARAMETER_REFERENCE.md)** - Complete parameter documentation
 - **[Individual Tool Docs](./tool/)** - Detailed documentation for each tool
@@ -76,6 +77,4 @@ Welcome to the comprehensive documentation for MCP God Mode - the ultimate cross
 
 ---
 
-*This documentation is automatically generated and maintained as part of MCP God Mode v1.7c.*
-
-
+*This documentation is automatically generated and maintained as part of MCP God Mode v1.8b. Last edited: 2025-09-10.*

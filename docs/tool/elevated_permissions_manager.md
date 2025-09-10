@@ -13,6 +13,9 @@ The **Elevated Permissions Manager** is a comprehensive security and control sys
 - **Confirmation Prompts**: User confirmation for sensitive operations
 - **Cross-Platform Support**: Works on Windows, Linux, macOS, Android, and iOS
 - **Configuration Persistence**: Settings are saved and restored across sessions
+- **Audit Logging**: Comprehensive audit trail for all permission operations
+- **Configuration Export/Import**: Backup and restore configurations in multiple formats
+- **Platform-Specific Elevation**: Automatic detection of elevation methods per platform
 
 ## Available Actions
 
@@ -35,11 +38,19 @@ The **Elevated Permissions Manager** is a comprehensive security and control sys
 
 ### Security Settings
 - `set_safe_mode` - Enable/disable safe mode (blocks dangerous commands)
-- `set_confirmation_required` - Enable/disable confirmation prompts for elevated operations
+- `set_require_confirmation` - Enable/disable confirmation prompts for sensitive operations
+- `get_security_status` - Get comprehensive security status and configuration summary
 
-### System Information
-- `get_elevation_method` - Get platform-specific elevation method (runas, sudo, etc.)
-- `get_elevation_prompt` - Get user-friendly prompt about elevation requirements
+### Audit and Compliance
+- `get_audit_log` - Retrieve audit log of all permission operations
+- `clear_audit_log` - Clear the audit log (use with caution)
+- `export_config` - Export configuration in JSON, YAML, or CSV format
+- `import_config` - Import configuration from JSON data
+
+### Cross-Platform Support
+- `get_elevation_method` - Get the elevation method for the current platform
+- `get_elevation_prompt` - Get the appropriate elevation prompt for the platform
+- `check_platform_support` - Verify platform support and available features
 
 ## Input Parameters
 

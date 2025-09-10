@@ -18,6 +18,7 @@ import * as math from "mathjs";
 import { ChartJSNodeCanvas } from "chartjs-node-canvas";
 import * as crypto from "node:crypto";
 import { createCanvas } from "canvas";
+import express from "express";
 
 // Import utility modules
 import { PLATFORM, IS_WINDOWS, IS_LINUX, IS_MACOS, IS_ANDROID, IS_IOS, IS_MOBILE, config, PROC_ALLOWLIST, MAX_BYTES, MOBILE_CONFIG, COMMAND_MAPPINGS } from "./config/environment.js";
@@ -35,6 +36,9 @@ import { registerDroneDefenseEnhanced } from "./tools/droneDefenseEnhanced.js";
 import { registerDroneOffenseEnhanced } from "./tools/droneOffenseEnhanced.js";
 import { registerDroneNaturalLanguageInterface } from "./tools/droneNaturalLanguageInterface.js";
 import { registerDroneMobileOptimized } from "./tools/droneMobileOptimized.js";
+
+// Import cellular triangulation API
+import { setupCellularTriangulateAPI } from "./tools/wireless/cellular_triangulate_api.js";
 
 // Import Flipper Zero tools separately to avoid duplicates
 // Flipper Zero tools are imported via the comprehensive index
@@ -171,20 +175,7 @@ if (_origAddTool) {
 // Get all tool registration functions from the comprehensive index
 const toolFunctions = Object.values(allTools);
 
-// Register all tools dynamically
-toolFunctions.forEach((toolFunction: any) => {
-  if (typeof toolFunction === 'function' && toolFunction.name.startsWith('register')) {
-    try {
-      toolFunction(server);
-    } catch (error) {
-      console.warn(`Warning: Failed to register tool ${toolFunction.name}:`, error);
-    }
-  }
-});
-
-console.log(`✅ Successfully registered ${toolFunctions.length} tool functions`);
-
-console.log(`? Tools registered (unique): ${registeredTools.size}`);
+// Tool registration will be done in main() function
 
 // ===========================================
 // ENHANCED CROSS-PLATFORM DRONE TOOLS
@@ -1014,12 +1005,96 @@ console.log(`✅ Successfully registered 21 additional enhanced tools for server
 // No separate registration needed
 
 // ===========================================
+// EXPRESS SERVER INITIALIZATION
+// ===========================================
+
+async function initializeExpressServer() {
+  try {
+    // Only start Express server if not in mobile mode
+    if (IS_MOBILE) {
+      console.log("📱 Mobile mode detected - Express server disabled");
+      return;
+    }
+
+    const app = express();
+    const port = process.env.MCP_WEB_PORT || 3000;
+
+    // Middleware
+    app.use(express.json());
+    app.use(express.urlencoded({ extended: true }));
+
+    // Serve static files from public directory
+    app.use(express.static(path.join(process.cwd(), 'public')));
+
+    // Setup cellular triangulation API endpoints
+    setupCellularTriangulateAPI(app);
+
+    // Root endpoint
+    app.get('/', (req, res) => {
+      res.json({
+        service: 'MCP God Mode - Cellular Triangulation Web Interface',
+        version: '1.0.0',
+        endpoints: [
+          'GET /collect - Location collection webpage',
+          'POST /api/cellular/collect - Receive location data',
+          'GET /api/cellular/status/:token - Check request status',
+          'GET /api/cellular/health - Health check'
+        ]
+      });
+    });
+
+    // Start the server
+    expressServer = app.listen(port, () => {
+      console.log(`🌐 Express server running on http://localhost:${port}`);
+      console.log(`📡 Cellular triangulation web interface: http://localhost:${port}/collect`);
+      console.log(`🔗 API endpoints: http://localhost:${port}/api/cellular/*`);
+    });
+
+    // Handle server errors
+    expressServer.on('error', (error: any) => {
+      if (error.code === 'EADDRINUSE') {
+        console.log(`⚠️ Port ${port} is already in use. Express server not started.`);
+      } else {
+        console.error('Express server error:', error);
+      }
+    });
+
+  } catch (error) {
+    console.error('Failed to initialize Express server:', error);
+    // Don't fail the main server if Express fails
+  }
+}
+
+// ===========================================
 // START THE SERVER
 // ===========================================
 
 async function main() {
   // Initialize legal compliance system first
   await initializeLegalCompliance();
+  
+  // Register all tools from comprehensive index
+  console.log("🔧 Registering tools from comprehensive index...");
+  for (const toolFunction of toolFunctions) {
+    if (typeof toolFunction === 'function' && toolFunction.name.startsWith('register')) {
+      try {
+        // Handle async tool registration functions
+        if (toolFunction.name === 'registerFlipperTools') {
+          await toolFunction(server);
+        } else {
+          toolFunction(server);
+        }
+      } catch (error) {
+        console.warn(`Warning: Failed to register tool ${toolFunction.name}:`, error);
+      }
+    }
+  }
+  
+  console.log(`✅ Successfully registered ${toolFunctions.length} tool functions`);
+  console.log(`? Tools registered (unique): ${registeredTools.size}`);
+  
+  // Initialize Express server for cellular triangulation web interface
+  await initializeExpressServer();
   
   const transport = new StdioServerTransport();
   await server.connect(transport);
