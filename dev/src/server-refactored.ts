@@ -31,6 +31,9 @@ import { legalCompliance, LegalComplianceConfig } from "./utils/legal-compliance
 // Import all tools from the comprehensive index
 import * as allTools from "./tools/index.js";
 
+// Import RAG toolkit specifically
+import { registerRagToolkit } from "./tools/ai/rag_toolkit.js";
+
 // Import enhanced drone tools
 import { registerDroneDefenseEnhanced } from "./tools/droneDefenseEnhanced.js";
 import { registerDroneOffenseEnhanced } from "./tools/droneOffenseEnhanced.js";
@@ -187,6 +190,14 @@ try {
   console.log("✅ Enhanced Drone Defense Tool registered");
 } catch (error) {
   console.warn("Warning: Failed to register Enhanced Drone Defense Tool:", error);
+}
+
+// Register RAG toolkit
+try {
+  registerRagToolkit(server);
+  console.log("✅ RAG Toolkit registered");
+} catch (error) {
+  console.warn("Warning: Failed to register RAG Toolkit:", error);
 }
 
 try {
