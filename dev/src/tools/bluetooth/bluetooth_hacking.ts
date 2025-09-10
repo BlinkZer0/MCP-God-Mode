@@ -171,7 +171,7 @@ async function bypassPairing(targetDevice: string, bluetoothInterface?: string):
 
 async function extractDeviceData(targetDevice: string, bluetoothInterface?: string): Promise<string[]> {
   // Simulate data extraction
-  const extractedData = [];
+  const extractedData: string[] = [];
   
   if (Math.random() > 0.3) {
     extractedData.push("Contacts: 150 entries found");
@@ -246,7 +246,7 @@ async function monitorBluetoothTraffic(bluetoothInterface?: string, duration?: n
 
 async function testBluetoothSecurity(targetDevice: string, bluetoothInterface?: string): Promise<string[]> {
   // Simulate Bluetooth security testing
-  const vulnerabilities = [];
+  const vulnerabilities: string[] = [];
   
   if (Math.random() > 0.6) {
     vulnerabilities.push("Weak pairing mechanism detected");

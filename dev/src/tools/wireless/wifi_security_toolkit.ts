@@ -197,7 +197,7 @@ async function performDeauthAttack(bssid: string, wifiInterface?: string, durati
 
 async function testWpsVulnerability(bssid: string, wifiInterface?: string): Promise<string[]> {
   // Simulate WPS vulnerability testing
-  const vulnerabilities = [];
+  const vulnerabilities: string[] = [];
   
   if (Math.random() > 0.5) {
     vulnerabilities.push("WPS PIN brute force vulnerability detected");
@@ -258,7 +258,7 @@ async function analyzeTraffic(wifiInterface?: string, duration?: number): Promis
 
 async function testWifiSecurity(ssid: string, bssid: string): Promise<string[]> {
   // Simulate WiFi security testing
-  const vulnerabilities = [];
+  const vulnerabilities: string[] = [];
   
   if (Math.random() > 0.6) {
     vulnerabilities.push("Weak encryption detected");

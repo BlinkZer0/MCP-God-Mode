@@ -6,10 +6,10 @@
  * for AI adversarial prompting operations.
  */
 
-import * as fs from 'fs-extra';
-import * as path from 'path';
-import * as crypto from 'crypto';
-import { createHash, createHmac } from 'crypto';
+import * as fs from 'node:fs/promises';
+import * as path from 'node:path';
+import * as crypto from 'node:crypto';
+import { createHash, createHmac } from 'node:crypto';
 
 export interface EthicsConfig {
   enabled: boolean;
@@ -77,8 +77,11 @@ export class AiAdversarialEthics {
 
   private async _initializeEthics(): Promise<void> {
     // Ensure audit log directory exists
-    await fs.ensureDir(path.dirname(this.auditLog));
-    
+    try {
+      await fs.mkdir(path.dirname(this.auditLog), { recursive: true });
+    } catch (error) {
+      // Directory might already exist, ignore error
+    }
     
     // Initialize compliance monitoring
     await this._initializeComplianceMonitoring();
@@ -270,7 +273,9 @@ export class AiAdversarialEthics {
 
   private async _loadAuditEntries(startDate?: string, endDate?: string): Promise<AuditEntry[]> {
     try {
-      if (!await fs.pathExists(this.auditLog)) {
+      try {
+        await fs.access(this.auditLog);
+      } catch (error) {
         return [];
       }
 

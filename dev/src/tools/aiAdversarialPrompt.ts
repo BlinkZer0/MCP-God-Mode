@@ -6,8 +6,8 @@
  */
 
 import * as os from 'os';
-import * as fs from 'fs-extra';
-import * as path from 'path';
+import * as fs from 'node:fs/promises';
+import * as path from 'node:path';
 import axios, { AxiosResponse } from 'axios';
 import { AiAdversarialEthics, EthicsConfig } from './ai/ai_adversarial_ethics.js';
 
@@ -79,8 +79,8 @@ export class AiAdversarialPromptTool {
     private isMobile: boolean;
     private openaiClient: any = null;
     private localGenerator: any = null;
-    private logDir: string;
-    private logFile: string;
+    private logDir!: string;
+    private logFile!: string;
     private mcpAiEndpoint: string;
     private confirmationRequired: boolean;
     private logAllInteractions: boolean;
@@ -101,8 +101,8 @@ export class AiAdversarialPromptTool {
         // Initialize AI clients
         this._initAiClients();
         
-        // Set up logging
-        this._setupLogging();
+        // Set up logging (async, will be called when needed)
+        this._setupLogging().catch(console.error);
         
         // MCP AI endpoint for self-targeting
         this.mcpAiEndpoint = this.config.mcp_ai_endpoint || 'http://localhost:3000/api/mcp-ai';
@@ -163,12 +163,16 @@ export class AiAdversarialPromptTool {
      * Set up interaction logging
      * @private
      */
-    private _setupLogging(): void {
+    private async _setupLogging(): Promise<void> {
         this.logDir = this.config.log_dir || './logs';
         this.logFile = path.join(this.logDir, 'ai_adversarial_interactions.log');
         
         // Ensure log directory exists
-        fs.ensureDirSync(this.logDir);
+        try {
+            await fs.mkdir(this.logDir, { recursive: true });
+        } catch (error) {
+            // Directory might already exist, ignore error
+        }
     }
 
     /**

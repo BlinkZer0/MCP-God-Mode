@@ -164,7 +164,7 @@ async function listSdrDevices() {
 }
 
 async function scanFrequencyRange(centerFreq: number, bandwidth: number) {
-  const spectrumData = [];
+    const spectrumData: any[] = [];
   const startFreq = centerFreq - (bandwidth / 2);
   const endFreq = centerFreq + (bandwidth / 2);
   const step = bandwidth / 100;
@@ -185,7 +185,7 @@ async function captureSignal(frequency: number, duration: number) {
 }
 
 async function decodeProtocol(protocol: string, frequency: number) {
-  const decodedData = [];
+      const decodedData: string[] = [];
 
   switch (protocol) {
     case "ADS-B":

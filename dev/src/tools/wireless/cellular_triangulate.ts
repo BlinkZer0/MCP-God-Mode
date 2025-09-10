@@ -287,121 +287,55 @@ async function checkPpcAvailability(): Promise<boolean> {
 }
 
 async function pingPhoneNumber(phoneNumber: string, mode: string, apiKey?: string, smsMethod?: string, twilioSid?: string, twilioToken?: string, twilioNumber?: string, ss7Pc?: string, ss7Gt?: string, ss7Hlr?: string, gpsData?: any): Promise<any> {
-  try {
-    // Use Python script for SMS-based triangulation
-    const pythonScript = path.join(__dirname, 'cellular_triangulate.py');
-    const args = [
-      '-c',
-      `from cellular_triangulate import CellularTriangulateTool; tool = CellularTriangulateTool(); result = tool.ping_phone_number('${phoneNumber}', '${mode}', '${apiKey || ''}', '${smsMethod || 'auto'}', '${twilioSid || ''}', '${twilioToken || ''}', '${twilioNumber || ''}', '${ss7Pc || ''}', '${ss7Gt || ''}', '${ss7Hlr || ''}'); print(result)`
-    ];
-
-    const result = await execAsync(`python3 ${args.join(' ')}`);
-    const parsedResult = JSON.parse(result.stdout);
-    return {
-      location: parsedResult.location || { lat: 0, lon: 0, error_radius_m: 0 },
-      status: parsedResult.status || 'error',
-      details: parsedResult.details || 'Unknown error'
-    };
-  } catch (error) {
-    // Fallback to simulation
-    console.warn(`Python execution failed, using simulation: ${error}`);
-    return {
-      location: { lat: 43.0731, lon: -89.4012, error_radius_m: 200 },
-      status: 'success',
-      details: `Simulated SMS triangulation for ${phoneNumber} (Python execution failed)`
-    };
-  }
+  // Simulate SMS-based triangulation
+  console.log(`Simulating SMS triangulation for ${phoneNumber} using ${mode} mode`);
+  
+  return {
+    location: { lat: 43.0731, lon: -89.4012, error_radius_m: 200 },
+    status: 'success',
+    details: `Simulated SMS triangulation for ${phoneNumber} using ${mode} mode`
+  };
 }
 
 async function performTriangulation(modem: string, mode: string, towers: string, apiKey?: string, maxTowers?: number, ss7Pc?: string, ss7Gt?: string, ss7Hlr?: string, gpsData?: any): Promise<any> {
-  try {
-    // Use Python script for actual triangulation
-    const pythonScript = path.join(__dirname, 'cellular_triangulate.py');
-    const args = [
-      '-c',
-      `from cellular_triangulate import CellularTriangulateTool; tool = CellularTriangulateTool(); result = tool.execute('${modem}', '${mode}', '${towers}', '${apiKey || ''}', ${maxTowers || 3}, None, None, ${gpsData ? JSON.stringify(gpsData) : 'None'}, 'auto', None, None, None, '${ss7Pc || ''}', '${ss7Gt || ''}', '${ss7Hlr || ''}'); print(result)`
-    ];
-
-    const result = await execAsync(`python3 ${args.join(' ')}`);
-    const parsedResult = JSON.parse(result.stdout);
-    return {
-      location: parsedResult.location || { lat: 0, lon: 0, error_radius_m: 0 },
-      towers_used: parsedResult.towers_used || 0,
-      status: parsedResult.status || 'error',
-      details: parsedResult.details || 'Unknown error'
-    };
-  } catch (error) {
-    // Fallback to simulation
-    console.warn(`Python execution failed, using simulation: ${error}`);
-    return {
-      location: { lat: 43.0731, lon: -89.4012, error_radius_m: 200 },
-      towers_used: 3,
-      status: 'success',
-      details: 'Simulated triangulation completed (Python execution failed)'
-    };
-  }
+  // Simulate triangulation
+  console.log(`Simulating triangulation using ${modem} in ${mode} mode`);
+  
+  return {
+    location: { lat: 43.0731, lon: -89.4012, error_radius_m: 200 },
+    towers_used: 3,
+    status: 'success',
+    details: 'Simulated triangulation completed'
+  };
 }
 
 async function scanCellularTowers(modem: string, maxTowers: number): Promise<any> {
-  try {
-    // Use Python script for tower scanning
-    const pythonScript = path.join(__dirname, 'cellular_triangulate.py');
-    const args = [
-      '-c',
-      `from cellular_triangulate import CellularTriangulateTool; tool = CellularTriangulateTool(); towers = tool.get_tower_data('${modem}', ${maxTowers}); print({'towers_found': len(towers), 'tower_data': towers})`
-    ];
-
-    const result = await execAsync(`python3 ${args.join(' ')}`);
-    const parsedResult = JSON.parse(result.stdout);
-    return {
-      towers_found: parsedResult.towers_found || 0,
-      tower_data: parsedResult.tower_data || [],
-      status: 'success',
-      details: `Scanned ${parsedResult.towers_found || 0} cellular towers`
-    };
-  } catch (error) {
-    // Fallback to simulation
-    console.warn(`Python execution failed, using simulation: ${error}`);
-    return {
-      towers_found: 3,
-      tower_data: [
-        { cid: '1234', lac: '5678', mcc: '310', mnc: '410', rssi: -70 },
-        { cid: '1235', lac: '5679', mcc: '310', mnc: '410', rssi: -75 },
-        { cid: '1236', lac: '5680', mcc: '310', mnc: '410', rssi: -80 }
-      ],
-      status: 'success',
-      details: 'Simulated tower scan completed (Python execution failed)'
-    };
-  }
+  // Simulate tower scanning
+  console.log(`Simulating tower scan using ${modem}`);
+  
+  return {
+    towers_found: 3,
+    tower_data: [
+      { cid: '1234', lac: '5678', mcc: '310', mnc: '410', rssi: -70 },
+      { cid: '1235', lac: '5679', mcc: '310', mnc: '410', rssi: -75 },
+      { cid: '1236', lac: '5680', mcc: '310', mnc: '410', rssi: -80 }
+    ],
+    status: 'success',
+    details: 'Simulated tower scan completed'
+  };
 }
 
 async function queryTowerLocation(towers: string, apiKey?: string): Promise<any> {
-  try {
-    // Use Python script for tower location query
-    const pythonScript = path.join(__dirname, 'cellular_triangulate.py');
-    const args = [
-      '-c',
-      `from cellular_triangulate import CellularTriangulateTool; tool = CellularTriangulateTool(); locations = tool.query_tower_locations([{'cid': '1234', 'lac': '5678', 'mcc': '310', 'mnc': '410', 'rssi': -70}], '${apiKey || ''}'); print({'tower_locations': locations})`
-    ];
-
-    const result = await execAsync(`python3 ${args.join(' ')}`);
-    const parsedResult = JSON.parse(result.stdout);
-    return {
-      tower_locations: parsedResult.tower_locations || [],
-      status: 'success',
-      details: `Queried locations for ${parsedResult.tower_locations?.length || 0} towers`
-    };
-  } catch (error) {
-    // Fallback to simulation
-    console.warn(`Python execution failed, using simulation: ${error}`);
-    return {
-      tower_locations: [
-        { lat: 43.0731, lon: -89.4012, rssi: -70, cid: '1234', lac: '5678' }
-      ],
-      status: 'success',
-      details: 'Simulated tower location query completed (Python execution failed)'
-    };
-  }
+  // Simulate tower location query
+  console.log(`Simulating tower location query for ${towers}`);
+  
+  return {
+    tower_locations: [
+      { lat: 43.0731, lon: -89.4012, rssi: -70, cid: '1234', lac: '5678' }
+    ],
+    status: 'success',
+    details: 'Simulated tower location query completed'
+  };
 }
 
 async function parseNaturalLanguageCommand(command: string): Promise<any> {

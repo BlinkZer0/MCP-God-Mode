@@ -172,7 +172,7 @@ function calculateRiskScore(vulnerabilities: any): number {
 }
 
 function generateRecommendations(vulnerabilities: any, testType: string): string[] {
-  const recommendations = [];
+  const recommendations: string[] = [];
 
   if (vulnerabilities.critical > 0) {
     recommendations.push("Immediately address critical vulnerabilities - they pose immediate security risks");
@@ -219,7 +219,7 @@ function assessCompliance(vulnerabilities: any): string {
 }
 
 function generateNextSteps(vulnerabilities: any, testType: string): string[] {
-  const nextSteps = [];
+  const nextSteps: string[] = [];
 
   if (vulnerabilities.critical > 0) {
     nextSteps.push("1. Immediately patch critical vulnerabilities");

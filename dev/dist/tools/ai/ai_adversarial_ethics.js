@@ -5,10 +5,10 @@
  * Comprehensive ethical safeguards, logging, and compliance mechanisms
  * for AI adversarial prompting operations.
  */
-import * as fs from 'fs-extra';
-import * as path from 'path';
-import * as crypto from 'crypto';
-import { createHash, createHmac } from 'crypto';
+import * as fs from 'node:fs/promises';
+import * as path from 'node:path';
+import * as crypto from 'node:crypto';
+import { createHash, createHmac } from 'node:crypto';
 export class AiAdversarialEthics {
     config;
     auditLog;
@@ -32,7 +32,12 @@ export class AiAdversarialEthics {
     }
     async _initializeEthics() {
         // Ensure audit log directory exists
-        await fs.ensureDir(path.dirname(this.auditLog));
+        try {
+            await fs.mkdir(path.dirname(this.auditLog), { recursive: true });
+        }
+        catch (error) {
+            // Directory might already exist, ignore error
+        }
         // Initialize compliance monitoring
         await this._initializeComplianceMonitoring();
     }
@@ -165,7 +170,10 @@ export class AiAdversarialEthics {
     }
     async _loadAuditEntries(startDate, endDate) {
         try {
-            if (!await fs.pathExists(this.auditLog)) {
+            try {
+                await fs.access(this.auditLog);
+            }
+            catch (error) {
                 return [];
             }
             const logContent = await fs.readFile(this.auditLog, 'utf-8');
