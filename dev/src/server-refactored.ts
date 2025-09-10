@@ -28,11 +28,11 @@ import { ensureInsideRoot, limitString } from "./utils/fileSystem.js";
 import { logger, logServerStart } from "./utils/logger.js";
 import { legalCompliance, LegalComplianceConfig } from "./utils/legal-compliance.js";
 
+// Import ToolRegistry for unified tool management
+import { ToolRegistry, registerTool, getRegistryStats, generateRegistryReport } from "./core/tool-registry.js";
+
 // Import all tools from the comprehensive index
 import * as allTools from "./tools/index.js";
-
-// Import RAG toolkit specifically
-import { registerRagToolkit } from "./tools/ai/rag_toolkit.js";
 
 // Import enhanced drone tools
 import { registerDroneDefenseEnhanced } from "./tools/droneDefenseEnhanced.js";
@@ -116,22 +116,36 @@ async function initializeLegalCompliance() {
 
 const server = new McpServer({ name: "MCP God Mode - Advanced Security & Network Analysis Platform", version: "1.7.0" });
 
-// Capture tool registrations dynamically to keep the list accurate
+// Initialize ToolRegistry for unified tool management
+const toolRegistry = ToolRegistry.getInstance();
+
+// Capture tool registrations dynamically with ToolRegistry integration
 const registeredTools = new Set<string>();
 const _origRegisterTool = (server as any).registerTool?.bind(server);
 const _origAddTool = (server as any).addTool?.bind(server);
 
 if (_origRegisterTool) {
-  (server as any).registerTool = (name: string, ...rest: any[]) => {
-    if (registeredTools.has(name)) {
-      console.warn(`Warning: Tool ${name} is already registered, skipping duplicate registration`);
-      return;
-    }
-    try { 
-      registeredTools.add(name); 
-      return _origRegisterTool(name, ...rest);
+  (server as any).registerTool = (name: string, toolDef: any, handler?: any) => {
+    try {
+      // Register with ToolRegistry first
+      const toolDefinition = {
+        name,
+        description: toolDef.description || '',
+        inputSchema: toolDef.inputSchema || {},
+        handler
+      };
+      
+      const wasRegistered = registerTool(toolDefinition, 'server-refactored');
+      if (!wasRegistered) {
+        // Tool was deduplicated, skip MCP registration
+        return;
+      }
+      
+      registeredTools.add(name);
+      return _origRegisterTool(name, toolDef, handler);
     } catch (error) {
-      console.warn(`Warning: Failed to register tool ${name}:`, error);
+      console.error(`❌ [ToolRegistry] Failed to register tool ${name}:`, error);
+      throw error; // Re-throw to maintain error handling
     }
   };
 }
@@ -139,15 +153,26 @@ if (_origRegisterTool) {
 if (_origAddTool) {
   (server as any).addTool = (toolDef: any, handler?: any) => {
     const name = toolDef.name;
-    if (registeredTools.has(name)) {
-      console.warn(`Warning: Tool ${name} is already registered, skipping duplicate registration`);
-      return;
-    }
-    try { 
-      registeredTools.add(name); 
+    try {
+      // Register with ToolRegistry first
+      const toolDefinition = {
+        name,
+        description: toolDef.description || '',
+        inputSchema: toolDef.inputSchema || {},
+        handler
+      };
+      
+      const wasRegistered = registerTool(toolDefinition, 'server-refactored');
+      if (!wasRegistered) {
+        // Tool was deduplicated, skip MCP registration
+        return;
+      }
+      
+      registeredTools.add(name);
       return _origAddTool(toolDef, handler);
     } catch (error) {
-      console.warn(`Warning: Failed to register tool ${name}:`, error);
+      console.error(`❌ [ToolRegistry] Failed to register tool ${name}:`, error);
+      throw error; // Re-throw to maintain error handling
     }
   };
 } else {
@@ -155,18 +180,30 @@ if (_origAddTool) {
   (server as any).addTool = (toolDef: any, handler?: any) => {
     const name = toolDef?.name;
     if (!name) return;
-    if (registeredTools.has(name)) {
-      console.warn(`Warning: Tool ${name} is already registered, skipping duplicate registration`);
-      return;
-    }
+    
     try {
+      // Register with ToolRegistry first
+      const toolDefinition = {
+        name,
+        description: toolDef.description || '',
+        inputSchema: toolDef.inputSchema || {},
+        handler
+      };
+      
+      const wasRegistered = registerTool(toolDefinition, 'server-refactored');
+      if (!wasRegistered) {
+        // Tool was deduplicated, skip MCP registration
+        return;
+      }
+      
       registeredTools.add(name);
       return (server as any).registerTool?.(name, {
         description: toolDef.description,
         inputSchema: toolDef.inputSchema
       }, handler);
     } catch (error) {
-      console.warn(`Warning: Failed to register tool ${name} via compatibility addTool:`, error);
+      console.error(`❌ [ToolRegistry] Failed to register tool ${name} via compatibility addTool:`, error);
+      throw error; // Re-throw to maintain error handling
     }
   };
 }
@@ -190,14 +227,6 @@ try {
   console.log("✅ Enhanced Drone Defense Tool registered");
 } catch (error) {
   console.warn("Warning: Failed to register Enhanced Drone Defense Tool:", error);
-}
-
-// Register RAG toolkit
-try {
-  registerRagToolkit(server);
-  console.log("✅ RAG Toolkit registered");
-} catch (error) {
-  console.warn("Warning: Failed to register RAG Toolkit:", error);
 }
 
 try {
@@ -636,372 +665,6 @@ server.registerTool("security_metrics_dashboard", {
 // ===========================================
 // Note: Original drone tools removed - using enhanced versions with cross-platform support
 
-// Original drone tools removed - using enhanced versions
-/*
-server.registerTool("drone_defense", {
-  description: "🛸 **Drone Defense Tool** - Deploy defensive drones to scan, shield, or evade attacks upon detection. Integrates with security monitoring to automatically respond to threats with virtual/simulated drones or real hardware via Flipper Zero bridge.",
-  inputSchema: {
-    action: z.enum(["scan_surroundings", "deploy_shield", "evade_threat"]).describe("Defense action to perform"),
-    threatType: z.string().default("general").describe("Type of threat (ddos, intrusion, probe, etc.)"),
-    target: z.string().describe("Target network or system (e.g., 192.168.1.0/24)"),
-    autoConfirm: z.boolean().default(false).describe("Skip confirmation prompt (requires MCPGM_REQUIRE_CONFIRMATION=false)")
-  }
-}, async ({ action, threatType, target, autoConfirm }) => {
-  try {
-    const operationId = `drone_def_${Date.now()}`;
-    const auditLog: string[] = [];
-    const flipperEnabled = process.env.MCPGM_FLIPPER_ENABLED === 'true';
-    const simOnly = process.env.MCPGM_DRONE_SIM_ONLY === 'true';
-    const requireConfirmation = process.env.MCPGM_REQUIRE_CONFIRMATION === 'true';
-    const auditEnabled = process.env.MCPGM_AUDIT_ENABLED === 'true';
-    
-    const logAudit = (message: string) => {
-      if (auditEnabled) {
-        const timestamp = new Date().toISOString();
-        auditLog.push(`[${timestamp}] ${message}`);
-        logger.info(`AUDIT: ${message}`);
-      }
-    };
-    
-    logAudit("DroneDefenseManager initialized");
-    logAudit(`Starting defense operation: ${action} for ${threatType} on ${target}`);
-    
-    // Check for confirmation requirement
-    if (requireConfirmation && !autoConfirm) {
-      logger.warn("⚠️ Confirmation required for drone deployment");
-      logAudit("Operation requires confirmation");
-      return {
-        content: [{
-          type: "text",
-          text: JSON.stringify({
-            operationId,
-            success: false,
-            message: "Confirmation required for drone deployment",
-            threatLevel: 0,
-            actionsTaken: [],
-            auditLog
-          }, null, 2)
-        }]
-      };
-    }
-    
-    // Simulate threat detection
-    const mockThreats = [
-      {
-        threatType: "ddos",
-        threatLevel: 8,
-        sourceIp: "192.168.1.100",
-        target: target,
-        timestamp: new Date().toISOString(),
-        description: "High-volume DDoS attack detected"
-      }
-    ];
-    
-    const maxThreat = mockThreats[0];
-    const actionsTaken: any[] = [];
-    
-    // Execute requested action
-    if (action === "scan_surroundings") {
-      if (simOnly) {
-        logger.info("🛸 [SIMULATION] Drone deployed for surroundings scan");
-        logger.info(`🛸 [SIMULATION] Scanning network: ${target}`);
-        logger.info("🛸 [SIMULATION] Detected 3 suspicious devices");
-        logger.info("🛸 [SIMULATION] Collected threat intelligence data");
-      } else if (flipperEnabled) {
-        logger.info("🔌 [FLIPPER] Sending BLE commands to drone");
-      }
-      
-      actionsTaken.push({
-        actionType: "scan_surroundings",
-        success: true,
-        message: "Surroundings scan completed successfully",
-        timestamp: new Date().toISOString(),
-        details: {
-          devicesScanned: 15,
-          suspiciousDevices: 3,
-          threatIndicators: ["unusual_traffic", "port_scanning", "failed_logins"],
-          scanDuration: "45 seconds"
-        }
-      });
-    } else if (action === "deploy_shield") {
-      if (simOnly) {
-        logger.info("🛡️ [SIMULATION] Deploying defensive shield");
-        logger.info(`🛡️ [SIMULATION] Hardening firewall rules for ${threatType}`);
-        logger.info("🛡️ [SIMULATION] Implementing traffic filtering");
-        logger.info("🛡️ [SIMULATION] Activating DDoS protection");
-      }
-      
-      actionsTaken.push({
-        actionType: "deploy_shield",
-        success: true,
-        message: "Defensive shield deployed successfully",
-        timestamp: new Date().toISOString(),
-        details: {
-          firewallRulesAdded: 12,
-          trafficFilters: 8,
-          ddosProtection: "activated",
-          threatType: threatType,
-          protectionLevel: "high"
-        }
-      });
-    } else if (action === "evade_threat") {
-      if (simOnly) {
-        logger.info("🚀 [SIMULATION] Initiating threat evasion");
-        logger.info(`🚀 [SIMULATION] Rerouting traffic from ${maxThreat.sourceIp}`);
-        logger.info("🚀 [SIMULATION] Isolating affected systems");
-        logger.info("🚀 [SIMULATION] Activating backup communication channels");
-      }
-      
-      actionsTaken.push({
-        actionType: "evade_threat",
-        success: true,
-        message: "Threat evasion completed successfully",
-        timestamp: new Date().toISOString(),
-        details: {
-          trafficRerouted: true,
-          systemsIsolated: 2,
-          backupChannels: "activated",
-          threatSource: maxThreat.sourceIp,
-          evasionDuration: "30 seconds"
-        }
-      });
-    }
-    
-    const success = actionsTaken.every((action: any) => action.success);
-    
-    const report = {
-      operationId,
-      threatInfo: maxThreat,
-      actionsTaken,
-      threatLevel: maxThreat.threatLevel,
-      success,
-      auditLog,
-      timestamp: new Date().toISOString()
-    };
-    
-    logAudit(`Defense operation completed: ${success}`);
-    
-    return {
-      content: [{
-        type: "text",
-        text: JSON.stringify(report, null, 2)
-      }]
-    };
-  } catch (error) {
-    return {
-      content: [{
-        type: "text",
-        text: `Drone defense operation failed: ${error instanceof Error ? error.message : 'Unknown error'}`
-      }]
-    };
-  }
-});
-
-// Drone Offense Tool
-server.registerTool("drone_offense", {
-  description: "⚔️ **Drone Offense Tool** - Deploy offensive drones for counter-strikes, only after defensive confirmation and strict safety checks. Requires risk acknowledgment and double confirmation for high-threat operations. Integrates with Flipper Zero for real hardware control.",
-  inputSchema: {
-    action: z.enum(["jam_signals", "deploy_decoy", "counter_strike"]).describe("Offensive action to perform"),
-    targetIp: z.string().describe("Target IP address (e.g., attacker.example.com)"),
-    intensity: z.enum(["low", "medium", "high"]).default("low").describe("Operation intensity"),
-    confirm: z.boolean().default(false).describe("Confirm high-threat operations (required for threat_level > 7)"),
-    riskAcknowledged: z.boolean().default(false).describe("Acknowledge risks (REQUIRED for offensive operations)"),
-    threatLevel: z.number().default(5).describe("Threat level (1-10, affects confirmation requirements)")
-  }
-}, async ({ action, targetIp, intensity, confirm, riskAcknowledged, threatLevel }) => {
-  try {
-    const operationId = `drone_off_${Date.now()}`;
-    const auditLog: string[] = [];
-    const flipperEnabled = process.env.MCPGM_FLIPPER_ENABLED === 'true';
-    const simOnly = process.env.MCPGM_DRONE_SIM_ONLY === 'true';
-    const auditEnabled = process.env.MCPGM_AUDIT_ENABLED === 'true';
-    const hipaaMode = process.env.MCPGM_MODE_HIPAA === 'true';
-    const gdprMode = process.env.MCPGM_MODE_GDPR === 'true';
-    
-    const legalDisclaimer = (
-      "⚠️ LEGAL WARNING: Offensive actions may violate laws and regulations. " +
-      "Use only for authorized security testing. Ensure proper authorization " +
-      "before deploying offensive capabilities."
-    );
-    
-    const logAudit = (message: string) => {
-      if (auditEnabled) {
-        const timestamp = new Date().toISOString();
-        auditLog.push(`[${timestamp}] ${message}`);
-        logger.info(`AUDIT: ${message}`);
-      }
-    };
-    
-    logAudit("DroneOffenseManager initialized");
-    logAudit(`Starting offense operation: ${action} on ${targetIp}`);
-    
-    // Safety checks
-    if (!riskAcknowledged) {
-      logger.error("❌ Risk acknowledgment required for offensive operations");
-      logAudit("Operation blocked - risk not acknowledged");
-      return {
-        content: [{
-          type: "text",
-          text: JSON.stringify({
-            operationId,
-            success: false,
-            message: "Risk acknowledgment required for offensive operations",
-            riskAcknowledged: false,
-            actionsTaken: [],
-            auditLog,
-            legalDisclaimer
-          }, null, 2)
-        }]
-      };
-    }
-    
-    if (threatLevel > 7 && !confirm) {
-      logger.error("❌ Double confirmation required for high-threat operations");
-      logAudit("Operation blocked - double confirmation required");
-      return {
-        content: [{
-          type: "text",
-          text: JSON.stringify({
-            operationId,
-            success: false,
-            message: "Double confirmation required for high-threat operations",
-            riskAcknowledged,
-            actionsTaken: [],
-            auditLog,
-            legalDisclaimer
-          }, null, 2)
-        }]
-      };
-    }
-    
-    if (hipaaMode || gdprMode) {
-      logger.error("❌ Offensive operations blocked due to compliance mode");
-      logAudit("Offensive actions blocked due to compliance mode");
-      return {
-        content: [{
-          type: "text",
-          text: JSON.stringify({
-            operationId,
-            success: false,
-            message: "Offensive operations blocked due to compliance mode",
-            riskAcknowledged,
-            actionsTaken: [],
-            auditLog,
-            legalDisclaimer
-          }, null, 2)
-        }]
-      };
-    }
-    
-    const actionsTaken: any[] = [];
-    
-    // Execute requested action
-    if (action === "jam_signals") {
-      if (simOnly) {
-        logger.info("📡 [SIMULATION] Initiating signal jamming");
-        logger.info(`📡 [SIMULATION] Targeting: ${targetIp}`);
-        logger.info(`📡 [SIMULATION] Intensity: ${intensity}`);
-        logger.info("📡 [SIMULATION] Disrupting attacker communications");
-        logger.info("📡 [SIMULATION] Monitoring for countermeasures");
-      } else if (flipperEnabled) {
-        logger.info("🔌 [FLIPPER] Sending jamming commands via BLE");
-      }
-      
-      actionsTaken.push({
-        actionType: "jam_signals",
-        success: true,
-        message: "Signal jamming completed successfully",
-        timestamp: new Date().toISOString(),
-        details: {
-          targetIp: targetIp,
-          intensity: intensity,
-          duration: "60 seconds",
-          frequencyBands: ["2.4GHz", "5GHz"],
-          effectiveness: "85%"
-        },
-        riskLevel: "high",
-        legalWarning: "Simulated jamming - ensure proper authorization for real operations"
-      });
-    } else if (action === "deploy_decoy") {
-      if (simOnly) {
-        logger.info("🎭 [SIMULATION] Deploying decoy system");
-        logger.info("🎭 [SIMULATION] Creating fake services and data");
-        logger.info("🎭 [SIMULATION] Monitoring attacker interactions");
-      }
-      
-      actionsTaken.push({
-        actionType: "deploy_decoy",
-        success: true,
-        message: "Decoy deployment completed successfully",
-        timestamp: new Date().toISOString(),
-        details: {
-          decoyType: "honeypot",
-          targetIp: targetIp,
-          fakeServices: ["ssh", "http", "ftp", "smtp"],
-          fakeDataSize: "1GB",
-          monitoringActive: true
-        },
-        riskLevel: "medium",
-        legalWarning: "Decoy deployment - monitor for legal compliance"
-      });
-    } else if (action === "counter_strike") {
-      if (simOnly) {
-        logger.info("⚔️ [SIMULATION] Executing counter-strike");
-        logger.info(`⚔️ [SIMULATION] Target: ${targetIp}`);
-        logger.info("⚔️ [SIMULATION] Performing ethical reconnaissance");
-        logger.info("⚔️ [SIMULATION] Gathering intelligence on attacker");
-        logger.info("⚔️ [SIMULATION] Found open ports: [22, 80, 443, 8080]");
-      }
-      
-      actionsTaken.push({
-        actionType: "counter_strike",
-        success: true,
-        message: "Counter-strike completed successfully",
-        timestamp: new Date().toISOString(),
-        details: {
-          strikeType: "port_scan",
-          targetIp: targetIp,
-          openPorts: [22, 80, 443, 8080],
-          intelligenceGathered: true,
-          ethicalConduct: true
-        },
-        riskLevel: "critical",
-        legalWarning: "COUNTER-STRIKE EXECUTED - Ensure proper legal authorization and ethical conduct"
-      });
-    }
-    
-    const success = actionsTaken.every((action: any) => action.success);
-    
-    const report = {
-      operationId,
-      targetIp,
-      actionsTaken,
-      success,
-      riskAcknowledged,
-      auditLog,
-      timestamp: new Date().toISOString(),
-      legalDisclaimer
-    };
-    
-    logAudit(`Offense operation completed: ${success}`);
-    
-    return {
-      content: [{
-        type: "text",
-        text: JSON.stringify(report, null, 2)
-      }]
-    };
-  } catch (error) {
-    return {
-      content: [{
-        type: "text",
-        text: `Drone offense operation failed: ${error instanceof Error ? error.message : 'Unknown error'}`
-      }]
-    };
-  }
-});
-*/
-
 console.log(`✅ Successfully registered 21 additional enhanced tools for server-refactored (5 enhanced + 6 MCP Web UI Bridge + 10 advanced)`);
 
 // ===========================================
@@ -1102,7 +765,16 @@ async function main() {
   }
   
   console.log(`✅ Successfully registered ${toolFunctions.length} tool functions`);
-  console.log(`? Tools registered (unique): ${registeredTools.size}`);
+  console.log(`📊 Tools registered (unique): ${registeredTools.size}`);
+  
+  // Display ToolRegistry diagnostics if enabled
+  if (process.env.LOG_TOOL_REGISTRY === "1") {
+    console.log("\n🔧 Tool Registry Diagnostics:");
+    console.log(generateRegistryReport());
+    
+    const stats = getRegistryStats();
+    console.log(`📈 Registry Stats: ${stats.totalRegistered} registered, ${stats.duplicatesDeduped} deduplicated, ${stats.conflictsDetected} conflicts`);
+  }
   
   // Initialize Express server for cellular triangulation web interface
   await initializeExpressServer();

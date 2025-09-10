@@ -2,7 +2,7 @@
 
 ## Overview
 
-The **AI Adversarial Prompting Tool** has been successfully implemented as a comprehensive security research and testing framework for the MCP God Mode system. This tool provides advanced capabilities for AI model evaluation through controlled adversarial techniques while maintaining strict ethical safeguards and compliance requirements.
+The **AI Adversarial Prompting Tool** has been successfully implemented as a comprehensive security research and testing framework for the MCP God Mode system. This tool provides advanced capabilities for AI model evaluation through controlled adversarial techniques.
 
 ## Implementation Components
 
@@ -26,25 +26,8 @@ The **AI Adversarial Prompting Tool** has been successfully implemented as a com
 #### TypeScript Implementation (`dev/src/tools/aiAdversarialPrompt.ts`)
 - **Full type safety** with comprehensive interfaces
 - **Advanced error handling** with typed exceptions
-- **Integration with ethics module** for compliance
 - **Platform-specific optimizations** with type guards
 - **Extensible architecture** for future enhancements
-
-### 2. Ethics & Compliance Module (`dev/src/tools/ai/ai_adversarial_ethics.ts`)
-
-#### Advanced Ethical Safeguards
-- **Multi-framework compliance** (GDPR, CCPA, SOX, HIPAA)
-- **Rate limiting** with configurable thresholds
-- **Content filtering** with blocked topic detection
-- **Audit trail management** with cryptographic signatures
-- **User confirmation** requirements for sensitive operations
-
-#### Compliance Features
-- **Real-time compliance checking** before operation execution
-- **Comprehensive audit logging** with tamper-proof signatures
-- **Blocked content management** with hash-based detection
-- **Compliance reporting** with violation detection
-- **Statistics and analytics** for usage monitoring
 
 ### 3. MCP Integration (`dev/src/tools/ai/ai_adversarial_prompt.ts`)
 
@@ -52,7 +35,6 @@ The **AI Adversarial Prompting Tool** has been successfully implemented as a com
 - **Primary tool**: `ai_adversarial_prompt` - Main adversarial prompting functionality
 - **NLP tool**: `ai_adversarial_nlp` - Natural language command parsing
 - **Platform info tool**: `ai_adversarial_platform_info` - System capabilities
-- **Ethics tool**: `ai_adversarial_ethics` - Compliance and audit management
 
 #### Server Integration
 - **Automatic registration** via tools index system
@@ -87,23 +69,13 @@ The **AI Adversarial Prompting Tool** has been successfully implemented as a com
 - **Android**: Termux-based API calls (local models require root)
 - **iOS**: API-only support (local models require jailbreak)
 
-## Ethical Safeguards & Compliance
+## Usage Guidelines
 
 ### ⚠️ **Legal Compliance**
 - **Terms of Service Compliance**: Respects AI provider ToS
-- **Legal Framework Support**: GDPR, CCPA, SOX, HIPAA compliance
-- **Jurisdiction Awareness**: Configurable legal requirements
-- **Audit Trail**: Comprehensive logging for legal requirements
+- **Legal Framework Support**: Adheres to applicable laws and regulations
+- **Responsible Usage**: Designed for legitimate security research and testing
 
-### 🔒 **Safety Features**
-- **Confirmation Requirements**: Explicit user consent for sensitive operations
-- **Rate Limiting**: Configurable request limits to prevent abuse
-- **Audit Signatures**: Cryptographic integrity verification
-
-### 📊 **Monitoring & Analytics**
-- **Real-time Statistics**: Operation counts and success rates
-- **Compliance Reporting**: Automated violation detection
-- **Usage Analytics**: Platform and model usage patterns
 
 ## Technical Architecture
 
@@ -111,18 +83,16 @@ The **AI Adversarial Prompting Tool** has been successfully implemented as a com
 ```
 AI Adversarial Prompting Tool
 ├── Core Engine (Python/Node.js/TypeScript)
-├── Ethics & Compliance Module
 ├── Natural Language Processor
 ├── Platform Detection & Optimization
 ├── Model Integration Layer
-└── Audit & Logging System
+└── Logging System
 ```
 
 ### Integration Points
 - **MCP Server**: Seamless integration with existing tool infrastructure
 - **Natural Language Router**: Command parsing and routing [[memory:8493232]]
 - **Cellular Tools**: Potential integration for location-based testing
-- **Legal Compliance**: Integration with existing compliance systems
 
 ## Usage Examples
 

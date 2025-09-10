@@ -70,8 +70,6 @@ export MCP_AI_ENDPOINT="http://localhost:3000/api/mcp-ai"
 export LOG_DIR="./logs"
 
 # Optional configuration
-export CONFIRM_JAILBREAK="YES"  # Required for self-jailbreaking
-export LOG_ALL_INTERACTIONS="YES"  # Enable comprehensive logging
 export HF_TOKEN="your-huggingface-token"  # For local models
 ```
 
@@ -172,31 +170,14 @@ result = tool.execute(
 }
 ```
 
-## Ethical Guidelines & Safety
+## Usage Guidelines
 
-### ⚠️ **Important Legal Notice**
-
-This tool is designed **exclusively for AI security research and testing**. Users must:
+This tool is designed for AI security research and testing. Users should:
 
 1. **Obtain Proper Authorization**: Only use on systems you own or have explicit permission to test
 2. **Comply with Terms of Service**: Respect AI provider ToS (OpenAI, xAI, etc.)
 3. **Follow Legal Requirements**: Adhere to local laws (CFAA, GDPR, etc.)
 4. **Use Responsibly**: Not for malicious purposes or unauthorized access
-
-### Safety Features
-
-- **Confirmation Required**: Self-jailbreaking requires explicit user confirmation
-- **Comprehensive Logging**: All interactions logged for audit purposes
-- **Rate Limiting**: Built-in delays to prevent abuse
-- **Error Handling**: Graceful failure modes to prevent system compromise
-
-### Logging & Audit Trail
-
-All interactions are automatically logged with:
-- Timestamp and platform information
-- Complete prompt and response data
-- Analysis results and success/failure status
-- User confirmation status for sensitive operations
 
 ## Integration with MCP Ecosystem
 
@@ -360,5 +341,3 @@ For technical support and questions:
 - **Security**: Report security vulnerabilities responsibly
 
 ---
-
-**Remember**: This tool is for AI security research and testing only. Always use responsibly and in compliance with applicable laws and terms of service.

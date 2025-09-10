@@ -123,6 +123,21 @@ npm run start:refactored
 npm run smoke
 ```
 
+**🔧 Tool Registry Diagnostics**: MCP God Mode now enforces unique tool names across all servers. If you encounter "Duplicate tool ... with different signatures", rename or merge schemas. Identical tools across globs are deduplicated automatically.
+
+Enable detailed tool registration diagnostics:
+```bash
+LOG_TOOL_REGISTRY=1 npm run start:refactored
+LOG_TOOL_REGISTRY=1 npm run start:modular
+```
+
+This will show:
+- Tool registration status
+- Duplicate deduplication statistics  
+- Signature conflict detection
+- Source tracking information
+- Comprehensive diagnostic report
+
 <img src="assets/wave-divider.svg" alt="" width="100%" />
 
 <details open>
@@ -553,7 +568,7 @@ https://github.com/user-attachments/assets/f074039c-1989-40fc-b769-5efa855e854d
 - **Chart Generator** - Data visualization and charts
 - **Data Analyzer** - Advanced data analysis
 - **Machine Learning** - AI-powered analysis and model training
-- **RAG Toolkit** - 🏆 **UNIQUE** Advanced Retrieval-Augmented Generation with MCP integration, cross-platform support, and professional security context
+- **RAG Toolkit** - Advanced Retrieval-Augmented Generation for document search and context-aware Q&A
 - **Password Generator** - Secure password generation
 - **Text Processor** - Advanced text processing and analysis
 - **Encryption Tools** - Cryptographic operations and security
@@ -631,18 +646,6 @@ https://github.com/user-attachments/assets/f074039c-1989-40fc-b769-5efa855e854d
 =======
 **Total: 124 Tools (Server-Refactored) / 120 Tools (Modular)** - All fully implemented, tested, and documented ✅
 >>>>>>> 26482fbbe3ea76b0a426a28db02566e0f4223ab7
-
-## 🏆 **Unique RAG Toolkit - Market Leader**
-
-**🔍 RAG Toolkit** - The **only RAG solution** that combines:
-- ✅ **MCP Native Integration** - Built specifically for Model Context Protocol
-- ✅ **Universal Compatibility** - Works on Windows, Linux, macOS, Android, iOS
-- ✅ **Zero-Dependency Fallback** - JavaScript implementation ensures 100% functionality
-- ✅ **Professional Security Context** - Integrated with 159+ security and forensics tools
-- ✅ **Enterprise-Grade Features** - Built-in legal compliance and audit logging
-- ✅ **Mobile Support** - Only RAG toolkit working on mobile platforms
-
-**[📖 RAG Toolkit Documentation](docs/tool/RAG_TOOLKIT.md)** | **[🏆 Unique Features](docs/RAG_TOOLKIT_UNIQUE_FEATURES.md)**
 
 ## 🎯 **Implementation Status: 100% Complete**
 

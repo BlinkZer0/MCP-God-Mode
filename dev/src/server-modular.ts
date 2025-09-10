@@ -28,6 +28,9 @@ import { sanitizeCommand, isDangerousCommand, shouldPerformSecurityChecks } from
 import { ensureInsideRoot, limitString } from "./utils/fileSystem.js";
 import { logger, logServerStart } from "./utils/logger.js";
 
+// Import ToolRegistry for unified tool management
+import { ToolRegistry, registerTool, getRegistryStats, generateRegistryReport } from "./core/tool-registry.js";
+
 // Import all tools from the comprehensive index
 import * as allTools from "./tools/index.js";
 
@@ -63,13 +66,35 @@ if (process.env.MCPGM_FLIPPER_ENABLED === undefined) {
 
 const server = new McpServer({ name: "MCP God Mode - Modular Security & Network Analysis Platform", version: "1.7.0" });
 
-// Capture tool registrations dynamically to keep the list accurate
+// Initialize ToolRegistry for unified tool management
+const toolRegistry = ToolRegistry.getInstance();
+
+// Capture tool registrations dynamically with ToolRegistry integration
 const registeredTools = new Set<string>();
 const _origRegisterTool = (server as any).registerTool?.bind(server);
 if (_origRegisterTool) {
-  (server as any).registerTool = (name: string, ...rest: any[]) => {
-    try { registeredTools.add(name); } catch {}
-    return _origRegisterTool(name, ...rest);
+  (server as any).registerTool = (name: string, toolDef: any, handler?: any) => {
+    try {
+      // Register with ToolRegistry first
+      const toolDefinition = {
+        name,
+        description: toolDef.description || '',
+        inputSchema: toolDef.inputSchema || {},
+        handler
+      };
+      
+      const wasRegistered = registerTool(toolDefinition, 'server-modular');
+      if (!wasRegistered) {
+        // Tool was deduplicated, skip MCP registration
+        return;
+      }
+      
+      registeredTools.add(name);
+      return _origRegisterTool(name, toolDef, handler);
+    } catch (error) {
+      console.error(`❌ [ToolRegistry] Failed to register tool ${name}:`, error);
+      throw error; // Re-throw to maintain error handling
+    }
   };
 }
 
@@ -79,7 +104,27 @@ if (_origAddTool) {
   (server as any).addTool = (toolDef: any, handler?: any) => {
     const name = toolDef?.name;
     if (name) {
-      try { registeredTools.add(name); } catch {}
+      try {
+        // Register with ToolRegistry first
+        const toolDefinition = {
+          name,
+          description: toolDef.description || '',
+          inputSchema: toolDef.inputSchema || {},
+          handler
+        };
+        
+        const wasRegistered = registerTool(toolDefinition, 'server-modular');
+        if (!wasRegistered) {
+          // Tool was deduplicated, skip MCP registration
+          return;
+        }
+        
+        registeredTools.add(name);
+        return _origAddTool(toolDef, handler);
+      } catch (error) {
+        console.error(`❌ [ToolRegistry] Failed to register tool ${name}:`, error);
+        throw error; // Re-throw to maintain error handling
+      }
     }
     return _origAddTool(toolDef, handler);
   };
@@ -87,18 +132,30 @@ if (_origAddTool) {
   (server as any).addTool = (toolDef: any, handler?: any) => {
     const name = toolDef?.name;
     if (!name) return;
-    if (registeredTools.has(name)) {
-      console.warn(`Warning: Tool ${name} is already registered, skipping duplicate registration`);
-      return;
-    }
+    
     try {
+      // Register with ToolRegistry first
+      const toolDefinition = {
+        name,
+        description: toolDef.description || '',
+        inputSchema: toolDef.inputSchema || {},
+        handler
+      };
+      
+      const wasRegistered = registerTool(toolDefinition, 'server-modular');
+      if (!wasRegistered) {
+        // Tool was deduplicated, skip MCP registration
+        return;
+      }
+      
       registeredTools.add(name);
       return (server as any).registerTool?.(name, {
         description: toolDef.description,
         inputSchema: toolDef.inputSchema
       }, handler);
     } catch (error) {
-      console.warn(`Warning: Failed to register tool ${name} via compatibility addTool:`, error);
+      console.error(`❌ [ToolRegistry] Failed to register tool ${name} via compatibility addTool:`, error);
+      throw error; // Re-throw to maintain error handling
     }
   };
 }
@@ -152,6 +209,15 @@ async function registerConfiguredTools() {
   });
   
   console.log(`✅ Successfully registered ${toolFunctions.length} tool functions`);
+  
+  // Display ToolRegistry diagnostics if enabled
+  if (process.env.LOG_TOOL_REGISTRY === "1") {
+    console.log("\n🔧 Tool Registry Diagnostics:");
+    console.log(generateRegistryReport());
+    
+    const stats = getRegistryStats();
+    console.log(`📈 Registry Stats: ${stats.totalRegistered} registered, ${stats.duplicatesDeduped} deduplicated, ${stats.conflictsDetected} conflicts`);
+  }
 }
 
 // Register tools

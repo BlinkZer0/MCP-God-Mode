@@ -9,16 +9,12 @@ import * as os from 'os';
 import * as fs from 'fs-extra';
 import * as path from 'path';
 import axios, { AxiosResponse } from 'axios';
-import { AiAdversarialEthics, EthicsConfig } from './ai/ai_adversarial_ethics.js';
 
 // Type definitions
 export interface AiAdversarialConfig {
     openai_key?: string;
     mcp_ai_endpoint?: string;
     log_dir?: string;
-    confirmation_required?: boolean;
-    log_all_interactions?: boolean;
-    ethics_config?: Partial<EthicsConfig>;
 }
 
 export interface AiAdversarialParams {
@@ -82,10 +78,7 @@ export class AiAdversarialPromptTool {
     private logDir: string;
     private logFile: string;
     private mcpAiEndpoint: string;
-    private confirmationRequired: boolean;
-    private logAllInteractions: boolean;
     private supportedModes: string[];
-    private ethics: AiAdversarialEthics;
 
     /**
      * Initialize the AI Adversarial Prompting Tool
@@ -107,15 +100,8 @@ export class AiAdversarialPromptTool {
         // MCP AI endpoint for self-targeting
         this.mcpAiEndpoint = this.config.mcp_ai_endpoint || 'http://localhost:3000/api/mcp-ai';
         
-        // Ethical safeguards
-        this.confirmationRequired = this.config.confirmation_required ?? true;
-        this.logAllInteractions = this.config.log_all_interactions ?? true;
-        
         // Supported modes
         this.supportedModes = ['jailbreaking', 'poisoning', 'hallucinations'];
-        
-        // Initialize ethics module
-        this.ethics = new AiAdversarialEthics(this.config.ethics_config);
     }
 
     /**
@@ -171,35 +157,6 @@ export class AiAdversarialPromptTool {
         fs.ensureDirSync(this.logDir);
     }
 
-    /**
-     * Log all interactions for audit purposes
-     * @private
-     */
-    private async _logInteraction(
-        mode: string, 
-        targetModel: string, 
-        prompt: string, 
-        response: string, 
-        analysis: string
-    ): Promise<void> {
-        if (!this.logAllInteractions) return;
-        
-        const logEntry: LogEntry = {
-            timestamp: new Date().toISOString(),
-            mode,
-            target_model: targetModel,
-            prompt,
-            response,
-            analysis,
-            platform: this.platform
-        };
-        
-        try {
-            await fs.appendFile(this.logFile, JSON.stringify(logEntry) + '\n');
-        } catch (error: any) {
-            console.error(`Failed to log interaction: ${error.message}`);
-        }
-    }
 
     /**
      * Generate adversarial prompt based on mode and topic
@@ -361,68 +318,6 @@ export class AiAdversarialPromptTool {
         }
     }
 
-    /**
-     * Require user confirmation for potentially harmful operations
-     * @private
-     */
-    private async _requireConfirmation(
-        mode: string, 
-        targetModel: string, 
-        topic: string, 
-        prompt: string,
-        userId: string = 'anonymous',
-        sessionId: string = 'default',
-        ipAddress: string = '127.0.0.1',
-        userAgent: string = 'MCP-Client'
-    ): Promise<{ allowed: boolean; reason?: string; requiresConfirmation: boolean }> {
-        
-        // Check ethics compliance first
-        const ethicsCheck = await this.ethics.checkEthicsCompliance(
-            mode,
-            targetModel,
-            topic,
-            prompt,
-            userId,
-            sessionId,
-            ipAddress,
-            userAgent
-        );
-        
-        if (!ethicsCheck.allowed) {
-            return ethicsCheck;
-        }
-        
-        // Handle confirmation requirements
-        if (!this.confirmationRequired && !ethicsCheck.requiresConfirmation) {
-            return { allowed: true, requiresConfirmation: false };
-        }
-        
-        if (mode === 'jailbreaking' && targetModel === 'self') {
-            console.log('\n' + '='.repeat(60));
-            console.log('⚠️  WARNING: SELF-JAILBREAKING ATTEMPT');
-            console.log('='.repeat(60));
-            console.log('This operation attempts to bypass safety filters on the MCP AI.');
-            console.log('This may:');
-            console.log('- Violate AI provider terms of service');
-            console.log('- Compromise system security');
-            console.log('- Result in inappropriate responses');
-            console.log('- Be illegal in some jurisdictions');
-            console.log('='.repeat(60));
-            
-            // In production, this would require actual user input
-            // For now, check environment variable
-            const confirmation = (process.env.CONFIRM_JAILBREAK || 'NO').toUpperCase();
-            if (confirmation !== 'YES') {
-                console.log('❌ Operation aborted: Confirmation required');
-                return { allowed: false, reason: 'Confirmation required', requiresConfirmation: true };
-            } else {
-                console.log('✅ Confirmation received (via environment variable)');
-                return { allowed: true, requiresConfirmation: true };
-            }
-        }
-        
-        return { allowed: true, requiresConfirmation: false };
-    }
 
     /**
      * Main execution method for adversarial prompting
@@ -461,30 +356,8 @@ export class AiAdversarialPromptTool {
             }
         }
 
-        // Generate prompt first for ethics checking
+        // Generate prompt
         const prompt = this.generatePrompt(mode, topic, iterations);
-        
-        // Require confirmation for sensitive operations
-        const confirmationResult = await this._requireConfirmation(
-            mode, 
-            target_model, 
-            topic, 
-            prompt,
-            'anonymous', // userId
-            'default',   // sessionId
-            '127.0.0.1', // ipAddress
-            'MCP-Client' // userAgent
-        );
-        
-        if (!confirmationResult.allowed) {
-            return {
-                status: 'error',
-                details: `Operation aborted: ${confirmationResult.reason}`,
-                prompt: '',
-                ai_response: '',
-                analysis: ''
-            };
-        }
 
         try {
             // Execute prompt
@@ -493,28 +366,9 @@ export class AiAdversarialPromptTool {
             // Analyze response
             const analysis = this.analyzeResponse(mode, prompt, response);
             
-            // Log interaction with ethics module
-            const auditId = await this.ethics.logOperation(
-                mode,
-                target_model,
-                topic,
-                prompt,
-                response,
-                analysis,
-                true, // success
-                confirmationResult.requiresConfirmation,
-                'anonymous', // userId
-                'default',   // sessionId
-                '127.0.0.1', // ipAddress
-                'MCP-Client' // userAgent
-            );
-            
-            // Also log to traditional log file
-            await this._logInteraction(mode, target_model, prompt, response, analysis);
-            
             return {
                 status: 'success',
-                details: `${mode} executed on ${target_model} (Audit ID: ${auditId})`,
+                details: `${mode} executed on ${target_model}`,
                 prompt,
                 ai_response: response,
                 analysis,
@@ -569,30 +423,6 @@ export class AiAdversarialPromptTool {
         };
     }
 
-    /**
-     * Get ethics module for advanced compliance operations
-     */
-    public getEthicsModule(): AiAdversarialEthics {
-        return this.ethics;
-    }
-
-    /**
-     * Generate compliance report
-     */
-    public async generateComplianceReport(
-        framework: string,
-        startDate?: string,
-        endDate?: string
-    ): Promise<any> {
-        return await this.ethics.generateComplianceReport(framework, startDate, endDate);
-    }
-
-    /**
-     * Get audit statistics
-     */
-    public async getAuditStatistics(): Promise<any> {
-        return await this.ethics.getAuditStatistics();
-    }
 }
 
 /**
