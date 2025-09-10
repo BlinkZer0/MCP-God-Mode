@@ -11,7 +11,7 @@
 </p>
 
 One MCP to rule them all, one MCP to find them, one MCP to compile the tools, and in the God Mode bind them. 🎲⚡
-
+**1.8b Note: Cursor is currently showing a red indicator as if to show that the server is malfunctioning, we are seeking to fix this**
 [![Version](https://img.shields.io/badge/Version-v1.8b-blue)](docs/updates/VERSION_1.8b_CHANGELOG.md)
 [![License](https://img.shields.io/badge/License-MIT-green)](LICENSE)
 [![Node](https://img.shields.io/badge/Node-%3E%3D%2018-brightgreen)](package.json)
