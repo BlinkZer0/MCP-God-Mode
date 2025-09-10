@@ -978,7 +978,7 @@ async function enumerateSystem(target: string, stealthLevel: string): Promise<an
     
     const currentPrivileges = IS_WINDOWS ? 
       (stdout.match(/Privileges:\s+(.+)/) || ['', 'Unknown'])[1] :
-      'root' in stdout ? 'root' : 'user';
+      stdout.includes('root') ? 'root' : 'user';
     
     return {
       success: true,
