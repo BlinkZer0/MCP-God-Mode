@@ -22,6 +22,8 @@ One MCP to rule them all, one MCP to find them, one MCP to compile the tools, an
 
 **Version 1.8b - Drone Operations & Enhanced Interactive Installer** — Last edited 2025-09-10
 
+**1.8b Note: Cursor is currently showing a red indicator as if to show that the server is malfunctioning, we are seeking to fix this; tests indicate the server is working as intended.**
+
 ## Table of Contents
 - [What is MCP God Mode?](#-what-is-mcp-god-mode)
 - [Flipper Zero Integration](#-flipper-zero-integration)
