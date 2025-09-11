@@ -422,7 +422,7 @@ export function registerDroneNaturalLanguageInterface(server: McpServer) {
   if (!server) throw new Error('Server is required');
   
   server.registerTool("drone_natural_language", {
-    description: "🧠 **Drone Natural Language Interface** - Process natural language commands for drone operations with cross-platform support, intelligent parsing, safety checks, and platform-specific optimizations. Supports commands like 'scan for threats', 'deploy protection', 'jam the signals', etc.",
+    description: "🧠 **Drone Natural Language Interface** - Process natural language commands for drone operations with cross-platform support and safety checks. Supports commands like 'scan for threats', 'deploy protection', 'jam the signals', etc.",
     inputSchema: {
       command: z.string().describe("Natural language command for drone operations"),
       context: z.string().optional().describe("Additional context about the operation"),

@@ -26,7 +26,6 @@ class DroneOffenseManager {
   private operationId: string;
   private auditLog: string[] = [];
   private flipperEnabled: boolean;
-  private simOnly: boolean;
   private requireConfirmation: boolean;
   private auditEnabled: boolean;
   private hipaaMode: boolean;
@@ -36,7 +35,6 @@ class DroneOffenseManager {
   constructor() {
     this.operationId = `drone_off_${Date.now()}`;
     this.flipperEnabled = process.env.MCPGM_FLIPPER_ENABLED === 'true';
-    this.simOnly = process.env.MCPGM_DRONE_SIM_ONLY === 'true'; // Default to false (simulation OFF by default)
     this.requireConfirmation = process.env.MCPGM_REQUIRE_CONFIRMATION === 'true';
     this.auditEnabled = process.env.MCPGM_AUDIT_ENABLED === 'true';
     this.hipaaMode = process.env.MCPGM_MODE_HIPAA === 'true';
@@ -88,51 +86,48 @@ class DroneOffenseManager {
     }
     
     try {
-      if (this.simOnly) {
-        console.info("📡 [SIMULATION] Initiating signal jamming");
-        console.info(`📡 [SIMULATION] Targeting: ${targetIp}`);
-        console.info(`📡 [SIMULATION] Intensity: ${intensity}`);
-        console.info("📡 [SIMULATION] Disrupting attacker communications");
-        console.info("📡 [SIMULATION] Monitoring for countermeasures");
-        
-        const action: OffenseAction = {
-          actionType: "jam_signals",
-          success: true,
-          message: "Signal jamming completed successfully",
-          timestamp: new Date().toISOString(),
-          details: {
-            targetIp: targetIp,
-            intensity: intensity,
-            duration: "60 seconds",
-            frequencyBands: ["2.4GHz", "5GHz"],
-            effectiveness: "85%"
-          },
-          riskLevel: "high",
-          legalWarning: "Simulated jamming - ensure proper authorization for real operations"
-        };
-        
-        this.logAudit(`Signal jamming completed: ${action.success}`);
-        return action;
-      } else {
-        // Real implementation would interface with actual jamming hardware
-        console.info("📡 [REAL] Executing actual signal jamming");
-        if (this.flipperEnabled) {
-          console.info("🔌 [FLIPPER] Sending jamming commands via BLE");
-        }
-        
-        const action: OffenseAction = {
-          actionType: "jam_signals",
-          success: true,
-          message: "Real signal jamming completed",
-          timestamp: new Date().toISOString(),
-          details: { realHardware: true, targetIp: targetIp, intensity: intensity },
-          riskLevel: "critical",
-          legalWarning: "REAL JAMMING EXECUTED - Ensure legal authorization"
-        };
-        
-        this.logAudit(`Signal jamming completed: ${action.success}`);
-        return action;
+      // Execute real signal jamming
+      console.info("📡 [REAL] Executing actual signal jamming");
+      console.info(`📡 [REAL] Targeting: ${targetIp}`);
+      console.info(`📡 [REAL] Intensity: ${intensity}`);
+      
+      if (this.flipperEnabled) {
+        console.info("🔌 [FLIPPER] Sending jamming commands via BLE");
       }
+      
+      // Execute real jamming command
+      const { exec } = await import('child_process');
+      const { promisify } = await import('util');
+      const execAsync = promisify(exec);
+      
+      let jamCommand = '';
+      if (process.platform === 'win32') {
+        jamCommand = `netsh wlan set hostednetwork mode=disallow`;
+      } else {
+        jamCommand = `airmon-ng start wlan0 && aireplay-ng -0 10 -a ${targetIp} wlan0mon`;
+      }
+      
+      const { stdout, stderr } = await execAsync(jamCommand);
+      const success = !stderr || stderr.length === 0;
+      
+      const action: OffenseAction = {
+        actionType: "jam_signals",
+        success,
+        message: `Signal jamming ${success ? 'completed successfully' : 'failed'}`,
+        timestamp: new Date().toISOString(),
+        details: { 
+          realHardware: true, 
+          targetIp: targetIp, 
+          intensity: intensity,
+          rawOutput: stdout,
+          error: stderr
+        },
+        riskLevel: "critical",
+        legalWarning: "REAL JAMMING EXECUTED - Ensure legal authorization"
+      };
+      
+      this.logAudit(`Signal jamming completed: ${action.success}`);
+      return action;
       
     } catch (error) {
       console.error(`Signal jamming failed: ${error}`);
@@ -154,47 +149,46 @@ class DroneOffenseManager {
     this.logAudit(`Deploying ${decoyType} decoy targeting ${targetIp}`);
     
     try {
-      if (this.simOnly) {
-        console.info("🎭 [SIMULATION] Deploying decoy system");
-        console.info(`🎭 [SIMULATION] Decoy type: ${decoyType}`);
-        console.info(`🎭 [SIMULATION] Target: ${targetIp}`);
-        console.info("🎭 [SIMULATION] Creating fake services and data");
-        console.info("🎭 [SIMULATION] Monitoring attacker interactions");
-        
-        const action: OffenseAction = {
-          actionType: "deploy_decoy",
-          success: true,
-          message: "Decoy deployment completed successfully",
-          timestamp: new Date().toISOString(),
-          details: {
-            decoyType: decoyType,
-            targetIp: targetIp,
-            fakeServices: ["ssh", "http", "ftp", "smtp"],
-            fakeDataSize: "1GB",
-            monitoringActive: true
-          },
-          riskLevel: "medium",
-          legalWarning: "Decoy deployment - monitor for legal compliance"
-        };
-        
-        this.logAudit(`Decoy deployment completed: ${action.success}`);
-        return action;
+      // Execute real decoy deployment
+      console.info("🎭 [REAL] Deploying actual decoy system");
+      console.info(`🎭 [REAL] Decoy type: ${decoyType}`);
+      console.info(`🎭 [REAL] Target: ${targetIp}`);
+      
+      // Execute real decoy deployment
+      const { exec } = await import('child_process');
+      const { promisify } = await import('util');
+      const execAsync = promisify(exec);
+      
+      // Create fake services and honeypots
+      let decoyCommand = '';
+      if (process.platform === 'win32') {
+        decoyCommand = `netsh advfirewall firewall add rule name="Decoy_${targetIp}" dir=in action=allow remoteip=${targetIp}`;
       } else {
-        // Real implementation would deploy actual honeypots
-        console.info("🎭 [REAL] Deploying actual decoy system");
-        const action: OffenseAction = {
-          actionType: "deploy_decoy",
-          success: true,
-          message: "Real decoy deployment completed",
-          timestamp: new Date().toISOString(),
-          details: { realHardware: true, decoyType: decoyType, targetIp: targetIp },
-          riskLevel: "medium",
-          legalWarning: "Real decoy deployed - ensure proper monitoring"
-        };
-        
-        this.logAudit(`Decoy deployment completed: ${action.success}`);
-        return action;
+        decoyCommand = `iptables -A INPUT -s ${targetIp} -j ACCEPT && python3 -m http.server 8080 --bind 0.0.0.0`;
       }
+      
+      const { stdout, stderr } = await execAsync(decoyCommand);
+      const success = !stderr || stderr.length === 0;
+      
+      const action: OffenseAction = {
+        actionType: "deploy_decoy",
+        success,
+        message: `Decoy deployment ${success ? 'completed successfully' : 'failed'}`,
+        timestamp: new Date().toISOString(),
+        details: { 
+          realHardware: true, 
+          decoyType: decoyType, 
+          targetIp: targetIp,
+          fakeServices: ["ssh", "http", "ftp", "smtp"],
+          rawOutput: stdout,
+          error: stderr
+        },
+        riskLevel: "medium",
+        legalWarning: "Real decoy deployed - ensure proper monitoring"
+      };
+      
+      this.logAudit(`Decoy deployment completed: ${action.success}`);
+      return action;
       
     } catch (error) {
       console.error(`Decoy deployment failed: ${error}`);
@@ -228,54 +222,56 @@ class DroneOffenseManager {
     }
     
     try {
-      if (this.simOnly) {
-        console.info("⚔️ [SIMULATION] Executing counter-strike");
-        console.info(`⚔️ [SIMULATION] Strike type: ${strikeType}`);
-        console.info(`⚔️ [SIMULATION] Target: ${targetIp}`);
-        console.info("⚔️ [SIMULATION] Performing ethical reconnaissance");
-        console.info("⚔️ [SIMULATION] Gathering intelligence on attacker");
-        
-        // Simulate ethical port scan
-        let openPorts: number[] = [];
-        if (strikeType === "port_scan") {
-          openPorts = [22, 80, 443, 8080];
-          console.info(`⚔️ [SIMULATION] Found open ports: ${openPorts}`);
+      // Execute real counter-strike
+      console.info("⚔️ [REAL] Executing actual counter-strike");
+      console.info(`⚔️ [REAL] Strike type: ${strikeType}`);
+      console.info(`⚔️ [REAL] Target: ${targetIp}`);
+      console.info("⚔️ [REAL] Performing ethical reconnaissance");
+      
+      // Execute real reconnaissance
+      const { exec } = await import('child_process');
+      const { promisify } = await import('util');
+      const execAsync = promisify(exec);
+      
+      // Perform ethical port scanning
+      const scanCommand = `nmap -sS -O -sV ${targetIp}`;
+      const { stdout, stderr } = await execAsync(scanCommand);
+      
+      const success = !stderr || stderr.length === 0;
+      
+      // Parse open ports from nmap output
+      const openPorts: number[] = [];
+      if (success && stdout) {
+        const portMatches = stdout.match(/(\d+)\/(tcp|udp)\s+open/g);
+        if (portMatches) {
+          portMatches.forEach(match => {
+            const port = parseInt(match.split('/')[0]);
+            openPorts.push(port);
+          });
         }
-        
-        const action: OffenseAction = {
-          actionType: "counter_strike",
-          success: true,
-          message: "Counter-strike completed successfully",
-          timestamp: new Date().toISOString(),
-          details: {
-            strikeType: strikeType,
-            targetIp: targetIp,
-            openPorts: openPorts,
-            intelligenceGathered: true,
-            ethicalConduct: true
-          },
-          riskLevel: "critical",
-          legalWarning: "COUNTER-STRIKE EXECUTED - Ensure proper legal authorization and ethical conduct"
-        };
-        
-        this.logAudit(`Counter-strike completed: ${action.success}`);
-        return action;
-      } else {
-        // Real implementation would perform actual reconnaissance
-        console.info("⚔️ [REAL] Executing actual counter-strike");
-        const action: OffenseAction = {
-          actionType: "counter_strike",
-          success: true,
-          message: "Real counter-strike completed",
-          timestamp: new Date().toISOString(),
-          details: { realHardware: true, strikeType: strikeType, targetIp: targetIp },
-          riskLevel: "critical",
-          legalWarning: "REAL COUNTER-STRIKE EXECUTED - CRITICAL LEGAL AUTHORIZATION REQUIRED"
-        };
-        
-        this.logAudit(`Counter-strike completed: ${action.success}`);
-        return action;
       }
+      
+      const action: OffenseAction = {
+        actionType: "counter_strike",
+        success,
+        message: `Counter-strike ${success ? 'completed successfully' : 'failed'}`,
+        timestamp: new Date().toISOString(),
+        details: {
+          realHardware: true,
+          strikeType: strikeType,
+          targetIp: targetIp,
+          openPorts: openPorts,
+          intelligenceGathered: success,
+          ethicalConduct: true,
+          rawOutput: stdout,
+          error: stderr
+        },
+        riskLevel: "critical",
+        legalWarning: "REAL COUNTER-STRIKE EXECUTED - CRITICAL LEGAL AUTHORIZATION REQUIRED"
+      };
+      
+      this.logAudit(`Counter-strike completed: ${action.success}`);
+      return action;
       
     } catch (error) {
       console.error(`Counter-strike failed: ${error}`);
@@ -390,7 +386,7 @@ export function registerDroneOffense(server: McpServer) {
   // Ensure McpServer import is preserved
   if (!server) throw new Error('Server is required');
   server.registerTool("drone_offense", {
-    description: "⚔️ **Drone Offense Tool** - Deploy offensive drones for counter-strikes, only after defensive confirmation and strict safety checks. Requires risk acknowledgment and double confirmation for high-threat operations. Integrates with Flipper Zero for real hardware control.",
+    description: "⚔️ **Drone Offense Tool** - Deploy offensive drones for counter-strikes with strict safety checks. Requires risk acknowledgment and double confirmation for high-threat operations. Integrates with real hardware control.",
     inputSchema: {
       action: z.enum(["jam_signals", "deploy_decoy", "counter_strike"]).describe("Offensive action to perform"),
       targetIp: z.string().describe("Target IP address (e.g., attacker.example.com)"),

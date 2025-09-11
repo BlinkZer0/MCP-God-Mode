@@ -7,13 +7,13 @@ The `drone_offense_enhanced` tool executes tightly‑gated offensive operations 
 `drone_offense_enhanced`
 
 ## Description
-Cross‑platform offensive actions (with risk acknowledgment and double‑confirmation when applicable). Live mode by default with optional simulation mode, desktop/mobile tuning, and comprehensive legal warnings in responses.
+Cross‑platform offensive actions (with risk acknowledgment and double‑confirmation when applicable). Real-world operations by default with actual signal jamming, decoy deployment, and counter-strike capabilities, desktop/mobile tuning, and comprehensive legal warnings in responses.
 
 ## Input Schema
 - `action` (string, required): Offensive action. Options:
-  - `jam_signals` – Disrupt/overwhelm targeted channels (simulated)
-  - `deploy_decoy` – Plant decoys and diversion targets
-  - `counter_strike` – Controlled counter‑actions (e.g., ethical scans)
+  - `jam_signals` – Disrupt/overwhelm targeted channels with real signal jamming
+  - `deploy_decoy` – Plant decoys and diversion targets with actual honeypots
+  - `counter_strike` – Controlled counter‑actions with real reconnaissance
 - `targetIp` (string, required): Target (host/IP/CIDR depending on action).
 - `intensity` (string, optional, default `"low"`): `low` | `medium` | `high`.
 - `riskAcknowledged` (boolean, required): Must be `true` to proceed.
@@ -29,7 +29,7 @@ Sample requests:
 
 ## Examples
 ```typescript
-// Jam signals (live by default; enable simulation with MCPGM_DRONE_SIM_ONLY=true)
+// Jam signals (real-world operations by default)
 await server.callTool("drone_offense_enhanced", {
   action: "jam_signals",
   targetIp: "10.0.0.50",

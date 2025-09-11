@@ -176,8 +176,8 @@ class MobileDroneManager {
     const command = this.getMobileCommand(operationType, parameters);
     console.log(`📱 [MOBILE] Command: ${command}`);
 
-    // Simulate mobile operation
-    const success = await this.simulateMobileOperation(operationType, parameters);
+    // Execute real mobile operation
+    const success = await this.executeRealMobileOperation(operationType, parameters);
     
     const endTime = Date.now();
     const timeElapsed = endTime - startTime;
@@ -218,17 +218,34 @@ class MobileDroneManager {
     return operation;
   }
 
-  private async simulateMobileOperation(
+  private async executeRealMobileOperation(
     operationType: string,
     parameters: Record<string, any>
   ): Promise<boolean> {
-    // Simulate mobile-specific operation delays and limitations
-    const delay = this.getMobileOperationDelay(operationType);
-    await new Promise(resolve => setTimeout(resolve, delay));
-
-    // Simulate platform-specific success rates
-    const successRate = this.getMobileSuccessRate(operationType);
-    return Math.random() < successRate;
+    // Execute real mobile drone operations
+    try {
+      const { exec } = await import('child_process');
+      const { promisify } = await import('util');
+      const execAsync = promisify(exec);
+      
+      // Get mobile-optimized command
+      const command = this.getMobileCommand(operationType, parameters);
+      
+      // Execute the command with mobile optimizations
+      const { stdout, stderr } = await execAsync(command);
+      
+      // Check for success indicators in output
+      const success = !stderr || stderr.length === 0;
+      
+      console.log(`📱 [MOBILE] Real operation result: ${success ? 'Success' : 'Failed'}`);
+      if (stdout) console.log(`📱 [MOBILE] Output: ${stdout}`);
+      if (stderr) console.log(`📱 [MOBILE] Error: ${stderr}`);
+      
+      return success;
+    } catch (error) {
+      console.error(`📱 [MOBILE] Real operation failed: ${error}`);
+      return false;
+    }
   }
 
   private getMobileOperationDelay(operationType: string): number {

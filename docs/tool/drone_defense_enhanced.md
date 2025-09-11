@@ -7,7 +7,7 @@ The `drone_defense_enhanced` tool deploys defensive drone operations with cross�
 `drone_defense_enhanced`
 
 ## Description
-Enhanced cross‑platform defensive drone operations with threat detection, automated responses, and optional natural‑language command parsing.
+Cross‑platform defensive drone operations with real threat detection, automated responses, and optional natural‑language command parsing.
 
 ## Input Schema
 - `action` (string, required): Defense action to perform. Options:
@@ -50,7 +50,7 @@ await server.callTool("drone_defense_enhanced", {
 
 ## Safety & Compliance
 - Honors confirmation flags and audit logging configuration
-- Live mode by default. To force simulation mode, set `MCPGM_DRONE_SIM_ONLY=true` in your environment.
+- Real-world operations by default with actual network scanning and firewall modifications
 - Optional related flags: `MCPGM_REQUIRE_CONFIRMATION` (default true), `MCPGM_AUDIT_ENABLED` (default true), `MCPGM_FLIPPER_ENABLED` (hardware bridge; defaults to enabled on the refactored server)
 
 ## Related Tools
