@@ -6,6 +6,16 @@
 
 ## 🎯 Intended Purpose
 
+### 🔨 The Hammer Analogy
+
+**Think of these tools like a hammer**: A hammer can be used legally to build houses, repair furniture, or construct useful things when you have proper authorization and permission. However, a hammer can also be used illegally to break into buildings, vandalize property, or cause harm when used without permission.
+
+**MCP God Mode tools work the same way**:
+- ✅ **Legal Use**: When you have explicit written permission from system owners (like a contractor hired to work on a house)
+- ❌ **Illegal Use**: When you use the tools on systems you don't own or don't have permission to test (like breaking into someone else's house)
+
+**Just as a contractor doesn't work on houses they're not hired to work on, you must not use these tools on systems you don't have explicit permission to test.**
+
 This application is designed for:
 
 - **Legitimate Security Testing**: Authorized penetration testing, vulnerability assessment, and security research
@@ -47,13 +57,16 @@ The following entities are **absolved from any criminal activity** or liability 
 
 ### User Responsibility
 
+**Remember the hammer analogy**: Just as you wouldn't use a hammer to break into someone else's house, you must not use these tools on systems you don't have permission to test.
+
 **YOU ARE SOLELY RESPONSIBLE FOR:**
 
-- Ensuring you have proper authorization before using any security testing tools
+- Ensuring you have proper authorization before using any security testing tools (like a contractor getting hired before working on a house)
 - Complying with all applicable laws and regulations in your jurisdiction
 - Obtaining written permission from system owners before testing
 - Using the software only for legitimate, authorized purposes
 - Any consequences resulting from misuse of this software
+- **Understanding that these tools will not stop you from misusing them - you must stop yourself**
 
 ## 📋 Terms of Use
 

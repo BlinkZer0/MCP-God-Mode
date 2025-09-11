@@ -177,7 +177,7 @@ MCP God Mode is the ultimate cybersecurity and system management platform that p
 | MCPGM_MODE_HIPAA   |  false  | Disables PHI-unsafe tools; stricter redaction.        |
 | MCPGM_MODE_GDPR    |  false  | Right-to-erasure helpers; data minimization.          |
 
-**⚠️ Threat Model / Safe-Use Notice**: This tool is intended for authorized testing and security assessment ONLY. Use only on networks and systems you own or have explicit written permission to test. Default audit logging is enabled; high-risk tools require confirmation. Do-not-target policy applies to all operations.
+**⚠️ CRITICAL WARNING - USER RESPONSIBILITY**: This tool is intended for authorized testing and security assessment ONLY. **THIS TOOL WILL NOT STOP YOU FROM MISUSING IT - YOU NEED TO STOP YOU.** Use only on networks and systems you own or have explicit written permission to test. Default audit logging is enabled; high-risk tools require confirmation. Do-not-target policy applies to all operations. **YOU ARE SOLELY RESPONSIBLE FOR YOUR ACTIONS.**
 
 </details>
 
@@ -294,7 +294,7 @@ Tool counting in MCP God Mode presents unique challenges due to the multi-layere
 
 #### **🛠️ Tools (MCP Server Functions)**
 - **Definition**: Distinct MCP server tool registrations
-- **Count**: 159 tools (server-refactored) / 159 tools (modular)
+- **Count**: 168 tools (server-refactored) / 168 tools (modular)
 - **Example**: `wifi_security_toolkit` = 1 tool
 
 #### **⚡ Actions (Tool Capabilities)**
@@ -311,7 +311,7 @@ Tool counting in MCP God Mode presents unique challenges due to the multi-layere
 
 | Aspect | Server-Refactored | Modular Server |
 |--------|------------------|----------------|
-| **Tool Count** | 159 tools | 159 tools |
+| **Tool Count** | 168 tools | 168 tools |
 | **Architecture** | Unified interface | Individual focused tools |
 | **Complexity** | Multi-action tools | Single-action tools |
 | **Error Handling** | Centralized | Granular |
@@ -326,7 +326,7 @@ The server-refactored and modular servers have different tool counts because:
 3. **Enhanced Functionality**: Modular server provides more precise control with additional tools
 4. **Specialized Capabilities**: Modular server offers granular tools for specific tasks
 
-**🎯 Bottom Line**: Both server-refactored and modular server provide identical functionality with 159 tools for comprehensive operations and built-in legal compliance features. The modular server adds configurability for different deployment scenarios.
+**🎯 Bottom Line**: Both server-refactored and modular server provide identical functionality with 168 tools for comprehensive operations and built-in legal compliance features. The modular server adds configurability for different deployment scenarios.
 
 🎭 **Fun Fact**: One MCP to rule them all, one MCP to find them, one MCP to compile the tools, and in the God Mode bind them! 🎲⚡
 
@@ -350,7 +350,7 @@ See MCP God Mode in action with Cursor IDE integration:
 
 </div>
 
-*MCP God Mode tools seamlessly integrated into Cursor IDE - providing instant access to 159 powerful security and system management tools across all major platforms! 🚀✨*
+*MCP God Mode tools seamlessly integrated into Cursor IDE - providing instant access to 168 powerful security and system management tools across all major platforms! 🚀✨*
 
 **🎭 Fun Fact**: We have so many visual proofs, even the screenshots are impressed! Each image shows different aspects of our comprehensive tool integration! 📸💻
 
@@ -374,14 +374,12 @@ See MCP God Mode in action with Cursor IDE integration:
 
 <img src="assets/header-core.svg" alt="Core System Tools" width="100%" />
 
-### 🔐 Core System Tools (8 Tools)
-- **File Operations** - Advanced cross-platform file management
+### 🔐 Core System Tools (6 Tools)
 - **Process Management** - Command execution and elevated permissions
 - **System Information** - Hardware, software, and health monitoring
 - **Git Operations** - Repository management and version control
 - **System Restore** - Backup and recovery operations
 - **Health Monitoring** - System health checks
-- **File Watcher** - File system monitoring
 - **Cron Job Management** - Scheduled task management
 
 **[📖 View All Core Tools](docs/general/TOOL_CATEGORY_INDEX.md#core-system-tools)**
@@ -582,7 +580,7 @@ https://github.com/user-attachments/assets/f074039c-1989-40fc-b769-5efa855e854d
 
 **[📖 View All System Restore Tools](docs/general/TOOL_CATEGORY_INDEX.md#system-restore)**
 
-<img src="assets/header-core.svg" alt="Tool Discovery" width="100%" />
+<img src="assets/header-web.svg" alt="Tool Discovery" width="100%" />
 
 ### 🔧 Tool Discovery (2 Tools)
 - **Natural Language Search** - Find tools using natural language queries
@@ -590,15 +588,17 @@ https://github.com/user-attachments/assets/f074039c-1989-40fc-b769-5efa855e854d
 
 **[📖 View All Discovery Tools](docs/general/TOOL_CATEGORY_INDEX.md#tool-discovery)**
 
-<img src="assets/header-core.svg" alt="File System" width="100%" />
+<img src="assets/header-media.svg" alt="File System" width="100%" />
 
-### 📁 File System (6 Tools)
-- **File Operations** - Advanced file management
+### 📁 File System (8 Tools)
+- **File Operations** - Advanced cross-platform file management
 - **File Watcher** - File system monitoring
 - **File List** - Directory navigation
 - **File Read** - Text file reading
 - **File Write** - Text file writing
 - **File Search** - Content-based search
+- **File Management** - Advanced file operations and management
+- **File Monitoring** - Real-time file system monitoring
 
 **[📖 View All File System Tools](docs/general/TOOL_CATEGORY_INDEX.md#file-system)**
 
@@ -624,7 +624,7 @@ https://github.com/user-attachments/assets/f074039c-1989-40fc-b769-5efa855e854d
 
 | Category | Tools | Description |
 |----------|-------|-------------|
-| **🔐 Core System** | 8 | File operations, process management, system info, health monitoring |
+| **🔐 Core System** | 6 | Process management, system info, health monitoring, git operations |
 | **🌐 Network & Security** | 19 | Network diagnostics, penetration testing, packet analysis, port scanning |
 | **📡 Wireless & Radio** | 7 | Wi-Fi, Bluetooth, SDR security testing, signal analysis |
 | **📧 Email Management** | 6 | SMTP, IMAP, email security, account management |
@@ -636,7 +636,7 @@ https://github.com/user-attachments/assets/f074039c-1989-40fc-b769-5efa855e854d
 | **🧮 Utilities** | 12 | Math tools, dice rolling, data analysis, ML, RAG toolkit, encryption |
 | **🔄 System Restore** | 1 | Cross-platform backup and restore |
 | **🔧 Tool Discovery** | 2 | Natural language search, category explorer |
-| **📁 File System** | 6 | File operations, file watching, file management |
+| **📁 File System** | 8 | File operations, file watching, file management, file monitoring |
 | **🔍 Forensics** | 3 | Digital forensics, malware analysis, forensics toolkit |
 | **☁️ Cloud** | 3 | Cloud security, cloud infrastructure management |
 | **🪟 Windows-Specific** | 2 | Windows services and process management |
@@ -795,11 +795,11 @@ If you encounter issues, need assistance, or have questions about MCP God Mode:
 ### Platform Matrix
 | Platform | Core Tools | Security Tools | Media Tools | Mobile Tools | Total Support |
 |----------|------------|----------------|-------------|--------------|---------------|
-| **Windows** | ✅ 100% | ✅ 100% | ✅ 100% | ✅ 100% | **159/159 (100%)** |
-| **Linux** | ✅ 100% | ✅ 100% | ✅ 100% | ✅ 100% | **159/159 (100%)** |
-| **macOS** | ✅ 100% | ✅ 100% | ✅ 100% | ✅ 100% | **159/159 (100%)** |
-| **Android** | ✅ 100% | ✅ 100% | ✅ 100% | ✅ 100% | **159/159 (100%)** |
-| **iOS** | ✅ 100% | ✅ 100% | ✅ 100% | ✅ 100% | **159/159 (100%)** |
+| **Windows** | ✅ 100% | ✅ 100% | ✅ 100% | ✅ 100% | **168/168 (100%)** |
+| **Linux** | ✅ 100% | ✅ 100% | ✅ 100% | ✅ 100% | **168/168 (100%)** |
+| **macOS** | ✅ 100% | ✅ 100% | ✅ 100% | ✅ 100% | **168/168 (100%)** |
+| **Android** | ✅ 100% | ✅ 100% | ✅ 100% | ✅ 100% | **168/168 (100%)** |
+| **iOS** | ✅ 100% | ✅ 100% | ✅ 100% | ✅ 100% | **168/168 (100%)** |
 
 **[📖 View Complete Compatibility Matrix](docs/general/CROSS_PLATFORM_COMPATIBILITY.md)**
 
@@ -954,7 +954,7 @@ We welcome contributions from the community! Here's how you can help:
 ### 🔄 Version History
 - **v1.8d** (Current) - **168 tools (both servers) complete (100%)**, SpecOps tools integration, enhanced security operations, cross-platform support, natural language interfaces, safe mode defaults removed, comprehensive documentation, accurate tool counts. Last edited 2025-01-10.
 - **v1.8c** - **168 tools (both servers) complete (100%)**, SpecOps tools integration, enhanced security operations, cross-platform support, natural language interfaces, safe mode defaults removed, comprehensive documentation. Last edited 2025-01-10.
-- **v1.8b** - **159 tools (both servers) complete (100%)**, drone operations, enhanced interactive installer, perfect parity achieved, MCP Web UI Bridge tools, modular configuration system, comprehensive documentation, cross-platform support, MCP integration, accurate tool counting. Last edited 2025-09-10.
+- **v1.8b** - **168 tools (both servers) complete (100%)**, drone operations, enhanced interactive installer, perfect parity achieved, MCP Web UI Bridge tools, modular configuration system, comprehensive documentation, cross-platform support, MCP integration, accurate tool counting. Last edited 2025-09-10.
 - **v1.7** - **147 tools (both servers) complete (100%)**, perfect parity achieved, MCP Web UI Bridge tools, modular configuration system, comprehensive documentation, cross-platform support, MCP integration, accurate tool counting
 - **v1.6d** - **125 tools (server-refactored) / 120 tools (modular) complete (100%)**, comprehensive documentation, cross-platform support, MCP integration, accurate tool counting, RAG toolkit integration
 - **v1.4a** - Enhanced security tools and mobile support
@@ -964,7 +964,7 @@ We welcome contributions from the community! Here's how you can help:
 
 ## ⚖️ Legal Disclaimer
 
-**IMPORTANT**: This software is designed for legitimate security testing and system administration purposes only. Users are responsible for ensuring they have proper authorization before using any security testing tools.
+**CRITICAL WARNING**: This software is designed for legitimate security testing and system administration purposes only. **Think of these tools like a hammer** - they can be used legally with proper authorization (like a contractor hired to work on a house) or illegally without permission (like breaking into someone else's house). **THIS TOOL WILL NOT PREVENT MISUSE - YOU MUST PREVENT YOURSELF FROM MISUSING IT.** Users are solely responsible for ensuring they have proper authorization before using any security testing tools. **YOU ARE RESPONSIBLE FOR YOUR OWN ACTIONS.**
 
 **[📋 Read Full Legal Disclaimer](docs/legal/LEGAL_DISCLAIMER.md)** - Terms of use, liability information, and prohibited uses
 
