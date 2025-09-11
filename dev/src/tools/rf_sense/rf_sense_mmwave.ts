@@ -5,6 +5,14 @@ import * as fs from "node:fs/promises";
 import { randomUUID } from "crypto";
 import { storePointCloudData, openPointCloudViewer } from "./rf_sense_viewer_api.js";
 import { savePointCloud } from "../../utils/ply.js";
+import { 
+  createSecuritySession, 
+  enableScanMode, 
+  disableScanMode, 
+  isScanModeActive,
+  sanitizeResponseData,
+  createSecurityMiddleware
+} from "./rf_sense_security_guard.js";
 
 /**
  * RF Sense mmWave Module - Unrestricted
@@ -33,7 +41,9 @@ const StartCaptureInput = z.object({
   durationSec: z.number().int().positive().max(86400).default(300), // 24 hours max
   annotation: z.string().default(""),
   participants: z.array(z.string()).default([]),
-  captureMode: z.enum(["point_cloud", "object_tracking", "gesture_detection", "full_scan"]).default("point_cloud")
+  captureMode: z.enum(["point_cloud", "object_tracking", "gesture_detection", "full_scan"]).default("point_cloud"),
+  enableScanMode: z.boolean().default(false),
+  consentGiven: z.boolean().default(false)
 });
 
 const ProcessInput = z.object({
@@ -73,6 +83,9 @@ interface MmWaveSession {
   participants: string[];
   annotation: string;
   captureMode: string;
+  securitySessionId?: string;
+  scanMode: boolean;
+  localOnly: boolean;
 }
 
 const sessions = new Map<string, MmWaveSession>();
@@ -117,14 +130,16 @@ export function registerRfSenseMmWave(server: McpServer) {
     action,
     sdkPath,
     deviceConfig,
-    durationSec = 300,
-    annotation = "",
-    participants = [],
-    captureMode = "point_cloud",
-    sessionId,
-    pipeline,
-    format,
-    outputPath
+      durationSec = 300,
+      annotation = "",
+      participants = [],
+      captureMode = "point_cloud",
+      enableScanMode = false,
+      consentGiven = false,
+      sessionId,
+      pipeline,
+      format,
+      outputPath
   }) => {
     try {
       assertEnabled();
@@ -138,7 +153,7 @@ export function registerRfSenseMmWave(server: McpServer) {
           return await configureMmWave(sdkPath, deviceConfig);
         
         case "capture_start":
-          return await startCapture(durationSec, annotation, participants, captureMode);
+          return await startCapture(durationSec, annotation, participants, captureMode, enableScanMode, consentGiven);
         
         case "capture_stop":
           if (!sessionId) {
@@ -238,7 +253,14 @@ async function configureMmWave(sdkPath?: string, deviceConfig?: any) {
   };
 }
 
-async function startCapture(durationSec: number, annotation: string, participants: string[], captureMode: string) {
+async function startCapture(
+  durationSec: number, 
+  annotation: string, 
+  participants: string[], 
+  captureMode: string,
+  enableScanMode: boolean = false,
+  consentGiven: boolean = false
+) {
   if (!currentConfig) {
     throw new Error("mmWave device not configured");
   }
@@ -250,6 +272,15 @@ async function startCapture(durationSec: number, annotation: string, participant
   
   await fs.mkdir(root, { recursive: true });
   
+  // Create security session if scan mode is enabled
+  let securitySessionId: string | undefined;
+  if (enableScanMode) {
+    securitySessionId = createSecuritySession(consentGiven);
+    if (enableScanMode) {
+      enableScanMode(securitySessionId);
+    }
+  }
+  
   const sess: MmWaveSession = {
     id,
     sdkPath: currentConfig.sdkPath,
@@ -260,7 +291,10 @@ async function startCapture(durationSec: number, annotation: string, participant
     startTime: Date.now(),
     participants,
     annotation,
-    captureMode
+    captureMode,
+    securitySessionId,
+    scanMode: enableScanMode,
+    localOnly: enableScanMode
   };
   
   sessions.set(id, sess);
@@ -268,20 +302,32 @@ async function startCapture(durationSec: number, annotation: string, participant
   // Simulate mmWave capture (in real implementation, this would interface with vendor SDK)
   await simulateMmWaveCapture(sess, durationSec);
   
+  const responseData = {
+    sessionId: id,
+    path: root,
+    duration_sec: durationSec,
+    annotation,
+    participants,
+    captureMode,
+    deviceConfig: currentConfig.deviceConfig,
+    securitySessionId,
+    scanMode: enableScanMode,
+    localOnly: enableScanMode,
+    unrestricted: true,
+    timestamp: new Date().toISOString()
+  };
+  
+  // Apply security middleware if scan mode is active
+  let sanitizedResponse = responseData;
+  if (enableScanMode && securitySessionId) {
+    const security = createSecurityMiddleware(securitySessionId);
+    sanitizedResponse = security.processData(responseData, 10); // Limit response data
+  }
+  
   return {
     content: [{
       type: "text",
-      text: JSON.stringify({
-        sessionId: id,
-        path: root,
-        duration_sec: durationSec,
-        annotation,
-        participants,
-        captureMode,
-        deviceConfig: currentConfig.deviceConfig,
-        unrestricted: true,
-        timestamp: new Date().toISOString()
-      }, null, 2)
+      text: JSON.stringify(sanitizedResponse, null, 2)
     }]
   };
 }
@@ -428,30 +474,45 @@ async function processPointCloud(frames: any[], sessionId: string) {
   // Store point cloud data for viewer
   if (allPoints.length > 0) {
     try {
+      const session = sessions.get(sessionId);
       storePointCloudData(sessionId, allPoints, {
         source: 'rf_sense_mmwave',
         pipeline: 'point_cloud',
-        count: allPoints.length
+        count: allPoints.length,
+        securitySessionId: session?.securitySessionId,
+        scanMode: session?.scanMode || false,
+        localOnly: session?.localOnly || false
       });
     } catch (error) {
       console.warn("Failed to store point cloud data:", error);
     }
   }
   
+  const responseData = {
+    pipeline: "point_cloud",
+    total_points: allPoints.length,
+    frames_processed: frames.length,
+    viewer_url: `http://localhost:${process.env.MCP_WEB_PORT || 3000}/viewer/pointcloud?sessionId=${sessionId}`,
+    viewer_available: true,
+    data_cached: true,
+    note: "Point cloud data has been cached and is available via viewer URL. Full data not included in response to preserve token usage.",
+    unrestricted: true,
+    timestamp: new Date().toISOString()
+  };
+  
+  // Apply security middleware if scan mode is active
+  const session = sessions.get(sessionId);
+  let sanitizedResponse = responseData;
+  if (session?.scanMode && session?.securitySessionId) {
+    const security = createSecurityMiddleware(session.securitySessionId);
+    sanitizedResponse = security.processData(responseData, 5); // Limit response data for scan mode
+    sanitizedResponse._securityNote = "Data sanitized for AI-safe scan mode. Full data available in offline viewer.";
+  }
+  
   return {
     content: [{
       type: "text",
-      text: JSON.stringify({
-        pipeline: "point_cloud",
-        total_points: allPoints.length,
-        frames_processed: frames.length,
-        viewer_url: `http://localhost:${process.env.MCP_WEB_PORT || 3000}/viewer/pointcloud?sessionId=${sessionId}`,
-        viewer_available: true,
-        data_cached: true,
-        note: "Point cloud data has been cached and is available via viewer URL. Full data not included in response to preserve token usage.",
-        unrestricted: true,
-        timestamp: new Date().toISOString()
-      }, null, 2)
+      text: JSON.stringify(sanitizedResponse, null, 2)
     }]
   };
 }

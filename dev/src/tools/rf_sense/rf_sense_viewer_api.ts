@@ -1,12 +1,23 @@
 /**
  * RF Sense Point Cloud Viewer API
  * Provides endpoints for serving the viewer and streaming live point cloud data
+ * Enhanced with AI-safe scan mode and local-only operations
  */
 
 import express from 'express';
 import * as path from 'node:path';
 import * as fs from 'node:fs';
 import { z } from 'zod';
+import { 
+  createSecuritySession, 
+  enableScanMode, 
+  disableScanMode, 
+  isScanModeActive,
+  isNetworkBlocked,
+  sanitizeResponseData,
+  getSecurityStatus,
+  createSecurityMiddleware
+} from './rf_sense_security_guard.js';
 
 // Global store for point cloud data (in production, use a proper database)
 interface PointCloudSession {
@@ -19,11 +30,17 @@ interface PointCloudSession {
     pipeline: string;
     count: number;
   };
+  securitySessionId?: string;
+  scanMode?: boolean;
+  localOnly?: boolean;
 }
 
 // In-memory store for point cloud sessions
 const pointCloudStore = new Map<string, PointCloudSession>();
 let lastSessionId: string | null = null;
+
+// Security session mapping
+const securitySessionMap = new Map<string, string>(); // pointCloudSessionId -> securitySessionId
 
 /**
  * Setup RF Sense Point Cloud Viewer API endpoints
@@ -44,6 +61,7 @@ export function setupRfSenseViewerAPI(app: express.Application): void {
   app.get('/api/rf_sense/points', async (req, res) => {
     try {
       const sessionId = req.query.sessionId as string;
+      const securitySessionId = req.query.securitySessionId as string;
       
       let session: PointCloudSession | undefined;
       
@@ -64,12 +82,27 @@ export function setupRfSenseViewerAPI(app: express.Application): void {
         });
       }
       
-      res.json({
+      // Check if scan mode is active and sanitize data accordingly
+      let responseData = {
         sessionId: session.id,
         timestamp: session.timestamp,
         points: session.points,
-        metadata: session.metadata
-      });
+        metadata: session.metadata,
+        scanMode: session.scanMode || false,
+        localOnly: session.localOnly || false
+      };
+      
+      // If security session is provided, apply security middleware
+      if (securitySessionId) {
+        const security = createSecurityMiddleware(securitySessionId);
+        if (security.checkNetworkAccess() && isScanModeActive(securitySessionId)) {
+          // Sanitize data for AI-safe scan mode
+          responseData = security.processData(responseData, 50); // Limit to 50 data points
+          responseData._securityNote = "Data sanitized for AI-safe scan mode. Full data available in offline viewer.";
+        }
+      }
+      
+      res.json(responseData);
       
     } catch (error) {
       console.error('Error fetching point cloud data:', error);
@@ -246,21 +279,95 @@ export function setupRfSenseViewerAPI(app: express.Application): void {
     }
   });
 
+  // Security endpoints for AI-safe scan mode
+  app.post('/api/rf_sense/security/session', (req, res) => {
+    try {
+      const { consentGiven } = req.body;
+      const securitySessionId = createSecuritySession(consentGiven || false);
+      
+      res.json({
+        success: true,
+        securitySessionId,
+        message: 'Security session created successfully'
+      });
+    } catch (error) {
+      res.status(500).json({
+        error: 'Failed to create security session',
+        message: error instanceof Error ? error.message : 'Unknown error'
+      });
+    }
+  });
+
+  app.post('/api/rf_sense/security/scan-mode', (req, res) => {
+    try {
+      const { securitySessionId, enable } = req.body;
+      
+      if (!securitySessionId) {
+        return res.status(400).json({
+          error: 'Security session ID required'
+        });
+      }
+      
+      const success = enable ? enableScanMode(securitySessionId) : disableScanMode(securitySessionId);
+      
+      if (success) {
+        res.json({
+          success: true,
+          scanMode: enable,
+          message: `Scan mode ${enable ? 'enabled' : 'disabled'} successfully`
+        });
+      } else {
+        res.status(400).json({
+          error: 'Failed to toggle scan mode',
+          message: 'Invalid session or consent required'
+        });
+      }
+    } catch (error) {
+      res.status(500).json({
+        error: 'Failed to toggle scan mode',
+        message: error instanceof Error ? error.message : 'Unknown error'
+      });
+    }
+  });
+
+  app.get('/api/rf_sense/security/status/:securitySessionId', (req, res) => {
+    try {
+      const { securitySessionId } = req.params;
+      const status = getSecurityStatus(securitySessionId);
+      
+      res.json(status);
+    } catch (error) {
+      res.status(500).json({
+        error: 'Failed to get security status',
+        message: error instanceof Error ? error.message : 'Unknown error'
+      });
+    }
+  });
+
   // Health check endpoint
   app.get('/api/rf_sense/health', (req, res) => {
     res.json({
       status: 'healthy',
       service: 'RF Sense Point Cloud Viewer API',
-      version: '1.0.0',
+      version: '2.0.0',
       sessions: pointCloudStore.size,
       latest: lastSessionId,
+      securityFeatures: {
+        scanMode: true,
+        networkBlocking: true,
+        dataSanitization: true,
+        localOnlyCache: true
+      },
       endpoints: [
         'GET /viewer/pointcloud - Point cloud viewer interface',
         'GET /api/rf_sense/points - Get latest point cloud data',
         'GET /api/rf_sense/sessions - List available sessions',
         'POST /api/rf_sense/points - Store point cloud data',
         'DELETE /api/rf_sense/sessions/:id - Delete session',
-        'GET /api/rf_sense/export/:id - Export session data'
+        'GET /api/rf_sense/export/:id - Export session data',
+        'POST /api/rf_sense/security/session - Create security session',
+        'POST /api/rf_sense/security/scan-mode - Toggle scan mode',
+        'GET /api/rf_sense/security/status/:id - Get security status'
       ]
     });
   });
@@ -278,6 +385,9 @@ export function storePointCloudData(
     source?: string;
     pipeline?: string;
     count?: number;
+    securitySessionId?: string;
+    scanMode?: boolean;
+    localOnly?: boolean;
   } = {}
 ): void {
   const session: PointCloudSession = {
@@ -289,13 +399,21 @@ export function storePointCloudData(
       sessionId,
       pipeline: metadata.pipeline || 'unknown',
       count: metadata.count || points.length
-    }
+    },
+    securitySessionId: metadata.securitySessionId,
+    scanMode: metadata.scanMode || false,
+    localOnly: metadata.localOnly || false
   };
   
   pointCloudStore.set(sessionId, session);
   lastSessionId = sessionId;
   
-  console.log(`📊 Stored point cloud data: ${points.length} points for session ${sessionId}`);
+  // Map security session if provided
+  if (metadata.securitySessionId) {
+    securitySessionMap.set(sessionId, metadata.securitySessionId);
+  }
+  
+  console.log(`📊 Stored point cloud data: ${points.length} points for session ${sessionId}${metadata.scanMode ? ' (AI-safe scan mode)' : ''}`);
 }
 
 /**

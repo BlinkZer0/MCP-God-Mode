@@ -5,6 +5,14 @@ import * as fs from "node:fs/promises";
 import { randomUUID } from "crypto";
 import { storePointCloudData, openPointCloudViewer } from "./rf_sense_viewer_api.js";
 import { savePointCloud } from "../../utils/ply.js";
+import { 
+  createSecuritySession, 
+  enableScanMode, 
+  disableScanMode, 
+  isScanModeActive,
+  sanitizeResponseData,
+  createSecurityMiddleware
+} from "./rf_sense_security_guard.js";
 
 /**
  * RF Sense Simulation Module - Unrestricted

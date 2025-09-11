@@ -5,7 +5,7 @@
   <title>RF_sense_mmwave — Point Cloud Viewer (Offline/Live)</title>
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <meta id="cspMeta" http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src 'self' ws: wss: blob: data:;">
-  <style>
+    <style>
     :root {
       --bg: #0b1115; --panel: #121a20; --muted: #7a8a99; --fg: #e7f0f7; --accent:#4fb3ff;
       --ok:#38c172; --warn:#ffb020; --err:#ff5d5d;
@@ -91,16 +91,31 @@
     </section>
 
     <!-- WebSocket -->
-    <section>
-      <h2>Live — WebSocket</h2>
-      <label for="wsUrl">WebSocket URL</label>
-      <input id="wsUrl" type="text" value="ws://localhost:8787/points">
-      <div class="row">
-        <button id="wsConnect">Connect</button>
-        <button id="wsDisconnect">Disconnect</button>
-      </div>
-      <p class="small">Send JSON frames or NDJSON lines. Each message may contain a full cloud or a frame chunk.</p>
-    </section>
+        <section>
+          <h2>Live — WebSocket</h2>
+          <label for="wsUrl">WebSocket URL</label>
+          <input id="wsUrl" type="text" value="ws://localhost:8787/points">
+          <div class="row">
+            <button id="wsConnect">Connect</button>
+            <button id="wsDisconnect">Disconnect</button>
+          </div>
+          <p class="small">Send JSON frames or NDJSON lines. Each message may contain a full cloud or a frame chunk.</p>
+        </section>
+        
+        <section>
+          <h2>RF Sense Integration</h2>
+          <label for="rfSenseUrl">RF Sense API URL</label>
+          <input id="rfSenseUrl" type="text" value="http://localhost:3000/api/rf_sense">
+          <div class="row">
+            <button id="rfSenseConnect">Connect RF Sense</button>
+            <button id="rfSenseDisconnect">Disconnect</button>
+          </div>
+          <div class="row">
+            <button id="rfSenseScanMode">Enable Scan Mode</button>
+            <button id="rfSenseNormalMode">Disable Scan Mode</button>
+          </div>
+          <p class="small">Connect to RF Sense tools for secure data visualization with AI-safe scan mode.</p>
+        </section>
 
     <!-- Web Bluetooth -->
     <section>
@@ -582,7 +597,7 @@
           if (uAutoExpose > 0.5) {
             // simple local tone map
             i = (i - imin) / max(1e-6, (imax - imin));
-          } else {
+                } else {
             i = (i - imin) / max(1e-6, (imax - imin));
           }
           col = turbo(i);
@@ -629,6 +644,160 @@
 
   // Track per-frame for optional re-merge
   const framesStore = []; // {positions: Float32Array, intensities: Float32Array, sourceId: number}
+
+  // ---------- RF Sense Integration ----------
+  let rfSenseConnected = false;
+  let rfSenseSecuritySessionId = null;
+  let rfSenseScanMode = false;
+  let rfSenseApiUrl = "http://localhost:3000/api/rf_sense";
+
+  // RF Sense API functions
+  async function connectRfSense() {
+    try {
+      rfSenseApiUrl = $("#rfSenseUrl").value;
+      
+      // Create security session
+      const response = await fetch(`${rfSenseApiUrl}/security/session`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ consentGiven: true })
+      });
+      
+      const data = await response.json();
+      if (data.success) {
+        rfSenseSecuritySessionId = data.securitySessionId;
+        rfSenseConnected = true;
+        updateRfSenseStatus();
+        toast("RF Sense connected successfully", "ok");
+      } else {
+        throw new Error(data.message || "Failed to create security session");
+      }
+    } catch (error) {
+      toast(`RF Sense connection failed: ${error.message}`, "err");
+    }
+  }
+
+  async function disconnectRfSense() {
+    rfSenseConnected = false;
+    rfSenseSecuritySessionId = null;
+    rfSenseScanMode = false;
+    updateRfSenseStatus();
+    toast("RF Sense disconnected", "info");
+  }
+
+  async function enableRfSenseScanMode() {
+    if (!rfSenseConnected || !rfSenseSecuritySessionId) {
+      toast("Please connect to RF Sense first", "err");
+      return;
+    }
+
+    try {
+      const response = await fetch(`${rfSenseApiUrl}/security/scan-mode`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ 
+          securitySessionId: rfSenseSecuritySessionId, 
+          enable: true 
+        })
+      });
+      
+      const data = await response.json();
+      if (data.success) {
+        rfSenseScanMode = true;
+        updateRfSenseStatus();
+        toast("RF Sense scan mode enabled - AI-safe operation active", "ok");
+      } else {
+        throw new Error(data.message || "Failed to enable scan mode");
+      }
+    } catch (error) {
+      toast(`Failed to enable scan mode: ${error.message}`, "err");
+    }
+  }
+
+  async function disableRfSenseScanMode() {
+    if (!rfSenseConnected || !rfSenseSecuritySessionId) {
+      toast("Please connect to RF Sense first", "err");
+      return;
+    }
+
+    try {
+      const response = await fetch(`${rfSenseApiUrl}/security/scan-mode`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ 
+          securitySessionId: rfSenseSecuritySessionId, 
+          enable: false 
+        })
+      });
+      
+      const data = await response.json();
+      if (data.success) {
+        rfSenseScanMode = false;
+        updateRfSenseStatus();
+        toast("RF Sense scan mode disabled - normal operation restored", "ok");
+      } else {
+        throw new Error(data.message || "Failed to disable scan mode");
+      }
+    } catch (error) {
+      toast(`Failed to disable scan mode: ${error.message}`, "err");
+    }
+  }
+
+  async function fetchRfSenseData() {
+    if (!rfSenseConnected) return;
+
+    try {
+      const url = `${rfSenseApiUrl}/points${rfSenseSecuritySessionId ? `?securitySessionId=${rfSenseSecuritySessionId}` : ''}`;
+      const response = await fetch(url);
+      const data = await response.json();
+      
+      if (data.points && data.points.length > 0) {
+        // Convert RF Sense data to viewer format
+        const positions = new Float32Array(data.points.length * 3);
+        const intensities = new Float32Array(data.points.length);
+        const sources = new Uint8Array(data.points.length);
+        
+        for (let i = 0; i < data.points.length; i++) {
+          const point = data.points[i];
+          positions[i * 3] = point[0];
+          positions[i * 3 + 1] = point[1];
+          positions[i * 3 + 2] = point[2];
+          intensities[i] = Math.random(); // Default intensity
+          sources[i] = 4; // RF Sense source ID
+        }
+        
+        const frame = { positions, intensities };
+        appendFrame(frame, "rf_sense");
+        
+        // Cache data if in scan mode
+        if (rfSenseScanMode && Cache) {
+          await Cache.appendFrameBlob(new Blob([JSON.stringify(data)], { type: 'application/json' }));
+        }
+      }
+    } catch (error) {
+      console.warn("Failed to fetch RF Sense data:", error);
+    }
+  }
+
+  function updateRfSenseStatus() {
+    const statusEl = $("#status-rfsense") || document.createElement("div");
+    statusEl.id = "status-rfsense";
+    statusEl.className = "badge";
+    
+    if (rfSenseConnected) {
+      statusEl.className += rfSenseScanMode ? " warn" : " ok";
+      statusEl.textContent = `RF Sense: ${rfSenseScanMode ? 'scan mode' : 'connected'}`;
+    } else {
+      statusEl.className += " muted";
+      statusEl.textContent = "RF Sense: disconnected";
+    }
+    
+    // Add to status section if not already present
+    const statusSection = document.querySelector("section");
+    if (statusSection && !document.getElementById("status-rfsense")) {
+      statusSection.appendChild(statusEl);
+    }
+  }
 
   function sourceIdFromTag(tag) {
     if (tag === "ws" || tag === "wifi") return 0;
@@ -696,7 +865,7 @@
       const key = ix + "," + iy + "," + iz;
       if (!map.has(key)) {
         map.set(key, { x, y, z, i: inten ? inten[i] : 0 });
-      } else {
+                    } else {
         // Keep first or average — we'll average intensity and position slightly
         const o = map.get(key);
         o.x = (o.x + x)*0.5; o.y = (o.y + y)*0.5; o.z = (o.z + z)*0.5;
@@ -806,7 +975,7 @@
       const isLoopback = /^ws:\/\/(localhost|127\.0\.0\.1)(:\d+)?\//i.test(url);
       if (!isLoopback) {
         toast("Non-loopback WebSocket blocked in Scan Mode", "err");
-        return;
+                    return;
       }
     }
     
@@ -927,6 +1096,12 @@
     if (synthOn) toast("Synthetic generator enabled");
   }
   $("#synthBtn").addEventListener('click', toggleSynth);
+
+  // ---------- RF Sense Integration Event Listeners ----------
+  $("#rfSenseConnect").addEventListener('click', connectRfSense);
+  $("#rfSenseDisconnect").addEventListener('click', disconnectRfSense);
+  $("#rfSenseScanMode").addEventListener('click', enableRfSenseScanMode);
+  $("#rfSenseNormalMode").addEventListener('click', disableRfSenseScanMode);
 
   function generateSyntheticFrame(t) {
     // Floor grid points + two boxes + a moving blob
@@ -1105,6 +1280,12 @@ end_header
         appendFrame(fr, "synth");
       }
     }
+    
+    // Fetch RF Sense data periodically
+    if (rfSenseConnected && Math.random() < 0.1) { // 10% chance per frame
+      fetchRfSenseData();
+    }
+    
     controls.update();
     renderer.render(scene, camera);
     updateFPS();
@@ -1122,6 +1303,6 @@ end_header
     uniforms.uZMin.value=minz; uniforms.uZMax.value=maxz;
   }, 1500);
 
-</script>
+    </script>
 </body>
 </html>

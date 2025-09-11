@@ -6,6 +6,14 @@ import * as net from "net";
 import { randomUUID } from "crypto";
 import { storePointCloudData, openPointCloudViewer } from "./rf_sense_viewer_api.js";
 import { savePointCloud } from "../../utils/ply.js";
+import { 
+  createSecuritySession, 
+  enableScanMode, 
+  disableScanMode, 
+  isScanModeActive,
+  sanitizeResponseData,
+  createSecurityMiddleware
+} from "./rf_sense_security_guard.js";
 
 /**
  * RF Sense WiFi Lab Module - Unrestricted
@@ -29,7 +37,9 @@ const ConfigureInput = z.object({
 const StartCaptureInput = z.object({
   durationSec: z.number().int().positive().max(86400), // 24 hours max
   annotation: z.string().default(""),
-  participants: z.array(z.string()).default([]).describe("List of participants (optional)")
+  participants: z.array(z.string()).default([]).describe("List of participants (optional)"),
+  enableScanMode: z.boolean().default(false),
+  consentGiven: z.boolean().default(false)
 });
 
 const ProcessInput = z.object({
@@ -68,6 +78,9 @@ interface LabSession {
   endTime?: number;
   participants: string[];
   annotation: string;
+  securitySessionId?: string;
+  scanMode: boolean;
+  localOnly: boolean;
 }
 
 const sessions = new Map<string, LabSession>();
