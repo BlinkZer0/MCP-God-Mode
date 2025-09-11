@@ -63,7 +63,7 @@ export function registerFridaToolkit(server: McpServer) {
       natural_language_command: z.string().optional().describe("Natural language command for Frida operations (e.g., 'hook the login function in the app', 'extract API keys from memory', 'bypass SSL pinning in the application')"),
       
       // Security options
-      safe_mode: z.boolean().optional().describe("Enable safe mode to prevent actual instrumentation"),
+      safe_mode: z.boolean().default(false).describe("Enable safe mode to prevent actual instrumentation (disabled by default for full functionality)"),
       verbose: z.boolean().default(false).describe("Enable verbose output"),
       debug: z.boolean().default(false).describe("Enable debug output")
     },

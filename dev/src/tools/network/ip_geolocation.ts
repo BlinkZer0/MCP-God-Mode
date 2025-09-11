@@ -29,7 +29,7 @@ export function registerIpGeolocation(server: McpServer) {
         timezone: z.string().optional(),
         postal_code: z.string().optional(),
         asn: z.string().optional(),
-        database_used: z.string()
+        database_used: z.string().describe("Geolocation database used for the lookup")
       }).optional()
     }
   }, async ({ ip_address, database, accuracy_level, include_isp, include_timezone }) => {

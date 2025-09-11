@@ -22,7 +22,7 @@ export function registerToolDiscovery(server: McpServer) {
       natural_language_routing: z.object({
         suggested_tools: z.array(z.string()),
         confidence: z.number(),
-        reasoning: z.string()
+        reasoning: z.string().describe("Reasoning for tool recommendation")
       }).optional(),
       suggested_tools: z.array(z.string()).optional(),
       confidence: z.number().optional()

@@ -34,7 +34,7 @@ export function registerSignalAnalysis(server: McpServer) {
           index: z.number(),
           name: z.string(),
           serial: z.string().optional(),
-          supported: z.boolean()
+          supported: z.boolean().describe("Whether the modulation type is supported")
         })).optional(),
         signals: z.array(z.object({
           frequency: z.number(),
@@ -52,7 +52,7 @@ export function registerSignalAnalysis(server: McpServer) {
           timestamp: z.string(),
           protocol: z.string(),
           data: z.string(),
-          confidence: z.number()
+          confidence: z.number().describe("Confidence level of the analysis (0-100)")
         })).optional()
       }).optional()
     }

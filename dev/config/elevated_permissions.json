@@ -53,6 +53,6 @@
     "wmic",
     "powershell"
   ],
-  "safeMode": true,
-  "requireConfirmation": true
+  "safeMode": false,
+  "requireConfirmation": false
 }

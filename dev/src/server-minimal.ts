@@ -326,7 +326,7 @@ server.registerTool("dice_rolling", {
     rolls: z.array(z.array(z.number())),
     total: z.number(),
     modifier: z.number(),
-    breakdown: z.string()
+    breakdown: z.string().describe("Detailed breakdown of the calculation")
   }
 }, async ({ dice, count = 1, modifier = 0 }) => {
   try {

@@ -34,13 +34,13 @@ export function registerSdrSecurityToolkit(server: McpServer) {
         decoded_data: z.array(z.string()).optional(),
         spectrum_data: z.array(z.object({
           frequency: z.number(),
-          amplitude: z.number()
+          amplitude: z.number().describe("Signal amplitude in dB")
         })).optional(),
         devices_found: z.array(z.object({
           id: z.string(),
           name: z.string(),
           type: z.string(),
-          status: z.string()
+          status: z.string().describe("Operation status (success, error, partial)")
         })).optional(),
         audio_file: z.string().optional(),
         analysis_results: z.object({
@@ -220,12 +220,54 @@ async function decodeProtocol(protocol: string, frequency: number) {
       decodedData.push("LTE Cell: 54321, PCI: 123, RSRP: -75dBm");
       break;
     case "WiFi":
-      decodedData.push("SSID: 'HomeNetwork', BSSID: 00:11:22:33:44:55, Channel: 6");
-      decodedData.push("SSID: 'OfficeWiFi', BSSID: 66:77:88:99:AA:BB, Channel: 11");
+      try {
+        const { exec } = await import("node:child_process");
+        const { promisify } = await import("util");
+        const execAsync = promisify(exec);
+        
+        if (process.platform === "win32") {
+          const { stdout } = await execAsync("netsh wlan show profiles");
+          const lines = stdout.split('\n');
+          for (const line of lines) {
+            if (line.includes("All User Profile")) {
+              const ssid = line.split(":")[1]?.trim();
+              if (ssid) {
+                decodedData.push(`SSID: '${ssid}', BSSID: Unknown, Channel: Unknown`);
+              }
+            }
+          }
+        } else {
+          const { stdout } = await execAsync("iwlist wlan0 scan 2>/dev/null || nmcli -t -f SSID dev wifi");
+          const lines = stdout.split('\n');
+          for (const line of lines) {
+            if (line.includes("ESSID:") || line.includes("SSID:")) {
+              const ssid = line.split(":")[1]?.trim().replace(/"/g, '');
+              if (ssid && ssid !== "") {
+                decodedData.push(`SSID: '${ssid}', BSSID: Unknown, Channel: Unknown`);
+              }
+            }
+          }
+        }
+      } catch (error) {
+        decodedData.push("WiFi scan failed - no wireless interface available");
+      }
       break;
     case "Bluetooth":
-      decodedData.push("Device: 'iPhone 13', MAC: 12:34:56:78:9A:BC, RSSI: -45dBm");
-      decodedData.push("Device: 'AirPods Pro', MAC: CD:EF:12:34:56:78, RSSI: -55dBm");
+      try {
+        const { exec } = await import("node:child_process");
+        const { promisify } = await import("util");
+        const execAsync = promisify(exec);
+        
+        const { stdout } = await execAsync("hcitool scan 2>/dev/null || bluetoothctl devices 2>/dev/null || echo 'No Bluetooth devices found'");
+        const lines = stdout.split('\n');
+        for (const line of lines) {
+          if (line.includes("Device") || line.includes(":")) {
+            decodedData.push(`Device: '${line.trim()}', MAC: Unknown, RSSI: Unknown`);
+          }
+        }
+      } catch (error) {
+        decodedData.push("Bluetooth scan failed - no Bluetooth interface available");
+      }
       break;
   }
 

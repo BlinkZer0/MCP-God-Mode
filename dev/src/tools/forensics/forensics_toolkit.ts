@@ -21,7 +21,7 @@ export function registerForensicsToolkit(server: McpServer) {
         timeline_events: z.array(z.object({
           timestamp: z.string(),
           event: z.string(),
-          source: z.string()
+          source: z.string().describe("Source of the forensic evidence")
         })).optional(),
         artifacts: z.array(z.object({
           type: z.string(),

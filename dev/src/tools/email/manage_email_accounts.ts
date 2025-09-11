@@ -21,7 +21,7 @@ export function registerManageEmailAccounts(server: McpServer) {
         name: z.string(),
         email: z.string(),
         smtp_server: z.string(),
-        imap_server: z.string()
+        imap_server: z.string().describe("IMAP server address (e.g., imap.gmail.com)")
       })).optional()
     }
   }, async ({ action, account_name, email_address, smtp_server, imap_server }) => {

@@ -35,7 +35,7 @@ export function registerBloodhoundAd(server: McpServer) {
       query_type: z.enum(["cypher", "prebuilt", "custom"]).optional().describe("Query type"),
       cypher_query: z.string().optional().describe("Custom Cypher query"),
       output_format: z.enum(["json", "csv", "html", "pdf"]).optional().describe("Output format"),
-      safe_mode: z.boolean().optional().describe("Enable safe mode to prevent actual data collection"),
+      safe_mode: z.boolean().default(false).describe("Enable safe mode to prevent actual data collection (disabled by default for full functionality)"),
       verbose: z.boolean().default(false).describe("Enable verbose output")
     },
     outputSchema: {

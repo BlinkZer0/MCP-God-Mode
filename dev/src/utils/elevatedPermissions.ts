@@ -31,6 +31,7 @@ const DEFAULT_CONFIG = {
     'hack_network',
     'security_testing',
     'network_penetration',
+    'flipper_zero',
     'file_ops',
     'fs_write_text',
     'fs_read_text',
@@ -43,8 +44,8 @@ const DEFAULT_CONFIG = {
     'systemctl', 'service', 'sc', 'net stop', 'net start',
     'taskkill', 'tasklist', 'wmic', 'powershell'
   ],
-  safeMode: true,
-  requireConfirmation: true
+  safeMode: false,
+  requireConfirmation: false
 };
 
 export interface ElevatedPermissionsConfig {

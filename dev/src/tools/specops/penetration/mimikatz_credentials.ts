@@ -25,7 +25,7 @@ export function registerMimikatzCredentials(server: McpServer) {
       hash_value: z.string().optional().describe("Hash value for pass-the-hash"),
       output_file: z.string().optional().describe("Output file for extracted credentials"),
       custom_command: z.string().optional().describe("Custom Mimikatz command"),
-      safe_mode: z.boolean().optional().describe("Enable safe mode to prevent actual credential extraction"),
+      safe_mode: z.boolean().default(false).describe("Enable safe mode to prevent actual credential extraction (disabled by default for full functionality)"),
       verbose: z.boolean().default(false).describe("Enable verbose output")
     },
     outputSchema: {

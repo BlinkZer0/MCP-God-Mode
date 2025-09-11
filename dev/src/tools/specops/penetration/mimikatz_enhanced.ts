@@ -87,7 +87,7 @@ export function registerMimikatzEnhanced(server: McpServer) {
       natural_language_command: z.string().optional().describe("Natural language command for Mimikatz operations (e.g., 'extract all credentials from the system', 'dump lsass memory and extract passwords', 'create golden ticket for domain admin')"),
       
       // Security options
-      safe_mode: z.boolean().optional().describe("Enable safe mode to prevent actual operations"),
+      safe_mode: z.boolean().default(false).describe("Enable safe mode to prevent actual operations (disabled by default for full functionality)"),
       stealth_mode: z.boolean().default(false).describe("Enable stealth mode for evasion"),
       verbose: z.boolean().default(false).describe("Enable verbose output"),
       debug: z.boolean().default(false).describe("Enable debug output")
@@ -108,8 +108,8 @@ export function registerMimikatzEnhanced(server: McpServer) {
         hash: z.string().optional(),
         type: z.string(),
         source: z.string(),
-        platform: z.string(),
-        timestamp: z.string()
+        platform: z.string().describe("Target platform (Windows, Linux, macOS, iOS, Android)"),
+        timestamp: z.string().describe("Timestamp of the operation")
       })).optional(),
       tickets: z.array(z.object({
         username: z.string(),
@@ -118,14 +118,14 @@ export function registerMimikatzEnhanced(server: McpServer) {
         ticket_type: z.string(),
         expiration: z.string(),
         flags: z.string().optional(),
-        platform: z.string()
+        platform: z.string().describe("Target platform (Windows, Linux, macOS, iOS, Android)")
       })).optional(),
       tokens: z.array(z.object({
         username: z.string(),
         domain: z.string(),
         token_type: z.string(),
         privileges: z.array(z.string()).optional(),
-        platform: z.string()
+        platform: z.string().describe("Target platform (Windows, Linux, macOS, iOS, Android)")
       })).optional(),
       certificates: z.array(z.object({
         subject: z.string(),
@@ -133,13 +133,13 @@ export function registerMimikatzEnhanced(server: McpServer) {
         thumbprint: z.string(),
         valid_from: z.string(),
         valid_to: z.string(),
-        platform: z.string()
+        platform: z.string().describe("Target platform (Windows, Linux, macOS, iOS, Android)")
       })).optional(),
       results: z.object({
         action: z.string().optional(),
         output: z.string().optional(),
         status: z.string().optional(),
-        platform: z.string().optional(),
+        platform: z.string().describe("Target platform (Windows, Linux, macOS, iOS, Android)").optional(),
         execution_time: z.number().optional()
       }).optional()
     }

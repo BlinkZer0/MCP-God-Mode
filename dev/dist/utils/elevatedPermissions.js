@@ -29,6 +29,7 @@ const DEFAULT_CONFIG = {
         'hack_network',
         'security_testing',
         'network_penetration',
+        'flipper_zero',
         'file_ops',
         'fs_write_text',
         'fs_read_text',

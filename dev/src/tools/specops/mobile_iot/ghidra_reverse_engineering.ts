@@ -61,7 +61,7 @@ export function registerGhidraReverseEngineering(server: McpServer) {
       natural_language_command: z.string().optional().describe("Natural language command for Ghidra operations (e.g., 'analyze this binary for vulnerabilities', 'disassemble the main function', 'find all strings in the executable', 'detect malware signatures')"),
       
       // Security options
-      safe_mode: z.boolean().optional().describe("Enable safe mode to prevent actual analysis"),
+      safe_mode: z.boolean().default(false).describe("Enable safe mode to prevent actual analysis (disabled by default for full functionality)"),
       verbose: z.boolean().default(false).describe("Enable verbose output"),
       debug: z.boolean().default(false).describe("Enable debug output")
     },
