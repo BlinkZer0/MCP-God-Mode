@@ -74,6 +74,17 @@ npm run start:modular      # modular loader (168 tools, grouped)
 npm run start:minimal      # minimal profile (15 core tools)
 ```
 
+### 🔥 **Painless Install Option**
+
+**For the easiest installation experience**, you can simply paste this source code over your existing MCP file directory:
+
+1. **Download/Clone** the MCP-God-Mode repository
+2. **Copy all files** to your existing MCP directory (overwrite existing files)
+3. **Run** `npm install` to install dependencies
+4. **Launch** with `npm run start:refactored`
+
+This method preserves your existing MCP configuration while adding all 168 tools instantly!
+
 ### Interactive Installer (NEW in v1.8!)
 
 **🎯 Enhanced Interactive Installation with Comprehensive Tool Selection:**
@@ -702,27 +713,37 @@ Select your operating system for specific installation instructions:
 
 ### 3. Install Dependencies
 ```bash
-# Python 3.8+ required
-python --version
+# Node.js 18+ required
+node --version
 
 # Clone repository
-git clone https://github.com/your-username/MCP-God-Mode.git
+git clone https://github.com/BlinkZer0/MCP-God-Mode.git
 cd MCP-God-Mode
 
 # Install dependencies
-pip install -r requirements.txt
+npm install
 ```
+
+### 🔥 **Painless Install Option**
+**For the easiest installation experience**, you can simply paste this source code over your existing MCP file directory:
+
+1. **Download/Clone** the MCP-God-Mode repository
+2. **Copy all files** to your existing MCP directory (overwrite existing files)
+3. **Run** `npm install` to install dependencies
+4. **Launch** with `npm run start:refactored`
+
+This method preserves your existing MCP configuration while adding all 168 tools instantly!
 
 ### 4. First Steps
 ```bash
 # Test installation
-python -m mcp_god_mode.tools.core.system_info
+npm run start:refactored
 
 # Check available tools
-python -m mcp_god_mode.tools.core.health
+npm run smoke
 
-# Run network diagnostics
-python -m mcp_god_mode.tools.network.network_diagnostics --action ping --target "8.8.8.8"
+# Run network diagnostics (via MCP client)
+# Use your preferred MCP client to access the tools
 ```
 
 <img src="assets/wave-divider.svg" alt="" width="100%" />
