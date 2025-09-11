@@ -383,17 +383,32 @@ async function processPointCloud(frames, sessionId) {
             }
         }
     }
-    // Store point cloud data for viewer
+    // Store point cloud data for Potree viewer
     if (allPoints.length > 0) {
         try {
             const session = sessions.get(sessionId);
+            // Convert to Potree-compatible format with enhanced metadata
+            const potreePoints = allPoints.map(([x, y, z], index) => {
+                const enhancedPoint = enhancedPoints[index];
+                return {
+                    x, y, z,
+                    intensity: enhancedPoint?.intensity || 0.5,
+                    classification: enhancedPoint?.classification || 0,
+                    velocity: enhancedPoint?.velocity || 0,
+                    snr: enhancedPoint?.snr || 0,
+                    timestamp: enhancedPoint?.timestamp || Date.now()
+                };
+            });
+            // Store in both formats for compatibility
             storePointCloudData(sessionId, allPoints, {
                 source: 'rf_sense_mmwave',
                 pipeline: 'point_cloud',
                 count: allPoints.length,
                 securitySessionId: session?.securitySessionId,
                 scanMode: session?.scanMode || false,
-                localOnly: session?.localOnly || false
+                localOnly: session?.localOnly || false,
+                potreeFormat: true,
+                enhancedPoints: potreePoints
             });
         }
         catch (error) {

@@ -18,14 +18,22 @@ const securitySessionMap = new Map(); // pointCloudSessionId -> securitySessionI
  */
 export function setupRfSenseViewerAPI(app) {
     console.log('🎯 Setting up RF Sense Point Cloud Viewer API...');
-    // Serve the point cloud viewer static files
-    const viewerPath = path.join(process.cwd(), 'dev', 'web', 'pointcloud');
-    if (fs.existsSync(viewerPath)) {
-        app.use('/viewer/pointcloud', express.static(viewerPath));
-        console.log(`📁 Point cloud viewer served from: ${viewerPath}`);
+    // Serve the Potree point cloud viewer
+    const potreeViewerPath = path.join(process.cwd(), 'dev', 'potree_viewer.html');
+    if (fs.existsSync(potreeViewerPath)) {
+        app.get('/viewer/pointcloud', (req, res) => {
+            res.sendFile(potreeViewerPath);
+        });
+        console.log(`📁 Potree point cloud viewer served from: ${potreeViewerPath}`);
     }
     else {
-        console.warn(`⚠️ Point cloud viewer directory not found: ${viewerPath}`);
+        console.warn(`⚠️ Potree viewer file not found: ${potreeViewerPath}`);
+    }
+    // Serve the legacy point cloud viewer static files (fallback)
+    const viewerPath = path.join(process.cwd(), 'dev', 'web', 'pointcloud');
+    if (fs.existsSync(viewerPath)) {
+        app.use('/viewer/legacy', express.static(viewerPath));
+        console.log(`📁 Legacy point cloud viewer served from: ${viewerPath}`);
     }
     // API endpoint to get the latest point cloud data
     app.get('/api/rf_sense/points', async (req, res) => {
@@ -56,7 +64,9 @@ export function setupRfSenseViewerAPI(app) {
                 points: session.points,
                 metadata: session.metadata,
                 scanMode: session.scanMode || false,
-                localOnly: session.localOnly || false
+                localOnly: session.localOnly || false,
+                potreeCompatible: session.metadata.potreeFormat || false,
+                enhancedPoints: session.metadata.enhancedPoints || null
             };
             // If security session is provided, apply security middleware
             if (securitySessionId) {
@@ -285,12 +295,101 @@ export function setupRfSenseViewerAPI(app) {
             });
         }
     });
+    // Potree-specific endpoints
+    app.get('/api/rf_sense/potree/:sessionId', async (req, res) => {
+        try {
+            const sessionId = req.params.sessionId;
+            const session = pointCloudStore.get(sessionId);
+            if (!session) {
+                return res.status(404).json({
+                    error: 'Session not found',
+                    message: `Session ${sessionId} does not exist`
+                });
+            }
+            // Return Potree-compatible format
+            const potreeData = {
+                sessionId: session.id,
+                timestamp: session.timestamp,
+                points: session.metadata.enhancedPoints || session.points.map(([x, y, z]) => ({ x, y, z, intensity: 0.5 })),
+                metadata: {
+                    source: session.metadata.source,
+                    pipeline: session.metadata.pipeline,
+                    count: session.metadata.count,
+                    potreeFormat: session.metadata.potreeFormat || false
+                },
+                scanMode: session.scanMode || false,
+                localOnly: session.localOnly || false
+            };
+            res.json(potreeData);
+        }
+        catch (error) {
+            console.error('Error fetching Potree data:', error);
+            res.status(500).json({
+                error: 'Internal server error',
+                message: 'Failed to fetch Potree data'
+            });
+        }
+    });
+    // Convert point cloud to Potree format endpoint
+    app.post('/api/rf_sense/convert-to-potree', async (req, res) => {
+        try {
+            const { sessionId, outputFormat = 'json' } = req.body;
+            if (!sessionId) {
+                return res.status(400).json({
+                    error: 'Session ID required'
+                });
+            }
+            const session = pointCloudStore.get(sessionId);
+            if (!session) {
+                return res.status(404).json({
+                    error: 'Session not found'
+                });
+            }
+            // Convert to Potree format
+            const potreeData = {
+                version: "1.8",
+                octreeDir: "data",
+                points: session.metadata.enhancedPoints || session.points.map(([x, y, z]) => ({
+                    x, y, z,
+                    intensity: 0.5,
+                    classification: 0,
+                    velocity: 0,
+                    snr: 20
+                })),
+                metadata: {
+                    source: session.metadata.source,
+                    pipeline: session.metadata.pipeline,
+                    count: session.metadata.count,
+                    timestamp: session.timestamp,
+                    sessionId: session.id
+                }
+            };
+            if (outputFormat === 'json') {
+                res.json(potreeData);
+            }
+            else {
+                // For other formats, you could implement conversion logic here
+                res.status(400).json({
+                    error: 'Unsupported output format',
+                    message: 'Currently only JSON format is supported'
+                });
+            }
+        }
+        catch (error) {
+            console.error('Error converting to Potree format:', error);
+            res.status(500).json({
+                error: 'Internal server error',
+                message: 'Failed to convert to Potree format'
+            });
+        }
+    });
     // Health check endpoint
     app.get('/api/rf_sense/health', (req, res) => {
         res.json({
             status: 'healthy',
             service: 'RF Sense Point Cloud Viewer API',
             version: '2.0.0',
+            potreeIntegration: true,
             sessions: pointCloudStore.size,
             latest: lastSessionId,
             securityFeatures: {
@@ -300,9 +399,12 @@ export function setupRfSenseViewerAPI(app) {
                 localOnlyCache: true
             },
             endpoints: [
-                'GET /viewer/pointcloud - Point cloud viewer interface',
+                'GET /viewer/pointcloud - Potree point cloud viewer interface',
+                'GET /viewer/legacy - Legacy Three.js viewer (fallback)',
                 'GET /api/rf_sense/points - Get latest point cloud data',
                 'GET /api/rf_sense/sessions - List available sessions',
+                'GET /api/rf_sense/potree/:id - Get Potree-compatible data',
+                'POST /api/rf_sense/convert-to-potree - Convert session to Potree format',
                 'POST /api/rf_sense/points - Store point cloud data',
                 'DELETE /api/rf_sense/sessions/:id - Delete session',
                 'GET /api/rf_sense/export/:id - Export session data',
@@ -326,7 +428,9 @@ export function storePointCloudData(sessionId, points, metadata = {}) {
             source: metadata.source || 'rf_sense',
             sessionId,
             pipeline: metadata.pipeline || 'unknown',
-            count: metadata.count || points.length
+            count: metadata.count || points.length,
+            potreeFormat: metadata.potreeFormat || false,
+            enhancedPoints: metadata.enhancedPoints || undefined
         },
         securitySessionId: metadata.securitySessionId,
         scanMode: metadata.scanMode || false,

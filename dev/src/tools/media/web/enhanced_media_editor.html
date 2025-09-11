@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enhanced Media Editor - Kdenlive + Audacity + GIMP</title>
+    
+    <!-- PWA Meta Tags -->
+    <meta name="theme-color" content="#1a1a1a">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Enhanced Media Editor">
+    <meta name="description" content="Professional multimedia editing suite combining Kdenlive, Audacity, and GIMP functionality">
+    
+    <!-- Manifest -->
+    <link rel="manifest" href="enhanced-manifest.json">
+    
+    <!-- Icons -->
+    <link rel="icon" type="image/png" sizes="32x32" href="icons/icon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="icons/icon-16x16.png">
+    <link rel="apple-touch-icon" href="icons/icon-192x192.png">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="enhanced-media-styles.css">
+    
+    <!-- React and Dependencies -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    
+    <!-- Media Processing Libraries -->
+    <script src="https://unpkg.com/fabric@5.3.0/dist/fabric.min.js"></script>
+    <script src="https://unpkg.com/wavesurfer.js@7/dist/wavesurfer.js"></script>
+    <script src="https://unpkg.com/wavesurfer.js@7/dist/plugins/spectrogram.esm.js"></script>
+    <script src="https://unpkg.com/wavesurfer.js@7/dist/plugins/timeline.esm.js"></script>
+    <script src="https://unpkg.com/wavesurfer.js@7/dist/plugins/regions.esm.js"></script>
+    
+    <!-- Video Processing -->
+    <script src="https://unpkg.com/opencv.js@1.2.1/opencv.js"></script>
+    
+    <!-- UI Components -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    
+    <!-- Credits and Attribution -->
+    <style>
+        .credits-section {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 12px;
+            max-width: 300px;
+            z-index: 1000;
+        }
+        .credits-section h4 {
+            margin: 0 0 5px 0;
+            color: #4CAF50;
+        }
+        .credits-section p {
+            margin: 2px 0;
+            font-size: 11px;
+        }
+        .credits-toggle {
+            position: fixed;
+            bottom: 10px;
+            right: 320px;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 12px;
+            z-index: 1001;
+        }
+    </style>
+</head>
+<body>
+    <div id="root">
+        <div class="loading">
+            <div class="spinner"></div>
+            <p>Loading Enhanced Media Editor...</p>
+            <p class="loading-subtitle">Kdenlive + Audacity + GIMP Integration</p>
+        </div>
+    </div>
+    
+    <!-- Credits Toggle Button -->
+    <button class="credits-toggle" onclick="toggleCredits()">Credits</button>
+    
+    <!-- Credits Section -->
+    <div class="credits-section" id="creditsSection" style="display: none;">
+        <h4>🎬 Enhanced Media Editor Credits</h4>
+        <p><strong>Inspired by:</strong></p>
+        <p>🎬 <strong>Kdenlive</strong> - KDE Community, Jean-Baptiste Mardelle</p>
+        <p>🎵 <strong>Audacity</strong> - Audacity Team, Dominic Mazzoni</p>
+        <p>🖼️ <strong>GIMP</strong> - GIMP Development Team, Spencer Kimball, Peter Mattis</p>
+        <p><strong>Licenses:</strong> GPL v2+ (Kdenlive, Audacity), GPL v3+ (GIMP)</p>
+        <p><strong>Integration:</strong> MCP God Mode Team</p>
+    </div>
+    
+    <!-- Service Worker Registration -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('enhanced-sw.js')
+                    .then(registration => {
+                        console.log('Enhanced Media Editor SW registered: ', registration);
+                    })
+                    .catch(registrationError => {
+                        console.log('Enhanced Media Editor SW registration failed: ', registrationError);
+                    });
+            });
+        }
+        
+        function toggleCredits() {
+            const creditsSection = document.getElementById('creditsSection');
+            creditsSection.style.display = creditsSection.style.display === 'none' ? 'block' : 'none';
+        }
+    </script>
+    
+    <!-- Main Application Script -->
+    <script type="text/babel" src="enhanced-media-app.js"></script>
+</body>
+</html>

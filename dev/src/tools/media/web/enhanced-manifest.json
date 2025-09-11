@@ -1,0 +1,137 @@
+{
+  "name": "Enhanced Media Editor - Kdenlive + Audacity + GIMP",
+  "short_name": "Enhanced Media Editor",
+  "description": "Professional multimedia editing suite combining Kdenlive, Audacity, and GIMP functionality",
+  "version": "1.0.0",
+  "start_url": "/enhanced_media_editor.html",
+  "display": "standalone",
+  "orientation": "landscape",
+  "theme_color": "#4CAF50",
+  "background_color": "#1a1a1a",
+  "scope": "/",
+  "lang": "en",
+  "categories": ["multimedia", "productivity", "utilities"],
+  "icons": [
+    {
+      "src": "icons/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    },
+    {
+      "src": "icons/icon.svg",
+      "sizes": "192x192",
+      "type": "image/svg+xml"
+    },
+    {
+      "src": "icons/icon.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "screenshots/desktop-audio.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Audio editing interface (Audacity-inspired)"
+    },
+    {
+      "src": "screenshots/desktop-image.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Image editing interface (GIMP-inspired)"
+    },
+    {
+      "src": "screenshots/desktop-video.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Video editing interface (Kdenlive-inspired)"
+    }
+  ],
+  "features": [
+    "Audio editing and processing",
+    "Image manipulation and effects",
+    "Video editing and timeline management",
+    "Layer-based editing",
+    "Real-time effects processing",
+    "Cross-platform compatibility",
+    "Offline functionality"
+  ],
+  "shortcuts": [
+    {
+      "name": "Open Media",
+      "short_name": "Open",
+      "description": "Open a media file for editing",
+      "url": "/enhanced_media_editor.html?action=open",
+      "icons": [
+        {
+          "src": "icons/shortcut-open.png",
+          "sizes": "96x96"
+        }
+      ]
+    },
+    {
+      "name": "New Audio Session",
+      "short_name": "New Audio",
+      "description": "Create a new audio editing session",
+      "url": "/enhanced_media_editor.html?mode=audio",
+      "icons": [
+        {
+          "src": "icons/shortcut-audio.png",
+          "sizes": "96x96"
+        }
+      ]
+    },
+    {
+      "name": "New Image Session",
+      "short_name": "New Image",
+      "description": "Create a new image editing session",
+      "url": "/enhanced_media_editor.html?mode=image",
+      "icons": [
+        {
+          "src": "icons/shortcut-image.png",
+          "sizes": "96x96"
+        }
+      ]
+    },
+    {
+      "name": "New Video Session",
+      "short_name": "New Video",
+      "description": "Create a new video editing session",
+      "url": "/enhanced_media_editor.html?mode=video",
+      "icons": [
+        {
+          "src": "icons/shortcut-video.png",
+          "sizes": "96x96"
+        }
+      ]
+    }
+  ],
+  "related_applications": [
+    {
+      "platform": "web",
+      "url": "https://kdenlive.org/",
+      "id": "kdenlive"
+    },
+    {
+      "platform": "web",
+      "url": "https://www.audacityteam.org/",
+      "id": "audacity"
+    },
+    {
+      "platform": "web",
+      "url": "https://www.gimp.org/",
+      "id": "gimp"
+    }
+  ],
+  "prefer_related_applications": false,
+  "edge_side_panel": {
+    "preferred_width": 400
+  },
+  "launch_handler": {
+    "client_mode": "navigate-existing"
+  }
+}

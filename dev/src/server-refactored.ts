@@ -756,6 +756,14 @@ async function initializeExpressServer() {
     // Serve static files from public directory
     app.use(express.static(path.join(process.cwd(), 'public')));
 
+    // Serve Enhanced Media Editor files
+    app.use('/media-editor', express.static(path.join(__dirname, 'tools/media/web')));
+    
+    // Enhanced Media Editor route
+    app.get('/media-editor', (req, res) => {
+      res.sendFile(path.join(__dirname, 'tools/media/web/enhanced-multimedia-editor.html'));
+    });
+
     // Setup cellular triangulation API endpoints
     setupCellularTriangulateAPI(app);
 
@@ -768,6 +776,7 @@ async function initializeExpressServer() {
         service: 'MCP God Mode - Web Interface',
         version: '1.0.0',
         endpoints: [
+          'GET /media-editor - Enhanced Multimedia Editor (Kdenlive + Audacity + GIMP)',
           'GET /collect - Location collection webpage',
           'POST /api/cellular/collect - Receive location data',
           'GET /api/cellular/status/:token - Check request status',
@@ -784,6 +793,7 @@ async function initializeExpressServer() {
     // Start the server
     expressServer = app.listen(port, () => {
       console.log(`🌐 Express server running on http://localhost:${port}`);
+      console.log(`🎬 Enhanced Media Editor: http://localhost:${port}/media-editor`);
       console.log(`📡 Cellular triangulation web interface: http://localhost:${port}/collect`);
       console.log(`🔗 API endpoints: http://localhost:${port}/api/cellular/*`);
       console.log(`🎯 RF Sense point cloud viewer: http://localhost:${port}/viewer/pointcloud`);

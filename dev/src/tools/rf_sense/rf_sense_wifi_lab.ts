@@ -633,7 +633,9 @@ async function processPointCloud(lines: string[], sessionId: string) {
       
       // Convert to Potree-compatible format with enhanced metadata
       const potreePoints = points.map((point, index) => {
-        const [x, y, z, intensity, classification] = point;
+        const [x, y, z] = point;
+        const intensity = 0.5; // Default intensity for WiFi lab points
+        const classification = 0; // Default classification
         return {
           x, y, z,
           intensity: intensity || 0.5,

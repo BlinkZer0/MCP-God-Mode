@@ -76,6 +76,9 @@ interface SimSession {
   startTime: number;
   endTime?: number;
   data: any[];
+  securitySessionId?: string;
+  scanMode?: boolean;
+  localOnly?: boolean;
 }
 
 const sessions = new Map<string, SimSession>();

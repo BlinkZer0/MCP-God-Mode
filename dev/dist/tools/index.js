@@ -155,4 +155,6 @@ export { registerDroneMobileOptimized } from "./droneMobileOptimized.js";
 export * from "./specops/index.js";
 // RF Sense Tools - Comprehensive RF Sensing Toolkit
 export * from "./rf_sense/index.js";
+// Tool Management Tools
+export { registerToolBurglar } from "./tool_burglar.js";
 // Social Tools

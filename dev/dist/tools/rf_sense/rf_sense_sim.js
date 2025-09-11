@@ -2,6 +2,7 @@ import { z } from "zod";
 import * as path from "node:path";
 import * as fs from "node:fs/promises";
 import { randomUUID } from "crypto";
+import { storePointCloudData } from "./rf_sense_viewer_api.js";
 import { saveLASPointCloud, LAS_CLASSIFICATION } from "../../utils/las.js";
 /**
  * RF Sense Simulation Module - Unrestricted
@@ -372,6 +373,36 @@ async function processSession(sessionId, pipeline) {
             break;
         case "pointcloud":
             result = await processPointCloud(data);
+            // Store point cloud data for Potree viewer
+            if (result.data && Array.isArray(result.data) && result.data.length > 0) {
+                try {
+                    const viewerPoints = result.data.map((p) => [p.x, p.y, p.z]);
+                    // Convert to Potree-compatible format with enhanced metadata
+                    const potreePoints = result.data.map((point) => ({
+                        x: point.x,
+                        y: point.y,
+                        z: point.z,
+                        intensity: point.intensity || 0.5,
+                        classification: point.classification || LAS_CLASSIFICATION.RF_SENSE_OBJECT,
+                        velocity: 0, // Simulation doesn't provide velocity
+                        snr: Math.random() * 20 + 10, // Simulated SNR
+                        timestamp: point.timestamp || Date.now()
+                    }));
+                    storePointCloudData(sessionId, viewerPoints, {
+                        source: 'rf_sense_simulation',
+                        pipeline: 'pointcloud',
+                        count: viewerPoints.length,
+                        securitySessionId: session.securitySessionId,
+                        scanMode: session.scanMode || false,
+                        localOnly: session.localOnly || false,
+                        potreeFormat: true,
+                        enhancedPoints: potreePoints
+                    });
+                }
+                catch (error) {
+                    console.warn("Failed to store point cloud data:", error);
+                }
+            }
             break;
         case "gesture_detection":
             result = await processGestureDetection(data);
