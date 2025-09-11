@@ -1,12 +1,12 @@
 # MCP God Mode - Comprehensive Tool Catalog
 
 ## Overview
-MCP God Mode is an advanced security and network analysis platform. Current counts (v1.8b):
+MCP God Mode is an advanced security and network analysis platform. Current counts (v1.8d):
 
 - **Comprehensive index + enhanced endpoints** exported in code
-- **159 total endpoints** across both servers (includes consolidated Flipper Zero tool, MCP Web UI Bridge, and advanced endpoints)
-- **159 documented tools** in the wiki
-- **Configurable modular server** - can load minimal (10 tools), custom categories, or full (159 tools)
+- **168 total endpoints** across both servers (includes consolidated Flipper Zero tool, MCP Web UI Bridge, and SpecOps tools)
+- **168 documented tools** in the wiki
+- **Configurable modular server** - can load minimal (10 tools), custom categories, or full (168 tools)
 
 This document provides detailed information about each tool, its capabilities, and use cases.
 
@@ -15,7 +15,7 @@ This document provides detailed information about each tool, its capabilities, a
 - **Server-Refactored (total endpoints)**: 168
 - **Modular Server (total endpoints)**: 168 (configurable)
 - **Server-Minimal**: 15 tools
-- **SpecOps Tools**: 10 (new in v1.8c)
+- **SpecOps Tools**: 10 (new in v1.8d)
 
 ## Why Counts Are Now Identical
 Both servers now have identical tool counts. The modular server loads the same complete set as server-refactored (including the consolidated Flipper Zero tool and MCP Web UI Bridge). The modular server adds configurability - it can be set to load minimal tools, specific categories, or all tools based on user preference during installation.
@@ -264,8 +264,12 @@ Humor break: if the AI builds an enterprise integration hub and starts sending c
 || `bloodhound_ad` | Advanced BloodHound Active Directory attack path analysis and enumeration tool. Provides comprehensive AD reconnaissance capabilities including user enumeration, group analysis, privilege escalation paths, lateral movement opportunities, and attack path visualization | `action`, `neo4j_host`, `neo4j_port`, `neo4j_user`, `neo4j_password`, `domain`, `username`, `password`, `dc_ip`, `collection_method`, `query_type`, `cypher_query`, `output_format`, `safe_mode`, `verbose` |
 || `mimikatz_credentials` | Advanced Mimikatz credential extraction and manipulation tool for Windows post-exploitation. Provides comprehensive credential harvesting capabilities including LSASS memory dumping, credential extraction, ticket manipulation, and privilege escalation techniques | `action`, `target_user`, `target_domain`, `target_dc`, `ticket_file`, `hash_value`, `output_file`, `custom_command`, `safe_mode`, `verbose` |
 || `nmap_scanner` | Advanced Nmap network discovery and security auditing tool. Provides comprehensive network scanning capabilities including host discovery, port scanning, service detection, OS fingerprinting, and vulnerability detection | `action`, `target`, `ports`, `scan_type`, `timing`, `scripts`, `output_format`, `output_file`, `safe_mode`, `verbose` |
+|| `mimikatz_enhanced` | Enhanced Mimikatz with cross-platform support and advanced evasion techniques. Provides comprehensive credential harvesting capabilities across Windows, Linux, macOS, iOS, and Android platforms | `action`, `target_user`, `target_domain`, `target_dc`, `target_computer`, `target_process`, `username`, `password`, `hash_value`, `key_value`, `certificate`, `ticket_file`, `ticket_format`, `service_name`, `input_file`, `output_file`, `dump_file`, `injection_method`, `evasion_technique`, `persistence_method`, `platform`, `architecture`, `natural_language_command`, `safe_mode`, `stealth_mode`, `verbose`, `debug` |
+|| `frida_toolkit` | Advanced Frida dynamic instrumentation toolkit with full cross-platform support. Provides comprehensive dynamic analysis capabilities including function hooking, memory manipulation, API interception, and runtime patching across all platforms | `action`, `target_process`, `target_application`, `target_device`, `function_name`, `method_name`, `class_name`, `module_name`, `memory_address`, `memory_size`, `memory_data`, `script_content`, `script_file`, `script_type`, `platform`, `architecture`, `natural_language_command`, `safe_mode`, `verbose`, `debug` |
+|| `ghidra_reverse_engineering` | Advanced Ghidra reverse engineering framework with full cross-platform support. Provides comprehensive binary analysis capabilities including disassembly, decompilation, function analysis, vulnerability detection, and malware analysis across all platforms | `action`, `binary_file`, `project_name`, `output_directory`, `analysis_depth`, `target_architecture`, `target_platform`, `script_content`, `script_file`, `script_type`, `platform`, `architecture`, `natural_language_command`, `safe_mode`, `verbose`, `debug` |
+|| `pacu_aws_exploitation` | Advanced Pacu AWS exploitation framework with full cross-platform support. Provides comprehensive AWS security testing capabilities including service enumeration, privilege escalation, data exfiltration, and compliance validation | `action`, `aws_region`, `aws_profile`, `target_account`, `target_services`, `exploitation_techniques`, `output_format`, `platform`, `architecture`, `natural_language_command`, `safe_mode`, `verbose`, `debug` |
 
-**⚠️ SpecOps Tools Warning**: These are advanced security tools for authorized penetration testing and red team operations only. All tools include safe mode by default and require explicit authorization for actual operations.
+**⚠️ SpecOps Tools Warning**: These are advanced security tools for authorized penetration testing and red team operations only. Safe mode defaults have been removed - tools now perform actual operations by default. Use `safe_mode: true` to enable simulation mode.
 
 ## Server Implementations
 
@@ -326,4 +330,4 @@ Humor break: if the AI builds an enterprise integration hub and starts sending c
 ---
 
 *Last Updated: 1/10/2025*
-*Totals: 168 registered tools across servers (including 10 new SpecOps tools with full cross-platform support)*
+*Totals: 168 registered tools across servers (including 10 new SpecOps tools with full cross-platform support) - v1.8d*
