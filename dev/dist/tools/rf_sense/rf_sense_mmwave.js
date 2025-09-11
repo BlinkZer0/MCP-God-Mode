@@ -3,6 +3,8 @@ import * as path from "node:path";
 import * as fs from "node:fs/promises";
 import { randomUUID } from "crypto";
 import { storePointCloudData, openPointCloudViewer } from "./rf_sense_viewer_api.js";
+import { saveLASPointCloud, LAS_CLASSIFICATION } from "../../utils/las.js";
+import { createSecuritySession, createSecurityMiddleware } from "./rf_sense_security_guard.js";
 /**
  * RF Sense mmWave Module - Unrestricted
  * =====================================
@@ -28,7 +30,9 @@ const StartCaptureInput = z.object({
     durationSec: z.number().int().positive().max(86400).default(300), // 24 hours max
     annotation: z.string().default(""),
     participants: z.array(z.string()).default([]),
-    captureMode: z.enum(["point_cloud", "object_tracking", "gesture_detection", "full_scan"]).default("point_cloud")
+    captureMode: z.enum(["point_cloud", "object_tracking", "gesture_detection", "full_scan"]).default("point_cloud"),
+    enableScanMode: z.boolean().default(false),
+    consentGiven: z.boolean().default(false)
 });
 const ProcessInput = z.object({
     sessionId: z.string(),
@@ -37,7 +41,7 @@ const ProcessInput = z.object({
 });
 const ExportInput = z.object({
     sessionId: z.string(),
-    format: z.enum(["json", "ply", "pcd", "csv"]),
+    format: z.enum(["json", "ply", "pcd", "csv", "las"]),
     path: z.string()
 });
 // Configuration - all restrictions removed
@@ -84,10 +88,10 @@ export function registerRfSenseMmWave(server) {
             captureMode: z.enum(["point_cloud", "object_tracking", "gesture_detection", "full_scan"]).optional().describe("Capture mode"),
             sessionId: z.string().optional().describe("Session ID for operations"),
             pipeline: z.enum(["point_cloud", "object_tracking", "gesture_detection", "full_scan"]).optional().describe("Processing pipeline"),
-            format: z.enum(["json", "ply", "pcd", "csv"]).optional().describe("Export format"),
+            format: z.enum(["json", "ply", "pcd", "csv", "las"]).optional().describe("Export format"),
             outputPath: z.string().optional().describe("Output file path")
         }
-    }, async ({ action, sdkPath, deviceConfig, durationSec = 300, annotation = "", participants = [], captureMode = "point_cloud", sessionId, pipeline, format, outputPath }) => {
+    }, async ({ action, sdkPath, deviceConfig, durationSec = 300, annotation = "", participants = [], captureMode = "point_cloud", enableScanMode = false, consentGiven = false, sessionId, pipeline, format, outputPath }) => {
         try {
             assertEnabled();
             await ensureStorageDir();
@@ -97,7 +101,7 @@ export function registerRfSenseMmWave(server) {
                 case "configure":
                     return await configureMmWave(sdkPath, deviceConfig);
                 case "capture_start":
-                    return await startCapture(durationSec, annotation, participants, captureMode);
+                    return await startCapture(durationSec, annotation, participants, captureMode, enableScanMode, consentGiven);
                 case "capture_stop":
                     if (!sessionId) {
                         throw new Error("sessionId is required for capture_stop action");
@@ -185,7 +189,7 @@ async function configureMmWave(sdkPath, deviceConfig) {
             }]
     };
 }
-async function startCapture(durationSec, annotation, participants, captureMode) {
+async function startCapture(durationSec, annotation, participants, captureMode, enableScanMode = false, consentGiven = false) {
     if (!currentConfig) {
         throw new Error("mmWave device not configured");
     }
@@ -194,6 +198,12 @@ async function startCapture(durationSec, annotation, participants, captureMode) 
     const raw = path.join(root, "raw.bin");
     const processed = path.join(root, "processed.json");
     await fs.mkdir(root, { recursive: true });
+    // Create security session if scan mode is enabled
+    let securitySessionId;
+    if (enableScanMode) {
+        securitySessionId = createSecuritySession(consentGiven);
+        // Note: enableScanMode is a parameter, not a function call
+    }
     const sess = {
         id,
         sdkPath: currentConfig.sdkPath,
@@ -204,25 +214,38 @@ async function startCapture(durationSec, annotation, participants, captureMode) 
         startTime: Date.now(),
         participants,
         annotation,
-        captureMode
+        captureMode,
+        securitySessionId,
+        scanMode: enableScanMode,
+        localOnly: enableScanMode
     };
     sessions.set(id, sess);
     // Simulate mmWave capture (in real implementation, this would interface with vendor SDK)
     await simulateMmWaveCapture(sess, durationSec);
+    const responseData = {
+        sessionId: id,
+        path: root,
+        duration_sec: durationSec,
+        annotation,
+        participants,
+        captureMode,
+        deviceConfig: currentConfig.deviceConfig,
+        securitySessionId,
+        scanMode: enableScanMode,
+        localOnly: enableScanMode,
+        unrestricted: true,
+        timestamp: new Date().toISOString()
+    };
+    // Apply security middleware if scan mode is active
+    let sanitizedResponse = responseData;
+    if (enableScanMode && securitySessionId) {
+        const security = createSecurityMiddleware(securitySessionId);
+        sanitizedResponse = security.processData(responseData, 10); // Limit response data
+    }
     return {
         content: [{
                 type: "text",
-                text: JSON.stringify({
-                    sessionId: id,
-                    path: root,
-                    duration_sec: durationSec,
-                    annotation,
-                    participants,
-                    captureMode,
-                    deviceConfig: currentConfig.deviceConfig,
-                    unrestricted: true,
-                    timestamp: new Date().toISOString()
-                }, null, 2)
+                text: JSON.stringify(sanitizedResponse, null, 2)
             }]
     };
 }
@@ -335,42 +358,73 @@ async function processSession(sessionId, pipeline) {
     }
 }
 async function processPointCloud(frames, sessionId) {
-    // Aggregate all points from all frames
+    // Aggregate all points from all frames with enhanced metadata
     const allPoints = [];
+    const enhancedPoints = [];
     for (const frame of frames) {
         if (frame.points) {
             for (const point of frame.points) {
                 allPoints.push([point.x, point.y, point.z]);
+                // Create enhanced point with classification
+                enhancedPoints.push({
+                    x: point.x,
+                    y: point.y,
+                    z: point.z,
+                    intensity: Math.round((point.intensity || 0) * 65535),
+                    classification: point.intensity > 0.7 ? LAS_CLASSIFICATION.RF_SENSE_PERSON :
+                        point.intensity > 0.3 ? LAS_CLASSIFICATION.RF_SENSE_OBJECT :
+                            LAS_CLASSIFICATION.RF_SENSE_STATIC,
+                    returnNumber: 1,
+                    numberOfReturns: 1,
+                    velocity: point.velocity || 0,
+                    snr: point.snr || 0,
+                    timestamp: frame.timestamp
+                });
             }
         }
     }
     // Store point cloud data for viewer
     if (allPoints.length > 0) {
         try {
+            const session = sessions.get(sessionId);
             storePointCloudData(sessionId, allPoints, {
                 source: 'rf_sense_mmwave',
                 pipeline: 'point_cloud',
-                count: allPoints.length
+                count: allPoints.length,
+                securitySessionId: session?.securitySessionId,
+                scanMode: session?.scanMode || false,
+                localOnly: session?.localOnly || false
             });
         }
         catch (error) {
             console.warn("Failed to store point cloud data:", error);
         }
     }
+    const responseData = {
+        pipeline: "point_cloud",
+        total_points: allPoints.length,
+        enhanced_points: enhancedPoints.length,
+        frames_processed: frames.length,
+        viewer_url: `http://localhost:${process.env.MCP_WEB_PORT || 3000}/viewer/pointcloud?sessionId=${sessionId}`,
+        viewer_available: true,
+        data_cached: true,
+        las_ready: true,
+        note: "Point cloud data has been cached and is available via viewer URL. LAS export ready. Full data not included in response to preserve token usage.",
+        unrestricted: true,
+        timestamp: new Date().toISOString()
+    };
+    // Apply security middleware if scan mode is active
+    const session = sessions.get(sessionId);
+    let sanitizedResponse = responseData;
+    if (session?.scanMode && session?.securitySessionId) {
+        const security = createSecurityMiddleware(session.securitySessionId);
+        sanitizedResponse = security.processData(responseData, 5); // Limit response data for scan mode
+        sanitizedResponse._securityNote = "Data sanitized for AI-safe scan mode. Full data available in offline viewer.";
+    }
     return {
         content: [{
                 type: "text",
-                text: JSON.stringify({
-                    pipeline: "point_cloud",
-                    total_points: allPoints.length,
-                    frames_processed: frames.length,
-                    viewer_url: `http://localhost:${process.env.MCP_WEB_PORT || 3000}/viewer/pointcloud?sessionId=${sessionId}`,
-                    viewer_available: true,
-                    data_cached: true,
-                    note: "Point cloud data has been cached and is available via viewer URL. Full data not included in response to preserve token usage.",
-                    unrestricted: true,
-                    timestamp: new Date().toISOString()
-                }, null, 2)
+                text: JSON.stringify(sanitizedResponse, null, 2)
             }]
     };
 }
@@ -529,6 +583,52 @@ async function exportSession(sessionId, format, outputPath) {
         case "csv":
             // Convert to CSV format
             exportData = "CSV export not implemented - use JSON format";
+            break;
+        case "las":
+            // Try to export processed point cloud data as LAS
+            try {
+                // Check if there's processed point cloud data
+                const processedFiles = await fs.readdir(s.paths.root);
+                const processedFile = processedFiles.find(f => f.startsWith('processed_point_cloud'));
+                if (processedFile) {
+                    const processedPath = path.join(s.paths.root, processedFile);
+                    const processedContent = await fs.readFile(processedPath, 'utf-8');
+                    const processedData = JSON.parse(processedContent);
+                    if (processedData.points && Array.isArray(processedData.points)) {
+                        await saveLASPointCloud(processedData, outputPath, {
+                            format: 'las',
+                            pointFormat: 1, // With GPS time
+                            includeIntensity: true,
+                            includeClassification: true,
+                            includeGPSTime: true,
+                            metadata: {
+                                sessionId: sessionId,
+                                source: 'rf_sense_mmwave',
+                                timestamp: new Date().toISOString()
+                            }
+                        });
+                        return {
+                            content: [{
+                                    type: "text",
+                                    text: JSON.stringify({
+                                        exported: true,
+                                        sessionId,
+                                        format,
+                                        path: outputPath,
+                                        fileSize: "Binary LAS file",
+                                        unrestricted: true,
+                                        timestamp: new Date().toISOString()
+                                    }, null, 2)
+                                }]
+                        };
+                    }
+                }
+                // Fallback to basic session data
+                exportData = "LAS export requires processed point cloud data - run point_cloud pipeline first";
+            }
+            catch (error) {
+                throw new Error(`Failed to export LAS file: ${error instanceof Error ? error.message : 'Unknown error'}`);
+            }
             break;
         default:
             throw new Error(`Unsupported export format: ${format}`);

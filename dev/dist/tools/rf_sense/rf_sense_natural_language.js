@@ -98,6 +98,8 @@ const FORMAT_MAPPINGS = {
     "ply": "ply",
     "pcd": "pcd",
     "csv": "csv",
+    "las": "las",
+    "lidar": "las",
     "point cloud": "ply",
     "pointcloud": "ply"
 };
@@ -157,6 +159,8 @@ export function registerRfSenseNaturalLanguage(server) {
 - "Export session as PLY format"
 - "Save session data as JSON"
 - "Download point cloud as PCD"
+- "Export point cloud as LAS format"
+- "Save LiDAR data as LAS file"
 
 **Visualization Commands:**
 - "Visualize session as heatmap"
@@ -521,7 +525,10 @@ export function getCommandExamples() {
             "Export session as PLY format",
             "Save session data as JSON",
             "Download point cloud as PCD",
-            "Convert session to CSV format"
+            "Convert session to CSV format",
+            "Export point cloud as LAS format",
+            "Save LiDAR data as LAS file",
+            "Generate LAS file from session data"
         ],
         visualization: [
             "Visualize session as heatmap",

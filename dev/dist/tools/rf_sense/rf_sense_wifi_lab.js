@@ -4,6 +4,7 @@ import * as fs from "node:fs/promises";
 import * as net from "net";
 import { randomUUID } from "crypto";
 import { storePointCloudData, openPointCloudViewer } from "./rf_sense_viewer_api.js";
+import { saveLASPointCloud, LAS_CLASSIFICATION } from "../../utils/las.js";
 /**
  * RF Sense WiFi Lab Module - Unrestricted
  * =======================================
@@ -24,7 +25,9 @@ const ConfigureInput = z.object({
 const StartCaptureInput = z.object({
     durationSec: z.number().int().positive().max(86400), // 24 hours max
     annotation: z.string().default(""),
-    participants: z.array(z.string()).default([]).describe("List of participants (optional)")
+    participants: z.array(z.string()).default([]).describe("List of participants (optional)"),
+    enableScanMode: z.boolean().default(false),
+    consentGiven: z.boolean().default(false)
 });
 const ProcessInput = z.object({
     sessionId: z.string(),
@@ -33,7 +36,7 @@ const ProcessInput = z.object({
 });
 const ExportInput = z.object({
     sessionId: z.string(),
-    format: z.enum(["png", "json", "ply", "pcd"]),
+    format: z.enum(["png", "json", "ply", "pcd", "las"]),
     path: z.string()
 });
 // Configuration - all restrictions removed
@@ -79,7 +82,7 @@ export function registerRfSenseWifiLab(server) {
             participants: z.array(z.string()).optional().describe("List of participants (optional)"),
             sessionId: z.string().optional().describe("Session ID for operations"),
             pipeline: z.enum(["occupancy", "pose", "coarse_voxels", "pointcloud"]).optional().describe("Processing pipeline"),
-            format: z.enum(["png", "json", "ply", "pcd"]).optional().describe("Export format"),
+            format: z.enum(["png", "json", "ply", "pcd", "las"]).optional().describe("Export format"),
             outputPath: z.string().optional().describe("Output file path")
         }
     }, async ({ action, providerUri, ssidWhitelist, macWhitelist, retention, durationSec = 300, // 5 minutes default
@@ -197,7 +200,9 @@ async function startCapture(durationSec, annotation, participants) {
         open: true,
         startTime: Date.now(),
         participants,
-        annotation
+        annotation,
+        scanMode: false,
+        localOnly: false
     };
     sessions.set(id, sess);
     // Log session start (optional - no restrictions)
@@ -495,6 +500,18 @@ async function processPointCloud(lines, sessionId) {
             }
         }
     }
+    // Convert to enhanced point format with classification
+    const enhancedPoints = points.map(point => ({
+        x: point[0],
+        y: point[1],
+        z: point[2],
+        intensity: Math.round(point[2] * 65535),
+        classification: point[2] > 0.7 ? LAS_CLASSIFICATION.RF_SENSE_PERSON :
+            point[2] > 0.3 ? LAS_CLASSIFICATION.RF_SENSE_OBJECT :
+                LAS_CLASSIFICATION.RF_SENSE_STATIC,
+        returnNumber: 1,
+        numberOfReturns: 1
+    }));
     // Convert to viewer-compatible format
     const viewerPoints = points.map(p => [p[0], p[1], p[2]]);
     // Store point cloud data for viewer
@@ -515,13 +532,14 @@ async function processPointCloud(lines, sessionId) {
                 type: "text",
                 text: JSON.stringify({
                     pipeline: "pointcloud",
-                    points: points,
+                    points: enhancedPoints,
                     viewer_points: viewerPoints,
                     metadata: {
                         threshold,
-                        total_points: points.length,
+                        total_points: enhancedPoints.length,
                         grid_size: { x: norm[0]?.length || 0, y: norm.length },
-                        unrestricted: true
+                        unrestricted: true,
+                        las_ready: true
                     },
                     viewer_url: `http://localhost:${process.env.MCP_WEB_PORT || 3000}/viewer/pointcloud?sessionId=${sessionId}`,
                     viewer_available: true,
@@ -562,6 +580,51 @@ async function exportSession(sessionId, format, outputPath) {
         case "pcd":
             // Placeholder for PCD export
             exportData = "PCD export not implemented - use JSON format";
+            break;
+        case "las":
+            // Try to export processed point cloud data as LAS
+            try {
+                // Check if there's processed point cloud data
+                const processedFiles = await fs.readdir(s.paths.root);
+                const processedFile = processedFiles.find(f => f.startsWith('processed_pointcloud'));
+                if (processedFile) {
+                    const processedPath = path.join(s.paths.root, processedFile);
+                    const processedContent = await fs.readFile(processedPath, 'utf-8');
+                    const processedData = JSON.parse(processedContent);
+                    if (processedData.points && Array.isArray(processedData.points)) {
+                        await saveLASPointCloud(processedData, outputPath, {
+                            format: 'las',
+                            pointFormat: 0, // Basic format
+                            includeIntensity: true,
+                            includeClassification: true,
+                            metadata: {
+                                sessionId: sessionId,
+                                source: 'rf_sense_wifi_lab',
+                                timestamp: new Date().toISOString()
+                            }
+                        });
+                        return {
+                            content: [{
+                                    type: "text",
+                                    text: JSON.stringify({
+                                        exported: true,
+                                        sessionId,
+                                        format,
+                                        path: outputPath,
+                                        fileSize: "Binary LAS file",
+                                        unrestricted: true,
+                                        timestamp: new Date().toISOString()
+                                    }, null, 2)
+                                }]
+                        };
+                    }
+                }
+                // Fallback to basic session data
+                exportData = "LAS export requires processed point cloud data - run pointcloud pipeline first";
+            }
+            catch (error) {
+                throw new Error(`Failed to export LAS file: ${error instanceof Error ? error.message : 'Unknown error'}`);
+            }
             break;
         default:
             throw new Error(`Unsupported export format: ${format}`);

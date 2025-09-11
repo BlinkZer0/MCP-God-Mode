@@ -98,7 +98,7 @@ export function setupRfSenseViewerAPI(app: express.Application): void {
         if (security.checkNetworkAccess() && isScanModeActive(securitySessionId)) {
           // Sanitize data for AI-safe scan mode
           responseData = security.processData(responseData, 50); // Limit to 50 data points
-          responseData._securityNote = "Data sanitized for AI-safe scan mode. Full data available in offline viewer.";
+          (responseData as any)._securityNote = "Data sanitized for AI-safe scan mode. Full data available in offline viewer.";
         }
       }
       

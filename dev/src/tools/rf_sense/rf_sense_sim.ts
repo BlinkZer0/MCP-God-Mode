@@ -5,6 +5,7 @@ import * as fs from "node:fs/promises";
 import { randomUUID } from "crypto";
 import { storePointCloudData, openPointCloudViewer } from "./rf_sense_viewer_api.js";
 import { savePointCloud } from "../../utils/ply.js";
+import { saveLASPointCloud, pointsToLAS, LAS_CLASSIFICATION } from "../../utils/las.js";
 import { 
   createSecuritySession, 
   enableScanMode, 
@@ -43,7 +44,7 @@ const ProcessInput = z.object({
 
 const ExportInput = z.object({
   sessionId: z.string(),
-  format: z.enum(["png", "json", "ply", "pcd", "csv"]),
+  format: z.enum(["png", "json", "ply", "pcd", "csv", "las"]),
   path: z.string()
 });
 
@@ -105,7 +106,7 @@ export function registerRfSenseSim(server: McpServer) {
       resolution: z.enum(["low", "medium", "high"]).optional().describe("Simulation resolution"),
       sessionId: z.string().optional().describe("Session ID for operations"),
       pipeline: z.enum(["occupancy", "pose", "coarse_voxels", "pointcloud", "gesture_detection"]).optional().describe("Processing pipeline"),
-      format: z.enum(["png", "json", "ply", "pcd", "csv"]).optional().describe("Export format"),
+      format: z.enum(["png", "json", "ply", "pcd", "csv", "las"]).optional().describe("Export format"),
       outputPath: z.string().optional().describe("Output file path"),
       visualizeType: z.enum(["heatmap", "skeleton", "pointcloud", "voxels"]).optional().describe("Visualization type"),
       style: z.enum(["default", "thermal", "wireframe", "solid"]).optional().describe("Visualization style")
@@ -192,7 +193,7 @@ async function getStatus() {
         default_retention: CFG.defaultRetention,
         available_scenarios: ["empty_room", "single_person", "multiple_people", "gesture_demo", "motion_pattern"],
         available_pipelines: ["occupancy", "pose", "coarse_voxels", "pointcloud", "gesture_detection"],
-        available_formats: ["png", "json", "ply", "pcd", "csv"]
+        available_formats: ["png", "json", "ply", "pcd", "csv", "las"]
       }, null, 2)
     }]
   };
@@ -669,7 +670,12 @@ async function processPointCloud(data: any[]) {
               y: y / gridSize,
               z: index / data.length, // Time as Z dimension
               intensity: frame[y][x],
-              timestamp: item.timestamp
+              timestamp: item.timestamp,
+              classification: frame[y][x] > 0.7 ? LAS_CLASSIFICATION.RF_SENSE_PERSON : 
+                             frame[y][x] > 0.3 ? LAS_CLASSIFICATION.RF_SENSE_OBJECT : 
+                             LAS_CLASSIFICATION.RF_SENSE_STATIC,
+              returnNumber: 1,
+              numberOfReturns: 1
             });
           }
         }
@@ -770,6 +776,36 @@ async function exportSession(sessionId: string, format: string, outputPath: stri
     case "pcd":
       exportContent = convertToPCD(data);
       break;
+    case "las":
+      // Convert to LAS format using the new utility
+      try {
+        await saveLASPointCloud(data, outputPath, {
+          format: 'las',
+          pointFormat: 0, // Basic format
+          includeIntensity: true,
+          includeClassification: true,
+          metadata: {
+            sessionId: sessionId,
+            source: 'rf_sense_simulation',
+            timestamp: new Date().toISOString()
+          }
+        });
+        // LAS file is already saved, skip the general file write
+        return {
+          content: [{
+            type: "text",
+            text: JSON.stringify({
+              sessionId,
+              format,
+              outputPath,
+              fileSize: "Binary LAS file",
+              status: "exported"
+            }, null, 2)
+          }]
+        };
+      } catch (error) {
+        throw new Error(`Failed to export LAS file: ${error instanceof Error ? error.message : 'Unknown error'}`);
+      }
     case "png":
       // For PNG, we'll create a simple text representation
       exportContent = `PNG export not implemented in simulation mode. Use JSON format for data export.`;
