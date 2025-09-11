@@ -1,688 +1,1127 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RF Sense Point Cloud Viewer - Offline</title>
-    <style>
-        body {
-            margin: 0;
-            padding: 20px;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
-            color: white;
-            min-height: 100vh;
-        }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        
-        .header {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-        
-        .header h1 {
-            margin: 0;
-            font-size: 2.5em;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-        }
-        
-        .header p {
-            margin: 10px 0 0 0;
-            opacity: 0.8;
-            font-size: 1.1em;
-        }
-        
-        .controls {
-            background: rgba(255,255,255,0.1);
-            padding: 20px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-            backdrop-filter: blur(10px);
-        }
-        
-        .file-input {
-            margin-bottom: 15px;
-        }
-        
-        .file-input input[type="file"] {
-            background: rgba(255,255,255,0.2);
-            border: 2px dashed rgba(255,255,255,0.3);
-            border-radius: 8px;
-            padding: 20px;
-            width: 100%;
-            color: white;
-            font-size: 16px;
-            cursor: pointer;
-        }
-        
-        .file-input input[type="file"]:hover {
-            border-color: rgba(255,255,255,0.5);
-            background: rgba(255,255,255,0.3);
-        }
-        
-        .btn {
-            background: linear-gradient(45deg, #ff6b6b, #ee5a24);
-            border: none;
-            color: white;
-            padding: 12px 24px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 16px;
-            font-weight: bold;
-            transition: all 0.3s ease;
-            margin-right: 10px;
-        }
-        
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-        }
-        
-        .btn:active {
-            transform: translateY(0);
-        }
-        
-        .btn-secondary {
-            background: linear-gradient(45deg, #74b9ff, #0984e3);
-        }
-        
-        .canvas-container {
-            background: rgba(0,0,0,0.3);
-            border-radius: 10px;
-            padding: 20px;
-            text-align: center;
-            backdrop-filter: blur(10px);
-        }
-        
-        #pointCloudCanvas {
-            border: 2px solid rgba(255,255,255,0.2);
-            border-radius: 8px;
-            background: #000;
-            max-width: 100%;
-            height: auto;
-        }
-        
-        .info-panel {
-            background: rgba(255,255,255,0.1);
-            padding: 15px;
-            border-radius: 8px;
-            margin-top: 15px;
-            backdrop-filter: blur(10px);
-        }
-        
-        .info-item {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 8px;
-            padding: 5px 0;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-        }
-        
-        .info-item:last-child {
-            border-bottom: none;
-        }
-        
-        .info-label {
-            font-weight: bold;
-            opacity: 0.8;
-        }
-        
-        .info-value {
-            color: #74b9ff;
-        }
-        
-        .status {
-            padding: 10px;
-            border-radius: 6px;
-            margin: 10px 0;
-            font-weight: bold;
-        }
-        
-        .status.success {
-            background: rgba(46, 204, 113, 0.2);
-            border: 1px solid #2ecc71;
-            color: #2ecc71;
-        }
-        
-        .status.error {
-            background: rgba(231, 76, 60, 0.2);
-            border: 1px solid #e74c3c;
-            color: #e74c3c;
-        }
-        
-        .status.info {
-            background: rgba(52, 152, 219, 0.2);
-            border: 1px solid #3498db;
-            color: #3498db;
-        }
-    </style>
+  <meta charset="utf-8" />
+  <title>RF_sense_mmwave — Point Cloud Viewer (Offline/Live)</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta id="cspMeta" http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src 'self' ws: wss: blob: data:;">
+  <style>
+    :root {
+      --bg: #0b1115; --panel: #121a20; --muted: #7a8a99; --fg: #e7f0f7; --accent:#4fb3ff;
+      --ok:#38c172; --warn:#ffb020; --err:#ff5d5d;
+    }
+    html, body { margin:0; height:100%; background:var(--bg); color:var(--fg); font:14px/1.4 Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif; }
+    #app { display:flex; height:100%; }
+    #panel { width: 340px; background:var(--panel); padding:14px; box-shadow: 2px 0 12px rgba(0,0,0,.35); overflow:auto; }
+    #scene { flex:1; position:relative; }
+    h1 { font-size:16px; margin:0 0 8px; letter-spacing:.3px; }
+    section { border:1px solid #1f2a32; border-radius:10px; padding:10px; margin-bottom:10px; }
+    section > h2 { font-size:13px; margin:0 0 8px; color:var(--muted); text-transform:uppercase; letter-spacing:.8px; }
+    label { display:block; margin:6px 0 2px; color:#c7d4df; }
+    input[type="text"], input[type="number"] {
+      width:100%; padding:8px; border-radius:8px; border:1px solid #1f2a32; background:#0e161b; color:var(--fg);
+    }
+    input[type="range"] { width:100%; }
+    button {
+      background:#0f2430; color:var(--fg); border:1px solid #1f2a32; padding:8px 10px; border-radius:10px; cursor:pointer;
+    }
+    button:hover { border-color:#2a3944; }
+    button:disabled { opacity:0.5; cursor:not-allowed; }
+    .row { display:flex; gap:8px; align-items:center; }
+    .row > * { flex:1; }
+    .badge { display:inline-block; padding:2px 8px; border-radius:12px; font-size:12px; border:1px solid #1f2a32; margin-right:6px; }
+    .ok { background:#0d2a1e; color:#b4ffcb; }
+    .warn { background:#2a2310; color:#ffe6a3; }
+    .err { background:#2a1313; color:#ffb3b3; }
+    .muted { color:var(--muted); }
+    #dropzone {
+      border:1px dashed #2b3a44; border-radius:10px; padding:10px; text-align:center; color:#98a8b6;
+    }
+    #hud { position:absolute; left:10px; top:10px; background:rgba(0,0,0,.35); color:#e9f4ff; padding:8px 10px; border-radius:10px; font-size:12px; pointer-events:none; backdrop-filter: blur(6px); }
+    #toast { position:absolute; right:10px; bottom:10px; max-width:360px; }
+    .toast { background:#0f1520; border:1px solid #203040; color:#e8f4ff; padding:10px 12px; border-radius:10px; margin-top:8px; }
+    .small { font-size:12px; color:#b0c2d0; }
+    .select { width:100%; padding:8px; border-radius:8px; border:1px solid #1f2a32; background:#0e161b; color:var(--fg); }
+    .grid { display:grid; grid-template-columns: 1fr 1fr; gap:8px; }
+    .scan-mode { border-color: #ff5d5d !important; background: rgba(255, 93, 93, 0.1) !important; }
+    .scan-mode h2 { color: #ff5d5d !important; }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>📡 RF Sense Point Cloud Viewer</h1>
-            <p>Offline 3D Point Cloud Visualization</p>
-        </div>
-        
-        <div class="controls">
-            <div class="file-input">
-                <input type="file" id="fileInput" accept=".json" />
-                <p>Select a JSON file containing point cloud data</p>
-            </div>
-            
-            <button class="btn" onclick="generateSampleData()">Generate Sample Data</button>
-            <button class="btn btn-secondary" onclick="resetView()">Reset View</button>
-            <button class="btn btn-secondary" onclick="clearCanvas()">Clear Canvas</button>
-            <button class="btn btn-secondary" onclick="downloadData()">Download Data</button>
-        </div>
-        
-        <div id="status"></div>
-        
-        <div class="canvas-container">
-            <canvas id="pointCloudCanvas" width="800" height="600"></canvas>
-        </div>
-        
-        <div class="info-panel" id="infoPanel" style="display: none;">
-            <h3>Point Cloud Information</h3>
-            <div id="infoContent"></div>
-        </div>
-    </div>
+<div id="app">
+  <div id="panel">
+    <h1>RF_sense_mmwave — Point Cloud Viewer</h1>
+    
+    <!-- Status Badges -->
+    <section>
+      <div class="badge" id="aiStatus">AI: active</div>
+      <div class="badge" id="egressStatus">Egress: normal</div>
+      <div class="badge" id="cacheStatus">Cache: 0 frames</div>
+      <div class="badge" id="status-file">File: idle</div>
+      <div class="badge" id="status-ws">WS: disconnected</div>
+      <div class="badge" id="status-ble">BLE: disconnected</div>
+      <div class="badge" id="status-synth">Synth: off</div>
+    </section>
 
-    <script>
-        let pointCloudData = null;
-        let canvas, ctx;
-        
-        // Navigation variables
-        let isDragging = false;
-        let lastMouseX = 0;
-        let lastMouseY = 0;
-        let offsetX = 0;
-        let offsetY = 0;
-        let scale = 1;
-        let minX, maxX, minY, maxY, minZ, maxZ;
-        let baseScale = 1;
-        let baseOffsetX = 0;
-        let baseOffsetY = 0;
-        
-        // Initialize canvas
-        window.onload = function() {
-            canvas = document.getElementById('pointCloudCanvas');
-            ctx = canvas.getContext('2d');
-            
-            // Set canvas size
-            canvas.width = 800;
-            canvas.height = 600;
-            
-            // Clear canvas
-            clearCanvas();
-            
-            // Set up file input
-            document.getElementById('fileInput').addEventListener('change', handleFileSelect);
-            
-            // Set up mouse events for navigation
-            setupMouseEvents();
+    <!-- Scan Mode Section -->
+    <section id="scanSection">
+      <h2>Scan Mode (AI-Safe)</h2>
+      <p class="small">Suspends AI and blocks network egress so your point clouds never leave this device.</p>
+      <div class="row">
+        <button id="scanStart">Start Scan (AI-Safe)</button>
+        <button id="scanStop" disabled>Stop Scan & Resume AI</button>
+      </div>
+      <div class="row">
+        <button id="cachePurge">Purge Cache</button>
+        <button id="exportBundle">Export Bundle</button>
+      </div>
+      <div style="margin:6px 0;">
+        <label><input id="loopbackOnly" type="checkbox" checked> Loopback WS only (recommended)</label>
+      </div>
+      <p class="small">Data lives in your browser storage. Use Export Bundle to manually share.</p>
+    </section>
+
+    <!-- File Loader -->
+    <section>
+      <h2>Load — File</h2>
+      <div id="dropzone">Drop JSON here or
+        <div style="margin-top:8px;"><input type="file" id="file" accept=".json,application/json"></div>
+      </div>
+      <p class="small">Schema: see "Docs" at bottom. Supports array of objects or packed arrays.</p>
+    </section>
+
+    <!-- WebSocket -->
+    <section>
+      <h2>Live — WebSocket</h2>
+      <label for="wsUrl">WebSocket URL</label>
+      <input id="wsUrl" type="text" value="ws://localhost:8787/points">
+      <div class="row">
+        <button id="wsConnect">Connect</button>
+        <button id="wsDisconnect">Disconnect</button>
+      </div>
+      <p class="small">Send JSON frames or NDJSON lines. Each message may contain a full cloud or a frame chunk.</p>
+    </section>
+
+    <!-- Web Bluetooth -->
+    <section>
+      <h2>Live — Web Bluetooth</h2>
+      <label>Service UUID</label>
+      <input id="bleService" type="text" value="0000ffaa-0000-1000-8000-00805f9b34fb">
+      <label>Characteristic UUID</label>
+      <input id="bleChar" type="text" value="0000ffab-0000-1000-8000-00805f9b34fb">
+      <div class="row">
+        <button id="bleConnect">Connect</button>
+        <button id="bleDisconnect">Disconnect</button>
+      </div>
+      <p class="small">Binary format: float32 x,y,z[,i] repeating. Little-endian.</p>
+    </section>
+
+    <!-- Controls -->
+    <section>
+      <h2>Controls</h2>
+      <label>Point Size: <span id="pointSizeLabel">1.5</span> px</label>
+      <input id="pointSize" type="range" min="0.5" max="5" step="0.1" value="1.5">
+
+      <label>Color Mode</label>
+      <select id="colorMode" class="select">
+        <option value="intensity">Intensity</option>
+        <option value="source">Source</option>
+        <option value="height">Z Height</option>
+      </select>
+
+      <div class="grid">
+        <div>
+          <label>I min</label>
+          <input id="iMin" type="number" value="0" step="0.01">
+        </div>
+        <div>
+          <label>I max</label>
+          <input id="iMax" type="number" value="1" step="0.01">
+        </div>
+      </div>
+      <div style="margin:6px 0;"><label><input id="autoExpose" type="checkbox" checked> Auto-expose intensity</label></div>
+
+      <div class="grid">
+        <div>
+          <label>Voxel Size (m)</label>
+          <input id="voxelSize" type="number" value="0.03" step="0.01">
+        </div>
+        <div>
+          <label>Frame Buffer (N)</label>
+          <input id="frameBuffer" type="number" value="20" step="1">
+        </div>
+      </div>
+
+      <div class="row" style="margin-top:6px;">
+        <button id="pauseBtn">Pause</button>
+        <button id="resumeBtn">Resume</button>
+      </div>
+      <div class="row" style="margin-top:6px;">
+        <button id="clearBtn">Clear</button>
+        <button id="recenterBtn">Recenter</button>
+      </div>
+      <div class="row" style="margin-top:6px;">
+        <button id="shotBtn">Screenshot</button>
+        <button id="exportBtn">Export (JSON/PLY)</button>
+      </div>
+      <div class="row" style="margin-top:6px;">
+        <button id="synthBtn">Toggle Synthetic</button>
+      </div>
+    </section>
+
+    <!-- Documentation -->
+    <section>
+      <h2>Docs — JSON & BLE</h2>
+      <p class="small">
+        <strong>JSON objects</strong>: {"points":[{"x":m,"y":m,"z":m,"i":0..1,"src":"wifi|ble|sdr","t":ms},...]}<br>
+        <strong>JSON packed</strong>: {"xyz":[x0,y0,z0,x1,y1,z1,...],"intensity":[i0,i1,...],"src":"wifi","t":ms}<br>
+        Missing <em>i</em> → auto. Missing <em>src</em> → inferred from transport.<br>
+        <strong>BLE binary</strong>: little-endian float32 triplets x,y,z with optional i (4th float). Streamed in any chunk size.
+      </p>
+    </section>
+  </div>
+
+  <div id="scene">
+    <div id="hud">FPS: <span id="fps">0</span><br/>Points: <span id="ptCount">0</span></div>
+    <div id="toast"></div>
+  </div>
+</div>
+
+<script type="module">
+  import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.160.1/build/three.module.js";
+  import { OrbitControls } from "https://cdn.jsdelivr.net/npm/three@0.160.1/examples/jsm/controls/OrbitControls.js";
+
+  // ---------- Utilities ----------
+  const $ = sel => document.querySelector(sel);
+  const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
+  const toHex = (r,g,b)=>'#'+[r,g,b].map(v=>v.toString(16).padStart(2,'0')).join('');
+
+  function toast(msg, type="info") {
+    const el = document.createElement('div');
+    el.className = 'toast';
+    el.textContent = msg;
+    if (type==="err") el.style.borderColor = "#503030";
+    if (type==="warn") el.style.borderColor = "#505030";
+    $("#toast").appendChild(el);
+    setTimeout(()=>el.remove(), 5000);
+  }
+
+  // ---------- SessionGuard (AI-Safe Mode) ----------
+  const SessionGuard = (() => {
+    let enabled = false;
+    const originals = {
+      fetch: window.fetch,
+      WebSocket: window.WebSocket,
+      sendBeacon: navigator.sendBeacon,
+      XHR: window.XMLHttpRequest,
+      postMessage: window.postMessage
+    };
+    const isLoopback = u => /^ws:\/\/(localhost|127\.0\.0\.1)(:\d+)?\//i.test(u);
+
+    function guardFetch(...args){ 
+      if(!enabled) return originals.fetch(...args); 
+      toast("Network egress blocked in Scan Mode", "err");
+      throw new Error("Egress blocked in Scan Mode"); 
+    }
+    
+    class GuardWS {
+      constructor(url, ...rest){
+        if (!enabled) return new originals.WebSocket(url, ...rest);
+        if (isLoopback(url)) return new originals.WebSocket(url, ...rest);
+        toast("WebSocket blocked in Scan Mode (non-loopback)", "err");
+        throw new Error("WS blocked in Scan Mode");
+      }
+    }
+    
+    function guardBeacon(){ 
+      if(!enabled) return originals.sendBeacon.apply(navigator, arguments); 
+      toast("Beacon blocked in Scan Mode", "err");
+      return false; 
+    }
+    
+    function guardXHR(){
+      const xhr = new originals.XHR();
+      const _open = xhr.open;
+      xhr.open = function(method, url){
+        if (enabled) {
+          toast("XHR blocked in Scan Mode", "err");
+          throw new Error("XHR blocked in Scan Mode");
+        }
+        return _open.apply(xhr, arguments);
+      };
+      return xhr;
+    }
+    
+    function guardPostMessage(){ 
+      if(enabled) {
+        toast("postMessage blocked in Scan Mode", "err");
+        throw new Error("postMessage blocked in Scan Mode");
+      }
+      return originals.postMessage.apply(window, arguments); 
+    }
+
+    return {
+      enable(){
+        if (enabled) return;
+        enabled = true;
+        window.fetch = guardFetch;
+        window.WebSocket = GuardWS;
+        navigator.sendBeacon = guardBeacon;
+        window.XMLHttpRequest = guardXHR;
+        window.postMessage = guardPostMessage;
+        $("#aiStatus").textContent = "AI: suspended";
+        $("#egressStatus").textContent = "Egress: blocked";
+        $("#scanSection").classList.add("scan-mode");
+        $("#scanStart").disabled = true;
+        $("#scanStop").disabled = false;
+        toast("Scan Mode enabled - AI suspended, egress blocked", "warn");
+      },
+      disable(){
+        if (!enabled) return;
+        enabled = false;
+        window.fetch = originals.fetch;
+        window.WebSocket = originals.WebSocket;
+        navigator.sendBeacon = originals.sendBeacon;
+        window.XMLHttpRequest = originals.XHR;
+        window.postMessage = originals.postMessage;
+        $("#aiStatus").textContent = "AI: active";
+        $("#egressStatus").textContent = "Egress: normal";
+        $("#scanSection").classList.remove("scan-mode");
+        $("#scanStart").disabled = false;
+        $("#scanStop").disabled = true;
+        toast("Scan Mode disabled - AI active, egress normal", "ok");
+      },
+      get enabled(){ return enabled; }
+    };
+  })();
+
+  // ---------- Runtime CSP Switching ----------
+  const CSP = (() => {
+    const meta = document.getElementById('cspMeta');
+    const normal = "default-src 'self'; connect-src 'self' ws: wss: blob: data:;";
+    const scan   = "default-src 'self'; connect-src 'self' ws://127.0.0.1 ws://localhost blob: data:;";
+    return {
+      applyScanPolicy(){ 
+        meta.setAttribute('content', scan); 
+        toast("CSP updated for scan mode", "warn");
+      },
+      applyNormalPolicy(){ 
+        meta.setAttribute('content', normal); 
+        toast("CSP updated for normal mode", "ok");
+      }
+    };
+  })();
+
+  // ---------- Local Cache (IndexedDB) ----------
+  const Cache = (() => {
+    let db, sessionId=null, frameCount=0, capBytes = 1.5 * 1024*1024*1024; // 1.5 GB
+    const meter = () => $("#cacheStatus").textContent = `Cache: ${frameCount} frames`;
+
+    async function openDB(){
+      return new Promise((res, rej)=>{
+        const req = indexedDB.open('rf_mmwave_cache', 1);
+        req.onupgradeneeded = () => {
+          const d = req.result;
+          d.createObjectStore('frames', { keyPath:'id', autoIncrement:true });
+          d.createObjectStore('sessions', { keyPath:'id', autoIncrement:true });
         };
-        
-        function setupMouseEvents() {
-            // Mouse down - start dragging
-            canvas.addEventListener('mousedown', function(e) {
-                isDragging = true;
-                lastMouseX = e.clientX;
-                lastMouseY = e.clientY;
-                canvas.style.cursor = 'grabbing';
-            });
-            
-            // Mouse move - drag
-            canvas.addEventListener('mousemove', function(e) {
-                if (isDragging) {
-                    const deltaX = e.clientX - lastMouseX;
-                    const deltaY = e.clientY - lastMouseY;
-                    
-                    offsetX += deltaX;
-                    offsetY += deltaY;
-                    
-                    lastMouseX = e.clientX;
-                    lastMouseY = e.clientY;
-                    
-                    // Re-render with new offset
-                    if (pointCloudData) {
-                        renderPointCloud();
-                    }
-                }
-            });
-            
-            // Mouse up - stop dragging
-            canvas.addEventListener('mouseup', function() {
-                isDragging = false;
-                canvas.style.cursor = 'grab';
-            });
-            
-            // Mouse leave - stop dragging
-            canvas.addEventListener('mouseleave', function() {
-                isDragging = false;
-                canvas.style.cursor = 'grab';
-            });
-            
-            // Mouse wheel - zoom
-            canvas.addEventListener('wheel', function(e) {
-                e.preventDefault();
-                
-                const zoomFactor = e.deltaY > 0 ? 0.9 : 1.1;
-                const mouseX = e.clientX - canvas.offsetLeft;
-                const mouseY = e.clientY - canvas.offsetTop;
-                
-                // Calculate zoom around mouse position
-                const worldX = (mouseX - offsetX) / scale;
-                const worldY = (mouseY - offsetY) / scale;
-                
-                scale *= zoomFactor;
-                scale = Math.max(0.1, Math.min(10, scale)); // Limit zoom range
-                
-                // Adjust offset to zoom around mouse position
-                offsetX = mouseX - worldX * scale;
-                offsetY = mouseY - worldY * scale;
-                
-                // Re-render with new scale
-                if (pointCloudData) {
-                    renderPointCloud();
-                }
-            });
-            
-            // Set initial cursor
-            canvas.style.cursor = 'grab';
-        }
-        
-        function showStatus(message, type = 'info') {
-            const statusDiv = document.getElementById('status');
-            statusDiv.innerHTML = `<div class="status ${type}">${message}</div>`;
-        }
-        
-        function handleFileSelect(event) {
-            const file = event.target.files[0];
-            if (!file) return;
-            
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                try {
-                    const data = JSON.parse(e.target.result);
-                    loadPointCloudData(data);
-                } catch (error) {
-                    showStatus('Error parsing JSON file: ' + error.message, 'error');
-                }
+        req.onsuccess = () => res(req.result);
+        req.onerror = () => rej(req.error);
+      });
+    }
+    
+    async function ensureDB(){ if (!db) db = await openDB(); }
+
+    return {
+      async openSession(meta={}){
+        await ensureDB();
+        return new Promise((res, rej)=>{
+          const tx = db.transaction(['sessions'], 'readwrite');
+          const add = tx.objectStore('sessions').add({ 
+            meta: { ...meta, startTime: Date.now() }, 
+            frameIds: [] 
+          });
+          add.onsuccess = () => { 
+            sessionId = add.result; 
+            frameCount=0; 
+            meter(); 
+            toast(`Session ${sessionId} started`, "ok");
+            res(sessionId); 
+          };
+          add.onerror = () => rej(add.error);
+        });
+      },
+      
+      async appendFrameBlob(src, schema, blob){
+        if (!SessionGuard.enabled || sessionId==null) return; // only cache during scan
+        await ensureDB();
+        return new Promise((res, rej)=>{
+          const tx = db.transaction(['frames','sessions'], 'readwrite');
+          const add = tx.objectStore('frames').add({ 
+            ts: Date.now(), 
+            src, 
+            schema, 
+            byteLen: blob.size, 
+            blob 
+          });
+          add.onsuccess = () => {
+            const fid = add.result;
+            const sessStore = tx.objectStore('sessions');
+            const get = sessStore.get(sessionId);
+            get.onsuccess = () => {
+              const sess = get.result; 
+              sess.frameIds.push(fid);
+              sessStore.put(sess);
+              frameCount++; 
+              meter(); 
+              res(fid);
             };
-            reader.readAsText(file);
+          };
+          add.onerror = () => rej(add.error);
+        });
+      },
+      
+      async closeSession(){ 
+        if (sessionId) {
+          toast(`Session ${sessionId} closed`, "ok");
+          sessionId=null; 
+        }
+      },
+      
+      async purge(){
+        await ensureDB();
+        return Promise.all([
+          new Promise((res)=>{ 
+            const tx=db.transaction(['frames'],'readwrite'); 
+            tx.objectStore('frames').clear().onsuccess=res; 
+          }),
+          new Promise((res)=>{ 
+            const tx=db.transaction(['sessions'],'readwrite'); 
+            tx.objectStore('sessions').clear().onsuccess=res; 
+          })
+        ]).then(()=>{ 
+          frameCount=0; 
+          meter(); 
+          toast("Cache purged", "warn");
+        });
+      },
+      
+      async exportBundle(){
+        if (!sessionId) {
+          toast("No active session to export", "err");
+          return;
         }
         
-        function loadPointCloudData(data) {
-            try {
-                // Handle different data formats
-                if (data.points && Array.isArray(data.points)) {
-                    pointCloudData = data.points;
-                } else if (Array.isArray(data)) {
-                    pointCloudData = data;
-                } else if (data.point_cloud && data.point_cloud.points) {
-                    pointCloudData = data.point_cloud.points;
-                } else if (data.sessionId && data.deviceConfig) {
-                    // This is an RF sense export file - generate sample data based on the session
-                    showStatus('RF Sense session file detected. Generating sample data based on session parameters...', 'info');
-                    generateRfSenseData(data);
-                    return;
-                } else {
-                    throw new Error('Invalid point cloud data format. Expected: points array, or RF sense session data');
-                }
-                
-                renderPointCloud();
-                updateInfoPanel(data);
-                showStatus(`Loaded ${pointCloudData.length} points successfully!`, 'success');
-                
-            } catch (error) {
-                showStatus('Error loading point cloud data: ' + error.message, 'error');
-            }
-        }
-        
-        function generateRfSenseData(sessionData) {
-            // Generate realistic point cloud data based on RF sense session parameters
-            const numPoints = 30000; // Generate 30k points as requested
-            const points = [];
-            
-            // Use session parameters to make data more realistic
-            const frequency = sessionData.deviceConfig?.frequency || 77;
-            const frameRate = sessionData.deviceConfig?.frameRate || 100;
-            const duration = sessionData.duration || 10000; // ms
-            const expectedFrames = Math.floor((duration / 1000) * frameRate);
-            
-            // Generate points in a realistic 3D space
-            for (let i = 0; i < numPoints; i++) {
-                // Create more realistic distribution
-                const angle = (i / numPoints) * Math.PI * 2;
-                const radius = Math.random() * 8 + 1; // 1-9 meter radius
-                const height = Math.random() * 3; // 0-3 meter height
-                
-                const x = Math.cos(angle) * radius + (Math.random() - 0.5) * 2;
-                const y = Math.sin(angle) * radius + (Math.random() - 0.5) * 2;
-                const z = height + Math.random() * 0.5;
-                
-                points.push([x, y, z]);
+        await ensureDB();
+        return new Promise((res, rej) => {
+          const tx = db.transaction(['sessions', 'frames'], 'readonly');
+          const sessStore = tx.objectStore('sessions');
+          const get = sessStore.get(sessionId);
+          
+          get.onsuccess = () => {
+            const session = get.result;
+            if (!session) {
+              toast("Session not found", "err");
+              return;
             }
             
-            const data = {
-                points: points,
-                source: 'RF Sense mmWave (Generated)',
-                timestamp: new Date(sessionData.startTime || Date.now()).toISOString(),
-                metadata: {
-                    sessionId: sessionData.sessionId,
-                    originalSession: true,
-                    generated: true,
-                    count: numPoints,
-                    deviceConfig: sessionData.deviceConfig,
-                    duration: sessionData.duration,
-                    annotation: sessionData.annotation
-                }
+            // Create manifest
+            const manifest = {
+              version: "1.0",
+              sessionId: sessionId,
+              meta: session.meta,
+              frameCount: session.frameIds.length,
+              exportTime: Date.now()
             };
             
-            // Set the point cloud data directly and render
-            pointCloudData = points;
-            renderPointCloud();
-            updateInfoPanel(data);
-            showStatus(`Generated ${numPoints} points from RF Sense session data!`, 'success');
-        }
-        
-        function renderPointCloud() {
-            if (!pointCloudData || !Array.isArray(pointCloudData) || pointCloudData.length === 0) {
-                showStatus('No point cloud data to render', 'error');
-                return;
+            // Collect all frame blobs
+            const framesStore = tx.objectStore('frames');
+            const frames = [];
+            let completed = 0;
+            
+            if (session.frameIds.length === 0) {
+              toast("No frames to export", "warn");
+              return;
             }
             
-            clearCanvas();
-            
-            // Calculate bounds (only on first render or when data changes)
-            if (minX === undefined) {
-                minX = Infinity, maxX = -Infinity;
-                minY = Infinity, maxY = -Infinity;
-                minZ = Infinity, maxZ = -Infinity;
-                
-                pointCloudData.forEach(point => {
-                    if (!point) return; // Skip null/undefined points
-                    
-                    let x, y, z;
-                    if (Array.isArray(point) && point.length >= 3) {
-                        [x, y, z] = point;
-                    } else if (point.x !== undefined && point.y !== undefined && point.z !== undefined) {
-                        x = point.x;
-                        y = point.y;
-                        z = point.z;
-                    } else {
-                        return; // Skip invalid points
-                    }
-                    
-                    minX = Math.min(minX, x);
-                    maxX = Math.max(maxX, x);
-                    minY = Math.min(minY, y);
-                    maxY = Math.max(maxY, y);
-                    minZ = Math.min(minZ, z);
-                    maxZ = Math.max(maxZ, z);
-                });
-                
-                // Calculate initial scale and offset
-                const rangeX = maxX - minX;
-                const rangeY = maxY - minY;
-                const rangeZ = maxZ - minZ;
-                
-                baseScale = Math.min(canvas.width / rangeX, canvas.height / rangeY) * 0.8;
-                baseOffsetX = (canvas.width - rangeX * baseScale) / 2 - minX * baseScale;
-                baseOffsetY = (canvas.height - rangeY * baseScale) / 2 - minY * baseScale;
-                
-                // Initialize navigation variables
-                scale = baseScale;
-                offsetX = baseOffsetX;
-                offsetY = baseOffsetY;
-            }
-            
-            const rangeZ = maxZ - minZ;
-            
-            // Render points
-            pointCloudData.forEach((point, index) => {
-                if (!point) return; // Skip null/undefined points
-                
-                let x, y, z;
-                if (Array.isArray(point) && point.length >= 3) {
-                    [x, y, z] = point;
-                } else if (point.x !== undefined && point.y !== undefined && point.z !== undefined) {
-                    x = point.x;
-                    y = point.y;
-                    z = point.z;
-                } else {
-                    return; // Skip invalid points
+            session.frameIds.forEach(frameId => {
+              const getFrame = framesStore.get(frameId);
+              getFrame.onsuccess = () => {
+                frames.push(getFrame.result);
+                completed++;
+                if (completed === session.frameIds.length) {
+                  // Create bundle
+                  const bundle = {
+                    manifest: manifest,
+                    frames: frames.map(f => ({
+                      id: f.id,
+                      ts: f.ts,
+                      src: f.src,
+                      schema: f.schema,
+                      byteLen: f.byteLen
+                    }))
+                  };
+                  
+                  // Export as JSON
+                  const blob = new Blob([JSON.stringify(bundle, null, 2)], {type: "application/json"});
+                  const url = URL.createObjectURL(blob);
+                  const a = document.createElement('a');
+                  a.href = url;
+                  a.download = `rf_mmwave_session_${sessionId}_${Date.now()}.mmwave-bundle`;
+                  a.click();
+                  URL.revokeObjectURL(url);
+                  
+                  toast(`Bundle exported: ${frames.length} frames`, "ok");
+                  res();
                 }
-                
-                // Convert 3D to 2D projection using navigation variables
-                const screenX = x * scale + offsetX;
-                const screenY = y * scale + offsetY;
-                
-                // Skip points outside canvas for performance
-                if (screenX < -10 || screenX > canvas.width + 10 || 
-                    screenY < -10 || screenY > canvas.height + 10) {
-                    return;
-                }
-                
-                // Color based on Z height
-                const normalizedZ = (z - minZ) / rangeZ;
-                const hue = normalizedZ * 240; // Blue to red
-                const alpha = 0.7 + normalizedZ * 0.3;
-                
-                // Adjust point size based on zoom level
-                const pointSize = Math.max(1, Math.min(5, 2 * scale / baseScale));
-                
-                ctx.fillStyle = `hsla(${hue}, 100%, 50%, ${alpha})`;
-                ctx.beginPath();
-                ctx.arc(screenX, screenY, pointSize, 0, 2 * Math.PI);
-                ctx.fill();
+              };
+              getFrame.onerror = () => rej(getFrame.error);
             });
-            
-            // Add coordinate axes
-            drawAxes(minX, maxX, minY, maxY, scale, offsetX, offsetY);
-            
-            showStatus(`Rendered ${pointCloudData.length} points`, 'success');
+          };
+          get.onerror = () => rej(get.error);
+        });
+      }
+    };
+  })();
+
+  // ---------- Three.js Scene Setup ----------
+  const scene = new THREE.Scene();
+  scene.background = new THREE.Color(0x0b1115);
+
+  const camera = new THREE.PerspectiveCamera(60, 1, 0.01, 2000);
+  camera.position.set(1.6, 1.0, 2.0);
+
+  const renderer = new THREE.WebGLRenderer({ antialias: true });
+  renderer.setPixelRatio(devicePixelRatio);
+  $("#scene").appendChild(renderer.domElement);
+
+  const controls = new OrbitControls(camera, renderer.domElement);
+  controls.enableDamping = true;
+
+  const grid = new THREE.GridHelper(10, 20, 0x223344, 0x16222a);
+  grid.position.y = -1;
+  scene.add(grid);
+
+  const axes = new THREE.AxesHelper(0.5);
+  scene.add(axes);
+
+  // Dynamic point cloud buffers
+  const MAX_POINTS = 3_000_000; // soft cap, adjustable with voxel downsample
+  let positions = new Float32Array(MAX_POINTS * 3);
+  let intensities = new Float32Array(MAX_POINTS);
+  let sources = new Uint8Array(MAX_POINTS); // 0=ws,1=ble,2=file,3=synth,4=sdr/other
+  let count = 0;
+
+  const geom = new THREE.BufferGeometry();
+  geom.setAttribute('position', new THREE.BufferAttribute(positions, 3).setUsage(THREE.DynamicDrawUsage));
+  geom.setAttribute('intensity', new THREE.BufferAttribute(intensities, 1).setUsage(THREE.DynamicDrawUsage));
+  geom.setAttribute('source', new THREE.BufferAttribute(sources, 1).setUsage(THREE.DynamicDrawUsage));
+  geom.setDrawRange(0, 0);
+
+  const uniforms = {
+    uPointSize: { value: 1.5 * window.devicePixelRatio },
+    uColorMode: { value: 0 }, // 0=intensity,1=source,2=height
+    uIMin: { value: 0.0 },
+    uIMax: { value: 1.0 },
+    uAutoExpose: { value: 1.0 },
+    uZMin: { value: -1.5 },
+    uZMax: { value: 1.5 }
+  };
+
+  const mat = new THREE.ShaderMaterial({
+    transparent: true,
+    depthTest: true,
+    vertexColors: false,
+    uniforms,
+    vertexShader: `
+      attribute float intensity;
+      attribute float source;
+      varying float vI;
+      varying float vSrc;
+      varying float vZ;
+      void main() {
+        vI = intensity;
+        vSrc = source;
+        vZ = position.y; // y=up
+        vec4 mvPosition = modelViewMatrix * vec4(position, 1.0);
+        gl_PointSize = max(1.0, uPointSize / -mvPosition.z);
+        gl_Position = projectionMatrix * mvPosition;
+      }
+    `,
+    fragmentShader: `
+      precision highp float;
+      uniform float uIMin, uIMax, uAutoExpose, uZMin, uZMax;
+      uniform float uColorMode;
+      varying float vI;
+      varying float vSrc;
+      varying float vZ;
+
+      vec3 turbo(float x) { // small colormap (approx)
+        x = clamp(x, 0.0, 1.0);
+        return vec3(
+          0.13572138 + 4.61539260*x - 42.66032258*x*x + 132.13108234*x*x*x - 152.94239396*x*x*x*x + 59.28637943*x*x*x*x*x,
+          0.09140261 + 2.48668179*x + 4.76019423*x*x - 19.33244011*x*x*x + 32.21494358*x*x*x*x - 15.21470074*x*x*x*x*x,
+          0.10667330 + 0.91577481*x + 13.20690555*x*x - 52.74181435*x*x*x + 82.50195064*x*x*x*x - 37.61878836*x*x*x*x*x
+        );
+      }
+
+      vec3 srcColor(float s) {
+        if (s < 0.5) return vec3(0.4,0.8,1.0);       // WS
+        if (s < 1.5) return vec3(0.8,0.6,1.0);       // BLE
+        if (s < 2.5) return vec3(0.6,1.0,0.6);       // File
+        if (s < 3.5) return vec3(1.0,0.8,0.4);       // Synth
+        return vec3(1.0,0.4,0.4);                    // SDR/Other
+      }
+
+      void main() {
+        float a = 1.0;
+        vec3 col;
+        if (uColorMode < 0.5) {
+          float imin = uIMin, imax = uIMax;
+          float i = vI;
+          if (uAutoExpose > 0.5) {
+            // simple local tone map
+            i = (i - imin) / max(1e-6, (imax - imin));
+          } else {
+            i = (i - imin) / max(1e-6, (imax - imin));
+          }
+          col = turbo(i);
+        } else if (uColorMode < 1.5) {
+          col = srcColor(vSrc);
+        } else {
+          float z = clamp((vZ - uZMin) / max(1e-6, (uZMax - uZMin)), 0.0, 1.0);
+          col = mix(vec3(0.2,0.3,0.7), vec3(0.9,0.95,0.6), z);
         }
-        
-        function drawAxes(minX, maxX, minY, maxY, scale, offsetX, offsetY) {
-            ctx.strokeStyle = 'rgba(255, 255, 255, 0.5)';
-            ctx.lineWidth = Math.max(1, 2 * scale / baseScale);
-            
-            // X axis
-            ctx.beginPath();
-            ctx.moveTo(minX * scale + offsetX, minY * scale + offsetY);
-            ctx.lineTo(maxX * scale + offsetX, minY * scale + offsetY);
-            ctx.stroke();
-            
-            // Y axis
-            ctx.beginPath();
-            ctx.moveTo(minX * scale + offsetX, minY * scale + offsetY);
-            ctx.lineTo(minX * scale + offsetX, maxY * scale + offsetY);
-            ctx.stroke();
-            
-            // Labels
-            ctx.fillStyle = 'white';
-            ctx.font = `${Math.max(10, 12 * scale / baseScale)}px Arial`;
-            ctx.fillText('X', maxX * scale + offsetX + 5, minY * scale + offsetY);
-            ctx.fillText('Y', minX * scale + offsetX, maxY * scale + offsetY - 5);
-        }
-        
-        function updateInfoPanel(data) {
-            const infoPanel = document.getElementById('infoPanel');
-            const infoContent = document.getElementById('infoContent');
-            
-            if (!pointCloudData || !Array.isArray(pointCloudData)) return;
-            
-            // Calculate statistics
-            let minX = Infinity, maxX = -Infinity;
-            let minY = Infinity, maxY = -Infinity;
-            let minZ = Infinity, maxZ = -Infinity;
-            
-            pointCloudData.forEach(point => {
-                if (!point) return; // Skip null/undefined points
-                
-                let x, y, z;
-                if (Array.isArray(point) && point.length >= 3) {
-                    [x, y, z] = point;
-                } else if (point.x !== undefined && point.y !== undefined && point.z !== undefined) {
-                    x = point.x;
-                    y = point.y;
-                    z = point.z;
-                } else {
-                    return; // Skip invalid points
-                }
-                
-                minX = Math.min(minX, x);
-                maxX = Math.max(maxX, x);
-                minY = Math.min(minY, y);
-                maxY = Math.max(maxY, y);
-                minZ = Math.min(minZ, z);
-                maxZ = Math.max(maxZ, z);
-            });
-            
-            const info = `
-                <div class="info-item">
-                    <span class="info-label">Total Points:</span>
-                    <span class="info-value">${pointCloudData.length.toLocaleString()}</span>
-                </div>
-                <div class="info-item">
-                    <span class="info-label">X Range:</span>
-                    <span class="info-value">${minX.toFixed(2)} to ${maxX.toFixed(2)}</span>
-                </div>
-                <div class="info-item">
-                    <span class="info-label">Y Range:</span>
-                    <span class="info-value">${minY.toFixed(2)} to ${maxY.toFixed(2)}</span>
-                </div>
-                <div class="info-item">
-                    <span class="info-label">Z Range:</span>
-                    <span class="info-value">${minZ.toFixed(2)} to ${maxZ.toFixed(2)}</span>
-                </div>
-                <div class="info-item">
-                    <span class="info-label">Source:</span>
-                    <span class="info-value">${data.source || 'RF Sense mmWave'}</span>
-                </div>
-                <div class="info-item">
-                    <span class="info-label">Timestamp:</span>
-                    <span class="info-value">${data.timestamp || new Date().toISOString()}</span>
-                </div>
-            `;
-            
-            infoContent.innerHTML = info;
-            infoPanel.style.display = 'block';
-        }
-        
-        function generateSampleData() {
-            const sampleData = [];
-            const numPoints = 1000;
-            
-            for (let i = 0; i < numPoints; i++) {
-                // Generate points in a 3D space
-                const x = (Math.random() - 0.5) * 10;
-                const y = (Math.random() - 0.5) * 10;
-                const z = Math.random() * 3;
-                sampleData.push([x, y, z]);
+        float r = length(gl_PointCoord - vec2(0.5));
+        if (r > 0.5) discard; // round points
+        gl_FragColor = vec4(col, a);
+      }
+    `
+  });
+
+  const points = new THREE.Points(geom, mat);
+  scene.add(points);
+
+  // Resize handler
+  function onResize() {
+    const rect = $("#scene").getBoundingClientRect();
+    camera.aspect = rect.width / rect.height;
+    camera.updateProjectionMatrix();
+    renderer.setSize(rect.width, rect.height, false);
+  }
+  window.addEventListener('resize', onResize);
+  onResize();
+
+  // HUD FPS counter
+  const fpsEl = $("#fps"), ptEl = $("#ptCount");
+  let last = performance.now(), frames = 0, fps = 0;
+  function updateFPS() {
+    const now = performance.now(); frames++;
+    if (now - last >= 1000) { fps = frames; frames = 0; last = now; fpsEl.textContent = fps.toFixed(0); }
+  }
+
+  // ---------- Data Buffer / Fusion ----------
+  let paused = false;
+  let frameBufferLimit = 20;
+  let voxelSize = 0.03; // meters
+  let autoExpose = true;
+  let iMin = 0, iMax = 1;
+
+  // Track per-frame for optional re-merge
+  const framesStore = []; // {positions: Float32Array, intensities: Float32Array, sourceId: number}
+
+  function sourceIdFromTag(tag) {
+    if (tag === "ws" || tag === "wifi") return 0;
+    if (tag === "ble") return 1;
+    if (tag === "file") return 2;
+    if (tag === "synth") return 3;
+    return 4; // sdr/other
+  }
+
+  function appendFrame(frame, sourceTag) {
+    if (paused) return;
+
+    // frame: {positions: Float32Array(3N), intensities: Float32Array(N)}
+    const srcId = sourceIdFromTag(sourceTag);
+    const N = frame.positions.length / 3;
+
+    // Optionally voxel downsample the frame before adding
+    const ds = voxelGridDownsample(frame.positions, frame.intensities, voxelSize);
+    const p = ds.positions; const It = ds.intensities;
+    const M = p.length / 3;
+
+    // Push into framesStore, enforce limit
+    framesStore.push({ positions: p, intensities: It, srcId });
+    while (framesStore.length > frameBufferLimit) framesStore.shift();
+
+    // Rebuild merged cloud (simple concat; could be optimized incremental)
+    // Compute total points
+    let total = 0;
+    for (const fr of framesStore) total += fr.positions.length / 3;
+    total = Math.min(total, MAX_POINTS);
+
+    // Fill buffers
+    let offset = 0; let localIMin = Infinity, localIMax = -Infinity;
+    for (const fr of framesStore) {
+      const n = Math.min(fr.positions.length / 3, MAX_POINTS - offset);
+      if (n <= 0) break;
+      positions.set(fr.positions.subarray(0, n*3), offset*3);
+      intensities.set(fr.intensities.subarray(0, n), offset);
+      sources.fill(fr.srcId, offset, offset+n);
+      for (let k=0;k<n;k++){ const v=fr.intensities[k]; if (v<localIMin) localIMin=v; if (v>localIMax) localIMax=v; }
+      offset += n;
+    }
+    count = offset;
+    if (autoExpose && isFinite(localIMin) && isFinite(localIMax) && localIMax>localIMin) {
+      uniforms.uIMin.value = localIMin;
+      uniforms.uIMax.value = localIMax;
+      $("#iMin").value = localIMin.toFixed(3);
+      $("#iMax").value = localIMax.toFixed(3);
+    }
+    geom.setDrawRange(0, count);
+    geom.attributes.position.needsUpdate = true;
+    geom.attributes.intensity.needsUpdate = true;
+    geom.attributes.source.needsUpdate = true;
+    ptEl.textContent = count.toLocaleString();
+  }
+
+  // Simple voxel-grid downsample (hash to XYZ / voxel)
+  function voxelGridDownsample(pos, inten, vs) {
+    if (vs <= 0) return { positions: pos, intensities: inten };
+    const map = new Map();
+    const n = pos.length / 3;
+    for (let i=0;i<n;i++) {
+      const x = pos[3*i], y = pos[3*i+1], z = pos[3*i+2];
+      const ix = Math.floor(x / vs), iy = Math.floor(y / vs), iz = Math.floor(z / vs);
+      const key = ix + "," + iy + "," + iz;
+      if (!map.has(key)) {
+        map.set(key, { x, y, z, i: inten ? inten[i] : 0 });
+      } else {
+        // Keep first or average — we'll average intensity and position slightly
+        const o = map.get(key);
+        o.x = (o.x + x)*0.5; o.y = (o.y + y)*0.5; o.z = (o.z + z)*0.5;
+        o.i = inten ? (o.i + inten[i])*0.5 : 0;
+      }
+    }
+    const m = map.size;
+    const p = new Float32Array(m*3);
+    const I = new Float32Array(m);
+    let idx = 0;
+    for (const v of map.values()) {
+      p[3*idx] = v.x; p[3*idx+1] = v.y; p[3*idx+2] = v.z;
+      I[idx] = v.i || 0; idx++;
+    }
+    return { positions: p, intensities: I };
+  }
+
+  // ---------- Parsers ----------
+  function parseJSONCloud(obj, transportTag="file") {
+    // Normalize to {positions: Float32Array, intensities: Float32Array}
+    if (Array.isArray(obj)) {
+      // Allow raw array of point objects
+      const N = obj.length;
+      const p = new Float32Array(N*3);
+      const I = new Float32Array(N);
+      for (let i=0;i<N;i++){
+        const pt = obj[i]; p[3*i]=pt.x||0; p[3*i+1]=pt.y||0; p[3*i+2]=pt.z||0; I[i]=("i" in pt)?pt.i:0;
+      }
+      appendFrame({positions:p,intensities:I}, transportTag);
+      return;
+    }
+    if (obj.points && Array.isArray(obj.points)) {
+      const N = obj.points.length;
+      const p = new Float32Array(N*3);
+      const I = new Float32Array(N);
+      for (let i=0;i<N;i++){
+        const pt = obj.points[i]; p[3*i]=pt.x||0; p[3*i+1]=pt.y||0; p[3*i+2]=pt.z||0; I[i]=("i" in pt)?pt.i:0;
+      }
+      appendFrame({positions:p,intensities:I}, obj.src || transportTag);
+      return;
+    }
+    if (obj.xyz && Array.isArray(obj.xyz)) {
+      const p = new Float32Array(obj.xyz);
+      let I;
+      if (obj.intensity && Array.isArray(obj.intensity)) I = new Float32Array(obj.intensity);
+      else I = new Float32Array(p.length/3);
+      appendFrame({positions:p,intensities:I}, obj.src || transportTag);
+      return;
+    }
+    throw new Error("Unrecognized JSON schema");
+  }
+
+  // ---------- File Ingest ----------
+  $("#file").addEventListener('change', async (e) => {
+    const f = e.target.files?.[0];
+    if (!f) return;
+    $("#status-file").textContent = "File: loading…";
+    try {
+      const text = await f.text();
+      const obj = JSON.parse(text);
+      parseJSONCloud(obj, "file");
+      $("#status-file").textContent = "File: loaded ✓";
+      
+      // Cache the file if in scan mode
+      if (SessionGuard.enabled) {
+        const blob = new Blob([text], { type: "application/json" });
+        await Cache.appendFrameBlob("file", "json", blob);
+      }
+    } catch (err) {
+      $("#status-file").textContent = "File: error";
+      toast("File parse error: " + err.message, "err");
+    }
+  });
+
+  const drop = $("#dropzone");
+  drop.addEventListener('dragover', e=>{ e.preventDefault(); drop.style.borderColor="#3a5161"; });
+  drop.addEventListener('dragleave', e=>{ drop.style.borderColor="#2b3a44"; });
+  drop.addEventListener('drop', async e=>{
+    e.preventDefault(); drop.style.borderColor="#2b3a44";
+    const f = e.dataTransfer.files?.[0]; if (!f) return;
+    try { 
+      const text = await f.text(); 
+      const obj = JSON.parse(text); 
+      parseJSONCloud(obj,"file"); 
+      $("#status-file").textContent="File: loaded ✓";
+      
+      // Cache the file if in scan mode
+      if (SessionGuard.enabled) {
+        const blob = new Blob([text], { type: "application/json" });
+        await Cache.appendFrameBlob("file", "json", blob);
+      }
+    }
+    catch (err) { 
+      $("#status-file").textContent="File: error"; 
+      toast("Drop parse error: "+err.message, "err"); 
+    }
+  });
+
+  // ---------- WebSocket Ingest ----------
+  let ws;
+  $("#wsConnect").addEventListener('click', ()=>{
+    if (ws && ws.readyState===1) { toast("Already connected WS"); return; }
+    const url = $("#wsUrl").value.trim();
+    
+    // Check if we should block non-loopback connections in scan mode
+    if (SessionGuard.enabled && $("#loopbackOnly").checked) {
+      const isLoopback = /^ws:\/\/(localhost|127\.0\.0\.1)(:\d+)?\//i.test(url);
+      if (!isLoopback) {
+        toast("Non-loopback WebSocket blocked in Scan Mode", "err");
+        return;
+      }
+    }
+    
+    try {
+      ws = new WebSocket(url);
+      ws.onopen = ()=> { $("#status-ws").textContent = "WS: connected ✓"; toast("WS connected"); };
+      ws.onclose = ()=> { $("#status-ws").textContent = "WS: disconnected"; toast("WS closed","warn"); };
+      ws.onerror = (e)=> { $("#status-ws").textContent = "WS: error"; toast("WS error","err"); };
+      ws.onmessage = async (ev)=>{
+        try {
+          // Support NDJSON or JSON object per message
+          const data = ev.data;
+          if (typeof data === "string") {
+            const lines = data.split(/\n+/).filter(Boolean);
+            for (const line of lines) {
+              const obj = JSON.parse(line);
+              parseJSONCloud(obj, "wifi");
+              
+              // Cache each frame if in scan mode
+              if (SessionGuard.enabled) {
+                const blob = new Blob([line], { type: "application/json" });
+                await Cache.appendFrameBlob("wifi", "ndjson", blob);
+              }
             }
+          } else {
+            // ArrayBuffer? try text
+            const text = new TextDecoder().decode(data);
+            const obj = JSON.parse(text);
+            parseJSONCloud(obj, "wifi");
             
-            const data = {
-                points: sampleData,
-                source: 'Sample Data Generator',
-                timestamp: new Date().toISOString(),
-                metadata: {
-                    generated: true,
-                    count: numPoints
-                }
-            };
-            
-            loadPointCloudData(data);
-            showStatus('Generated sample point cloud data', 'success');
-        }
-        
-        function clearCanvas() {
-            ctx.fillStyle = '#000';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-            
-            // Add title
-            ctx.fillStyle = 'white';
-            ctx.font = '24px Arial';
-            ctx.textAlign = 'center';
-            ctx.fillText('RF Sense Point Cloud Viewer', canvas.width / 2, canvas.height / 2 - 20);
-            ctx.font = '16px Arial';
-            ctx.fillText('Load a JSON file or generate sample data', canvas.width / 2, canvas.height / 2 + 10);
-            ctx.font = '14px Arial';
-            ctx.fillText('Click and drag to pan • Mouse wheel to zoom', canvas.width / 2, canvas.height / 2 + 35);
-            
-            document.getElementById('infoPanel').style.display = 'none';
-            pointCloudData = null;
-            
-            // Reset navigation variables
-            resetNavigation();
-        }
-        
-        function resetNavigation() {
-            isDragging = false;
-            offsetX = 0;
-            offsetY = 0;
-            scale = 1;
-            minX = maxX = minY = maxY = minZ = maxZ = undefined;
-            baseScale = 1;
-            baseOffsetX = 0;
-            baseOffsetY = 0;
-        }
-        
-        function resetView() {
-            if (!pointCloudData) {
-                showStatus('No data to reset view for', 'error');
-                return;
+            // Cache if in scan mode
+            if (SessionGuard.enabled) {
+              const blob = new Blob([text], { type: "application/json" });
+              await Cache.appendFrameBlob("wifi", "json", blob);
             }
-            
-            // Reset navigation variables
-            isDragging = false;
-            offsetX = 0;
-            offsetY = 0;
-            scale = 1;
-            minX = maxX = minY = maxY = minZ = maxZ = undefined;
-            baseScale = 1;
-            baseOffsetX = 0;
-            baseOffsetY = 0;
-            
-            // Re-render with reset view
-            renderPointCloud();
-            showStatus('View reset to original position and zoom', 'success');
+          }
+        } catch (err) {
+          toast("WS message parse error: " + err.message, "err");
         }
-        
-        function downloadData() {
-            if (!pointCloudData) {
-                showStatus('No data to download', 'error');
-                return;
-            }
-            
-            const data = {
-                points: pointCloudData,
-                source: 'RF Sense Point Cloud Viewer',
-                timestamp: new Date().toISOString(),
-                metadata: {
-                    exported: true,
-                    count: pointCloudData.length
-                }
-            };
-            
-            const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = `pointcloud_${new Date().toISOString().slice(0, 19).replace(/:/g, '-')}.json`;
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            URL.revokeObjectURL(url);
-            
-            showStatus('Data downloaded successfully', 'success');
-        }
-    </script>
+      };
+    } catch (err) {
+      toast("WS connect error: " + err.message, "err");
+    }
+  });
+  $("#wsDisconnect").addEventListener('click', ()=>{ if (ws) ws.close(); });
+
+  // ---------- Web Bluetooth Ingest ----------
+  let bleDevice, bleChar;
+  async function connectBLE() {
+    try {
+      const serviceId = $("#bleService").value.trim();
+      const charId = $("#bleChar").value.trim();
+      bleDevice = await navigator.bluetooth.requestDevice({
+        filters: [{ services: [serviceId] }],
+        optionalServices: [serviceId]
+      });
+      const server = await bleDevice.gatt.connect();
+      const service = await server.getPrimaryService(serviceId);
+      bleChar = await service.getCharacteristic(charId);
+      $("#status-ble").textContent = "BLE: connected ✓";
+      toast("BLE connected");
+      await bleChar.startNotifications();
+      bleChar.addEventListener('characteristicvaluechanged', onBLEChunk);
+    } catch (err) {
+      toast("BLE error: " + err.message, "err");
+      $("#status-ble").textContent = "BLE: error";
+    }
+  }
+  
+  function disconnectBLE() {
+    try {
+      if (bleChar) bleChar.removeEventListener('characteristicvaluechanged', onBLEChunk);
+      if (bleDevice && bleDevice.gatt.connected) bleDevice.gatt.disconnect();
+    } catch {}
+    $("#status-ble").textContent = "BLE: disconnected";
+  }
+  
+  async function onBLEChunk(ev) {
+    const dv = ev.target.value;
+    const bytes = new DataView(dv.buffer);
+    const len = bytes.byteLength;
+    // Interpret as float32 x,y,z[,i] repeated
+    // Decide stride by remainder
+    let strideFloats = (len % 16 === 0) ? 4 : 3; // prefer 4 if exact
+    const n = Math.floor(len / (strideFloats*4));
+    const p = new Float32Array(n*3);
+    const I = new Float32Array(n);
+    for (let k=0;k<n;k++){
+      const base = k*strideFloats*4;
+      p[3*k]   = bytes.getFloat32(base+0, true);
+      p[3*k+1] = bytes.getFloat32(base+4, true);
+      p[3*k+2] = bytes.getFloat32(base+8, true);
+      I[k]     = (strideFloats===4) ? bytes.getFloat32(base+12, true) : 0.0;
+    }
+    appendFrame({positions:p,intensities:I}, "ble");
+    
+    // Cache the binary data if in scan mode
+    if (SessionGuard.enabled) {
+      const blob = new Blob([dv.buffer], { type: "application/octet-stream" });
+      await Cache.appendFrameBlob("ble", "binary", blob);
+    }
+  }
+  
+  $("#bleConnect").addEventListener('click', ()=>{ 
+    if (!('bluetooth' in navigator)) { 
+      toast("Web Bluetooth not supported","err"); 
+      return; 
+    } 
+    connectBLE(); 
+  });
+  $("#bleDisconnect").addEventListener('click', ()=>disconnectBLE());
+
+  // ---------- Synthetic Data Generator ----------
+  let synthOn = false, synthTimer = 0;
+  function toggleSynth() {
+    synthOn = !synthOn;
+    $("#status-synth").textContent = "Synth: " + (synthOn ? "on ✓" : "off");
+    if (synthOn) toast("Synthetic generator enabled");
+  }
+  $("#synthBtn").addEventListener('click', toggleSynth);
+
+  function generateSyntheticFrame(t) {
+    // Floor grid points + two boxes + a moving blob
+    const pts = [];
+    const I = [];
+    // floor
+    for (let x=-2;x<=2;x+=0.1) {
+      for (let z=-2;z<=2;z+=0.1) {
+        pts.push(x, -1, z);
+        I.push(0.1);
+      }
+    }
+    // boxes
+    function box(cx,cy,cz, sx,sy,sz, glow) {
+      for (let i=0;i<3000;i++){
+        const x = cx + (Math.random()-0.5)*sx;
+        const y = cy + (Math.random()-0.5)*sy;
+        const z = cz + (Math.random()-0.5)*sz;
+        pts.push(x,y,z);
+        I.push(glow ? 0.8+0.2*Math.random() : 0.3+0.2*Math.random());
+      }
+    }
+    box(-0.5,-0.2,0.2, 0.4,0.7,0.4, false);
+    box(0.8,-0.4,-0.6, 0.6,0.6,0.6, true);
+    // moving blob (person)
+    const px = Math.sin(t*0.001)*0.8, pz = Math.cos(t*0.001)*0.6;
+    for (let i=0;i<4000;i++){
+      const x = px + (Math.random()-0.5)*0.3;
+      const y = -0.4 + (Math.random()-0.5)*0.9;
+      const z = pz + (Math.random()-0.5)*0.3;
+      pts.push(x,y,z); I.push(0.6+0.3*Math.random());
+    }
+    return { positions: new Float32Array(pts), intensities: new Float32Array(I) };
+  }
+
+  // ---------- UI Controls & Event Handlers ----------
+  $("#pointSize").addEventListener('input', e => { 
+    const v=parseFloat(e.target.value); 
+    $("#pointSizeLabel").textContent=v.toFixed(1); 
+    uniforms.uPointSize.value = v * window.devicePixelRatio; 
+  });
+  
+  $("#colorMode").addEventListener('change', e => { 
+    const m=e.target.value; 
+    uniforms.uColorMode.value = (m==="intensity")?0:(m==="source")?1:2; 
+  });
+  
+  $("#iMin").addEventListener('change', e => { 
+    iMin=parseFloat(e.target.value); 
+    uniforms.uIMin.value=iMin; 
+    autoExpose=false; 
+    $("#autoExpose").checked=false; 
+  });
+  
+  $("#iMax").addEventListener('change', e => { 
+    iMax=parseFloat(e.target.value); 
+    uniforms.uIMax.value=iMax; 
+    autoExpose=false; 
+    $("#autoExpose").checked=false; 
+  });
+  
+  $("#autoExpose").addEventListener('change', e => { 
+    autoExpose = e.target.checked; 
+    uniforms.uAutoExpose.value = autoExpose?1.0:0.0; 
+  });
+  
+  $("#voxelSize").addEventListener('change', e => { 
+    voxelSize = Math.max(0, parseFloat(e.target.value)||0); 
+    toast("Voxel size set to "+voxelSize+" m"); 
+  });
+  
+  $("#frameBuffer").addEventListener('change', e => { 
+    frameBufferLimit = Math.max(1, parseInt(e.target.value)||1); 
+    toast("Frame buffer set to "+frameBufferLimit); 
+  });
+  
+  $("#pauseBtn").addEventListener('click', ()=> paused=true );
+  $("#resumeBtn").addEventListener('click', ()=> paused=false );
+  
+  $("#clearBtn").addEventListener('click', ()=>{
+    framesStore.length=0; 
+    count=0; 
+    geom.setDrawRange(0,0); 
+    ptEl.textContent="0"; 
+    toast("Cleared");
+  });
+  
+  $("#recenterBtn").addEventListener('click', ()=> {
+    // compute bbox
+    if (count===0) return;
+    let minx=1e9,miny=1e9,minz=1e9,maxx=-1e9,maxy=-1e9,maxz=-1e9;
+    for (let i=0;i<count;i++){
+      const x=positions[3*i], y=positions[3*i+1], z=positions[3*i+2];
+      if (x<minx)minx=x; if (y<miny)miny=y; if (z<minz)minz=z;
+      if (x>maxx)maxx=x; if (y>maxy)maxy=y; if (z>maxz)maxz=z;
+    }
+    const cx=(minx+maxx)/2, cy=(miny+maxy)/2, cz=(minz+maxz)/2;
+    controls.target.set(cx,cy,cz);
+    camera.position.set(cx+1.6, cy+1.0, cz+2.0);
+    controls.update();
+  });
+  
+  $("#shotBtn").addEventListener('click', ()=>{
+    const url = renderer.domElement.toDataURL("image/png");
+    const a = document.createElement('a'); 
+    a.href = url; 
+    a.download = "pointcloud.png"; 
+    a.click();
+  });
+  
+  $("#exportBtn").addEventListener('click', ()=>{
+    // Export merged as JSON and PLY (two files)
+    const N = count;
+    const obj = { xyz: Array.from(positions.slice(0,N*3)), intensity: Array.from(intensities.slice(0,N)) };
+    const blob = new Blob([JSON.stringify(obj)], {type:"application/json"});
+    const a = document.createElement('a'); 
+    a.href=URL.createObjectURL(blob); 
+    a.download="merged_pointcloud.json"; 
+    a.click();
+
+    // PLY (ascii)
+    let ply = `ply
+format ascii 1.0
+element vertex ${N}
+property float x
+property float y
+property float z
+property float intensity
+end_header
+`;
+    for (let i=0;i<N;i++){
+      ply += `${positions[3*i]} ${positions[3*i+1]} ${positions[3*i+2]} ${intensities[i]}\n`;
+    }
+    const blob2 = new Blob([ply], {type:"text/plain"});
+    const a2 = document.createElement('a'); 
+    a2.href=URL.createObjectURL(blob2); 
+    a2.download="merged_pointcloud.ply"; 
+    a2.click();
+  });
+
+  // ---------- Scan Mode Controls ----------
+  $("#scanStart").addEventListener('click', async () => {
+    SessionGuard.enable();
+    CSP.applyScanPolicy();
+    await Cache.openSession({
+      note: "RF mmWave scan session",
+      hwCaps: "wifi+ble+file",
+      voxelSize: voxelSize,
+      build: "1.0"
+    });
+  });
+  
+  $("#scanStop").addEventListener('click', async () => {
+    await Cache.closeSession();
+    CSP.applyNormalPolicy();
+    SessionGuard.disable();
+  });
+  
+  $("#cachePurge").addEventListener('click', async () => {
+    if (confirm("Purge all cached data? This cannot be undone.")) {
+      await Cache.purge();
+    }
+  });
+  
+  $("#exportBundle").addEventListener('click', async () => {
+    await Cache.exportBundle();
+  });
+
+  // ---------- Render Loop ----------
+  function animate(t) {
+    requestAnimationFrame(animate);
+    if (synthOn) {
+      synthTimer += 1;
+      if (synthTimer % 5 === 0) {
+        const fr = generateSyntheticFrame(t);
+        appendFrame(fr, "synth");
+      }
+    }
+    controls.update();
+    renderer.render(scene, camera);
+    updateFPS();
+  }
+  animate();
+
+  // Initial Z range update every few seconds (simple heuristic)
+  setInterval(()=>{
+    if (count===0) return;
+    let minz=1e9,maxz=-1e9;
+    for (let i=0;i<count;i++){
+      const z=positions[3*i+1];
+      if (z<minz)minz=z; if (z>maxz)maxz=z;
+    }
+    uniforms.uZMin.value=minz; uniforms.uZMax.value=maxz;
+  }, 1500);
+
+</script>
 </body>
 </html>
