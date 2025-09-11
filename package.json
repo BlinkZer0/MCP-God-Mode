@@ -30,7 +30,8 @@
     "build:email-only": "cd dev && node build-server.js health system_info send_email parse_email",
     "build:minimal": "cd dev && node build-server.js health system_info fs_list",
     "build:core-only": "cd dev && node build-server.js health system_info",
-    "build:custom": "cd dev && node build-server.js"
+    "build:custom": "cd dev && node build-server.js",
+    "postinstall:rf_sense": "python -m pip install -r dev/src/python/requirements-rf.txt || exit 0"
   },
   "keywords": [
     "mcp",

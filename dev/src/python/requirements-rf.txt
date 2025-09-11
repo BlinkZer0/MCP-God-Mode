@@ -1,0 +1,18 @@
+# RF Sense Python Dependencies
+# ============================
+# 
+# Dependencies for RF sensing tools including point cloud processing,
+# LAS/LAZ file handling, and 3D registration algorithms.
+
+# Core point cloud processing and 3D registration
+open3d==0.18.*
+
+# LAS/LAZ point cloud file format support
+laspy>=2.5
+
+# Numerical computing
+numpy>=1.24
+
+# Optional: Enhanced point cloud processing
+# scipy>=1.10  # For advanced numerical algorithms
+# scikit-learn>=1.3  # For machine learning-based registration

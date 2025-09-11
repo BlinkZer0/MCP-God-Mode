@@ -13,6 +13,7 @@ export { registerRfSenseWifiLab } from "./rf_sense_wifi_lab.js";
 export { registerRfSenseMmWave } from "./rf_sense_mmwave.js";
 export { registerRfSenseNaturalLanguage } from "./rf_sense_natural_language.js";
 export { registerRfSenseGuardrails } from "./rf_sense_guardrails.js";
+export { registerRfSenseLocalize } from "./localize.js";
 
 // Re-export guardrail utilities for use by other modules
 export {

@@ -100,6 +100,7 @@ export { registerManageEmailAccounts } from "./email/manage_email_accounts.js";
 // Media Tools
 export { registerOcrTool } from "./media/ocr_tool.js";
 export { registerMultimediaTool } from "./media/multimedia_tool.js";
+export { registerEnhancedMediaEditor } from "./media/enhanced_media_editor.js";
 // Note: registerVideoEditing, registerImageEditing, and registerAudioEditing are now part of the unified registerMultimediaTool
 // Screenshot Tools
 export { registerScreenshot } from "./screenshot/index.js";

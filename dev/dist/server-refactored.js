@@ -24,7 +24,7 @@ import { setupCellularTriangulateAPI } from "./tools/wireless/cellular_triangula
 // Import RF Sense viewer API
 import { setupRfSenseViewerAPI } from "./tools/rf_sense/rf_sense_viewer_api.js";
 // Import RF Sense tools
-import { registerRfSenseSim, registerRfSenseWifiLab, registerRfSenseMmWave, registerRfSenseNaturalLanguage, registerRfSenseGuardrails } from "./tools/rf_sense/index.js";
+import { registerRfSenseSim, registerRfSenseWifiLab, registerRfSenseMmWave, registerRfSenseNaturalLanguage, registerRfSenseGuardrails, registerRfSenseLocalize } from "./tools/rf_sense/index.js";
 // Import Flipper Zero tools separately to avoid duplicates
 // Flipper Zero tools are imported via the comprehensive index
 // Legal compliance tools are imported via the comprehensive index
@@ -253,6 +253,14 @@ try {
 }
 catch (error) {
     console.warn("Warning: Failed to register RF Sense Guardrails:", error);
+}
+// Register RF Sense Localize Tool
+try {
+    registerRfSenseLocalize(server);
+    console.log("✅ RF Sense Localize Tool registered");
+}
+catch (error) {
+    console.warn("Warning: Failed to register RF Sense Localize Tool:", error);
 }
 // ===========================================
 // ADDITIONAL ENHANCED TOOLS FOR SERVER-REFACTORED
@@ -680,6 +688,12 @@ async function initializeExpressServer() {
         app.use(express.urlencoded({ extended: true }));
         // Serve static files from public directory
         app.use(express.static(path.join(process.cwd(), 'public')));
+        // Serve Enhanced Media Editor files
+        app.use('/media-editor', express.static(path.join(__dirname, 'tools/media/web')));
+        // Enhanced Media Editor route
+        app.get('/media-editor', (req, res) => {
+            res.sendFile(path.join(__dirname, 'tools/media/web/enhanced-multimedia-editor.html'));
+        });
         // Setup cellular triangulation API endpoints
         setupCellularTriangulateAPI(app);
         // Setup RF Sense point cloud viewer API endpoints
@@ -690,6 +704,7 @@ async function initializeExpressServer() {
                 service: 'MCP God Mode - Web Interface',
                 version: '1.0.0',
                 endpoints: [
+                    'GET /media-editor - Enhanced Multimedia Editor (Kdenlive + Audacity + GIMP)',
                     'GET /collect - Location collection webpage',
                     'POST /api/cellular/collect - Receive location data',
                     'GET /api/cellular/status/:token - Check request status',
@@ -705,6 +720,7 @@ async function initializeExpressServer() {
         // Start the server
         expressServer = app.listen(port, () => {
             console.log(`🌐 Express server running on http://localhost:${port}`);
+            console.log(`🎬 Enhanced Media Editor: http://localhost:${port}/media-editor`);
             console.log(`📡 Cellular triangulation web interface: http://localhost:${port}/collect`);
             console.log(`🔗 API endpoints: http://localhost:${port}/api/cellular/*`);
             console.log(`🎯 RF Sense point cloud viewer: http://localhost:${port}/viewer/pointcloud`);

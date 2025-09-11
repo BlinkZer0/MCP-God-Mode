@@ -52,7 +52,8 @@ import {
   registerRfSenseWifiLab,
   registerRfSenseMmWave,
   registerRfSenseNaturalLanguage,
-  registerRfSenseGuardrails 
+  registerRfSenseGuardrails,
+  registerRfSenseLocalize
 } from "./tools/rf_sense/index.js";
 
 // Import Flipper Zero tools separately to avoid duplicates
@@ -304,6 +305,14 @@ try {
   console.log("✅ RF Sense Guardrails and Cross-Platform Support registered");
 } catch (error) {
   console.warn("Warning: Failed to register RF Sense Guardrails:", error);
+}
+
+// Register RF Sense Localize Tool
+try {
+  registerRfSenseLocalize(server);
+  console.log("✅ RF Sense Localize Tool registered");
+} catch (error) {
+  console.warn("Warning: Failed to register RF Sense Localize Tool:", error);
 }
 
 // ===========================================
