@@ -274,6 +274,52 @@ export const naturalLanguagePatterns = {
   'explore_categories': {
     keywords: ['explore categories', 'browse categories', 'tool categories', 'category overview'],
     examples: ['explore tool categories', 'browse available tools', 'find relevant tools']
+  },
+
+  // SpecOps Tools - Advanced Security Operations
+  'metasploit_framework': {
+    keywords: ['metasploit', 'exploit framework', 'exploit development', 'payload generation', 'post exploitation', 'msfconsole', 'msfvenom', 'exploit execution', 'penetration testing framework'],
+    examples: ['use metasploit framework', 'develop exploits with metasploit', 'generate payloads with msfvenom', 'run metasploit exploits', 'execute post exploitation modules', 'use msfconsole for penetration testing']
+  },
+  'cobalt_strike': {
+    keywords: ['cobalt strike', 'red team', 'threat simulation', 'beacon management', 'lateral movement', 'persistence', 'evasion techniques', 'team server', 'advanced threat simulation'],
+    examples: ['use cobalt strike for red team operations', 'simulate advanced threats with cobalt strike', 'manage beacons in cobalt strike', 'perform lateral movement with cobalt strike', 'establish persistence with cobalt strike']
+  },
+  'empire_powershell': {
+    keywords: ['empire powershell', 'powershell post exploitation', 'empire framework', 'powershell agent', 'windows post exploitation', 'powershell modules', 'empire listener', 'powershell stager'],
+    examples: ['use empire powershell framework', 'run powershell post exploitation', 'deploy empire agents', 'execute powershell modules with empire', 'create empire listeners', 'generate empire stagers']
+  },
+  'bloodhound_ad': {
+    keywords: ['bloodhound', 'active directory', 'ad attack paths', 'ad enumeration', 'privilege escalation paths', 'lateral movement', 'ad visualization', 'neo4j', 'ad reconnaissance'],
+    examples: ['use bloodhound for ad analysis', 'enumerate active directory with bloodhound', 'find ad attack paths', 'analyze privilege escalation with bloodhound', 'visualize ad relationships', 'perform ad reconnaissance with bloodhound']
+  },
+  'mimikatz_credentials': {
+    keywords: ['mimikatz', 'credential extraction', 'lsass dumping', 'credential harvesting', 'ticket manipulation', 'pass the hash', 'golden ticket', 'silver ticket', 'windows credentials'],
+    examples: ['extract credentials with mimikatz', 'dump lsass memory with mimikatz', 'harvest windows credentials', 'manipulate kerberos tickets', 'perform pass the hash attacks', 'create golden tickets with mimikatz']
+  },
+  'mimikatz_enhanced': {
+    keywords: ['enhanced mimikatz', 'cross platform mimikatz', 'advanced credential extraction', 'multi platform credentials', 'ios keychain', 'android keystore', 'macos keychain', 'linux keyring', 'evasion techniques'],
+    examples: ['use enhanced mimikatz for cross platform credential extraction', 'extract ios keychain credentials', 'harvest android keystore data', 'access macos keychain with mimikatz', 'extract linux keyring credentials', 'perform advanced evasion with mimikatz']
+  },
+  'nmap_scanner': {
+    keywords: ['nmap', 'network scanning', 'port scanning', 'service detection', 'os fingerprinting', 'vulnerability scanning', 'network discovery', 'host discovery', 'network reconnaissance'],
+    examples: ['scan network with nmap', 'perform port scanning with nmap', 'detect services with nmap', 'fingerprint operating systems', 'scan for vulnerabilities with nmap', 'discover network hosts with nmap']
+  },
+
+  // Mobile & IoT Tools
+  'frida_toolkit': {
+    keywords: ['frida', 'dynamic instrumentation', 'function hooking', 'memory manipulation', 'api interception', 'runtime patching', 'mobile analysis', 'app analysis', 'dynamic analysis'],
+    examples: ['use frida for dynamic analysis', 'hook functions with frida', 'instrument mobile apps with frida', 'patch memory with frida', 'intercept api calls with frida', 'analyze mobile applications with frida']
+  },
+  'ghidra_reverse_engineering': {
+    keywords: ['ghidra', 'reverse engineering', 'binary analysis', 'disassembly', 'decompilation', 'function analysis', 'vulnerability detection', 'malware analysis', 'static analysis'],
+    examples: ['analyze binary with ghidra', 'reverse engineer with ghidra', 'disassemble code with ghidra', 'decompile functions with ghidra', 'detect vulnerabilities with ghidra', 'analyze malware with ghidra']
+  },
+
+  // Cloud Security Tools
+  'pacu_aws_exploitation': {
+    keywords: ['pacu', 'aws exploitation', 'aws security testing', 'cloud security', 'aws enumeration', 'privilege escalation', 'data exfiltration', 'aws services', 'cloud infrastructure'],
+    examples: ['use pacu for aws exploitation', 'test aws security with pacu', 'enumerate aws services with pacu', 'escalate privileges in aws with pacu', 'exfiltrate data from aws with pacu', 'test cloud security with pacu']
   }
 };
 
@@ -437,7 +483,23 @@ export function enhancedToolDiscovery(query: string, category?: string, capabili
     
     // Discovery & Search Tools
     { name: 'tool_discovery', description: 'Tool discovery and exploration', category: 'discovery', capabilities: ['discovery', 'search', 'tools', 'exploration'] },
-    { name: 'explore_categories', description: 'Category exploration and browsing', category: 'discovery', capabilities: ['categories', 'browsing', 'exploration', 'overview'] }
+    { name: 'explore_categories', description: 'Category exploration and browsing', category: 'discovery', capabilities: ['categories', 'browsing', 'exploration', 'overview'] },
+    
+    // SpecOps Tools - Advanced Security Operations
+    { name: 'metasploit_framework', description: 'Advanced Metasploit Framework integration for exploit development and execution', category: 'specops', capabilities: ['metasploit', 'exploit', 'framework', 'payload', 'post exploitation', 'penetration testing'] },
+    { name: 'cobalt_strike', description: 'Advanced Cobalt Strike integration for sophisticated threat simulation and red team operations', category: 'specops', capabilities: ['cobalt strike', 'red team', 'threat simulation', 'beacon', 'lateral movement', 'persistence'] },
+    { name: 'empire_powershell', description: 'Advanced Empire PowerShell post-exploitation framework integration', category: 'specops', capabilities: ['empire', 'powershell', 'post exploitation', 'agent', 'listener', 'stager'] },
+    { name: 'bloodhound_ad', description: 'Advanced BloodHound Active Directory attack path analysis and enumeration tool', category: 'specops', capabilities: ['bloodhound', 'active directory', 'ad', 'attack paths', 'enumeration', 'privilege escalation'] },
+    { name: 'mimikatz_credentials', description: 'Advanced Mimikatz credential extraction and manipulation tool for Windows post-exploitation', category: 'specops', capabilities: ['mimikatz', 'credentials', 'extraction', 'lsass', 'tickets', 'pass the hash'] },
+    { name: 'mimikatz_enhanced', description: 'Enhanced Mimikatz credential extraction with full cross-platform support', category: 'specops', capabilities: ['mimikatz', 'enhanced', 'cross platform', 'credentials', 'keychain', 'keystore', 'evasion'] },
+    { name: 'nmap_scanner', description: 'Advanced Nmap network discovery and security auditing tool with cross-platform support', category: 'specops', capabilities: ['nmap', 'network', 'scanning', 'port scan', 'service detection', 'os fingerprinting'] },
+    
+    // Mobile & IoT Tools
+    { name: 'frida_toolkit', description: 'Advanced Frida dynamic instrumentation toolkit with full cross-platform support', category: 'specops', capabilities: ['frida', 'dynamic instrumentation', 'function hooking', 'memory manipulation', 'api interception', 'mobile analysis'] },
+    { name: 'ghidra_reverse_engineering', description: 'Advanced Ghidra reverse engineering framework with full cross-platform support', category: 'specops', capabilities: ['ghidra', 'reverse engineering', 'binary analysis', 'disassembly', 'decompilation', 'vulnerability detection'] },
+    
+    // Cloud Security Tools
+    { name: 'pacu_aws_exploitation', description: 'Advanced Pacu AWS exploitation framework with full cross-platform support', category: 'specops', capabilities: ['pacu', 'aws exploitation', 'cloud security', 'aws enumeration', 'privilege escalation', 'data exfiltration'] }
   ];
   
   // Filter tools based on natural language routing

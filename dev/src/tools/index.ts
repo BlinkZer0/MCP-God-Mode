@@ -178,4 +178,7 @@ export { registerDroneOffenseEnhanced } from "./droneOffenseEnhanced.js";
 export { registerDroneNaturalLanguageInterface } from "./droneNaturalLanguageInterface.js";
 export { registerDroneMobileOptimized } from "./droneMobileOptimized.js";
 
+// SpecOps Tools - Advanced Security Operations
+export * from "./specops/index.js";
+
 // Social Tools

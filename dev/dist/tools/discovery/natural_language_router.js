@@ -124,6 +124,86 @@ export function registerNaturalLanguageRouter(server) {
                         "Display system configuration"
                     ];
                     break;
+                case "metasploit_framework":
+                    recommendedActions = [
+                        "List available exploits",
+                        "Generate payloads with msfvenom",
+                        "Run post-exploitation modules",
+                        "Execute exploit development"
+                    ];
+                    break;
+                case "cobalt_strike":
+                    recommendedActions = [
+                        "Connect to team server",
+                        "Deploy beacons for lateral movement",
+                        "Establish persistence mechanisms",
+                        "Perform advanced threat simulation"
+                    ];
+                    break;
+                case "empire_powershell":
+                    recommendedActions = [
+                        "Start Empire listener",
+                        "Generate PowerShell stagers",
+                        "Execute post-exploitation modules",
+                        "Manage PowerShell agents"
+                    ];
+                    break;
+                case "bloodhound_ad":
+                    recommendedActions = [
+                        "Collect Active Directory data",
+                        "Analyze attack paths",
+                        "Visualize AD relationships",
+                        "Find privilege escalation opportunities"
+                    ];
+                    break;
+                case "mimikatz_credentials":
+                    recommendedActions = [
+                        "Extract credentials from LSASS",
+                        "Dump Kerberos tickets",
+                        "Perform pass-the-hash attacks",
+                        "Create golden tickets"
+                    ];
+                    break;
+                case "mimikatz_enhanced":
+                    recommendedActions = [
+                        "Extract cross-platform credentials",
+                        "Access iOS keychain data",
+                        "Harvest Android keystore",
+                        "Perform advanced evasion techniques"
+                    ];
+                    break;
+                case "nmap_scanner":
+                    recommendedActions = [
+                        "Perform network host discovery",
+                        "Scan for open ports",
+                        "Detect running services",
+                        "Fingerprint operating systems"
+                    ];
+                    break;
+                case "frida_toolkit":
+                    recommendedActions = [
+                        "Hook functions in mobile apps",
+                        "Intercept API calls",
+                        "Patch memory at runtime",
+                        "Extract secrets from applications"
+                    ];
+                    break;
+                case "ghidra_reverse_engineering":
+                    recommendedActions = [
+                        "Analyze binary files",
+                        "Disassemble executable code",
+                        "Decompile functions",
+                        "Detect vulnerabilities in binaries"
+                    ];
+                    break;
+                case "pacu_aws_exploitation":
+                    recommendedActions = [
+                        "Enumerate AWS services",
+                        "Test IAM permissions",
+                        "Escalate privileges in AWS",
+                        "Exfiltrate data from S3 buckets"
+                    ];
+                    break;
                 default:
                     recommendedActions = [
                         `Use ${topTool.replace(/_/g, ' ')} functionality`,

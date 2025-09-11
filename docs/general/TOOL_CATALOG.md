@@ -11,10 +11,11 @@ MCP God Mode is an advanced security and network analysis platform. Current coun
 This document provides detailed information about each tool, its capabilities, and use cases.
 
 ## Tool Count Summary
-- **Documented Tools**: 159
-- **Server-Refactored (total endpoints)**: 159
-- **Modular Server (total endpoints)**: 159 (configurable)
+- **Documented Tools**: 168
+- **Server-Refactored (total endpoints)**: 168
+- **Modular Server (total endpoints)**: 168 (configurable)
 - **Server-Minimal**: 15 tools
+- **SpecOps Tools**: 10 (new in v1.8c)
 
 ## Why Counts Are Now Identical
 Both servers now have identical tool counts. The modular server loads the same complete set as server-refactored (including the consolidated Flipper Zero tool and MCP Web UI Bridge). The modular server adds configurability - it can be set to load minimal tools, specific categories, or all tools based on user preference during installation.
@@ -254,18 +255,32 @@ Humor break: if the AI builds an enterprise integration hub and starts sending c
 **Platforms**: Desktop (Windows/macOS/Linux), Android, iOS
 **Features**: Real-time streaming, encrypted session persistence, anti-bot friendly, macro recording/replay
 
+### 🎯 SpecOps Tools - Advanced Security Operations (10 tools)
+|| Tool | Description | Parameters |
+||------|-------------|------------|
+|| `metasploit_framework` | Advanced Metasploit Framework integration for exploit development and execution. Provides comprehensive penetration testing capabilities including exploit development, payload generation, post-exploitation modules, and automated attack chains | `action`, `target`, `exploit`, `payload`, `lhost`, `lport`, `rhost`, `rport`, `session_id`, `module`, `options`, `workspace`, `output_file`, `automation_script`, `custom_code`, `safe_mode`, `verbose` |
+|| `cobalt_strike` | Advanced Cobalt Strike integration for sophisticated threat simulation and red team operations. Provides comprehensive attack simulation capabilities including beacon management, lateral movement, persistence mechanisms, and advanced evasion techniques | `action`, `teamserver_host`, `teamserver_port`, `client_password`, `beacon_id`, `command`, `file_path`, `target_host`, `listener_name`, `listener_type`, `payload_type`, `profile_path`, `script_path`, `report_format`, `safe_mode`, `verbose` |
+|| `empire_powershell` | Advanced Empire PowerShell post-exploitation framework integration for sophisticated Windows post-exploitation operations. Provides comprehensive PowerShell-based attack capabilities including agent management, module execution, credential harvesting, lateral movement, and persistence mechanisms | `action`, `empire_host`, `empire_port`, `agent_id`, `module_name`, `listener_name`, `listener_type`, `stager_type`, `launcher_type`, `target_host`, `file_path`, `script_content`, `module_options`, `output_file`, `safe_mode`, `verbose` |
+|| `bloodhound_ad` | Advanced BloodHound Active Directory attack path analysis and enumeration tool. Provides comprehensive AD reconnaissance capabilities including user enumeration, group analysis, privilege escalation paths, lateral movement opportunities, and attack path visualization | `action`, `neo4j_host`, `neo4j_port`, `neo4j_user`, `neo4j_password`, `domain`, `username`, `password`, `dc_ip`, `collection_method`, `query_type`, `cypher_query`, `output_format`, `safe_mode`, `verbose` |
+|| `mimikatz_credentials` | Advanced Mimikatz credential extraction and manipulation tool for Windows post-exploitation. Provides comprehensive credential harvesting capabilities including LSASS memory dumping, credential extraction, ticket manipulation, and privilege escalation techniques | `action`, `target_user`, `target_domain`, `target_dc`, `ticket_file`, `hash_value`, `output_file`, `custom_command`, `safe_mode`, `verbose` |
+|| `nmap_scanner` | Advanced Nmap network discovery and security auditing tool. Provides comprehensive network scanning capabilities including host discovery, port scanning, service detection, OS fingerprinting, and vulnerability detection | `action`, `target`, `ports`, `scan_type`, `timing`, `scripts`, `output_format`, `output_file`, `safe_mode`, `verbose` |
+
+**⚠️ SpecOps Tools Warning**: These are advanced security tools for authorized penetration testing and red team operations only. All tools include safe mode by default and require explicit authorization for actual operations.
+
 ## Server Implementations
 
-### Server-Refactored (135 tools)
+### Server-Refactored (168 tools)
 - **Primary server** with all 119 exported tools
 - **11 additional tools** registered separately (5 enhanced + 6 MCP Web UI Bridge)
+- **10 SpecOps tools** for advanced security operations
 - **Full feature set** with legal compliance
 - **Production ready** with comprehensive error handling
 
-### Server-Modular (135 tools)
+### Server-Modular (168 tools)
 - **Modular architecture** with imported tools
 - **119 exported tools** from index
 - **11 additional tools** registered separately (5 enhanced + 6 MCP Web UI Bridge)
+- **10 SpecOps tools** for advanced security operations
 - **Configurable** - can load minimal, custom categories, or full toolset
 - **Development and testing focused**
 
@@ -310,5 +325,5 @@ Humor break: if the AI builds an enterprise integration hub and starts sending c
 
 ---
 
-*Last Updated: 9/8/2025*
-*Totals: 152 registered tools across servers*
+*Last Updated: 1/10/2025*
+*Totals: 168 registered tools across servers (including 10 new SpecOps tools with full cross-platform support)*
