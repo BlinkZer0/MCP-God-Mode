@@ -979,15 +979,6 @@ We welcome contributions from the community! Here's how you can help:
 - **[Documentation Index](dev/src/docs/DOCUMENTATION_INDEX.md)** - Complete documentation index
 
 
-### 🔄 Version History
-- **v1.9** (Current) - **171 tools (both servers) complete (100%)**, RF Sense through-wall detection, enhanced wireless capabilities, SpecOps tools integration, enhanced security operations, cross-platform support, natural language interfaces, comprehensive documentation, accurate tool counts. Last edited 2025-09-10.
-- **v1.8d** - **168 tools (both servers) complete (100%)**, SpecOps tools integration, enhanced security operations, cross-platform support, natural language interfaces, safe mode defaults removed, comprehensive documentation, accurate tool counts. Last edited 2025-01-10.
-- **v1.8c** - **168 tools (both servers) complete (100%)**, SpecOps tools integration, enhanced security operations, cross-platform support, natural language interfaces, safe mode defaults removed, comprehensive documentation. Last edited 2025-01-10.
-- **v1.8b** - **168 tools (both servers) complete (100%)**, drone operations, enhanced interactive installer, perfect parity achieved, MCP Web UI Bridge tools, modular configuration system, comprehensive documentation, cross-platform support, MCP integration, accurate tool counting. Last edited 2025-09-10.
-- **v1.7** - **147 tools (both servers) complete (100%)**, perfect parity achieved, MCP Web UI Bridge tools, modular configuration system, comprehensive documentation, cross-platform support, MCP integration, accurate tool counting
-- **v1.6d** - **125 tools (server-refactored) / 120 tools (modular) complete (100%)**, comprehensive documentation, cross-platform support, MCP integration, accurate tool counting, RAG toolkit integration
-- **v1.4a** - Enhanced security tools and mobile support
-- **v1.0** - Initial release with core functionality
 
 <img src="assets/wave-divider.svg" alt="" width="100%" />
 
