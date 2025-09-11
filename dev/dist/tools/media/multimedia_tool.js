@@ -878,85 +878,85 @@ export async function startRecording(input) {
 // Register the unified multimedia tool
 export function registerMultimediaTool(server) {
     server.registerTool("multimedia_tool", {
-        description: "Unified multimedia editing tool combining audio, image, and video processing capabilities. Supports comprehensive editing operations across all media types with session management, batch processing, and project organization.",
+        description: "🎬 **Unified Multimedia Editing Suite** - Comprehensive cross-platform multimedia processing tool combining audio, image, and video editing capabilities. Features session management, batch processing, project organization, cross-platform audio recording, AI-powered content generation, and natural language interface. Supports all major media formats with professional-grade editing operations.",
         inputSchema: {
             action: z.enum([
                 "status", "open", "edit", "export", "batch_process", "create_project",
                 "get_session", "delete_session", "record_audio", "get_audio_devices", "start_recording", "generate_svg", "generate_ai_image"
-            ]).describe("Multimedia tool action to perform"),
-            source: z.string().optional().describe("Media source path or URL"),
-            sessionName: z.string().optional().describe("Name for the editing session"),
-            type: z.enum(["audio", "image", "video"]).optional().describe("Media type"),
-            sessionId: z.string().optional().describe("Session ID"),
+            ]).describe("Multimedia tool action to perform. Options: status (get tool status), open (open media file), edit (apply editing operation), export (export edited media), batch_process (process multiple files), create_project (create project), get_session (get session details), delete_session (delete session), record_audio (record audio), get_audio_devices (list audio devices), start_recording (begin recording), generate_svg (create SVG graphics), generate_ai_image (generate AI images)"),
+            source: z.string().optional().describe("Media source path (local file) or URL (http/https) to open for editing. Supports audio (mp3, wav, flac, aac, ogg, m4a, wma), image (jpg, jpeg, png, gif, webp, tiff, bmp, svg), and video (mp4, avi, mov, mkv, webm, flv, wmv, m4v) formats"),
+            sessionName: z.string().optional().describe("Custom name for the editing session. If not provided, defaults to 'untitled' or auto-generated based on source file"),
+            type: z.enum(["audio", "image", "video"]).optional().describe("Media type specification. If not provided, will be auto-detected from file extension or content analysis"),
+            sessionId: z.string().optional().describe("Unique session identifier for referencing an existing editing session. Required for edit, export, get_session, and delete_session actions"),
             operation: z.enum([
                 "trim", "normalize", "fade", "gain", "reverse", "time_stretch", "pitch_shift",
                 "resize", "crop", "rotate", "flip", "filter", "enhance", "adjust", "vignette", "border",
                 "cut", "merge", "convert", "resize_video", "add_audio", "add_subtitles", "apply_effects",
                 "composite", "watermark", "batch_process"
-            ]).optional().describe("Editing operation"),
-            params: z.object({}).passthrough().optional().describe("Operation parameters"),
-            format: z.string().optional().describe("Output format"),
-            quality: z.number().min(1).max(100).optional().describe("Output quality"),
-            path: z.string().optional().describe("Output path"),
-            options: z.object({}).passthrough().optional().describe("Additional options"),
-            sessionIds: z.array(z.string()).optional().describe("Array of session IDs"),
+            ]).optional().describe("Editing operation to apply. Audio: trim, normalize, fade, gain, reverse, time_stretch, pitch_shift. Image: resize, crop, rotate, flip, filter, enhance, adjust, vignette, border. Video: cut, merge, convert, resize_video, add_audio, add_subtitles, apply_effects. Universal: composite, watermark, batch_process"),
+            params: z.object({}).passthrough().optional().describe("Operation-specific parameters object. Structure varies by operation type. Examples: resize: {width: 800, height: 600, fit: 'cover'}, trim: {start: 10, end: 30}, filter: {type: 'blur', radius: 2}"),
+            format: z.string().optional().describe("Output format for export operations. Audio: wav, mp3, flac, aac, ogg. Image: jpg, jpeg, png, gif, webp, tiff, bmp, svg. Video: mp4, avi, mov, mkv, webm. If not specified, uses original format"),
+            quality: z.number().min(1).max(100).optional().describe("Output quality setting (1-100). Higher values produce better quality but larger file sizes. Default: 80. Applies to compressed formats like jpg, mp3, mp4"),
+            path: z.string().optional().describe("Output file path for export operations. If not specified, generates path in session working directory with appropriate extension"),
+            options: z.object({}).passthrough().optional().describe("Additional export options object. May include codec settings, compression options, metadata preservation, and format-specific parameters"),
+            sessionIds: z.array(z.string()).optional().describe("Array of session IDs for batch processing operations. Used with batch_process action to apply operations to multiple sessions simultaneously"),
             operations: z.array(z.object({
                 name: z.string(),
                 operation: z.string(),
                 params: z.object({}).passthrough()
-            })).optional().describe("Batch operations"),
-            outputDir: z.string().optional().describe("Output directory"),
-            name: z.string().optional().describe("Project or session name"),
-            sessions: z.array(z.string()).optional().describe("Array of session IDs for project"),
-            deviceId: z.string().optional().describe("Audio device ID for recording"),
-            deviceType: z.enum(['microphone', 'stereo_mix', 'auto']).optional().describe("Audio device type for recording"),
-            duration: z.number().min(1).max(3600).optional().describe("Recording duration in seconds"),
-            recordingFormat: z.enum(['wav', 'mp3', 'flac', 'aac']).optional().describe("Recording format"),
+            })).optional().describe("Array of batch operations to apply. Each operation object contains: name (operation identifier), operation (operation type), params (operation-specific parameters)"),
+            outputDir: z.string().optional().describe("Output directory path for batch processing results. If not specified, uses system temp directory. Directory will be created if it doesn't exist"),
+            name: z.string().optional().describe("Name for project creation or session naming. Used with create_project action or as custom session name"),
+            sessions: z.array(z.string()).optional().describe("Array of session IDs to include in a project. Used with create_project action to organize related media sessions"),
+            deviceId: z.string().optional().describe("Specific audio device ID for recording. Use get_audio_devices to list available devices. If not specified, uses auto-detection"),
+            deviceType: z.enum(['microphone', 'stereo_mix', 'auto']).optional().describe("Audio device type for recording. microphone: record from microphone input, stereo_mix: record system audio (what's playing), auto: automatically select best available device"),
+            duration: z.number().min(1).max(3600).optional().describe("Recording duration in seconds (1-3600). Default: 30 seconds. Maximum: 1 hour"),
+            recordingFormat: z.enum(['wav', 'mp3', 'flac', 'aac']).optional().describe("Audio recording format. wav: uncompressed (best quality), mp3: compressed (smaller size), flac: lossless compression, aac: advanced compression. Default: wav"),
             // SVG and AI Image Generation parameters
-            prompt: z.string().optional().describe("Description of the SVG/image to generate"),
-            width: z.number().optional().describe("Width in pixels"),
-            height: z.number().optional().describe("Height in pixels"),
-            style: z.enum(["minimal", "detailed", "geometric", "organic", "technical", "artistic", "realistic", "cartoon", "abstract", "photographic", "digital_art"]).optional().describe("Generation style"),
-            colors: z.array(z.string()).optional().describe("Color palette (hex codes)"),
-            elements: z.array(z.string()).optional().describe("Specific elements to include"),
-            model: z.string().optional().describe("AI model to use (auto-detect if not specified)"),
-            fallbackToSVG: z.boolean().optional().describe("Fallback to SVG if model not supported"),
-            generationQuality: z.enum(["low", "medium", "high"]).optional().describe("Generation quality")
+            prompt: z.string().optional().describe("Detailed description of the SVG or image to generate. Be specific about visual elements, composition, colors, and style. Examples: 'mountain landscape with geometric style', 'futuristic city with realistic lighting', 'abstract patterns with blue and green colors'"),
+            width: z.number().optional().describe("Width in pixels for generated content. Default: 800px. Recommended range: 100-4096px. Higher values create more detailed but larger files"),
+            height: z.number().optional().describe("Height in pixels for generated content. Default: 600px. Recommended range: 100-4096px. Higher values create more detailed but larger files"),
+            style: z.enum(["minimal", "detailed", "geometric", "organic", "technical", "artistic", "realistic", "cartoon", "abstract", "photographic", "digital_art"]).optional().describe("Generation style for content creation. minimal: simple, clean designs. detailed: complex, intricate patterns. geometric: angular, mathematical shapes. organic: natural, flowing forms. technical: mechanical, precise elements. artistic: creative, expressive designs. realistic: lifelike, photographic quality. cartoon: animated, stylized appearance. abstract: non-representational, conceptual. photographic: camera-like realism. digital_art: computer-generated aesthetics"),
+            colors: z.array(z.string()).optional().describe("Color palette as array of hex color codes (e.g., ['#FF0000', '#00FF00', '#0000FF']). If not specified, uses default palette based on style and prompt"),
+            elements: z.array(z.string()).optional().describe("Specific visual elements to include in generation. Examples: ['trees', 'mountains', 'buildings', 'people', 'animals']. Helps guide the AI generation process"),
+            model: z.string().optional().describe("AI model to use for image generation. Options: 'dall-e-3', 'dall-e-2', 'stable-diffusion', 'midjourney', 'auto'. If not specified, auto-detects best available model based on API keys and capabilities"),
+            fallbackToSVG: z.boolean().optional().describe("Enable automatic fallback to SVG generation if AI model is unavailable or fails. Default: true. Ensures content generation always succeeds with graceful degradation"),
+            generationQuality: z.enum(["low", "medium", "high"]).optional().describe("Generation quality level. low: faster generation, basic quality. medium: balanced speed and quality. high: best quality, slower generation. Default: medium")
         },
         outputSchema: {
-            success: z.boolean(),
-            message: z.string().optional(),
-            sessionId: z.string().optional(),
-            projectId: z.string().optional(),
-            name: z.string().optional(),
-            type: z.string().optional(),
-            metadata: z.object({}).passthrough().optional(),
-            operationId: z.string().optional(),
-            layers: z.array(z.object({}).passthrough()).optional(),
-            path: z.string().optional(),
-            format: z.string().optional(),
+            success: z.boolean().describe("Indicates whether the operation completed successfully"),
+            message: z.string().optional().describe("Human-readable message describing the operation result or any relevant information"),
+            sessionId: z.string().optional().describe("Unique identifier for the created or referenced editing session"),
+            projectId: z.string().optional().describe("Unique identifier for the created project"),
+            name: z.string().optional().describe("Name of the session, project, or generated content"),
+            type: z.string().optional().describe("Media type (audio, image, video) or content type (svg, ai_image)"),
+            metadata: z.object({}).passthrough().optional().describe("Media metadata including dimensions, duration, format details, and technical specifications"),
+            operationId: z.string().optional().describe("Unique identifier for the applied editing operation"),
+            layers: z.array(z.object({}).passthrough()).optional().describe("Array of editing operations applied to the session, including operation details and parameters"),
+            path: z.string().optional().describe("File path to the exported media or generated content"),
+            format: z.string().optional().describe("Output format of the exported or generated content"),
             results: z.array(z.object({
-                name: z.string(),
-                path: z.string(),
-                success: z.boolean(),
-                error: z.string().optional()
-            })).optional(),
+                name: z.string().describe("Name of the batch operation result"),
+                path: z.string().describe("File path of the processed output"),
+                success: z.boolean().describe("Whether this specific operation succeeded"),
+                error: z.string().optional().describe("Error message if operation failed")
+            })).optional().describe("Array of results from batch processing operations"),
             sessions: z.array(z.object({
-                id: z.string(),
-                name: z.string(),
-                type: z.string(),
-                metadata: z.object({}).passthrough().optional(),
-                layers: z.number(),
-                createdAt: z.string(),
-                modifiedAt: z.string()
-            })).optional(),
+                id: z.string().describe("Session unique identifier"),
+                name: z.string().describe("Session display name"),
+                type: z.string().describe("Media type (audio, image, video)"),
+                metadata: z.object({}).passthrough().optional().describe("Session metadata and media information"),
+                layers: z.number().describe("Number of editing operations applied"),
+                createdAt: z.string().describe("ISO timestamp when session was created"),
+                modifiedAt: z.string().describe("ISO timestamp when session was last modified")
+            })).optional().describe("Array of all active editing sessions with their details"),
             projects: z.array(z.object({
-                name: z.string(),
-                type: z.string(),
-                sessionCount: z.number()
-            })).optional(),
-            totalSessions: z.number().optional(),
-            totalProjects: z.number().optional()
+                name: z.string().describe("Project display name"),
+                type: z.string().describe("Project type (audio, image, video, mixed)"),
+                sessionCount: z.number().describe("Number of sessions included in the project")
+            })).optional().describe("Array of all created projects with their details"),
+            totalSessions: z.number().optional().describe("Total number of active editing sessions"),
+            totalProjects: z.number().optional().describe("Total number of created projects")
         }
     }, async (params) => {
         try {

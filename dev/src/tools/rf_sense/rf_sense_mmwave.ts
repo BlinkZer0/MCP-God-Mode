@@ -443,11 +443,12 @@ async function processPointCloud(frames: any[], sessionId: string) {
       type: "text",
       text: JSON.stringify({
         pipeline: "point_cloud",
-        points: allPoints,
         total_points: allPoints.length,
         frames_processed: frames.length,
         viewer_url: `http://localhost:${process.env.MCP_WEB_PORT || 3000}/viewer/pointcloud?sessionId=${sessionId}`,
         viewer_available: true,
+        data_cached: true,
+        note: "Point cloud data has been cached and is available via viewer URL. Full data not included in response to preserve token usage.",
         unrestricted: true,
         timestamp: new Date().toISOString()
       }, null, 2)
@@ -481,9 +482,10 @@ async function processObjectTracking(frames: any[]) {
       type: "text",
       text: JSON.stringify({
         pipeline: "object_tracking",
-        tracks,
         total_tracks: tracks.length,
         frames_processed: frames.length,
+        data_cached: true,
+        note: "Object tracking data has been cached. Full tracks data not included in response to preserve token usage.",
         unrestricted: true,
         timestamp: new Date().toISOString()
       }, null, 2)
@@ -522,9 +524,10 @@ async function processGestureDetection(frames: any[]) {
       type: "text",
       text: JSON.stringify({
         pipeline: "gesture_detection",
-        gestures,
         total_gestures: gestures.length,
         frames_processed: frames.length,
+        data_cached: true,
+        note: "Gesture detection data has been cached. Full gestures data not included in response to preserve token usage.",
         unrestricted: true,
         timestamp: new Date().toISOString()
       }, null, 2)
@@ -538,15 +541,39 @@ async function processFullScan(frames: any[]) {
   const objectTracking = await processObjectTracking(frames);
   const gestureDetection = await processGestureDetection(frames);
   
+  // Parse the results but don't include full data arrays
+  const pointCloudData = JSON.parse(pointCloud.content[0].text);
+  const objectTrackingData = JSON.parse(objectTracking.content[0].text);
+  const gestureDetectionData = JSON.parse(gestureDetection.content[0].text);
+  
   return {
     content: [{
       type: "text",
       text: JSON.stringify({
         pipeline: "full_scan",
-        point_cloud: JSON.parse(pointCloud.content[0].text),
-        object_tracking: JSON.parse(objectTracking.content[0].text),
-        gesture_detection: JSON.parse(gestureDetection.content[0].text),
+        point_cloud: {
+          total_points: pointCloudData.total_points,
+          frames_processed: pointCloudData.frames_processed,
+          viewer_url: pointCloudData.viewer_url,
+          viewer_available: pointCloudData.viewer_available,
+          data_cached: pointCloudData.data_cached,
+          note: pointCloudData.note
+        },
+        object_tracking: {
+          total_tracks: objectTrackingData.total_tracks,
+          frames_processed: objectTrackingData.frames_processed,
+          data_cached: objectTrackingData.data_cached,
+          note: objectTrackingData.note
+        },
+        gesture_detection: {
+          total_gestures: gestureDetectionData.total_gestures,
+          frames_processed: gestureDetectionData.frames_processed,
+          data_cached: gestureDetectionData.data_cached,
+          note: gestureDetectionData.note
+        },
         frames_processed: frames.length,
+        data_cached: true,
+        note: "All pipeline data has been cached. Full data not included in response to preserve token usage.",
         unrestricted: true,
         timestamp: new Date().toISOString()
       }, null, 2)
