@@ -7,7 +7,7 @@
 ## Overview
 This document provides comprehensive documentation for all tools available in MCP God Mode.
 
-### Current Counts (v1.8b)
+### Current Counts (v1.9)
 - Exported register functions: comprehensive index + enhanced endpoints
 - Modular server (unique endpoints): 159
 - Server-refactored (unique endpoints): 159

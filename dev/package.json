@@ -1,6 +1,6 @@
 {
   "name": "mcp-god-mode",
-  "version": "1.8.0",
+  "version": "1.9.0",
   "private": true,
   "type": "module",
   "scripts": {
@@ -165,10 +165,12 @@
   },
   "mcpGodMode": {
     "totalTools": 121,
-    "lastUpdated": "2025-01-27T15:30:00.000Z",
+    "lastUpdated": "2025-09-10T15:30:00.000Z",
     "toolCategories": 25,
-    "version": "1.8.0",
+    "version": "1.9.0",
     "features": [
+      "RF Sense Through-Wall Detection",
+      "Enhanced Wireless Capabilities",
       "Drone Management Tools",
       "Enhanced Interactive Installer",
       "Comprehensive Tool Selection",

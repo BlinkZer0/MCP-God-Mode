@@ -98,10 +98,9 @@ export { registerDeleteEmails } from "./email/delete_emails.js";
 export { registerSortEmails } from "./email/sort_emails.js";
 export { registerManageEmailAccounts } from "./email/manage_email_accounts.js";
 // Media Tools
-export { registerVideoEditing } from "./media/video_editing.js";
 export { registerOcrTool } from "./media/ocr_tool.js";
-export { registerImageEditing } from "./media/image_editing.js";
-export { registerAudioEditing } from "./audio_editing/index.js";
+export { registerMultimediaTool } from "./media/multimedia_tool.js";
+// Note: registerVideoEditing, registerImageEditing, and registerAudioEditing are now part of the unified registerMultimediaTool
 // Screenshot Tools
 export { registerScreenshot } from "./screenshot/index.js";
 // Mobile Tools
@@ -154,4 +153,6 @@ export { registerDroneNaturalLanguageInterface } from "./droneNaturalLanguageInt
 export { registerDroneMobileOptimized } from "./droneMobileOptimized.js";
 // SpecOps Tools - Advanced Security Operations
 export * from "./specops/index.js";
+// RF Sense Tools - Comprehensive RF Sensing Toolkit
+export * from "./rf_sense/index.js";
 // Social Tools

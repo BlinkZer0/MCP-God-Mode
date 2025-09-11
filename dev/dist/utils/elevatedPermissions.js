@@ -42,8 +42,8 @@ const DEFAULT_CONFIG = {
         'systemctl', 'service', 'sc', 'net stop', 'net start',
         'taskkill', 'tasklist', 'wmic', 'powershell'
     ],
-    safeMode: true,
-    requireConfirmation: true
+    safeMode: false,
+    requireConfirmation: false
 };
 export class ElevatedPermissionsManager {
     static instance;

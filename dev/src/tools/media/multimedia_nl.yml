@@ -1,0 +1,493 @@
+intents:
+  - name: multimedia_open
+    utterances:
+      - "Open {type} file {source} as {sessionName}"
+      - "Load {type} from {source}"
+      - "Import {type} {source} for editing"
+      - "Start editing {type} {source}"
+    mapping:
+      - multimedia_tool.open
+    parameters:
+      type: "{type}"
+      source: "{source}"
+      sessionName: "{sessionName}"
+
+  - name: multimedia_edit_audio
+    utterances:
+      - "Trim audio from {start} to {end}"
+      - "Normalize audio volume"
+      - "Add {fadeIn}ms fade in and {fadeOut}ms fade out"
+      - "Apply {gainDb}dB gain to audio"
+      - "Reverse audio track"
+      - "Time stretch audio by {factor}"
+      - "Pitch shift audio by {semitones} semitones"
+    mapping:
+      - multimedia_tool.edit
+    parameters:
+      operation: "{operation}"
+      params:
+        start: "{start}"
+        end: "{end}"
+        fadeIn: "{fadeIn}"
+        fadeOut: "{fadeOut}"
+        gainDb: "{gainDb}"
+        factor: "{factor}"
+        semitones: "{semitones}"
+
+  - name: multimedia_edit_image
+    utterances:
+      - "Resize image to {width}x{height}"
+      - "Crop image from {x},{y} to {width}x{height}"
+      - "Rotate image {angle} degrees"
+      - "Flip image {direction}"
+      - "Apply {filter_type} filter"
+      - "Enhance image brightness to {brightness}"
+      - "Add vignette with {outer} outer radius"
+      - "Add {size}px border"
+    mapping:
+      - multimedia_tool.edit
+    parameters:
+      operation: "{operation}"
+      params:
+        width: "{width}"
+        height: "{height}"
+        x: "{x}"
+        y: "{y}"
+        angle: "{angle}"
+        direction: "{direction}"
+        filter_type: "{filter_type}"
+        brightness: "{brightness}"
+        outer: "{outer}"
+        size: "{size}"
+
+  - name: multimedia_edit_video
+    utterances:
+      - "Cut video from {start} to {end}"
+      - "Merge video with {videoPath}"
+      - "Convert video to {format}"
+      - "Resize video to {width}x{height}"
+      - "Add audio track {audioPath}"
+      - "Add subtitles from {subtitlePath}"
+      - "Apply video effects {effects}"
+    mapping:
+      - multimedia_tool.edit
+    parameters:
+      operation: "{operation}"
+      params:
+        start: "{start}"
+        end: "{end}"
+        videoPath: "{videoPath}"
+        format: "{format}"
+        width: "{width}"
+        height: "{height}"
+        audioPath: "{audioPath}"
+        subtitlePath: "{subtitlePath}"
+        effects: "{effects}"
+
+  - name: multimedia_export
+    utterances:
+      - "Export as {format}"
+      - "Save in {format} format with {quality} quality"
+      - "Export to {path}"
+      - "Save with {quality} quality to {path}"
+    mapping:
+      - multimedia_tool.export
+    parameters:
+      format: "{format}"
+      quality: "{quality}"
+      path: "{path}"
+
+  - name: multimedia_batch_process
+    utterances:
+      - "Batch process {sessionIds} with operations {operations}"
+      - "Process multiple sessions: {sessionIds}"
+      - "Create multiple versions: {operations}"
+      - "Batch export {sessionIds} to {outputDir}"
+    mapping:
+      - multimedia_tool.batch_process
+    parameters:
+      sessionIds: "{sessionIds}"
+      operations: "{operations}"
+      outputDir: "{outputDir}"
+
+  - name: multimedia_create_project
+    utterances:
+      - "Create {type} project named {name}"
+      - "Start new {type} project {name}"
+      - "Make project {name} with sessions {sessions}"
+    mapping:
+      - multimedia_tool.create_project
+    parameters:
+      type: "{type}"
+      name: "{name}"
+      sessions: "{sessions}"
+
+  - name: multimedia_status
+    utterances:
+      - "Show multimedia tool status"
+      - "List active sessions"
+      - "What media files are open?"
+      - "Show all projects"
+    mapping:
+      - multimedia_tool.status
+
+  - name: multimedia_get_session
+    utterances:
+      - "Get session {sessionId} details"
+      - "Show information for session {sessionId}"
+      - "What's in session {sessionId}?"
+    mapping:
+      - multimedia_tool.get_session
+    parameters:
+      sessionId: "{sessionId}"
+
+  - name: multimedia_delete_session
+    utterances:
+      - "Delete session {sessionId}"
+      - "Remove session {sessionId}"
+      - "Close session {sessionId}"
+    mapping:
+      - multimedia_tool.delete_session
+    parameters:
+      sessionId: "{sessionId}"
+
+  - name: multimedia_record_audio
+    utterances:
+      - "Record what's playing for {duration} seconds"
+      - "Record system audio for {duration} seconds"
+      - "Record stereo mix for {duration} seconds"
+      - "Record what I'm hearing for {duration} seconds"
+      - "Capture system sound for {duration} seconds"
+      - "Record from stereo mix device"
+          - "Start recording system audio"
+          - "Record what's currently playing"
+        mapping:
+          - multimedia_tool.record_audio
+        parameters:
+          deviceType: "stereo_mix"
+          duration: "{duration}"
+          format: "{format}"
+          quality: "{quality}"
+
+      - name: multimedia_generate_svg
+        utterances:
+          - "Generate an SVG of {prompt}"
+          - "Create an SVG image of {prompt}"
+          - "Make an SVG with {prompt}"
+          - "Draw an SVG {prompt}"
+          - "Generate SVG {prompt} with {style} style"
+          - "Create {style} SVG of {prompt}"
+          - "Generate SVG {width}x{height} {prompt}"
+        mapping:
+          - multimedia_tool.generate_svg
+        parameters:
+          prompt: "{prompt}"
+          width: "{width}"
+          height: "{height}"
+          style: "{style}"
+          colors: "{colors}"
+          elements: "{elements}"
+
+      - name: multimedia_generate_ai_image
+        utterances:
+          - "Generate an AI image of {prompt}"
+          - "Create an AI image {prompt}"
+          - "Make an AI image with {prompt}"
+          - "Generate {style} image of {prompt}"
+          - "Create {style} AI image {prompt}"
+          - "Generate AI image {width}x{height} {prompt}"
+          - "Generate image with {model} model"
+          - "Create AI image with fallback to SVG"
+        mapping:
+          - multimedia_tool.generate_ai_image
+        parameters:
+          prompt: "{prompt}"
+          width: "{width}"
+          height: "{height}"
+          style: "{style}"
+          model: "{model}"
+          fallbackToSVG: "{fallbackToSVG}"
+          generationQuality: "{generationQuality}"
+
+  - name: multimedia_record_microphone
+    utterances:
+      - "Record microphone for {duration} seconds"
+      - "Record from mic for {duration} seconds"
+      - "Start microphone recording"
+      - "Record my voice for {duration} seconds"
+      - "Capture microphone input"
+    mapping:
+      - multimedia_tool.record_audio
+    parameters:
+      deviceType: "microphone"
+      duration: "{duration}"
+      format: "{format}"
+      quality: "{quality}"
+
+  - name: multimedia_record_auto
+    utterances:
+      - "Record audio for {duration} seconds"
+      - "Start audio recording"
+      - "Record sound for {duration} seconds"
+      - "Capture audio for {duration} seconds"
+      - "Begin recording"
+    mapping:
+      - multimedia_tool.record_audio
+    parameters:
+      deviceType: "auto"
+      duration: "{duration}"
+      format: "{format}"
+      quality: "{quality}"
+
+  - name: multimedia_get_audio_devices
+    utterances:
+      - "List audio devices"
+      - "Show available audio inputs"
+      - "What audio devices are available?"
+      - "List recording devices"
+      - "Show stereo mix devices"
+    mapping:
+      - multimedia_tool.get_audio_devices
+
+  - name: multimedia_start_recording
+    utterances:
+      - "Start recording what's playing"
+      - "Begin recording system audio"
+      - "Start capturing what I'm hearing"
+      - "Begin stereo mix recording"
+      - "Start recording now"
+    mapping:
+      - multimedia_tool.start_recording
+    parameters:
+      deviceType: "stereo_mix"
+      duration: "{duration}"
+      format: "{format}"
+
+  - name: multimedia_complex_workflow
+    utterances:
+      - "Open {type} {source}, apply {operation} with {params}, and export as {format}"
+      - "Load {type} {source}, {operation1} then {operation2}, save as {format}"
+      - "Import {type} {source}, enhance with {params}, and batch process with {operations}"
+    mapping:
+      - multimedia_tool.open
+      - multimedia_tool.edit
+      - multimedia_tool.export
+    parameters:
+      type: "{type}"
+      source: "{source}"
+      operation: "{operation}"
+      operation1: "{operation1}"
+      operation2: "{operation2}"
+      params: "{params}"
+      format: "{format}"
+      operations: "{operations}"
+
+entities:
+  - name: type
+    type: string
+    enum: ["audio", "image", "video"]
+    description: "Media type"
+    
+  - name: source
+    type: string
+    description: "Media source path or URL"
+    
+  - name: sessionName
+    type: string
+    description: "Name for the editing session"
+    
+  - name: sessionId
+    type: string
+    description: "Session ID"
+    
+  - name: operation
+    type: string
+    enum: [
+      "trim", "normalize", "fade", "gain", "reverse", "time_stretch", "pitch_shift",
+      "resize", "crop", "rotate", "flip", "filter", "enhance", "adjust", "vignette", "border",
+      "cut", "merge", "convert", "resize_video", "add_audio", "add_subtitles", "apply_effects",
+      "composite", "watermark", "batch_process"
+    ]
+    description: "Editing operation"
+    
+  - name: start
+    type: number
+    description: "Start time in seconds"
+    
+  - name: end
+    type: number
+    description: "End time in seconds"
+    
+  - name: fadeIn
+    type: number
+    description: "Fade in duration in milliseconds"
+    
+  - name: fadeOut
+    type: number
+    description: "Fade out duration in milliseconds"
+    
+  - name: gainDb
+    type: number
+    description: "Gain in decibels"
+    
+  - name: factor
+    type: number
+    description: "Time stretch factor"
+    
+  - name: semitones
+    type: number
+    description: "Pitch shift in semitones"
+    
+  - name: width
+    type: number
+    description: "Width in pixels"
+    
+  - name: height
+    type: number
+    description: "Height in pixels"
+    
+  - name: x
+    type: number
+    description: "X coordinate"
+    
+  - name: y
+    type: number
+    description: "Y coordinate"
+    
+  - name: angle
+    type: number
+    description: "Rotation angle in degrees"
+    
+  - name: direction
+    type: string
+    enum: ["horizontal", "vertical"]
+    description: "Flip direction"
+    
+  - name: filter_type
+    type: string
+    enum: ["blur", "sharpen", "grayscale", "sepia", "negate"]
+    description: "Filter type"
+    
+  - name: brightness
+    type: number
+    description: "Brightness value (0-2)"
+    
+  - name: outer
+    type: number
+    description: "Vignette outer radius"
+    
+  - name: size
+    type: number
+    description: "Border size in pixels"
+    
+  - name: videoPath
+    type: string
+    description: "Video file path"
+    
+  - name: format
+    type: string
+    enum: ["mp3", "wav", "flac", "mp4", "avi", "mov", "jpg", "png", "gif", "webp"]
+    description: "Output format"
+    
+  - name: audioPath
+    type: string
+    description: "Audio file path"
+    
+  - name: subtitlePath
+    type: string
+    description: "Subtitle file path"
+    
+  - name: effects
+    type: string
+    description: "Video effects to apply"
+    
+  - name: quality
+    type: number
+    description: "Output quality (1-100)"
+    
+  - name: path
+    type: string
+    description: "Output file path"
+    
+  - name: sessionIds
+    type: array
+    description: "Array of session IDs"
+    
+  - name: operations
+    type: array
+    description: "Array of batch operations"
+    
+  - name: outputDir
+    type: string
+    description: "Output directory"
+    
+  - name: name
+    type: string
+    description: "Project or session name"
+    
+  - name: sessions
+    type: array
+    description: "Array of session IDs for project"
+    
+  - name: params
+    type: object
+    description: "Operation parameters"
+    
+  - name: operation1
+    type: string
+    description: "First operation in sequence"
+    
+  - name: operation2
+    type: string
+    description: "Second operation in sequence"
+    
+  - name: deviceType
+    type: string
+    enum: ["microphone", "stereo_mix", "auto"]
+    description: "Audio device type for recording"
+    
+  - name: deviceId
+    type: string
+    description: "Specific audio device ID"
+    
+  - name: duration
+    type: number
+    description: "Recording duration in seconds"
+    
+  - name: format
+    type: string
+    enum: ["wav", "mp3", "flac", "aac"]
+    description: "Recording format"
+    
+  - name: quality
+    type: number
+    description: "Recording quality (1-100)"
+  - name: prompt
+    type: string
+    description: "Description of the image or SVG to generate"
+  - name: width
+    type: number
+    description: "Width in pixels for generated content"
+  - name: height
+    type: number
+    description: "Height in pixels for generated content"
+  - name: style
+    type: string
+    enum: ["minimal", "detailed", "geometric", "organic", "technical", "artistic", "realistic", "cartoon", "abstract", "photographic", "digital_art"]
+    description: "Generation style"
+  - name: colors
+    type: array
+    description: "Color palette (hex codes)"
+  - name: elements
+    type: array
+    description: "Specific elements to include"
+  - name: model
+    type: string
+    description: "AI model to use"
+  - name: fallbackToSVG
+    type: boolean
+    description: "Fallback to SVG if model not supported"
+  - name: generationQuality
+    type: string
+    enum: ["low", "medium", "high"]
+    description: "Generation quality"

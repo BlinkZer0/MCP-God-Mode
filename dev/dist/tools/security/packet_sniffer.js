@@ -33,10 +33,10 @@ export function registerPacketSniffer(server) {
             bandwidth_usage: z.object({
                 bytes_per_second: z.number(),
                 packets_per_second: z.number(),
-                total_bytes: z.number()
+                total_bytes: z.number().describe("Total bytes captured during sniffing")
             }),
             anomalies: z.array(z.string()),
-            summary: z.string()
+            summary: z.string().describe("Summary of packet sniffing results")
         }
     }, async ({ action, interface: iface, filter, duration, max_packets, output_file, capture_payload }) => {
         try {

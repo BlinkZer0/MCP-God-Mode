@@ -32,7 +32,7 @@ export function registerMetasploitFramework(server) {
             platform: z.enum(["windows", "linux", "macos", "ios", "android", "auto"]).optional().describe("Target platform"),
             architecture: z.enum(["x86", "x64", "arm", "arm64"]).optional().describe("Target architecture"),
             natural_language_command: z.string().optional().describe("Natural language command for Metasploit operations (e.g., 'exploit the eternalblue vulnerability on the target', 'generate a reverse shell payload for windows', 'run post exploitation modules on the session')"),
-            safe_mode: z.boolean().optional().describe("Enable safe mode to prevent actual exploitation"),
+            safe_mode: z.boolean().default(false).describe("Enable safe mode to prevent actual exploitation (disabled by default for full functionality)"),
             verbose: z.boolean().default(false).describe("Enable verbose output")
         },
         outputSchema: {

@@ -1,0 +1,330 @@
+intents:
+  - name: image_open
+    utterances:
+      - "Open image {source} as {sessionName}"
+      - "Load image from {source}"
+      - "Import image {source} for editing"
+      - "Start editing {source}"
+    mapping:
+      - image_editor.open
+
+  - name: image_resize
+    utterances:
+      - "Resize image to {width}x{height}"
+      - "Make image {width} by {height} pixels"
+      - "Scale image to {width} width and {height} height"
+      - "Resize to {width}x{height} with {fit} fit"
+    mapping:
+      - image_editor.edit
+    parameters:
+      op: "resize"
+      params:
+        width: "{width}"
+        height: "{height}"
+        fit: "{fit}"
+
+  - name: image_crop
+    utterances:
+      - "Crop image from {x},{y} to {width}x{height}"
+      - "Cut out {width}x{height} section starting at {x},{y}"
+      - "Extract region {x},{y} {width}x{height}"
+    mapping:
+      - image_editor.edit
+    parameters:
+      op: "crop"
+      params:
+        x: "{x}"
+        y: "{y}"
+        width: "{width}"
+        height: "{height}"
+
+  - name: image_rotate
+    utterances:
+      - "Rotate image {angle} degrees"
+      - "Turn image {angle} degrees clockwise"
+      - "Rotate {angle} degrees with {background} background"
+    mapping:
+      - image_editor.edit
+    parameters:
+      op: "rotate"
+      params:
+        angle: "{angle}"
+        background: "{background}"
+
+  - name: image_flip
+    utterances:
+      - "Flip image {direction}"
+      - "Mirror image {direction}"
+      - "Flip {direction}ly"
+    mapping:
+      - image_editor.edit
+    parameters:
+      op: "flip"
+      params:
+        direction: "{direction}"
+
+  - name: image_filter
+    utterances:
+      - "Apply {filter_type} filter"
+      - "Make image {filter_type}"
+      - "Add {filter_type} effect"
+      - "Blur image with radius {radius}"
+      - "Sharpen image with sigma {sigma}"
+    mapping:
+      - image_editor.edit
+    parameters:
+      op: "filter"
+      params:
+        type: "{filter_type}"
+        radius: "{radius}"
+        sigma: "{sigma}"
+
+  - name: image_enhance
+    utterances:
+      - "Enhance image brightness to {brightness}"
+      - "Adjust brightness to {brightness}"
+      - "Set saturation to {saturation}"
+      - "Change hue to {hue}"
+      - "Modulate brightness {brightness} saturation {saturation} hue {hue}"
+    mapping:
+      - image_editor.edit
+    parameters:
+      op: "enhance"
+      params:
+        brightness: "{brightness}"
+        saturation: "{saturation}"
+        hue: "{hue}"
+
+  - name: image_adjust
+    utterances:
+      - "Adjust gamma to {gamma}"
+      - "Set contrast to {contrast}"
+      - "Apply gamma correction {gamma}"
+      - "Linear adjustment contrast {contrast}"
+    mapping:
+      - image_editor.edit
+    parameters:
+      op: "adjust"
+      params:
+        gamma: "{gamma}"
+        contrast: "{contrast}"
+
+  - name: image_vignette
+    utterances:
+      - "Add vignette with outer {outer}"
+      - "Create vignette effect outer {outer} inner {inner}"
+      - "Apply vignette {outer} outer radius"
+    mapping:
+      - image_editor.edit
+    parameters:
+      op: "vignette"
+      params:
+        outer: "{outer}"
+        inner: "{inner}"
+
+  - name: image_border
+    utterances:
+      - "Add {size}px border"
+      - "Create border with size {size}"
+      - "Add {color} border {size} pixels wide"
+    mapping:
+      - image_editor.edit
+    parameters:
+      op: "border"
+      params:
+        size: "{size}"
+        color: "{color}"
+
+  - name: image_export
+    utterances:
+      - "Export image as {format}"
+      - "Save image in {format} format"
+      - "Export with quality {quality}"
+      - "Save as {format} with {quality} quality to {path}"
+    mapping:
+      - image_editor.export
+    parameters:
+      format: "{format}"
+      quality: "{quality}"
+      path: "{path}"
+
+  - name: image_batch_process
+    utterances:
+      - "Batch process with operations {operations}"
+      - "Process multiple versions: {operations}"
+      - "Create multiple sizes: {operations}"
+    mapping:
+      - image_editor.batchProcess
+    parameters:
+      operations: "{operations}"
+      outputDir: "{outputDir}"
+
+  - name: image_collage
+    utterances:
+      - "Create collage with {sessionIds} in {rows}x{cols} layout"
+      - "Make collage from {sessionIds} with {spacing} spacing"
+      - "Combine images {sessionIds} into collage"
+    mapping:
+      - image_editor.createCollage
+    parameters:
+      sessionIds: "{sessionIds}"
+      layout:
+        rows: "{rows}"
+        cols: "{cols}"
+      spacing: "{spacing}"
+
+  - name: image_status
+    utterances:
+      - "Show image editor status"
+      - "List active sessions"
+      - "What images are open?"
+    mapping:
+      - image_editor.status
+
+  - name: image_complex_edit
+    utterances:
+      - "Resize to {width}x{height}, apply {filter_type} filter, and export as {format}"
+      - "Crop from {x},{y} to {width}x{height}, rotate {angle} degrees, and save as {format}"
+      - "Enhance brightness {brightness}, add vignette {outer}, and export with quality {quality}"
+    mapping:
+      - image_editor.edit
+      - image_editor.export
+    parameters:
+      - op: "resize"
+        params:
+          width: "{width}"
+          height: "{height}"
+      - op: "filter"
+        params:
+          type: "{filter_type}"
+      - format: "{format}"
+        quality: "{quality}"
+
+entities:
+  - name: source
+    type: string
+    description: "Image source path or URL"
+    
+  - name: sessionName
+    type: string
+    description: "Name for the editing session"
+    
+  - name: width
+    type: number
+    description: "Image width in pixels"
+    
+  - name: height
+    type: number
+    description: "Image height in pixels"
+    
+  - name: x
+    type: number
+    description: "X coordinate for crop operation"
+    
+  - name: y
+    type: number
+    description: "Y coordinate for crop operation"
+    
+  - name: angle
+    type: number
+    description: "Rotation angle in degrees"
+    
+  - name: direction
+    type: string
+    enum: ["horizontal", "vertical"]
+    description: "Flip direction"
+    
+  - name: filter_type
+    type: string
+    enum: ["blur", "sharpen", "grayscale", "sepia", "negate"]
+    description: "Type of filter to apply"
+    
+  - name: radius
+    type: number
+    description: "Blur radius"
+    
+  - name: sigma
+    type: number
+    description: "Sharpen sigma value"
+    
+  - name: brightness
+    type: number
+    description: "Brightness value (0-2)"
+    
+  - name: saturation
+    type: number
+    description: "Saturation value (0-2)"
+    
+  - name: hue
+    type: number
+    description: "Hue value in degrees"
+    
+  - name: gamma
+    type: number
+    description: "Gamma correction value"
+    
+  - name: contrast
+    type: number
+    description: "Contrast value"
+    
+  - name: outer
+    type: number
+    description: "Vignette outer radius"
+    
+  - name: inner
+    type: number
+    description: "Vignette inner radius"
+    
+  - name: size
+    type: number
+    description: "Border size in pixels"
+    
+  - name: color
+    type: string
+    description: "Border color (hex, rgb, or named color)"
+    
+  - name: format
+    type: string
+    enum: ["jpg", "jpeg", "png", "gif", "webp", "tiff", "bmp", "svg", "pdf"]
+    description: "Output image format"
+    
+  - name: quality
+    type: number
+    description: "Export quality (1-100)"
+    
+  - name: path
+    type: string
+    description: "Output file path"
+    
+  - name: operations
+    type: array
+    description: "Array of batch processing operations"
+    
+  - name: outputDir
+    type: string
+    description: "Output directory for batch processing"
+    
+  - name: sessionIds
+    type: array
+    description: "Array of session IDs for collage"
+    
+  - name: rows
+    type: number
+    description: "Number of rows in collage layout"
+    
+  - name: cols
+    type: number
+    description: "Number of columns in collage layout"
+    
+  - name: spacing
+    type: number
+    description: "Spacing between images in collage"
+    
+  - name: fit
+    type: string
+    enum: ["cover", "contain", "fill", "inside", "outside"]
+    description: "How to fit image when resizing"
+    
+  - name: background
+    type: string
+    description: "Background color for rotation"

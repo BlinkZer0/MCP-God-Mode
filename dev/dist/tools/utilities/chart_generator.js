@@ -6,7 +6,7 @@ export function registerChartGenerator(server) {
             chart_type: z.enum(["line", "bar", "pie", "scatter", "histogram"]).describe("Type of chart to generate"),
             data: z.array(z.object({
                 label: z.string(),
-                value: z.number()
+                value: z.number().describe("Data value for the chart")
             })).describe("Data for chart generation"),
             title: z.string().optional().describe("Chart title"),
             x_label: z.string().optional().describe("X-axis label"),

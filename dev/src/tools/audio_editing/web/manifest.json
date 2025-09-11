@@ -1,0 +1,116 @@
+{
+    "name": "MCP Audio Editor",
+    "short_name": "Audio Editor",
+    "description": "Cross-platform audio editor with recording capabilities",
+    "start_url": "/viewer/audio",
+    "display": "standalone",
+    "background_color": "#1a1a1a",
+    "theme_color": "#4a9eff",
+    "orientation": "landscape-primary",
+    "icons": [
+      {
+        "src": "icon-192.png",
+        "sizes": "192x192",
+        "type": "image/png",
+        "purpose": "any maskable"
+      },
+      {
+        "src": "icon-512.png",
+        "sizes": "512x512",
+        "type": "image/png",
+        "purpose": "any maskable"
+      }
+    ],
+    "categories": ["music", "productivity", "utilities"],
+    "lang": "en",
+    "dir": "ltr",
+    "scope": "/viewer/audio/",
+    "prefer_related_applications": false,
+    "features": [
+      "audio-recording",
+      "audio-editing",
+      "file-import",
+      "file-export"
+    ],
+    "screenshots": [
+      {
+        "src": "screenshot-desktop.png",
+        "sizes": "1280x720",
+        "type": "image/png",
+        "form_factor": "wide",
+        "label": "Desktop audio editor interface"
+      },
+      {
+        "src": "screenshot-mobile.png",
+        "sizes": "750x1334",
+        "type": "image/png",
+        "form_factor": "narrow",
+        "label": "Mobile audio editor interface"
+      }
+    ],
+    "shortcuts": [
+      {
+        "name": "Record Audio",
+        "short_name": "Record",
+        "description": "Start recording audio",
+        "url": "/viewer/audio?action=record",
+        "icons": [
+          {
+            "src": "icon-record.png",
+            "sizes": "96x96"
+          }
+        ]
+      },
+      {
+        "name": "Open File",
+        "short_name": "Open",
+        "description": "Open audio file for editing",
+        "url": "/viewer/audio?action=open",
+        "icons": [
+          {
+            "src": "icon-open.png",
+            "sizes": "96x96"
+          }
+        ]
+      }
+    ],
+    "related_applications": [],
+    "edge_side_panel": {
+      "preferred_width": 400
+    },
+    "launch_handler": {
+      "client_mode": "navigate-existing"
+    },
+    "handle_links": "preferred",
+    "capture_links": "new-client",
+    "protocol_handlers": [
+      {
+        "protocol": "web+audio",
+        "url": "/viewer/audio?file=%s"
+      }
+    ],
+    "file_handlers": [
+      {
+        "action": "/viewer/audio",
+        "accept": {
+          "audio/*": [".mp3", ".wav", ".flac", ".ogg", ".m4a", ".aac", ".aiff", ".wma"]
+        }
+      }
+    ],
+    "share_target": {
+      "action": "/viewer/audio",
+      "method": "POST",
+      "enctype": "multipart/form-data",
+      "params": {
+        "title": "title",
+        "text": "text",
+        "url": "url",
+        "files": [
+          {
+            "name": "audio_file",
+            "accept": ["audio/*"]
+          }
+        ]
+      }
+    }
+  }

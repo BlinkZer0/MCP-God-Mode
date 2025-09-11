@@ -1,0 +1,443 @@
+# RF Sense Natural Language Interface Configuration
+# ================================================
+# 
+# This file defines natural language patterns and intents for RF sensing operations.
+# It enables intuitive command processing across all RF sensing modules.
+
+intents:
+  # Simulation Commands
+  - name: rf_sense_sim_start
+    utterances:
+      - "Start a simulated RF session for {duration} seconds and render occupancy"
+      - "Run simulation with {scenario} scenario for {duration} seconds"
+      - "Generate synthetic data for {scenario} for {duration} seconds"
+      - "Create simulation with {scenario} for {duration} seconds"
+      - "Begin RF simulation for {duration} seconds"
+    entities:
+      duration:
+        type: number
+        min: 1
+        max: 300
+        default: 30
+      scenario:
+        type: enum
+        values: ["empty room", "single person", "multiple people", "gesture demo", "motion pattern"]
+        default: "single person"
+    mapping:
+      - rf_sense_sim.simulate
+      - rf_sense_sim.process
+      - rf_sense_sim.visualize
+
+  - name: rf_sense_sim_process
+    utterances:
+      - "Process last simulation session into {pipeline}"
+      - "Analyze simulation data with {pipeline}"
+      - "Generate {pipeline} from simulation"
+      - "Run {pipeline} on simulation data"
+    entities:
+      pipeline:
+        type: enum
+        values: ["occupancy", "pose", "coarse voxels", "point cloud", "gesture detection"]
+        default: "occupancy"
+    mapping:
+      - rf_sense_sim.process
+
+  # WiFi Lab Commands
+  - name: rf_sense_wifi_lab_start
+    utterances:
+      - "Start WiFi lab capture for {duration} seconds in {room}"
+      - "Begin RF sensing experiment in {room} for {duration} seconds"
+      - "Capture WiFi CSI data for {duration} seconds"
+      - "Run WiFi lab experiment for {duration} seconds"
+      - "Start WiFi lab session for {duration} seconds"
+    entities:
+      duration:
+        type: number
+        min: 1
+        max: 60
+        default: 30
+      room:
+        type: string
+        default: "Lab"
+    mapping:
+      - rf_sense_wifi_lab.configure
+      - rf_sense_wifi_lab.capture_start
+
+  - name: rf_sense_wifi_lab_configure
+    utterances:
+      - "Configure WiFi lab for {room} experiment"
+      - "Set up WiFi lab in {room}"
+      - "Initialize WiFi lab configuration"
+      - "Prepare WiFi lab for {room}"
+    entities:
+      room:
+        type: string
+        default: "Lab"
+    mapping:
+      - rf_sense_wifi_lab.configure
+
+  # mmWave Commands
+  - name: rf_sense_mmwave_start
+    utterances:
+      - "Start mmWave capture for {duration} seconds"
+      - "Begin radar scan for {mode} for {duration} seconds"
+      - "Capture mmWave data for {mode} for {duration} seconds"
+      - "Run mmWave experiment for {duration} seconds"
+      - "Start radar sensing for {duration} seconds"
+    entities:
+      duration:
+        type: number
+        min: 1
+        max: 300
+        default: 30
+      mode:
+        type: enum
+        values: ["point cloud", "object tracking", "gesture detection", "full scan"]
+        default: "point cloud"
+    mapping:
+      - rf_sense_mmwave.configure
+      - rf_sense_mmwave.capture_start
+
+  - name: rf_sense_mmwave_configure
+    utterances:
+      - "Configure mmWave radar for {mode}"
+      - "Set up mmWave device for {mode}"
+      - "Initialize mmWave configuration"
+      - "Prepare mmWave for {mode}"
+    entities:
+      mode:
+        type: enum
+        values: ["point cloud", "object tracking", "gesture detection", "full scan"]
+        default: "point cloud"
+    mapping:
+      - rf_sense_mmwave.configure
+
+  # Processing Commands
+  - name: rf_sense_process
+    utterances:
+      - "Process last session into {pipeline}"
+      - "Analyze session with {pipeline}"
+      - "Generate {pipeline} from session data"
+      - "Run {pipeline} on session"
+      - "Apply {pipeline} to session data"
+    entities:
+      pipeline:
+        type: enum
+        values: ["occupancy", "pose", "coarse voxels", "point cloud", "gesture detection", "object tracking", "clutter removal", "doppler analysis"]
+        default: "occupancy"
+    mapping:
+      - rf_sense_sim.process
+      - rf_sense_wifi_lab.process
+      - rf_sense_mmwave.process
+
+  # Export Commands
+  - name: rf_sense_export
+    utterances:
+      - "Export session as {format} format"
+      - "Save session data as {format}"
+      - "Download session as {format}"
+      - "Convert session to {format}"
+      - "Export {format} from session"
+    entities:
+      format:
+        type: enum
+        values: ["json", "png", "ply", "pcd", "csv"]
+        default: "json"
+    mapping:
+      - rf_sense_sim.export
+      - rf_sense_wifi_lab.export
+      - rf_sense_mmwave.export
+
+  # Visualization Commands
+  - name: rf_sense_visualize
+    utterances:
+      - "Visualize session as {type}"
+      - "Show {type} visualization"
+      - "Display {type} from session"
+      - "Render {type} visualization"
+      - "Create {type} visualization"
+    entities:
+      type:
+        type: enum
+        values: ["heatmap", "skeleton", "point cloud", "voxels"]
+        default: "heatmap"
+    mapping:
+      - rf_sense_sim.visualize
+      - rf_sense_wifi_lab.visualize
+      - rf_sense_mmwave.visualize
+
+  # Status Commands
+  - name: rf_sense_status
+    utterances:
+      - "Show RF sense status"
+      - "Check RF sensing system status"
+      - "Get system status"
+      - "Display system information"
+      - "Show module status"
+    mapping:
+      - rf_sense_sim.status
+      - rf_sense_wifi_lab.status
+      - rf_sense_mmwave.status
+      - rf_sense_guardrails.get_config
+
+  - name: rf_sense_list_sessions
+    utterances:
+      - "List all sessions"
+      - "Show all sessions"
+      - "Display session list"
+      - "Get session information"
+      - "Show active sessions"
+    mapping:
+      - rf_sense_sim.list_sessions
+      - rf_sense_wifi_lab.list_sessions
+      - rf_sense_mmwave.list_sessions
+
+  # Consent Commands
+  - name: rf_sense_consent
+    utterances:
+      - "Show consent banner for {participants}"
+      - "Record consent for {participants}"
+      - "Confirm consent for {participants}"
+      - "Validate consent for {participants}"
+    entities:
+      participants:
+        type: array
+        item_type: string
+        default: []
+    mapping:
+      - rf_sense_guardrails.validate_consent
+      - rf_sense_guardrails.create_consent
+
+  # Configuration Commands
+  - name: rf_sense_configure
+    utterances:
+      - "Configure RF sense system"
+      - "Set up RF sensing"
+      - "Initialize RF sense"
+      - "Configure guardrails"
+      - "Set system parameters"
+    mapping:
+      - rf_sense_guardrails.get_config
+      - rf_sense_guardrails.update_config
+
+  # Cleanup Commands
+  - name: rf_sense_cleanup
+    utterances:
+      - "Clean up old data"
+      - "Delete expired sessions"
+      - "Remove old files"
+      - "Clean up storage"
+      - "Purge old data"
+    mapping:
+      - rf_sense_guardrails.cleanup_data
+      - rf_sense_sim.delete
+      - rf_sense_wifi_lab.delete
+      - rf_sense_mmwave.delete
+
+# Context Patterns
+contexts:
+  simulation:
+    patterns:
+      - "simulation"
+      - "simulated"
+      - "synthetic"
+      - "fake"
+      - "test data"
+    default_module: "rf_sense_sim"
+
+  wifi_lab:
+    patterns:
+      - "wifi"
+      - "lab"
+      - "csi"
+      - "experiment"
+      - "room"
+    default_module: "rf_sense_wifi_lab"
+
+  mmwave:
+    patterns:
+      - "mmwave"
+      - "radar"
+      - "mm-wave"
+      - "point cloud"
+      - "object tracking"
+    default_module: "rf_sense_mmwave"
+
+  processing:
+    patterns:
+      - "process"
+      - "analyze"
+      - "generate"
+      - "pipeline"
+      - "algorithm"
+    default_module: "auto"
+
+  export:
+    patterns:
+      - "export"
+      - "save"
+      - "download"
+      - "convert"
+      - "output"
+    default_module: "auto"
+
+  visualization:
+    patterns:
+      - "visualize"
+      - "show"
+      - "display"
+      - "render"
+      - "plot"
+    default_module: "auto"
+
+# Entity Definitions
+entities:
+  duration:
+    type: number
+    unit: seconds
+    min: 1
+    max: 300
+    validation: "positive_integer"
+
+  scenario:
+    type: enum
+    values:
+      - "empty room"
+      - "single person"
+      - "multiple people"
+      - "gesture demo"
+      - "motion pattern"
+    synonyms:
+      "empty room": ["empty", "vacant", "clear"]
+      "single person": ["one person", "individual", "single"]
+      "multiple people": ["crowd", "group", "several"]
+      "gesture demo": ["gestures", "gesture", "demo"]
+      "motion pattern": ["motion", "movement", "pattern"]
+
+  pipeline:
+    type: enum
+    values:
+      - "occupancy"
+      - "pose"
+      - "coarse voxels"
+      - "point cloud"
+      - "gesture detection"
+      - "object tracking"
+      - "clutter removal"
+      - "doppler analysis"
+    synonyms:
+      "occupancy": ["presence", "detection", "occupancy detection"]
+      "pose": ["skeleton", "pose estimation", "body pose"]
+      "coarse voxels": ["voxels", "3d grid", "voxel grid"]
+      "point cloud": ["pointcloud", "3d points", "point data"]
+      "gesture detection": ["gesture", "gestures", "gesture recognition"]
+      "object tracking": ["tracking", "object detection", "tracking"]
+      "clutter removal": ["clutter", "noise removal", "filtering"]
+      "doppler analysis": ["doppler", "frequency analysis", "spectral analysis"]
+
+  format:
+    type: enum
+    values:
+      - "json"
+      - "png"
+      - "ply"
+      - "pcd"
+      - "csv"
+    synonyms:
+      "json": ["json format", "javascript object notation"]
+      "png": ["image", "picture", "png format"]
+      "ply": ["polygon file", "ply format", "3d model"]
+      "pcd": ["point cloud data", "pcd format", "point cloud"]
+      "csv": ["comma separated", "csv format", "spreadsheet"]
+
+  mode:
+    type: enum
+    values:
+      - "point cloud"
+      - "object tracking"
+      - "gesture detection"
+      - "full scan"
+    synonyms:
+      "point cloud": ["pointcloud", "3d points", "point data"]
+      "object tracking": ["tracking", "object detection", "tracking"]
+      "gesture detection": ["gesture", "gestures", "gesture recognition"]
+      "full scan": ["complete scan", "full radar scan", "comprehensive scan"]
+
+  type:
+    type: enum
+    values:
+      - "heatmap"
+      - "skeleton"
+      - "point cloud"
+      - "voxels"
+    synonyms:
+      "heatmap": ["heat map", "intensity map", "occupancy map"]
+      "skeleton": ["pose", "body skeleton", "human skeleton"]
+      "point cloud": ["pointcloud", "3d points", "point data"]
+      "voxels": ["voxel grid", "3d grid", "voxel data"]
+
+# Response Templates
+responses:
+  success:
+    simulation_started: "Simulation started successfully. Session ID: {sessionId}, Duration: {duration}s, Scenario: {scenario}"
+    wifi_lab_started: "WiFi lab capture started successfully. Session ID: {sessionId}, Duration: {duration}s, Room: {room}"
+    mmwave_started: "mmWave capture started successfully. Session ID: {sessionId}, Duration: {duration}s, Mode: {mode}"
+    processing_completed: "Processing completed successfully. Pipeline: {pipeline}, Result: {result}"
+    export_completed: "Export completed successfully. Format: {format}, File: {file}"
+    visualization_created: "Visualization created successfully. Type: {type}, Session: {sessionId}"
+
+  error:
+    consent_required: "Consent is required for this operation. Please provide consent information."
+    network_restricted: "Network access is restricted. Please connect to an allowed network."
+    duration_exceeded: "Duration exceeds maximum allowed duration of {maxDuration} seconds."
+    session_not_found: "Session not found. Please check the session ID."
+    processing_failed: "Processing failed. Please check the session data and try again."
+    export_failed: "Export failed. Please check the format and try again."
+
+  help:
+    general: "Available commands: Start simulation, WiFi lab capture, mmWave capture, process data, export results, visualize data, check status"
+    simulation: "Simulation commands: Start simulation with scenario and duration, process data, export results"
+    wifi_lab: "WiFi lab commands: Configure lab, start capture, process CSI data, export results"
+    mmwave: "mmWave commands: Configure radar, start capture, process data, export point clouds"
+    processing: "Processing commands: Apply pipelines (occupancy, pose, point cloud, etc.) to session data"
+    export: "Export commands: Save session data in various formats (JSON, PNG, PLY, PCD, CSV)"
+    visualization: "Visualization commands: Create heatmaps, skeletons, point clouds, voxel visualizations"
+
+# Validation Rules
+validation:
+  duration:
+    required: true
+    type: number
+    min: 1
+    max: 300
+    message: "Duration must be between 1 and 300 seconds"
+
+  scenario:
+    required: false
+    type: enum
+    values: ["empty room", "single person", "multiple people", "gesture demo", "motion pattern"]
+    message: "Scenario must be one of: empty room, single person, multiple people, gesture demo, motion pattern"
+
+  pipeline:
+    required: true
+    type: enum
+    values: ["occupancy", "pose", "coarse voxels", "point cloud", "gesture detection", "object tracking", "clutter removal", "doppler analysis"]
+    message: "Pipeline must be one of the supported processing pipelines"
+
+  format:
+    required: true
+    type: enum
+    values: ["json", "png", "ply", "pcd", "csv"]
+    message: "Format must be one of: json, png, ply, pcd, csv"
+
+  mode:
+    required: false
+    type: enum
+    values: ["point cloud", "object tracking", "gesture detection", "full scan"]
+    message: "Mode must be one of: point cloud, object tracking, gesture detection, full scan"
+
+  type:
+    required: false
+    type: enum
+    values: ["heatmap", "skeleton", "point cloud", "voxels"]
+    message: "Type must be one of: heatmap, skeleton, point cloud, voxels"

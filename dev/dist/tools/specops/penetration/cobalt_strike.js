@@ -28,7 +28,7 @@ export function registerCobaltStrike(server) {
             profile_path: z.string().optional().describe("Malleable C2 profile path"),
             script_path: z.string().optional().describe("Aggressor script path"),
             report_format: z.enum(["html", "pdf", "json", "csv"]).optional().describe("Report format"),
-            safe_mode: z.boolean().optional().describe("Enable safe mode to prevent actual attacks"),
+            safe_mode: z.boolean().default(false).describe("Enable safe mode to prevent actual attacks (disabled by default for full functionality)"),
             verbose: z.boolean().default(false).describe("Enable verbose output")
         },
         outputSchema: {

@@ -12,15 +12,15 @@
 
 One MCP to rule them all, one MCP to find them, one MCP to compile the tools, and in the God Mode bind them. 🎲⚡
 
-[![Version](https://img.shields.io/badge/Version-v1.8d-blue)](docs/updates/VERSION_1.8d_CHANGELOG.md)
+[![Version](https://img.shields.io/badge/Version-v1.9-blue)](docs/updates/VERSION_1.9_CHANGELOG.md)
 [![License](https://img.shields.io/badge/License-MIT-green)](LICENSE)
 [![Node](https://img.shields.io/badge/Node-%3E%3D%2018-brightgreen)](package.json)
 [![Platforms](https://img.shields.io/badge/Platforms-Win%20%7C%20macOS%20%7C%20Linux%20%7C%20Android%20%7C%20iOS-orange)](docs/CROSS_PLATFORM_COMPATIBILITY.md)
 [![GitHub Stars](https://img.shields.io/github/stars/BlinkZer0/MCP-God-Mode?style=social)](https://github.com/BlinkZer0/MCP-God-Mode)
 [![CI](https://img.shields.io/badge/CI-Smoke%20Tests-yellow)](scripts/smoke-test.js)
-[![Tools](https://img.shields.io/badge/Tools-168%20Total-orange)](docs/general/TOOL_CATALOG.md)
+[![Tools](https://img.shields.io/badge/Tools-171%20Total-orange)](docs/general/TOOL_CATALOG.md)
 
-**Version 1.8d - SpecOps Tools & Enhanced Security Operations** — Last edited 2025-09-10
+**Version 1.9 - RF Sense Through-Wall Detection & Enhanced Wireless Capabilities** — Last edited 2025-09-10
 
 ## Table of Contents
 - [What is MCP God Mode?](#-what-is-mcp-god-mode)
@@ -32,11 +32,11 @@ One MCP to rule them all, one MCP to find them, one MCP to compile the tools, an
 - [Documentation](#-documentation)
 - [Legal Disclaimer](#️-legal-disclaimer)
 
-### Tool Inventory (v1.8d)
+### Tool Inventory (v1.9)
 | Profile         | Count |
 |-----------------|------:|
-| Refactored Set  | 168   |
-| Modular Set     | 168   |
+| Refactored Set  | 171   |
+| Modular Set     | 171   |
 | Minimal Profile | 15    |
 
 https://github.com/user-attachments/assets/932c43e4-159e-4ce2-9c02-4acf23fc47fd
@@ -49,11 +49,11 @@ https://github.com/user-attachments/assets/932c43e4-159e-4ce2-9c02-4acf23fc47fd
 
 - **[🚀 Quick Start](docs/guides/COMPLETE_SETUP_GUIDE.md)** - Get up and running in minutes
 - **[🌐 Frontend Integration Guide](docs/guides/MCP_FRONTEND_INTEGRATION_GUIDE.md)** - Setup for Cursor, LM Studio, Claude, SillyTavern & more
-- **[📋 Complete Tool Catalog](docs/general/TOOL_CATALOG.md)** - Browse all 168 documented tools with detailed documentation
+- **[📋 Complete Tool Catalog](docs/general/TOOL_CATALOG.md)** - Browse all 171 documented tools with detailed documentation
 - **[🔧 Parameter Reference](docs/general/COMPLETE_PARAMETER_REFERENCE.md)** - Complete parameter documentation
 - **[💻 Examples & Tutorials](docs/guides/EXAMPLES_AND_TUTORIALS.md)** - Real-world usage examples
 - **[🌍 Platform Compatibility](docs/general/CROSS_PLATFORM_COMPATIBILITY.md)** - Platform-specific details
-- **[📝 Version 1.8d Changelog](docs/updates/VERSION_1.8d_CHANGELOG.md)** - What's new in the latest update
+- **[📝 Version 1.9 Changelog](docs/updates/VERSION_1.9_CHANGELOG.md)** - What's new in the latest update
 
 ## 🚀 Quick Start
 
@@ -83,9 +83,9 @@ npm run start:minimal      # minimal profile (15 core tools)
 3. **Run** `npm install` to install dependencies
 4. **Launch** with `npm run start:refactored`
 
-This method preserves your existing MCP configuration while adding all 168 tools instantly!
+This method preserves your existing MCP configuration while adding all 171 tools instantly!
 
-### Interactive Installer (NEW in v1.8!)
+### Interactive Installer (Enhanced in v1.9!)
 
 **🎯 Enhanced Interactive Installation with Comprehensive Tool Selection:**
 
@@ -376,8 +376,9 @@ See MCP God Mode in action with Cursor IDE integration:
 - **📊 Real-Time Monitoring** - Live system and network analysis
 - **🔄 Automated Workflows** - Batch processing and automation
 - **📚 Comprehensive Documentation** - Wiki-style documentation with examples
-- **🛸 NEW in v1.8: Drone Management** - Advanced drone deployment for cybersecurity threat response
-- **🎯 NEW in v1.8: Interactive Installer** - Comprehensive tool selection with guided installation
+- **🔍 NEW in v1.9: RF Sense Through-Wall Detection** - Detect people and objects through walls using Wi-Fi CSI and mmWave radar
+- **🛸 Drone Management** - Advanced drone deployment for cybersecurity threat response
+- **🎯 Interactive Installer** - Comprehensive tool selection with guided installation
 
 <img src="assets/wave-divider.svg" alt="" width="100%" />
 
@@ -422,7 +423,7 @@ See MCP God Mode in action with Cursor IDE integration:
 
 <img src="assets/header-wireless.svg" alt="Wireless & Radio" width="100%" />
 
-### 📡 Wireless & Radio (7 Tools)
+### 📡 Wireless & Radio (10 Tools)
 - **Wi-Fi Security** - Complete wireless security testing toolkit
 - **Bluetooth Security** - Bluetooth device security assessment
 - **SDR Operations** - Software Defined Radio security testing
@@ -430,12 +431,17 @@ See MCP God Mode in action with Cursor IDE integration:
 - **Wi-Fi Hacking** - Advanced wireless penetration testing
 - **Bluetooth Hacking** - Advanced Bluetooth security testing
 - **Wireless Network Scanner** - Advanced wireless discovery
+- **RF Sense WiFi Lab** - Real Wi-Fi CSI experiments with through-wall sensing
+- **RF Sense mmWave** - FMCW mmWave radar with through-wall object detection
+- **RF Sense Natural Language** - Intuitive interface for RF sensing operations
 
 **🎥 Live Demo**: See our WiFi security tools in action! [Watch the demo video]
 
 https://github.com/user-attachments/assets/f074039c-1989-40fc-b769-5efa855e854d
 
  showing real-time wireless security testing capabilities.
+
+**🔍 Through-Wall Sensing**: Our RF Sense tools enable detection and tracking of objects and people through walls using Wi-Fi CSI and mmWave radar technology. Perfect for privacy-preserving monitoring, security applications, and smart building systems.
 
 **[📖 View All Wireless Tools](docs/general/TOOL_CATEGORY_INDEX.md#wireless--radio)**
 
@@ -469,7 +475,8 @@ https://github.com/user-attachments/assets/f074039c-1989-40fc-b769-5efa855e854d
 
 <img src="assets/header-media.svg" alt="Media & Content" width="100%" />
 
-### 🎵 Media & Content (5 Tools)
+### 🎵 Media & Content (6 Tools)
+- **Multimedia Tool** - Unified audio, image, and video processing with AI generation
 - **Audio Processing** - Recording, editing, and conversion
 - **Video Processing** - Screen recording and video editing
 - **Image Processing** - Editing, enhancement, and OCR
@@ -506,7 +513,7 @@ https://github.com/user-attachments/assets/f074039c-1989-40fc-b769-5efa855e854d
 
 <img src="assets/header-drone.svg" alt="Drone Management" width="100%" />
 
-### 🛸 Drone Management (2 Tools) - NEW in v1.8
+### 🛸 Drone Management (2 Tools)
 - **Defensive Operations** - Deploy defensive drones to scan, shield, or evade attacks
 - **Offensive Operations** - Deploy offensive drones for counter-strikes with safety controls
 - **Threat Response** - Automated threat detection and response capabilities
@@ -637,9 +644,9 @@ https://github.com/user-attachments/assets/f074039c-1989-40fc-b769-5efa855e854d
 |----------|-------|-------------|
 | **🔐 Core System** | 6 | Process management, system info, health monitoring, git operations |
 | **🌐 Network & Security** | 19 | Network diagnostics, penetration testing, packet analysis, port scanning |
-| **📡 Wireless & Radio** | 7 | Wi-Fi, Bluetooth, SDR security testing, signal analysis |
+| **📡 Wireless & Radio** | 10 | Wi-Fi, Bluetooth, SDR security testing, RF sensing, through-wall detection |
 | **📧 Email Management** | 6 | SMTP, IMAP, email security, account management |
-| **🎵 Media & Content** | 5 | Audio, video, image processing, OCR, screenshots |
+| **🎵 Media & Content** | 6 | Unified multimedia processing, AI generation, audio, video, image processing, OCR, screenshots |
 | **🖥️ Web & Browser** | 4 | Browser automation, web scraping, web automation, webhooks |
 | **📱 Mobile Device** | 13 | Device info, file ops, hardware access, system tools, app tools |
 | **🖥️ Virtualization** | 2 | VM management, Docker orchestration |
@@ -732,7 +739,7 @@ npm install
 3. **Run** `npm install` to install dependencies
 4. **Launch** with `npm run start:refactored`
 
-This method preserves your existing MCP configuration while adding all 168 tools instantly!
+This method preserves your existing MCP configuration while adding all 171 tools instantly!
 
 ### 4. First Steps
 ```bash
@@ -973,7 +980,8 @@ We welcome contributions from the community! Here's how you can help:
 
 
 ### 🔄 Version History
-- **v1.8d** (Current) - **168 tools (both servers) complete (100%)**, SpecOps tools integration, enhanced security operations, cross-platform support, natural language interfaces, safe mode defaults removed, comprehensive documentation, accurate tool counts. Last edited 2025-01-10.
+- **v1.9** (Current) - **171 tools (both servers) complete (100%)**, RF Sense through-wall detection, enhanced wireless capabilities, SpecOps tools integration, enhanced security operations, cross-platform support, natural language interfaces, comprehensive documentation, accurate tool counts. Last edited 2025-09-10.
+- **v1.8d** - **168 tools (both servers) complete (100%)**, SpecOps tools integration, enhanced security operations, cross-platform support, natural language interfaces, safe mode defaults removed, comprehensive documentation, accurate tool counts. Last edited 2025-01-10.
 - **v1.8c** - **168 tools (both servers) complete (100%)**, SpecOps tools integration, enhanced security operations, cross-platform support, natural language interfaces, safe mode defaults removed, comprehensive documentation. Last edited 2025-01-10.
 - **v1.8b** - **168 tools (both servers) complete (100%)**, drone operations, enhanced interactive installer, perfect parity achieved, MCP Web UI Bridge tools, modular configuration system, comprehensive documentation, cross-platform support, MCP integration, accurate tool counting. Last edited 2025-09-10.
 - **v1.7** - **147 tools (both servers) complete (100%)**, perfect parity achieved, MCP Web UI Bridge tools, modular configuration system, comprehensive documentation, cross-platform support, MCP integration, accurate tool counting
@@ -1038,8 +1046,8 @@ If MCP God Mode has been helpful to you, please consider giving it a star on Git
 ---
 
 *Last Updated: January 2025*  
-*MCP God Mode v1.8d - One MCP to rule them all - The Ultimate Cross-Platform Security Suite*  
-*All 168 tools (both servers) tested, verified working, and fully documented ✅*
+*MCP God Mode v1.9 - One MCP to rule them all - The Ultimate Cross-Platform Security Suite with Through-Wall Detection*  
+*All 171 tools (both servers) tested, verified working, and fully documented ✅*
 
 ---
 

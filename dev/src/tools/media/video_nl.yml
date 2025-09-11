@@ -1,0 +1,309 @@
+intents:
+  - name: video_editor_status
+    utterances:
+      - "Show video editor status"
+      - "What's the status of the video editor?"
+      - "List active video sessions"
+      - "How many video sessions are open?"
+    mapping:
+      - video_editor.status
+
+  - name: video_editor_open
+    utterances:
+      - "Open video file {source}"
+      - "Load video {source} into the editor"
+      - "Import video from {source}"
+      - "Open {source} for editing"
+      - "Load video track {source}"
+    mapping:
+      - video_editor.open
+
+  - name: video_editor_record
+    utterances:
+      - "Record video for {duration} seconds"
+      - "Start recording for {duration} seconds using {device}"
+      - "Record {duration} seconds of video"
+      - "Begin recording with {device} for {duration} seconds"
+      - "Record video for {duration} seconds at {resolution}"
+      - "Start video recording for {duration} seconds, {frameRate} fps"
+      - "Record {duration} seconds at {resolution} resolution"
+    mapping:
+      - video_editor.record
+
+  - name: video_editor_edit_trim
+    utterances:
+      - "Trim video from {start} to {end}"
+      - "Cut video from {start} seconds to {end} seconds"
+      - "Remove everything before {start} and after {end}"
+      - "Keep only the part from {start} to {end}"
+    mapping:
+      - video_editor.edit
+
+  - name: video_editor_edit_crop
+    utterances:
+      - "Crop video to {width}x{height}"
+      - "Crop video from position {x},{y} with size {width}x{height}"
+      - "Cut out {width}x{height} section from {x},{y}"
+    mapping:
+      - video_editor.edit
+
+  - name: video_editor_edit_resize
+    utterances:
+      - "Resize video to {width}x{height}"
+      - "Change video resolution to {resolution}"
+      - "Scale video to {width} by {height}"
+    mapping:
+      - video_editor.edit
+
+  - name: video_editor_edit_rotate
+    utterances:
+      - "Rotate video by {angle} degrees"
+      - "Turn video {angle} degrees"
+      - "Rotate video {direction}"
+    mapping:
+      - video_editor.edit
+
+  - name: video_editor_edit_flip
+    utterances:
+      - "Flip video {direction}"
+      - "Mirror video {direction}"
+      - "Flip video horizontally"
+      - "Flip video vertically"
+    mapping:
+      - video_editor.edit
+
+  - name: video_editor_edit_speed
+    utterances:
+      - "Change video speed to {rate} times"
+      - "Speed up video by {rate} times"
+      - "Slow down video by {rate} times"
+      - "Time stretch video to {rate}"
+    mapping:
+      - video_editor.edit
+
+  - name: video_editor_edit_fade
+    utterances:
+      - "Add fade in for {fadeIn} seconds"
+      - "Add fade out for {fadeOut} seconds"
+      - "Fade in over {fadeIn} seconds and fade out over {fadeOut} seconds"
+      - "Apply fade effects"
+    mapping:
+      - video_editor.edit
+
+  - name: video_editor_edit_brightness
+    utterances:
+      - "Adjust brightness by {value}"
+      - "Change brightness to {value}"
+      - "Make video {brighter|darker}"
+      - "Increase brightness by {value}"
+      - "Decrease brightness by {value}"
+    mapping:
+      - video_editor.edit
+
+  - name: video_editor_edit_contrast
+    utterances:
+      - "Adjust contrast by {value}"
+      - "Change contrast to {value}"
+      - "Increase contrast by {value}"
+      - "Decrease contrast by {value}"
+    mapping:
+      - video_editor.edit
+
+  - name: video_editor_edit_saturation
+    utterances:
+      - "Adjust saturation by {value}"
+      - "Change saturation to {value}"
+      - "Make colors more {vivid|muted}"
+      - "Increase saturation by {value}"
+      - "Decrease saturation by {value}"
+    mapping:
+      - video_editor.edit
+
+  - name: video_editor_export
+    utterances:
+      - "Export video as {format}"
+      - "Save video as {format} file"
+      - "Export to {format} format"
+      - "Render video as {format}"
+      - "Export video to {outputPath}"
+      - "Save video to {outputPath}"
+      - "Export at {resolution} resolution"
+      - "Export with {quality} quality"
+    mapping:
+      - video_editor.export
+
+  - name: video_editor_delete
+    utterances:
+      - "Delete video session {sessionId}"
+      - "Remove session {sessionId}"
+      - "Close session {sessionId}"
+      - "Delete the video session"
+    mapping:
+      - video_editor.delete
+
+  - name: video_editor_list
+    utterances:
+      - "List all video sessions"
+      - "Show all open sessions"
+      - "What video sessions are available?"
+      - "Display video sessions"
+    mapping:
+      - video_editor.list
+
+  - name: video_editor_analyze
+    utterances:
+      - "Analyze video session {sessionId}"
+      - "Get video analysis for {sessionId}"
+      - "Show video statistics for {sessionId}"
+      - "Analyze the video file"
+    mapping:
+      - video_editor.analyze
+
+  - name: video_editor_batch
+    utterances:
+      - "Batch process {inputFiles}"
+      - "Process multiple video files: {inputFiles}"
+      - "Convert {inputFiles} to {format}"
+      - "Batch convert {inputFiles}"
+    mapping:
+      - video_editor.batch_process
+
+  - name: video_editor_viewer
+    utterances:
+      - "Open video viewer for {sessionId}"
+      - "Show video in viewer"
+      - "Open visual editor for {sessionId}"
+      - "Launch video editor UI"
+    mapping:
+      - video_editor.open_viewer
+
+  - name: video_editor_workflow
+    utterances:
+      - "Open {source}, trim from {start} to {end}, resize to {resolution}, and export as {format}"
+      - "Load {source}, crop to {width}x{height}, adjust brightness by {value}, and save as {format}"
+      - "Record {duration} seconds, trim from {start} to {end}, and export as {format}"
+      - "Import {source}, rotate by {angle} degrees, and export to {outputPath}"
+    mapping:
+      - video_editor.open
+      - video_editor.edit
+      - video_editor.export
+
+  - name: video_editor_advanced
+    utterances:
+      - "Open {source} and apply advanced processing"
+      - "Load {source} with custom settings"
+      - "Record high-quality video for {duration} seconds"
+      - "Batch process with custom parameters"
+    mapping:
+      - video_editor.open
+      - video_editor.record
+      - video_editor.batch_process
+
+# Natural language patterns for complex operations
+patterns:
+  - name: video_workflow_complete
+    pattern: "open {source} then {operations} then export as {format}"
+    operations:
+      - "trim from {start} to {end}"
+      - "crop to {width}x{height}"
+      - "resize to {resolution}"
+      - "rotate by {angle} degrees"
+      - "flip {direction}"
+      - "change speed to {rate}"
+      - "adjust brightness by {value}"
+      - "adjust contrast by {value}"
+      - "adjust saturation by {value}"
+      - "add fade in {fadeIn} seconds"
+      - "add fade out {fadeOut} seconds"
+    mapping:
+      - video_editor.open
+      - video_editor.edit
+      - video_editor.export
+
+  - name: video_recording_workflow
+    pattern: "record {duration} seconds with {device} then {operations} then export as {format}"
+    operations:
+      - "trim from {start} to {end}"
+      - "crop to {width}x{height}"
+      - "resize to {resolution}"
+      - "adjust brightness by {value}"
+    mapping:
+      - video_editor.record
+      - video_editor.edit
+      - video_editor.export
+
+  - name: video_batch_workflow
+    pattern: "batch process {inputFiles} with {operation} then export as {format}"
+    operations:
+      - "resize to {resolution}"
+      - "convert format"
+      - "adjust brightness by {value}"
+      - "trim from {start} to {end}"
+    mapping:
+      - video_editor.batch_process
+      - video_editor.export
+
+# Context-aware suggestions
+suggestions:
+  - when: "after opening video file"
+    suggest:
+      - "trim from {start} to {end}"
+      - "crop to {width}x{height}"
+      - "resize to {resolution}"
+      - "adjust brightness by {value}"
+      - "export as {format}"
+
+  - when: "after recording video"
+    suggest:
+      - "trim the beginning and end"
+      - "crop to desired size"
+      - "adjust brightness and contrast"
+      - "export as {format}"
+
+  - when: "after editing video"
+    suggest:
+      - "export as {format}"
+      - "analyze the video"
+      - "open in viewer"
+      - "apply more edits"
+
+# Error handling and user guidance
+error_handling:
+  - error: "session not found"
+    suggestion: "Use 'list sessions' to see available sessions"
+    
+  - error: "invalid video format"
+    suggestion: "Supported formats: mp4, avi, mov, mkv, webm, flv, wmv"
+    
+  - error: "recording device not found"
+    suggestion: "Check available video devices or use 'default' device"
+    
+  - error: "export failed"
+    suggestion: "Check file permissions and available disk space"
+
+# Help and documentation
+help:
+  - topic: "video_editor"
+    description: "Cross-platform video editing with recording capabilities"
+    examples:
+      - "Open video file: 'Open video.mp4'"
+      - "Record video: 'Record 30 seconds of video'"
+      - "Edit video: 'Trim from 10 to 20 seconds, resize to 1280x720, and export as mp4'"
+      - "Batch process: 'Batch process file1.mp4, file2.avi with resize to 1920x1080'"
+    
+  - topic: "recording"
+    description: "Video recording with device selection and quality options"
+    examples:
+      - "Record with default device: 'Record 60 seconds'"
+      - "Record with specific device: 'Record 30 seconds using webcam'"
+      - "High quality recording: 'Record 120 seconds at 4K, 60fps'"
+    
+  - topic: "editing"
+    description: "Non-destructive video editing operations"
+    examples:
+      - "Trim: 'Trim from 5 to 15 seconds'"
+      - "Crop: 'Crop to 1920x1080'"
+      - "Resize: 'Resize to 1280x720'"
+      - "Rotate: 'Rotate by 90 degrees'"
+      - "Speed: 'Change speed to 1.5 times'"
+      - "Effects: 'Adjust brightness by 0.2'"

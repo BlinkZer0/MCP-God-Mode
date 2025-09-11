@@ -1,7 +1,7 @@
 # MCP God Mode - Comprehensive Tool Catalog
 
 ## Overview
-MCP God Mode is an advanced security and network analysis platform. Current counts (v1.8d):
+MCP God Mode is an advanced security and network analysis platform. Current counts (v1.9):
 
 - **Comprehensive index + enhanced endpoints** exported in code
 - **168 total endpoints** across both servers (includes consolidated Flipper Zero tool, MCP Web UI Bridge, and SpecOps tools)
@@ -16,6 +16,7 @@ This document provides detailed information about each tool, its capabilities, a
 - **Modular Server (total endpoints)**: 168 (configurable)
 - **Server-Minimal**: 15 tools
 - **SpecOps Tools**: 10 (new in v1.8d)
+- **RF Sense Tools**: 3 (new in v1.9 - through-wall detection)
 
 ## Why Counts Are Now Identical
 Both servers now have identical tool counts. The modular server loads the same complete set as server-refactored (including the consolidated Flipper Zero tool and MCP Web UI Bridge). The modular server adds configurability - it can be set to load minimal tools, specific categories, or all tools based on user preference during installation.
@@ -330,4 +331,4 @@ Humor break: if the AI builds an enterprise integration hub and starts sending c
 ---
 
 *Last Updated: 1/10/2025*
-*Totals: 168 registered tools across servers (including 10 new SpecOps tools with full cross-platform support) - v1.8d*
+*Totals: 171 registered tools across servers (including 10 new SpecOps tools and 3 new RF Sense tools with full cross-platform support) - v1.9*

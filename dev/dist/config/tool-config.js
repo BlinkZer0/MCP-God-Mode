@@ -99,9 +99,9 @@ export const TOOL_CATEGORIES = {
         tools: ["browser_control", "web_automation", "web_scraper", "web_search", "webhook_manager"]
     },
     "wireless": {
-        name: "Wireless Security",
-        description: "WiFi and wireless network security testing",
-        tools: ["wireless_network_scanner", "wireless_security"]
+        name: "Wireless Security & RF Sensing",
+        description: "WiFi security testing and RF sensing with through-wall detection",
+        tools: ["wifi_hacking", "wifi_security_toolkit", "wireless_network_scanner", "wireless_security", "rf_sense_wifi_lab", "rf_sense_mmwave", "rf_sense_natural_language"]
     },
     "system": {
         name: "System Management",

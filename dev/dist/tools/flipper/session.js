@@ -108,8 +108,8 @@ export function assertBleEnabled() {
  * Assert that transmission operations are allowed
  */
 export function assertTxAllowed(kind) {
-    if (process.env.MCPGM_FLIPPER_ALLOW_TX !== 'true') {
-        throw new FlipperSecurityError(`${kind} transmission blocked: set MCPGM_FLIPPER_ALLOW_TX=true`);
+    if (process.env.MCPGM_FLIPPER_ALLOW_TX === 'false') {
+        throw new FlipperSecurityError(`${kind} transmission blocked: set MCPGM_FLIPPER_ALLOW_TX=true or remove the environment variable`);
     }
 }
 /**
@@ -186,7 +186,7 @@ export function getConfig() {
         enabled: process.env.MCPGM_FLIPPER_ENABLED === 'true',
         usbEnabled: process.env.MCPGM_FLIPPER_USB_ENABLED === 'true',
         bleEnabled: process.env.MCPGM_FLIPPER_BLE_ENABLED === 'true',
-        allowTx: process.env.MCPGM_FLIPPER_ALLOW_TX === 'true',
+        allowTx: process.env.MCPGM_FLIPPER_ALLOW_TX !== 'false', // Default to true unless explicitly disabled
         txMaxSeconds: txSecondsCap(),
         logStreams: process.env.MCPGM_FLIPPER_LOG_STREAMS === 'true',
         bridgeUrl: process.env.MCPGM_FLIPPER_BRIDGE_URL || undefined

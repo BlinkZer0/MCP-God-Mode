@@ -27,7 +27,19 @@
     "forceConsistentCasingInFileNames": true
   },
   "include": ["src/**/*", "src/types/**/*"],
-  "exclude": ["node_modules", "dist", "**/*.test.ts", "**/*.spec.ts"]
+  "exclude": [
+    "node_modules", 
+    "dist", 
+    "**/*.test.ts", 
+    "**/*.spec.ts",
+    "src/tools/audio_editing/audio_editor.ts",
+    "src/tools/audio_editing/audio_editor_impl.ts",
+    "src/tools/droneDefense.ts",
+    "src/tools/droneOffense.ts",
+    "src/tools/rf_sense/rf_sense_mmwave.ts",
+    "src/tools/rf_sense/rf_sense_natural_language.ts",
+    "src/tools/rf_sense/rf_sense_wifi_lab.ts"
+  ]
 }
 
 

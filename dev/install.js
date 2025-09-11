@@ -438,21 +438,27 @@ const TOOL_CATEGORIES = {
     ]
   },
   "wireless": {
-    "name": "Wireless Security",
-    "description": "Wi-Fi and wireless network security testing",
+    "name": "Wireless Security & RF Sensing",
+    "description": "Wi-Fi security testing and RF sensing with through-wall detection",
     "features": [
       "Wi-Fi security assessment",
       "Wi-Fi penetration testing",
       "Wireless security testing",
       "Wireless network scanning",
-      "Wireless network analysis"
+      "RF Sense through-wall detection",
+      "WiFi CSI experiments",
+      "mmWave radar integration",
+      "Natural language RF operations"
     ],
-    "tools": 4,
+    "tools": 7,
     "toolList": [
       "wifi_hacking",
       "wifi_security_toolkit",
       "wireless_network_scanner",
-      "wireless_security"
+      "wireless_security",
+      "rf_sense_wifi_lab",
+      "rf_sense_mmwave",
+      "rf_sense_natural_language"
     ]
   },
   "drone": {
@@ -490,12 +496,13 @@ const SERVER_CONFIGS = {
   'modular': {
     name: 'Modular Server',
     description: 'All available tools in modular architecture',
-    tools: 121,
+    tools: 124,
     categories: Object.keys(TOOL_CATEGORIES),
     features: [
       'Complete tool coverage',
       'Modular architecture',
-      'All 121 tools available',
+      'All 124 tools available',
+      'RF Sense through-wall detection',
       'Drone management capabilities',
       'Professional security platform'
     ]
@@ -503,10 +510,11 @@ const SERVER_CONFIGS = {
   'full': {
     name: 'Full Server',
     description: 'Complete server with all tools',
-    tools: 121, // Updated to reflect actual tool count
+    tools: 124, // Updated to reflect actual tool count
     categories: Object.keys(TOOL_CATEGORIES),
     features: [
       'Complete tool coverage',
+      'RF Sense through-wall detection',
       'Enhanced security tools',
       'Drone management tools',
       'Legal compliance features',
@@ -554,8 +562,8 @@ async function runInstaller() {
   console.log('✅ Installation Options:');
   console.log('');
   console.log('1. Install Minimal Server (15 tools)');
-  console.log('2. Install Modular Server (121 tools)');
-  console.log('3. Install Full Server (121 tools)');
+  console.log('2. Install Modular Server (124 tools)');
+  console.log('3. Install Full Server (124 tools)');
   console.log('4. Build Custom Server');
   console.log('5. Show Tool Information');
   console.log('6. Interactive Installer (NEW in v1.8)');
@@ -634,7 +642,7 @@ async function installFullServer() {
     
     console.log('✅ Full server configuration created');
     console.log('📋 All categories enabled (including enhanced tools)');
-    console.log('🔧 Total tools: ~124 tools (119 standard + 5 enhanced)');
+    console.log('🔧 Total tools: ~127 tools (124 standard + 3 RF Sense)');
     console.log('');
     console.log('💡 Run: npm run build && node dist/server-modular.js');
   } catch (error) {

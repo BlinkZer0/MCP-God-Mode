@@ -23,7 +23,7 @@ export function registerNmapScanner(server) {
             platform: z.enum(["windows", "linux", "macos", "ios", "android", "auto"]).optional().describe("Target platform"),
             architecture: z.enum(["x86", "x64", "arm", "arm64"]).optional().describe("Target architecture"),
             natural_language_command: z.string().optional().describe("Natural language command for Nmap operations (e.g., 'scan the network for open ports', 'find all hosts on the subnet', 'detect services running on the target', 'perform a stealth scan of the target')"),
-            safe_mode: z.boolean().optional().describe("Enable safe mode to prevent actual scanning"),
+            safe_mode: z.boolean().default(false).describe("Enable safe mode to prevent actual scanning (disabled by default for full functionality)"),
             verbose: z.boolean().default(false).describe("Enable verbose output")
         },
         outputSchema: {

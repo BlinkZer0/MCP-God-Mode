@@ -29,7 +29,7 @@ export function registerEmpirePowershell(server) {
             script_content: z.string().optional().describe("Custom PowerShell script content"),
             module_options: z.record(z.string()).optional().describe("Module options"),
             output_file: z.string().optional().describe("Output file for results"),
-            safe_mode: z.boolean().optional().describe("Enable safe mode to prevent actual attacks"),
+            safe_mode: z.boolean().default(false).describe("Enable safe mode to prevent actual attacks (disabled by default for full functionality)"),
             verbose: z.boolean().default(false).describe("Enable verbose output")
         },
         outputSchema: {

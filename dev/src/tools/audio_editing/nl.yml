@@ -1,0 +1,274 @@
+intents:
+  - name: audio_editor_status
+    utterances:
+      - "Show audio editor status"
+      - "What's the status of the audio editor?"
+      - "List active audio sessions"
+      - "How many audio sessions are open?"
+    mapping:
+      - audio_editor.status
+
+  - name: audio_editor_open
+    utterances:
+      - "Open audio file {source}"
+      - "Load audio {source} into the editor"
+      - "Import audio from {source}"
+      - "Open {source} for editing"
+      - "Load track {source}"
+    mapping:
+      - audio_editor.open
+
+  - name: audio_editor_record
+    utterances:
+      - "Record audio for {duration} seconds"
+      - "Start recording for {duration} seconds using {device}"
+      - "Record {duration} seconds of audio"
+      - "Begin recording with {device} for {duration} seconds"
+      - "Record audio for {duration} seconds at {sampleRate} Hz"
+      - "Start audio recording for {duration} seconds, {channels} channels"
+    mapping:
+      - audio_editor.record
+
+  - name: audio_editor_edit_trim
+    utterances:
+      - "Trim audio from {start} to {end}"
+      - "Cut audio from {start} seconds to {end} seconds"
+      - "Remove everything before {start} and after {end}"
+      - "Keep only the part from {start} to {end}"
+    mapping:
+      - audio_editor.edit
+
+  - name: audio_editor_edit_gain
+    utterances:
+      - "Adjust volume by {gainDb} dB"
+      - "Change gain to {gainDb} dB"
+      - "Set volume to {gainDb} dB"
+      - "Increase volume by {gainDb} dB"
+      - "Decrease volume by {gainDb} dB"
+    mapping:
+      - audio_editor.edit
+
+  - name: audio_editor_edit_fade
+    utterances:
+      - "Add fade in for {fadeInMs} milliseconds"
+      - "Add fade out for {fadeOutMs} milliseconds"
+      - "Fade in over {fadeInMs} ms and fade out over {fadeOutMs} ms"
+      - "Apply fade effects"
+    mapping:
+      - audio_editor.edit
+
+  - name: audio_editor_edit_normalize
+    utterances:
+      - "Normalize audio levels"
+      - "Normalize the audio"
+      - "Apply loudness normalization"
+      - "Normalize to -14 LUFS"
+    mapping:
+      - audio_editor.edit
+
+  - name: audio_editor_edit_reverse
+    utterances:
+      - "Reverse the audio"
+      - "Play audio backwards"
+      - "Flip the audio"
+    mapping:
+      - audio_editor.edit
+
+  - name: audio_editor_edit_time_stretch
+    utterances:
+      - "Change tempo to {rate} times"
+      - "Speed up audio by {rate} times"
+      - "Slow down audio by {rate} times"
+      - "Time stretch to {rate}"
+    mapping:
+      - audio_editor.edit
+
+  - name: audio_editor_edit_pitch_shift
+    utterances:
+      - "Shift pitch by {semitones} semitones"
+      - "Change pitch by {semitones} semitones"
+      - "Transpose by {semitones} semitones"
+      - "Pitch shift {semitones} semitones"
+    mapping:
+      - audio_editor.edit
+
+  - name: audio_editor_export
+    utterances:
+      - "Export audio as {format}"
+      - "Save audio as {format} file"
+      - "Export to {format} format"
+      - "Render audio as {format}"
+      - "Export audio to {outputPath}"
+      - "Save audio to {outputPath}"
+    mapping:
+      - audio_editor.export
+
+  - name: audio_editor_delete
+    utterances:
+      - "Delete audio session {sessionId}"
+      - "Remove session {sessionId}"
+      - "Close session {sessionId}"
+      - "Delete the audio session"
+    mapping:
+      - audio_editor.delete
+
+  - name: audio_editor_list
+    utterances:
+      - "List all audio sessions"
+      - "Show all open sessions"
+      - "What audio sessions are available?"
+      - "Display audio sessions"
+    mapping:
+      - audio_editor.list
+
+  - name: audio_editor_analyze
+    utterances:
+      - "Analyze audio session {sessionId}"
+      - "Get audio analysis for {sessionId}"
+      - "Show audio statistics for {sessionId}"
+      - "Analyze the audio file"
+    mapping:
+      - audio_editor.analyze
+
+  - name: audio_editor_batch
+    utterances:
+      - "Batch process {inputFiles}"
+      - "Process multiple audio files: {inputFiles}"
+      - "Convert {inputFiles} to {format}"
+      - "Batch convert {inputFiles}"
+    mapping:
+      - audio_editor.batch_process
+
+  - name: audio_editor_viewer
+    utterances:
+      - "Open audio viewer for {sessionId}"
+      - "Show audio in viewer"
+      - "Open visual editor for {sessionId}"
+      - "Launch audio editor UI"
+    mapping:
+      - audio_editor.open_viewer
+
+  - name: audio_editor_workflow
+    utterances:
+      - "Open {source}, trim from {start} to {end}, normalize, and export as {format}"
+      - "Load {source}, adjust volume by {gainDb} dB, and save as {format}"
+      - "Record {duration} seconds, normalize, and export as {format}"
+      - "Import {source}, add fade effects, and export to {outputPath}"
+    mapping:
+      - audio_editor.open
+      - audio_editor.edit
+      - audio_editor.export
+
+  - name: audio_editor_advanced
+    utterances:
+      - "Open {source} and apply advanced processing"
+      - "Load {source} with custom settings"
+      - "Record high-quality audio for {duration} seconds"
+      - "Batch process with custom parameters"
+    mapping:
+      - audio_editor.open
+      - audio_editor.record
+      - audio_editor.batch_process
+
+# Natural language patterns for complex operations
+patterns:
+  - name: audio_workflow_complete
+    pattern: "open {source} then {operations} then export as {format}"
+    operations:
+      - "trim from {start} to {end}"
+      - "normalize"
+      - "adjust volume by {gainDb} dB"
+      - "add fade in {fadeInMs} ms and fade out {fadeOutMs} ms"
+      - "reverse"
+      - "change tempo to {rate}"
+      - "shift pitch by {semitones} semitones"
+    mapping:
+      - audio_editor.open
+      - audio_editor.edit
+      - audio_editor.export
+
+  - name: audio_recording_workflow
+    pattern: "record {duration} seconds with {device} then {operations} then export as {format}"
+    operations:
+      - "normalize"
+      - "trim from {start} to {end}"
+      - "adjust volume by {gainDb} dB"
+    mapping:
+      - audio_editor.record
+      - audio_editor.edit
+      - audio_editor.export
+
+  - name: audio_batch_workflow
+    pattern: "batch process {inputFiles} with {operation} then export as {format}"
+    operations:
+      - "normalize"
+      - "convert format"
+      - "adjust volume by {gainDb} dB"
+      - "trim from {start} to {end}"
+    mapping:
+      - audio_editor.batch_process
+      - audio_editor.export
+
+# Context-aware suggestions
+suggestions:
+  - when: "after opening audio file"
+    suggest:
+      - "trim from {start} to {end}"
+      - "normalize audio levels"
+      - "adjust volume by {gainDb} dB"
+      - "add fade effects"
+      - "export as {format}"
+
+  - when: "after recording audio"
+    suggest:
+      - "normalize the recording"
+      - "trim the beginning and end"
+      - "adjust volume"
+      - "export as {format}"
+
+  - when: "after editing audio"
+    suggest:
+      - "export as {format}"
+      - "analyze the audio"
+      - "open in viewer"
+      - "apply more edits"
+
+# Error handling and user guidance
+error_handling:
+  - error: "session not found"
+    suggestion: "Use 'list sessions' to see available sessions"
+    
+  - error: "invalid audio format"
+    suggestion: "Supported formats: wav, mp3, flac, ogg, m4a, aac"
+    
+  - error: "recording device not found"
+    suggestion: "Check available audio devices or use 'default' device"
+    
+  - error: "export failed"
+    suggestion: "Check file permissions and available disk space"
+
+# Help and documentation
+help:
+  - topic: "audio_editor"
+    description: "Cross-platform audio editing with recording capabilities"
+    examples:
+      - "Open audio file: 'Open audio.mp3'"
+      - "Record audio: 'Record 30 seconds of audio'"
+      - "Edit audio: 'Trim from 10 to 20 seconds, normalize, and export as wav'"
+      - "Batch process: 'Batch process file1.mp3, file2.wav with normalize'"
+    
+  - topic: "recording"
+    description: "Audio recording with device selection and quality options"
+    examples:
+      - "Record with default device: 'Record 60 seconds'"
+      - "Record with specific device: 'Record 30 seconds using microphone'"
+      - "High quality recording: 'Record 120 seconds at 48kHz, 24-bit'"
+    
+  - topic: "editing"
+    description: "Non-destructive audio editing operations"
+    examples:
+      - "Trim: 'Trim from 5 to 15 seconds'"
+      - "Volume: 'Adjust volume by 3 dB'"
+      - "Effects: 'Add fade in 500ms and fade out 1000ms'"
+      - "Time: 'Change tempo to 1.2 times'"
+      - "Pitch: 'Shift pitch by 2 semitones'"

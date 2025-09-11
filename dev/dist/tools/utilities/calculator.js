@@ -12,7 +12,7 @@ export function registerCalculator(server) {
             success: z.boolean(),
             result: z.number(),
             operation: z.string(),
-            message: z.string()
+            message: z.string().describe("Calculation result message")
         }
     }, async ({ operation, a, b, precision }) => {
         try {

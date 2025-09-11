@@ -26,7 +26,7 @@ logServerStart(PLATFORM);
 // ===========================================
 // CORE TOOLS
 // ===========================================
-const server = new McpServer({ name: "MCP God Mode - Minimal", version: "1.7.0" });
+const server = new McpServer({ name: "MCP God Mode - Minimal", version: "1.9.0" });
 server.registerTool("health", {
     description: "Liveness/readiness probe",
     outputSchema: { ok: z.boolean(), roots: z.array(z.string()), cwd: z.string() }
@@ -294,7 +294,7 @@ server.registerTool("dice_rolling", {
         rolls: z.array(z.array(z.number())),
         total: z.number(),
         modifier: z.number(),
-        breakdown: z.string()
+        breakdown: z.string().describe("Detailed breakdown of the calculation")
     }
 }, async ({ dice, count = 1, modifier = 0 }) => {
     try {

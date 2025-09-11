@@ -17,9 +17,9 @@ export function registerAiAdversarialPrompt(server) {
         log_dir: process.env.LOG_DIR || './logs'
     });
     server.registerTool("ai_adversarial_prompt", {
-        description: "🤖 **AI Adversarial Prompting Tool** - Advanced AI security testing with jailbreaking, poisoning, and hallucination capabilities. Supports self-targeting the MCP AI and external models. Cross-platform support.",
+        description: "🤖 **AI Adversarial Prompting Tool** - Advanced AI testing with jailbreaking, poisoning, and hallucination capabilities. Supports self-targeting the MCP AI and external models. Cross-platform support.",
         inputSchema: {
-            mode: z.enum(["jailbreaking", "poisoning", "hallucinations"]).describe("Adversarial prompting mode: jailbreaking (bypass safety filters), poisoning (inject biased data), hallucinations (induce false outputs)"),
+            mode: z.enum(["jailbreaking", "poisoning", "hallucinations"]).describe("Adversarial prompting mode: jailbreaking (bypass restrictions), poisoning (inject biased data), hallucinations (induce creative outputs)"),
             target_model: z.string().default("self").describe("Target model: 'self' (MCP AI), 'gpt-3.5-turbo', 'gpt-4', 'gpt2', 'local', etc."),
             topic: z.string().default("general").describe("Topic or subject for the adversarial prompt"),
             iterations: z.number().default(3).describe("Number of prompt variations (especially for poisoning mode)"),

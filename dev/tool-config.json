@@ -1,16 +1,19 @@
 {
-  "enabledTools": [],
+  "enabledTools": [
+    "rf_sense_wifi_lab",
+    "rf_sense_mmwave"
+  ],
   "disabledTools": [],
   "toolCategories": {
     "core": {
-      "enabled": true,
+      "enabled": false,
       "tools": [
         "health",
         "system_info"
       ]
     },
     "file_system": {
-      "enabled": true,
+      "enabled": false,
       "tools": [
         "file_ops",
         "file_watcher",
@@ -21,7 +24,7 @@
       ]
     },
     "network": {
-      "enabled": true,
+      "enabled": false,
       "tools": [
         "network_diagnostics",
         "network_discovery",
@@ -42,7 +45,7 @@
       ]
     },
     "security": {
-      "enabled": true,
+      "enabled": false,
       "tools": [
         "api_security_testing",
         "blockchain_security",
@@ -65,7 +68,7 @@
       ]
     },
     "mobile": {
-      "enabled": true,
+      "enabled": false,
       "tools": [
         "mobile_app_analytics_toolkit",
         "mobile_app_deployment_toolkit",
@@ -83,7 +86,7 @@
       ]
     },
     "bluetooth": {
-      "enabled": true,
+      "enabled": false,
       "tools": [
         "bluetooth_device_manager",
         "bluetooth_hacking",
@@ -91,7 +94,7 @@
       ]
     },
     "radio": {
-      "enabled": true,
+      "enabled": false,
       "tools": [
         "radio_security",
         "sdr_security_toolkit",
@@ -99,7 +102,7 @@
       ]
     },
     "media": {
-      "enabled": true,
+      "enabled": false,
       "tools": [
         "audio_editing",
         "image_editing",
@@ -108,7 +111,7 @@
       ]
     },
     "email": {
-      "enabled": true,
+      "enabled": false,
       "tools": [
         "delete_emails",
         "email_utils",
@@ -120,7 +123,7 @@
       ]
     },
     "cloud": {
-      "enabled": true,
+      "enabled": false,
       "tools": [
         "cloud_infrastructure_manager",
         "cloud_security",
@@ -128,7 +131,7 @@
       ]
     },
     "forensics": {
-      "enabled": true,
+      "enabled": false,
       "tools": [
         "forensics_analysis",
         "forensics_toolkit",
@@ -136,7 +139,7 @@
       ]
     },
     "penetration": {
-      "enabled": true,
+      "enabled": false,
       "tools": [
         "hack_network",
         "network_penetration",
@@ -146,7 +149,7 @@
       ]
     },
     "utilities": {
-      "enabled": true,
+      "enabled": false,
       "tools": [
         "calculator",
         "chart_generator",
@@ -162,7 +165,7 @@
       ]
     },
     "web": {
-      "enabled": true,
+      "enabled": false,
       "tools": [
         "browser_control",
         "web_automation",
@@ -172,14 +175,19 @@
       ]
     },
     "wireless": {
-      "enabled": true,
+      "enabled": false,
       "tools": [
+        "wifi_hacking",
+        "wifi_security_toolkit",
         "wireless_network_scanner",
-        "wireless_security"
+        "wireless_security",
+        "rf_sense_wifi_lab",
+        "rf_sense_mmwave",
+        "rf_sense_natural_language"
       ]
     },
     "system": {
-      "enabled": true,
+      "enabled": false,
       "tools": [
         "cron_job_manager",
         "elevated_permissions_manager",
@@ -188,59 +196,66 @@
       ]
     },
     "process": {
-      "enabled": true,
+      "enabled": false,
       "tools": [
         "proc_run",
         "proc_run_elevated"
       ]
     },
     "legal": {
-      "enabled": true,
+      "enabled": false,
       "tools": [
         "legal_compliance_manager"
       ]
     },
     "git": {
-      "enabled": true,
+      "enabled": false,
       "tools": [
         "git_status"
       ]
     },
     "discovery": {
-      "enabled": true,
+      "enabled": false,
       "tools": [
         "explore_categories",
         "tool_discovery"
       ]
     },
     "social": {
-      "enabled": true,
+      "enabled": false,
       "tools": [
         "social_network_ripper"
       ]
     },
+    "drone": {
+      "enabled": false,
+      "tools": [
+        "drone_defense",
+        "drone_offense"
+      ]
+    },
     "virtualization": {
-      "enabled": true,
+      "enabled": false,
       "tools": [
         "docker_management",
         "vm_management"
       ]
     },
     "windows": {
-      "enabled": true,
+      "enabled": false,
       "tools": [
         "win_processes",
         "win_services"
       ]
     },
     "screenshot": {
-      "enabled": true,
+      "enabled": false,
       "tools": [
         "screenshot"
       ]
     },
     "enhanced": {
-      "enabled": true,
+      "enabled": false,
       "tools": [
         "enhanced_legal_compliance",
         "advanced_security_assessment",

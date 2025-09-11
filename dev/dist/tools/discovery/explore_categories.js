@@ -17,7 +17,7 @@ export function registerExploreCategories(server) {
                 }))
             })),
             total_categories: z.number(),
-            total_tools: z.number()
+            total_tools: z.number().describe("Total number of tools in the category")
         }
     }, async ({ category }) => {
         const allCategories = [

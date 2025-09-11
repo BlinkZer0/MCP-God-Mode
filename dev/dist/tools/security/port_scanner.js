@@ -39,7 +39,7 @@ export function registerPortScanner(server) {
                 response_time: z.number().optional()
             })),
             scan_duration: z.number(),
-            summary: z.string()
+            summary: z.string().describe("Summary of port scanning results")
         }
     }, async ({ target, port_range, scan_type, timeout, verbose, service_detection, banner_grabbing }) => {
         const startTime = Date.now();

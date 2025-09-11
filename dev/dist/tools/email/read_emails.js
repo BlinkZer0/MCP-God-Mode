@@ -18,7 +18,7 @@ export function registerReadEmails(server) {
                 from: z.string(),
                 subject: z.string(),
                 date: z.string(),
-                unread: z.boolean()
+                unread: z.boolean().describe("Whether the email is unread")
             })).optional()
         }
     }, async ({ imap_server, username, folder, limit, unread_only }) => {

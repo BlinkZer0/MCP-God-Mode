@@ -21,6 +21,10 @@ import { registerDroneNaturalLanguageInterface } from "./tools/droneNaturalLangu
 import { registerDroneMobileOptimized } from "./tools/droneMobileOptimized.js";
 // Import cellular triangulation API
 import { setupCellularTriangulateAPI } from "./tools/wireless/cellular_triangulate_api.js";
+// Import RF Sense viewer API
+import { setupRfSenseViewerAPI } from "./tools/rf_sense/rf_sense_viewer_api.js";
+// Import RF Sense tools
+import { registerRfSenseSim, registerRfSenseWifiLab, registerRfSenseMmWave, registerRfSenseNaturalLanguage, registerRfSenseGuardrails } from "./tools/rf_sense/index.js";
 // Import Flipper Zero tools separately to avoid duplicates
 // Flipper Zero tools are imported via the comprehensive index
 // Legal compliance tools are imported via the comprehensive index
@@ -82,7 +86,7 @@ async function initializeLegalCompliance() {
 // ADVANCED SECURITY & NETWORK ANALYSIS PLATFORM
 // Comprehensive Tool Registration and Management
 // ===========================================
-const server = new McpServer({ name: "MCP God Mode - Advanced Security & Network Analysis Platform", version: "1.7.0" });
+const server = new McpServer({ name: "MCP God Mode - Advanced Security & Network Analysis Platform", version: "1.9.0" });
 // Initialize ToolRegistry for unified tool management
 const toolRegistry = ToolRegistry.getInstance();
 // Capture tool registrations dynamically with ToolRegistry integration
@@ -173,7 +177,7 @@ else {
 // REGISTER ALL TOOLS FROM COMPREHENSIVE INDEX
 // ===========================================
 // Get all tool registration functions from the comprehensive index
-const toolFunctions = Object.values(allTools);
+const toolFunctions = Object.values(allTools).filter(fn => typeof fn === 'function' && fn.name.startsWith('register'));
 // Tool registration will be done in main() function
 // ===========================================
 // ENHANCED CROSS-PLATFORM DRONE TOOLS
@@ -206,6 +210,49 @@ try {
 }
 catch (error) {
     console.warn("Warning: Failed to register Mobile-Optimized Drone Tools:", error);
+}
+// ===========================================
+// RF SENSE TOOLS - COMPREHENSIVE RF SENSING TOOLKIT
+// ===========================================
+// Register RF Sense Simulation Module
+try {
+    registerRfSenseSim(server);
+    console.log("✅ RF Sense Simulation Module registered");
+}
+catch (error) {
+    console.warn("Warning: Failed to register RF Sense Simulation Module:", error);
+}
+// Register RF Sense WiFi Lab Module
+try {
+    registerRfSenseWifiLab(server);
+    console.log("✅ RF Sense WiFi Lab Module registered");
+}
+catch (error) {
+    console.warn("Warning: Failed to register RF Sense WiFi Lab Module:", error);
+}
+// Register RF Sense mmWave Module
+try {
+    registerRfSenseMmWave(server);
+    console.log("✅ RF Sense mmWave Module registered");
+}
+catch (error) {
+    console.warn("Warning: Failed to register RF Sense mmWave Module:", error);
+}
+// Register RF Sense Natural Language Interface
+try {
+    registerRfSenseNaturalLanguage(server);
+    console.log("✅ RF Sense Natural Language Interface registered");
+}
+catch (error) {
+    console.warn("Warning: Failed to register RF Sense Natural Language Interface:", error);
+}
+// Register RF Sense Guardrails and Cross-Platform Support
+try {
+    registerRfSenseGuardrails(server);
+    console.log("✅ RF Sense Guardrails and Cross-Platform Support registered");
+}
+catch (error) {
+    console.warn("Warning: Failed to register RF Sense Guardrails:", error);
 }
 // ===========================================
 // ADDITIONAL ENHANCED TOOLS FOR SERVER-REFACTORED
@@ -635,16 +682,23 @@ async function initializeExpressServer() {
         app.use(express.static(path.join(process.cwd(), 'public')));
         // Setup cellular triangulation API endpoints
         setupCellularTriangulateAPI(app);
+        // Setup RF Sense point cloud viewer API endpoints
+        setupRfSenseViewerAPI(app);
         // Root endpoint
         app.get('/', (req, res) => {
             res.json({
-                service: 'MCP God Mode - Cellular Triangulation Web Interface',
+                service: 'MCP God Mode - Web Interface',
                 version: '1.0.0',
                 endpoints: [
                     'GET /collect - Location collection webpage',
                     'POST /api/cellular/collect - Receive location data',
                     'GET /api/cellular/status/:token - Check request status',
-                    'GET /api/cellular/health - Health check'
+                    'GET /api/cellular/health - Health check',
+                    'GET /viewer/pointcloud - RF Sense point cloud viewer',
+                    'GET /api/rf_sense/points - Get latest point cloud data',
+                    'GET /api/rf_sense/sessions - List available sessions',
+                    'POST /api/rf_sense/points - Store point cloud data',
+                    'GET /api/rf_sense/export/:id - Export session data'
                 ]
             });
         });
@@ -653,6 +707,8 @@ async function initializeExpressServer() {
             console.log(`🌐 Express server running on http://localhost:${port}`);
             console.log(`📡 Cellular triangulation web interface: http://localhost:${port}/collect`);
             console.log(`🔗 API endpoints: http://localhost:${port}/api/cellular/*`);
+            console.log(`🎯 RF Sense point cloud viewer: http://localhost:${port}/viewer/pointcloud`);
+            console.log(`📊 RF Sense API endpoints: http://localhost:${port}/api/rf_sense/*`);
         });
         // Handle server errors
         expressServer.on('error', (error) => {
@@ -678,19 +734,17 @@ async function main() {
     // Register all tools from comprehensive index
     console.log("🔧 Registering tools from comprehensive index...");
     for (const toolFunction of toolFunctions) {
-        if (typeof toolFunction === 'function' && toolFunction.name.startsWith('register')) {
-            try {
-                // Handle async tool registration functions
-                if (toolFunction.name === 'registerFlipperTools') {
-                    await toolFunction(server);
-                }
-                else {
-                    toolFunction(server);
-                }
+        try {
+            // Handle async tool registration functions
+            if (toolFunction.name === 'registerFlipperTools') {
+                await toolFunction(server, {});
             }
-            catch (error) {
-                console.warn(`Warning: Failed to register tool ${toolFunction.name}:`, error);
+            else {
+                toolFunction(server);
             }
+        }
+        catch (error) {
+            console.warn(`Warning: Failed to register tool ${toolFunction.name}:`, error);
         }
     }
     console.log(`✅ Successfully registered ${toolFunctions.length} tool functions`);

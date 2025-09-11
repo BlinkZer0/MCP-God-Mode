@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MCP Audio Editor</title>
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#1a1a1a">
+    <meta name="description" content="Cross-platform audio editor with recording capabilities">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #1a1a1a;
+            color: #ffffff;
+            overflow: hidden;
+        }
+        
+        #app {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .header {
+            background: #2a2a2a;
+            padding: 1rem;
+            border-bottom: 1px solid #333;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #4a9eff;
+        }
+        
+        .controls {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+        }
+        
+        .btn {
+            background: #4a9eff;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: background 0.2s;
+        }
+        
+        .btn:hover {
+            background: #3a8eef;
+        }
+        
+        .btn:disabled {
+            background: #666;
+            cursor: not-allowed;
+        }
+        
+        .btn-secondary {
+            background: #555;
+        }
+        
+        .btn-secondary:hover {
+            background: #666;
+        }
+        
+        .main-content {
+            flex: 1;
+            display: flex;
+            overflow: hidden;
+        }
+        
+        .sidebar {
+            width: 300px;
+            background: #2a2a2a;
+            border-right: 1px solid #333;
+            padding: 1rem;
+            overflow-y: auto;
+        }
+        
+        .editor-area {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        
+        .waveform-container {
+            flex: 1;
+            background: #1a1a1a;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .transport {
+            background: #2a2a2a;
+            padding: 1rem;
+            border-top: 1px solid #333;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .time-display {
+            font-family: monospace;
+            font-size: 1.1rem;
+            color: #4a9eff;
+        }
+        
+        .file-input {
+            display: none;
+        }
+        
+        .file-label {
+            background: #555;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: background 0.2s;
+        }
+        
+        .file-label:hover {
+            background: #666;
+        }
+        
+        .session-info {
+            background: #333;
+            padding: 1rem;
+            border-radius: 4px;
+            margin-bottom: 1rem;
+        }
+        
+        .session-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        
+        .session-details {
+            font-size: 0.9rem;
+            color: #ccc;
+        }
+        
+        .edits-list {
+            background: #333;
+            padding: 1rem;
+            border-radius: 4px;
+            margin-bottom: 1rem;
+        }
+        
+        .edits-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        
+        .edit-item {
+            background: #444;
+            padding: 0.5rem;
+            border-radius: 4px;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+        
+        .recording-controls {
+            background: #333;
+            padding: 1rem;
+            border-radius: 4px;
+            margin-bottom: 1rem;
+        }
+        
+        .recording-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        
+        .recording-input {
+            width: 100%;
+            padding: 0.5rem;
+            background: #444;
+            border: 1px solid #555;
+            border-radius: 4px;
+            color: white;
+            margin-bottom: 0.5rem;
+        }
+        
+        .recording-input:focus {
+            outline: none;
+            border-color: #4a9eff;
+        }
+        
+        .recording-status {
+            display: none;
+            color: #ff4444;
+            font-weight: bold;
+            margin-top: 0.5rem;
+        }
+        
+        .recording-status.active {
+            display: block;
+        }
+        
+        .export-controls {
+            background: #333;
+            padding: 1rem;
+            border-radius: 4px;
+        }
+        
+        .export-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        
+        .export-select {
+            width: 100%;
+            padding: 0.5rem;
+            background: #444;
+            border: 1px solid #555;
+            border-radius: 4px;
+            color: white;
+            margin-bottom: 0.5rem;
+        }
+        
+        .export-select:focus {
+            outline: none;
+            border-color: #4a9eff;
+        }
+        
+        .loading {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 2rem;
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+        .loading.active {
+            display: block;
+        }
+        
+        .spinner {
+            border: 3px solid #333;
+            border-top: 3px solid #4a9eff;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .error {
+            background: #ff4444;
+            color: white;
+            padding: 1rem;
+            border-radius: 4px;
+            margin: 1rem;
+            display: none;
+        }
+        
+        .error.active {
+            display: block;
+        }
+        
+        .success {
+            background: #44ff44;
+            color: black;
+            padding: 1rem;
+            border-radius: 4px;
+            margin: 1rem;
+            display: none;
+        }
+        
+        .success.active {
+            display: block;
+        }
+        
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 250px;
+            }
+            
+            .header {
+                padding: 0.5rem;
+            }
+            
+            .controls {
+                flex-wrap: wrap;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div class="header">
+            <div class="logo">🎵 MCP Audio Editor</div>
+            <div class="controls">
+                <label for="file-input" class="file-label">📁 Open File</label>
+                <input type="file" id="file-input" class="file-input" accept="audio/*">
+                <button id="record-btn" class="btn">🎤 Record</button>
+                <button id="export-btn" class="btn" disabled>💾 Export</button>
+                <button id="clear-btn" class="btn btn-secondary">🗑️ Clear</button>
+            </div>
+        </div>
+        
+        <div class="main-content">
+            <div class="sidebar">
+                <div class="session-info">
+                    <div class="session-title">Session Info</div>
+                    <div class="session-details" id="session-details">
+                        No session loaded
+                    </div>
+                </div>
+                
+                <div class="edits-list">
+                    <div class="edits-title">Edits</div>
+                    <div id="edits-list">
+                        No edits applied
+                    </div>
+                </div>
+                
+                <div class="recording-controls">
+                    <div class="recording-title">Recording</div>
+                    <input type="number" id="duration-input" class="recording-input" placeholder="Duration (seconds)" value="30" min="1" max="3600">
+                    <select id="device-select" class="recording-input">
+                        <option value="default">Default Device</option>
+                    </select>
+                    <select id="format-select" class="recording-input">
+                        <option value="wav">WAV</option>
+                        <option value="mp3">MP3</option>
+                        <option value="flac">FLAC</option>
+                    </select>
+                    <div class="recording-status" id="recording-status">
+                        🔴 Recording...
+                    </div>
+                </div>
+                
+                <div class="export-controls">
+                    <div class="export-title">Export</div>
+                    <select id="export-format" class="export-select">
+                        <option value="wav">WAV</option>
+                        <option value="mp3">MP3</option>
+                        <option value="flac">FLAC</option>
+                        <option value="ogg">OGG</option>
+                    </select>
+                    <input type="number" id="bitrate-input" class="recording-input" placeholder="Bitrate (kbps)" value="192" min="64" max="320">
+                </div>
+            </div>
+            
+            <div class="editor-area">
+                <div class="waveform-container" id="waveform-container">
+                    <div class="loading" id="loading">
+                        <div class="spinner"></div>
+                        <div>Processing audio...</div>
+                    </div>
+                </div>
+                
+                <div class="transport">
+                    <button id="play-btn" class="btn" disabled>▶️ Play</button>
+                    <button id="pause-btn" class="btn" disabled>⏸️ Pause</button>
+                    <button id="stop-btn" class="btn" disabled>⏹️ Stop</button>
+                    <div class="time-display" id="time-display">00:00 / 00:00</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="error" id="error-message"></div>
+        <div class="success" id="success-message"></div>
+    </div>
+    
+    <script src="app.js"></script>
+</body>
+</html>
