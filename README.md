@@ -20,7 +20,7 @@ One MCP to rule them all, one MCP to find them, one MCP to compile the tools, an
 [![CI](https://img.shields.io/badge/CI-Smoke%20Tests-yellow)](scripts/smoke-test.js)
 [![Tools](https://img.shields.io/badge/Tools-168%20Total-orange)](docs/general/TOOL_CATALOG.md)
 
-**Version 1.8d - SpecOps Tools & Enhanced Security Operations** — Last edited 2025-01-10
+**Version 1.8d - SpecOps Tools & Enhanced Security Operations** — Last edited 2025-09-10
 
 ## Table of Contents
 - [What is MCP God Mode?](#-what-is-mcp-god-mode)
