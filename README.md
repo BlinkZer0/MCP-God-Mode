@@ -67,9 +67,9 @@ cp .env.example .env   # edit if needed
 npm install
 
 # 3) Launch (choose one)
-npm run start:refactored   # full refactored server (168 tools)
+npm run start:refactored   # full refactored server (171 tools)
 # or
-npm run start:modular      # modular loader (168 tools, grouped)
+npm run start:modular      # modular loader (171 tools, grouped)
 # or minimal
 npm run start:minimal      # minimal profile (15 core tools)
 ```
@@ -99,7 +99,7 @@ node interactive-installer.js
 **Features:**
 - 🎯 **Quick Install Options** - Pre-configured setups (Minimal, Security Focused, Drone Operations, etc.)
 - 🛠️ **Custom Category Selection** - Choose from 25 tool categories
-- 🔍 **Individual Tool Selection** - Pick specific tools from 168 available options
+- 🔍 **Individual Tool Selection** - Pick specific tools from 171 available options
 - 📋 **Browse All Tools** - Explore all available tools and their capabilities
 - 🔧 **Guided Installation** - Step-by-step installation process
 
@@ -154,28 +154,28 @@ This will show:
 <details open>
   <summary><b>TL;DR</b> — What is MCP God Mode?</summary>
 
-MCP God Mode is the ultimate cybersecurity and system management platform that provides **168 fully implemented tools** across **5 major platforms**. It's designed for security professionals, system administrators, penetration testers, and anyone who needs comprehensive system control and security testing capabilities.
+MCP God Mode is the ultimate cybersecurity and system management platform that provides **171 fully implemented tools** across **5 major platforms**. It's designed for security professionals, system administrators, penetration testers, and anyone who needs comprehensive system control and security testing capabilities.
 
 </details>
 
 <details>
   <summary><b>Deep Dive</b> — Architecture & Safety</summary> 
 
-**📝 Note**: We offer both monolithic and modular server architectures. Our **primary server-refactored** provides comprehensive functionality in a unified interface with **168 tools**. The modular server provides **168 tools** (configurable) for granular control, better error handling, and for the ease of an individual to extract a tool for their own server build. Tools are located in dev/src/tools. Each architecture serves different use cases and preferences.
+**📝 Note**: We offer both monolithic and modular server architectures. Our **primary server-refactored** provides comprehensive functionality in a unified interface with **171 tools**. The modular server provides **171 tools** (configurable) for granular control, better error handling, and for the ease of an individual to extract a tool for their own server build. Tools are located in dev/src/tools. Each architecture serves different use cases and preferences.
 
 **🔍 Server Architecture Differences**:
-- **Server-Refactored (168 tools)**: Unified server with all core endpoints plus enhanced endpoints (Flipper Zero suite + MCP Web UI Bridge + SpecOps tools). Includes built-in legal compliance, audit logging, and forensic readiness capabilities.
-- **Modular Server (168 tools, configurable)**: Comprehensive architecture with 168 tools for granular control, better error handling, and specialized functionality. **Configurable** - can be set to load minimal (10 tools), custom categories, or full (168 tools). Full legal compliance integration with modular evidence preservation.
+- **Server-Refactored (171 tools)**: Unified server with all core endpoints plus enhanced endpoints (Flipper Zero suite + MCP Web UI Bridge + SpecOps tools). Includes built-in legal compliance, audit logging, and forensic readiness capabilities.
+- **Modular Server (171 tools, configurable)**: Comprehensive architecture with 171 tools for granular control, better error handling, and specialized functionality. **Configurable** - can be set to load minimal (10 tools), custom categories, or full (171 tools). Full legal compliance integration with modular evidence preservation.
 - **Server-Minimal (15 tools)**: Lightweight implementation with core tools only for basic functionality and resource-constrained environments.
 
 **🔢 Tool Count Explanation**: 
 - **Comprehensive toolset implemented** in the tools directory
 - **141 register functions are exported** in the comprehensive index.ts file (including Flipper Zero tools)
-- **168 tools are registered** in server-refactored (index exports + Flipper suite + MCP Web UI Bridge + SpecOps tools)
-- **168 tools are registered** in server-modular (identical set, configurable)
+- **171 tools are registered** in server-refactored (index exports + Flipper suite + MCP Web UI Bridge + SpecOps tools)
+- **171 tools are registered** in server-modular (identical set, configurable)
 - **15 tools are registered** in server-minimal (core tools only)
 
-**📊 Documentation Status**: All 168 tools (both servers) now have comprehensive documentation with detailed usage examples, parameter references, and platform compatibility information. See [Complete Tool Catalog](docs/general/TOOL_CATALOG.md) for detailed information about each tool.
+**📊 Documentation Status**: All 171 tools (both servers) now have comprehensive documentation with detailed usage examples, parameter references, and platform compatibility information. See [Complete Tool Catalog](docs/general/TOOL_CATALOG.md) for detailed information about each tool.
 
 **⚖️ Legal Compliance & Forensic Readiness**: Both server architectures include comprehensive legal compliance capabilities including audit logging, evidence preservation, legal hold management, and chain of custody tracking. These features are disabled by default and can be enabled through environment variables for SOX, HIPAA, GDPR, PCI DSS, and ISO 27001 compliance. See [Legal Compliance Documentation](docs/LEGAL_COMPLIANCE.md) for detailed configuration and usage instructions.
 
@@ -305,7 +305,7 @@ Tool counting in MCP God Mode presents unique challenges due to the multi-layere
 
 #### **🛠️ Tools (MCP Server Functions)**
 - **Definition**: Distinct MCP server tool registrations
-- **Count**: 168 tools (server-refactored) / 168 tools (modular)
+- **Count**: 171 tools (server-refactored) / 171 tools (modular)
 - **Example**: `wifi_security_toolkit` = 1 tool
 
 #### **⚡ Actions (Tool Capabilities)**
@@ -322,7 +322,7 @@ Tool counting in MCP God Mode presents unique challenges due to the multi-layere
 
 | Aspect | Server-Refactored | Modular Server |
 |--------|------------------|----------------|
-| **Tool Count** | 168 tools | 168 tools |
+| **Tool Count** | 171 tools | 171 tools |
 | **Architecture** | Unified interface | Individual focused tools |
 | **Complexity** | Multi-action tools | Single-action tools |
 | **Error Handling** | Centralized | Granular |
@@ -337,7 +337,7 @@ The server-refactored and modular servers have different tool counts because:
 3. **Enhanced Functionality**: Modular server provides more precise control with additional tools
 4. **Specialized Capabilities**: Modular server offers granular tools for specific tasks
 
-**🎯 Bottom Line**: Both server-refactored and modular server provide identical functionality with 168 tools for comprehensive operations and built-in legal compliance features. The modular server adds configurability for different deployment scenarios.
+**🎯 Bottom Line**: Both server-refactored and modular server provide identical functionality with 171 tools for comprehensive operations and built-in legal compliance features. The modular server adds configurability for different deployment scenarios.
 
 🎭 **Fun Fact**: One MCP to rule them all, one MCP to find them, one MCP to compile the tools, and in the God Mode bind them! 🎲⚡
 
@@ -361,7 +361,7 @@ See MCP God Mode in action with Cursor IDE integration:
 
 </div>
 
-*MCP God Mode tools seamlessly integrated into Cursor IDE - providing instant access to 168 powerful security and system management tools across all major platforms! 🚀✨*
+*MCP God Mode tools seamlessly integrated into Cursor IDE - providing instant access to 171 powerful security and system management tools across all major platforms! 🚀✨*
 
 **🎭 Fun Fact**: We have so many visual proofs, even the screenshots are impressed! Each image shows different aspects of our comprehensive tool integration! 📸💻
 
@@ -660,18 +660,18 @@ https://github.com/user-attachments/assets/f074039c-1989-40fc-b769-5efa855e854d
 | **🪟 Windows-Specific** | 2 | Windows services and process management |
 
 <<<<<<< HEAD
-**Total: 168 Tools (Both Servers)** - All fully implemented, tested, and documented ✅
+**Total: 171 Tools (Both Servers)** - All fully implemented, tested, and documented ✅
 
 ## 🎯 **Implementation Status: 100% Complete**
 
-✅ **All 168 tools (both servers) are fully implemented and tested**  
+✅ **All 171 tools (both servers) are fully implemented and tested**  
 ✅ **Cross-platform compatibility verified**  
 ✅ **MCP protocol integration complete**  
 ✅ **Natural language interface working**  
 ✅ **Comprehensive documentation available for all tools**  
 ✅ **Real-world testing completed**
 
-**🔧 Architecture Note**: We offer both server-refactored and modular server architectures. Our **primary server-refactored** provides comprehensive functionality in a unified interface with **168 tools**. The modular server provides **168 tools** for granular control and better error handling. Each architecture serves different use cases and preferences.  
+**🔧 Architecture Note**: We offer both server-refactored and modular server architectures. Our **primary server-refactored** provides comprehensive functionality in a unified interface with **171 tools**. The modular server provides **171 tools** for granular control and better error handling. Each architecture serves different use cases and preferences.  
 
 <img src="assets/header-core.svg" alt="Windows" width="100%" />
 
@@ -763,7 +763,7 @@ npm run smoke
 python -m mcp_god_mode.tools.security.security_testing \
   --target_type "network" \
   --action "assess_vulnerabilities" \
-  --target "192.168.1.0/24"
+  --target "192.171.1.0/24"
 
 # Wi-Fi security testing
 python -m mcp_god_mode.tools.wireless.wifi_security_toolkit \
@@ -823,11 +823,11 @@ If you encounter issues, need assistance, or have questions about MCP God Mode:
 ### Platform Matrix
 | Platform | Core Tools | Security Tools | Media Tools | Mobile Tools | Total Support |
 |----------|------------|----------------|-------------|--------------|---------------|
-| **Windows** | ✅ 100% | ✅ 100% | ✅ 100% | ✅ 100% | **168/168 (100%)** |
-| **Linux** | ✅ 100% | ✅ 100% | ✅ 100% | ✅ 100% | **168/168 (100%)** |
-| **macOS** | ✅ 100% | ✅ 100% | ✅ 100% | ✅ 100% | **168/168 (100%)** |
-| **Android** | ✅ 100% | ✅ 100% | ✅ 100% | ✅ 100% | **168/168 (100%)** |
-| **iOS** | ✅ 100% | ✅ 100% | ✅ 100% | ✅ 100% | **168/168 (100%)** |
+| **Windows** | ✅ 100% | ✅ 100% | ✅ 100% | ✅ 100% | **171/171 (100%)** |
+| **Linux** | ✅ 100% | ✅ 100% | ✅ 100% | ✅ 100% | **171/171 (100%)** |
+| **macOS** | ✅ 100% | ✅ 100% | ✅ 100% | ✅ 100% | **171/171 (100%)** |
+| **Android** | ✅ 100% | ✅ 100% | ✅ 100% | ✅ 100% | **171/171 (100%)** |
+| **iOS** | ✅ 100% | ✅ 100% | ✅ 100% | ✅ 100% | **171/171 (100%)** |
 
 **[📖 View Complete Compatibility Matrix](docs/general/CROSS_PLATFORM_COMPATIBILITY.md)**
 
@@ -847,7 +847,7 @@ Use tools with simple, natural commands:
 ```bash
 # Instead of complex parameters, use natural language
 python -m mcp_god_mode.tools.security.hack_network \
-  --target "192.168.1.0/24" \
+  --target "192.171.1.0/24" \
   --action "test network security" \
   --method "vulnerability scan"
 ```
