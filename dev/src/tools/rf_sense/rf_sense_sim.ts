@@ -478,6 +478,38 @@ async function processSession(sessionId: string, pipeline: string) {
       break;
     case "pointcloud":
       result = await processPointCloud(data);
+      
+      // Store point cloud data for Potree viewer
+      if (result.data && Array.isArray(result.data) && result.data.length > 0) {
+        try {
+          const viewerPoints: Array<[number, number, number]> = result.data.map((p: any) => [p.x, p.y, p.z]);
+          
+          // Convert to Potree-compatible format with enhanced metadata
+          const potreePoints = result.data.map((point: any) => ({
+            x: point.x,
+            y: point.y,
+            z: point.z,
+            intensity: point.intensity || 0.5,
+            classification: point.classification || LAS_CLASSIFICATION.RF_SENSE_OBJECT,
+            velocity: 0, // Simulation doesn't provide velocity
+            snr: Math.random() * 20 + 10, // Simulated SNR
+            timestamp: point.timestamp || Date.now()
+          }));
+          
+          storePointCloudData(sessionId, viewerPoints, {
+            source: 'rf_sense_simulation',
+            pipeline: 'pointcloud',
+            count: viewerPoints.length,
+            securitySessionId: session.securitySessionId,
+            scanMode: session.scanMode || false,
+            localOnly: session.localOnly || false,
+            potreeFormat: true,
+            enhancedPoints: potreePoints
+          });
+        } catch (error) {
+          console.warn("Failed to store point cloud data:", error);
+        }
+      }
       break;
     case "gesture_detection":
       result = await processGestureDetection(data);

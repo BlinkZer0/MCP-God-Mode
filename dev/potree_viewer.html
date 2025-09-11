@@ -1,0 +1,1054 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RF_sense — Potree Point Cloud Viewer</title>
+    <style>
+        :root {
+            --bg: #0b1115;
+            --panel: #121a20;
+            --muted: #7a8a99;
+            --fg: #e7f0f7;
+            --accent: #4fb3ff;
+            --ok: #38c172;
+            --warn: #ffb020;
+            --err: #ff5d5d;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg);
+            color: var(--fg);
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        #app {
+            display: flex;
+            height: 100vh;
+        }
+
+        #sidebar {
+            width: 350px;
+            background: var(--panel);
+            border-right: 1px solid #1f2a32;
+            overflow-y: auto;
+            padding: 20px;
+        }
+
+        #viewer {
+            flex: 1;
+            position: relative;
+            background: #000;
+        }
+
+        h1 {
+            font-size: 18px;
+            margin-bottom: 20px;
+            color: var(--accent);
+            border-bottom: 2px solid var(--accent);
+            padding-bottom: 10px;
+        }
+
+        .section {
+            margin-bottom: 20px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 8px;
+            border: 1px solid #1f2a32;
+        }
+
+        .section h2 {
+            font-size: 14px;
+            margin-bottom: 10px;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            margin-right: 8px;
+            margin-bottom: 8px;
+            border: 1px solid #1f2a32;
+        }
+
+        .status-ok { background: #0d2a1e; color: #b4ffcb; }
+        .status-warn { background: #2a2310; color: #ffe6a3; }
+        .status-err { background: #2a1313; color: #ffb3b3; }
+        .status-muted { background: #1a1a1a; color: var(--muted); }
+
+        .control-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #c7d4df;
+            font-size: 13px;
+        }
+
+        input, select, button {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid #1f2a32;
+            border-radius: 6px;
+            background: #0e161b;
+            color: var(--fg);
+            font-size: 13px;
+        }
+
+        input[type="range"] {
+            padding: 0;
+        }
+
+        button {
+            background: #0f2430;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-bottom: 8px;
+        }
+
+        button:hover {
+            border-color: #2a3944;
+            background: #1a2f3a;
+        }
+
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 8px;
+        }
+
+        .button-group button {
+            flex: 1;
+        }
+
+        .file-drop {
+            border: 2px dashed #2b3a44;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            color: #98a8b6;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .file-drop:hover {
+            border-color: var(--accent);
+            background: rgba(79, 179, 255, 0.05);
+        }
+
+        .file-drop.dragover {
+            border-color: var(--accent);
+            background: rgba(79, 179, 255, 0.1);
+        }
+
+        #hud {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            color: #e9f4ff;
+            padding: 12px 16px;
+            border-radius: 8px;
+            font-size: 12px;
+            backdrop-filter: blur(6px);
+            z-index: 1000;
+        }
+
+        #toast-container {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+
+        .toast {
+            background: #0f1520;
+            border: 1px solid #203040;
+            color: #e8f4ff;
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            max-width: 300px;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        .toast.error { border-color: #ff5d5d; }
+        .toast.warning { border-color: #ffb020; }
+        .toast.success { border-color: #38c172; }
+
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 20px;
+            color: var(--muted);
+        }
+
+        .loading.active {
+            display: block;
+        }
+
+        .spinner {
+            border: 2px solid #1f2a32;
+            border-top: 2px solid var(--accent);
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 10px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .info-text {
+            font-size: 12px;
+            color: var(--muted);
+            margin-top: 8px;
+            line-height: 1.4;
+        }
+
+        .scan-mode {
+            border-color: #ff5d5d !important;
+            background: rgba(255, 93, 93, 0.1) !important;
+        }
+
+        .scan-mode h2 {
+            color: #ff5d5d !important;
+        }
+
+        /* Cross-platform optimizations */
+        .mobile-optimized #sidebar {
+            width: 280px !important;
+            font-size: 14px;
+        }
+
+        .mobile-optimized .section {
+            padding: 12px;
+            margin-bottom: 15px;
+        }
+
+        .mobile-optimized button {
+            min-height: 44px; /* iOS touch target size */
+            padding: 12px 16px;
+        }
+
+        .mobile-optimized input, .mobile-optimized select {
+            min-height: 44px;
+            font-size: 16px; /* Prevent zoom on iOS */
+        }
+
+        /* iOS-specific styles */
+        .ios-optimized {
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .ios-optimized #viewer {
+            -webkit-transform: translateZ(0);
+        }
+
+        /* Android-specific styles */
+        .android-optimized {
+            -webkit-transform: translateZ(0);
+        }
+
+        .android-optimized #viewer {
+            -webkit-backface-visibility: hidden;
+        }
+
+        /* Windows-specific styles */
+        .windows-optimized {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+        }
+
+        .windows-optimized button {
+            border-radius: 4px;
+        }
+
+        /* macOS-specific styles */
+        .mac-optimized {
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', system-ui, sans-serif;
+        }
+
+        .mac-optimized button {
+            border-radius: 6px;
+        }
+
+        /* Linux-specific styles */
+        .linux-optimized {
+            font-family: 'Ubuntu', 'Cantarell', system-ui, sans-serif;
+        }
+
+        .linux-optimized button {
+            border-radius: 3px;
+        }
+
+        /* Touch device optimizations */
+        @media (hover: none) and (pointer: coarse) {
+            .control-group button {
+                min-height: 48px;
+                padding: 14px 18px;
+            }
+            
+            .file-drop {
+                min-height: 120px;
+            }
+        }
+
+        /* High DPI display optimizations */
+        @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+            .spinner {
+                border-width: 1px;
+            }
+        }
+
+        /* Dark mode optimizations for different platforms */
+        @media (prefers-color-scheme: dark) {
+            .windows-optimized {
+                --bg: #0c0c0c;
+                --panel: #1c1c1c;
+            }
+            
+            .mac-optimized {
+                --bg: #1e1e1e;
+                --panel: #2d2d2d;
+            }
+            
+            .linux-optimized {
+                --bg: #2d2d2d;
+                --panel: #3c3c3c;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div id="sidebar">
+            <h1>RF_sense — Potree Viewer</h1>
+            
+            <!-- Status Section -->
+            <div class="section">
+                <div class="status-badge status-ok" id="status-ai">AI: Active</div>
+                <div class="status-badge status-ok" id="status-egress">Egress: Normal</div>
+                <div class="status-badge status-muted" id="status-cache">Cache: 0 frames</div>
+                <div class="status-badge status-muted" id="status-file">File: Idle</div>
+                <div class="status-badge status-muted" id="status-ws">WS: Disconnected</div>
+                <div class="status-badge status-muted" id="status-rfsense">RF Sense: Disconnected</div>
+            </div>
+
+            <!-- Scan Mode Section -->
+            <div class="section" id="scan-section">
+                <h2>AI-Safe Scan Mode</h2>
+                <p class="info-text">Suspends AI and blocks network egress so your point clouds never leave this device.</p>
+                <div class="button-group">
+                    <button id="scan-start">Start Scan Mode</button>
+                    <button id="scan-stop" disabled>Stop Scan Mode</button>
+                </div>
+                <div class="button-group">
+                    <button id="cache-purge">Purge Cache</button>
+                    <button id="export-bundle">Export Bundle</button>
+                </div>
+                <label>
+                    <input type="checkbox" id="loopback-only" checked>
+                    Loopback WS only (recommended)
+                </label>
+            </div>
+
+            <!-- File Loader -->
+            <div class="section">
+                <h2>Load Point Cloud</h2>
+                <div class="file-drop" id="file-drop">
+                    Drop point cloud files here or click to browse
+                    <input type="file" id="file-input" accept=".json,.las,.laz,.ply,.pcd,.xyz" style="display: none;">
+                </div>
+                <p class="info-text">Supports JSON, LAS, LAZ, PLY, PCD, and XYZ formats. For large datasets, use PotreeConverter first.</p>
+            </div>
+
+            <!-- RF Sense Integration -->
+            <div class="section">
+                <h2>RF Sense Integration</h2>
+                <div class="control-group">
+                    <label for="rfsense-url">RF Sense API URL</label>
+                    <input type="text" id="rfsense-url" value="http://localhost:3000/api/rf_sense">
+                </div>
+                <div class="button-group">
+                    <button id="rfsense-connect">Connect RF Sense</button>
+                    <button id="rfsense-disconnect" disabled>Disconnect</button>
+                </div>
+                <div class="button-group">
+                    <button id="rfsense-scan-mode">Enable Scan Mode</button>
+                    <button id="rfsense-normal-mode" disabled>Disable Scan Mode</button>
+                </div>
+            </div>
+
+            <!-- WebSocket -->
+            <div class="section">
+                <h2>Live Data Stream</h2>
+                <div class="control-group">
+                    <label for="ws-url">WebSocket URL</label>
+                    <input type="text" id="ws-url" value="ws://localhost:8787/points">
+                </div>
+                <div class="button-group">
+                    <button id="ws-connect">Connect</button>
+                    <button id="ws-disconnect" disabled>Disconnect</button>
+                </div>
+            </div>
+
+            <!-- Viewer Controls -->
+            <div class="section">
+                <h2>Viewer Controls</h2>
+                <div class="control-group">
+                    <label for="point-size">Point Size: <span id="point-size-value">2.0</span>px</label>
+                    <input type="range" id="point-size" min="0.5" max="10" step="0.1" value="2.0">
+                </div>
+                <div class="control-group">
+                    <label for="color-mode">Color Mode</label>
+                    <select id="color-mode">
+                        <option value="intensity">Intensity</option>
+                        <option value="height">Height</option>
+                        <option value="classification">Classification</option>
+                        <option value="source">Source</option>
+                    </select>
+                </div>
+                <div class="control-group">
+                    <label for="quality">Quality</label>
+                    <select id="quality">
+                        <option value="low">Low (Fast)</option>
+                        <option value="medium" selected>Medium</option>
+                        <option value="high">High (Slow)</option>
+                    </select>
+                </div>
+                <div class="button-group">
+                    <button id="reset-view">Reset View</button>
+                    <button id="fit-to-screen">Fit to Screen</button>
+                </div>
+                <div class="button-group">
+                    <button id="screenshot">Screenshot</button>
+                    <button id="export-data">Export Data</button>
+                </div>
+            </div>
+
+            <!-- Loading Indicator -->
+            <div class="loading" id="loading">
+                <div class="spinner"></div>
+                <div>Processing point cloud data...</div>
+            </div>
+        </div>
+
+        <div id="viewer">
+            <div id="hud">
+                <div>FPS: <span id="fps">0</span></div>
+                <div>Points: <span id="point-count">0</span></div>
+                <div>Memory: <span id="memory-usage">0 MB</span></div>
+            </div>
+            <div id="toast-container"></div>
+        </div>
+    </div>
+
+    <!-- Potree CSS and JS -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/potree@1.8.0/build/potree/potree.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/potree@1.8.0/libs/jquery-ui/jquery-ui.min.css">
+    
+    <script src="https://cdn.jsdelivr.net/npm/three@0.160.1/build/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/potree@1.8.0/build/potree/potree.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-ui@1.13.2/dist/jquery-ui.min.js"></script>
+
+    <script>
+        // Global variables
+        let viewer = null;
+        let pointCloud = null;
+        let isScanMode = false;
+        let rfSenseConnected = false;
+        let rfSenseSecuritySessionId = null;
+        let wsConnection = null;
+        let cache = new Map();
+        let frameCount = 0;
+
+        // Enhanced cross-platform compatibility detection
+        const userAgent = navigator.userAgent;
+        const platform = navigator.platform;
+        
+        const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(userAgent);
+        const isIOS = /iPad|iPhone|iPod/.test(userAgent);
+        const isAndroid = /Android/.test(userAgent);
+        const isWindows = /Windows/.test(userAgent) || /Win32|Win64|WOW64/.test(platform);
+        const isMac = /Mac/.test(userAgent) || /MacIntel|MacPPC|Mac68K/.test(platform);
+        const isLinux = /Linux/.test(userAgent) || /Linux|X11/.test(platform);
+        const isChromeOS = /CrOS/.test(userAgent);
+        const isFirefoxOS = /Mobile|Tablet/.test(userAgent) && /Firefox/.test(userAgent);
+        
+        // Touch device detection
+        const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+        
+        // WebGL support detection
+        const webglSupported = (() => {
+            try {
+                const canvas = document.createElement('canvas');
+                return !!(window.WebGLRenderingContext && 
+                         (canvas.getContext('webgl') || canvas.getContext('experimental-webgl')));
+            } catch (e) {
+                return false;
+            }
+        })();
+        
+        // Performance tier detection based on device capabilities
+        const getPerformanceTier = () => {
+            if (isMobile) {
+                // Mobile devices - conservative settings
+                return {
+                    maxPoints: 100000,
+                    pointSize: 1.0,
+                    quality: 'medium',
+                    lod: true,
+                    frustumCulling: true,
+                    enableShadows: false,
+                    enablePostProcessing: false
+                };
+            } else if (isWindows || isMac || isLinux) {
+                // Desktop platforms - full performance
+                return {
+                    maxPoints: 2000000,
+                    pointSize: 2.0,
+                    quality: 'high',
+                    lod: true,
+                    frustumCulling: true,
+                    enableShadows: true,
+                    enablePostProcessing: true
+                };
+            } else {
+                // Fallback for other platforms
+                return {
+                    maxPoints: 500000,
+                    pointSize: 1.5,
+                    quality: 'medium',
+                    lod: true,
+                    frustumCulling: true,
+                    enableShadows: false,
+                    enablePostProcessing: false
+                };
+            }
+        };
+        
+        const performanceConfig = getPerformanceTier();
+        
+        // Platform-specific optimizations
+        const applyPlatformOptimizations = () => {
+            // Mobile-specific optimizations
+            if (isMobile) {
+                // Add touch-friendly controls
+                document.body.classList.add('mobile-optimized');
+                
+                // Disable right-click context menu on mobile
+                document.addEventListener('contextmenu', (e) => e.preventDefault());
+            }
+            
+            // iOS-specific optimizations
+            if (isIOS) {
+                document.body.classList.add('ios-optimized');
+                
+                // Handle iOS orientation changes
+                window.addEventListener('orientationchange', () => {
+                    setTimeout(() => {
+                        if (viewer) {
+                            viewer.resize();
+                        }
+                    }, 100);
+                });
+            }
+            
+            // Android-specific optimizations
+            if (isAndroid) {
+                document.body.classList.add('android-optimized');
+            }
+            
+            // Windows-specific optimizations
+            if (isWindows) {
+                document.body.classList.add('windows-optimized');
+            }
+            
+            // macOS-specific optimizations
+            if (isMac) {
+                document.body.classList.add('mac-optimized');
+            }
+            
+            // Linux-specific optimizations
+            if (isLinux) {
+                document.body.classList.add('linux-optimized');
+            }
+            
+            // Touch device optimizations
+            if (isTouchDevice) {
+                document.body.classList.add('touch-optimized');
+            }
+        };
+
+        // Initialize Potree viewer
+        function initPotreeViewer() {
+            const container = document.getElementById('viewer');
+            
+            // Check WebGL support
+            if (!webglSupported) {
+                showToast('WebGL not supported on this device', 'error');
+                return;
+            }
+            
+            // Create Potree viewer
+            viewer = new Potree.Viewer(container);
+            
+            // Configure viewer with platform-specific settings
+            viewer.setEDLEnabled(performanceConfig.enablePostProcessing);
+            viewer.setFOV(60);
+            viewer.setPointBudget(performanceConfig.maxPoints);
+            viewer.setMinNodeSize(0);
+            viewer.setDescription(`RF_sense Point Cloud Viewer - Powered by Potree (${getPlatformName()})`);
+            
+            // Set up camera
+            viewer.scene.camera.position.set(10, 10, 10);
+            viewer.scene.camera.lookAt(0, 0, 0);
+            
+            // Add coordinate system
+            viewer.scene.scene.add(new THREE.AxesHelper(5));
+            
+            // Apply platform-specific optimizations
+            applyPlatformOptimizations();
+            
+            // Start render loop
+            viewer.loop.start();
+            
+            // Update HUD
+            updateHUD();
+            
+            showToast(`Potree viewer initialized for ${getPlatformName()}`, 'success');
+        }
+        
+        // Get platform name for display
+        function getPlatformName() {
+            if (isIOS) return 'iOS';
+            if (isAndroid) return 'Android';
+            if (isWindows) return 'Windows';
+            if (isMac) return 'macOS';
+            if (isLinux) return 'Linux';
+            if (isChromeOS) return 'Chrome OS';
+            if (isMobile) return 'Mobile';
+            return 'Unknown Platform';
+        }
+
+        // Update HUD information
+        function updateHUD() {
+            if (!viewer) return;
+            
+            // Update FPS
+            const fps = viewer.loop.clock.getFPS();
+            document.getElementById('fps').textContent = fps.toFixed(1);
+            
+            // Update point count
+            let totalPoints = 0;
+            viewer.scene.pointclouds.forEach(pc => {
+                totalPoints += pc.points ? pc.points.length : 0;
+            });
+            document.getElementById('point-count').textContent = totalPoints.toLocaleString();
+            
+            // Update memory usage (approximate)
+            const memoryMB = (totalPoints * 16) / (1024 * 1024); // 16 bytes per point estimate
+            document.getElementById('memory-usage').textContent = memoryMB.toFixed(1);
+            
+            requestAnimationFrame(updateHUD);
+        }
+
+        // Show toast notification
+        function showToast(message, type = 'info') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            toast.textContent = message;
+            
+            container.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.remove();
+            }, 5000);
+        }
+
+        // Load point cloud from file
+        function loadPointCloudFromFile(file) {
+            const reader = new FileReader();
+            
+            reader.onload = function(e) {
+                try {
+                    const data = e.target.result;
+                    let points = [];
+                    
+                    if (file.name.endsWith('.json')) {
+                        const jsonData = JSON.parse(data);
+                        if (jsonData.points) {
+                            points = jsonData.points.map(p => ({
+                                x: p.x || p[0],
+                                y: p.y || p[1],
+                                z: p.z || p[2],
+                                intensity: p.intensity || p.i || 0.5
+                            }));
+                        } else if (Array.isArray(jsonData)) {
+                            points = jsonData.map(p => ({
+                                x: p.x || p[0],
+                                y: p.y || p[1],
+                                z: p.z || p[2],
+                                intensity: p.intensity || p.i || 0.5
+                            }));
+                        }
+                    } else {
+                        showToast('Unsupported file format. Please use JSON format or convert with PotreeConverter.', 'error');
+                        return;
+                    }
+                    
+                    if (points.length > 0) {
+                        addPointCloudToViewer(points, file.name);
+                        showToast(`Loaded ${points.length.toLocaleString()} points from ${file.name}`, 'success');
+                    } else {
+                        showToast('No valid point data found in file', 'error');
+                    }
+                } catch (error) {
+                    showToast(`Error loading file: ${error.message}`, 'error');
+                }
+            };
+            
+            reader.readAsText(file);
+        }
+
+        // Add point cloud to Potree viewer
+        function addPointCloudToViewer(points, name = 'Point Cloud') {
+            if (!viewer) return;
+            
+            // Convert points to Potree format
+            const geometry = new THREE.BufferGeometry();
+            const positions = new Float32Array(points.length * 3);
+            const colors = new Float32Array(points.length * 3);
+            
+            // Calculate bounding box
+            let minX = Infinity, minY = Infinity, minZ = Infinity;
+            let maxX = -Infinity, maxY = -Infinity, maxZ = -Infinity;
+            
+            points.forEach((point, i) => {
+                positions[i * 3] = point.x;
+                positions[i * 3 + 1] = point.y;
+                positions[i * 3 + 2] = point.z;
+                
+                minX = Math.min(minX, point.x);
+                minY = Math.min(minY, point.y);
+                minZ = Math.min(minZ, point.z);
+                maxX = Math.max(maxX, point.x);
+                maxY = Math.max(maxY, point.y);
+                maxZ = Math.max(maxZ, point.z);
+                
+                // Color based on intensity
+                const intensity = point.intensity || 0.5;
+                const color = new THREE.Color().setHSL(intensity * 0.7, 1, 0.5);
+                colors[i * 3] = color.r;
+                colors[i * 3 + 1] = color.g;
+                colors[i * 3 + 2] = color.b;
+            });
+            
+            geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+            geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+            
+            // Create point cloud
+            const material = new THREE.PointsMaterial({
+                size: parseFloat(document.getElementById('point-size').value),
+                vertexColors: true,
+                sizeAttenuation: true
+            });
+            
+            pointCloud = new THREE.Points(geometry, material);
+            pointCloud.name = name;
+            
+            // Add to scene
+            viewer.scene.scene.add(pointCloud);
+            
+            // Update camera to fit the point cloud
+            const center = new THREE.Vector3(
+                (minX + maxX) / 2,
+                (minY + maxY) / 2,
+                (minZ + maxZ) / 2
+            );
+            
+            const size = Math.max(maxX - minX, maxY - minY, maxZ - minZ);
+            const distance = size * 2;
+            
+            viewer.scene.camera.position.copy(center);
+            viewer.scene.camera.position.add(new THREE.Vector3(distance, distance, distance));
+            viewer.scene.camera.lookAt(center);
+            
+            showToast(`Added ${points.length.toLocaleString()} points to viewer`, 'success');
+        }
+
+        // Scan Mode Management
+        function enableScanMode() {
+            isScanMode = true;
+            document.getElementById('scan-start').disabled = true;
+            document.getElementById('scan-stop').disabled = false;
+            document.getElementById('status-ai').textContent = 'AI: Suspended';
+            document.getElementById('status-ai').className = 'status-badge status-warn';
+            document.getElementById('status-egress').textContent = 'Egress: Blocked';
+            document.getElementById('status-egress').className = 'status-badge status-err';
+            document.getElementById('scan-section').classList.add('scan-mode');
+            
+            showToast('Scan mode enabled - AI suspended, egress blocked', 'warning');
+        }
+
+        function disableScanMode() {
+            isScanMode = false;
+            document.getElementById('scan-start').disabled = false;
+            document.getElementById('scan-stop').disabled = true;
+            document.getElementById('status-ai').textContent = 'AI: Active';
+            document.getElementById('status-ai').className = 'status-badge status-ok';
+            document.getElementById('status-egress').textContent = 'Egress: Normal';
+            document.getElementById('status-egress').className = 'status-badge status-ok';
+            document.getElementById('scan-section').classList.remove('scan-mode');
+            
+            showToast('Scan mode disabled - AI active, egress normal', 'success');
+        }
+
+        // RF Sense Integration
+        async function connectRfSense() {
+            try {
+                const url = document.getElementById('rfsense-url').value;
+                
+                // Create security session
+                const response = await fetch(`${url}/security/session`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ consentGiven: true })
+                });
+                
+                const data = await response.json();
+                if (data.success) {
+                    rfSenseSecuritySessionId = data.securitySessionId;
+                    rfSenseConnected = true;
+                    document.getElementById('rfsense-connect').disabled = true;
+                    document.getElementById('rfsense-disconnect').disabled = false;
+                    document.getElementById('status-rfsense').textContent = 'RF Sense: Connected';
+                    document.getElementById('status-rfsense').className = 'status-badge status-ok';
+                    
+                    showToast('RF Sense connected successfully', 'success');
+                } else {
+                    throw new Error(data.message || 'Failed to create security session');
+                }
+            } catch (error) {
+                showToast(`RF Sense connection failed: ${error.message}`, 'error');
+            }
+        }
+
+        function disconnectRfSense() {
+            rfSenseConnected = false;
+            rfSenseSecuritySessionId = null;
+            document.getElementById('rfsense-connect').disabled = false;
+            document.getElementById('rfsense-disconnect').disabled = true;
+            document.getElementById('status-rfsense').textContent = 'RF Sense: Disconnected';
+            document.getElementById('status-rfsense').className = 'status-badge status-muted';
+            
+            showToast('RF Sense disconnected', 'info');
+        }
+
+        // WebSocket Connection
+        function connectWebSocket() {
+            const url = document.getElementById('ws-url').value;
+            
+            if (isScanMode && document.getElementById('loopback-only').checked) {
+                const isLoopback = /^ws:\/\/(localhost|127\.0\.0\.1)(:\d+)?\//i.test(url);
+                if (!isLoopback) {
+                    showToast('Non-loopback WebSocket blocked in Scan Mode', 'error');
+                    return;
+                }
+            }
+            
+            try {
+                wsConnection = new WebSocket(url);
+                
+                wsConnection.onopen = () => {
+                    document.getElementById('ws-connect').disabled = true;
+                    document.getElementById('ws-disconnect').disabled = false;
+                    document.getElementById('status-ws').textContent = 'WS: Connected';
+                    document.getElementById('status-ws').className = 'status-badge status-ok';
+                    showToast('WebSocket connected', 'success');
+                };
+                
+                wsConnection.onclose = () => {
+                    document.getElementById('ws-connect').disabled = false;
+                    document.getElementById('ws-disconnect').disabled = true;
+                    document.getElementById('status-ws').textContent = 'WS: Disconnected';
+                    document.getElementById('status-ws').className = 'status-badge status-muted';
+                    showToast('WebSocket disconnected', 'warning');
+                };
+                
+                wsConnection.onerror = () => {
+                    showToast('WebSocket error', 'error');
+                };
+                
+                wsConnection.onmessage = (event) => {
+                    try {
+                        const data = JSON.parse(event.data);
+                        if (data.points && Array.isArray(data.points)) {
+                            addPointCloudToViewer(data.points, 'Live Stream');
+                        }
+                    } catch (error) {
+                        showToast('Error parsing WebSocket data', 'error');
+                    }
+                };
+            } catch (error) {
+                showToast(`WebSocket connection failed: ${error.message}`, 'error');
+            }
+        }
+
+        function disconnectWebSocket() {
+            if (wsConnection) {
+                wsConnection.close();
+                wsConnection = null;
+            }
+        }
+
+        // Event Listeners
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initialize viewer
+            initPotreeViewer();
+            
+            // File input
+            document.getElementById('file-input').addEventListener('change', (e) => {
+                const file = e.target.files[0];
+                if (file) {
+                    loadPointCloudFromFile(file);
+                }
+            });
+            
+            // File drop
+            const fileDrop = document.getElementById('file-drop');
+            fileDrop.addEventListener('click', () => {
+                document.getElementById('file-input').click();
+            });
+            
+            fileDrop.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                fileDrop.classList.add('dragover');
+            });
+            
+            fileDrop.addEventListener('dragleave', () => {
+                fileDrop.classList.remove('dragover');
+            });
+            
+            fileDrop.addEventListener('drop', (e) => {
+                e.preventDefault();
+                fileDrop.classList.remove('dragover');
+                const file = e.dataTransfer.files[0];
+                if (file) {
+                    loadPointCloudFromFile(file);
+                }
+            });
+            
+            // Scan mode controls
+            document.getElementById('scan-start').addEventListener('click', enableScanMode);
+            document.getElementById('scan-stop').addEventListener('click', disableScanMode);
+            
+            // RF Sense controls
+            document.getElementById('rfsense-connect').addEventListener('click', connectRfSense);
+            document.getElementById('rfsense-disconnect').addEventListener('click', disconnectRfSense);
+            
+            // WebSocket controls
+            document.getElementById('ws-connect').addEventListener('click', connectWebSocket);
+            document.getElementById('ws-disconnect').addEventListener('click', disconnectWebSocket);
+            
+            // Viewer controls
+            document.getElementById('point-size').addEventListener('input', (e) => {
+                document.getElementById('point-size-value').textContent = e.target.value;
+                if (pointCloud) {
+                    pointCloud.material.size = parseFloat(e.target.value);
+                }
+            });
+            
+            document.getElementById('reset-view').addEventListener('click', () => {
+                if (viewer) {
+                    viewer.scene.camera.position.set(10, 10, 10);
+                    viewer.scene.camera.lookAt(0, 0, 0);
+                }
+            });
+            
+            document.getElementById('fit-to-screen').addEventListener('click', () => {
+                if (viewer && pointCloud) {
+                    const box = new THREE.Box3().setFromObject(pointCloud);
+                    const center = box.getCenter(new THREE.Vector3());
+                    const size = box.getSize(new THREE.Vector3());
+                    const distance = Math.max(size.x, size.y, size.z) * 2;
+                    
+                    viewer.scene.camera.position.copy(center);
+                    viewer.scene.camera.position.add(new THREE.Vector3(distance, distance, distance));
+                    viewer.scene.camera.lookAt(center);
+                }
+            });
+            
+            document.getElementById('screenshot').addEventListener('click', () => {
+                if (viewer) {
+                    const canvas = viewer.renderer.domElement;
+                    const link = document.createElement('a');
+                    link.download = `potree-screenshot-${Date.now()}.png`;
+                    link.href = canvas.toDataURL();
+                    link.click();
+                    showToast('Screenshot saved', 'success');
+                }
+            });
+            
+            document.getElementById('export-data').addEventListener('click', () => {
+                if (pointCloud) {
+                    const geometry = pointCloud.geometry;
+                    const positions = geometry.attributes.position.array;
+                    const colors = geometry.attributes.color.array;
+                    
+                    const points = [];
+                    for (let i = 0; i < positions.length; i += 3) {
+                        points.push({
+                            x: positions[i],
+                            y: positions[i + 1],
+                            z: positions[i + 2],
+                            r: colors[i],
+                            g: colors[i + 1],
+                            b: colors[i + 2]
+                        });
+                    }
+                    
+                    const data = JSON.stringify({ points }, null, 2);
+                    const blob = new Blob([data], { type: 'application/json' });
+                    const url = URL.createObjectURL(blob);
+                    const link = document.createElement('a');
+                    link.download = `pointcloud-export-${Date.now()}.json`;
+                    link.href = url;
+                    link.click();
+                    URL.revokeObjectURL(url);
+                    
+                    showToast('Point cloud data exported', 'success');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

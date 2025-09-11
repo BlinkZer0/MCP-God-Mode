@@ -1,0 +1,94 @@
+{
+  "sessionId": "test-potree-session-1757627272407",
+  "timestamp": "2025-09-11T21:47:52.407Z",
+  "points": [
+    {
+      "x": 0,
+      "y": 0,
+      "z": 0,
+      "intensity": 0.8,
+      "classification": 1,
+      "velocity": 0,
+      "snr": 25,
+      "timestamp": 1757627272408
+    },
+    {
+      "x": 1,
+      "y": 0,
+      "z": 0,
+      "intensity": 0.6,
+      "classification": 1,
+      "velocity": 0,
+      "snr": 22,
+      "timestamp": 1757627272408
+    },
+    {
+      "x": 0,
+      "y": 1,
+      "z": 0,
+      "intensity": 0.7,
+      "classification": 1,
+      "velocity": 0,
+      "snr": 24,
+      "timestamp": 1757627272408
+    },
+    {
+      "x": 0,
+      "y": 0,
+      "z": 1,
+      "intensity": 0.9,
+      "classification": 1,
+      "velocity": 0,
+      "snr": 26,
+      "timestamp": 1757627272408
+    },
+    {
+      "x": 1,
+      "y": 1,
+      "z": 1,
+      "intensity": 0.5,
+      "classification": 1,
+      "velocity": 0,
+      "snr": 20,
+      "timestamp": 1757627272408
+    },
+    {
+      "x": -1,
+      "y": -1,
+      "z": -1,
+      "intensity": 0.4,
+      "classification": 0,
+      "velocity": 0,
+      "snr": 18,
+      "timestamp": 1757627272408
+    },
+    {
+      "x": 2,
+      "y": 2,
+      "z": 2,
+      "intensity": 0.3,
+      "classification": 0,
+      "velocity": 0,
+      "snr": 16,
+      "timestamp": 1757627272408
+    },
+    {
+      "x": -2,
+      "y": 2,
+      "z": -2,
+      "intensity": 0.2,
+      "classification": 0,
+      "velocity": 0,
+      "snr": 14,
+      "timestamp": 1757627272408
+    }
+  ],
+  "metadata": {
+    "source": "rf_sense_test",
+    "pipeline": "point_cloud",
+    "count": 8,
+    "potreeFormat": true
+  },
+  "scanMode": false,
+  "localOnly": false
+}

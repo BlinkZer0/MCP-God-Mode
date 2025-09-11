@@ -626,13 +626,33 @@ async function processPointCloud(lines: string[], sessionId: string) {
   // Convert to viewer-compatible format
   const viewerPoints: Array<[number, number, number]> = points.map(p => [p[0], p[1], p[2]]);
   
-  // Store point cloud data for viewer
+  // Store point cloud data for Potree viewer
   if (viewerPoints.length > 0) {
     try {
+      const session = sessions.get(sessionId);
+      
+      // Convert to Potree-compatible format with enhanced metadata
+      const potreePoints = points.map((point, index) => {
+        const [x, y, z, intensity, classification] = point;
+        return {
+          x, y, z,
+          intensity: intensity || 0.5,
+          classification: classification || LAS_CLASSIFICATION.RF_SENSE_OBJECT,
+          velocity: 0, // WiFi lab doesn't provide velocity
+          snr: Math.random() * 20 + 10, // Simulated SNR
+          timestamp: Date.now()
+        };
+      });
+      
       storePointCloudData(sessionId, viewerPoints, {
         source: 'rf_sense_wifi_lab',
         pipeline: 'pointcloud',
-        count: viewerPoints.length
+        count: viewerPoints.length,
+        securitySessionId: session?.securitySessionId,
+        scanMode: session?.scanMode || false,
+        localOnly: session?.localOnly || false,
+        potreeFormat: true,
+        enhancedPoints: potreePoints
       });
     } catch (error) {
       console.warn("Failed to store point cloud data:", error);
