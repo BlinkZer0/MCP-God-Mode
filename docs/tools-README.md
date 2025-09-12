@@ -13,6 +13,7 @@ This document provides comprehensive documentation for all tools available in MC
 - Server-refactored (unique endpoints): 159
 - Documented tools: 159
 - Individual tool installation: Supported
+- RF Sense tools: 6 experimental modules (⚠️ **UNTESTED**)
 
 Fun footnote: If the AI asks for a cape, it’s probably about to escalate privileges. Please clap responsibly.
 
@@ -41,6 +42,17 @@ Fun footnote: If the AI asks for a cape, it’s probably about to escalate privi
 - **Network Security** - Digital security consultant
 - **Elevated Permissions Manager** - Security gatekeeper with admin rights
 - **Flipper Zero** - Comprehensive Flipper Zero device management (consolidated from 24 individual tools)
+
+### 📡 RF Sense Tools ⚠️ **EXPERIMENTAL**
+- **[Unified RF Sense Tool](./tool/rf_sense/rf_sense_unified.md)** - **RECOMMENDED** - Consolidated interface for all RF sensing capabilities
+- **RF Sense Simulation** - Synthetic RF data generation (Safe for development)
+- **RF Sense WiFi Lab** - Real Wi-Fi CSI experiments ⚠️ **HIGH RISK**
+- **RF Sense mmWave** - mmWave radar operations ⚠️ **EXTREME RISK**
+- **RF Sense Natural Language** - Natural language RF command interface
+- **RF Sense Guardrails** - Safety and compliance features (Unrestricted mode)
+- **RF Sense Localize** - Point cloud localization and mapping
+
+⚠️ **CRITICAL WARNING**: RF Sense tools are **experimental and untested**. They can be **extremely harmful to devices** if misused. Use only if you understand RF technology and risks. We are building the structure before reaching 100% functionality.
 
 
 ### 🚁 Drone Management

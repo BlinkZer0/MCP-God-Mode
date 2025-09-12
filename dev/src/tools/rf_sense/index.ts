@@ -8,12 +8,16 @@
 // 
 // All tools include comprehensive guardrails, legal compliance, and cross-platform support.
 
+// Individual module exports (for backward compatibility)
 export { registerRfSenseSim } from "./rf_sense_sim.js";
 export { registerRfSenseWifiLab } from "./rf_sense_wifi_lab.js";
 export { registerRfSenseMmWave } from "./rf_sense_mmwave.js";
 export { registerRfSenseNaturalLanguage } from "./rf_sense_natural_language.js";
 export { registerRfSenseGuardrails } from "./rf_sense_guardrails.js";
 export { registerRfSenseLocalize } from "./localize.js";
+
+// Unified RF Sense tool (recommended)
+export { registerRfSenseUnified } from "./rf_sense_unified.js";
 
 // Re-export guardrail utilities for use by other modules
 export {

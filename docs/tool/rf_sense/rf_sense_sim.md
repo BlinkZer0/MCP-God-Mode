@@ -49,6 +49,9 @@ The `rf_sense_sim` module provides rapid prototyping and testing capabilities wi
   - `multiple_people` - Multiple people scenario
   - `gesture_demo` - Gesture demonstration
   - `motion_pattern` - Complex motion patterns
+  - `surveillance` - Surveillance scenario
+  - `tracking` - Object tracking scenario
+  - `intrusion_detection` - Intrusion detection scenario
 - **`annotation`** (string, optional): Annotation for the simulation session
 - **`outputFormat`** (string, optional): Output format for simulation:
   - `heatmap` - Occupancy heatmap
@@ -59,6 +62,7 @@ The `rf_sense_sim` module provides rapid prototyping and testing capabilities wi
   - `low` - Low resolution (16x16)
   - `medium` - Medium resolution (32x32)
   - `high` - High resolution (64x64)
+  - `ultra` - Ultra resolution (128x128)
 - **`sessionId`** (string, optional): Session ID for operations
 - **`pipeline`** (string, optional): Processing pipeline:
   - `occupancy` - Occupancy detection
@@ -66,6 +70,9 @@ The `rf_sense_sim` module provides rapid prototyping and testing capabilities wi
   - `coarse_voxels` - Coarse voxel processing
   - `pointcloud` - Point cloud generation
   - `gesture_detection` - Gesture recognition
+  - `surveillance` - Surveillance analysis
+  - `tracking` - Object tracking
+  - `intrusion_detection` - Intrusion detection
 - **`format`** (string, optional): Export format:
   - `png` - PNG image
   - `json` - JSON data

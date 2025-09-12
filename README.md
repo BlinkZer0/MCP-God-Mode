@@ -45,6 +45,33 @@ https://github.com/user-attachments/assets/932c43e4-159e-4ce2-9c02-4acf23fc47fd
 
 ***Bug Bounty $$$; find a nasty bug or somthing big I forgot and I will make and add a custom MPC tool in your honor***
 
+## 🐛 **EXTENSIVE BUG TESTING NEEDED!**
+
+**We need your help to make MCP God Mode rock-solid!** With 175+ tools across multiple platforms, we need extensive testing to catch edge cases, compatibility issues, and potential bugs.
+
+### **🔍 What We Need Tested:**
+- **🖥️ Cross-Platform Compatibility** - Windows, macOS, Linux, Android, iOS
+- **🔧 Tool Functionality** - All 175+ tools across different scenarios
+- **⚡ Performance Testing** - Memory usage, CPU impact, response times
+- **🛡️ Security Features** - Permission handling, audit logging, safety controls
+- **🌐 Network Operations** - Network tools, penetration testing, wireless operations
+- **📱 Mobile Features** - Mobile device management, app testing, platform-specific tools
+- **🎵 Media Processing** - Enhanced multimedia editor, AI generation, file operations
+- **🤖 AI Integration** - Natural language interfaces, AI service connections
+
+### **🎯 How to Help:**
+1. **🧪 Test Everything** - Try different tools, parameters, and edge cases
+2. **📊 Report Issues** - Document bugs with steps to reproduce
+3. **💡 Suggest Improvements** - Share ideas for better functionality
+4. **🏆 Win Rewards** - Find major bugs and get custom tools named after you!
+
+### **💬 Join Our Testing Community:**
+**[Discord Server](https://discord.gg/EuQBurC2)** - Real-time testing discussions, bug reports, and community support
+
+**Every bug you find makes MCP God Mode better for everyone!** 🚀
+
+---
+
 ## 📚 Quick Navigation
 
 - **[🚀 Quick Start](docs/guides/COMPLETE_SETUP_GUIDE.md)** - Get up and running in minutes
@@ -431,6 +458,7 @@ See MCP God Mode in action with Cursor IDE integration:
 - **Wi-Fi Hacking** - Advanced wireless penetration testing
 - **Bluetooth Hacking** - Advanced Bluetooth security testing
 - **Wireless Network Scanner** - Advanced wireless discovery
+- **Unified RF Sense Tool** - Consolidated interface for all RF sensing capabilities (**RECOMMENDED**)
 - **RF Sense WiFi Lab** - Real Wi-Fi CSI experiments with through-wall sensing
 - **RF Sense mmWave** - FMCW mmWave radar with through-wall object detection
 - **RF Sense Natural Language** - Intuitive interface for RF sensing operations
@@ -442,6 +470,8 @@ https://github.com/user-attachments/assets/f074039c-1989-40fc-b769-5efa855e854d
  showing real-time wireless security testing capabilities.
 
 **🔍 Through-Wall Sensing**: Our RF Sense tools enable detection and tracking of objects and people through walls using Wi-Fi CSI and mmWave radar technology. Perfect for privacy-preserving monitoring, security applications, and smart building systems.
+
+**⚠️ CRITICAL WARNING - RF SENSE TOOLS ARE EXPERIMENTAL**: The RF Sense tools are **experimental and untested**. They can be **extremely harmful to devices** if misused. Use only if you understand RF technology and risks. We are building the structure before reaching 100% functionality.
 
 **[📖 View All Wireless Tools](docs/general/TOOL_CATEGORY_INDEX.md#wireless--radio)**
 

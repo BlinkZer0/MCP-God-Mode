@@ -24,7 +24,7 @@ import { setupCellularTriangulateAPI } from "./tools/wireless/cellular_triangula
 // Import RF Sense viewer API
 import { setupRfSenseViewerAPI } from "./tools/rf_sense/rf_sense_viewer_api.js";
 // Import RF Sense tools
-import { registerRfSenseSim, registerRfSenseWifiLab, registerRfSenseMmWave, registerRfSenseNaturalLanguage, registerRfSenseGuardrails, registerRfSenseLocalize } from "./tools/rf_sense/index.js";
+import { registerRfSenseUnified } from "./tools/rf_sense/index.js";
 // Import Flipper Zero tools separately to avoid duplicates
 // Flipper Zero tools are imported via the comprehensive index
 // Legal compliance tools are imported via the comprehensive index
@@ -214,54 +214,16 @@ catch (error) {
 // ===========================================
 // RF SENSE TOOLS - COMPREHENSIVE RF SENSING TOOLKIT
 // ===========================================
-// Register RF Sense Simulation Module
+// Register Unified RF Sense Tool (consolidates all RF Sense modules)
 try {
-    registerRfSenseSim(server);
-    console.log("✅ RF Sense Simulation Module registered");
+    registerRfSenseUnified(server);
+    console.log("✅ Unified RF Sense Tool registered (includes all modules: sim, wifi_lab, mmwave, natural_language, guardrails, localize)");
 }
 catch (error) {
-    console.warn("Warning: Failed to register RF Sense Simulation Module:", error);
+    console.warn("Warning: Failed to register Unified RF Sense Tool:", error);
 }
-// Register RF Sense WiFi Lab Module
-try {
-    registerRfSenseWifiLab(server);
-    console.log("✅ RF Sense WiFi Lab Module registered");
-}
-catch (error) {
-    console.warn("Warning: Failed to register RF Sense WiFi Lab Module:", error);
-}
-// Register RF Sense mmWave Module
-try {
-    registerRfSenseMmWave(server);
-    console.log("✅ RF Sense mmWave Module registered");
-}
-catch (error) {
-    console.warn("Warning: Failed to register RF Sense mmWave Module:", error);
-}
-// Register RF Sense Natural Language Interface
-try {
-    registerRfSenseNaturalLanguage(server);
-    console.log("✅ RF Sense Natural Language Interface registered");
-}
-catch (error) {
-    console.warn("Warning: Failed to register RF Sense Natural Language Interface:", error);
-}
-// Register RF Sense Guardrails and Cross-Platform Support
-try {
-    registerRfSenseGuardrails(server);
-    console.log("✅ RF Sense Guardrails and Cross-Platform Support registered");
-}
-catch (error) {
-    console.warn("Warning: Failed to register RF Sense Guardrails:", error);
-}
-// Register RF Sense Localize Tool
-try {
-    registerRfSenseLocalize(server);
-    console.log("✅ RF Sense Localize Tool registered");
-}
-catch (error) {
-    console.warn("Warning: Failed to register RF Sense Localize Tool:", error);
-}
+// Individual RF Sense modules are now handled by the unified tool
+// No separate registrations needed - this prevents duplicates
 // ===========================================
 // ADDITIONAL ENHANCED TOOLS FOR SERVER-REFACTORED
 // ===========================================

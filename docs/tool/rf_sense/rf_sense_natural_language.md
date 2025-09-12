@@ -32,7 +32,13 @@ The `rf_sense_natural_language` module provides an intuitive natural language in
 ### Optional Parameters
 - **`context`** (string, optional): Additional context about the operation
 - **`userIntent`** (string, optional): User's intended goal or objective
-- **`platform`** (string, optional): Target platform preference (auto-detect if not specified)
+- **`platform`** (string, optional): Target platform preference:
+  - `windows` - Windows platform
+  - `linux` - Linux platform
+  - `macos` - macOS platform
+  - `android` - Android platform
+  - `ios` - iOS platform
+  - `auto` - Auto-detect platform (default)
 
 ## Output Schema
 

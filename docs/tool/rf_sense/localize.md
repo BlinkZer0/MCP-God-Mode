@@ -1,5 +1,18 @@
 # rf_sense/localize
 
+## ⚠️ **EXPERIMENTAL TOOL WARNING**
+
+**This tool is experimental and remains untested. We are building the structure before reaching our goal of 100% functionality.**
+
+**⚠️ CRITICAL SAFETY WARNING**: RF sensing tools can be **extremely harmful to devices** if misused. This tool processes RF-derived point cloud data which can:
+- **Damage RF hardware** through improper signal processing
+- **Interfere with critical communications** including emergency services
+- **Cause electromagnetic interference (EMI)** affecting medical devices
+- **Violate FCC and international RF regulations**
+- **Create privacy violations** through unauthorized monitoring
+
+**Use at your own risk. We strongly advise against using these tools unless you are a qualified RF engineer with proper authorization and understanding of the risks.**
+
 **Purpose**: Localize a fresh point set (or LAS/LAZ) against an existing RF map and return pose + fitness. Optionally emit a transformed LAS file.
 
 ## Overview

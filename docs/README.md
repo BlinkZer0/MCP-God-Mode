@@ -27,6 +27,13 @@ Welcome to the comprehensive documentation for MCP God Mode - the ultimate cross
 - **[Tool Category Index](./general/TOOL_CATEGORY_INDEX.md)** - Browse tools by category
 - **[Parameter Reference](./general/COMPLETE_PARAMETER_REFERENCE.md)** - Complete parameter documentation
 - **[Individual Tool Docs](./tool/)** - Detailed documentation for each tool
+- **[RF Sense Tools](./tool/rf_sense/)** - ⚠️ **EXPERIMENTAL** RF sensing modules (unified interface available)
+
+### ⚠️ **EXPERIMENTAL TOOLS WARNING**
+- **[RF Sense Tools](./tool/rf_sense/)** - **Experimental and untested** RF sensing capabilities
+- These tools can be **extremely harmful to devices** if misused
+- Use only if you understand RF technology and risks
+- We are building the structure before reaching 100% functionality
 
 ### 🔧 Advanced Topics
 - **[Cross-Platform Compatibility](./general/CROSS_PLATFORM_COMPATIBILITY.md)** - Platform-specific details

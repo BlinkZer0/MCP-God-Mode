@@ -114,9 +114,14 @@ export const TOOL_CATEGORIES = {
     tools: ["browser_control", "web_automation", "web_scraper", "web_search", "webhook_manager"]
   },
   "wireless": {
-    name: "Wireless Security & RF Sensing",
-    description: "WiFi security testing and RF sensing with through-wall detection",
-    tools: ["wifi_hacking", "wifi_security_toolkit", "wireless_network_scanner", "wireless_security", "rf_sense_wifi_lab", "rf_sense_mmwave", "rf_sense_natural_language"]
+    name: "Wireless Security",
+    description: "WiFi security testing and wireless network analysis",
+    tools: ["wifi_hacking", "wifi_security_toolkit", "wireless_network_scanner", "wireless_security"]
+  },
+  "rf_sense": {
+    name: "RF Sense Tools (Experimental)",
+    description: "⚠️ EXPERIMENTAL - RF sensing with through-wall detection capabilities",
+    tools: ["rf_sense", "rf_sense_sim", "rf_sense_wifi_lab", "rf_sense_mmwave", "rf_sense_natural_language", "rf_sense_guardrails", "rf_sense_localize"]
   },
   "system": {
     name: "System Management",
