@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎵 You've Been Rickrolled! 🎵</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            color: white;
+            margin: 0;
+            padding: 50px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .container {
+            background: rgba(0,0,0,0.3);
+            padding: 30px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+        h1 {
+            font-size: 3em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        .lyrics {
+            font-size: 1.2em;
+            margin: 20px 0;
+            font-style: italic;
+        }
+        .button {
+            background: #ff4757;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1.2em;
+            cursor: pointer;
+            margin: 20px;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+        .button:hover {
+            background: #ff3742;
+            transform: scale(1.05);
+        }
+        .countdown {
+            font-size: 2em;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎵 You've Been Rickrolled! 🎵</h1>
+        
+        <div class="lyrics">
+            "We're no strangers to love<br>
+            You know the rules and so do I<br>
+            A full commitment's what I'm thinking of<br>
+            You wouldn't get this from any other guy"
+        </div>
+        
+        <div class="countdown" id="countdown">Redirecting in: <span id="timer">5</span></div>
+        
+        <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" class="button" target="_blank">
+            🎬 Watch the Full Video
+        </a>
+        
+        <div class="lyrics">
+            "Never gonna give you up<br>
+            Never gonna let you down<br>
+            Never gonna run around and desert you<br>
+            Never gonna make you cry<br>
+            Never gonna say goodbye<br>
+            Never gonna tell a lie and hurt you"
+        </div>
+    </div>
+
+    <script>
+        let timeLeft = 5;
+        const timerElement = document.getElementById('timer');
+        
+        const countdown = setInterval(() => {
+            timeLeft--;
+            timerElement.textContent = timeLeft;
+            
+            if (timeLeft <= 0) {
+                clearInterval(countdown);
+                // Open the rickroll video in a new tab
+                window.open('https://www.youtube.com/watch?v=dQw4w9WgXcQ', '_blank');
+            }
+        }, 1000);
+    </script>
+</body>
+</html>

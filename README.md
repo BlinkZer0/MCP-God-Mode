@@ -542,7 +542,7 @@ https://github.com/user-attachments/assets/f074039c-1989-40fc-b769-5efa855e854d
 <img src="assets/header-web.svg" alt="Web & Browser" width="100%" />
 
 ### 🖥️ Web & Browser (4 Tools)
-- **Browser Automation** - Cross-platform browser control
+- **Browser Automation** - Cross-platform browser control with system browser fallback
 - **Web Scraping** - Advanced content extraction and analysis
 - **Web Automation** - Advanced web automation
 - **Webhook Manager** - Webhook endpoint management

@@ -143,26 +143,11 @@ async function launchBrowser(browser: string, headless: boolean): Promise<string
       return `${browser} browser launched successfully with Playwright${headless ? ' (headless mode)' : ''}`;
       
     } catch (playwrightError) {
-      console.log(`Playwright failed, trying Puppeteer fallback: ${playwrightError}`);
+      console.log(`Playwright failed: ${playwrightError}`);
       
-      // Fallback to Puppeteer
-      let puppeteerBrowser: PuppeteerBrowser;
-      let puppeteerPage: PuppeteerPage;
-      
-      puppeteerBrowser = await puppeteer.launch({
-        headless,
-        args: ['--no-sandbox', '--disable-setuid-sandbox']
-      });
-      
-      puppeteerPage = await puppeteerBrowser.newPage();
-      
-      browserInstances.set(instanceId, {
-        browser: puppeteerBrowser,
-        page: puppeteerPage,
-        type: 'puppeteer'
-      });
-      
-      return `${browser} browser launched successfully with Puppeteer fallback${headless ? ' (headless mode)' : ''}`;
+      // Skip Puppeteer and go directly to system browser for better reliability
+      console.log(`Using system browser fallback for ${browser}`);
+      return await launchSystemBrowser(browser);
     }
     
   } catch (error) {
@@ -179,19 +164,106 @@ async function navigateToUrl(browser: string, url: string, headless: boolean): P
       await launchBrowser(browser, headless);
     }
     
-    const [instanceId, instance] = instances[instances.length - 1];
-    
-    if (instance.type === 'playwright') {
-      const page = instance.page as Page;
-      await page.goto(url);
-      return `Navigated to ${url} using Playwright ${browser}`;
+    // Check if we have a browser instance to navigate with
+    if (instances.length > 0) {
+      const [instanceId, instance] = instances[instances.length - 1];
+      
+      if (instance.type === 'playwright') {
+        const page = instance.page as Page;
+        await page.goto(url);
+        return `Navigated to ${url} using Playwright ${browser}`;
+      } else {
+        const page = instance.page as PuppeteerPage;
+        await page.goto(url);
+        return `Navigated to ${url} using Puppeteer ${browser}`;
+      }
     } else {
-      const page = instance.page as PuppeteerPage;
-      await page.goto(url);
-      return `Navigated to ${url} using Puppeteer ${browser}`;
+      // No browser instance available, try system browser navigation
+      return await navigateSystemBrowser(browser, url);
     }
   } catch (error) {
-    throw new Error(`Failed to navigate to ${url}: ${error instanceof Error ? error.message : 'Unknown error'}`);
+    // If navigation fails, try system browser as fallback
+    try {
+      return await navigateSystemBrowser(browser, url);
+    } catch (systemError) {
+      throw new Error(`Failed to navigate to ${url}: ${error instanceof Error ? error.message : 'Unknown error'}`);
+    }
+  }
+}
+
+// System browser navigation function
+async function navigateSystemBrowser(browser: string, url: string): Promise<string> {
+  try {
+    let command = "";
+    
+    switch (browser.toLowerCase()) {
+      case "chrome":
+      case "chromium":
+        if (IS_WINDOWS) {
+          command = `"C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe" "${url}"`;
+        } else if (IS_LINUX) {
+          command = `google-chrome "${url}"`;
+        } else if (IS_MACOS) {
+          command = `open -a 'Google Chrome' "${url}"`;
+        }
+        break;
+      case "firefox":
+        if (IS_WINDOWS) {
+          command = `"C:\\Program Files\\Mozilla Firefox\\firefox.exe" "${url}"`;
+        } else if (IS_LINUX) {
+          command = `firefox "${url}"`;
+        } else if (IS_MACOS) {
+          command = `open -a 'Firefox' "${url}"`;
+        }
+        break;
+      case "edge":
+        if (IS_WINDOWS) {
+          command = `"C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe" "${url}"`;
+        } else if (IS_LINUX) {
+          command = `microsoft-edge "${url}"`;
+        } else if (IS_MACOS) {
+          command = `open -a 'Microsoft Edge' "${url}"`;
+        }
+        break;
+      case "opera":
+      case "operagx":
+        if (IS_WINDOWS) {
+          command = `"C:\\Users\\${process.env.USERNAME}\\AppData\\Local\\Programs\\Opera GX\\121.0.5600.81\\opera.exe" "${url}"`;
+        } else if (IS_LINUX) {
+          command = `opera "${url}"`;
+        } else if (IS_MACOS) {
+          command = `open -a 'Opera' "${url}"`;
+        }
+        break;
+      default:
+        // Use system default
+        if (IS_WINDOWS) {
+          command = `start "" "${url}"`;
+        } else if (IS_LINUX) {
+          command = `xdg-open "${url}"`;
+        } else if (IS_MACOS) {
+          command = `open "${url}"`;
+        }
+    }
+    
+    if (!command) {
+      throw new Error(`Unsupported browser: ${browser}`);
+    }
+    
+    // Execute the command
+    const child = spawn(command, [], {
+      stdio: 'pipe',
+      detached: true,
+      shell: true
+    });
+    
+    // Don't wait for the process to finish
+    child.unref();
+    
+    return `Navigated to ${url} using system ${browser}`;
+    
+  } catch (error) {
+    throw new Error(`Failed to navigate system browser to ${url}: ${error instanceof Error ? error.message : 'Unknown error'}`);
   }
 }
 
@@ -322,6 +394,89 @@ async function closeBrowser(browser: string): Promise<string> {
     return `${browser} browser instances closed successfully`;
   } catch (error) {
     return `${browser} browser close attempted (may not have been running): ${error instanceof Error ? error.message : 'Unknown error'}`;
+  }
+}
+
+// System browser launch function
+async function launchSystemBrowser(browser: string): Promise<string> {
+  try {
+    let command = "";
+    
+    switch (browser.toLowerCase()) {
+      case "chrome":
+      case "chromium":
+        if (IS_WINDOWS) {
+          command = `"C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe"`;
+        } else if (IS_LINUX) {
+          command = "google-chrome";
+        } else if (IS_MACOS) {
+          command = "open -a 'Google Chrome'";
+        }
+        break;
+      case "firefox":
+        if (IS_WINDOWS) {
+          command = `"C:\\Program Files\\Mozilla Firefox\\firefox.exe"`;
+        } else if (IS_LINUX) {
+          command = "firefox";
+        } else if (IS_MACOS) {
+          command = "open -a 'Firefox'";
+        }
+        break;
+      case "edge":
+        if (IS_WINDOWS) {
+          command = `"C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe"`;
+        } else if (IS_LINUX) {
+          command = "microsoft-edge";
+        } else if (IS_MACOS) {
+          command = "open -a 'Microsoft Edge'";
+        }
+        break;
+      case "safari":
+        if (IS_MACOS) {
+          command = "open -a 'Safari'";
+        } else {
+          throw new Error("Safari is only available on macOS");
+        }
+        break;
+      case "opera":
+      case "operagx":
+        if (IS_WINDOWS) {
+          // Try OperaGX first, then regular Opera
+          command = `"C:\\Users\\${process.env.USERNAME}\\AppData\\Local\\Programs\\Opera GX\\121.0.5600.81\\opera.exe"`;
+        } else if (IS_LINUX) {
+          command = "opera";
+        } else if (IS_MACOS) {
+          command = "open -a 'Opera'";
+        }
+        break;
+      default:
+        // Try system default
+        if (IS_WINDOWS) {
+          command = "start";
+        } else if (IS_LINUX) {
+          command = "xdg-open";
+        } else if (IS_MACOS) {
+          command = "open";
+        }
+    }
+    
+    if (!command) {
+      throw new Error(`Unsupported browser: ${browser}`);
+    }
+    
+    // Launch system browser (this will open a new browser window)
+    const child = spawn(command, [], {
+      stdio: 'pipe',
+      detached: true
+    });
+    
+    // Don't wait for the process to finish
+    child.unref();
+    
+    return `${browser} system browser launched successfully`;
+    
+  } catch (error) {
+    throw new Error(`Failed to launch system browser ${browser}: ${error instanceof Error ? error.message : 'Unknown error'}`);
   }
 }
 
