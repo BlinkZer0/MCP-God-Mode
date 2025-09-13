@@ -14,6 +14,11 @@ import { legalCompliance } from "./utils/legal-compliance.js";
 import { ToolRegistry, registerTool, getRegistryStats, generateRegistryReport } from "./core/tool-registry.js";
 // Import all tools from the comprehensive index
 import * as allTools from "./tools/index.js";
+// Import crime reporter tool
+import { executeCrimeReporterCommand, processNaturalLanguageCommand, getCrimeReporterToolInfo, testCrimeReporterConfiguration } from "./tools/crime_reporter/tool.js";
+// Import zero-day exploiter tool
+import { executeZeroDayExploiterCommand, processNaturalLanguageCommand as processZeroDayNLCommand, getZeroDayExploiterToolInfo, testZeroDayExploiterConfiguration } from "./tools/zero_day_exploiter/tool.js";
+// Process management tools are imported via the comprehensive index
 // Import enhanced drone tools
 import { registerDroneDefenseEnhanced } from "./tools/droneDefenseEnhanced.js";
 import { registerDroneOffenseEnhanced } from "./tools/droneOffenseEnhanced.js";
@@ -625,6 +630,139 @@ server.registerTool("security_metrics_dashboard", {
 // ===========================================
 // Note: Original drone tools removed - using enhanced versions with cross-platform support
 console.log(`✅ Successfully registered 21 additional enhanced tools for server-refactored (5 enhanced + 6 MCP Web UI Bridge + 10 advanced)`);
+// ===========================================
+// CRIME REPORTER TOOL
+// ===========================================
+// Register Crime Reporter Tool
+try {
+    const crimeReporterInfo = getCrimeReporterToolInfo();
+    // Register main crime reporter command
+    server.registerTool("crime_reporter", {
+        description: crimeReporterInfo.description,
+        inputSchema: {
+            command: z.string().describe("Crime reporter command: searchJurisdiction, prepareReport, fileReport, previewReport, getStatus, exportCase"),
+            parameters: z.object({}).passthrough().describe("Command parameters")
+        }
+    }, async ({ command, parameters }) => {
+        try {
+            return await executeCrimeReporterCommand(command, parameters);
+        }
+        catch (error) {
+            return {
+                success: false,
+                error: error instanceof Error ? error.message : 'Unknown error occurred',
+                command,
+                parameters
+            };
+        }
+    });
+    // Register natural language interface
+    server.registerTool("crime_reporter_nl", {
+        description: "🚨 **Crime Reporter Natural Language Interface** - Process natural language commands for crime reporting with jurisdiction resolution, case preparation, and automated filing.",
+        inputSchema: {
+            command: z.string().describe("Natural language command for crime reporting (e.g., 'Report a theft in Minneapolis with these photos, anonymously')")
+        }
+    }, async ({ command }) => {
+        try {
+            return await processNaturalLanguageCommand(command);
+        }
+        catch (error) {
+            return {
+                success: false,
+                error: error instanceof Error ? error.message : 'Unknown error occurred',
+                command
+            };
+        }
+    });
+    // Register configuration test
+    server.registerTool("crime_reporter_test", {
+        description: "🧪 **Crime Reporter Configuration Test** - Test crime reporter tool configuration and connectivity.",
+        inputSchema: {}
+    }, async () => {
+        try {
+            return await testCrimeReporterConfiguration();
+        }
+        catch (error) {
+            return {
+                success: false,
+                error: error instanceof Error ? error.message : 'Unknown error occurred'
+            };
+        }
+    });
+    console.log("✅ Crime Reporter Tool registered with natural language interface");
+}
+catch (error) {
+    console.warn("Warning: Failed to register Crime Reporter Tool:", error);
+}
+// ===========================================
+// ZERO-DAY EXPLOITER TOOL
+// ===========================================
+// Register Zero-Day Exploiter Tool
+try {
+    const zeroDayExploiterInfo = getZeroDayExploiterToolInfo();
+    // Register main zero-day exploiter command
+    server.registerTool("zero_day_exploiter", {
+        description: zeroDayExploiterInfo.description,
+        inputSchema: {
+            command: z.string().describe("Zero-day exploiter command: research, generatePoC, startTesting, getSessionStatus, cancelSession, getStatus, acknowledgeLegal, getSecurityWarnings, getAvailableEnvironments, getAvailableTemplates, getAuditLog"),
+            parameters: z.object({}).passthrough().describe("Command parameters")
+        }
+    }, async ({ command, parameters }) => {
+        try {
+            return await executeZeroDayExploiterCommand(command, parameters);
+        }
+        catch (error) {
+            return {
+                success: false,
+                error: error instanceof Error ? error.message : 'Unknown error occurred',
+                command,
+                parameters
+            };
+        }
+    });
+    // Register natural language interface
+    server.registerTool("zero_day_exploiter_nl", {
+        description: "🔍 **Zero-Day Exploiter Natural Language Interface** - Process natural language commands for zero-day vulnerability research, PoC generation, and ethical security testing.",
+        inputSchema: {
+            command: z.string().describe("Natural language command for zero-day exploitation (e.g., 'Research critical vulnerabilities from last week', 'Generate PoC for CVE-2025-55234')")
+        }
+    }, async ({ command }) => {
+        try {
+            return await processZeroDayNLCommand(command);
+        }
+        catch (error) {
+            return {
+                success: false,
+                error: error instanceof Error ? error.message : 'Unknown error occurred',
+                command
+            };
+        }
+    });
+    // Register configuration test
+    server.registerTool("zero_day_exploiter_test", {
+        description: "🧪 **Zero-Day Exploiter Configuration Test** - Test zero-day exploiter tool configuration and connectivity.",
+        inputSchema: {}
+    }, async () => {
+        try {
+            return await testZeroDayExploiterConfiguration();
+        }
+        catch (error) {
+            return {
+                success: false,
+                error: error instanceof Error ? error.message : 'Unknown error occurred'
+            };
+        }
+    });
+    console.log("✅ Zero-Day Exploiter Tool registered with natural language interface");
+}
+catch (error) {
+    console.warn("Warning: Failed to register Zero-Day Exploiter Tool:", error);
+}
+// ===========================================
+// PROCESS MANAGEMENT TOOLS
+// ===========================================
+// Process Management Tools are registered via the comprehensive index
+// No separate registration needed - they will be loaded dynamically
 // ===========================================
 // All tools are already registered dynamically above
 // ===========================================

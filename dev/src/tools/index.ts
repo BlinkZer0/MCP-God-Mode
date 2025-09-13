@@ -5,6 +5,15 @@ export { registerSystemInfo } from "./core/system_info.js";
 // Legal compliance tools
 export { registerLegalComplianceManager } from "./legal/legal_compliance_manager.js";
 
+// Crime Reporter Tool - Simplified implementation
+// export { registerCrimeReporter } from "./crime_reporter/tool";
+// export { registerZeroDayExploiter } from "./zero_day_exploiter/tool";
+
+// Process Management Tools
+export { registerProcRun } from "./process/proc_run.js";
+export { registerProcRunElevated } from "./process/proc_run_elevated.js";
+export { registerProcRunRemote } from "./process/proc_run_remote.js";
+
 // File System Tools
 export { registerFsList } from "./file_system/fs_list.js";
 export { registerFsReadText } from "./file_system/fs_read_text.js";
@@ -13,9 +22,6 @@ export { registerFsSearch } from "./file_system/fs_search.js";
 export { registerFileOps } from "./file_system/file_ops.js";
 export { registerFileWatcher } from "./file_system/file_watcher.js";
 
-// Process Tools
-export { registerProcRun } from "./process/proc_run.js";
-export { registerProcRunElevated } from "./process/proc_run_elevated.js";
 
 // System Tools
 export { registerSystemRestore } from "./system/system_restore.js";
