@@ -18,7 +18,7 @@ One MCP to rule them all, one MCP to find them, one MCP to compile the tools, an
 [![Platforms](https://img.shields.io/badge/Platforms-Win%20%7C%20macOS%20%7C%20Linux%20%7C%20Android%20%7C%20iOS-orange)](docs/CROSS_PLATFORM_COMPATIBILITY.md)
 [![GitHub Stars](https://img.shields.io/github/stars/BlinkZer0/MCP-God-Mode?style=social)](https://github.com/BlinkZer0/MCP-God-Mode)
 [![CI](https://img.shields.io/badge/CI-Smoke%20Tests-yellow)](scripts/smoke-test.js)
-[![Tools](https://img.shields.io/badge/Tools-175%20Total-orange)](docs/general/TOOL_CATALOG.md)
+[![Tools](https://img.shields.io/badge/Tools-182%20Total-orange)](docs/general/TOOL_CATALOG.md)
 
 **Version 1.9 - RF Sense Through-Wall Detection & Enhanced Wireless Capabilities** — Last edited 2025-09-10
 
@@ -35,8 +35,8 @@ One MCP to rule them all, one MCP to find them, one MCP to compile the tools, an
 ### Tool Inventory (v1.9)
 | Profile         | Count |
 |-----------------|------:|
-| Refactored Set  | 175   |
-| Modular Set     | 175   |
+| Refactored Set  | 182   |
+| Modular Set     | 182   |
 | Minimal Profile | 15    |
 
 https://github.com/user-attachments/assets/932c43e4-159e-4ce2-9c02-4acf23fc47fd
@@ -47,7 +47,7 @@ https://github.com/user-attachments/assets/932c43e4-159e-4ce2-9c02-4acf23fc47fd
 
 ## 🧪 **TESTING STATUS & NEEDED HELP**
 
-**We need your help to properly test MCP God Mode!** With 175 tools across multiple platforms, we need extensive testing to verify functionality, catch edge cases, and ensure reliability.
+**We need your help to properly test MCP God Mode!** With 182 tools across multiple platforms, we need extensive testing to verify functionality, catch edge cases, and ensure reliability.
 
 ### **📊 Current Testing Status**
 - ✅ **Confirmed Working**: Calculator, Web Search, Root Access, WiFi Security, IoT Security
@@ -204,21 +204,23 @@ MCP God Mode is the ultimate cybersecurity and system management platform that p
 <details>
   <summary><b>Deep Dive</b> — Architecture & Safety</summary> 
 
-**📝 Note**: We offer both monolithic and modular server architectures. Our **primary server-refactored** provides comprehensive functionality in a unified interface with **175 tools**. The modular server provides **175 tools** (configurable) for granular control, better error handling, and for the ease of an individual to extract a tool for their own server build. Tools are located in dev/src/tools. Each architecture serves different use cases and preferences.
+**📝 Note**: We offer both monolithic and modular server architectures. Our **primary server-refactored** provides comprehensive functionality in a unified interface with **182 tools**. The modular server provides **182 tools** (configurable) for granular control, better error handling, and for the ease of an individual to extract a tool for their own server build. Tools are located in dev/src/tools. Each architecture serves different use cases and preferences.
 
 **🔍 Server Architecture Differences**:
-- **Server-Refactored (175 tools)**: Unified server with all core endpoints plus enhanced endpoints (Flipper Zero suite + MCP Web UI Bridge + SpecOps tools). Includes built-in legal compliance, audit logging, and forensic readiness capabilities.
-- **Modular Server (175 tools, configurable)**: Comprehensive architecture with 175 tools for granular control, better error handling, and specialized functionality. **Configurable** - can be set to load minimal (10 tools), custom categories, or full (175 tools). Full legal compliance integration with modular evidence preservation.
+- **Server-Refactored (182 tools)**: Unified server with all core endpoints plus enhanced endpoints (Flipper Zero suite + MCP Web UI Bridge + SpecOps tools). Includes built-in legal compliance, audit logging, and forensic readiness capabilities.
+- **Modular Server (182 tools, configurable)**: Comprehensive architecture with 182 tools for granular control, better error handling, and specialized functionality. **Configurable** - can be set to load minimal (10 tools), custom categories, or full (182 tools). Full legal compliance integration with modular evidence preservation.
 - **Server-Minimal (15 tools)**: Lightweight implementation with core tools only for basic functionality and resource-constrained environments.
 
 **🔢 Tool Count Explanation**: 
 - **Comprehensive toolset implemented** in the tools directory
 - **141 register functions are exported** in the comprehensive index.ts file (including Flipper Zero tools)
-- **175 tools are registered** in server-refactored (index exports + Flipper suite + MCP Web UI Bridge + SpecOps tools)
-- **175 tools are registered** in server-modular (identical set, configurable)
+- **182 tools are registered** in server-refactored (index exports + Flipper suite + MCP Web UI Bridge + SpecOps tools)
+- **182 tools are registered** in server-modular (identical set, configurable)
 - **15 tools are registered** in server-minimal (core tools only)
 
-**📊 Documentation Status**: All 175 tools (both servers) now have comprehensive documentation with detailed usage examples, parameter references, and platform compatibility information. See [Complete Tool Catalog](docs/general/TOOL_CATALOG.md) for detailed information about each tool.
+**📊 Documentation Status**: All 182 tools (both servers) now have comprehensive documentation with detailed usage examples, parameter references, and platform compatibility information. See [Complete Tool Catalog](docs/general/TOOL_CATALOG.md) for detailed information about each tool.
+
+**🔄 Future Consolidation**: We are considering future consolidation of similar tools to reduce redundancy and improve maintainability. This may include combining related natural language interfaces, merging similar testing tools, and consolidating platform-specific variants into unified cross-platform implementations.
 
 **⚖️ Legal Compliance & Forensic Readiness**: Both server architectures include comprehensive legal compliance capabilities including audit logging, evidence preservation, legal hold management, and chain of custody tracking. These features are disabled by default and can be enabled through environment variables for SOX, HIPAA, GDPR, PCI DSS, and ISO 27001 compliance. See [Legal Compliance Documentation](docs/LEGAL_COMPLIANCE.md) for detailed configuration and usage instructions.
 
@@ -429,8 +431,9 @@ See MCP God Mode in action with Cursor IDE integration:
 
 <img src="assets/header-core.svg" alt="Core System Tools" width="100%" />
 
-### 🔐 Core System Tools (6 Tools)
+### 🔐 Core System Tools (7 Tools)
 - **Process Management** - Command execution and elevated permissions
+- **Remote Process Execution** - Execute commands on remote devices across all platforms with passwordless authentication ([📖 Full Docs](docs/tool/proc_run_remote.md))
 - **System Information** - Hardware, software, and health monitoring
 - **Git Operations** - Repository management and version control
 - **System Restore** - Backup and recovery operations
@@ -602,7 +605,7 @@ https://github.com/user-attachments/assets/f074039c-1989-40fc-b769-5efa855e854d
 
 <img src="assets/header-forensics.svg" alt="Advanced Security" width="100%" />
 
-### 🔒 Advanced Security (17 Tools)
+### 🔒 Advanced Security (18 Tools)
 - **Blockchain Security** - Cryptocurrency and blockchain analysis
 - **Quantum Security** - Post-quantum cryptography assessment
 - **IoT Security** - Internet of Things device security
@@ -612,6 +615,7 @@ https://github.com/user-attachments/assets/f074039c-1989-40fc-b769-5efa855e854d
 - **Cloud Security** - Cloud infrastructure security assessment
 - **Cloud Infrastructure Manager** - Cloud resource management
 - **Exploit Framework** - Vulnerability exploitation
+- **Zero-Day Exploit Researcher** - Research zero-day vulnerabilities, generate PoCs, and conduct ethical security testing ([📖 Full Docs](docs/tool/zero_day_exploiter.md))
 - **Vulnerability Scanner** - Security assessment tools
 - **Password Cracker** - Authentication testing
 - **Threat Intelligence** - Security threat analysis and monitoring
@@ -621,6 +625,16 @@ https://github.com/user-attachments/assets/f074039c-1989-40fc-b769-5efa855e854d
 - **Port Scanner** - Security port scanning
 
 **[📖 View All Advanced Security Tools](docs/general/TOOL_CATEGORY_INDEX.md#advanced-security)**
+
+<img src="assets/header-forensics.svg" alt="Legal & Compliance" width="100%" />
+
+### ⚖️ Legal & Compliance (2 Tools)
+- **Crime Reporter** - Comprehensive crime reporting with jurisdiction resolution, case preparation, and automated filing via forms or email ([📖 Full Docs](docs/tool/crime_reporter.md))
+- **Legal Compliance Manager** - Manage legal compliance, audit logging, evidence preservation, and legal hold capabilities
+
+**🔒 Privacy & Safety Guarantee**: The Crime Reporter tool is designed to protect users, not harm them. It does NOT collect, store, or transmit personal information to third parties. All reports are anonymous by default unless explicitly configured otherwise.
+
+**[📖 View All Legal & Compliance Tools](docs/general/TOOL_CATEGORY_INDEX.md#legal--compliance)**
 
 <img src="assets/header-core.svg" alt="Utilities" width="100%" />
 
@@ -689,7 +703,7 @@ https://github.com/user-attachments/assets/f074039c-1989-40fc-b769-5efa855e854d
 
 | Category | Tools | Description |
 |----------|-------|-------------|
-| **🔐 Core System** | 6 | Process management, system info, health monitoring, git operations |
+| **🔐 Core System** | 7 | Process management, remote process execution, system info, health monitoring, git operations |
 | **🌐 Network & Security** | 19 | Network diagnostics, penetration testing, packet analysis, port scanning |
 | **📡 Wireless & Radio** | 10 | Wi-Fi, Bluetooth, SDR security testing, RF sensing, through-wall detection |
 | **📧 Email Management** | 6 | SMTP, IMAP, email security, account management |
@@ -697,7 +711,8 @@ https://github.com/user-attachments/assets/f074039c-1989-40fc-b769-5efa855e854d
 | **🖥️ Web & Browser** | 4 | Browser automation, web scraping, web automation, webhooks |
 | **📱 Mobile Device** | 13 | Device info, file ops, hardware access, system tools, app tools |
 | **🖥️ Virtualization** | 2 | VM management, Docker orchestration |
-| **🔒 Advanced Security** | 17 | Blockchain, quantum, IoT, forensics, cloud security |
+| **🔒 Advanced Security** | 18 | Blockchain, quantum, IoT, forensics, cloud security, zero-day exploit research |
+| **⚖️ Legal & Compliance** | 2 | Crime reporting, legal compliance management, audit logging, evidence preservation |
 | **🧮 Utilities** | 12 | Math tools, dice rolling, data analysis, ML, RAG toolkit, encryption |
 | **🔄 System Restore** | 1 | Cross-platform backup and restore |
 | **🔧 Tool Discovery** | 2 | Natural language search, category explorer |
@@ -707,11 +722,11 @@ https://github.com/user-attachments/assets/f074039c-1989-40fc-b769-5efa855e854d
 | **🪟 Windows-Specific** | 2 | Windows services and process management |
 
 <<<<<<< HEAD
-**Total: 175 Tools (Both Servers)** - Framework implemented, comprehensive testing needed ⚠️
+**Total: 182 Tools (Both Servers)** - Framework implemented, comprehensive testing needed ⚠️
 
 ## 🎯 **Implementation Status: Framework Complete, Testing Required**
 
-✅ **175 tools implemented with comprehensive framework**  
+✅ **182 tools implemented with comprehensive framework**  
 ⚠️ **Core tools confirmed working (Calculator, Web Search, Root Access, WiFi Security, IoT Security)**  
 ✅ **MCP protocol integration complete**  
 ✅ **Cross-platform compatibility framework in place**  
@@ -721,7 +736,7 @@ https://github.com/user-attachments/assets/f074039c-1989-40fc-b769-5efa855e854d
 
 **📋 [View Detailed Testing Status](TESTING_STATUS.md)** - See which tools are confirmed working vs. need testing
 
-**🔧 Architecture Note**: We offer both server-refactored and modular server architectures. Our **primary server-refactored** provides comprehensive functionality in a unified interface with **175 tools**. The modular server provides **175 tools** for granular control and better error handling. Each architecture serves different use cases and preferences.  
+**🔧 Architecture Note**: We offer both server-refactored and modular server architectures. Our **primary server-refactored** provides comprehensive functionality in a unified interface with **182 tools**. The modular server provides **182 tools** for granular control and better error handling. Each architecture serves different use cases and preferences.  
 
 <img src="assets/header-core.svg" alt="Windows" width="100%" />
 
@@ -1088,7 +1103,7 @@ If MCP God Mode has been helpful to you, please consider giving it a star on Git
 
 *Last Updated: January 2025*  
 *MCP God Mode v1.9 - One MCP to rule them all - The Ultimate Cross-Platform Security Suite with Through-Wall Detection*  
-*Framework implemented for all 175 tools - comprehensive testing required for full verification ⚠️*
+*Framework implemented for all 182 tools - comprehensive testing required for full verification ⚠️*
 
 ---
 
