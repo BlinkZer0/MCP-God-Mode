@@ -569,7 +569,7 @@ https://github.com/user-attachments/assets/f074039c-1989-40fc-b769-5efa855e854d
 
 **[📖 View All Web Tools](docs/general/TOOL_CATEGORY_INDEX.md#web--browser)**
 
-<img src="assets/header-web.svg" alt="MCP Web UI Bridge" width="100%" />
+<img src="assets/header-network.svg" alt="MCP Web UI Bridge" width="100%" />
 
 ### 🌐 MCP Web UI Bridge (6 Tools)
 - **Web UI Chat** - Chat with AI services through their web interfaces without APIs
@@ -619,7 +619,7 @@ https://github.com/user-attachments/assets/f074039c-1989-40fc-b769-5efa855e854d
 
 **[📖 View All Mobile Tools](docs/general/TOOL_CATEGORY_INDEX.md#mobile-device)**
 
-<img src="assets/header-cloud.svg" alt="Virtualization" width="100%" />
+<img src="assets/header-core.svg" alt="Virtualization" width="100%" />
 
 ### 🖥️ Virtualization (2 Tools)
 - **VM Management** - Virtual machine operations
@@ -691,7 +691,7 @@ https://github.com/user-attachments/assets/f074039c-1989-40fc-b769-5efa855e854d
 
 **[📖 View All Discovery Tools](docs/general/TOOL_CATEGORY_INDEX.md#tool-discovery)**
 
-<img src="assets/header-media.svg" alt="File System" width="100%" />
+<img src="assets/header-core.svg" alt="File System" width="100%" />
 
 ### 📁 File System (8 Tools)
 - **File Operations** - Advanced cross-platform file management
