@@ -569,7 +569,7 @@ https://github.com/user-attachments/assets/f074039c-1989-40fc-b769-5efa855e854d
 
 **[📖 View All Web Tools](docs/general/TOOL_CATEGORY_INDEX.md#web--browser)**
 
-<img src="assets/header-network.svg" alt="MCP Web UI Bridge" width="100%" />
+<img src="assets/header-core.svg" alt="MCP Web UI Bridge" width="100%" />
 
 ### 🌐 MCP Web UI Bridge (6 Tools)
 - **Web UI Chat** - Chat with AI services through their web interfaces without APIs
@@ -650,7 +650,7 @@ https://github.com/user-attachments/assets/f074039c-1989-40fc-b769-5efa855e854d
 
 **[📖 View All Advanced Security Tools](docs/general/TOOL_CATEGORY_INDEX.md#advanced-security)**
 
-<img src="assets/header-forensics.svg" alt="Legal & Compliance" width="100%" />
+<img src="assets/header-core.svg" alt="Legal & Compliance" width="100%" />
 
 ### ⚖️ Legal & Compliance (2 Tools)
 - **Crime Reporter** - Comprehensive crime reporting with jurisdiction resolution, case preparation, and automated filing via forms or email ([📖 Full Docs](docs/tool/crime_reporter.md))
@@ -683,7 +683,7 @@ https://github.com/user-attachments/assets/f074039c-1989-40fc-b769-5efa855e854d
 
 **[📖 View All System Restore Tools](docs/general/TOOL_CATEGORY_INDEX.md#system-restore)**
 
-<img src="assets/header-web.svg" alt="Tool Discovery" width="100%" />
+<img src="assets/header-core.svg" alt="Tool Discovery" width="100%" />
 
 ### 🔧 Tool Discovery (2 Tools)
 - **Natural Language Search** - Find tools using natural language queries
