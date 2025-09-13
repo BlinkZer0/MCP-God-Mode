@@ -1633,7 +1633,34 @@ export function registerEnhancedMediaEditor(server) {
             enhancedFeatures: z.object({}).passthrough().optional().describe("Enhanced features"),
             nonDestructiveEditing: z.boolean().optional().describe("Non-destructive editing flag"),
             tracks: z.array(z.object({}).passthrough()).optional().describe("Audio/video tracks"),
-            svgContent: z.string().optional().describe("SVG content")
+            svgContent: z.string().optional().describe("SVG content"),
+            action: z.string().optional().describe("Action performed"),
+            parameters: z.object({}).passthrough().optional().describe("Action parameters"),
+            operation: z.string().optional().describe("Operation performed"),
+            // Additional properties for various operations
+            width: z.number().optional().describe("Width parameter"),
+            height: z.number().optional().describe("Height parameter"),
+            degrees: z.number().optional().describe("Rotation degrees"),
+            radius: z.number().optional().describe("Blur radius"),
+            gainDb: z.number().optional().describe("Audio gain in dB"),
+            duration: z.number().optional().describe("Duration parameter"),
+            roomSize: z.number().optional().describe("Reverb room size"),
+            sessionName: z.string().optional().describe("Session name"),
+            source: z.string().optional().describe("Source path"),
+            style: z.string().optional().describe("Style parameter"),
+            outputFormat: z.string().optional().describe("Output format"),
+            quality: z.number().optional().describe("Quality setting"),
+            seed: z.number().optional().describe("Random seed"),
+            steps: z.number().optional().describe("Generation steps"),
+            guidance: z.number().optional().describe("Guidance scale"),
+            negativePrompt: z.string().optional().describe("Negative prompt"),
+            apiConfig: z.object({}).passthrough().optional().describe("API configuration"),
+            // Additional properties for comprehensive compatibility
+            session: z.object({}).passthrough().optional().describe("Session object"),
+            clips: z.array(z.object({}).passthrough()).optional().describe("Timeline clips"),
+            effects: z.array(z.object({}).passthrough()).optional().describe("Applied effects"),
+            filters: z.array(z.object({}).passthrough()).optional().describe("Applied filters"),
+            transitions: z.array(z.object({}).passthrough()).optional().describe("Applied transitions")
         }
     }, async (params) => {
         try {
@@ -1727,14 +1754,22 @@ export function registerEnhancedMediaEditor(server) {
                         }
                     };
                 case "process_image":
-                    const imageResult = await processImage(restParams);
+                    const { imageOperation, imageParams, layerId: imageLayerId } = restParams;
+                    const imageResult = await processImage({
+                        sessionId: restParams.sessionId || "default",
+                        operation: imageOperation,
+                        params: imageParams || {},
+                        layerId: imageLayerId
+                    });
                     return {
-                        content: [{ type: "text", text: `Image operation applied: ${imageResult.operationId}` }],
+                        content: [{ type: "text", text: `GIMP 3.0 image operation applied: ${imageResult.operationId}` }],
                         structuredContent: {
                             success: true,
-                            message: "Image operation applied successfully",
+                            message: "GIMP 3.0 image operation applied successfully",
                             operationId: imageResult.operationId,
-                            layers: imageResult.layers
+                            layers: imageResult.layers,
+                            gimpVersion: "3.0 (September 2025)",
+                            nonDestructiveEditing: imageResult.nonDestructiveEditing
                         }
                     };
                 case "process_video":
