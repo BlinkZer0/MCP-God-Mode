@@ -509,12 +509,12 @@ class SmokeTestRunner {
         
         // Special handling for crime reporter tools
         if (category === 'crimeReporter') {
-          possiblePaths.unshift(`./dev/src/tools/crime_reporter/${toolName}.ts`);
+          possiblePaths.unshift(`./dev/src/tools/crime_reporter/tool.ts`);
         }
         
         // Special handling for zero day exploiter tools
         if (category === 'zeroDayExploiter') {
-          possiblePaths.unshift(`./dev/src/tools/zero_day_exploiter/${toolName}.ts`);
+          possiblePaths.unshift(`./dev/src/tools/zero_day_exploiter/tool.ts`);
         }
         
         // Special handling for advanced tools
@@ -526,8 +526,6 @@ class SmokeTestRunner {
         const mcpGodModeFunctions = [
           'form_detection', 'form_validation', 'form_pattern_recognition', 'multi_engine_search', 'search_analysis',
           'ai_adversarial_nlp', 'ai_adversarial_platform_info',
-          'crime_reporter', 'crime_reporter_nl', 'crime_reporter_test',
-          'zero_day_exploiter', 'zero_day_exploiter_nl', 'zero_day_exploiter_test',
           'advanced_analytics_engine', 'advanced_security_assessment', 'cross_platform_system_manager',
           'enhanced_legal_compliance', 'enterprise_integration_hub', 'advanced_threat_hunting',
           'cyber_deception_platform', 'zero_trust_architect', 'quantum_cryptography_suite',

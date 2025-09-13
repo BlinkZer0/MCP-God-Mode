@@ -145,3 +145,42 @@ export async function testCrimeReporterConfiguration(): Promise<any> {
     };
   }
 }
+
+export function registerCrimeReporter(server: any) {
+  server.registerTool("crime_reporter", {
+    description: "🚨 **Crime Reporter Tool** - Comprehensive crime reporting with jurisdiction resolution, case preparation, and automated filing via forms or email.",
+    inputSchema: {
+      command: z.string().describe("Crime reporter command: searchJurisdiction, prepareReport, fileReport, previewReport, getStatus, exportCase"),
+      parameters: z.object({}).passthrough().describe("Command parameters")
+    }
+  }, async ({ command, parameters }) => {
+    const result = await executeCrimeReporterCommand(command, parameters);
+    return {
+      content: [{ type: "text", text: JSON.stringify(result, null, 2) }]
+    };
+  });
+
+  server.registerTool("crime_reporter_nl", {
+    description: "🚨 **Crime Reporter Natural Language Interface** - Process natural language commands for crime reporting with jurisdiction resolution, case preparation, and automated filing.",
+    inputSchema: {
+      command: z.string().describe("Natural language command for crime reporting (e.g., 'Report a theft in Minneapolis with these photos, anonymously')")
+    }
+  }, async ({ command }) => {
+    const result = await processNaturalLanguageCommand(command);
+    return {
+      content: [{ type: "text", text: JSON.stringify(result, null, 2) }]
+    };
+  });
+
+  server.registerTool("crime_reporter_test", {
+    description: "🧪 **Crime Reporter Configuration Test** - Test crime reporter tool configuration and connectivity.",
+    inputSchema: {
+      random_string: z.string().describe("Dummy parameter for no-parameter tools")
+    }
+  }, async ({ random_string }) => {
+    const result = await testCrimeReporterConfiguration();
+    return {
+      content: [{ type: "text", text: JSON.stringify(result, null, 2) }]
+    };
+  });
+}

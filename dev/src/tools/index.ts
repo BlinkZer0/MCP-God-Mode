@@ -6,8 +6,8 @@ export { registerSystemInfo } from "./core/system_info.js";
 export { registerLegalComplianceManager } from "./legal/legal_compliance_manager.js";
 
 // Crime Reporter Tool - Simplified implementation
-// export { registerCrimeReporter } from "./crime_reporter/tool";
-// export { registerZeroDayExploiter } from "./zero_day_exploiter/tool";
+export { registerCrimeReporter } from "./crime_reporter/tool.js";
+export { registerZeroDayExploiter } from "./zero_day_exploiter/tool.js";
 
 // Process Management Tools
 export { registerProcRun } from "./process/proc_run.js";
@@ -194,3 +194,4 @@ export * from "./rf_sense/index.js";
 export { registerToolBurglar } from "./tool_burglar.js";
 
 // Social Tools
+export * from "./social/index.js";
