@@ -14,16 +14,13 @@ import { legalCompliance } from "./utils/legal-compliance.js";
 import { ToolRegistry, registerTool, getRegistryStats, generateRegistryReport } from "./core/tool-registry.js";
 // Import all tools from the comprehensive index
 import * as allTools from "./tools/index.js";
-// Import crime reporter tool
-import { executeCrimeReporterCommand, processNaturalLanguageCommand, getCrimeReporterToolInfo, testCrimeReporterConfiguration } from "./tools/crime_reporter/tool.js";
-// Import zero-day exploiter tool
-import { executeZeroDayExploiterCommand, processNaturalLanguageCommand as processZeroDayNLCommand, getZeroDayExploiterToolInfo, testZeroDayExploiterConfiguration } from "./tools/zero_day_exploiter/tool.js";
+// Import unified crime reporter tool
+import { registerCrimeReporterUnified } from "./tools/crimeReporterUnified.js";
+// Import unified zero-day exploiter tool
+import { registerZeroDayExploiterUnified } from "./tools/zeroDayExploiterUnified.js";
 // Process management tools are imported via the comprehensive index
-// Import enhanced drone tools
-import { registerDroneDefenseEnhanced } from "./tools/droneDefenseEnhanced.js";
-import { registerDroneOffenseEnhanced } from "./tools/droneOffenseEnhanced.js";
-import { registerDroneNaturalLanguageInterface } from "./tools/droneNaturalLanguageInterface.js";
-import { registerDroneMobileOptimized } from "./tools/droneMobileOptimized.js";
+// Import unified drone tool
+import { registerDroneUnified } from "./tools/droneUnified.js";
 // Import cellular triangulation API
 import { setupCellularTriangulateAPI } from "./tools/wireless/cellular_triangulate_api.js";
 // Import RF Sense viewer API
@@ -187,34 +184,13 @@ const toolFunctions = Object.values(allTools).filter(fn => typeof fn === 'functi
 // ===========================================
 // ENHANCED CROSS-PLATFORM DRONE TOOLS
 // ===========================================
-// Register enhanced drone tools with cross-platform support
+// Register unified drone tool with comprehensive functionality
 try {
-    registerDroneDefenseEnhanced(server);
-    console.log("✅ Enhanced Drone Defense Tool registered");
+    registerDroneUnified(server);
+    console.log("✅ Unified Drone Management Tool registered");
 }
 catch (error) {
-    console.warn("Warning: Failed to register Enhanced Drone Defense Tool:", error);
-}
-try {
-    registerDroneOffenseEnhanced(server);
-    console.log("✅ Enhanced Drone Offense Tool registered");
-}
-catch (error) {
-    console.warn("Warning: Failed to register Enhanced Drone Offense Tool:", error);
-}
-try {
-    registerDroneNaturalLanguageInterface(server);
-    console.log("✅ Drone Natural Language Interface registered");
-}
-catch (error) {
-    console.warn("Warning: Failed to register Drone Natural Language Interface:", error);
-}
-try {
-    registerDroneMobileOptimized(server);
-    console.log("✅ Mobile-Optimized Drone Tools registered");
-}
-catch (error) {
-    console.warn("Warning: Failed to register Mobile-Optimized Drone Tools:", error);
+    console.warn("Warning: Failed to register Unified Drone Management Tool:", error);
 }
 // ===========================================
 // RF SENSE TOOLS - COMPREHENSIVE RF SENSING TOOLKIT
@@ -633,130 +609,24 @@ console.log(`✅ Successfully registered 21 additional enhanced tools for server
 // ===========================================
 // CRIME REPORTER TOOL
 // ===========================================
-// Register Crime Reporter Tool
+// Register Unified Crime Reporter Tool
 try {
-    const crimeReporterInfo = getCrimeReporterToolInfo();
-    // Register main crime reporter command
-    server.registerTool("crime_reporter", {
-        description: crimeReporterInfo.description,
-        inputSchema: {
-            command: z.string().describe("Crime reporter command: searchJurisdiction, prepareReport, fileReport, previewReport, getStatus, exportCase"),
-            parameters: z.object({}).passthrough().describe("Command parameters")
-        }
-    }, async ({ command, parameters }) => {
-        try {
-            return await executeCrimeReporterCommand(command, parameters);
-        }
-        catch (error) {
-            return {
-                success: false,
-                error: error instanceof Error ? error.message : 'Unknown error occurred',
-                command,
-                parameters
-            };
-        }
-    });
-    // Register natural language interface
-    server.registerTool("crime_reporter_nl", {
-        description: "🚨 **Crime Reporter Natural Language Interface** - Process natural language commands for crime reporting with jurisdiction resolution, case preparation, and automated filing.",
-        inputSchema: {
-            command: z.string().describe("Natural language command for crime reporting (e.g., 'Report a theft in Minneapolis with these photos, anonymously')")
-        }
-    }, async ({ command }) => {
-        try {
-            return await processNaturalLanguageCommand(command);
-        }
-        catch (error) {
-            return {
-                success: false,
-                error: error instanceof Error ? error.message : 'Unknown error occurred',
-                command
-            };
-        }
-    });
-    // Register configuration test
-    server.registerTool("crime_reporter_test", {
-        description: "🧪 **Crime Reporter Configuration Test** - Test crime reporter tool configuration and connectivity.",
-        inputSchema: {}
-    }, async () => {
-        try {
-            return await testCrimeReporterConfiguration();
-        }
-        catch (error) {
-            return {
-                success: false,
-                error: error instanceof Error ? error.message : 'Unknown error occurred'
-            };
-        }
-    });
-    console.log("✅ Crime Reporter Tool registered with natural language interface");
+    registerCrimeReporterUnified(server);
+    console.log("✅ Unified Crime Reporter Tool registered");
 }
 catch (error) {
-    console.warn("Warning: Failed to register Crime Reporter Tool:", error);
+    console.warn("Warning: Failed to register Unified Crime Reporter Tool:", error);
 }
 // ===========================================
 // ZERO-DAY EXPLOITER TOOL
 // ===========================================
-// Register Zero-Day Exploiter Tool
+// Register Unified Zero-Day Exploiter Tool
 try {
-    const zeroDayExploiterInfo = getZeroDayExploiterToolInfo();
-    // Register main zero-day exploiter command
-    server.registerTool("zero_day_exploiter", {
-        description: zeroDayExploiterInfo.description,
-        inputSchema: {
-            command: z.string().describe("Zero-day exploiter command: research, generatePoC, startTesting, getSessionStatus, cancelSession, getStatus, acknowledgeLegal, getSecurityWarnings, getAvailableEnvironments, getAvailableTemplates, getAuditLog"),
-            parameters: z.object({}).passthrough().describe("Command parameters")
-        }
-    }, async ({ command, parameters }) => {
-        try {
-            return await executeZeroDayExploiterCommand(command, parameters);
-        }
-        catch (error) {
-            return {
-                success: false,
-                error: error instanceof Error ? error.message : 'Unknown error occurred',
-                command,
-                parameters
-            };
-        }
-    });
-    // Register natural language interface
-    server.registerTool("zero_day_exploiter_nl", {
-        description: "🔍 **Zero-Day Exploiter Natural Language Interface** - Process natural language commands for zero-day vulnerability research, PoC generation, and ethical security testing.",
-        inputSchema: {
-            command: z.string().describe("Natural language command for zero-day exploitation (e.g., 'Research critical vulnerabilities from last week', 'Generate PoC for CVE-2025-55234')")
-        }
-    }, async ({ command }) => {
-        try {
-            return await processZeroDayNLCommand(command);
-        }
-        catch (error) {
-            return {
-                success: false,
-                error: error instanceof Error ? error.message : 'Unknown error occurred',
-                command
-            };
-        }
-    });
-    // Register configuration test
-    server.registerTool("zero_day_exploiter_test", {
-        description: "🧪 **Zero-Day Exploiter Configuration Test** - Test zero-day exploiter tool configuration and connectivity.",
-        inputSchema: {}
-    }, async () => {
-        try {
-            return await testZeroDayExploiterConfiguration();
-        }
-        catch (error) {
-            return {
-                success: false,
-                error: error instanceof Error ? error.message : 'Unknown error occurred'
-            };
-        }
-    });
-    console.log("✅ Zero-Day Exploiter Tool registered with natural language interface");
+    registerZeroDayExploiterUnified(server);
+    console.log("✅ Unified Zero-Day Exploiter Tool registered");
 }
 catch (error) {
-    console.warn("Warning: Failed to register Zero-Day Exploiter Tool:", error);
+    console.warn("Warning: Failed to register Unified Zero-Day Exploiter Tool:", error);
 }
 // ===========================================
 // PROCESS MANAGEMENT TOOLS

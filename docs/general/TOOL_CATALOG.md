@@ -31,18 +31,21 @@ Humor break: if the AI builds an enterprise integration hub and starts sending c
 | `mcp_mcp-god-mode_health` | Comprehensive system health check and readiness probe for monitoring MCP server status, configuration validation, and operational readiness | `random_string` (dummy parameter) |
 | `mcp_mcp-god-mode_system_info` | Comprehensive system information including OS details, architecture, CPU specifications, memory usage, and hardware configuration | `random_string` (dummy parameter) |
 
-### ⚖️ Legal Compliance Tools (1 tool)
+### ⚖️ Legal Compliance Tools (2 tools)
 | Tool | Description | Parameters |
 |------|-------------|------------|
+| `mcp_mcp-god-mode_crime_reporter_unified` | Unified crime reporting with jurisdiction resolution, case preparation, automated filing, natural language processing, and configuration testing | `mode`, `command`, `parameters`, `naturalLanguageCommand` |
 | `mcp_mcp-god-mode_legal_compliance_manager` | Manage legal compliance, audit logging, evidence preservation, and legal hold capabilities | `action`, `enableAuditLogging`, `enableEvidencePreservation`, `enableLegalHold`, `enableChainOfCustody`, `enableDataIntegrity`, `caseName`, `caseDescription`, `createdBy`, `affectedData`, `custodian`, `legalBasis`, `caseId`, `sourcePath`, `evidenceType`, `metadata`, `legalHoldIds`, `evidenceId`, `custodyAction`, `toCustodian`, `purpose`, `location`, `witnesses`, `notes`, `fromCustodian`, `complianceFrameworks`, `auditRetentionDays`, `auditLogLevel`, `filePath`, `startDate`, `endDate`, `limit` |
 
-### 📁 File System Tools (6 tools)
+### 📁 File System Tools (8 tools)
 | Tool | Description | Parameters |
 |------|-------------|------------|
 | `mcp_mcp-god-mode_fs_list` | Advanced directory listing utility with cross-platform support for file and directory enumeration, metadata extraction, and path validation | `dir` (default: ".") |
 | `mcp_mcp-god-mode_fs_read_text` | Advanced text file reader with UTF-8 encoding support, path validation, and comprehensive error handling for secure file access | `path` |
 | `mcp_mcp-god-mode_fs_write_text` | Write a UTF-8 text file within the sandbox | `path`, `content` |
 | `mcp_mcp-god-mode_fs_search` | Search for files by name pattern | `pattern`, `dir` (default: ".") |
+| `mcp_mcp-god-mode_grep` | **✅ TESTED** Advanced text search with cross-platform support, contextual display, encoding detection, and performance optimizations | `pattern`, `path`, `caseInsensitive`, `wholeWord`, `regex`, `contextBefore`, `contextAfter`, `outputFormat`, `colorOutput`, `showLineNumbers`, `showFilename`, `recursive`, `includePattern`, `excludePattern`, `maxDepth`, `limitResults`, `binaryFiles`, `followSymlinks`, `performanceMode` |
+| `mcp_mcp-god-mode_advanced_grep` | **✅ TESTED** Enhanced grep tool with full feature set including multiple output formats (JSON, CSV, XML), encoding auto-detection, and advanced performance optimizations | `pattern`, `path`, `caseInsensitive`, `wholeWord`, `regex`, `contextBefore`, `contextAfter`, `maxFileSize`, `encoding`, `outputFormat`, `colorOutput`, `showLineNumbers`, `showFilename`, `recursive`, `includePattern`, `excludePattern`, `maxDepth`, `limitResults`, `binaryFiles`, `followSymlinks`, `performanceMode` |
 | `mcp_mcp-god-mode_file_ops` | Advanced file operations and management | `action`, `source`, `destination`, `new_name`, `recursive`, `overwrite` |
 | `mcp_mcp-god-mode_file_watcher` | Advanced file system watching and monitoring capabilities | `action`, `path`, `recursive`, `events`, `watcher_id` |
 
@@ -90,9 +93,10 @@ Humor break: if the AI builds an enterprise integration hub and starts sending c
 | `mcp_mcp-god-mode_social_account_ripper` | Advanced social network account reconnaissance and information gathering tool with comprehensive analysis capabilities | `target`, `platforms`, `search_method`, `include_historical`, `include_connections`, `include_metadata`, `include_geolocation`, `include_employment`, `include_photos`, `include_posts`, `include_sentiment`, `output_format` |
 | `mcp_mcp-god-mode_social_account_ripper_modular` | Advanced modular social network account reconnaissance tool with component-based architecture and comprehensive analysis modules | `target`, `platforms`, `search_method`, `modules`, `include_historical`, `include_metadata`, `output_format` |
 
-### 🔒 Security Tools (13 tools)
+### 🔒 Security Tools (14 tools)
 | Tool | Description | Parameters |
 |------|-------------|------------|
+| `mcp_mcp-god-mode_zero_day_exploiter_unified` | Unified zero-day exploiter with vulnerability research, PoC generation, ethical security testing, and natural language processing | `mode`, `command`, `parameters`, `naturalLanguageCommand` |
 | `mcp_mcp-god-mode_vulnerability_scanner` | Advanced vulnerability scanning and assessment tool | `target`, `scan_type`, `port_range`, `vulnerability_types`, `output_format` |
 | `mcp_mcp-god-mode_password_cracker` | Advanced Password Security Testing Tool - Comprehensive authentication testing framework for authorized corporate security assessments | `target`, `service`, `username`, `password_list`, `method`, `max_attempts`, `timeout`, `custom_port`, `verbose` |
 | `mcp_mcp-god-mode_exploit_framework` | Advanced Exploit Framework & Vulnerability Testing Suite - Comprehensive penetration testing platform for authorized corporate security assessments | `action`, `target`, `exploit`, `payload`, `options`, `timeout`, `verbose`, `safe_mode` |
@@ -143,20 +147,17 @@ Humor break: if the AI builds an enterprise integration hub and starts sending c
 
 
 
-### 🚁 Drone Management Tools (4 tools)
+### 🚁 Drone Management Tools (1 tool)
 | Tool | Description | Parameters |
 |------|-------------|------------|
-| `mcp_mcp-god-mode_drone_defense_enhanced` | Enhanced cross‑platform defensive drone operations with natural‑language option and mobile‑optimized behavior | `action`, `threatType`, `target`, `autoConfirm`, `naturalLanguageCommand` |
-| `mcp_mcp-god-mode_drone_offense_enhanced` | Cross‑platform offensive operations with strict legal/safety gates and NLP support | `action`, `targetIp`, `intensity`, `riskAcknowledged`, `threatLevel`, `autoConfirm`, `naturalLanguageCommand` |
-| `mcp_mcp-god-mode_drone_natural_language` | Natural‑language parser that returns structured drone actions with safety checks | `command`, `context`, `userIntent`, `platform` |
-| `mcp_mcp-god-mode_drone_mobile_optimized` | Mobile‑first drone runner returning battery/data/time metrics and limitations | `operationType`, `parameters`, `enableBatteryOptimization`, `enableNetworkOptimization`, `enableBackgroundMode` |
+| `mcp_mcp-god-mode_drone_unified` | Unified drone management combining defense, offense, mobile optimization, and natural language processing with intelligent operation routing | `mode`, `action`, `target`, `parameters`, `riskAcknowledged`, `threatLevel`, `autoConfirm`, `naturalLanguageCommand` |
 
 ### 🖥️ Web Tools (7 tools)
 | Tool | Description | Parameters |
 |------|-------------|------------|
 | `mcp_mcp-god-mode_web_scraper` | Advanced web scraping and data extraction tool | `url`, `selectors`, `output_format`, `include_metadata`, `follow_links`, `max_depth` |
 | `mcp_mcp-god-mode_browser_control` | Cross-platform browser automation and control | `action`, `browser`, `url`, `selector`, `text`, `headless` |
-| `mcp_mcp-god-mode_web_automation` | Advanced web automation and browser control toolkit | `action`, `url`, `selector`, `text`, `wait_time`, `screenshot`, `headless` |
+| `mcp_mcp-god-mode_web_automation` | Advanced web automation and browser control toolkit with element interaction, content extraction, form filling, and JavaScript execution | `action`, `url`, `selector`, `text`, `script`, `wait_time`, `output_file`, `form_data`, `browser`, `headless` |
 | `mcp_mcp-god-mode_webhook_manager` | Advanced webhook management and testing toolkit | `action`, `url`, `method`, `headers`, `payload`, `timeout`, `retry_count` |
 | `mcp_mcp-god-mode_universal_browser_operator` | Advanced cross-platform browser automation and web interaction toolkit | `action`, `url`, `selector`, `text`, `wait_time`, `screenshot`, `headless`, `timeout` |
 | `mcp_mcp-god-mode_web_search` | Advanced web search and information retrieval tool | `query`, `search_engine`, `max_results`, `language`, `region`, `time_range`, `output_format` |
@@ -185,21 +186,15 @@ Humor break: if the AI builds an enterprise integration hub and starts sending c
 |------|-------------|------------|
 | `mcp_mcp-god-mode_screenshot` | Cross-platform screenshot capture and management tool | `action`, `output_path`, `area`, `delay`, `format` |
 
-### 📱 Mobile Tools (14 tools)
+### 📱 Mobile Tools (8 tools)
 | Tool | Description | Parameters |
 |------|-------------|------------|
+| `mcp_mcp-god-mode_mobile_app_unified` | Unified mobile app toolkit with analytics, deployment, monitoring, optimization, performance testing, security analysis, and quality assurance testing | `operationType`, `action`, `parameters`, `naturalLanguageCommand` |
 | `mcp_mcp-god-mode_mobile_device_info` | Mobile device information and diagnostics | `action`, `device_id`, `detailed` |
 | `mcp_mcp-god-mode_mobile_file_ops` | Mobile device file operations and management | `action`, `path`, `content`, `destination`, `recursive` |
 | `mcp_mcp-god-mode_mobile_system_tools` | Comprehensive mobile device system management toolkit with process control, system monitoring, and device administration capabilities for Android and iOS platforms | `action`, `process_id`, `process_name`, `force` |
 | `mcp_mcp-god-mode_mobile_hardware` | Mobile device hardware information and diagnostics | `action`, `device_id`, `detailed` |
 | `mcp_mcp-god-mode_mobile_device_management` | Mobile device management and policy enforcement | `action`, `device_id`, `policy_name`, `app_action`, `app_package`, `output_format` |
-| `mcp_mcp-god-mode_mobile_app_analytics_toolkit` | Mobile application analytics and user behavior analysis | `action`, `app_package`, `analysis_period`, `user_segment`, `metrics`, `output_format` |
-| `mcp_mcp-god-mode_mobile_app_deployment_toolkit` | Comprehensive mobile app deployment and management toolkit | `action`, `platform`, `app_path`, `package_name`, `device_id`, `build_type`, `signing_config` |
-| `mcp_mcp-god-mode_mobile_app_optimization_toolkit` | Mobile app performance optimization and analysis toolkit | `action`, `platform`, `app_package`, `device_id`, `optimization_type`, `duration`, `output_format` |
-| `mcp_mcp-god-mode_mobile_app_security_toolkit` | Comprehensive mobile app security testing and analysis toolkit | `action`, `platform`, `app_package`, `app_path`, `device_id`, `scan_type`, `output_format` |
-| `mcp_mcp-god-mode_mobile_app_monitoring_toolkit` | Mobile application monitoring and analytics toolkit | `action`, `app_package`, `monitoring_period`, `metrics`, `alert_thresholds`, `output_format` |
-| `mcp_mcp-god-mode_mobile_app_performance_toolkit` | Mobile application performance testing and optimization | `action`, `app_package`, `test_duration`, `test_scenario`, `output_format` |
-| `mcp_mcp-god-mode_mobile_app_testing_toolkit` | Mobile application testing and quality assurance toolkit | `action`, `app_package`, `test_type`, `test_environment`, `output_format` |
 | `mcp_mcp-god-mode_mobile_network_analyzer` | Mobile network traffic analysis and monitoring | `action`, `device_id`, `capture_duration`, `filter_protocol`, `output_format` |
 | `mcp_mcp-god-mode_mobile_security_toolkit` | Comprehensive mobile device security testing and analysis with cellular triangulation, device assessment, app security testing, and network monitoring for Android and iOS platforms | `action`, `device_id`, `platform`, `cellular_modem`, `api_key`, `test_depth`, `output_format`, `auto_confirm` |
 

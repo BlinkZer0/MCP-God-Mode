@@ -2,14 +2,11 @@
 *MCP God Mode v1.7b - Counts & Docs Synced*
 *Last Updated: September 2025*  
 
-## ?? Drone Management & Operations
+## 🛸 Drone Management & Operations
 
 | Tool | Status | Documentation | Cross-Platform | Notes |
 |------|--------|----------------|----------------|-------|
-| Drone Defense (Enhanced) | ? Complete | [drone_defense_enhanced.md](tool/drone_defense_enhanced.md) | Windows, Linux, macOS, Android, iOS | NLP + mobile-optimized |
-| Drone Offense (Enhanced) | ? Complete | [drone_offense_enhanced.md](tool/drone_offense_enhanced.md) | Windows, Linux, macOS, Android, iOS | Safety gates + NLP |
-| Drone Natural Language | ? Complete | [drone_natural_language.md](tool/drone_natural_language.md) | Windows, Linux, macOS, Android, iOS | Intent parsing + safety |
-| Drone Mobile Optimized | ? Complete | [drone_mobile_optimized.md](tool/drone_mobile_optimized.md) | Android, iOS | Battery/network optimized |
+| Drone Unified | ✅ Complete | [DRONE_TOOLS_README.md](../../dev/DRONE_TOOLS_README.md) | Windows, Linux, macOS, Android, iOS | All drone functionality in one tool |
 
 *MCP God Mode v1.7b - Counts & Docs Synced*
 # MCP God Mode - Tool Category Index
@@ -54,6 +51,7 @@ This index provides a comprehensive breakdown of all tools by category, their im
 | Security Testing | ✅ Complete | [security_testing.md](tool/security_testing.md) | Windows, Linux, macOS, Android, iOS | Multi-domain security |
 | Network Penetration | ✅ Complete | [network_penetration.md](tool/network_penetration.md) | Windows, Linux, macOS, Android, iOS | Network security testing |
 | Vulnerability Scanner | ✅ Complete | [vulnerability_scanner.md](tool/vulnerability_scanner.md) | Windows, Linux, macOS, Android, iOS | Security assessment |
+| Zero-Day Exploiter Unified | ✅ Complete | [zero_day_exploiter_unified.md](tool/zero_day_exploiter_unified.md) | Windows, Linux, macOS, Android, iOS | Unified zero-day research and testing |
 | Password Cracker | ✅ Complete | [password_cracker.md](tool/password_cracker.md) | Windows, Linux, macOS, Android, iOS | Authentication testing |
 | Exploit Framework | ✅ Complete | [exploit_framework.md](tool/exploit_framework.md) | Windows, Linux, macOS, Android, iOS | Vulnerability exploitation |
 | Hack Network | ✅ Complete | [hack_network.md](tool/hack_network.md) | Windows, Linux, macOS, Android, iOS | Comprehensive PT |
@@ -108,6 +106,7 @@ This index provides a comprehensive breakdown of all tools by category, their im
 
 | Tool | Status | Documentation | Cross-Platform | Notes |
 |------|--------|----------------|----------------|-------|
+| Mobile App Unified | ✅ Complete | [mobile_app_unified.md](tool/mobile_app_unified.md) | Android, iOS | Unified mobile app toolkit |
 | Mobile Device Info | ✅ Complete | [mobile_device_info.md](tool/mobile_device_info.md) | Android, iOS | Device information |
 | Mobile File Operations | ✅ Complete | [mobile_file_ops.md](tool/mobile_file_ops.md) | Android, iOS | Mobile file management |
 | Mobile Hardware | ✅ Complete | [mobile_hardware.md](tool/mobile_hardware.md) | Android, iOS | Hardware access |
@@ -164,6 +163,13 @@ This index provides a comprehensive breakdown of all tools by category, their im
 - **Parameter Reference**: Complete
 - **Setup Guides**: Complete
 - **Implementation Status**: Complete
+
+## ⚖️ Legal & Compliance Tools
+
+| Tool | Status | Documentation | Cross-Platform | Notes |
+|------|--------|----------------|----------------|-------|
+| Crime Reporter Unified | ✅ Complete | [crime_reporter_unified.md](tool/crime_reporter_unified.md) | Windows, Linux, macOS | Unified crime reporting with NLP |
+| Legal Compliance Manager | ✅ Complete | [legal_compliance_manager.md](tool/legal_compliance_manager.md) | Windows, Linux, macOS | Audit logging and evidence preservation |
 
 ## 🔗 Quick Access Links
 

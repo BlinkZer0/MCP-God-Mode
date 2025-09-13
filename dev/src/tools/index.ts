@@ -5,9 +5,10 @@ export { registerSystemInfo } from "./core/system_info.js";
 // Legal compliance tools
 export { registerLegalComplianceManager } from "./legal/legal_compliance_manager.js";
 
-// Crime Reporter Tool - Simplified implementation
-export { registerCrimeReporter } from "./crime_reporter/tool.js";
-export { registerZeroDayExploiter } from "./zero_day_exploiter/tool.js";
+// Unified Crime Reporter Tool - All crime reporting functionality in one comprehensive tool
+export { registerCrimeReporterUnified } from "./crimeReporterUnified.js";
+// Unified Zero-Day Exploiter Tool - All zero-day exploiter functionality in one comprehensive tool
+export { registerZeroDayExploiterUnified } from "./zeroDayExploiterUnified.js";
 
 // Process Management Tools
 export { registerProcRun } from "./process/proc_run.js";
@@ -19,6 +20,8 @@ export { registerFsList } from "./file_system/fs_list.js";
 export { registerFsReadText } from "./file_system/fs_read_text.js";
 export { registerFsWriteText } from "./file_system/fs_write_text.js";
 export { registerFsSearch } from "./file_system/fs_search.js";
+export { registerGrep } from "./file_system/grep.js";
+export { registerAdvancedGrep } from "./file_system/advanced_grep.js";
 export { registerFileOps } from "./file_system/file_ops.js";
 export { registerFileWatcher } from "./file_system/file_watcher.js";
 
@@ -133,13 +136,8 @@ export { registerMobileFileOps } from "./mobile/mobile_file_ops.js";
 export { registerMobileSystemTools } from "./mobile/mobile_system_tools.js";
 export { registerMobileHardware } from "./mobile/mobile_hardware.js";
 export { registerMobileDeviceManagement } from "./mobile/mobile_device_management.js";
-export { registerMobileAppAnalyticsToolkit } from "./mobile/mobile_app_analytics_toolkit.js";
-export { registerMobileAppDeploymentToolkit } from "./mobile/mobile_app_deployment_toolkit.js";
-export { registerMobileAppOptimizationToolkit } from "./mobile/mobile_app_optimization_toolkit.js";
-export { registerMobileAppSecurityToolkit } from "./mobile/mobile_app_security_toolkit.js";
-export { registerMobileAppMonitoringToolkit } from "./mobile/mobile_app_monitoring_toolkit.js";
-export { registerMobileAppPerformanceToolkit } from "./mobile/mobile_app_performance_toolkit.js";
-export { registerMobileAppTestingToolkit } from "./mobile/mobile_app_testing_toolkit.js";
+// Unified Mobile App Toolkit - All mobile app functionality in one comprehensive tool
+export { registerMobileAppUnified } from "./mobileAppUnified.js";
 export { registerMobileNetworkAnalyzer } from "./mobile/mobile_network_analyzer.js";
 export { registerMobileSecurityToolkit } from "./mobile/mobile_security_toolkit.js";
 
@@ -178,11 +176,8 @@ export { registerMalwareAnalysisToolkit } from "./forensics/malware_analysis_too
 // Discovery Tools
 export { registerToolDiscovery, registerExploreCategories, registerNaturalLanguageRouter } from "./discovery/index.js";
 
-// Enhanced Drone Tools - Cross-platform with natural language interface
-export { registerDroneDefenseEnhanced } from "./droneDefenseEnhanced.js";
-export { registerDroneOffenseEnhanced } from "./droneOffenseEnhanced.js";
-export { registerDroneNaturalLanguageInterface } from "./droneNaturalLanguageInterface.js";
-export { registerDroneMobileOptimized } from "./droneMobileOptimized.js";
+// Unified Drone Tool - All drone functionality in one comprehensive tool
+export { registerDroneUnified } from "./droneUnified.js";
 
 // SpecOps Tools - Advanced Security Operations
 export * from "./specops/index.js";

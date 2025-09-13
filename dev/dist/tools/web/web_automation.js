@@ -2,20 +2,23 @@ import { z } from "zod";
 import { spawn } from "node:child_process";
 import { PLATFORM } from "../../config/environment.js";
 const WebAutomationSchema = z.object({
-    action: z.enum(["navigate", "click", "type", "screenshot", "extract", "wait", "scroll", "execute_script", "form_fill", "get_elements"]),
-    url: z.string().optional(),
-    selector: z.string().optional(),
-    text: z.string().optional(),
-    script: z.string().optional(),
-    wait_time: z.number().default(5000),
-    output_file: z.string().optional(),
-    form_data: z.record(z.string()).optional(),
-    browser: z.enum(["chrome", "firefox", "edge", "auto"]).default("auto"),
-    headless: z.boolean().default(true),
+    action: z.enum([
+        "navigate", "click", "type", "screenshot", "extract", "wait", "scroll",
+        "execute_script", "form_fill", "get_elements"
+    ]).describe("Web automation action to perform: navigate (open URL), click (click element), type (input text), screenshot (capture page), extract (scrape content), wait (pause execution), scroll (scroll page), execute_script (run JavaScript), form_fill (fill form fields), get_elements (find page elements)"),
+    url: z.string().url().optional().describe("Target URL for web automation operations. Required for navigate, screenshot, extract, scroll, execute_script, form_fill, and get_elements actions"),
+    selector: z.string().optional().describe("CSS selector, XPath, or element identifier for targeting specific page elements. Required for click, type, extract, and get_elements actions. Examples: '#login-btn', '.submit-button', 'input[name=\"email\"]', '//button[text()=\"Submit\"]'"),
+    text: z.string().optional().describe("Text content to input into form fields or elements. Required for type action. Can include special characters and escape sequences"),
+    script: z.string().optional().describe("JavaScript code to execute in the browser context. Required for execute_script action. Can return values using 'return' statement"),
+    wait_time: z.number().min(100).max(60000).default(5000).describe("Wait duration in milliseconds between operations. Used for wait action and implicit waits. Range: 100-60000ms (0.1-60 seconds)"),
+    output_file: z.string().optional().describe("File path for saving screenshots or extracted data. For screenshots, specify full path with .png extension. For data, specify path with appropriate extension (.json, .csv, .txt)"),
+    form_data: z.record(z.string()).optional().describe("Key-value pairs for form field data. Keys should match form field names/IDs. Required for form_fill action. Example: {username: 'john', password: 'secret', email: 'john@example.com'}"),
+    browser: z.enum(["chrome", "firefox", "edge", "auto"]).default("auto").describe("Browser engine to use for automation: chrome (Chromium-based), firefox (Gecko-based), edge (Microsoft Edge), auto (platform default - Chrome on Windows, Firefox on Linux/macOS)"),
+    headless: z.boolean().default(true).describe("Run browser in headless mode (no GUI) for automation. Set to false for debugging or when visual feedback is needed. Headless mode is faster and more stable for automated tasks"),
 });
 export function registerWebAutomation(server) {
     server.registerTool("web_automation", {
-        description: "Advanced web automation and browser control toolkit",
+        description: "🌐 **Advanced Web Automation & Browser Control Toolkit** - Comprehensive cross-platform web automation with browser control, element interaction, content extraction, form filling, and JavaScript execution. Supports Chrome, Firefox, and Edge browsers across Windows, Linux, macOS, Android, and iOS platforms. Features include screenshot capture, data scraping, automated form submission, element detection, page navigation, and custom script execution with intelligent error handling and timeout management.",
         inputSchema: WebAutomationSchema.shape
     }, async ({ action, url, selector, text, script, wait_time, output_file, form_data, browser, headless }) => {
         try {

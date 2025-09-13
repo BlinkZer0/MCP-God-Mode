@@ -1,73 +1,149 @@
-# 🔧 Web Automation Tool - MCP God Mode
+# 🌐 Web Automation Tool - MCP God Mode
 
 ## Overview
-The **Web Automation Tool** (`mcp_mcp-god-mode_web_automation`) is a comprehensive utility that provides cross-platform functionality across Windows, Linux, macOS, Android, and iOS platforms.
+The **Web Automation Tool** (`mcp_mcp-god-mode_web_automation`) is a comprehensive cross-platform web automation toolkit that provides advanced browser control, element interaction, content extraction, form filling, and JavaScript execution capabilities across Windows, Linux, macOS, Android, and iOS platforms.
 
-## Functionality
-- **Core Operations**: Primary functionality for web automation
-- **Cross-Platform Support**: Native implementation across all supported operating systems
-- **Advanced Features**: Enhanced capabilities and professional-grade functionality
-- **Security**: Secure operations with proper access controls
+## Key Features
+- **🌐 Cross-Platform Browser Support**: Chrome, Firefox, Edge with automatic platform detection
+- **🎯 Element Interaction**: Click, type, scroll, and interact with web elements using CSS selectors or XPath
+- **📸 Screenshot Capture**: High-quality page screenshots with customizable resolution
+- **📊 Content Extraction**: Scrape and extract data from web pages using selectors
+- **📝 Form Automation**: Automatically fill and submit forms with intelligent field detection
+- **⚡ JavaScript Execution**: Run custom JavaScript code in browser context
+- **⏱️ Smart Timing**: Configurable wait times and intelligent timeout management
+- **🔍 Element Detection**: Find and analyze page elements with detailed information
+- **🎭 Headless Operation**: Run browsers in headless mode for automation or with GUI for debugging
 
 ## Technical Details
 
 ### Tool Identifier
 - **MCP Tool Name**: `mcp_mcp-god-mode_web_automation`
-- **Category**: System & Management
+- **Category**: Web Tools
 - **Platform Support**: Windows, Linux, macOS, Android, iOS
 - **Elevated Permissions**: Not required for basic operations
+- **Browser Support**: Chrome, Firefox, Edge, Auto-detection
+
+### Available Actions
+1. **navigate** - Open and navigate to URLs
+2. **click** - Click on page elements (buttons, links, etc.)
+3. **type** - Input text into form fields or elements
+4. **screenshot** - Capture page screenshots
+5. **extract** - Extract content from page elements
+6. **wait** - Pause execution for specified time
+7. **scroll** - Scroll page up/down
+8. **execute_script** - Run JavaScript code in browser
+9. **form_fill** - Fill out forms with data
+10. **get_elements** - Find and analyze page elements
 
 ### Input Parameters
 ```typescript
 {
-  // Tool-specific parameters will be documented here
-  // Refer to the actual tool implementation for complete parameter list
+  action: "navigate" | "click" | "type" | "screenshot" | "extract" | "wait" | "scroll" | "execute_script" | "form_fill" | "get_elements",
+  url?: string,                    // Target URL (required for most actions)
+  selector?: string,               // CSS selector or XPath for elements
+  text?: string,                   // Text to input (for type action)
+  script?: string,                 // JavaScript code (for execute_script)
+  wait_time?: number,              // Wait duration in milliseconds (100-60000)
+  output_file?: string,            // File path for screenshots/data
+  form_data?: Record<string, string>, // Form field data (key-value pairs)
+  browser?: "chrome" | "firefox" | "edge" | "auto", // Browser engine
+  headless?: boolean               // Run in headless mode (default: true)
 }
 ```
 
 ### Output Response
 ```typescript
 {
-  status: "success" | "error" | "partial",
-  timestamp: string,
-  platform: string,
-  results: {
-    // Tool-specific results will be documented here
-    // Refer to the actual tool implementation for complete response structure
-  },
-  error?: string,
-  warnings?: string[],
-  execution_time?: number
+  success: boolean,
+  message: string,
+  content: Array<{
+    type: "text",
+    text: string
+  }>,
+  // Action-specific results:
+  browser?: string,
+  url?: string,
+  selector?: string,
+  screenshot_file?: string,
+  extracted_content?: any,
+  elements_found?: number,
+  execution_time?: string,
+  error?: string
 }
 ```
 
+## Usage Examples
+
+### Navigate to a Website
+```typescript
+const result = await web_automation({
+  action: "navigate",
+  url: "https://example.com",
+  browser: "chrome",
+  headless: true
+});
+```
+
+### Take a Screenshot
+```typescript
+const result = await web_automation({
+  action: "screenshot",
+  url: "https://example.com",
+  output_file: "/path/to/screenshot.png",
+  browser: "chrome"
+});
+```
+
+### Fill Out a Form
+```typescript
+const result = await web_automation({
+  action: "form_fill",
+  url: "https://example.com/contact",
+  form_data: {
+    "name": "John Doe",
+    "email": "john@example.com",
+    "message": "Hello, this is a test message"
+  },
+  selector: "form#contact-form"
+});
+```
+
+### Extract Content
+```typescript
+const result = await web_automation({
+  action: "extract",
+  url: "https://example.com",
+  selector: ".article-title",
+  output_file: "/path/to/extracted_data.json"
+});
+```
+
+### Execute JavaScript
+```typescript
+const result = await web_automation({
+  action: "execute_script",
+  url: "https://example.com",
+  script: "return document.title + ' - ' + window.location.href;"
+});
+```
 
 ## Natural Language Access
 Users can request web automation operations using natural language:
-- "Automate web tasks"
-- "Control web applications"
-- "Interact with websites"
-- "Navigate web interfaces"
-- "Manage web workflows"
-## Usage Examples
-
-### Basic Usage
-```typescript
-const result = await web_automation();
-
-if (result.status === "success") {
-  console.log("Operation completed successfully");
-  console.log("Results:", result.results);
-} else {
-  console.error("Operation failed:", result.error);
-}
-```
+- "Take a screenshot of example.com"
+- "Navigate to the login page"
+- "Fill out the contact form with my details"
+- "Extract all article titles from the page"
+- "Click the submit button"
+- "Scroll down the page"
+- "Wait for 5 seconds"
 
 ## Integration Points
 
 ### Server Integration
 - **Full Server**: ✅ Included
 - **Modular Server**: ✅ Included
+- **Cross-Platform**: ✅ Windows, Linux, macOS, Android, iOS
+- **Browser Support**: ✅ Chrome, Firefox, Edge
 - **Minimal Server**: ❌ Not included
 - **Ultra-Minimal Server**: ❌ Not included
 

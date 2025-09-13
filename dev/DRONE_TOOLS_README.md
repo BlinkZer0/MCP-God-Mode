@@ -1,25 +1,28 @@
-# 🛸 Drone Management Tools - MCP God Mode v1.8
+# 🛸 Unified Drone Management Tool - MCP God Mode v1.9
 
-Advanced drone management tools for cybersecurity threat response, providing both defensive and offensive capabilities with comprehensive safety controls and legal compliance features. **NEW in v1.8**: Enhanced interactive installer with comprehensive tool selection capabilities.
+**NEW in v1.9**: All drone functionality has been consolidated into a single unified tool that combines defense, offense, mobile optimization, and natural language processing capabilities with intelligent operation routing.
 
 ## 🚀 Overview
 
-The Drone Management Tools provide automated threat response capabilities through virtual/simulated drones or real hardware integration via Flipper Zero bridge. These tools are designed for authorized cybersecurity operations with strict safety and legal compliance controls.
+The Unified Drone Management Tool provides comprehensive automated threat response capabilities through a single interface that intelligently routes operations based on platform, context, and user intent. This tool combines all previously separate drone functionalities into one powerful, cohesive system.
 
 ### Key Features
 
+- **Unified Interface**: Single tool for all drone operations (defense, offense, mobile, natural language)
+- **Intelligent Routing**: Automatically detects platform and optimizes operations accordingly
 - **Defensive Operations**: Scan surroundings, deploy shields, evade threats
 - **Offensive Operations**: Jam signals, deploy decoys, execute counter-strikes
+- **Mobile Optimization**: Battery-efficient, network-aware operations for mobile platforms
+- **Natural Language Processing**: Understand commands like "scan for threats" or "jam the signals"
 - **Safety Controls**: Risk acknowledgment, double confirmation, compliance modes
 - **Audit Logging**: Comprehensive operation logging for compliance
-- **Cross-Platform**: Works on Windows, Linux, macOS with identical functionality
+- **Cross-Platform**: Works on Windows, Linux, macOS, Android, iOS with platform-specific optimizations
 - **Flipper Zero Integration**: Real hardware control when enabled
 
 ## 🛠️ Installation & Setup
 
 ### Prerequisites
 
-- Python 3.8+ (for modular build)
 - Node.js 18+ (for refactored build)
 - MCP God Mode platform installed
 
@@ -35,360 +38,266 @@ The Drone Management Tools provide automated threat response capabilities throug
    # Enable drone management
    MCPGM_DRONE_ENABLED=true
    
-   # Simulation mode (recommended for testing)
-   MCPGM_DRONE_SIM_ONLY=true
-   
    # Require confirmation for operations
    MCPGM_REQUIRE_CONFIRMATION=true
    
    # Enable audit logging
    MCPGM_AUDIT_ENABLED=true
+   
+   # Compliance modes (disable offensive operations)
+   MCPGM_MODE_HIPAA=false
+   MCPGM_MODE_GDPR=false
+   
+   # Flipper Zero integration (optional)
+   MCPGM_FLIPPER_ENABLED=false
    ```
 
-### Modular Build Setup
-
-1. Install Python dependencies:
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-2. Test the tools:
-   ```bash
-   python test_drone_tools.py
-   ```
-
-### Refactored Build Setup
+### Build Setup
 
 1. Build the TypeScript:
    ```bash
    npm run build
    ```
 
-2. Test the tools:
+2. Test the unified tool:
    ```bash
-   node test_drone_tools_refactored.js
+   node dist/server-refactored.js
    ```
 
-## 🛸 Drone Defense Tool
+## 🛸 Unified Drone Tool
 
-### Purpose
-Deploy defensive drones to scan, shield, or evade attacks upon detection.
+### Tool Registration
 
-### Actions
+The unified drone tool is registered as `drone_unified` and provides all drone functionality through a single interface.
 
-#### 1. Scan Surroundings
-- **Purpose**: Gather threat intelligence
-- **Features**: Network scanning, device detection, threat indicator collection
-- **Output**: Detailed scan report with suspicious devices and indicators
+### Operation Modes
 
-#### 2. Deploy Shield
-- **Purpose**: Implement defensive measures
-- **Features**: Firewall hardening, traffic filtering, DDoS protection
-- **Output**: Shield deployment report with protection metrics
+The tool supports four operation modes that are automatically selected based on context:
 
-#### 3. Evade Threat
-- **Purpose**: Avoid or redirect threats
-- **Features**: Traffic rerouting, system isolation, backup channels
-- **Output**: Evasion report with rerouting details
+1. **Defense Mode** (`defense`): Defensive operations for threat protection
+2. **Offense Mode** (`offense`): Offensive operations for counter-strikes
+3. **Mobile Mode** (`mobile`): Mobile-optimized operations for Android/iOS
+4. **Natural Language Mode** (`natural_language`): Intelligent command processing
 
-### Usage Examples
+### Available Actions
 
-#### Python (Modular Build)
-```bash
-# Scan surroundings
-python -m mcp_god_mode.tools.drone_defense --action "scan_surroundings" --target "192.168.1.0/24" --auto_confirm true
+#### Defense Actions
+- `scan_surroundings`: Network scanning and threat detection
+- `deploy_shield`: Firewall hardening and protection deployment
+- `evade_threat`: Traffic rerouting and threat avoidance
 
-# Deploy shield for DDoS
-python -m mcp_god_mode.tools.drone_defense --action "deploy_shield" --threat_type "ddos" --target "192.168.1.0/24" --auto_confirm true
+#### Offense Actions
+- `jam_signals`: Signal jamming and disruption
+- `deploy_decoy`: Honeypot and decoy deployment
+- `counter_strike`: Reconnaissance and counter-attack operations
 
-# Evade intrusion threat
-python -m mcp_god_mode.tools.drone_defense --action "evade_threat" --threat_type "intrusion" --target "192.168.1.0/24" --auto_confirm true
-```
+### Parameters
 
-#### JavaScript (Refactored Build)
-```javascript
-// Via MCP tool call
-const result = await mcpClient.callTool('drone_defense', {
-  action: 'deploy_shield',
-  threatType: 'ddos',
-  target: '192.168.1.0/24',
-  autoConfirm: true
-});
-```
+- `mode`: Operation mode (auto-detected from context)
+- `action`: Specific drone action to perform
+- `target`: Target network, system, or IP address
+- `parameters`: Operation-specific parameters including:
+  - `threatType`: Type of threat (ddos, intrusion, probe, etc.)
+  - `intensity`: Operation intensity (low, medium, high)
+  - `enableBatteryOptimization`: Enable battery optimization (mobile)
+  - `enableNetworkOptimization`: Enable network optimization (mobile)
+  - `enableBackgroundMode`: Enable background mode (mobile)
+- `riskAcknowledged`: Required for offensive operations
+- `threatLevel`: Threat level (1-10, affects confirmation requirements)
+- `autoConfirm`: Skip confirmation prompts
+- `naturalLanguageCommand`: Natural language command processing
 
-## ⚔️ Drone Offense Tool
+## 🧠 Natural Language Processing
 
-### Purpose
-Deploy offensive drones for counter-strikes, only after defensive confirmation and strict safety checks.
+The unified tool includes advanced natural language processing capabilities:
 
-### Actions
+### Example Commands
 
-#### 1. Jam Signals
-- **Purpose**: Disrupt attacker communications
-- **Features**: Signal jamming, frequency targeting, effectiveness monitoring
-- **Risk Level**: High
-- **Requirements**: Risk acknowledgment, legal authorization
+- "Scan for threats on the network"
+- "Deploy protection against DDoS attacks"
+- "Jam the signals from the attacker"
+- "Evade the threat by rerouting traffic"
+- "Deploy a decoy to mislead the attacker"
+- "Counter-strike against the source IP"
 
-#### 2. Deploy Decoy
-- **Purpose**: Mislead attackers with fake targets
-- **Features**: Honeypot deployment, fake services, monitoring
-- **Risk Level**: Medium
-- **Requirements**: Risk acknowledgment
+### Supported Patterns
 
-#### 3. Counter Strike
-- **Purpose**: Execute ethical reconnaissance
-- **Features**: Port scanning, intelligence gathering, ethical conduct
-- **Risk Level**: Critical
-- **Requirements**: Risk acknowledgment, double confirmation for high threats
+The tool recognizes various command patterns:
+- **Scan actions**: scan, search, detect, find, discover, investigate
+- **Shield actions**: shield, protect, defend, block, secure, guard
+- **Evade actions**: evade, avoid, escape, retreat, hide, dodge
+- **Jam actions**: jam, disrupt, block, interfere, scramble
+- **Decoy actions**: decoy, fake, bait, trap, lure, distract
+- **Strike actions**: strike, attack, retaliate, counter, hit, engage
 
-### Usage Examples
+## 📱 Mobile Optimization
 
-#### Python (Modular Build)
-```bash
-# Jam signals (requires risk acknowledgment)
-python -m mcp_god_mode.tools.drone_offense --action "jam_signals" --target_ip "192.168.1.100" --intensity "low" --risk_acknowledged true
+When running on mobile platforms (Android/iOS), the tool automatically:
 
-# Deploy decoy
-python -m mcp_god_mode.tools.drone_offense --action "deploy_decoy" --target_ip "192.168.1.100" --risk_acknowledged true
+- Optimizes battery usage
+- Reduces network data consumption
+- Uses touch-friendly interfaces
+- Implements background mode support
+- Provides platform-specific optimizations
 
-# Counter strike (high threat requires confirmation)
-python -m mcp_god_mode.tools.drone_offense --action "counter_strike" --target_ip "192.168.1.100" --confirm true --risk_acknowledged true
-```
+### Mobile Performance Metrics
 
-#### JavaScript (Refactored Build)
-```javascript
-// Via MCP tool call
-const result = await mcpClient.callTool('drone_offense', {
-  action: 'jam_signals',
-  targetIp: '192.168.1.100',
-  intensity: 'low',
-  riskAcknowledged: true,
-  threatLevel: 8
-});
-```
+The tool tracks and reports:
+- Battery usage per operation
+- Data consumption
+- Operation duration
+- Platform limitations
 
-## 🔄 Automated Workflow
-
-### Drone Response Workflow
-Automated workflow that chains defense → offense operations based on threat detection.
-
-#### Workflow Steps
-1. **Attack Detection**: Monitor for threats using security tools
-2. **Defense Response**: Deploy appropriate defensive measures
-3. **Offense Evaluation**: Assess if offensive response is warranted
-4. **Offense Response**: Execute counter-strikes if threat level > 7
-
-#### Usage
-```bash
-# Run complete workflow
-python -m mcp_god_mode.tools.drone_response_workflow --target "192.168.1.0/24"
-```
-
-## 🔒 Safety & Compliance
+## ⚠️ Safety & Legal Compliance
 
 ### Safety Controls
 
-#### Risk Acknowledgment
-- **Required**: All offensive operations require explicit risk acknowledgment
-- **Implementation**: `--risk_acknowledged true` flag or `riskAcknowledged: true` parameter
+- **Risk Acknowledgment**: Required for all offensive operations
+- **Double Confirmation**: Required for high-threat operations (threat level > 7)
+- **Compliance Modes**: HIPAA/GDPR modes disable offensive operations
+- **Audit Logging**: All operations are logged for compliance
 
-#### Double Confirmation
-- **Trigger**: High threat operations (threat_level > 7)
-- **Implementation**: `--confirm true` flag or `confirm: true` parameter
+### Legal Warnings
 
-#### Compliance Modes
-- **HIPAA Mode**: Disables offensive operations when `MCPGM_MODE_HIPAA=true`
-- **GDPR Mode**: Disables offensive operations when `MCPGM_MODE_GDPR=true`
-
-### Legal Disclaimers
 All offensive operations include legal warnings:
-```
-⚠️ LEGAL WARNING: Offensive actions may violate laws and regulations. 
-Use only for authorized security testing. Ensure proper authorization 
-before deploying offensive capabilities.
-```
+- Signal jamming may violate telecommunications regulations
+- Counter-strikes may violate computer crime laws
+- Decoy deployment may be considered deceptive practices
 
-### Audit Logging
-- **Enabled by default**: `MCPGM_AUDIT_ENABLED=true`
-- **Logs**: All operations, confirmations, and safety checks
-- **Format**: Timestamped entries with operation details
-- **Retention**: Configurable based on compliance requirements
+## 🔧 Usage Examples
 
-## 🔌 Flipper Zero Integration
+### Basic Defense Operation
 
-### Hardware Control
-When `MCPGM_FLIPPER_ENABLED=true` and `MCPGM_DRONE_SIM_ONLY=false`:
-
-- **BLE Commands**: Send commands to real drone hardware
-- **USB Control**: Direct hardware interface
-- **Real Operations**: Execute actual drone deployments
-
-### Safety Considerations
-- **Hard Lock**: Real hardware operations require explicit enablement
-- **Legal Compliance**: Ensure proper authorization for real operations
-- **Testing**: Always test in simulation mode first
-
-## 🧪 Testing
-
-### Test Suite
-Comprehensive test suite covering all functionality:
-
-```bash
-# Modular build tests
-python test_drone_tools.py
-
-# Refactored build tests
-node test_drone_tools_refactored.js
-```
-
-### Test Coverage
-- ✅ Defensive operations (scan, shield, evade)
-- ✅ Offensive operations (jam, decoy, counter-strike)
-- ✅ Safety controls (risk acknowledgment, confirmation)
-- ✅ Compliance modes (HIPAA, GDPR)
-- ✅ Workflow automation
-- ✅ Error handling
-
-## 📊 Output Formats
-
-### JSON Output
-```json
+```javascript
+// Scan for threats
 {
-  "operationId": "drone_def_1640995200000",
-  "success": true,
-  "threatLevel": 8,
-  "actionsTaken": [
-    {
-      "actionType": "deploy_shield",
-      "success": true,
-      "message": "Defensive shield deployed successfully",
-      "timestamp": "2025-01-27T12:00:00.000Z",
-      "details": {
-        "firewallRulesAdded": 12,
-        "trafficFilters": 8,
-        "ddosProtection": "activated"
-      }
-    }
-  ],
-  "auditLog": [
-    "[2025-01-27T12:00:00.000Z] DroneDefenseManager initialized",
-    "[2025-01-27T12:00:00.000Z] Deploying defensive shield for ddos on 192.168.1.0/24"
-  ],
-  "timestamp": "2025-01-27T12:00:00.000Z"
+  "mode": "defense",
+  "action": "scan_surroundings",
+  "target": "192.168.1.0/24",
+  "parameters": {
+    "threatType": "general",
+    "intensity": "low"
+  }
 }
 ```
 
-### Text Output
-```
-Operation ID: drone_def_1640995200000
-Success: true
-Threat Level: 8
-Actions Taken: 1
-  - deploy_shield: Defensive shield deployed successfully
-Audit Log Entries: 2
+### Offensive Operation with Risk Acknowledgment
+
+```javascript
+// Jam signals with risk acknowledgment
+{
+  "mode": "offense",
+  "action": "jam_signals",
+  "target": "192.168.1.100",
+  "parameters": {
+    "intensity": "medium"
+  },
+  "riskAcknowledged": true,
+  "threatLevel": 6
+}
 ```
 
-## 🚨 Troubleshooting
+### Natural Language Command
+
+```javascript
+// Natural language processing
+{
+  "mode": "natural_language",
+  "naturalLanguageCommand": "Deploy protection against DDoS attacks on 192.168.1.0/24",
+  "target": "192.168.1.0/24"
+}
+```
+
+### Mobile-Optimized Operation
+
+```javascript
+// Mobile-optimized operation (automatically detected on mobile platforms)
+{
+  "mode": "mobile",
+  "action": "scan_surroundings",
+  "target": "192.168.1.0/24",
+  "parameters": {
+    "enableBatteryOptimization": true,
+    "enableNetworkOptimization": true,
+    "enableBackgroundMode": false
+  }
+}
+```
+
+## 🔍 Platform Detection
+
+The tool automatically detects the platform and adjusts operations accordingly:
+
+- **Windows**: Full desktop capabilities with Windows-specific commands
+- **Linux**: Full desktop capabilities with Linux-specific commands
+- **macOS**: Full desktop capabilities with macOS-specific commands
+- **Android**: Mobile-optimized operations with Android-specific features
+- **iOS**: Mobile-optimized operations with iOS-specific features
+
+## 📊 Reporting
+
+The unified tool provides comprehensive reporting including:
+
+- Operation success/failure status
+- Platform-specific optimizations applied
+- Performance metrics (mobile platforms)
+- Audit logs for compliance
+- Natural language response summaries
+- Legal warnings and disclaimers
+
+## 🚀 Migration from Previous Versions
+
+If you were using the separate drone tools (defense, offense, natural language, mobile), the unified tool provides backward compatibility through natural language processing. Simply use natural language commands and the tool will automatically route to the appropriate operation mode.
+
+### Legacy Tool Mapping
+
+- `drone_defense_enhanced` → `drone_unified` (defense mode)
+- `drone_offense_enhanced` → `drone_unified` (offense mode)
+- `drone_natural_language` → `drone_unified` (natural_language mode)
+- `drone_mobile_optimized` → `drone_unified` (mobile mode)
+
+## 🔧 Troubleshooting
 
 ### Common Issues
 
-#### 1. Confirmation Required
-**Error**: "Confirmation required for drone deployment"
-**Solution**: Set `MCPGM_REQUIRE_CONFIRMATION=false` or use `--auto_confirm true`
+1. **Tool not registered**: Ensure the build completed successfully
+2. **Permission errors**: Check environment configuration
+3. **Mobile features not working**: Verify mobile platform detection
+4. **Offensive operations blocked**: Check compliance mode settings
 
-#### 2. Risk Not Acknowledged
-**Error**: "Risk acknowledgment required for offensive operations"
-**Solution**: Use `--risk_acknowledged true` or `riskAcknowledged: true`
+### Debug Information
 
-#### 3. Compliance Mode Blocked
-**Error**: "Offensive operations blocked due to compliance mode"
-**Solution**: Disable HIPAA/GDPR modes or use only defensive operations
-
-#### 4. Flipper Zero Not Connected
-**Error**: "Flipper Zero device not found"
-**Solution**: Ensure device is connected and `MCPGM_FLIPPER_ENABLED=true`
-
-### Debug Mode
-Enable detailed logging:
+Enable debug logging by setting:
 ```bash
-export MCPGM_AUDIT_ENABLED=true
-export MCPGM_DRONE_SIM_ONLY=true
+MCPGM_DEBUG=true
 ```
 
-## 📚 API Reference
+## 📝 Changelog
 
-### Drone Defense Tool
+### v1.9 - Unified Drone Tool
+- **NEW**: Consolidated all drone functionality into single unified tool
+- **NEW**: Intelligent operation routing based on platform and context
+- **NEW**: Enhanced natural language processing with improved pattern recognition
+- **NEW**: Mobile performance metrics and optimization tracking
+- **IMPROVED**: Cross-platform compatibility and platform-specific optimizations
+- **IMPROVED**: Safety controls and legal compliance features
+- **REMOVED**: Separate drone tool registrations (now unified)
 
-#### Parameters
-- `action`: `"scan_surroundings" | "deploy_shield" | "evade_threat"`
-- `threatType`: `string` (default: "general")
-- `target`: `string` (required)
-- `autoConfirm`: `boolean` (default: false)
+### v1.8 - Enhanced Drone Tools
+- Enhanced cross-platform support
+- Mobile optimization features
+- Natural language interface
+- Improved safety controls
 
-#### Response
-- `operationId`: `string`
-- `success`: `boolean`
-- `threatLevel`: `number`
-- `actionsTaken`: `DroneAction[]`
-- `auditLog`: `string[]`
-- `timestamp`: `string`
+## 📞 Support
 
-### Drone Offense Tool
+For issues or questions regarding the Unified Drone Management Tool:
 
-#### Parameters
-- `action`: `"jam_signals" | "deploy_decoy" | "counter_strike"`
-- `targetIp`: `string` (required)
-- `intensity`: `"low" | "medium" | "high"` (default: "low")
-- `confirm`: `boolean` (default: false)
-- `riskAcknowledged`: `boolean` (default: false)
-- `threatLevel`: `number` (default: 5)
-
-#### Response
-- `operationId`: `string`
-- `success`: `boolean`
-- `riskAcknowledged`: `boolean`
-- `actionsTaken`: `OffenseAction[]`
-- `auditLog`: `string[]`
-- `legalDisclaimer`: `string`
-- `timestamp`: `string`
-
-## 🤝 Contributing
-
-### Development Setup
-1. Fork the repository
-2. Create a feature branch
-3. Implement changes with tests
-4. Ensure 1:1 parity between modular and refactored builds
-5. Submit pull request
-
-### Code Standards
-- **Python**: Follow PEP 8, use type hints
-- **TypeScript**: Follow strict typing, use interfaces
-- **Testing**: Maintain 100% test coverage
-- **Documentation**: Update README and API docs
-
-## 📄 License
-
-This project is licensed under the MIT License. See LICENSE file for details.
-
-## ⚠️ Legal Notice
-
-**IMPORTANT**: These tools are designed for authorized cybersecurity operations only. Users are responsible for:
-
-- Ensuring proper legal authorization before deployment
-- Complying with local laws and regulations
-- Using appropriate safety controls and confirmations
-- Maintaining audit logs for compliance purposes
-
-The authors and contributors are not responsible for misuse of these tools.
-
-## 🆘 Support
-
-For support and questions:
-- **Issues**: GitHub Issues
-- **Documentation**: This README and inline code comments
-- **Community**: MCP God Mode community forums
+1. Check the troubleshooting section above
+2. Review the audit logs for detailed operation information
+3. Ensure proper environment configuration
+4. Verify platform compatibility
 
 ---
 
-**🛸 Ready to deploy your drone defense network!**
+**⚠️ Legal Disclaimer**: This tool is designed for authorized cybersecurity operations only. Offensive operations may violate laws and regulations. Ensure proper authorization and legal compliance before use.

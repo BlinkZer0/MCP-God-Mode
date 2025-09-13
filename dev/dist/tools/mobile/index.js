@@ -3,12 +3,6 @@ export { registerMobileFileOps } from "./mobile_file_ops.js";
 export { registerMobileSystemTools } from "./mobile_system_tools.js";
 export { registerMobileHardware } from "./mobile_hardware.js";
 export { registerMobileDeviceManagement } from "./mobile_device_management.js";
-export { registerMobileAppAnalyticsToolkit } from "./mobile_app_analytics_toolkit.js";
-export { registerMobileAppDeploymentToolkit } from "./mobile_app_deployment_toolkit.js";
-export { registerMobileAppOptimizationToolkit } from "./mobile_app_optimization_toolkit.js";
-export { registerMobileAppSecurityToolkit } from "./mobile_app_security_toolkit.js";
-export { registerMobileAppMonitoringToolkit } from "./mobile_app_monitoring_toolkit.js";
-export { registerMobileAppPerformanceToolkit } from "./mobile_app_performance_toolkit.js";
-export { registerMobileAppTestingToolkit } from "./mobile_app_testing_toolkit.js";
+// Mobile app toolkit exports are now consolidated into mobileAppUnified.ts
 export { registerMobileNetworkAnalyzer } from "./mobile_network_analyzer.js";
 export { registerMobileSecurityToolkit } from "./mobile_security_toolkit.js";
