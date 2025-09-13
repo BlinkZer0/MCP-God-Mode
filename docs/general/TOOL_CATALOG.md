@@ -4,8 +4,8 @@
 MCP God Mode is an advanced security and network analysis platform. Current counts (v1.9):
 
 - **Comprehensive index + enhanced endpoints** exported in code
-- **168 total endpoints** across both servers (includes consolidated Flipper Zero tool, MCP Web UI Bridge, and SpecOps tools)
-- **168 documented tools** in the wiki
+- **174 total endpoints** across both servers (includes consolidated Flipper Zero tool, MCP Web UI Bridge, and SpecOps tools)
+- **174 documented tools** in the wiki
 - **Configurable modular server** - can load minimal (10 tools), custom categories, or full (174 tools)
 
 This document provides detailed information about each tool, its capabilities, and use cases.

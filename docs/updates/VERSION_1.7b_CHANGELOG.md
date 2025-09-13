@@ -31,7 +31,7 @@ Codename: Perfect Parity Refresh + Flipper Docs
 
 ## Documentation Updates
 
-- README updated for 1.7b with 170 tool count, corrected badge link, and Flipper docs link
+- README updated for 1.7b with 174 tool count, corrected badge link, and Flipper docs link
 - Tool Catalog (`docs/general/TOOL_CATALOG.md`) updated with current counts and parity notes
 - Tools overview (`docs/tools-README.md`) counts refreshed (120 exports, 170 endpoints)
 - Category Index summary updated for 1.7b and date stamp

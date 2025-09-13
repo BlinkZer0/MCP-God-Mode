@@ -948,6 +948,45 @@ python -m mcp_god_mode.tools.security.hack_network \
   --method "vulnerability scan"
 ```
 
+### 🤖 AI-Powered IDE Integration & Self-Healing Tools
+
+**Point your AI-powered IDE (like Cursor) directly to the MCP folder for intelligent tool development and bug fixing!**
+
+MCP God Mode is designed to work seamlessly with AI-powered development environments. You can point your IDE to the `dev/src/tools/` directory and let AI assist with:
+
+#### **🔧 Self-Healing & Bug Fixes**
+- **Automatic Bug Detection**: AI can identify and fix common issues in tool implementations
+- **Parameter Validation**: AI can validate and correct parameter schemas and types
+- **Error Handling**: AI can improve error handling and add missing edge cases
+- **Code Optimization**: AI can optimize tool performance and reduce resource usage
+
+#### **🛠️ Custom Tool Development**
+- **Untested Tool Completion**: Need a specific tool that hasn't been fully tested? AI can help complete the implementation
+- **New Tool Creation**: AI can help create new tools based on your specific requirements
+- **Tool Enhancement**: AI can enhance existing tools with additional features or better interfaces
+- **Cross-Platform Adaptation**: AI can help adapt tools for different platforms (Windows, macOS, Linux, Android, iOS)
+
+#### **📁 IDE Integration Setup**
+```bash
+# Point your AI IDE to the tools directory
+cd dev/src/tools/
+
+# Your AI IDE can now:
+# - Analyze all 174 tool implementations
+# - Suggest improvements and fixes
+# - Help complete untested tools
+# - Create new custom tools
+# - Validate tool schemas and parameters
+```
+
+#### **🎯 Benefits for Developers**
+- **Rapid Development**: AI can help you build and fix tools faster than manual development
+- **Quality Assurance**: AI can catch bugs and issues before they become problems
+- **Custom Solutions**: Create tools tailored to your specific needs and use cases
+- **Learning Opportunity**: Understand how MCP tools work by having AI explain and improve them
+
+**💡 Pro Tip**: Many of our 174 tools are framework-complete but need testing. Your AI IDE can help complete the implementation, add proper error handling, and ensure they work correctly across all platforms!
+
 ### Automated Workflows
 Create automated security testing pipelines:
 ```bash
