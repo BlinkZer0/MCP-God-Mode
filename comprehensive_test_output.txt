@@ -1,0 +1,683 @@
+[1m≡ƒÜÇ Starting MCP God Mode Smoke Tests[0m
+[34m≡ƒôè Testing 184 tools across 35 categories[0m
+[33m
+≡ƒöº Testing server initialization...[0m
+[36m  ΓÜá∩╕Å  MCP SDK not available, skipping server instance creation[0m
+[36m     This is expected if dependencies are not installed[0m
+[36m  Γ£à Server TypeScript file exists[0m
+[33m
+≡ƒô¥ Testing tool registration...[0m
+[36m  Γ£à Tools TypeScript index exists[0m
+[36m    Testing core tools...[0m
+[36m      Γ£à health file exists at ./dev/src/tools/core/health.ts[0m
+[36m      Γ£à system_info file exists at ./dev/src/tools/core/system_info.ts[0m
+[36m    Testing file_system tools...[0m
+[36m      Γ£à fs_list file exists at ./dev/src/tools/file_system/fs_list.ts[0m
+[36m      Γ£à fs_read_text file exists at ./dev/src/tools/file_system/fs_read_text.ts[0m
+[36m      Γ£à fs_write_text file exists at ./dev/src/tools/file_system/fs_write_text.ts[0m
+[36m      Γ£à fs_search file exists at ./dev/src/tools/file_system/fs_search.ts[0m
+[36m      Γ£à file_ops file exists at ./dev/src/tools/file_system/file_ops.ts[0m
+[36m      Γ£à file_watcher file exists at ./dev/src/tools/file_system/file_watcher.ts[0m
+[36m    Testing process tools...[0m
+[36m      Γ£à proc_run file exists at ./dev/src/tools/process/proc_run.ts[0m
+[36m      Γ£à proc_run_elevated file exists at ./dev/src/tools/process/proc_run_elevated.ts[0m
+[36m      Γ£à proc_run_remote file exists at ./dev/src/tools/process/proc_run_remote.ts[0m
+[36m    Testing system tools...[0m
+[36m      Γ£à system_restore file exists at ./dev/src/tools/system/system_restore.ts[0m
+[36m      Γ£à elevated_permissions_manager file exists at ./dev/src/tools/system/elevated_permissions_manager.ts[0m
+[36m      Γ£à cron_job_manager file exists at ./dev/src/tools/system/cron_job_manager.ts[0m
+[36m      Γ£à system_monitor file exists at ./dev/src/tools/system/system_monitor.ts[0m
+[36m    Testing git tools...[0m
+[36m      Γ£à git_status file exists at ./dev/src/tools/git/git_status.ts[0m
+[36m    Testing windows tools...[0m
+[36m      Γ£à win_services file exists at ./dev/src/tools/windows/win_services.ts[0m
+[36m      Γ£à win_processes file exists at ./dev/src/tools/windows/win_processes.ts[0m
+[36m    Testing network tools...[0m
+[36m      Γ£à packet_sniffer file exists at ./dev/src/tools/network/packet_sniffer.ts[0m
+[36m      Γ£à port_scanner file exists at ./dev/src/tools/network/port_scanner.ts[0m
+[36m      Γ£à network_diagnostics file exists at ./dev/src/tools/network/network_diagnostics.ts[0m
+[36m      Γ£à download_file file exists at ./dev/src/tools/network/download_file.ts[0m
+[36m      Γ£à network_traffic_analyzer file exists at ./dev/src/tools/network/network_traffic_analyzer.ts[0m
+[36m      Γ£à ip_geolocation file exists at ./dev/src/tools/network/ip_geolocation.ts[0m
+[36m      Γ£à network_triangulation file exists at ./dev/src/tools/network/network_triangulation.ts[0m
+[36m      Γ£à osint_reconnaissance file exists at ./dev/src/tools/network/osint_reconnaissance.ts[0m
+[36m      Γ£à latency_geolocation file exists at ./dev/src/tools/network/latency_geolocation.ts[0m
+[36m      Γ£à network_discovery file exists at ./dev/src/tools/network/network_discovery.ts[0m
+[36m      Γ£à vulnerability_assessment file exists at ./dev/src/tools/network/vulnerability_assessment.ts[0m
+[36m      Γ£à traffic_analysis file exists at ./dev/src/tools/network/traffic_analysis.ts[0m
+[36m      Γ£à network_utilities file exists at ./dev/src/tools/network/network_utilities.ts[0m
+[36m      Γ£à social_account_ripper file exists at ./dev/src/tools/network/social_account_ripper.ts[0m
+[36m      Γ£à social_account_ripper_modular file exists at ./dev/src/tools/network/social_account_ripper_modular.ts[0m
+[36m    Testing security tools...[0m
+[36m      Γ£à vulnerability_scanner file exists at ./dev/src/tools/security/vulnerability_scanner.ts[0m
+[36m      Γ£à password_cracker file exists at ./dev/src/tools/security/password_cracker.ts[0m
+[36m      Γ£à exploit_framework file exists at ./dev/src/tools/security/exploit_framework.ts[0m
+[36m      Γ£à network_security file exists at ./dev/src/tools/security/network_security.ts[0m
+[36m      Γ£à blockchain_security file exists at ./dev/src/tools/security/blockchain_security.ts[0m
+[36m      Γ£à quantum_security file exists at ./dev/src/tools/security/quantum_security.ts[0m
+[36m      Γ£à iot_security file exists at ./dev/src/tools/security/iot_security.ts[0m
+[36m      Γ£à social_engineering file exists at ./dev/src/tools/security/social_engineering.ts[0m
+[36m      Γ£à threat_intelligence file exists at ./dev/src/tools/security/threat_intelligence.ts[0m
+[36m      Γ£à compliance_assessment file exists at ./dev/src/tools/security/compliance_assessment.ts[0m
+[36m      Γ£à social_network_ripper file exists at ./dev/src/tools/security/social_network_ripper.ts[0m
+[36m      Γ£à metadata_extractor file exists at ./dev/src/tools/security/metadata_extractor.ts[0m
+[36m      Γ£à siem_toolkit file exists at ./dev/src/tools/security/siem_toolkit.ts[0m
+[36m      Γ£à cloud_security_assessment file exists at ./dev/src/tools/security/cloud_security_assessment.ts[0m
+[36m      Γ£à api_security_testing file exists at ./dev/src/tools/security/api_security_testing.ts[0m
+[36m      Γ£à email_security_suite file exists at ./dev/src/tools/security/email_security_suite.ts[0m
+[36m      Γ£à database_security_toolkit file exists at ./dev/src/tools/security/database_security_toolkit.ts[0m
+[36m      Γ£à malware_analysis file exists at ./dev/src/tools/security/malware_analysis.ts[0m
+[36m    Testing penetration tools...[0m
+[36m      Γ£à hack_network file exists at ./dev/src/tools/penetration/hack_network.ts[0m
+[36m      Γ£à security_testing file exists at ./dev/src/tools/penetration/security_testing.ts[0m
+[36m      Γ£à network_penetration file exists at ./dev/src/tools/penetration/network_penetration.ts[0m
+[36m      Γ£à penetration_testing_toolkit file exists at ./dev/src/tools/penetration/penetration_testing_toolkit.ts[0m
+[36m      Γ£à social_engineering_toolkit file exists at ./dev/src/tools/penetration/social_engineering_toolkit.ts[0m
+[36m      Γ£à red_team_toolkit file exists at ./dev/src/tools/penetration/red_team_toolkit.ts[0m
+[36m    Testing wireless tools...[0m
+[36m      Γ£à wifi_security_toolkit file exists at ./dev/src/tools/wireless/wifi_security_toolkit.ts[0m
+[36m      Γ£à wifi_hacking file exists at ./dev/src/tools/wireless/wifi_hacking.ts[0m
+[36m      Γ£à wireless_security file exists at ./dev/src/tools/wireless/wireless_security.ts[0m
+[36m      Γ£à wireless_network_scanner file exists at ./dev/src/tools/wireless/wireless_network_scanner.ts[0m
+[36m      Γ£à wifi_disrupt file exists at ./dev/src/tools/wireless/wifi_disrupt.ts[0m
+[36m      Γ£à cellular_triangulate file exists at ./dev/src/tools/wireless/cellular_triangulate.ts[0m
+[36m    Testing bluetooth tools...[0m
+[36m      Γ£à bluetooth_security_toolkit file exists at ./dev/src/tools/bluetooth/bluetooth_security_toolkit.ts[0m
+[36m      Γ£à bluetooth_hacking file exists at ./dev/src/tools/bluetooth/bluetooth_hacking.ts[0m
+[36m      Γ£à bluetooth_device_manager file exists at ./dev/src/tools/bluetooth/bluetooth_device_manager.ts[0m
+[36m    Testing radio tools...[0m
+[36m      Γ£à sdr_security_toolkit file exists at ./dev/src/tools/radio/sdr_security_toolkit.ts[0m
+[36m      Γ£à radio_security file exists at ./dev/src/tools/radio/radio_security.ts[0m
+[36m      Γ£à signal_analysis file exists at ./dev/src/tools/radio/signal_analysis.ts[0m
+[36m    Testing web tools...[0m
+[36m      Γ£à web_scraper file exists at ./dev/src/tools/web/web_scraper.ts[0m
+[36m      Γ£à browser_control file exists at ./dev/src/tools/web/browser_control.ts[0m
+[36m      Γ£à web_automation file exists at ./dev/src/tools/web/web_automation.ts[0m
+[36m      Γ£à webhook_manager file exists at ./dev/src/tools/web/webhook_manager.ts[0m
+[36m      Γ£à universal_browser_operator file exists at ./dev/src/tools/web/universal_browser_operator.ts[0m
+[36m      Γ£à web_search file exists at ./dev/src/tools/web/web_search.ts[0m
+[36m      Γ£à form_completion file exists at ./dev/src/tools/web/form_completion.ts[0m
+[36m      Γ£à captcha_defeating file exists at ./dev/src/tools/web/captcha_defeating.ts[0m
+[36m      Γ£à form_detection (MCP God Mode system function)[0m
+[36m      Γ£à form_validation (MCP God Mode system function)[0m
+[36m      Γ£à form_pattern_recognition (MCP God Mode system function)[0m
+[36m      Γ£à multi_engine_search (MCP God Mode system function)[0m
+[36m      Γ£à search_analysis (MCP God Mode system function)[0m
+[36m    Testing email tools...[0m
+[36m      Γ£à send_email file exists at ./dev/src/tools/email/send_email.ts[0m
+[36m      Γ£à read_emails file exists at ./dev/src/tools/email/read_emails.ts[0m
+[36m      Γ£à parse_email file exists at ./dev/src/tools/email/parse_email.ts[0m
+[36m      Γ£à delete_emails file exists at ./dev/src/tools/email/delete_emails.ts[0m
+[36m      Γ£à sort_emails file exists at ./dev/src/tools/email/sort_emails.ts[0m
+[36m      Γ£à manage_email_accounts file exists at ./dev/src/tools/email/manage_email_accounts.ts[0m
+[36m    Testing media tools...[0m
+[36m      Γ£à video_editing file exists at ./dev/src/tools/media/video_editing.ts[0m
+[36m      Γ£à ocr_tool file exists at ./dev/src/tools/media/ocr_tool.ts[0m
+[36m      Γ£à image_editing file exists at ./dev/src/tools/media/image_editing.ts[0m
+[36m      Γ£à enhanced_media_editor file exists at ./dev/src/tools/media/enhanced_media_editor.ts[0m
+[36m      Γ£à multimedia_tool file exists at ./dev/src/tools/media/multimedia_tool.ts[0m
+[36m      Γ£à video_editor file exists at ./dev/src/tools/media/video_editor.ts[0m
+[36m    Testing screenshot tools...[0m
+[36m      Γ£à index file exists at ./dev/src/tools/screenshot/index.ts[0m
+[36m    Testing mobile tools...[0m
+[36m      Γ£à mobile_device_info file exists at ./dev/src/tools/mobile/mobile_device_info.ts[0m
+[36m      Γ£à mobile_file_ops file exists at ./dev/src/tools/mobile/mobile_file_ops.ts[0m
+[36m      Γ£à mobile_system_tools file exists at ./dev/src/tools/mobile/mobile_system_tools.ts[0m
+[36m      Γ£à mobile_hardware file exists at ./dev/src/tools/mobile/mobile_hardware.ts[0m
+[36m      Γ£à mobile_device_management file exists at ./dev/src/tools/mobile/mobile_device_management.ts[0m
+[36m      Γ£à mobile_app_analytics_toolkit file exists at ./dev/src/tools/mobile/mobile_app_analytics_toolkit.ts[0m
+[36m      Γ£à mobile_app_deployment_toolkit file exists at ./dev/src/tools/mobile/mobile_app_deployment_toolkit.ts[0m
+[36m      Γ£à mobile_app_optimization_toolkit file exists at ./dev/src/tools/mobile/mobile_app_optimization_toolkit.ts[0m
+[36m      Γ£à mobile_app_security_toolkit file exists at ./dev/src/tools/mobile/mobile_app_security_toolkit.ts[0m
+[36m      Γ£à mobile_app_monitoring_toolkit file exists at ./dev/src/tools/mobile/mobile_app_monitoring_toolkit.ts[0m
+[36m      Γ£à mobile_app_performance_toolkit file exists at ./dev/src/tools/mobile/mobile_app_performance_toolkit.ts[0m
+[36m      Γ£à mobile_app_testing_toolkit file exists at ./dev/src/tools/mobile/mobile_app_testing_toolkit.ts[0m
+[36m      Γ£à mobile_network_analyzer file exists at ./dev/src/tools/mobile/mobile_network_analyzer.ts[0m
+[36m      Γ£à mobile_security_toolkit file exists at ./dev/src/tools/mobile/mobile_security_toolkit.ts[0m
+[36m    Testing virtualization tools...[0m
+[36m      Γ£à vm_management file exists at ./dev/src/tools/virtualization/vm_management.ts[0m
+[36m      Γ£à docker_management file exists at ./dev/src/tools/virtualization/docker_management.ts[0m
+[36m    Testing ai tools...[0m
+[36m      Γ£à rag_toolkit file exists at ./dev/src/tools/ai/rag_toolkit.ts[0m
+[36m      Γ£à ai_adversarial_prompt file exists at ./dev/src/tools/ai/ai_adversarial_prompt.ts[0m
+[36m      Γ£à ai_adversarial_nlp (MCP God Mode system function)[0m
+[36m      Γ£à ai_adversarial_platform_info (MCP God Mode system function)[0m
+[36m    Testing flipper tools...[0m
+[36m      Γ£à index file exists at ./dev/src/tools/flipper/index.ts[0m
+[36m    Testing utilities tools...[0m
+[36m      Γ£à calculator file exists at ./dev/src/tools/utilities/calculator.ts[0m
+[36m      Γ£à dice_rolling file exists at ./dev/src/tools/utilities/dice_rolling.ts[0m
+[36m      Γ£à math_calculate file exists at ./dev/src/tools/utilities/math_calculate.ts[0m
+[36m      Γ£à data_analysis file exists at ./dev/src/tools/utilities/data_analysis.ts[0m
+[36m      Γ£à machine_learning file exists at ./dev/src/tools/utilities/machine_learning.ts[0m
+[36m      Γ£à chart_generator file exists at ./dev/src/tools/utilities/chart_generator.ts[0m
+[36m      Γ£à text_processor file exists at ./dev/src/tools/utilities/text_processor.ts[0m
+[36m      Γ£à password_generator file exists at ./dev/src/tools/utilities/password_generator.ts[0m
+[36m      Γ£à data_analyzer file exists at ./dev/src/tools/utilities/data_analyzer.ts[0m
+[36m      Γ£à encryption_tool file exists at ./dev/src/tools/utilities/encryption_tool.ts[0m
+[36m    Testing cloud tools...[0m
+[36m      Γ£à cloud_security file exists at ./dev/src/tools/cloud/cloud_security.ts[0m
+[36m      Γ£à cloud_infrastructure_manager file exists at ./dev/src/tools/cloud/cloud_infrastructure_manager.ts[0m
+[36m      Γ£à cloud_security_toolkit file exists at ./dev/src/tools/cloud/cloud_security_toolkit.ts[0m
+[36m    Testing forensics tools...[0m
+[36m      Γ£à forensics_analysis file exists at ./dev/src/tools/forensics/forensics_analysis.ts[0m
+[36m      Γ£à forensics_toolkit file exists at ./dev/src/tools/forensics/forensics_toolkit.ts[0m
+[36m      Γ£à malware_analysis_toolkit file exists at ./dev/src/tools/forensics/malware_analysis_toolkit.ts[0m
+[36m    Testing discovery tools...[0m
+[36m      Γ£à tool_discovery file exists at ./dev/src/tools/discovery/tool_discovery.ts[0m
+[36m      Γ£à explore_categories file exists at ./dev/src/tools/discovery/explore_categories.ts[0m
+[36m      Γ£à natural_language_router file exists at ./dev/src/tools/discovery/natural_language_router.ts[0m
+[36m    Testing drone tools...[0m
+[36m      Γ£à droneDefenseEnhanced file exists at ./dev/src/tools/droneDefenseEnhanced.ts[0m
+[36m      Γ£à droneOffenseEnhanced file exists at ./dev/src/tools/droneOffenseEnhanced.ts[0m
+[36m      Γ£à droneNaturalLanguageInterface file exists at ./dev/src/tools/droneNaturalLanguageInterface.ts[0m
+[36m      Γ£à droneMobileOptimized file exists at ./dev/src/tools/droneMobileOptimized.ts[0m
+[36m    Testing rfSense tools...[0m
+[36m      Γ£à rf_sense_sim file exists at ./dev/src/tools/rf_sense/rf_sense_sim.ts[0m
+[36m      Γ£à rf_sense_wifi_lab file exists at ./dev/src/tools/rf_sense/rf_sense_wifi_lab.ts[0m
+[36m      Γ£à rf_sense_mmwave file exists at ./dev/src/tools/rf_sense/rf_sense_mmwave.ts[0m
+[36m      Γ£à rf_sense_natural_language file exists at ./dev/src/tools/rf_sense/rf_sense_natural_language.ts[0m
+[36m      Γ£à rf_sense_guardrails file exists at ./dev/src/tools/rf_sense/rf_sense_guardrails.ts[0m
+[36m      Γ£à rf_sense_unified file exists at ./dev/src/tools/rf_sense/rf_sense_unified.ts[0m
+[36m      Γ£à localize file exists at ./dev/src/tools/rf_sense/localize.ts[0m
+[36m      Γ£à rf_sense_viewer_api file exists at ./dev/src/tools/rf_sense/rf_sense_viewer_api.ts[0m
+[36m      Γ£à rf_sense_security_guard file exists at ./dev/src/tools/rf_sense/rf_sense_security_guard.ts[0m
+[36m    Testing legal tools...[0m
+[36m      Γ£à legal_compliance_manager file exists at ./dev/src/tools/legal/legal_compliance_manager.ts[0m
+[36m    Testing specops tools...[0m
+[36m      Γ£à bloodhound_ad file exists at ./dev/src/tools/specops/penetration/bloodhound_ad.ts[0m
+[36m      Γ£à cobalt_strike file exists at ./dev/src/tools/specops/penetration/cobalt_strike.ts[0m
+[36m      Γ£à empire_powershell file exists at ./dev/src/tools/specops/penetration/empire_powershell.ts[0m
+[36m      Γ£à metasploit_framework file exists at ./dev/src/tools/specops/penetration/metasploit_framework.ts[0m
+[36m      Γ£à mimikatz_credentials file exists at ./dev/src/tools/specops/penetration/mimikatz_credentials.ts[0m
+[36m      Γ£à mimikatz_enhanced file exists at ./dev/src/tools/specops/penetration/mimikatz_enhanced.ts[0m
+[36m      Γ£à frida_toolkit file exists at ./dev/src/tools/specops/mobile_iot/frida_toolkit.ts[0m
+[36m      Γ£à ghidra_reverse_engineering file exists at ./dev/src/tools/specops/mobile_iot/ghidra_reverse_engineering.ts[0m
+[36m      Γ£à nmap_scanner file exists at ./dev/src/tools/specops/network/nmap_scanner.ts[0m
+[36m      Γ£à pacu_aws_exploitation file exists at ./dev/src/tools/specops/cloud_security/pacu_aws_exploitation.ts[0m
+[36m    Testing crime_reporter tools...[0m
+[36m      Γ£à crime_reporter (MCP God Mode system function)[0m
+[36m    Testing zero_day_exploiter tools...[0m
+[36m      Γ£à zero_day_exploiter (MCP God Mode system function)[0m
+[36m    Testing social tools...[0m
+[36m      Γ£à social_network_ripper file exists at ./dev/src/tools/social/social_network_ripper.ts[0m
+[36m    Testing crimeReporter tools...[0m
+[36m      Γ£à crime_reporter (MCP God Mode system function)[0m
+[36m      Γ£à crime_reporter_nl (MCP God Mode system function)[0m
+[36m      Γ£à crime_reporter_test (MCP God Mode system function)[0m
+[36m    Testing zeroDayExploiter tools...[0m
+[36m      Γ£à zero_day_exploiter (MCP God Mode system function)[0m
+[36m      Γ£à zero_day_exploiter_nl (MCP God Mode system function)[0m
+[36m      Γ£à zero_day_exploiter_test (MCP God Mode system function)[0m
+[36m    Testing tool_management tools...[0m
+[36m      Γ£à tool_burglar file exists at ./dev/src/tools/tool_burglar.ts[0m
+[36m    Testing advanced tools...[0m
+[36m      Γ£à advanced_analytics_engine (MCP God Mode system function)[0m
+[36m      Γ£à advanced_security_assessment (MCP God Mode system function)[0m
+[36m      Γ£à cross_platform_system_manager (MCP God Mode system function)[0m
+[36m      Γ£à enhanced_legal_compliance (MCP God Mode system function)[0m
+[36m      Γ£à enterprise_integration_hub (MCP God Mode system function)[0m
+[36m      Γ£à advanced_threat_hunting (MCP God Mode system function)[0m
+[36m      Γ£à cyber_deception_platform (MCP God Mode system function)[0m
+[36m      Γ£à zero_trust_architect (MCP God Mode system function)[0m
+[36m      Γ£à quantum_cryptography_suite (MCP God Mode system function)[0m
+[36m      Γ£à ai_security_orchestrator (MCP God Mode system function)[0m
+[36m      Γ£à blockchain_forensics (MCP God Mode system function)[0m
+[36m      Γ£à supply_chain_security (MCP God Mode system function)[0m
+[36m      Γ£à privacy_engineering (MCP God Mode system function)[0m
+[36m      Γ£à incident_commander (MCP God Mode system function)[0m
+[36m      Γ£à security_metrics_dashboard (MCP God Mode system function)[0m
+[36m    Testing RF Sense tools...[0m
+[36m      Γ£à RF Sense tools directory exists[0m
+[36m      Γ£à rf_sense_sim RF Sense tool file exists[0m
+[36m      Γ£à rf_sense_wifi_lab RF Sense tool file exists[0m
+[36m      Γ£à rf_sense_mmwave RF Sense tool file exists[0m
+[36m      Γ£à rf_sense_natural_language RF Sense tool file exists[0m
+[36m      Γ£à rf_sense_guardrails RF Sense tool file exists[0m
+[36m      Γ£à rf_sense_unified RF Sense tool file exists[0m
+[36m      Γ£à localize RF Sense tool file exists[0m
+[36m      Γ£à rf_sense_viewer_api RF Sense tool file exists[0m
+[36m      Γ£à rf_sense_security_guard RF Sense tool file exists[0m
+[36m    Testing enhanced drone tools...[0m
+[36m      Γ£à droneDefenseEnhanced drone tool file exists[0m
+[36m      Γ£à droneOffenseEnhanced drone tool file exists[0m
+[36m      Γ£à droneNaturalLanguageInterface drone tool file exists[0m
+[36m      Γ£à droneMobileOptimized drone tool file exists[0m
+[33m
+≡ƒöì Testing individual tools...[0m
+[36m    Testing health...[0m
+[36m      Testing health schema...[0m
+[36m    Testing system_info...[0m
+[36m      Testing system_info schema...[0m
+[36m    Testing fs_list...[0m
+[36m      Testing fs_list schema...[0m
+[36m    Testing fs_read_text...[0m
+[36m      Testing fs_read_text schema...[0m
+[36m    Testing fs_write_text...[0m
+[36m      Testing fs_write_text schema...[0m
+[36m    Testing fs_search...[0m
+[36m      Testing fs_search schema...[0m
+[36m    Testing file_ops...[0m
+[36m      Testing file_ops schema...[0m
+[36m    Testing file_watcher...[0m
+[36m      Testing file_watcher schema...[0m
+[36m    Testing proc_run...[0m
+[36m      Testing proc_run schema...[0m
+[36m    Testing proc_run_elevated...[0m
+[36m      Testing proc_run_elevated schema...[0m
+[33m
+≡ƒôï Testing tool schemas...[0m
+[36m    Γ£à health schema valid[0m
+[36m    Γ£à system_info schema valid[0m
+[36m    Γ£à fs_list schema valid[0m
+[36m    Γ£à fs_read_text schema valid[0m
+[36m    Γ£à fs_write_text schema valid[0m
+[36m    Γ£à fs_search schema valid[0m
+[36m    Γ£à file_ops schema valid[0m
+[36m    Γ£à file_watcher schema valid[0m
+[36m    Γ£à proc_run schema valid[0m
+[36m    Γ£à proc_run_elevated schema valid[0m
+[36m    Γ£à proc_run_remote schema valid[0m
+[36m    Γ£à system_restore schema valid[0m
+[36m    Γ£à elevated_permissions_manager schema valid[0m
+[36m    Γ£à cron_job_manager schema valid[0m
+[36m    Γ£à system_monitor schema valid[0m
+[36m    Γ£à git_status schema valid[0m
+[36m    Γ£à win_services schema valid[0m
+[36m    Γ£à win_processes schema valid[0m
+[36m    Γ£à packet_sniffer schema valid[0m
+[36m    Γ£à port_scanner schema valid[0m
+[36m    Γ£à network_diagnostics schema valid[0m
+[36m    Γ£à download_file schema valid[0m
+[36m    Γ£à network_traffic_analyzer schema valid[0m
+[36m    Γ£à ip_geolocation schema valid[0m
+[36m    Γ£à network_triangulation schema valid[0m
+[36m    Γ£à osint_reconnaissance schema valid[0m
+[36m    Γ£à latency_geolocation schema valid[0m
+[36m    Γ£à network_discovery schema valid[0m
+[36m    Γ£à vulnerability_assessment schema valid[0m
+[36m    Γ£à traffic_analysis schema valid[0m
+[36m    Γ£à network_utilities schema valid[0m
+[36m    Γ£à social_account_ripper schema valid[0m
+[36m    Γ£à social_account_ripper_modular schema valid[0m
+[36m    Γ£à vulnerability_scanner schema valid[0m
+[36m    Γ£à password_cracker schema valid[0m
+[36m    Γ£à exploit_framework schema valid[0m
+[36m    Γ£à network_security schema valid[0m
+[36m    Γ£à blockchain_security schema valid[0m
+[36m    Γ£à quantum_security schema valid[0m
+[36m    Γ£à iot_security schema valid[0m
+[36m    Γ£à social_engineering schema valid[0m
+[36m    Γ£à threat_intelligence schema valid[0m
+[36m    Γ£à compliance_assessment schema valid[0m
+[36m    Γ£à social_network_ripper schema valid[0m
+[36m    Γ£à metadata_extractor schema valid[0m
+[36m    Γ£à siem_toolkit schema valid[0m
+[36m    Γ£à cloud_security_assessment schema valid[0m
+[36m    Γ£à api_security_testing schema valid[0m
+[36m    Γ£à email_security_suite schema valid[0m
+[36m    Γ£à database_security_toolkit schema valid[0m
+[36m    Γ£à malware_analysis schema valid[0m
+[36m    Γ£à hack_network schema valid[0m
+[36m    Γ£à security_testing schema valid[0m
+[36m    Γ£à network_penetration schema valid[0m
+[36m    Γ£à penetration_testing_toolkit schema valid[0m
+[36m    Γ£à social_engineering_toolkit schema valid[0m
+[36m    Γ£à red_team_toolkit schema valid[0m
+[36m    Γ£à wifi_security_toolkit schema valid[0m
+[36m    Γ£à wifi_hacking schema valid[0m
+[36m    Γ£à wireless_security schema valid[0m
+[36m    Γ£à wireless_network_scanner schema valid[0m
+[36m    Γ£à wifi_disrupt schema valid[0m
+[36m    Γ£à cellular_triangulate schema valid[0m
+[36m    Γ£à bluetooth_security_toolkit schema valid[0m
+[36m    Γ£à bluetooth_hacking schema valid[0m
+[36m    Γ£à bluetooth_device_manager schema valid[0m
+[36m    Γ£à sdr_security_toolkit schema valid[0m
+[36m    Γ£à radio_security schema valid[0m
+[36m    Γ£à signal_analysis schema valid[0m
+[36m    Γ£à web_scraper schema valid[0m
+[36m    Γ£à browser_control schema valid[0m
+[36m    Γ£à web_automation schema valid[0m
+[36m    Γ£à webhook_manager schema valid[0m
+[36m    Γ£à universal_browser_operator schema valid[0m
+[36m    Γ£à web_search schema valid[0m
+[36m    Γ£à form_completion schema valid[0m
+[36m    Γ£à captcha_defeating schema valid[0m
+[36m    Γ£à form_detection schema valid[0m
+[36m    Γ£à form_validation schema valid[0m
+[36m    Γ£à form_pattern_recognition schema valid[0m
+[36m    Γ£à multi_engine_search schema valid[0m
+[36m    Γ£à search_analysis schema valid[0m
+[36m    Γ£à send_email schema valid[0m
+[36m    Γ£à read_emails schema valid[0m
+[36m    Γ£à parse_email schema valid[0m
+[36m    Γ£à delete_emails schema valid[0m
+[36m    Γ£à sort_emails schema valid[0m
+[36m    Γ£à manage_email_accounts schema valid[0m
+[36m    Γ£à video_editing schema valid[0m
+[36m    Γ£à ocr_tool schema valid[0m
+[36m    Γ£à image_editing schema valid[0m
+[36m    Γ£à enhanced_media_editor schema valid[0m
+[36m    Γ£à multimedia_tool schema valid[0m
+[36m    Γ£à video_editor schema valid[0m
+[36m    Γ£à index schema valid[0m
+[36m    Γ£à mobile_device_info schema valid[0m
+[36m    Γ£à mobile_file_ops schema valid[0m
+[36m    Γ£à mobile_system_tools schema valid[0m
+[36m    Γ£à mobile_hardware schema valid[0m
+[36m    Γ£à mobile_device_management schema valid[0m
+[36m    Γ£à mobile_app_analytics_toolkit schema valid[0m
+[36m    Γ£à mobile_app_deployment_toolkit schema valid[0m
+[36m    Γ£à mobile_app_optimization_toolkit schema valid[0m
+[36m    Γ£à mobile_app_security_toolkit schema valid[0m
+[36m    Γ£à mobile_app_monitoring_toolkit schema valid[0m
+[36m    Γ£à mobile_app_performance_toolkit schema valid[0m
+[36m    Γ£à mobile_app_testing_toolkit schema valid[0m
+[36m    Γ£à mobile_network_analyzer schema valid[0m
+[36m    Γ£à mobile_security_toolkit schema valid[0m
+[36m    Γ£à vm_management schema valid[0m
+[36m    Γ£à docker_management schema valid[0m
+[36m    Γ£à rag_toolkit schema valid[0m
+[36m    Γ£à ai_adversarial_prompt schema valid[0m
+[36m    Γ£à ai_adversarial_nlp schema valid[0m
+[36m    Γ£à ai_adversarial_platform_info schema valid[0m
+[36m    Γ£à calculator schema valid[0m
+[36m    Γ£à dice_rolling schema valid[0m
+[36m    Γ£à math_calculate schema valid[0m
+[36m    Γ£à data_analysis schema valid[0m
+[36m    Γ£à machine_learning schema valid[0m
+[36m    Γ£à chart_generator schema valid[0m
+[36m    Γ£à text_processor schema valid[0m
+[36m    Γ£à password_generator schema valid[0m
+[36m    Γ£à data_analyzer schema valid[0m
+[36m    Γ£à encryption_tool schema valid[0m
+[36m    Γ£à cloud_security schema valid[0m
+[36m    Γ£à cloud_infrastructure_manager schema valid[0m
+[36m    Γ£à cloud_security_toolkit schema valid[0m
+[36m    Γ£à forensics_analysis schema valid[0m
+[36m    Γ£à forensics_toolkit schema valid[0m
+[36m    Γ£à malware_analysis_toolkit schema valid[0m
+[36m    Γ£à tool_discovery schema valid[0m
+[36m    Γ£à explore_categories schema valid[0m
+[36m    Γ£à natural_language_router schema valid[0m
+[36m    Γ£à droneDefenseEnhanced schema valid[0m
+[36m    Γ£à droneOffenseEnhanced schema valid[0m
+[36m    Γ£à droneNaturalLanguageInterface schema valid[0m
+[36m    Γ£à droneMobileOptimized schema valid[0m
+[36m    Γ£à rf_sense_sim schema valid[0m
+[36m    Γ£à rf_sense_wifi_lab schema valid[0m
+[36m    Γ£à rf_sense_mmwave schema valid[0m
+[36m    Γ£à rf_sense_natural_language schema valid[0m
+[36m    Γ£à rf_sense_guardrails schema valid[0m
+[36m    Γ£à rf_sense_unified schema valid[0m
+[36m    Γ£à localize schema valid[0m
+[36m    Γ£à rf_sense_viewer_api schema valid[0m
+[36m    Γ£à rf_sense_security_guard schema valid[0m
+[36m    Γ£à legal_compliance_manager schema valid[0m
+[36m    Γ£à bloodhound_ad schema valid[0m
+[36m    Γ£à cobalt_strike schema valid[0m
+[36m    Γ£à empire_powershell schema valid[0m
+[36m    Γ£à metasploit_framework schema valid[0m
+[36m    Γ£à mimikatz_credentials schema valid[0m
+[36m    Γ£à mimikatz_enhanced schema valid[0m
+[36m    Γ£à frida_toolkit schema valid[0m
+[36m    Γ£à ghidra_reverse_engineering schema valid[0m
+[36m    Γ£à nmap_scanner schema valid[0m
+[36m    Γ£à pacu_aws_exploitation schema valid[0m
+[36m    Γ£à crime_reporter schema valid[0m
+[36m    Γ£à zero_day_exploiter schema valid[0m
+[36m    Γ£à crime_reporter_nl schema valid[0m
+[36m    Γ£à crime_reporter_test schema valid[0m
+[36m    Γ£à zero_day_exploiter_nl schema valid[0m
+[36m    Γ£à zero_day_exploiter_test schema valid[0m
+[36m    Γ£à tool_burglar schema valid[0m
+[36m    Γ£à advanced_analytics_engine schema valid[0m
+[36m    Γ£à advanced_security_assessment schema valid[0m
+[36m    Γ£à cross_platform_system_manager schema valid[0m
+[36m    Γ£à enhanced_legal_compliance schema valid[0m
+[36m    Γ£à enterprise_integration_hub schema valid[0m
+[36m    Γ£à advanced_threat_hunting schema valid[0m
+[36m    Γ£à cyber_deception_platform schema valid[0m
+[36m    Γ£à zero_trust_architect schema valid[0m
+[36m    Γ£à quantum_cryptography_suite schema valid[0m
+[36m    Γ£à ai_security_orchestrator schema valid[0m
+[36m    Γ£à blockchain_forensics schema valid[0m
+[36m    Γ£à supply_chain_security schema valid[0m
+[36m    Γ£à privacy_engineering schema valid[0m
+[36m    Γ£à incident_commander schema valid[0m
+[36m    Γ£à security_metrics_dashboard schema valid[0m
+[33m
+ΓÜÖ∩╕Å  Testing tool handlers...[0m
+[36m    Γ£à health handler valid[0m
+[36m    Γ£à system_info handler valid[0m
+[36m    Γ£à fs_list handler valid[0m
+[36m    Γ£à fs_read_text handler valid[0m
+[36m    Γ£à fs_write_text handler valid[0m
+[36m    Γ£à fs_search handler valid[0m
+[36m    Γ£à file_ops handler valid[0m
+[36m    Γ£à file_watcher handler valid[0m
+[36m    Γ£à proc_run handler valid[0m
+[36m    Γ£à proc_run_elevated handler valid[0m
+[36m    Γ£à proc_run_remote handler valid[0m
+[36m    Γ£à system_restore handler valid[0m
+[36m    Γ£à elevated_permissions_manager handler valid[0m
+[36m    Γ£à cron_job_manager handler valid[0m
+[36m    Γ£à system_monitor handler valid[0m
+[36m    Γ£à git_status handler valid[0m
+[36m    Γ£à win_services handler valid[0m
+[36m    Γ£à win_processes handler valid[0m
+[36m    Γ£à packet_sniffer handler valid[0m
+[36m    Γ£à port_scanner handler valid[0m
+[36m    Γ£à network_diagnostics handler valid[0m
+[36m    Γ£à download_file handler valid[0m
+[36m    Γ£à network_traffic_analyzer handler valid[0m
+[36m    Γ£à ip_geolocation handler valid[0m
+[36m    Γ£à network_triangulation handler valid[0m
+[36m    Γ£à osint_reconnaissance handler valid[0m
+[36m    Γ£à latency_geolocation handler valid[0m
+[36m    Γ£à network_discovery handler valid[0m
+[36m    Γ£à vulnerability_assessment handler valid[0m
+[36m    Γ£à traffic_analysis handler valid[0m
+[36m    Γ£à network_utilities handler valid[0m
+[36m    Γ£à social_account_ripper handler valid[0m
+[36m    Γ£à social_account_ripper_modular handler valid[0m
+[36m    Γ£à vulnerability_scanner handler valid[0m
+[36m    Γ£à password_cracker handler valid[0m
+[36m    Γ£à exploit_framework handler valid[0m
+[36m    Γ£à network_security handler valid[0m
+[36m    Γ£à blockchain_security handler valid[0m
+[36m    Γ£à quantum_security handler valid[0m
+[36m    Γ£à iot_security handler valid[0m
+[36m    Γ£à social_engineering handler valid[0m
+[36m    Γ£à threat_intelligence handler valid[0m
+[36m    Γ£à compliance_assessment handler valid[0m
+[36m    Γ£à social_network_ripper handler valid[0m
+[36m    Γ£à metadata_extractor handler valid[0m
+[36m    Γ£à siem_toolkit handler valid[0m
+[36m    Γ£à cloud_security_assessment handler valid[0m
+[36m    Γ£à api_security_testing handler valid[0m
+[36m    Γ£à email_security_suite handler valid[0m
+[36m    Γ£à database_security_toolkit handler valid[0m
+[36m    Γ£à malware_analysis handler valid[0m
+[36m    Γ£à hack_network handler valid[0m
+[36m    Γ£à security_testing handler valid[0m
+[36m    Γ£à network_penetration handler valid[0m
+[36m    Γ£à penetration_testing_toolkit handler valid[0m
+[36m    Γ£à social_engineering_toolkit handler valid[0m
+[36m    Γ£à red_team_toolkit handler valid[0m
+[36m    Γ£à wifi_security_toolkit handler valid[0m
+[36m    Γ£à wifi_hacking handler valid[0m
+[36m    Γ£à wireless_security handler valid[0m
+[36m    Γ£à wireless_network_scanner handler valid[0m
+[36m    Γ£à wifi_disrupt handler valid[0m
+[36m    Γ£à cellular_triangulate handler valid[0m
+[36m    Γ£à bluetooth_security_toolkit handler valid[0m
+[36m    Γ£à bluetooth_hacking handler valid[0m
+[36m    Γ£à bluetooth_device_manager handler valid[0m
+[36m    Γ£à sdr_security_toolkit handler valid[0m
+[36m    Γ£à radio_security handler valid[0m
+[36m    Γ£à signal_analysis handler valid[0m
+[36m    Γ£à web_scraper handler valid[0m
+[36m    Γ£à browser_control handler valid[0m
+[36m    Γ£à web_automation handler valid[0m
+[36m    Γ£à webhook_manager handler valid[0m
+[36m    Γ£à universal_browser_operator handler valid[0m
+[36m    Γ£à web_search handler valid[0m
+[36m    Γ£à form_completion handler valid[0m
+[36m    Γ£à captcha_defeating handler valid[0m
+[36m    Γ£à form_detection handler valid[0m
+[36m    Γ£à form_validation handler valid[0m
+[36m    Γ£à form_pattern_recognition handler valid[0m
+[36m    Γ£à multi_engine_search handler valid[0m
+[36m    Γ£à search_analysis handler valid[0m
+[36m    Γ£à send_email handler valid[0m
+[36m    Γ£à read_emails handler valid[0m
+[36m    Γ£à parse_email handler valid[0m
+[36m    Γ£à delete_emails handler valid[0m
+[36m    Γ£à sort_emails handler valid[0m
+[36m    Γ£à manage_email_accounts handler valid[0m
+[36m    Γ£à video_editing handler valid[0m
+[36m    Γ£à ocr_tool handler valid[0m
+[36m    Γ£à image_editing handler valid[0m
+[36m    Γ£à enhanced_media_editor handler valid[0m
+[36m    Γ£à multimedia_tool handler valid[0m
+[36m    Γ£à video_editor handler valid[0m
+[36m    Γ£à index handler valid[0m
+[36m    Γ£à mobile_device_info handler valid[0m
+[36m    Γ£à mobile_file_ops handler valid[0m
+[36m    Γ£à mobile_system_tools handler valid[0m
+[36m    Γ£à mobile_hardware handler valid[0m
+[36m    Γ£à mobile_device_management handler valid[0m
+[36m    Γ£à mobile_app_analytics_toolkit handler valid[0m
+[36m    Γ£à mobile_app_deployment_toolkit handler valid[0m
+[36m    Γ£à mobile_app_optimization_toolkit handler valid[0m
+[36m    Γ£à mobile_app_security_toolkit handler valid[0m
+[36m    Γ£à mobile_app_monitoring_toolkit handler valid[0m
+[36m    Γ£à mobile_app_performance_toolkit handler valid[0m
+[36m    Γ£à mobile_app_testing_toolkit handler valid[0m
+[36m    Γ£à mobile_network_analyzer handler valid[0m
+[36m    Γ£à mobile_security_toolkit handler valid[0m
+[36m    Γ£à vm_management handler valid[0m
+[36m    Γ£à docker_management handler valid[0m
+[36m    Γ£à rag_toolkit handler valid[0m
+[36m    Γ£à ai_adversarial_prompt handler valid[0m
+[36m    Γ£à ai_adversarial_nlp handler valid[0m
+[36m    Γ£à ai_adversarial_platform_info handler valid[0m
+[36m    Γ£à calculator handler valid[0m
+[36m    Γ£à dice_rolling handler valid[0m
+[36m    Γ£à math_calculate handler valid[0m
+[36m    Γ£à data_analysis handler valid[0m
+[36m    Γ£à machine_learning handler valid[0m
+[36m    Γ£à chart_generator handler valid[0m
+[36m    Γ£à text_processor handler valid[0m
+[36m    Γ£à password_generator handler valid[0m
+[36m    Γ£à data_analyzer handler valid[0m
+[36m    Γ£à encryption_tool handler valid[0m
+[36m    Γ£à cloud_security handler valid[0m
+[36m    Γ£à cloud_infrastructure_manager handler valid[0m
+[36m    Γ£à cloud_security_toolkit handler valid[0m
+[36m    Γ£à forensics_analysis handler valid[0m
+[36m    Γ£à forensics_toolkit handler valid[0m
+[36m    Γ£à malware_analysis_toolkit handler valid[0m
+[36m    Γ£à tool_discovery handler valid[0m
+[36m    Γ£à explore_categories handler valid[0m
+[36m    Γ£à natural_language_router handler valid[0m
+[36m    Γ£à droneDefenseEnhanced handler valid[0m
+[36m    Γ£à droneOffenseEnhanced handler valid[0m
+[36m    Γ£à droneNaturalLanguageInterface handler valid[0m
+[36m    Γ£à droneMobileOptimized handler valid[0m
+[36m    Γ£à rf_sense_sim handler valid[0m
+[36m    Γ£à rf_sense_wifi_lab handler valid[0m
+[36m    Γ£à rf_sense_mmwave handler valid[0m
+[36m    Γ£à rf_sense_natural_language handler valid[0m
+[36m    Γ£à rf_sense_guardrails handler valid[0m
+[36m    Γ£à rf_sense_unified handler valid[0m
+[36m    Γ£à localize handler valid[0m
+[36m    Γ£à rf_sense_viewer_api handler valid[0m
+[36m    Γ£à rf_sense_security_guard handler valid[0m
+[36m    Γ£à legal_compliance_manager handler valid[0m
+[36m    Γ£à bloodhound_ad handler valid[0m
+[36m    Γ£à cobalt_strike handler valid[0m
+[36m    Γ£à empire_powershell handler valid[0m
+[36m    Γ£à metasploit_framework handler valid[0m
+[36m    Γ£à mimikatz_credentials handler valid[0m
+[36m    Γ£à mimikatz_enhanced handler valid[0m
+[36m    Γ£à frida_toolkit handler valid[0m
+[36m    Γ£à ghidra_reverse_engineering handler valid[0m
+[36m    Γ£à nmap_scanner handler valid[0m
+[36m    Γ£à pacu_aws_exploitation handler valid[0m
+[36m    Γ£à crime_reporter handler valid[0m
+[36m    Γ£à zero_day_exploiter handler valid[0m
+[36m    Γ£à crime_reporter_nl handler valid[0m
+[36m    Γ£à crime_reporter_test handler valid[0m
+[36m    Γ£à zero_day_exploiter_nl handler valid[0m
+[36m    Γ£à zero_day_exploiter_test handler valid[0m
+[36m    Γ£à tool_burglar handler valid[0m
+[36m    Γ£à advanced_analytics_engine handler valid[0m
+[36m    Γ£à advanced_security_assessment handler valid[0m
+[36m    Γ£à cross_platform_system_manager handler valid[0m
+[36m    Γ£à enhanced_legal_compliance handler valid[0m
+[36m    Γ£à enterprise_integration_hub handler valid[0m
+[36m    Γ£à advanced_threat_hunting handler valid[0m
+[36m    Γ£à cyber_deception_platform handler valid[0m
+[36m    Γ£à zero_trust_architect handler valid[0m
+[36m    Γ£à quantum_cryptography_suite handler valid[0m
+[36m    Γ£à ai_security_orchestrator handler valid[0m
+[36m    Γ£à blockchain_forensics handler valid[0m
+[36m    Γ£à supply_chain_security handler valid[0m
+[36m    Γ£à privacy_engineering handler valid[0m
+[36m    Γ£à incident_commander handler valid[0m
+[36m    Γ£à security_metrics_dashboard handler valid[0m
+[1m
+≡ƒôè Smoke Test Report[0m
+[34m==================================================[0m
+[34mTotal Tools Expected: 184[0m
+[32mAvailable Tools: 180[0m
+[31mMissing Tools: 0[0m
+[31mError Tools: 0[0m
+[34mTotal Tests: 14[0m
+[32mPassed: 11[0m
+[31mFailed: 0[0m
+[33mSkipped: 0[0m
+[33mWarnings: 0[0m
+[34m
+≡ƒôï Tool Summary by Category:[0m
+[32m  Γ£à core: 2/2 (100%)[0m
+[32m  Γ£à file_system: 6/6 (100%)[0m
+[32m  Γ£à process: 3/3 (100%)[0m
+[32m  Γ£à system: 4/4 (100%)[0m
+[32m  Γ£à git: 1/1 (100%)[0m
+[32m  Γ£à windows: 2/2 (100%)[0m
+[32m  Γ£à network: 15/15 (100%)[0m
+[32m  Γ£à security: 17/17 (100%)[0m
+[32m  Γ£à social: 1/1 (100%)[0m
+[32m  Γ£à penetration: 6/6 (100%)[0m
+[32m  Γ£à wireless: 6/6 (100%)[0m
+[32m  Γ£à bluetooth: 3/3 (100%)[0m
+[32m  Γ£à radio: 3/3 (100%)[0m
+[32m  Γ£à web: 13/13 (100%)[0m
+[32m  Γ£à email: 6/6 (100%)[0m
+[32m  Γ£à media: 6/6 (100%)[0m
+[32m  Γ£à flipper: 1/1 (100%)[0m
+[32m  Γ£à mobile: 14/14 (100%)[0m
+[32m  Γ£à virtualization: 2/2 (100%)[0m
+[32m  Γ£à ai: 4/4 (100%)[0m
+[32m  Γ£à utilities: 10/10 (100%)[0m
+[32m  Γ£à cloud: 3/3 (100%)[0m
+[32m  Γ£à forensics: 3/3 (100%)[0m
+[32m  Γ£à discovery: 3/3 (100%)[0m
+[32m  Γ£à drone: 4/4 (100%)[0m
+[32m  Γ£à rfSense: 9/9 (100%)[0m
+[32m  Γ£à legal: 1/1 (100%)[0m
+[32m  Γ£à specops: 10/10 (100%)[0m
+[32m  Γ£à crimeReporter: 3/3 (100%)[0m
+[32m  Γ£à zeroDayExploiter: 3/3 (100%)[0m
+[32m  Γ£à tool_management: 1/1 (100%)[0m
+[32m  Γ£à advanced: 15/15 (100%)[0m
+[34m
+≡ƒôê Overall Statistics:[0m
+[33m  Test Success Rate: 79%[0m
+[32m  Tool Availability Rate: 98%[0m
+[33m
+ΓÜá∩╕Å  Smoke tests PARTIALLY PASSED - Some issues detected[0m

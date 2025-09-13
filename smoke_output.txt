@@ -1,0 +1,99 @@
+[1m≡ƒÜÇ Starting MCP God Mode Smoke Tests[0m
+[34m≡ƒôè Testing 184 tools across 35 categories[0m
+[33m
+≡ƒöº Testing server initialization...[0m
+[33m
+≡ƒô¥ Testing tool registration...[0m
+[33m
+≡ƒöì Testing individual tools...[0m
+[33m
+≡ƒôï Testing tool schemas...[0m
+[33m
+ΓÜÖ∩╕Å  Testing tool handlers...[0m
+[1m
+≡ƒôè Smoke Test Report[0m
+[34m==================================================[0m
+[34mTotal Tools Expected: 184[0m
+[32mAvailable Tools: 152[0m
+[31mMissing Tools: 28[0m
+[31mError Tools: 0[0m
+[34mTotal Tests: 14[0m
+[32mPassed: 11[0m
+[31mFailed: 0[0m
+[33mSkipped: 0[0m
+[33mWarnings: 28[0m
+[33m
+ΓÜá∩╕Å  Warnings:[0m
+[33m  1. Tool form_detection file not found[0m
+[33m  2. Tool form_validation file not found[0m
+[33m  3. Tool form_pattern_recognition file not found[0m
+[33m  4. Tool multi_engine_search file not found[0m
+[33m  5. Tool search_analysis file not found[0m
+[33m  6. Tool ai_adversarial_nlp file not found[0m
+[33m  7. Tool ai_adversarial_platform_info file not found[0m
+[33m  8. Tool crime_reporter file not found[0m
+[33m  9. Tool crime_reporter_nl file not found[0m
+[33m  10. Tool crime_reporter_test file not found[0m
+[33m  11. Tool zero_day_exploiter file not found[0m
+[33m  12. Tool zero_day_exploiter_nl file not found[0m
+[33m  13. Tool zero_day_exploiter_test file not found[0m
+[33m  14. Tool advanced_analytics_engine file not found[0m
+[33m  15. Tool advanced_security_assessment file not found[0m
+[33m  16. Tool cross_platform_system_manager file not found[0m
+[33m  17. Tool enhanced_legal_compliance file not found[0m
+[33m  18. Tool enterprise_integration_hub file not found[0m
+[33m  19. Tool advanced_threat_hunting file not found[0m
+[33m  20. Tool cyber_deception_platform file not found[0m
+[33m  21. Tool zero_trust_architect file not found[0m
+[33m  22. Tool quantum_cryptography_suite file not found[0m
+[33m  23. Tool ai_security_orchestrator file not found[0m
+[33m  24. Tool blockchain_forensics file not found[0m
+[33m  25. Tool supply_chain_security file not found[0m
+[33m  26. Tool privacy_engineering file not found[0m
+[33m  27. Tool incident_commander file not found[0m
+[33m  28. Tool security_metrics_dashboard file not found[0m
+[34m
+≡ƒôï Tool Summary by Category:[0m
+[32m  Γ£à core: 2/2 (100%)[0m
+[32m  Γ£à file_system: 6/6 (100%)[0m
+[32m  Γ£à process: 3/3 (100%)[0m
+[32m  Γ£à system: 4/4 (100%)[0m
+[32m  Γ£à git: 1/1 (100%)[0m
+[32m  Γ£à windows: 2/2 (100%)[0m
+[32m  Γ£à network: 15/15 (100%)[0m
+[32m  Γ£à security: 17/17 (100%)[0m
+[32m  Γ£à social: 1/1 (100%)[0m
+[32m  Γ£à penetration: 6/6 (100%)[0m
+[32m  Γ£à wireless: 6/6 (100%)[0m
+[32m  Γ£à bluetooth: 3/3 (100%)[0m
+[32m  Γ£à radio: 3/3 (100%)[0m
+[31m  Γ¥î web: 8/13 (62%)[0m
+[33m    Missing: 5[0m
+[32m  Γ£à email: 6/6 (100%)[0m
+[32m  Γ£à media: 6/6 (100%)[0m
+[32m  Γ£à flipper: 1/1 (100%)[0m
+[32m  Γ£à mobile: 14/14 (100%)[0m
+[32m  Γ£à virtualization: 2/2 (100%)[0m
+[31m  Γ¥î ai: 2/4 (50%)[0m
+[33m    Missing: 2[0m
+[32m  Γ£à utilities: 10/10 (100%)[0m
+[32m  Γ£à cloud: 3/3 (100%)[0m
+[32m  Γ£à forensics: 3/3 (100%)[0m
+[32m  Γ£à discovery: 3/3 (100%)[0m
+[32m  Γ£à drone: 4/4 (100%)[0m
+[32m  Γ£à rfSense: 9/9 (100%)[0m
+[32m  Γ£à legal: 1/1 (100%)[0m
+[32m  Γ£à specops: 10/10 (100%)[0m
+[31m  Γ¥î crimeReporter: 0/3 (0%)[0m
+[33m    Missing: 3[0m
+[31m  Γ¥î zeroDayExploiter: 0/3 (0%)[0m
+[33m    Missing: 3[0m
+[32m  Γ£à tool_management: 1/1 (100%)[0m
+[31m  Γ¥î advanced: 0/15 (0%)[0m
+[33m    Missing: 15[0m
+[34m
+≡ƒôê Overall Statistics:[0m
+[33m  Test Success Rate: 79%[0m
+[33m  Tool Availability Rate: 83%[0m
+[33m
+ΓÜá∩╕Å  Smoke tests PARTIALLY PASSED - Some issues detected[0m
