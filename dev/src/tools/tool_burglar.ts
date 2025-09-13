@@ -35,9 +35,7 @@ export function registerToolBurglar(server: any) {
       result: z.object({}).optional(),
       error: z.string().optional(),
       plan: z.object({}).optional(),
-      licenseReport: z.object({}).optional(),
       rollback: z.object({}).optional(),
-      discovered: z.object({}).optional(),
       sources: z.array(z.string()).optional(),
       tools: z.array(z.string()).optional(),
       summary: z.object({}).optional()
