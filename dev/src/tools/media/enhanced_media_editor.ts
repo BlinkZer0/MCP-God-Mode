@@ -1445,6 +1445,49 @@ async function processNaturalLanguageMediaCommand(query: string, params: any) {
       };
     }
     
+    if (lowerQuery.includes('blur')) {
+      const radiusMatch = query.match(/radius\s+(\d+)/i);
+      const radius = radiusMatch ? parseInt(radiusMatch[1]) : 5;
+      
+      return {
+        content: [{ type: "text" as const, text: `Quick blur operation: radius ${radius}` }],
+        structuredContent: {
+          success: true,
+          message: `Quick blur operation prepared: radius ${radius}`,
+          action: "quick_blur",
+          parameters: { radius, ...params }
+        }
+      };
+    }
+    
+    if (lowerQuery.includes('sharpen')) {
+      return {
+        content: [{ type: "text" as const, text: "Quick sharpen operation prepared" }],
+        structuredContent: {
+          success: true,
+          message: "Quick sharpen operation prepared",
+          action: "quick_sharpen",
+          parameters: params
+        }
+      };
+    }
+    
+    // Session management
+    if (lowerQuery.includes('create') && (lowerQuery.includes('session') || lowerQuery.includes('new'))) {
+      const typeMatch = query.match(/(image|video|audio|mixed)/i);
+      const sessionType = typeMatch ? typeMatch[1].toLowerCase() : 'image';
+      
+      return {
+        content: [{ type: "text" as const, text: `Creating new ${sessionType} session` }],
+        structuredContent: {
+          success: true,
+          message: `Creating new ${sessionType} session`,
+          action: "create_session",
+          parameters: { type: sessionType, ...params }
+        }
+      };
+    }
+    
     // Default response for unrecognized commands
     return {
       content: [{ type: "text" as const, text: `Natural language command processed: "${query}". Use specific parameters for detailed operations.` }],
@@ -1795,8 +1838,11 @@ export function registerEnhancedMediaEditor(server: McpServer) {
       guidance: z.number().optional().describe("Guidance scale"),
       negativePrompt: z.string().optional().describe("Negative prompt"),
       apiConfig: z.object({}).passthrough().optional().describe("API configuration"),
+      query: z.string().optional().describe("Natural language query processed"),
       // Additional properties for comprehensive compatibility
       session: z.object({}).passthrough().optional().describe("Session object"),
+      brightness: z.number().optional().describe("Brightness parameter"),
+      contrast: z.number().optional().describe("Contrast parameter"),
       clips: z.array(z.object({}).passthrough()).optional().describe("Timeline clips"),
       effects: z.array(z.object({}).passthrough()).optional().describe("Applied effects"),
       filters: z.array(z.object({}).passthrough()).optional().describe("Applied filters"),
