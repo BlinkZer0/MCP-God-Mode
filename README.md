@@ -40,8 +40,8 @@ One MCP to rule them all, one MCP to find them, one MCP to compile the tools, an
 ### Tool Inventory (v1.9)
 | Profile         | Count |
 |-----------------|------:|
-| Refactored Set  | 182   |
-| Modular Set     | 182   |
+| Refactored Set  | 172   |
+| Modular Set     | 172   |
 | Minimal Profile | 15    |
 
 https://github.com/user-attachments/assets/932c43e4-159e-4ce2-9c02-4acf23fc47fd
@@ -102,7 +102,7 @@ Many advanced tools are **UNTESTED** beyond syntax validation:
 
 - **[🚀 Quick Start](docs/guides/COMPLETE_SETUP_GUIDE.md)** - Get up and running in minutes
 - **[🌐 Frontend Integration Guide](docs/guides/MCP_FRONTEND_INTEGRATION_GUIDE.md)** - Setup for Cursor, LM Studio, Claude, SillyTavern & more
-- **[📋 Complete Tool Catalog](docs/general/TOOL_CATALOG.md)** - Browse all 182 documented tools with detailed documentation
+- **[📋 Complete Tool Catalog](docs/general/TOOL_CATALOG.md)** - Browse all 172 documented tools with detailed documentation
 - **[🔧 Parameter Reference](docs/general/COMPLETE_PARAMETER_REFERENCE.md)** - Complete parameter documentation
 - **[💻 Examples & Tutorials](docs/guides/EXAMPLES_AND_TUTORIALS.md)** - Real-world usage examples
 - **[🌍 Platform Compatibility](docs/general/CROSS_PLATFORM_COMPATIBILITY.md)** - Platform-specific details
@@ -226,7 +226,7 @@ This will show:
 <details open>
   <summary><b>TL;DR</b> — What is MCP God Mode?</summary>
 
-MCP God Mode is the ultimate cybersecurity and system management platform that provides **182 fully implemented tools** across **5 major platforms**. It's designed for security professionals, system administrators, penetration testers, and anyone who needs comprehensive system control and security testing capabilities.
+MCP God Mode is the ultimate cybersecurity and system management platform that provides **172 fully implemented tools** across **5 major platforms**. It's designed for security professionals, system administrators, penetration testers, and anyone who needs comprehensive system control and security testing capabilities.
 
 </details>
 
@@ -435,7 +435,7 @@ See MCP God Mode in action with Cursor IDE integration:
 
 </div>
 
-*MCP God Mode tools seamlessly integrated into Cursor IDE - providing instant access to 182 powerful security and system management tools across all major platforms! 🚀✨*
+*MCP God Mode tools seamlessly integrated into Cursor IDE - providing instant access to 172 powerful security and system management tools across all major platforms! 🚀✨*
 
 **🎭 Fun Fact**: We have so many visual proofs, even the screenshots are impressed! Each image shows different aspects of our comprehensive tool integration! 📸💻
 
@@ -753,7 +753,7 @@ https://github.com/user-attachments/assets/f074039c-1989-40fc-b769-5efa855e854d
 | **🛸 Drone Management** | 2 | Defensive/offensive drone operations with safety controls |
 | **🌐 MCP Web UI Bridge** | 6 | Web UI chat, provider management, macro recording/execution |
 
-**Total: 182 Tools (Both Servers)** - Framework implemented, comprehensive testing needed ⚠️
+**Total: 172 Tools (Both Servers)** - Framework implemented, comprehensive testing needed ⚠️
 
 ## 🎯 **Implementation Status: Framework Complete, Testing Required**
 
@@ -919,11 +919,11 @@ If you encounter issues, need assistance, or have questions about MCP God Mode:
 ### Platform Matrix
 | Platform | Core Tools | Security Tools | Media Tools | Mobile Tools | Total Support |
 |----------|------------|----------------|-------------|--------------|---------------|
-| **Windows** | ✅ 100% | ✅ 100% | ✅ 100% | ✅ 100% | **182/182 (100%)** |
-| **Linux** | ✅ 100% | ✅ 100% | ✅ 100% | ✅ 100% | **182/182 (100%)** |
-| **macOS** | ✅ 100% | ✅ 100% | ✅ 100% | ✅ 100% | **182/182 (100%)** |
-| **Android** | ✅ 100% | ✅ 100% | ✅ 100% | ✅ 100% | **182/182 (100%)** |
-| **iOS** | ✅ 100% | ✅ 100% | ✅ 100% | ✅ 100% | **182/182 (100%)** |
+| **Windows** | ✅ 100% | ✅ 100% | ✅ 100% | ✅ 100% | **172/172 (100%)** |
+| **Linux** | ✅ 100% | ✅ 100% | ✅ 100% | ✅ 100% | **172/172 (100%)** |
+| **macOS** | ✅ 100% | ✅ 100% | ✅ 100% | ✅ 100% | **172/172 (100%)** |
+| **Android** | ✅ 100% | ✅ 100% | ✅ 100% | ✅ 100% | **172/172 (100%)** |
+| **iOS** | ✅ 100% | ✅ 100% | ✅ 100% | ✅ 100% | **172/172 (100%)** |
 
 **[📖 View Complete Compatibility Matrix](docs/general/CROSS_PLATFORM_COMPATIBILITY.md)**
 

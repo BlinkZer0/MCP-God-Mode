@@ -194,7 +194,7 @@ Special thanks to everyone who contributed to the RF Sense Through-Wall Detectio
 ## 🎉 **Community Achievements**
 
 ### **Project Milestones**
-- **182 Tools** - Comprehensive toolset across all platforms
+- **174 Tools** - Comprehensive toolset across all platforms
 - **Cross-Platform Support** - Windows, Linux, macOS, Android, iOS
 - **100% Open Source** - Transparent and auditable code
 - **Active Community** - Thousands of users worldwide
