@@ -64,7 +64,7 @@ https://github.com/user-attachments/assets/932c43e4-159e-4ce2-9c02-4acf23fc47fd
 
 ### **🔍 What We Need Tested:**
 - **🖥️ Cross-Platform Compatibility** - Windows, macOS, Linux, Android, iOS
-- **🔧 Tool Functionality** - All 175 tools across different scenarios
+- **🔧 Tool Functionality** - All 182 tools across different scenarios
 - **⚡ Performance Testing** - Memory usage, CPU impact, response times
 - **🛡️ Security Features** - Permission handling, audit logging, safety controls
 - **🌐 Network Operations** - Network tools, penetration testing, wireless operations
@@ -97,7 +97,7 @@ Many advanced tools are **UNTESTED** beyond syntax validation:
 
 - **[🚀 Quick Start](docs/guides/COMPLETE_SETUP_GUIDE.md)** - Get up and running in minutes
 - **[🌐 Frontend Integration Guide](docs/guides/MCP_FRONTEND_INTEGRATION_GUIDE.md)** - Setup for Cursor, LM Studio, Claude, SillyTavern & more
-- **[📋 Complete Tool Catalog](docs/general/TOOL_CATALOG.md)** - Browse all 175 documented tools with detailed documentation
+- **[📋 Complete Tool Catalog](docs/general/TOOL_CATALOG.md)** - Browse all 182 documented tools with detailed documentation
 - **[🔧 Parameter Reference](docs/general/COMPLETE_PARAMETER_REFERENCE.md)** - Complete parameter documentation
 - **[💻 Examples & Tutorials](docs/guides/EXAMPLES_AND_TUTORIALS.md)** - Real-world usage examples
 - **[🌍 Platform Compatibility](docs/general/CROSS_PLATFORM_COMPATIBILITY.md)** - Platform-specific details
@@ -115,9 +115,9 @@ cp .env.example .env   # edit if needed
 npm install
 
 # 3) Launch (choose one)
-npm run start:refactored   # full refactored server (175 tools)
+npm run start:refactored   # full refactored server (182 tools)
 # or
-npm run start:modular      # modular loader (175 tools, grouped)
+npm run start:modular      # modular loader (182 tools, grouped)
 # or minimal
 npm run start:minimal      # minimal profile (15 core tools)
 # or ⚡ LAZY LOADING (EXPERIMENTAL - NOT READY)
@@ -150,7 +150,7 @@ cd dist && npm start
 3. **Run** `npm install` to install dependencies
 4. **Launch** with `npm run start:refactored`
 
-This method preserves your existing MCP configuration while adding all 175 tools instantly!
+This method preserves your existing MCP configuration while adding all 182 tools instantly!
 
 ### Interactive Installer (Enhanced in v1.9!)
 
@@ -221,7 +221,7 @@ This will show:
 <details open>
   <summary><b>TL;DR</b> — What is MCP God Mode?</summary>
 
-MCP God Mode is the ultimate cybersecurity and system management platform that provides **175 fully implemented tools** across **5 major platforms**. It's designed for security professionals, system administrators, penetration testers, and anyone who needs comprehensive system control and security testing capabilities.
+MCP God Mode is the ultimate cybersecurity and system management platform that provides **182 fully implemented tools** across **5 major platforms**. It's designed for security professionals, system administrators, penetration testers, and anyone who needs comprehensive system control and security testing capabilities.
 
 </details>
 
@@ -374,7 +374,7 @@ Tool counting in MCP God Mode presents unique challenges due to the multi-layere
 
 #### **🛠️ Tools (MCP Server Functions)**
 - **Definition**: Distinct MCP server tool registrations
-- **Count**: 175 tools (server-refactored) / 175 tools (modular)
+- **Count**: 182 tools (server-refactored) / 182 tools (modular)
 - **Example**: `wifi_security_toolkit` = 1 tool
 
 #### **⚡ Actions (Tool Capabilities)**
@@ -391,7 +391,7 @@ Tool counting in MCP God Mode presents unique challenges due to the multi-layere
 
 | Aspect | Server-Refactored | Modular Server |
 |--------|------------------|----------------|
-| **Tool Count** | 175 tools | 175 tools |
+| **Tool Count** | 182 tools | 182 tools |
 | **Architecture** | Unified interface | Individual focused tools |
 | **Complexity** | Multi-action tools | Single-action tools |
 | **Error Handling** | Centralized | Granular |
@@ -406,7 +406,7 @@ The server-refactored and modular servers have different tool counts because:
 3. **Enhanced Functionality**: Modular server provides more precise control with additional tools
 4. **Specialized Capabilities**: Modular server offers granular tools for specific tasks
 
-**🎯 Bottom Line**: Both server-refactored and modular server provide identical functionality with 175 tools for comprehensive operations and built-in legal compliance features. The modular server adds configurability for different deployment scenarios.
+**🎯 Bottom Line**: Both server-refactored and modular server provide identical functionality with 182 tools for comprehensive operations and built-in legal compliance features. The modular server adds configurability for different deployment scenarios.
 
 🎭 **Fun Fact**: One MCP to rule them all, one MCP to find them, one MCP to compile the tools, and in the God Mode bind them! 🎲⚡
 
@@ -430,13 +430,13 @@ See MCP God Mode in action with Cursor IDE integration:
 
 </div>
 
-*MCP God Mode tools seamlessly integrated into Cursor IDE - providing instant access to 175 powerful security and system management tools across all major platforms! 🚀✨*
+*MCP God Mode tools seamlessly integrated into Cursor IDE - providing instant access to 182 powerful security and system management tools across all major platforms! 🚀✨*
 
 **🎭 Fun Fact**: We have so many visual proofs, even the screenshots are impressed! Each image shows different aspects of our comprehensive tool integration! 📸💻
 
 ### ✨ Key Features
 
-- **🔒 Comprehensive Framework** - 175 tools implemented with confirmed working core functionality
+- **🔒 Comprehensive Framework** - 182 tools implemented with confirmed working core functionality
 - **🌍 Universal Platform Support** - Windows, Linux, macOS, Android, iOS
 - **🌐 Multi-Frontend Compatibility** - Works with Cursor, LM Studio, Claude Desktop, SillyTavern, CAMEL-AI, Azure AI Foundry, MCP Bridge & more
 - **🛡️ Enterprise-Grade Security** - Professional penetration testing tools
@@ -828,7 +828,7 @@ npm install
 3. **Run** `npm install` to install dependencies
 4. **Launch** with `npm run start:refactored`
 
-This method preserves your existing MCP configuration while adding all 175 tools instantly!
+This method preserves your existing MCP configuration while adding all 182 tools instantly!
 
 ### 4. First Steps
 ```bash
@@ -912,11 +912,11 @@ If you encounter issues, need assistance, or have questions about MCP God Mode:
 ### Platform Matrix
 | Platform | Core Tools | Security Tools | Media Tools | Mobile Tools | Total Support |
 |----------|------------|----------------|-------------|--------------|---------------|
-| **Windows** | ✅ 100% | ✅ 100% | ✅ 100% | ✅ 100% | **175/175 (100%)** |
-| **Linux** | ✅ 100% | ✅ 100% | ✅ 100% | ✅ 100% | **175/175 (100%)** |
-| **macOS** | ✅ 100% | ✅ 100% | ✅ 100% | ✅ 100% | **175/175 (100%)** |
-| **Android** | ✅ 100% | ✅ 100% | ✅ 100% | ✅ 100% | **175/175 (100%)** |
-| **iOS** | ✅ 100% | ✅ 100% | ✅ 100% | ✅ 100% | **175/175 (100%)** |
+| **Windows** | ✅ 100% | ✅ 100% | ✅ 100% | ✅ 100% | **182/182 (100%)** |
+| **Linux** | ✅ 100% | ✅ 100% | ✅ 100% | ✅ 100% | **182/182 (100%)** |
+| **macOS** | ✅ 100% | ✅ 100% | ✅ 100% | ✅ 100% | **182/182 (100%)** |
+| **Android** | ✅ 100% | ✅ 100% | ✅ 100% | ✅ 100% | **182/182 (100%)** |
+| **iOS** | ✅ 100% | ✅ 100% | ✅ 100% | ✅ 100% | **182/182 (100%)** |
 
 **[📖 View Complete Compatibility Matrix](docs/general/CROSS_PLATFORM_COMPATIBILITY.md)**
 
