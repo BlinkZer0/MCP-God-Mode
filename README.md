@@ -20,7 +20,7 @@ One MCP to rule them all, one MCP to find them, one MCP to compile the tools, an
 [![CI](https://img.shields.io/badge/CI-Smoke%20Tests-yellow)](scripts/smoke-test.js)
 [![Tools](https://img.shields.io/badge/Tools-182%20Total-orange)](docs/general/TOOL_CATALOG.md)
 
-**Version 1.9 - RF Sense Through-Wall Detection & Enhanced Wireless Capabilities** — Last edited 2025-09-10
+**Version 1.9 - RF Sense Through-Wall Detection & Enhanced Wireless Capabilities** — Last edited 2025-09-13
 
 ## Table of Contents
 - [What is MCP God Mode?](#-what-is-mcp-god-mode)
@@ -350,7 +350,7 @@ flipper_zero({\n  action: "rfid_dump",\n  session_id: sessionId,\n  filename: "/
 - **macOS**: USB CDC appears as `/dev/tty.usbmodem*`, BLE requires permissions
 - **Linux**: USB CDC requires `dialout` group, BLE requires `noble` permissions
 
-### ?? Available Operations (Consolidated)
+### 🐬 Available Operations (Consolidated)
 
 - Use the single tool:  `flipper_zero` with the `action` parameter (see docs/tool/flipper_zero.md). 
 - Common actions:  `list_devices`, `connect`, `disconnect`, `get_info`, `list_sessions`, `fs_list`, `fs_read`, `fs_write`, `fs_delete`, `ir_send`, `ir_send_raw`, `subghz_tx`, `subghz_tx_raw`, `nfc_read`, `nfc_dump`, `rfid_read`, `rfid_dump`, `badusb_send`, `badusb_ducky`, `uart_sniff`, `gpio_set`, `gpio_read`, `ble_scan`, `ble_pair`. 
@@ -534,7 +534,7 @@ https://github.com/user-attachments/assets/f074039c-1989-40fc-b769-5efa855e854d
 
 **🔒 Safety Notice**: Flipper Zero transmission operations (IR, Sub-GHz, BadUSB) are disabled by default and require explicit environment configuration. All operations are logged for audit purposes.
 
-**[?? Flipper Zero (Consolidated) — Full Docs](docs/tool/flipper_zero.md)**
+**[🐬 Flipper Zero (Consolidated) — Full Docs](docs/tool/flipper_zero.md)**
 
 <img src="assets/header-email.svg" alt="Email Management" width="100%" />
 
@@ -744,8 +744,10 @@ https://github.com/user-attachments/assets/f074039c-1989-40fc-b769-5efa855e854d
 | **🔍 Forensics** | 3 | Digital forensics, malware analysis, forensics toolkit |
 | **☁️ Cloud** | 3 | Cloud security, cloud infrastructure management |
 | **🪟 Windows-Specific** | 2 | Windows services and process management |
+| **🐬 Flipper Zero Integration** | 24 | Device management, file system, IR/Sub-GHz/BadUSB operations |
+| **🛸 Drone Management** | 2 | Defensive/offensive drone operations with safety controls |
+| **🌐 MCP Web UI Bridge** | 6 | Web UI chat, provider management, macro recording/execution |
 
-<<<<<<< HEAD
 **Total: 182 Tools (Both Servers)** - Framework implemented, comprehensive testing needed ⚠️
 
 ## 🎯 **Implementation Status: Framework Complete, Testing Required**
