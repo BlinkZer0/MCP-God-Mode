@@ -164,3 +164,5 @@ export * from "./rf_sense/index.js";
 export { registerToolBurglar } from "./tool_burglar.js";
 // Social Tools
 export * from "./social/index.js";
+// Competitive Intelligence Tools
+export { registerCompetitiveIntelligence } from "./competitive_intelligence/tool.js";
