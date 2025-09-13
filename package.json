@@ -1,7 +1,7 @@
 {
   "name": "mcp-god-mode",
   "version": "1.9.0",
-  "description": "MCP God Mode Server - Advanced AI Agent Toolkit",
+  "description": "MCP God Mode Server - Advanced AI Agent Toolkit (Built on Model Context Protocol by Anthropic) - Bi'iiradat Allah",
   "main": "start-mcp.js",
   "bin": {
     "mcp-god-mode": "start-mcp.js"

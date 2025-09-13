@@ -3,6 +3,16 @@
 ## 📚 Overview
 This index provides a comprehensive mapping of all tools, features, and documentation in the MCP God Mode project. Each section links to detailed documentation articles stored in the appropriate docs folders.
 
+## 🙏 Acknowledgments
+- **[Thank You Page](../THANK_YOU.md)** - Comprehensive acknowledgments and appreciation for all contributors
+
+### **Model Context Protocol (MCP) Foundation**
+- **MCP Creators**: **Justin Spahr-Summers**, **Ashwin Antao**, **The DSP**, and **Anthropic**
+- **AI Leadership**: **Sam Altman** and **OpenAI Team** for pioneering AI technologies
+- **Official Website**: [https://modelcontextprotocol.io](https://modelcontextprotocol.io)
+- **SDK Package**: [@modelcontextprotocol/sdk](https://www.npmjs.com/package/@modelcontextprotocol/sdk)
+- **[Complete MCP Acknowledgment](../MCP_ACKNOWLEDGMENT.md)** - Detailed recognition of MCP creators and their contributions
+
 ## 🚀 Quick Start
 - **[Setup Guide](SETUP_GUIDE.md)** - Complete installation and configuration
 - **[Implementation Status](IMPLEMENTATION_COMPLETE.md)** - Current development status

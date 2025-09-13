@@ -7,10 +7,15 @@
   <a href="#-install">Install</a> •
   <a href="#-usage">Usage</a> •
   <a href="#-docs">Docs</a> •
-  <a href="#-disclaimer">Disclaimer</a>
+  <a href="#-disclaimer">Disclaimer</a> •
+  <a href="docs/THANK_YOU.md">Thank You</a>
 </p>
 
 One MCP to rule them all, one MCP to find them, one MCP to compile the tools, and in the God Mode bind them. 🎲⚡
+
+*Built on the **Model Context Protocol (MCP)** by **Justin Spahr-Summers**, **Ashwin Antao**, **The DSP**, and **Anthropic** - enabling seamless AI integration across all platforms.*
+
+*"Bi'iiradat Allah"* - By the will of God, this server was created. We acknowledge divine inspiration for the knowledge and creativity that made this project possible.
 
 [![Version](https://img.shields.io/badge/Version-v1.9-blue)](docs/updates/VERSION_1.9_CHANGELOG.md)
 [![License](https://img.shields.io/badge/License-MIT-green)](LICENSE)
@@ -57,7 +62,7 @@ https://github.com/user-attachments/assets/932c43e4-159e-4ce2-9c02-4acf23fc47fd
 - ❓ **Untested**: Many complex tools only syntax-validated (AI Puppeteer, Advanced Suites, etc.)
 - 🚫 **Requires Authorization**: SS7, advanced triangulation, and regulated tools
 
-**[📋 View Complete Testing Status](TESTING_STATUS.md)** - Detailed breakdown of what's tested vs. needs testing  
+**[📋 View Complete Testing Status](docs/TESTING_STATUS.md)** - Detailed breakdown of what's tested vs. needs testing  
 **[🚨 Crime Reporter Test Report](docs/CRIME_REPORTER_TEST_REPORT.md)** - Comprehensive testing results (100% success rate)  
 **[🛠️ Core Tools Test Report](docs/CORE_TOOLS_TEST_REPORT.md)** - Core system tools testing results (100% success rate)  
 **[🔧 Tool_Burglar Test Report](docs/TOOL_BURGLAR_TEST_REPORT.md)** - Tool management system testing results
@@ -760,7 +765,7 @@ https://github.com/user-attachments/assets/f074039c-1989-40fc-b769-5efa855e854d
 ✅ **Comprehensive documentation available for all tools**  
 🚨 **EXTENSIVE TESTING NEEDED - Many tools untested beyond syntax validation**
 
-**📋 [View Detailed Testing Status](TESTING_STATUS.md)** - See which tools are confirmed working vs. need testing
+**📋 [View Detailed Testing Status](docs/TESTING_STATUS.md)** - See which tools are confirmed working vs. need testing
 
 **🔧 Architecture Note**: We offer both server-refactored and modular server architectures. Our **primary server-refactored** provides comprehensive functionality in a unified interface with **182 tools**. The modular server provides **182 tools** for granular control and better error handling. Each architecture serves different use cases and preferences.  
 
@@ -1093,6 +1098,10 @@ This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) 
 - **Open Source Contributors** - For building amazing tools
 - **Platform Developers** - For creating robust operating systems
 - **Users** - For valuable feedback and feature requests
+- **MCP Creators** - **Justin Spahr-Summers**, **Ashwin Antao**, **The DSP**, and **Anthropic** for the Model Context Protocol that enables our AI integration
+- **Sam Altman** - For visionary AI leadership and inspiring the broader AI ecosystem
+
+**[📖 View Complete Thank You Page](docs/THANK_YOU.md)** - Comprehensive acknowledgments and appreciation for all contributors
 
 <img src="assets/wave-divider.svg" alt="" width="100%" />
 
