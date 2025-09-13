@@ -23,7 +23,7 @@ One MCP to rule them all, one MCP to find them, one MCP to compile the tools, an
 [![Platforms](https://img.shields.io/badge/Platforms-Win%20%7C%20macOS%20%7C%20Linux%20%7C%20Android%20%7C%20iOS-orange)](docs/CROSS_PLATFORM_COMPATIBILITY.md)
 [![GitHub Stars](https://img.shields.io/github/stars/BlinkZer0/MCP-God-Mode?style=social)](https://github.com/BlinkZer0/MCP-God-Mode)
 [![CI](https://img.shields.io/badge/CI-Smoke%20Tests-yellow)](scripts/smoke-test.js)
-[![Tools](https://img.shields.io/badge/Tools-182%20Total-orange)](docs/general/TOOL_CATALOG.md)
+[![Tools](https://img.shields.io/badge/Tools-174%20Total-orange)](docs/general/TOOL_CATALOG.md)
 
 **Version 1.9 - RF Sense Through-Wall Detection & Enhanced Wireless Capabilities** — Last edited 2025-09-13
 
@@ -52,7 +52,7 @@ https://github.com/user-attachments/assets/932c43e4-159e-4ce2-9c02-4acf23fc47fd
 
 ## 🧪 **TESTING STATUS & NEEDED HELP**
 
-**We need your help to properly test MCP God Mode!** With 182 tools across multiple platforms, we need extensive testing to verify functionality, catch edge cases, and ensure reliability.
+**We need your help to properly test MCP God Mode!** With 174 tools across multiple platforms, we need extensive testing to verify functionality, catch edge cases, and ensure reliability.
 
 ### **📊 Current Testing Status**
 - ✅ **Confirmed Working**: Calculator, Web Search, Root Access, WiFi Security, IoT Security, System Info, Health Check, Git Status, File Operations, Web Scraper, IP Geolocation, Email Operations, Encryption Tools, Dice Rolling, **Chart Generator (Enhanced SVG with Animations)**, **Browser Control (Enhanced)**, **CAPTCHA Defeating**
@@ -69,7 +69,7 @@ https://github.com/user-attachments/assets/932c43e4-159e-4ce2-9c02-4acf23fc47fd
 
 ### **🔍 What We Need Tested:**
 - **🖥️ Cross-Platform Compatibility** - Windows, macOS, Linux, Android, iOS
-- **🔧 Tool Functionality** - All 182 tools across different scenarios
+- **🔧 Tool Functionality** - All 174 tools across different scenarios
 - **⚡ Performance Testing** - Memory usage, CPU impact, response times
 - **🛡️ Security Features** - Permission handling, audit logging, safety controls
 - **🌐 Network Operations** - Network tools, penetration testing, wireless operations
@@ -120,9 +120,9 @@ cp .env.example .env   # edit if needed
 npm install
 
 # 3) Launch (choose one)
-npm run start:refactored   # full refactored server (182 tools)
+npm run start:refactored   # full refactored server (174 tools)
 # or
-npm run start:modular      # modular loader (182 tools, grouped)
+npm run start:modular      # modular loader (174 tools, grouped)
 # or minimal
 npm run start:minimal      # minimal profile (15 core tools)
 # or ⚡ LAZY LOADING (EXPERIMENTAL - NOT READY)
@@ -155,7 +155,7 @@ cd dist && npm start
 3. **Run** `npm install` to install dependencies
 4. **Launch** with `npm run start:refactored`
 
-This method preserves your existing MCP configuration while adding all 182 tools instantly!
+This method preserves your existing MCP configuration while adding all 174 tools instantly!
 
 ### Interactive Installer (Enhanced in v1.9!)
 
@@ -233,21 +233,21 @@ MCP God Mode is the ultimate cybersecurity and system management platform that p
 <details>
   <summary><b>Deep Dive</b> — Architecture & Safety</summary> 
 
-**📝 Note**: We offer both monolithic and modular server architectures. Our **primary server-refactored** provides comprehensive functionality in a unified interface with **182 tools**. The modular server provides **182 tools** (configurable) for granular control, better error handling, and for the ease of an individual to extract a tool for their own server build. Tools are located in dev/src/tools. Each architecture serves different use cases and preferences.
+**📝 Note**: We offer both monolithic and modular server architectures. Our **primary server-refactored** provides comprehensive functionality in a unified interface with **174 tools**. The modular server provides **174 tools** (configurable) for granular control, better error handling, and for the ease of an individual to extract a tool for their own server build. Tools are located in dev/src/tools. Each architecture serves different use cases and preferences.
 
 **🔍 Server Architecture Differences**:
-- **Server-Refactored (182 tools)**: Unified server with all core endpoints plus enhanced endpoints (Flipper Zero suite + MCP Web UI Bridge + SpecOps tools). Includes built-in legal compliance, audit logging, and forensic readiness capabilities.
-- **Modular Server (182 tools, configurable)**: Comprehensive architecture with 182 tools for granular control, better error handling, and specialized functionality. **Configurable** - can be set to load minimal (10 tools), custom categories, or full (182 tools). Full legal compliance integration with modular evidence preservation.
+- **Server-Refactored (174 tools)**: Unified server with all core endpoints plus enhanced endpoints (Flipper Zero suite + MCP Web UI Bridge + SpecOps tools). Includes built-in legal compliance, audit logging, and forensic readiness capabilities.
+- **Modular Server (174 tools, configurable)**: Comprehensive architecture with 174 tools for granular control, better error handling, and specialized functionality. **Configurable** - can be set to load minimal (10 tools), custom categories, or full (174 tools). Full legal compliance integration with modular evidence preservation.
 - **Server-Minimal (15 tools)**: Lightweight implementation with core tools only for basic functionality and resource-constrained environments.
 
 **🔢 Tool Count Explanation**: 
 - **Comprehensive toolset implemented** in the tools directory
 - **141 register functions are exported** in the comprehensive index.ts file (including Flipper Zero tools)
-- **182 tools are registered** in server-refactored (index exports + Flipper suite + MCP Web UI Bridge + SpecOps tools)
-- **182 tools are registered** in server-modular (identical set, configurable)
+- **174 tools are registered** in server-refactored (index exports + Flipper suite + MCP Web UI Bridge + SpecOps tools)
+- **174 tools are registered** in server-modular (identical set, configurable)
 - **15 tools are registered** in server-minimal (core tools only)
 
-**📊 Documentation Status**: All 182 tools (both servers) now have comprehensive documentation with detailed usage examples, parameter references, and platform compatibility information. See [Complete Tool Catalog](docs/general/TOOL_CATALOG.md) for detailed information about each tool.
+**📊 Documentation Status**: All 174 tools (both servers) now have comprehensive documentation with detailed usage examples, parameter references, and platform compatibility information. See [Complete Tool Catalog](docs/general/TOOL_CATALOG.md) for detailed information about each tool.
 
 **🔄 Future Consolidation**: We are considering future consolidation of similar tools to reduce redundancy and improve maintainability. This may include combining related natural language interfaces, merging similar testing tools, and consolidating platform-specific variants into unified cross-platform implementations.
 
@@ -379,7 +379,7 @@ Tool counting in MCP God Mode presents unique challenges due to the multi-layere
 
 #### **🛠️ Tools (MCP Server Functions)**
 - **Definition**: Distinct MCP server tool registrations
-- **Count**: 182 tools (server-refactored) / 182 tools (modular)
+- **Count**: 174 tools (server-refactored) / 174 tools (modular)
 - **Example**: `wifi_security_toolkit` = 1 tool
 
 #### **⚡ Actions (Tool Capabilities)**
@@ -396,7 +396,7 @@ Tool counting in MCP God Mode presents unique challenges due to the multi-layere
 
 | Aspect | Server-Refactored | Modular Server |
 |--------|------------------|----------------|
-| **Tool Count** | 182 tools | 182 tools |
+| **Tool Count** | 174 tools | 174 tools |
 | **Architecture** | Unified interface | Individual focused tools |
 | **Complexity** | Multi-action tools | Single-action tools |
 | **Error Handling** | Centralized | Granular |
@@ -411,7 +411,7 @@ The server-refactored and modular servers have different tool counts because:
 3. **Enhanced Functionality**: Modular server provides more precise control with additional tools
 4. **Specialized Capabilities**: Modular server offers granular tools for specific tasks
 
-**🎯 Bottom Line**: Both server-refactored and modular server provide identical functionality with 182 tools for comprehensive operations and built-in legal compliance features. The modular server adds configurability for different deployment scenarios.
+**🎯 Bottom Line**: Both server-refactored and modular server provide identical functionality with 174 tools for comprehensive operations and built-in legal compliance features. The modular server adds configurability for different deployment scenarios.
 
 🎭 **Fun Fact**: One MCP to rule them all, one MCP to find them, one MCP to compile the tools, and in the God Mode bind them! 🎲⚡
 
@@ -441,7 +441,7 @@ See MCP God Mode in action with Cursor IDE integration:
 
 ### ✨ Key Features
 
-- **🔒 Comprehensive Framework** - 182 tools implemented with confirmed working core functionality
+- **🔒 Comprehensive Framework** - 174 tools implemented with confirmed working core functionality
 - **🌍 Universal Platform Support** - Windows, Linux, macOS, Android, iOS
 - **🌐 Multi-Frontend Compatibility** - Works with Cursor, LM Studio, Claude Desktop, SillyTavern, CAMEL-AI, Azure AI Foundry, MCP Bridge & more
 - **🛡️ Enterprise-Grade Security** - Professional penetration testing tools
@@ -757,7 +757,7 @@ https://github.com/user-attachments/assets/f074039c-1989-40fc-b769-5efa855e854d
 
 ## 🎯 **Implementation Status: Framework Complete, Testing Required**
 
-✅ **182 tools implemented with comprehensive framework**  
+✅ **174 tools implemented with comprehensive framework**  
 ⚠️ **Core tools confirmed working (Calculator, Web Search, Root Access, WiFi Security, IoT Security)**  
 ✅ **MCP protocol integration complete**  
 ✅ **Cross-platform compatibility framework in place**  
@@ -767,7 +767,7 @@ https://github.com/user-attachments/assets/f074039c-1989-40fc-b769-5efa855e854d
 
 **📋 [View Detailed Testing Status](docs/TESTING_STATUS.md)** - See which tools are confirmed working vs. need testing
 
-**🔧 Architecture Note**: We offer both server-refactored and modular server architectures. Our **primary server-refactored** provides comprehensive functionality in a unified interface with **182 tools**. The modular server provides **182 tools** for granular control and better error handling. Each architecture serves different use cases and preferences.  
+**🔧 Architecture Note**: We offer both server-refactored and modular server architectures. Our **primary server-refactored** provides comprehensive functionality in a unified interface with **174 tools**. The modular server provides **174 tools** for granular control and better error handling. Each architecture serves different use cases and preferences.  
 
 <img src="assets/header-core.svg" alt="Windows" width="100%" />
 
@@ -835,7 +835,7 @@ npm install
 3. **Run** `npm install` to install dependencies
 4. **Launch** with `npm run start:refactored`
 
-This method preserves your existing MCP configuration while adding all 182 tools instantly!
+This method preserves your existing MCP configuration while adding all 174 tools instantly!
 
 ### 4. First Steps
 ```bash
@@ -1138,7 +1138,15 @@ If MCP God Mode has been helpful to you, please consider giving it a star on Git
 
 *Last Updated: January 2025*  
 *MCP God Mode v1.9 - One MCP to rule them all - The Ultimate Cross-Platform Security Suite with Through-Wall Detection*  
-*Framework implemented for all 182 tools - comprehensive testing required for full verification ⚠️*
+*Framework implemented for all 174 tools - comprehensive testing required for full verification ⚠️*
+
+---
+
+## 📝 **Documentation Disclaimer**
+
+**Important Notice**: This documentation is generated with AI assistance and is in a constant effort to maintain accuracy. However, as AI-generated content, it may contain misleading statements, outdated information, or inaccuracies. We are continuously working to improve documentation accuracy through our development process, but users should verify critical information independently and refer to the actual source code when in doubt.
+
+**We're always chasing accuracy with the documentation through our development** - your feedback and corrections are invaluable in this ongoing effort.
 
 ---
 

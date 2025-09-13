@@ -37,7 +37,7 @@ npm run build
 
 #### 1. **Server-Refactored (Recommended for Production)**
 ```bash
-# Start the full-featured server (129 tools)
+# Start the full-featured server (174 tools)
 npm start
 # or
 node dist/server-refactored.js
@@ -53,7 +53,7 @@ npm run build && node dist/server-modular.js
 npm run install:modular -- --categories core,network,security
 npm run build && node dist/server-modular.js
 
-# Install full configuration (129 tools)
+# Install full configuration (174 tools)
 npm run install:full
 npm run build && node dist/server-modular.js
 ```
@@ -67,8 +67,8 @@ node dist/server-minimal.js
 ```
 
 ### Server Architecture Comparison
-- **Server-Refactored**: 129 tools, unified interface, production-ready
-- **Modular Server**: 129 tools (configurable), flexible deployment options
+- **Server-Refactored**: 174 tools, unified interface, production-ready
+- **Modular Server**: 174 tools (configurable), flexible deployment options
 - **Server-Minimal**: 15 tools, lightweight, resource-constrained environments
 
 ## 🪟 Windows Setup

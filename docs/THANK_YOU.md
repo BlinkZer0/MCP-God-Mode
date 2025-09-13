@@ -125,7 +125,7 @@ We are deeply grateful to the creators and maintainers of the **Model Context Pr
 
 **[📖 View Complete MCP Acknowledgment](MCP_ACKNOWLEDGMENT.md)** - Detailed recognition of MCP creators and their contributions
 
-The Model Context Protocol has been instrumental in enabling MCP God Mode to provide seamless AI integration across all 182 tools, making advanced cybersecurity and system management capabilities accessible through natural language interfaces.
+The Model Context Protocol has been instrumental in enabling MCP God Mode to provide seamless AI integration across all 174 tools, making advanced cybersecurity and system management capabilities accessible through natural language interfaces.
 
 ---
 

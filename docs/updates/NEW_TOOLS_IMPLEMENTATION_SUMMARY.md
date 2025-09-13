@@ -217,8 +217,8 @@ registerScreenshot(server);
 
 ### Tool Count Increases
 - **Modular Server**: 11 → 13 tools (+2)
-- **Full Server**: 49 → 113 tools (+64)
-- **Total MCP God Mode**: 50 → 113 tools (+63)
+- **Full Server**: 49 → 174 tools (+64)
+- **Total MCP God Mode**: 50 → 174 tools (+63)
 
 ### New Capabilities
 - **Audio Processing**: Professional-grade audio editing and recording

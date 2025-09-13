@@ -67,7 +67,7 @@ Our project is compatible with several automated MCP installers:
 - **Parallel Task Execution** - Different agents can work on separate tasks simultaneously
 
 ### **⚠️ Important Tool Limitation:**
-Cursor AI has a **tool limit of 80 tools** that can be displayed/used simultaneously. Our MCP God Mode provides 113 tools, so you may need to:
+Cursor AI has a **tool limit of 80 tools** that can be displayed/used simultaneously. Our MCP God Mode provides 174 tools, so you may need to:
 - **Enable/Disable Tools** - Use Cursor's settings to customize which tools are active
 - **Use Modular Server** - Choose specific tool categories based on your needs
 - **Switch Tool Sets** - Enable different tool groups for different projects
@@ -87,7 +87,7 @@ Cursor AI has a **tool limit of 80 tools** that can be displayed/used simultaneo
 3. **Restart Cursor AI**
 
 ### **Managing Tool Limits:**
-Since Cursor has a 80 tool limit and we provide 113 tools, consider these strategies:
+Since Cursor has a 80 tool limit and we provide 174 tools, consider these strategies:
 
 #### **Option 1: Use Modular Server**
 ```json
@@ -113,7 +113,7 @@ Since Cursor has a 80 tool limit and we provide 113 tools, consider these strate
 #### **Option 3: Use Different Server Versions**
 - **Ultra-Minimal** (~20 tools) - Core functionality only
 - **Minimal** (~40 tools) - Essential tools for most tasks  
-- **Full** (113 tools) - Complete toolkit (exceeds 80-tool limit)
+- **Full** (174 tools) - Complete toolkit (exceeds 80-tool limit)
 - **Modular** - Choose specific categories
 
 ### **Cursor's Unique Multi-Agent Architecture:**
@@ -220,7 +220,7 @@ LM Studio (v0.3.17+) acts as an MCP Host, allowing connection to MCP servers and
 ## 🤖 Claude Desktop Integration
 
 ### **About Claude Desktop:**
-Claude Desktop application has native MCP support, enabling seamless integration with MCP God Mode tools. This provides direct access to all 113 tools through Claude's conversational interface.
+Claude Desktop application has native MCP support, enabling seamless integration with MCP God Mode tools. This provides direct access to all 174 tools through Claude's conversational interface.
 
 ### **Installation Methods:**
 
@@ -585,7 +585,7 @@ mcp_servers:
 - ✅ = Full Support
 - 🔶 = Partial Support  
 - ❌ = Not Supported
-- ✅* = Limited to 80 tools (Cursor AI tool limit, MCP God Mode provides 113 tools)
+- ✅* = Limited to 80 tools (Cursor AI tool limit, MCP God Mode provides 174 tools)
 
 ---
 

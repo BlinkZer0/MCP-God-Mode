@@ -6,8 +6,8 @@ This document summarizes the integration of advanced SpecOps (Special Operations
 ## Integration Details
 
 ### Version Update
-- **Previous Version**: v1.8b (168 tools)
-- **New Version**: v1.8d (168 tools)
+- **Previous Version**: v1.8b (174 tools)
+- **New Version**: v1.8d (174 tools)
 - **New Tools Added**: 6 SpecOps tools
 
 ### Tool Categories Integrated

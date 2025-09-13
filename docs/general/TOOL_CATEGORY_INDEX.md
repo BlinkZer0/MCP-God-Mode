@@ -152,14 +152,14 @@ This index provides a comprehensive breakdown of all tools by category, their im
 - **Windows-Specific**: 2/2
 
 ### 🌍 Cross-Platform Coverage
-- **Windows**: 168/168 tools
-- **Linux**: 168/168 tools
-- **macOS**: 168/168 tools
-- **Android**: 168/168 tools
-- **iOS**: 168/168 tools
+- **Windows**: 174/174 tools
+- **Linux**: 174/174 tools
+- **macOS**: 174/174 tools
+- **Android**: 174/174 tools
+- **iOS**: 174/174 tools
 
 ### 📚 Documentation Status
-- **Complete Documentation**: 168/168 tools
+- **Complete Documentation**: 174/174 tools
 - **Parameter Reference**: Complete
 - **Setup Guides**: Complete
 - **Implementation Status**: Complete

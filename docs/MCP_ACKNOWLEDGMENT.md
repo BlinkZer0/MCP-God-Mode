@@ -6,7 +6,7 @@
 
 ## 🎯 **About the Model Context Protocol**
 
-The **Model Context Protocol (MCP)** is a standardized protocol that enables AI models to securely connect to data sources and tools. It provides a foundation for building AI applications that can interact with external systems, making it possible for MCP God Mode to offer seamless AI integration across all 182 tools.
+The **Model Context Protocol (MCP)** is a standardized protocol that enables AI models to securely connect to data sources and tools. It provides a foundation for building AI applications that can interact with external systems, making it possible for MCP God Mode to offer seamless AI integration across all 174 tools.
 
 ## 🙏 **Divine Inspiration**
 
@@ -71,7 +71,7 @@ We acknowledge that all knowledge, creativity, and innovation ultimately comes f
 ### **Enabling Technologies**
 The Model Context Protocol has been instrumental in enabling MCP God Mode to provide:
 
-- **Seamless AI Integration** - Natural language interfaces for all 182 tools
+- **Seamless AI Integration** - Natural language interfaces for all 174 tools
 - **Cross-Platform Compatibility** - Consistent behavior across Windows, Linux, macOS, Android, and iOS
 - **Standardized Communication** - Reliable protocol for AI-tool interactions
 - **Security & Safety** - Built-in authorization and audit capabilities
