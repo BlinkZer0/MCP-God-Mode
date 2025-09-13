@@ -7,14 +7,14 @@ MCP God Mode provides two distinct server architectures to serve different use c
 ## 🏗️ Server Architectures
 
 ### Monolithic Server (`server-refactored.js`)
-- **Tool Count**: 174 tools
+- **Tool Count**: 168 tools
 - **Architecture**: Single unified server file
 - **Approach**: Comprehensive tools with multiple actions/parameters
 - **File Size**: ~200KB
 - **Use Case**: Production environments, full-featured deployments
 
 ### Modular Server (`server-modular.js`)
-- **Tool Count**: 174 tools (configurable)
+- **Tool Count**: 168 tools (configurable)
 - **Architecture**: Dynamic tool loading from individual modules
 - **Approach**: Granular, specialized tools with configuration-based loading
 - **File Size**: ~3KB (plus individual tool modules)
@@ -22,22 +22,28 @@ MCP God Mode provides two distinct server architectures to serve different use c
 
 ## 🔍 Tool Count Analysis
 
-Both servers now have **identical tool counts (174 tools)**. The modular server adds configurability - it can be set to load minimal tools (10), specific categories, or all tools (129) based on user preference during installation.
+Both servers now have **identical tool counts (168 tools)**. The modular server adds configurability - it can be set to load minimal tools (10), specific categories, or all tools (168) based on user preference during installation.
 
 ### Enhanced Tools (Available in Both Servers)
-Both servers include the same 5 enhanced tools that provide advanced functionality beyond the standard tools:
+Both servers include enhanced tools that provide advanced functionality beyond the standard tools:
 
-1. **`enhanced_legal_compliance`** - Advanced legal compliance with additional audit capabilities
-2. **`advanced_security_assessment`** - Comprehensive security evaluation with threat modeling
-3. **`cross_platform_system_manager`** - Unified system management across all platforms
-4. **`enterprise_integration_hub`** - Advanced enterprise system integration
-5. **`advanced_analytics_engine`** - Sophisticated data analysis with machine learning
+#### Consolidated Tools (v2.0):
+1. **`enhanced_calculator`** - Comprehensive mathematical calculator combining basic arithmetic with advanced expressions
+2. **`enhanced_data_analysis`** - Unified statistical analysis, visualization, and predictive modeling
+3. **`enhanced_browser_automation`** - Comprehensive browser automation with Playwright/Puppeteer support
+
+#### Additional Enhanced Tools:
+4. **`enhanced_legal_compliance`** - Advanced legal compliance with additional audit capabilities
+5. **`advanced_security_assessment`** - Comprehensive security evaluation with threat modeling
+6. **`cross_platform_system_manager`** - Unified system management across all platforms
+7. **`enterprise_integration_hub`** - Advanced enterprise system integration
+8. **`advanced_analytics_engine`** - Sophisticated data analysis with machine learning
 
 ## 📊 Architecture Comparison
 
 | Aspect | Monolithic Server | Modular Server |
 |--------|------------------|----------------|
-| **Tool Count** | 174 tools | 174 tools (configurable) |
+| **Tool Count** | 168 tools | 168 tools (configurable) |
 | **File Size** | ~200KB | ~3KB + modules |
 | **Loading Time** | Fast (single file) | Variable (based on configuration) |
 | **Memory Usage** | Higher (all tools loaded) | Configurable (minimal to full) |

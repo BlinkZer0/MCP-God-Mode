@@ -53,7 +53,6 @@ export { registerNetworkDiscovery } from "./network/network_discovery.js";
 export { registerVulnerabilityAssessment } from "./network/vulnerability_assessment.js";
 export { registerTrafficAnalysis } from "./network/traffic_analysis.js";
 export { registerNetworkUtilities } from "./network/network_utilities.js";
-export { registerSocialAccountRipper } from "./network/social_account_ripper.js";
 export { registerSocialAccountRipperModular } from "./network/social_account_ripper_modular.js";
 
 // Security Tools
@@ -64,7 +63,6 @@ export { registerNetworkSecurity } from "./security/network_security.js";
 export { registerBlockchainSecurity } from "./security/blockchain_security.js";
 export { registerQuantumSecurity } from "./security/quantum_security.js";
 export { registerIotSecurity } from "./security/iot_security.js";
-export { registerSocialEngineering } from "./security/social_engineering.js";
 export { registerThreatIntelligence } from "./security/threat_intelligence.js";
 export { registerComplianceAssessment } from "./security/compliance_assessment.js";
 export { registerSocialNetworkRipper } from "./security/social_network_ripper.js";
@@ -105,8 +103,7 @@ export { registerSignalAnalysis } from "./radio/signal_analysis.js";
 
 // Web Tools
 export { registerWebScraper } from "./web/web_scraper.js";
-export { registerBrowserControl } from "./web/browser_control.js";
-export { registerWebAutomation } from "./web/web_automation.js";
+export { registerEnhancedBrowserAutomation } from "./web/enhanced_browser_automation.js";
 export { registerWebhookManager } from "./web/webhook_manager.js";
 export { registerUniversalBrowserOperator } from "./web/universal_browser_operator.js";
 export { registerWebSearch } from "./web/web_search.js";
@@ -153,18 +150,15 @@ export { registerAiAdversarialPrompt } from "./ai/ai_adversarial_prompt.js";
 export { registerFlipperZeroTool, getFlipperZeroToolName, registerFlipperTools, getFlipperToolNames } from "./flipper/index.js";
 
 // Utility Tools
-export { registerCalculator } from "./utilities/calculator.js";
+export { registerEnhancedCalculator } from "./utilities/enhanced_calculator.js";
 export { registerDiceRolling } from "./utilities/dice_rolling.js";
-export { registerMathCalculate } from "./utilities/math_calculate.js";
-export { registerDataAnalysis } from "./utilities/data_analysis.js";
+export { registerEnhancedDataAnalysis } from "./utilities/enhanced_data_analysis.js";
 export { registerMachineLearning } from "./utilities/machine_learning.js";
 export { registerChartGenerator } from "./utilities/chart_generator.js";
 export { registerTextProcessor } from "./utilities/text_processor.js";
 export { registerPasswordGenerator } from "./utilities/password_generator.js";
-export { registerDataAnalyzer } from "./utilities/data_analyzer.js";
 
 // Cloud Tools
-export { registerCloudSecurity } from "./cloud/cloud_security.js";
 export { registerCloudInfrastructureManager } from "./cloud/cloud_infrastructure_manager.js";
 export { registerCloudSecurityToolkit } from "./cloud/cloud_security_toolkit.js";
 

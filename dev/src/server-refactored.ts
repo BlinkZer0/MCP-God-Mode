@@ -134,7 +134,7 @@ async function initializeLegalCompliance() {
 // Comprehensive Tool Registration and Management
 // ===========================================
 
-const server = new McpServer({ name: "MCP God Mode - Advanced Security & Network Analysis Platform", version: "1.9.0" });
+const server = new McpServer({ name: "MCP God Mode - Advanced Security & Network Analysis Platform", version: "2.0.0" });
 
 // Initialize ToolRegistry for unified tool management
 const toolRegistry = ToolRegistry.getInstance();
@@ -608,7 +608,7 @@ server.registerTool("ai_security_orchestrator", {
   };
 });
 
-// Final Tools to Reach Exact Target of 169
+// Additional Enhanced Tools (Post-Consolidation)
 server.registerTool("blockchain_forensics", {
   description: "⛓️ **Blockchain Forensics** - Advanced blockchain investigation with transaction tracing, wallet analysis, and cryptocurrency forensics.",
   inputSchema: {
@@ -679,7 +679,7 @@ server.registerTool("security_metrics_dashboard", {
 // ===========================================
 // Note: Original drone tools removed - using enhanced versions with cross-platform support
 
-console.log(`✅ Successfully registered 21 additional enhanced tools for server-refactored (5 enhanced + 6 MCP Web UI Bridge + 10 advanced)`);
+console.log(`✅ Successfully registered 21 additional enhanced tools for server-refactored (post-consolidation)`);
 
 // ===========================================
 // CRIME REPORTER TOOL

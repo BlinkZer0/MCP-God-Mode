@@ -23,7 +23,7 @@ import {
 
 // Auto-generated tool categories based on actual tools in src/tools/
 // Generated on: 2025-01-27T15:30:00.000Z
-// Total tools discovered: 121 (including drone management tools)
+// Total tools discovered: 168 (including consolidated tools and enhanced features)
 
 const TOOL_CATEGORIES = {
   "bluetooth": {
@@ -510,7 +510,7 @@ const SERVER_CONFIGS = {
   'full': {
     name: 'Full Server',
     description: 'Complete server with all tools',
-    tools: 124, // Updated to reflect actual tool count
+    tools: 168, // Updated to reflect v2.0 consolidated tool count
     categories: Object.keys(TOOL_CATEGORIES),
     features: [
       'Complete tool coverage',
@@ -642,7 +642,7 @@ async function installFullServer() {
     
     console.log('✅ Full server configuration created');
     console.log('📋 All categories enabled (including enhanced tools)');
-    console.log('🔧 Total tools: ~127 tools (124 standard + 3 RF Sense)');
+    console.log('🔧 Total tools: 168 tools (v2.0 consolidated)');
     console.log('');
     console.log('💡 Run: npm run build && node dist/server-modular.js');
   } catch (error) {

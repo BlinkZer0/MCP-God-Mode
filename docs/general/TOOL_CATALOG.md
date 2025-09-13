@@ -1,12 +1,12 @@
 # MCP God Mode - Comprehensive Tool Catalog
 
 ## Overview
-MCP God Mode is an advanced security and network analysis platform. Current counts (v1.9):
+MCP God Mode is an advanced security and network analysis platform. Current counts (v2.0 - Consolidated Architecture):
 
 - **Comprehensive index + enhanced endpoints** exported in code
-- **174 total endpoints** across both servers (includes consolidated Flipper Zero tool, MCP Web UI Bridge, and SpecOps tools)
-- **174 documented tools** in the wiki
-- **Configurable modular server** - can load minimal (10 tools), custom categories, or full (174 tools)
+- **168 total endpoints** across both servers (includes consolidated tools, MCP Web UI Bridge, and SpecOps tools)
+- **168 documented tools** in the wiki
+- **Configurable modular server** - can load minimal (10 tools), custom categories, or full (168 tools)
 
 This document provides detailed information about each tool, its capabilities, and use cases.
 
@@ -15,8 +15,41 @@ This document provides detailed information about each tool, its capabilities, a
 - **Server-Refactored (total endpoints)**: 168
 - **Modular Server (total endpoints)**: 168 (configurable)
 - **Server-Minimal**: 15 tools
-- **SpecOps Tools**: 10 (new in v1.8d)
-- **RF Sense Tools**: 3 (new in v1.9 - through-wall detection)
+- **SpecOps Tools**: 22 (new in v1.8d)
+- **RF Sense Tools**: 7 (new in v1.9 - through-wall detection)
+
+## 🔄 Tool Consolidation (v2.0)
+We've consolidated 16 similar tools into 3 enhanced tools while maintaining 100% functionality:
+
+### Consolidated Tools:
+1. **Enhanced Calculator** (`mcp_mcp-god-mode_enhanced_calculator`) - Combines:
+   - Basic arithmetic operations (add, subtract, multiply, divide)
+   - Advanced mathematical expressions with variables
+   - Scientific functions (sin, cos, log, etc.)
+   - Multiple output formats and precision control
+
+2. **Enhanced Data Analysis** (`mcp_mcp-god-mode_enhanced_data_analysis`) - Combines:
+   - Statistical analysis and calculations
+   - Data visualization and chart generation
+   - Correlation analysis and trend detection
+   - Predictive modeling and machine learning
+
+3. **Enhanced Browser Automation** (`mcp_mcp-god-mode_enhanced_browser_automation`) - Combines:
+   - Playwright and Puppeteer browser control
+   - Web automation and form completion
+   - Screenshot and content extraction
+   - Cross-platform browser support
+
+### Removed Tools (Functionality Preserved):
+- `calculator` → Enhanced Calculator
+- `math_calculate` → Enhanced Calculator
+- `data_analysis` → Enhanced Data Analysis
+- `data_analyzer` → Enhanced Data Analysis
+- `browser_control` → Enhanced Browser Automation
+- `web_automation` → Enhanced Browser Automation
+- `cloud_security` → `cloud_security_toolkit` (kept comprehensive version)
+- `social_engineering` → `social_engineering_toolkit` (kept comprehensive version)
+- `social_account_ripper` → `social_account_ripper_modular` (kept modular version)
 
 ## Why Counts Are Now Identical
 Both servers now have identical tool counts. The modular server loads the same complete set as server-refactored (including the consolidated Flipper Zero tool and MCP Web UI Bridge). The modular server adds configurability - it can be set to load minimal tools, specific categories, or all tools based on user preference during installation.
@@ -152,12 +185,11 @@ Humor break: if the AI builds an enterprise integration hub and starts sending c
 |------|-------------|------------|
 | `mcp_mcp-god-mode_drone_unified` | Unified drone management combining defense, offense, mobile optimization, and natural language processing with intelligent operation routing | `mode`, `action`, `target`, `parameters`, `riskAcknowledged`, `threatLevel`, `autoConfirm`, `naturalLanguageCommand` |
 
-### 🖥️ Web Tools (7 tools)
+### 🖥️ Web Tools (5 tools)
 | Tool | Description | Parameters |
 |------|-------------|------------|
 | `mcp_mcp-god-mode_web_scraper` | Advanced web scraping and data extraction tool | `url`, `selectors`, `output_format`, `include_metadata`, `follow_links`, `max_depth` |
-| `mcp_mcp-god-mode_browser_control` | Cross-platform browser automation and control | `action`, `browser`, `url`, `selector`, `text`, `headless` |
-| `mcp_mcp-god-mode_web_automation` | Advanced web automation and browser control toolkit with element interaction, content extraction, form filling, and JavaScript execution | `action`, `url`, `selector`, `text`, `script`, `wait_time`, `output_file`, `form_data`, `browser`, `headless` |
+| `mcp_mcp-god-mode_enhanced_browser_automation` | **🔄 CONSOLIDATED** Comprehensive browser automation with Playwright/Puppeteer support, form completion, screenshot capture, and cross-platform browser control | `action`, `browser`, `url`, `selector`, `text`, `script`, `wait_time`, `output_file`, `form_data`, `headless`, `viewport`, `user_agent`, `geolocation`, `blocked_resources`, `workflow_steps`, `session_id` |
 | `mcp_mcp-god-mode_webhook_manager` | Advanced webhook management and testing toolkit | `action`, `url`, `method`, `headers`, `payload`, `timeout`, `retry_count` |
 | `mcp_mcp-god-mode_universal_browser_operator` | Advanced cross-platform browser automation and web interaction toolkit | `action`, `url`, `selector`, `text`, `wait_time`, `screenshot`, `headless`, `timeout` |
 | `mcp_mcp-god-mode_web_search` | Advanced web search and information retrieval tool | `query`, `search_engine`, `max_results`, `language`, `region`, `time_range`, `output_format` |
@@ -204,23 +236,20 @@ Humor break: if the AI builds an enterprise integration hub and starts sending c
 | `mcp_mcp-god-mode_vm_management` | Virtual machine management and control | `action`, `vm_name`, `vm_type`, `memory`, `cpu_cores`, `disk_size`, `network_config` |
 | `mcp_mcp-god-mode_docker_management` | Docker container and image management | `action`, `container_name`, `image_name`, `command`, `ports` |
 
-### 🧮 Utility Tools (9 tools)
+### 🧮 Utility Tools (7 tools)
 | Tool | Description | Parameters |
 |------|-------------|------------|
-| `mcp_mcp-god-mode_calculator` | Basic mathematical calculator with standard operations | `operation`, `a`, `b`, `precision` |
+| `mcp_mcp-god-mode_enhanced_calculator` | **🔄 CONSOLIDATED** Comprehensive mathematical calculator combining basic arithmetic, advanced expressions, scientific functions, and multiple output formats | `mode`, `operation`, `a`, `b`, `expression`, `variables`, `precision`, `format`, `function_name`, `angle_unit` |
 | `mcp_mcp-god-mode_dice_rolling` | Advanced dice rolling simulator for tabletop games | `dice_notation`, `count`, `advantage`, `disadvantage` |
-| `mcp_mcp-god-mode_math_calculate` | Advanced mathematical calculations and scientific computing | `expression`, `precision`, `variables`, `format` |
-| `mcp_mcp-god-mode_data_analysis` | Advanced data analysis and statistical processing | `action`, `data_source`, `analysis_type`, `output_format` |
+| `mcp_mcp-god-mode_enhanced_data_analysis` | **🔄 CONSOLIDATED** Comprehensive data analysis combining statistical calculations, visualization, correlation analysis, trend detection, and predictive modeling | `mode`, `data`, `data_source`, `analysis_type`, `confidence_level`, `outlier_threshold`, `variables`, `grouping_variable`, `chart_type`, `chart_title`, `output_format`, `include_raw_data`, `generate_insights` |
 | `mcp_mcp-god-mode_machine_learning` | Machine learning model training and prediction | `action`, `model_type`, `data_path`, `hyperparameters` |
 | `mcp_mcp-god-mode_chart_generator` | Chart and graph generation from data | `chart_type`, `data`, `title`, `x_label`, `y_label`, `output_format` |
 | `mcp_mcp-god-mode_text_processor` | Text processing and manipulation utilities | `action`, `text`, `find_text`, `replace_text`, `case_type` |
 | `mcp_mcp-god-mode_password_generator` | Secure password generation with customizable options | `length`, `include_uppercase`, `include_lowercase`, `include_numbers`, `include_symbols`, `exclude_similar`, `exclude_ambiguous` |
-| `mcp_mcp-god-mode_data_analyzer` | Data analysis and statistical processing | `action`, `data`, `analysis_type`, `options` |
 
-### ☁️ Cloud Tools (3 tools)
+### ☁️ Cloud Tools (2 tools)
 | Tool | Description | Parameters |
 |------|-------------|------------|
-| `mcp_mcp-god-mode_cloud_security` | Cloud infrastructure security assessment and compliance | `action`, `cloud_provider`, `service_type`, `region` |
 | `mcp_mcp-god-mode_cloud_infrastructure_manager` | Cloud infrastructure management and monitoring | `action`, `cloud_provider`, `resource_type`, `region`, `resource_config` |
 | `mcp_mcp-god-mode_cloud_security_toolkit` | Advanced cloud security assessment and compliance toolkit with comprehensive multi-cloud support, automated security scanning, and regulatory compliance validation | `action`, `cloud_provider`, `service_type`, `compliance_framework`, `output_format` |
 
