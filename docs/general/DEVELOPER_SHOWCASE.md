@@ -52,14 +52,14 @@ Blink Zero has composed an impressive catalog of **111 electronic jazz songs** a
 - **[Tidal](https://linktr.ee/shurikenmiasma)** - High-fidelity streaming
 
 ### **📺 Video Content**
-- **[YouTube](https://linktr.ee/shurikenmiasma)** - Music videos and martial arts content
+- **[YouTube](https://www.youtube.com/channel/UCw2k-0NocGUbInXwGUA8MSA)** - Music videos and martial arts content
 - **Nunchaku Shorts** - Quick martial arts demonstrations
 - **Sunrise on the Wing** - Latest music video release
 
 ### **📱 Social Media**
-- **[Facebook](https://linktr.ee/shurikenmiasma)** - Stay updated on latest releases
-- **[Instagram](https://linktr.ee/shurikenmiasma)** - Reels and behind-the-scenes content
-- **[Twitter](https://linktr.ee/shurikenmiasma)** - Real-time updates and thoughts
+- **[Facebook](https://www.facebook.com/Blink.Zer0)** - Stay updated on latest releases
+- **[Instagram](https://www.instagram.com/shurikenmiasma)** - Reels and behind-the-scenes content
+- **[Twitter](https://x.com/home)** - Real-time updates and thoughts
 
 ### **🌐 Central Hub**
 - **[Linktree](https://linktr.ee/shurikenmiasma)** - All links in one place
@@ -109,6 +109,16 @@ Ready to experience the intersection of martial arts mastery, electronic jazz in
 ---
 
 *"In martial arts, music, and code - precision, power, and artistry create something truly extraordinary."* - Blink Zero
+
+---
+
+## 🎬 **Featured Video**
+
+<div align="center">
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/4-Ed5jSVH5c" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
+</div>
 
 ---
 
