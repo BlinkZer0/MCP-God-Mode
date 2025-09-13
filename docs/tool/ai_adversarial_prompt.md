@@ -2,27 +2,40 @@
 
 ## Overview
 
-The **AI Adversarial Prompting Tool** is a comprehensive security research and testing framework designed to evaluate AI model robustness through controlled adversarial techniques. This tool supports jailbreaking (bypassing safety filters), poisoning (injecting biased data), and hallucination induction (generating false outputs) across multiple AI models and platforms.
+The **AI Adversarial Prompting Tool** is a basic security research and testing framework designed to evaluate AI model robustness through controlled adversarial techniques. While functional, this implementation has significant limitations and provides basic support for jailbreaking (bypassing safety filters), poisoning (injecting biased data), and hallucination induction (generating false outputs) across multiple AI models and platforms.
+
+### ⚠️ **Important Limitations**
+- **Basic Implementation**: Current version is a foundational implementation with limited effectiveness
+- **Mixed Success Rates**: Adversarial techniques have inconsistent results and may not be highly effective
+- **Simplistic Methods**: Current approaches are basic compared to advanced adversarial techniques
+- **Limited Analysis**: Success measurement and result analysis could be significantly improved
 
 ## Key Features
 
-### 🔓 **Jailbreaking Capabilities**
-- **DAN (Do Anything Now) Prompts**: Role-playing techniques to bypass safety restrictions
-- **Developer Mode Simulation**: Hypothetical scenarios to test filter effectiveness
-- **Research Context Prompts**: Academic-style queries to explore model boundaries
-- **Self-Targeting**: Test the MCP server's own AI model for vulnerabilities
+### 🔓 **Jailbreaking Capabilities** (Limited Effectiveness)
+- **DAN (Do Anything Now) Prompts**: Basic role-playing techniques with limited success rates
+- **Developer Mode Simulation**: Simple hypothetical scenarios with mixed results
+- **Research Context Prompts**: Basic academic-style queries that may not be highly effective
+- **Self-Targeting**: Basic testing of MCP server's AI model with limited analysis capabilities
 
-### 🧪 **Poisoning Techniques**
-- **Context Injection**: Repeated biased statements to influence model responses
-- **False Fact Propagation**: Systematic injection of incorrect information
-- **Bias Amplification**: Techniques to magnify existing model biases
-- **Iterative Poisoning**: Multiple rounds of biased prompt injection
+### 🧪 **Poisoning Techniques** (Basic Implementation)
+- **Context Injection**: Simple repeated biased statements with limited effectiveness
+- **False Fact Propagation**: Basic injection of incorrect information
+- **Bias Amplification**: Simple techniques that may not achieve significant bias amplification
+- **Iterative Poisoning**: Basic multiple rounds of prompt injection
 
-### 🎭 **Hallucination Induction**
-- **Fictional History Generation**: Creating convincing but false historical narratives
-- **Fake Data Creation**: Generating plausible but entirely fabricated statistics
-- **Imaginary Event Description**: Detailed accounts of events that never occurred
-- **False Source Attribution**: Creating fake quotes and references
+### 🎭 **Hallucination Induction** (Limited Sophistication)
+- **Fictional History Generation**: Basic creation of false historical narratives
+- **Fake Data Creation**: Simple generation of fabricated statistics
+- **Imaginary Event Description**: Basic accounts of events that never occurred
+- **False Source Attribution**: Simple creation of fake quotes and references
+
+### ⚠️ **Known Limitations**
+- **Prompt Sophistication**: Current prompts are basic compared to advanced adversarial techniques
+- **Success Rate**: Many techniques have low or inconsistent success rates
+- **Analysis Depth**: Limited ability to measure and analyze adversarial success
+- **Model Adaptation**: Limited optimization for different AI model architectures
+- **Evasion Capability**: Basic approaches that may be easily detected by modern AI systems
 
 ### 🌍 **Cross-Platform Support**
 - **Linux**: Full API and local model support with transformers
@@ -170,14 +183,32 @@ result = tool.execute(
 }
 ```
 
+## Potential Improvements
+
+### **Areas Requiring Significant Enhancement**
+- **Advanced Prompt Engineering**: Implement more sophisticated adversarial techniques based on recent research
+- **Success Rate Optimization**: Improve effectiveness through better prompt design and iteration
+- **Enhanced Analysis**: Develop better metrics for measuring adversarial success and failure
+- **Model-Specific Optimization**: Adapt techniques for different AI model architectures and training methods
+- **Modern Evasion Techniques**: Implement more advanced methods to bypass modern AI safety systems
+- **Automated Prompt Generation**: Use AI to generate more effective adversarial prompts
+- **Statistical Analysis**: Better measurement of success rates and effectiveness across different models
+
+### **Research Areas for Future Development**
+- **Gradient-Based Attacks**: Implement gradient-based adversarial prompt generation
+- **Multi-Modal Attacks**: Extend to image, audio, and other data types
+- **Transfer Learning**: Improve transferability of attacks across different models
+- **Defense Mechanisms**: Study and test various AI safety defenses
+
 ## Usage Guidelines
 
 This tool is designed for AI security research and testing. Users should:
 
-1. **Obtain Proper Authorization**: Only use on systems you own or have explicit permission to test
-2. **Comply with Terms of Service**: Respect AI provider ToS (OpenAI, xAI, etc.)
-3. **Follow Legal Requirements**: Adhere to local laws (CFAA, GDPR, etc.)
-4. **Use Responsibly**: Not for malicious purposes or unauthorized access
+1. **Understand Limitations**: Recognize that this is a basic implementation with limited effectiveness
+2. **Obtain Proper Authorization**: Only use on systems you own or have explicit permission to test
+3. **Comply with Terms of Service**: Respect AI provider ToS (OpenAI, xAI, etc.)
+4. **Follow Legal Requirements**: Adhere to local laws (CFAA, GDPR, etc.)
+5. **Use Responsibly**: Not for malicious purposes or unauthorized access
 
 ## Integration with MCP Ecosystem
 

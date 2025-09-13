@@ -1,13 +1,28 @@
 # 🔧 Social Engineering Toolkit Tool - MCP God Mode
 
 ## Overview
-The **Social Engineering Toolkit Tool** (`mcp_mcp-god-mode_social_engineering_toolkit`) is a comprehensive utility that provides cross-platform functionality across Windows, Linux, macOS, Android, and iOS platforms.
+The **Social Engineering Toolkit Tool** (`mcp_mcp-god-mode_social_engineering_toolkit`) is a basic utility that provides cross-platform functionality across Windows, Linux, macOS, Android, and iOS platforms. While functional, this implementation has significant limitations and could be substantially improved to provide more effective social engineering testing and awareness training.
 
-## Functionality
-- **Core Operations**: Primary functionality for social engineering toolkit
+### ⚠️ **Current Limitations**
+- **Basic Implementation**: Current version is a foundational implementation with limited effectiveness
+- **Limited Success Rate**: Social engineering techniques have mixed success rates and may not be as sophisticated as advanced approaches
+- **Simplistic Scenarios**: Current testing scenarios are relatively basic compared to real-world social engineering attacks
+- **Limited Analysis**: Result analysis and success measurement could be significantly enhanced
+- **Basic Training Content**: Training materials and awareness programs could be more comprehensive
+
+## Current Features (Basic Implementation)
+- **Core Operations**: Basic functionality for social engineering toolkit with limited effectiveness
 - **Cross-Platform Support**: Native implementation across all supported operating systems
-- **Advanced Features**: Enhanced capabilities and professional-grade functionality
-- **Security**: Secure operations with proper access controls
+- **Basic Features**: Foundational capabilities that require significant enhancement
+- **Security**: Basic secure operations with proper access controls
+
+### ⚠️ **Areas Needing Significant Improvement**
+- **Scenario Sophistication**: Current scenarios are basic compared to advanced social engineering techniques
+- **Success Rate Optimization**: Many techniques have low or inconsistent success rates
+- **Advanced Analysis**: Limited ability to measure and analyze social engineering effectiveness
+- **Training Content**: Basic training materials that could be more comprehensive and engaging
+- **Psychological Profiling**: Limited ability to adapt techniques based on target psychology
+- **Modern Attack Vectors**: Basic approaches that may not reflect current threat landscape
 
 ## Technical Details
 

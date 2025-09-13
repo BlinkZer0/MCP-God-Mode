@@ -1,7 +1,13 @@
 # 🔧 Social Account Ripper Tool - MCP God Mode
 
 ## Overview
-The **Social Account Ripper Tool** (`mcp_mcp-god-mode_social_account_ripper`) is a comprehensive utility that provides cross-platform functionality across Windows, Linux, macOS, Android, and iOS platforms.
+The **Social Account Ripper Tool** (`mcp_mcp-god-mode_social_account_ripper`) is a basic utility that provides cross-platform functionality across Windows, Linux, macOS, Android, and iOS platforms. While functional, this implementation has significant limitations and could be substantially improved to provide more effective social media reconnaissance and information gathering capabilities.
+
+### ⚠️ **Current Limitations**
+- **Basic Implementation**: Current version is a foundational implementation with limited effectiveness
+- **Limited Success Rate**: Social media reconnaissance techniques have mixed success rates and may not be as comprehensive as advanced approaches
+- **Simplistic Methods**: Current approaches are basic compared to sophisticated OSINT techniques
+- **Limited Analysis**: Result analysis and information correlation could be significantly enhanced
 
 ## Functionality
 - **Core Operations**: Primary functionality for social account ripper

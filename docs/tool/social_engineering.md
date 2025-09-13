@@ -1,16 +1,30 @@
 # Social Engineering Tool
 
 ## Overview
-The Social Engineering tool provides comprehensive awareness training and testing framework for assessing human factor vulnerabilities in security systems. This tool helps organizations identify and mitigate social engineering risks through controlled testing and employee education.
+The Social Engineering tool provides basic awareness training and testing framework for assessing human factor vulnerabilities in security systems. While functional, this implementation has significant limitations and provides basic capabilities for identifying and mitigating social engineering risks through controlled testing and employee education.
 
-## Features
-- **Phishing Testing**: Simulate phishing attacks to test awareness
-- **Pretexting Scenarios**: Test response to fabricated scenarios
-- **Baiting Attacks**: Assess susceptibility to bait-based attacks
-- **Quid Pro Quo**: Test response to exchange-based manipulation
-- **Tailgating Tests**: Evaluate physical security awareness
-- **Training Programs**: Deliver security awareness education
-- **Assessment Reports**: Generate detailed vulnerability reports
+### ⚠️ **Important Limitations**
+- **Basic Implementation**: Current version is a foundational implementation with limited effectiveness
+- **Mixed Success Rates**: Social engineering techniques have inconsistent results and may not be highly effective
+- **Simplistic Scenarios**: Current testing scenarios are basic compared to sophisticated real-world attacks
+- **Limited Analysis**: Success measurement and result analysis could be significantly improved
+
+## Features (Basic Implementation)
+- **Phishing Testing**: Basic phishing attack simulation with limited effectiveness
+- **Pretexting Scenarios**: Simple fabricated scenarios with mixed results
+- **Baiting Attacks**: Basic bait-based attack assessment with limited sophistication
+- **Quid Pro Quo**: Simple exchange-based manipulation testing
+- **Tailgating Tests**: Basic physical security awareness evaluation
+- **Training Programs**: Basic security awareness education with limited engagement
+- **Assessment Reports**: Simple vulnerability reports with basic analysis
+
+### ⚠️ **Known Limitations**
+- **Scenario Sophistication**: Current scenarios are basic compared to advanced social engineering techniques
+- **Success Rate**: Many techniques have low or inconsistent success rates
+- **Psychological Depth**: Limited ability to adapt techniques based on target psychology
+- **Modern Threats**: Basic approaches that may not reflect current threat landscape
+- **Training Quality**: Training materials could be more comprehensive and engaging
+- **Analysis Depth**: Limited ability to measure and analyze social engineering effectiveness
 
 ## Parameters
 
@@ -140,13 +154,31 @@ The tool returns structured results including:
 - **Risk Assessment**: Organizational vulnerability analysis
 - **Training Evaluation**: Security training effectiveness measurement
 
+## Potential Improvements
+
+### **Areas Requiring Significant Enhancement**
+- **Advanced Scenario Design**: Implement more sophisticated and realistic social engineering scenarios
+- **Psychological Profiling**: Develop techniques to adapt attacks based on target psychology and behavior
+- **Success Rate Optimization**: Improve effectiveness through better scenario design and execution
+- **Enhanced Analysis**: Develop better metrics for measuring social engineering success and failure
+- **Modern Attack Vectors**: Implement current threat techniques and attack methods
+- **Interactive Training**: Create more engaging and effective awareness training programs
+- **Behavioral Analysis**: Add capabilities to analyze and predict human behavior patterns
+
+### **Research Areas for Future Development**
+- **AI-Powered Social Engineering**: Use machine learning to create more effective attacks
+- **Multi-Modal Attacks**: Extend to voice, video, and other communication channels
+- **Real-Time Adaptation**: Dynamic scenario modification based on target responses
+- **Defense Mechanisms**: Study and test various social engineering defenses
+
 ## Best Practices
-1. **Authorization**: Always obtain proper authorization before testing
-2. **Documentation**: Maintain detailed records of all activities
-3. **Debriefing**: Provide feedback to participants after testing
-4. **Gradual Escalation**: Start with low-risk scenarios
-5. **Legal Compliance**: Ensure all activities comply with local laws
-6. **Ethical Guidelines**: Follow ethical hacking principles
+1. **Understand Limitations**: Recognize that this is a basic implementation with limited effectiveness
+2. **Authorization**: Always obtain proper authorization before testing
+3. **Documentation**: Maintain detailed records of all activities
+4. **Debriefing**: Provide feedback to participants after testing
+5. **Gradual Escalation**: Start with low-risk scenarios
+6. **Legal Compliance**: Ensure all activities comply with local laws
+7. **Ethical Guidelines**: Follow ethical hacking principles
 
 ## Security Considerations
 - **Legal Authorization**: Ensure proper legal authorization for all testing
