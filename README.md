@@ -426,6 +426,8 @@ The server-refactored and modular servers have different tool counts because:
 
 🎭 **Fun Fact**: One MCP to rule them all, one MCP to find them, one MCP to compile the tools, and in the God Mode bind them! 🎲⚡
 
+**💥 Bonus Use Case**: Show this repository to a luddite or AI fearmonger and watch their head explode! (Disclaimer: We are not responsible for any actual head explosions - metaphorical only! 😄)
+
 <img src="assets/wave-divider.svg" alt="" width="100%" />
 
 <p align="center">
