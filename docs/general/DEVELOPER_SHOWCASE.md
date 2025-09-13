@@ -116,7 +116,9 @@ Ready to experience the intersection of martial arts mastery, electronic jazz in
 
 <div align="center">
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/4-Ed5jSVH5c" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+[![Featured Video - Click to Watch](https://img.youtube.com/vi/4-Ed5jSVH5c/0.jpg)](https://www.youtube.com/watch?v=4-Ed5jSVH5c)
+
+*Click the thumbnail above to watch the video on YouTube*
 
 </div>
 
