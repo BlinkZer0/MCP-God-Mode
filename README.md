@@ -120,25 +120,25 @@ npm run start:refactored   # full refactored server (175 tools)
 npm run start:modular      # modular loader (175 tools, grouped)
 # or minimal
 npm run start:minimal      # minimal profile (15 core tools)
-# or ⚡ LAZY LOADING (RECOMMENDED)
-node build-lazy-server.js && cd dist && npm start  # lazy loading server (optimal performance)
+# or ⚡ LAZY LOADING (EXPERIMENTAL - NOT READY)
+# node build-lazy-server.js && cd dist && npm start  # lazy loading server (experimental)
 ```
 
-### ⚡ **Lazy Loading Server (Recommended for Performance)**
+### ⚡ **Lazy Loading Server (Experimental - Not Ready)**
 
-For optimal performance with hundreds of tools:
+**⚠️ WARNING**: Lazy loading server is currently experimental and not fully functional. Use the refactored or modular servers instead.
 
 ```bash
-# Build and start the lazy loading server
+# Build and start the lazy loading server (EXPERIMENTAL)
 node build-lazy-server.js
 cd dist && npm start
 ```
 
-**Performance Benefits:**
-- 🚀 **70% faster startup** (1-3s vs 5-10s)
-- 💾 **60% less memory** (80-150MB vs 200-500MB)  
+**Planned Performance Benefits (when implemented):**
+- 🚀 **Faster startup** - tools load on-demand
+- 💾 **Reduced memory** - only load tools when needed
 - ⚡ **On-demand loading** - tools load when called
-- 📈 **Unlimited scalability** - handle hundreds of tools efficiently
+- 📈 **Better scalability** - handle hundreds of tools efficiently
 - 🔍 **Tool discovery** - built-in tool management
 
 ### 🔥 **Painless Install Option**
