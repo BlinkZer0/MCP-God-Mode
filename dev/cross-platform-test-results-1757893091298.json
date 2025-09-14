@@ -1,0 +1,14 @@
+{
+  "timestamp": "2025-09-14T23:38:11.298Z",
+  "platform": "win32",
+  "architecture": "x64",
+  "duration": 13,
+  "summary": {
+    "total": 38,
+    "passed": 38,
+    "failed": 0,
+    "successRate": 100
+  },
+  "errors": [],
+  "testType": "cross_platform_compatibility"
+}
