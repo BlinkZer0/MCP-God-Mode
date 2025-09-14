@@ -26,7 +26,7 @@ Find a tool you like? STEAL IT!!!
 [![Platforms](https://img.shields.io/badge/Platforms-Win%20%7C%20macOS%20%7C%20Linux%20%7C%20Android%20%7C%20iOS-orange)](docs/CROSS_PLATFORM_COMPATIBILITY.md)
 [![GitHub Stars](https://img.shields.io/github/stars/BlinkZer0/MCP-God-Mode?style=social)](https://github.com/BlinkZer0/MCP-God-Mode)
 [![CI](https://img.shields.io/badge/CI-Smoke%20Tests-yellow)](scripts/smoke-test.js)
-[![Tools](https://img.shields.io/badge/Tools-177%20Total-orange)](docs/general/TOOL_CATALOG.md)
+[![Tools](https://img.shields.io/badge/Tools-179%20Total-orange)](docs/general/TOOL_CATALOG.md)
 
 **Version 2.0 - Tool Consolidation & Enhanced Architecture** — Last edited 2025-01-27 (lol silly ai get's the dates wrong. Last updated 9/13/2025)
 
@@ -43,8 +43,8 @@ Find a tool you like? STEAL IT!!!
 ### Tool Inventory (v2.0 - Consolidated Architecture)
 | Profile         | Count |
 |-----------------|------:|
-| Refactored Set  | 177   |
-| Modular Set     | 177   |
+| Refactored Set  | 179   |
+| Modular Set     | 179   |
 | Minimal Profile | 15    |
 
 **🚀 Version 2.0 Highlights:**
@@ -82,10 +82,10 @@ https://github.com/user-attachments/assets/932c43e4-159e-4ce2-9c02-4acf23fc47fd
 
 ## 🧪 **TESTING STATUS & NEEDED HELP**
 
-**We need your help to properly test MCP God Mode!** With 177 tools across multiple platforms, we need extensive testing to verify functionality, catch edge cases, and ensure reliability.
+**We need your help to properly test MCP God Mode!** With 179 tools across multiple platforms, we need extensive testing to verify functionality, catch edge cases, and ensure reliability.
 
 ### **📊 Current Testing Status**
-- ✅ **Confirmed Working**: Enhanced Calculator, Web Search, Root Access, WiFi Security, IoT Security, System Info, Health Check, Git Status, File Operations, Web Scraper, IP Geolocation, Email Operations, Encryption Tools, Dice Rolling, **Chart Generator (Enhanced SVG with Animations)**, **Enhanced Browser Automation**, **CAPTCHA Defeating**
+- ✅ **Confirmed Working**: Enhanced Calculator, Web Search, Root Access, WiFi Security, IoT Security, System Info, Health Check, Git Status, File Operations, Web Scraper, IP Geolocation, Email Operations, Encryption Tools, Dice Rolling, **Chart Generator (Enhanced SVG with Animations)**, **Enhanced Browser Automation**, **CAPTCHA Defeating**, **Token Obfuscation**
 - ✅ **Fully Tested**: **Crime Reporter Tool** (100% success rate - September 2025), **Tool_Burglar** (confirmed working - September 2025)
 - ⚠️ **Partially Tested**: Basic functionality confirmed, advanced features need testing
 - ⚠️ **Should Work**: VM Management (needs testing), Flipper Zero (hardware dependent)
@@ -686,7 +686,7 @@ https://github.com/user-attachments/assets/f074039c-1989-40fc-b769-5efa855e854d
 
 <img src="assets/header-forensics.svg" alt="Advanced Security" width="100%" />
 
-### 🔒 Advanced Security (18 Tools)
+### 🔒 Advanced Security (20 Tools)
 - **Blockchain Security** - Cryptocurrency and blockchain analysis
 - **Quantum Security** - Post-quantum cryptography assessment
 - **IoT Security** - Internet of Things device security
@@ -697,6 +697,8 @@ https://github.com/user-attachments/assets/f074039c-1989-40fc-b769-5efa855e854d
 - **Cloud Infrastructure Manager** - Cloud resource management
 - **Exploit Framework** - Vulnerability exploitation
 - **Zero-Day Exploit Researcher** - Research zero-day vulnerabilities, generate PoCs, and conduct ethical security testing ([📖 Full Docs](docs/tool/zero_day_exploiter.md))
+- **Token Obfuscation** - Advanced token usage obfuscation for AI services with proxy middleware ([📖 Full Docs](docs/guides/TOKEN_OBFUSCATION_GUIDE.md))
+- **Token Obfuscation Natural Language** - Natural language interface for token obfuscation operations ([📖 Full Docs](docs/guides/TOKEN_OBFUSCATION_NATURAL_LANGUAGE_GUIDE.md))
 - **Vulnerability Scanner** - Security assessment tools
 - **Password Cracker** - Authentication testing
 - **Threat Intelligence** - Security threat analysis and monitoring
@@ -838,7 +840,7 @@ https://github.com/user-attachments/assets/f074039c-1989-40fc-b769-5efa855e854d
 | **🖥️ Web & Browser** | 4 | Browser automation, web scraping, web automation, webhooks |
 | **📱 Mobile Device** | 13 | Device info, file ops, hardware access, system tools, app tools |
 | **🖥️ Virtualization** | 2 | VM management, Docker orchestration |
-| **🔒 Advanced Security** | 18 | Blockchain, quantum, IoT, forensics, cloud security, zero-day exploit research |
+| **🔒 Advanced Security** | 20 | Blockchain, quantum, IoT, forensics, cloud security, zero-day exploit research, token obfuscation |
 | **⚖️ Legal & Compliance** | 2 | Crime reporting, legal compliance management, audit logging, evidence preservation |
 | **🧮 Utilities** | 12 | Math tools, dice rolling, data analysis, ML, RAG toolkit, encryption |
 | **🔄 System Restore** | 1 | Cross-platform backup and restore |
@@ -1017,11 +1019,11 @@ If you encounter issues, need assistance, or have questions about MCP God Mode:
 ### Platform Matrix
 | Platform | Core Tools | Security Tools | Media Tools | Mobile Tools | Total Support |
 |----------|------------|----------------|-------------|--------------|---------------|
-| **Windows** | ✅ 100% | ✅ 100% | ✅ 100% | ✅ 100% | **177/177 (100%)** |
-| **Linux** | ✅ 100% | ✅ 100% | ✅ 100% | ✅ 100% | **177/177 (100%)** |
-| **macOS** | ✅ 100% | ✅ 100% | ✅ 100% | ✅ 100% | **177/177 (100%)** |
-| **Android** | ✅ 100% | ✅ 100% | ✅ 100% | ✅ 100% | **177/177 (100%)** |
-| **iOS** | ✅ 100% | ✅ 100% | ✅ 100% | ✅ 100% | **177/177 (100%)** |
+| **Windows** | ✅ 100% | ✅ 100% | ✅ 100% | ✅ 100% | **179/179 (100%)** |
+| **Linux** | ✅ 100% | ✅ 100% | ✅ 100% | ✅ 100% | **179/179 (100%)** |
+| **macOS** | ✅ 100% | ✅ 100% | ✅ 100% | ✅ 100% | **179/179 (100%)** |
+| **Android** | ✅ 100% | ✅ 100% | ✅ 100% | ✅ 100% | **179/179 (100%)** |
+| **iOS** | ✅ 100% | ✅ 100% | ✅ 100% | ✅ 100% | **179/179 (100%)** |
 
 **[📖 View Complete Compatibility Matrix](docs/general/CROSS_PLATFORM_COMPATIBILITY.md)**
 

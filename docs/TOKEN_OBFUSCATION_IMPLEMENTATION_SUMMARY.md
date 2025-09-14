@@ -30,14 +30,23 @@ The Token Obfuscation Tool is a sophisticated MCP tool that integrates with your
 - **Log Export**: Comprehensive logging for troubleshooting
 - **Performance Metrics**: Response time and throughput tracking
 
+### Natural Language Interface
+- **Conversational Commands**: Use natural language to control token obfuscation
+- **Parameter Recognition**: Automatically extracts parameters from natural language
+- **Confidence Scoring**: Provides confidence levels for command interpretation
+- **Error Handling**: Graceful handling of unclear or ambiguous commands
+- **Cross-Platform Support**: Works consistently across all supported platforms
+
 ## 📁 Files Created
 
 ### Core Implementation
 - `dev/src/tools/security/token_obfuscation.ts` - Main tool implementation
-- `dev/src/tools/index.ts` - Updated to include the new tool
+- `dev/src/tools/security/token_obfuscation_nl.ts` - Natural language interface implementation
+- `dev/src/tools/index.ts` - Updated to include both tools
 
 ### Documentation
 - `docs/guides/TOKEN_OBFUSCATION_GUIDE.md` - Comprehensive user guide
+- `docs/guides/TOKEN_OBFUSCATION_NATURAL_LANGUAGE_GUIDE.md` - Natural language interface guide
 - `docs/TOKEN_OBFUSCATION_IMPLEMENTATION_SUMMARY.md` - This summary
 
 ### Configuration
@@ -178,7 +187,16 @@ mcp_mcp-god-mode_token_obfuscation --action export_logs
 The token obfuscation tool is automatically registered with your MCP God Mode server through the tools index system.
 
 ### Natural Language Support
-The tool supports natural language commands through the existing MCP God Mode natural language router.
+The tool includes comprehensive natural language support through two interfaces:
+
+1. **Integrated Natural Language Processing**: The main tool includes built-in natural language command processing
+2. **Dedicated Natural Language Interface**: A separate `token_obfuscation_nl` tool provides advanced conversational command processing
+
+Both interfaces support conversational commands like:
+- "Start the proxy with moderate obfuscation"
+- "Check the status of token obfuscation"
+- "Test obfuscation with 100 tokens"
+- "Enable fallback mode"
 
 ### Cross-Platform Compatibility
 - **Windows**: Full support with PowerShell and CMD scripts

@@ -265,11 +265,34 @@ System: Routes to general security testing tool
 - Test only in controlled environments
 - Document your findings appropriately
 
+### 8. **Token Obfuscation Tools**
+
+#### `token_obfuscation` (Main Tool)
+- **What it does**: Advanced token usage obfuscation for AI services with proxy middleware
+- **Natural Language Access**: "Token obfuscation", "Hide token usage", "Obfuscate AI tokens"
+- **Examples**:
+  - "Start the token obfuscation proxy with moderate settings"
+  - "Configure token obfuscation for stealth mode"
+  - "Test obfuscation with 100 tokens"
+  - "Check token obfuscation statistics"
+  - "Generate Cursor configuration for token obfuscation"
+
+#### `token_obfuscation_nl` (Natural Language Interface)
+- **What it does**: Natural language interface for token obfuscation operations
+- **Natural Language Access**: "Token obfuscation help", "Obfuscate tokens naturally", "Token hiding commands"
+- **Examples**:
+  - "Start the proxy with moderate obfuscation"
+  - "Check the status of token obfuscation"
+  - "Test obfuscation with 'Hello world' using 50 tokens"
+  - "Show me the token obfuscation statistics"
+  - "Enable fallback mode for token obfuscation"
+
 ## 📚 Additional Resources
 
 - **Wi-Fi Security**: See `WIFI_SECURITY_TOOLKIT.md`
 - **Bluetooth Security**: See `BLUETOOTH_SECURITY_TOOLKIT.md`
 - **SDR Security**: See `SDR_SECURITY_TOOLKIT.md`
+- **Token Obfuscation**: See `TOKEN_OBFUSCATION_GUIDE.md` and `TOKEN_OBFUSCATION_NATURAL_LANGUAGE_GUIDE.md`
 - **Testing Results**: See `TOOLKIT_TESTING_RESULTS.md`
 
 ## 🎯 Summary

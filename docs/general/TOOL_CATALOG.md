@@ -4,16 +4,16 @@
 MCP God Mode is an advanced security and network analysis platform. Current counts (v2.0 - Consolidated Architecture):
 
 - **Comprehensive index + enhanced endpoints** exported in code
-- **176 total endpoints** across both servers (includes consolidated tools, MCP Web UI Bridge, and SpecOps tools)
-- **176 documented tools** in the wiki
-- **Configurable modular server** - can load minimal (10 tools), custom categories, or full (176 tools)
+- **178 total endpoints** across both servers (includes consolidated tools, MCP Web UI Bridge, and SpecOps tools)
+- **178 documented tools** in the wiki
+- **Configurable modular server** - can load minimal (10 tools), custom categories, or full (178 tools)
 
 This document provides detailed information about each tool, its capabilities, and use cases.
 
 ## Tool Count Summary
-- **Documented Tools**: 176
-- **Server-Refactored (total endpoints)**: 176
-- **Modular Server (total endpoints)**: 176 (configurable)
+- **Documented Tools**: 178
+- **Server-Refactored (total endpoints)**: 178
+- **Modular Server (total endpoints)**: 178 (configurable)
 - **Server-Minimal**: 15 tools
 - **SpecOps Tools**: 22 (new in v1.8d)
 - **RF Sense Tools**: 7 (new in v1.9 - through-wall detection)
@@ -126,9 +126,11 @@ Humor break: if the AI builds an enterprise integration hub and starts sending c
 | `mcp_mcp-god-mode_social_account_ripper` | Advanced social network account reconnaissance and information gathering tool with comprehensive analysis capabilities | `target`, `platforms`, `search_method`, `include_historical`, `include_connections`, `include_metadata`, `include_geolocation`, `include_employment`, `include_photos`, `include_posts`, `include_sentiment`, `output_format` |
 | `mcp_mcp-god-mode_social_account_ripper_modular` | Advanced modular social network account reconnaissance tool with component-based architecture and comprehensive analysis modules | `target`, `platforms`, `search_method`, `modules`, `include_historical`, `include_metadata`, `output_format` |
 
-### 🔒 Security Tools (14 tools)
+### 🔒 Security Tools (16 tools)
 | Tool | Description | Parameters |
 |------|-------------|------------|
+| `mcp_mcp-god-mode_token_obfuscation` | Advanced token usage obfuscation for AI services with proxy middleware and sophisticated obfuscation algorithms | `action`, `obfuscation_level`, `reduction_factor`, `padding_strategy`, `proxy_port`, `enable_streaming`, `preserve_functionality`, `custom_headers`, `test_content`, `test_tokens`, `natural_language_command` |
+| `mcp_mcp-god-mode_token_obfuscation_nl` | Natural language interface for token obfuscation operations with conversational command processing | `command` |
 | `mcp_mcp-god-mode_zero_day_exploiter_unified` | Unified zero-day exploiter with vulnerability research, PoC generation, ethical security testing, and natural language processing | `mode`, `command`, `parameters`, `naturalLanguageCommand` |
 | `mcp_mcp-god-mode_vulnerability_scanner` | Advanced vulnerability scanning and assessment tool | `target`, `scan_type`, `port_range`, `vulnerability_types`, `output_format` |
 | `mcp_mcp-god-mode_password_cracker` | Advanced Password Security Testing Tool - Comprehensive authentication testing framework for authorized corporate security assessments | `target`, `service`, `username`, `password_list`, `method`, `max_attempts`, `timeout`, `custom_port`, `verbose` |
