@@ -16,5 +16,11 @@ export { registerCloudSecurityAssessment } from "./cloud_security_assessment.js"
 export { registerApiSecurityTesting } from "./api_security_testing.js";
 export { registerEmailSecuritySuite } from "./email_security_suite.js";
 export { registerDatabaseSecurityToolkit } from "./database_security_toolkit.js";
+export { registerHackGPT } from "./hack_gpt.js";
+export { registerHackGPTNaturalLanguage } from "./hack_gpt_natural_language.js";
+export { registerStrixAI } from "./strix_ai.js";
+export { registerStrixAINaturalLanguage } from "./strix_ai_natural_language.js";
+export { registerPenTestPlusPlus } from "./pentest_plus_plus.js";
+export { registerPenTestPlusPlusNaturalLanguage } from "./pentest_plus_plus_natural_language.js";
 export { registerEncryptionTool } from "../utilities/encryption_tool.js";
 export { registerMalwareAnalysis } from "./malware_analysis.js";

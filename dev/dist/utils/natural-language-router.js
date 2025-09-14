@@ -303,6 +303,42 @@ export const naturalLanguagePatterns = {
     'pacu_aws_exploitation': {
         keywords: ['pacu', 'aws exploitation', 'aws security testing', 'cloud security', 'aws enumeration', 'privilege escalation', 'data exfiltration', 'aws services', 'cloud infrastructure'],
         examples: ['use pacu for aws exploitation', 'test aws security with pacu', 'enumerate aws services with pacu', 'escalate privileges in aws with pacu', 'exfiltrate data from aws with pacu', 'test cloud security with pacu']
+    },
+    // HexStrike AI Tools
+    'hexstrike_ai': {
+        keywords: ['hexstrike', 'hexstrike ai', 'ai penetration testing', 'autonomous penetration', 'ai agents', 'intelligent decision engine', 'ai-powered security', 'autonomous attack simulation', 'ai vulnerability scanning', 'ai exploit generation', 'ai reconnaissance', 'swarm penetration testing', 'ai red team'],
+        examples: ['use hexstrike ai for autonomous penetration testing', 'deploy ai agents with hexstrike', 'run ai-powered vulnerability assessment', 'perform autonomous attack simulation with hexstrike', 'generate custom exploits using ai', 'conduct ai reconnaissance with hexstrike', 'execute intelligent penetration testing', 'use hexstrike ai for red team operations']
+    },
+    'hexstrike_ai_natural_language': {
+        keywords: ['hexstrike natural language', 'hexstrike ai commands', 'ai penetration testing commands', 'autonomous security commands', 'ai agent deployment commands'],
+        examples: ['parse hexstrike ai commands', 'process ai penetration testing requests', 'interpret autonomous security commands', 'convert natural language to hexstrike operations']
+    },
+    // HackGPT Tools
+    'hack_gpt': {
+        keywords: ['hackgpt', 'hack gpt', 'ai offensive security', 'burp suite', 'nuclei', 'shodan', 'osint', 'ai hacking sidekick', 'automated exploitation', 'zero day poc', 'vulnerability hunting', 'ai web testing', 'ai penetration testing', 'ai security automation'],
+        examples: ['use hackgpt for web application testing', 'run burp suite scan with hackgpt', 'use nuclei through hackgpt', 'perform shodan search with hackgpt', 'generate exploits with hackgpt', 'hunt for zero-day vulnerabilities', 'automate offensive security with hackgpt', 'use hackgpt as ai hacking sidekick', 'perform ai-powered vulnerability hunting']
+    },
+    'hack_gpt_natural_language': {
+        keywords: ['hackgpt natural language', 'hackgpt commands', 'ai offensive security commands', 'hacking sidekick commands', 'ai security automation commands'],
+        examples: ['parse hackgpt commands', 'process ai offensive security requests', 'interpret hacking sidekick commands', 'convert natural language to hackgpt operations']
+    },
+    // Strix AI Tools
+    'strix_ai': {
+        keywords: ['strix', 'strix ai', 'dynamic code analysis', 'autonomous ai agents', 'vulnerability identification', 'exploitation validation', 'auto fix suggestion', 'sandbox execution', 'ci cd integration', 'runtime analysis', 'static analysis', 'code exploitation', 'automated fixes', 'devsecops'],
+        examples: ['use strix ai for dynamic code analysis', 'run autonomous ai agents with strix', 'validate exploits using strix', 'generate auto-fixes with strix', 'integrate strix with ci/cd pipeline', 'analyze code vulnerabilities with strix', 'execute code in sandbox with strix', 'perform runtime analysis with strix']
+    },
+    'strix_ai_natural_language': {
+        keywords: ['strix natural language', 'strix ai commands', 'dynamic code analysis commands', 'autonomous agent commands', 'vulnerability analysis commands'],
+        examples: ['parse strix ai commands', 'process dynamic code analysis requests', 'interpret autonomous agent commands', 'convert natural language to strix operations']
+    },
+    // PenTest++ Tools
+    'pentest_plus_plus': {
+        keywords: ['pentest++', 'pentest plus plus', 'ai-augmented penetration testing', 'ai penetration testing', 'automated penetration testing', 'ai workflow generation', 'attack path prediction', 'metasploit integration', 'ethical hacking workflows', 'ai-guided testing', 'intelligent exploitation', 'automated reconnaissance', 'ai vulnerability discovery', 'generative ai pentesting'],
+        examples: ['use pentest++ for ai-augmented penetration testing', 'generate ai workflow for penetration testing', 'predict attack paths with pentest++', 'integrate pentest++ with metasploit', 'run automated reconnaissance with pentest++', 'perform ai-guided vulnerability discovery', 'execute intelligent exploitation with pentest++', 'create ethical hacking workflows with pentest++']
+    },
+    'pentest_plus_plus_natural_language': {
+        keywords: ['pentest++ natural language', 'pentest plus plus commands', 'ai penetration testing commands', 'automated penetration testing commands', 'ethical hacking commands'],
+        examples: ['parse pentest++ commands', 'process ai penetration testing requests', 'interpret automated penetration testing commands', 'convert natural language to pentest++ operations']
     }
 };
 // Enhanced natural language routing function
@@ -452,7 +488,19 @@ export function enhancedToolDiscovery(query, category, capability) {
         { name: 'frida_toolkit', description: 'Advanced Frida dynamic instrumentation toolkit with full cross-platform support', category: 'specops', capabilities: ['frida', 'dynamic instrumentation', 'function hooking', 'memory manipulation', 'api interception', 'mobile analysis'] },
         { name: 'ghidra_reverse_engineering', description: 'Advanced Ghidra reverse engineering framework with full cross-platform support', category: 'specops', capabilities: ['ghidra', 'reverse engineering', 'binary analysis', 'disassembly', 'decompilation', 'vulnerability detection'] },
         // Cloud Security Tools
-        { name: 'pacu_aws_exploitation', description: 'Advanced Pacu AWS exploitation framework with full cross-platform support', category: 'specops', capabilities: ['pacu', 'aws exploitation', 'cloud security', 'aws enumeration', 'privilege escalation', 'data exfiltration'] }
+        { name: 'pacu_aws_exploitation', description: 'Advanced Pacu AWS exploitation framework with full cross-platform support', category: 'specops', capabilities: ['pacu', 'aws exploitation', 'cloud security', 'aws enumeration', 'privilege escalation', 'data exfiltration'] },
+        // HexStrike AI Tools
+        { name: 'hexstrike_ai', description: 'Advanced AI-Powered Penetration Testing Framework with autonomous agents and intelligent decision engine', category: 'specops', capabilities: ['hexstrike', 'ai penetration testing', 'autonomous agents', 'intelligent decision engine', 'ai vulnerability scanning', 'ai exploit generation', 'autonomous attack simulation'] },
+        { name: 'hexstrike_ai_natural_language', description: 'Natural language interface for HexStrike AI penetration testing operations', category: 'specops', capabilities: ['hexstrike natural language', 'ai commands', 'autonomous security commands', 'ai agent deployment'] },
+        // HackGPT Tools
+        { name: 'hack_gpt', description: 'AI-Powered Offensive Security Toolkit integrating Burp Suite, Nuclei, Shodan, and OSINT frameworks', category: 'security', capabilities: ['hackgpt', 'ai offensive security', 'burp suite', 'nuclei', 'shodan', 'osint', 'ai hacking sidekick', 'automated exploitation', 'zero day poc', 'vulnerability hunting'] },
+        { name: 'hack_gpt_natural_language', description: 'Natural language interface for HackGPT offensive security operations', category: 'security', capabilities: ['hackgpt natural language', 'ai offensive security commands', 'hacking sidekick commands', 'ai security automation'] },
+        // Strix AI Tools
+        { name: 'strix_ai', description: 'Autonomous AI agents for dynamic code analysis and exploitation with CI/CD integration', category: 'security', capabilities: ['strix', 'dynamic code analysis', 'autonomous ai agents', 'vulnerability identification', 'exploitation validation', 'auto fix suggestion', 'sandbox execution', 'ci cd integration', 'runtime analysis', 'static analysis', 'code exploitation', 'automated fixes', 'devsecops'] },
+        { name: 'strix_ai_natural_language', description: 'Natural language interface for Strix AI dynamic code analysis and exploitation operations', category: 'security', capabilities: ['strix natural language', 'dynamic code analysis commands', 'autonomous agent commands', 'vulnerability analysis commands'] },
+        // PenTest++ Tools
+        { name: 'pentest_plus_plus', description: 'AI-augmented penetration testing system with generative AI and automation tools', category: 'security', capabilities: ['pentest++', 'ai-augmented penetration testing', 'ai workflow generation', 'attack path prediction', 'metasploit integration', 'ethical hacking workflows', 'ai-guided testing', 'intelligent exploitation', 'automated reconnaissance', 'ai vulnerability discovery', 'generative ai pentesting'] },
+        { name: 'pentest_plus_plus_natural_language', description: 'Natural language interface for PenTest++ AI-augmented penetration testing operations', category: 'security', capabilities: ['pentest++ natural language', 'ai penetration testing commands', 'automated penetration testing commands', 'ethical hacking commands'] }
     ];
     // Filter tools based on natural language routing
     let filteredTools = allTools;

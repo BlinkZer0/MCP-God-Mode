@@ -62,6 +62,12 @@ export { registerCloudSecurityAssessment } from "./security/cloud_security_asses
 export { registerApiSecurityTesting } from "./security/api_security_testing.js";
 export { registerEmailSecuritySuite } from "./security/email_security_suite.js";
 export { registerDatabaseSecurityToolkit } from "./security/database_security_toolkit.js";
+export { registerHackGPT } from "./security/hack_gpt.js";
+export { registerHackGPTNaturalLanguage } from "./security/hack_gpt_natural_language.js";
+export { registerStrixAI } from "./security/strix_ai.js";
+export { registerStrixAINaturalLanguage } from "./security/strix_ai_natural_language.js";
+export { registerPenTestPlusPlus } from "./security/pentest_plus_plus.js";
+export { registerPenTestPlusPlusNaturalLanguage } from "./security/pentest_plus_plus_natural_language.js";
 export { registerEncryptionTool } from "./utilities/encryption_tool.js";
 export { registerMalwareAnalysis } from "./security/malware_analysis.js";
 // Penetration Tools

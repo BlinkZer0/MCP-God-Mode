@@ -16,6 +16,12 @@ import { registerCloudSecurityAssessment } from "./cloud_security_assessment.js"
 import { registerApiSecurityTesting } from "./api_security_testing.js";
 import { registerEmailSecuritySuite } from "./email_security_suite.js";
 import { registerDatabaseSecurityToolkit } from "./database_security_toolkit.js";
+import { registerHackGPT } from "./hack_gpt.js";
+import { registerHackGPTNaturalLanguage } from "./hack_gpt_natural_language.js";
+import { registerStrixAI } from "./strix_ai.js";
+import { registerStrixAINaturalLanguage } from "./strix_ai_natural_language.js";
+import { registerPenTestPlusPlus } from "./pentest_plus_plus.js";
+import { registerPenTestPlusPlusNaturalLanguage } from "./pentest_plus_plus_natural_language.js";
 
 export { registerVulnerabilityScanner } from "./vulnerability_scanner.js";
 export { registerPortScanner } from "./port_scanner.js";
@@ -35,5 +41,11 @@ export { registerCloudSecurityAssessment } from "./cloud_security_assessment.js"
 export { registerApiSecurityTesting } from "./api_security_testing.js";
 export { registerEmailSecuritySuite } from "./email_security_suite.js";
 export { registerDatabaseSecurityToolkit } from "./database_security_toolkit.js";
+export { registerHackGPT } from "./hack_gpt.js";
+export { registerHackGPTNaturalLanguage } from "./hack_gpt_natural_language.js";
+export { registerStrixAI } from "./strix_ai.js";
+export { registerStrixAINaturalLanguage } from "./strix_ai_natural_language.js";
+export { registerPenTestPlusPlus } from "./pentest_plus_plus.js";
+export { registerPenTestPlusPlusNaturalLanguage } from "./pentest_plus_plus_natural_language.js";
 export { registerEncryptionTool } from "../utilities/encryption_tool.js";
 export { registerMalwareAnalysis } from "./malware_analysis.js";
