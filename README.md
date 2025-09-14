@@ -13,6 +13,9 @@
 
 One MCP to rule them all, one MCP to find them, one MCP to compile the tools, and in the God Mode bind them. 🎲⚡
 Find a tool you like? STEAL IT!!!
+
+**💡 Pro Tip**: Cursor will handily modify your own MCP if you point it to this repo and tell it to integrate a tool for your own use. It might not be a one shot, but it'll likely be close to it.
+
 *Built on the **Model Context Protocol (MCP)** by **Justin Spahr-Summers**, **Ashwin Antao**, **The DSP**, and **Anthropic** - enabling seamless AI integration across all platforms.*
 
 *"Bi'iiradat Allah"* - By the will of God, this server was created. We acknowledge divine inspiration for the knowledge and creativity that made this project possible.
