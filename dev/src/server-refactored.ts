@@ -63,6 +63,8 @@ import {
   registerRfSenseLocalize
 } from "./tools/rf_sense/index.js";
 
+// Psychology tool (unified comprehensive psychological analysis with RAG system) is imported via the comprehensive index
+
 // Import Flipper Zero tools separately to avoid duplicates
 // Flipper Zero tools are imported via the comprehensive index
 
@@ -134,7 +136,7 @@ async function initializeLegalCompliance() {
 // Comprehensive Tool Registration and Management
 // ===========================================
 
-const server = new McpServer({ name: "MCP God Mode - Advanced Security & Network Analysis Platform", version: "2.0.0" });
+const server = new McpServer({ name: "MCP God Mode - Advanced Security & Network Analysis Platform", version: "2.0a" });
 
 // Initialize ToolRegistry for unified tool management
 const toolRegistry = ToolRegistry.getInstance();
@@ -260,6 +262,12 @@ try {
 } catch (error) {
   console.warn("Warning: Failed to register Unified RF Sense Tool:", error);
 }
+
+// ===========================================
+// PSYCHOLOGY TOOL - UNIFIED COMPREHENSIVE PSYCHOLOGICAL ANALYSIS WITH RAG SYSTEM
+// ===========================================
+
+// Psychology tool (unified comprehensive psychological analysis with RAG system, natural language interface, local resources, security awareness) is registered via the comprehensive index in main() function
 
 // Individual RF Sense modules are now handled by the unified tool
 // No separate registrations needed - this prevents duplicates
@@ -814,6 +822,12 @@ async function main() {
   
   // Register all tools from comprehensive index
   console.log("🔧 Registering tools from comprehensive index...");
+  console.log(`📋 Found ${toolFunctions.length} tool registration functions`);
+  
+  // Debug: List all tool functions
+  const toolNames = toolFunctions.map(fn => fn.name).sort();
+  console.log("🔧 Tool functions found:", toolNames.join(", "));
+  
   for (const toolFunction of toolFunctions) {
     try {
       // Handle async tool registration functions
@@ -822,6 +836,7 @@ async function main() {
       } else {
         (toolFunction as any)(server);
       }
+      console.log(`✅ Registered: ${toolFunction.name}`);
     } catch (error) {
       console.warn(`Warning: Failed to register tool ${toolFunction.name}:`, error);
     }
@@ -858,6 +873,7 @@ async function main() {
   console.log("🎵 Media Tools: Professional audio/video editing, image processing, and OCR capabilities");
   console.log("🖥️ Web Tools: Advanced browser automation, web scraping, form completion, and AI service integration");
   console.log("🌐 MCP Web UI Bridge: Chat with AI services (ChatGPT, Claude, Grok, etc.) via web interfaces without APIs");
+  console.log("🧠 Psychology Tool: Unified comprehensive psychological analysis with RAG system, DSM-V/ICD-10 reference, natural language interface, local resources, security awareness");
   console.log("📱 Mobile Tools: Comprehensive mobile device management, security analysis, and app testing");
   console.log("🖥️ Virtualization: Advanced VM and container management with security controls");
   console.log("🧮 Utility Tools: Mathematical computation, data analysis, and machine learning");

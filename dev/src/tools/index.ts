@@ -193,3 +193,6 @@ export * from "./social/index.js";
 
 // Competitive Intelligence Tools
 export { registerCompetitiveIntelligence } from "./competitive_intelligence/tool.js";
+
+// Psychology Tool (unified comprehensive psychological analysis with RAG system)
+export { registerPsychologyTool } from "./psychology/index.js";
