@@ -14,6 +14,8 @@ HexStrike AI is an open-source, AI-powered penetration testing framework featuri
 - **Custom exploit generation** without human input
 - **Swarm-like behavior** of specialized AI hackers
 
+> **Credits**: HexStrike AI was created by Muhammad Osama. This innovative framework is integrated into MCP God Mode as part of our comprehensive security toolkit, bringing advanced AI-powered penetration testing capabilities to our ecosystem.
+
 ## 🛠️ **Implementation Details**
 
 ### **Files Created/Modified**

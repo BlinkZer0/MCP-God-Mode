@@ -4,6 +4,8 @@
 
 Strix AI is an advanced autonomous AI agent system designed for dynamic code analysis and exploitation. It features autonomous AI agents that run code in a sandbox, identify vulnerabilities, validate them through actual exploitation, and suggest auto-fixes with detailed reports. The system integrates seamlessly with developer workflows like CI/CD pipelines.
 
+> **Credits**: Strix AI is integrated into MCP God Mode as part of our comprehensive security toolkit. This advanced autonomous AI agent system represents significant innovation in dynamic code analysis and exploitation capabilities.
+
 ## Key Features
 
 ### 🤖 Autonomous AI Agents

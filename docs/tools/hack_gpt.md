@@ -4,6 +4,8 @@
 
 HackGPT is an AI-powered offensive security toolkit that integrates multiple security tools including Burp Suite, Nuclei, Shodan, and OSINT frameworks. It transforms general-purpose AI into a "hacking sidekick" that chains commands intelligently, injects prompts for vulnerability hunting, and collaborates in real-time for offensive security operations.
 
+> **Note**: HackGPT is integrated into MCP God Mode as part of our comprehensive security toolkit. The original concept and development of HackGPT represents significant innovation in AI-powered security testing.
+
 ## 🚀 **Key Features**
 
 ### **Integrated Security Tools**

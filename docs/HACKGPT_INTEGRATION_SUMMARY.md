@@ -14,6 +14,8 @@ HackGPT is an AI-powered offensive security toolkit that integrates multiple sec
 - **Custom exploit generation** using AI
 - **Zero-day research** capabilities
 
+> **Credits**: HackGPT is integrated into MCP God Mode as part of our comprehensive security toolkit. The original concept and development of HackGPT represents significant innovation in AI-powered security testing.
+
 ## 🛠️ **Implementation Details**
 
 ### **Files Created/Modified**
