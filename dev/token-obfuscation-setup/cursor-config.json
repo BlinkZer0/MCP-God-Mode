@@ -1,0 +1,33 @@
+{
+  "proxy": {
+    "http": "http://localhost:8080",
+    "https": "http://localhost:8080"
+  },
+  "headers": {
+    "x-target-url": "https://api.cursor.sh",
+    "x-obfuscation-enabled": "true",
+    "x-obfuscation-level": "moderate"
+  },
+  "timeout": {
+    "request": 30000,
+    "response": 60000
+  },
+  "retry": {
+    "attempts": 3,
+    "delay": 1000
+  },
+  "logging": {
+    "enabled": true,
+    "level": "info",
+    "file": "./logs/cursor-proxy.log"
+  },
+  "security": {
+    "verifySSL": true,
+    "allowInsecure": false
+  },
+  "performance": {
+    "connectionPooling": true,
+    "keepAlive": true,
+    "compression": true
+  }
+}

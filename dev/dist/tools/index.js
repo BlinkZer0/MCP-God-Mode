@@ -130,6 +130,9 @@ export { registerDockerManagement } from "./virtualization/docker_management.js"
 // AI Tools
 export { registerRagToolkit } from "./ai/rag_toolkit.js";
 export { registerAiAdversarialPrompt } from "./ai/ai_adversarial_prompt.js";
+// Security Tools
+export { registerTokenObfuscation } from "./security/token_obfuscation.js";
+export { registerTokenObfuscationNL } from "./security/token_obfuscation_nl.js";
 // Flipper Zero Tools - Consolidated into single tool
 export { registerFlipperZeroTool, getFlipperZeroToolName, registerFlipperTools, getFlipperToolNames } from "./flipper/index.js";
 // Utility Tools
