@@ -333,7 +333,7 @@ The Psychology Tool is a unified, comprehensive psychological analysis and knowl
 
 ### Components
 - **MentalHealthAnalyzer**: Core psychological analysis engine
-- **ResourceLocator**: Local resource search and management
+- **ResourceLocator**: Built-in therapeutic resource database and management
 - **SecurityAwarenessFramework**: Exploitation vector analysis
 - **PsychologyRAGSystem**: Diagnostic reference system
 - **PsychologyKnowledgeBase**: Comprehensive knowledge base

@@ -7,7 +7,7 @@ import { PLATFORM, IS_WINDOWS, IS_LINUX, IS_MACOS, IS_ANDROID, IS_IOS, IS_MOBILE
 export function registerMentalHealthTool(server) {
     // Main structured tool
     server.registerTool("mental_health_analyzer", {
-        description: "🧠 **Mental Health Analyzer** - Comprehensive DSM-V/ICD-10 based psychological analysis with local resource linking and security awareness capabilities. Analyzes text samples to identify mental health conditions, provides local therapeutic resources, and generates security awareness reports for protection against social engineering attacks.",
+        description: "🧠 **Mental Health Analyzer** - Comprehensive psychological analysis incorporating DSM-V/ICD-10 knowledge with built-in therapeutic resources and security awareness capabilities. Analyzes text samples to identify mental health conditions, provides therapeutic resource recommendations, and generates security awareness reports for protection against social engineering attacks.",
         inputSchema: {
             textSamples: z.array(z.string()).describe("Array of text samples from the individual (journal entries, social media posts, emails, etc.)"),
             location: z.string().optional().describe("Location for finding local resources (city, state, zip code, or 'city, state' format)"),

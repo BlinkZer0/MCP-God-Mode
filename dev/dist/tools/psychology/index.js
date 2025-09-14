@@ -316,7 +316,7 @@ async function executePlatformInfo(params) {
         features: {
             naturalLanguage: processor.getPlatformSpecificFeatures(),
             ragSystem: ragSystem.getPlatformSpecificFeatures(),
-            analysis: ['DSM-V/ICD-10 Analysis', 'RAG Reference System', 'Local Resource Search', 'Security Awareness'],
+            analysis: ['DSM-V/ICD-10 Analysis', 'RAG Reference System', 'Built-in Therapeutic Resources', 'Security Awareness'],
             crossPlatform: true
         },
         optimizations: {

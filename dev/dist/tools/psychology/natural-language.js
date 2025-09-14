@@ -215,7 +215,7 @@ export class MentalHealthNaturalLanguageProcessor {
         return true; // All platforms supported
     }
     getPlatformSpecificFeatures() {
-        const features = ['Natural Language Processing', 'DSM-V/ICD-10 Analysis', 'Local Resource Search'];
+        const features = ['Natural Language Processing', 'DSM-V/ICD-10 Analysis', 'Built-in Therapeutic Resources'];
         if (IS_MOBILE) {
             features.push('Mobile-Optimized Interface', 'Touch-Friendly Controls', 'Offline Capability');
         }

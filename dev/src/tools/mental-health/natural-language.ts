@@ -245,7 +245,7 @@ export class MentalHealthNaturalLanguageProcessor {
 
 **Features:**
 • DSM-V and ICD-10 diagnostic criteria
-• Local resource database
+• Built-in therapeutic resource database
 • Crisis intervention protocols
 • Cross-platform compatibility
 • Natural language processing
@@ -267,7 +267,7 @@ export class MentalHealthNaturalLanguageProcessor {
   }
 
   getPlatformSpecificFeatures(): string[] {
-    const features = ['Natural Language Processing', 'DSM-V/ICD-10 Analysis', 'Local Resource Search'];
+    const features = ['Natural Language Processing', 'DSM-V/ICD-10 Analysis', 'Built-in Therapeutic Resources'];
     
     if (IS_MOBILE) {
       features.push('Mobile-Optimized Interface', 'Touch-Friendly Controls', 'Offline Capability');
