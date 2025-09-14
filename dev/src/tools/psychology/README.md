@@ -4,7 +4,7 @@
 
 The Psychology Tool is a unified, comprehensive psychological analysis and knowledge base system that combines DSM-V/ICD-11 diagnostic criteria, extensive dark psychology techniques, body language analysis, NLP methods, emotional intelligence assessment, and security awareness capabilities. The tool is completely self-contained with no external file dependencies.
 
-## Version: 2.0a
+## Version: 2.0b
 
 ## Features
 
@@ -259,7 +259,7 @@ The Psychology Tool is a unified, comprehensive psychological analysis and knowl
 
 ## Knowledge Base Statistics
 
-### Current Stats (Version 2.0a)
+### Current Stats (Version 2.0b)
 - **Total Resources**: 16 comprehensive psychology resources
 - **Total Techniques**: 139 psychological techniques and methods
 - **Total Applications**: 95 practical applications
@@ -410,7 +410,7 @@ The Psychology Tool is a unified, comprehensive psychological analysis and knowl
 
 ## Version History
 
-### Version 2.0a (Current)
+### Version 2.0b (Current)
 - **Unified Tool Architecture**: Single tool with 14 action types
 - **Self-Contained Knowledge Base**: No external file dependencies
 - **Comprehensive Coverage**: 16 resources, 139 techniques, 95 applications, 86 defenses
@@ -440,6 +440,6 @@ The Psychology Tool is a unified, comprehensive psychological analysis and knowl
 
 ## Conclusion
 
-The Psychology Tool (Version 2.0a) represents a comprehensive, self-contained psychological analysis and knowledge base system that combines official diagnostic criteria, extensive dark psychology techniques, and specialized psychology areas into a unified, cross-platform tool. With 14 different action types, 139 techniques, and built-in ethical protections, it provides both helping and defensive applications while maintaining the highest standards of professional ethics and cultural sensitivity.
+The Psychology Tool (Version 2.0b) represents a comprehensive, self-contained psychological analysis and knowledge base system that combines official diagnostic criteria, extensive dark psychology techniques, and specialized psychology areas into a unified, cross-platform tool. With 14 different action types, 139 techniques, and built-in ethical protections, it provides both helping and defensive applications while maintaining the highest standards of professional ethics and cultural sensitivity.
 
 The tool is completely self-contained with no external file dependencies, making it reliable and secure for use across all platforms and environments.

@@ -1,4 +1,4 @@
-# 🔒 Token Obfuscation Tool - Complete Integration Guide
+# 🔒 Token Obfuscation Tool v2.0b - Complete Integration Guide
 
 ## Overview
 

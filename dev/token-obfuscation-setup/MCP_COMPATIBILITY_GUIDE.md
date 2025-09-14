@@ -1,4 +1,4 @@
-# MCP Compatibility Guide for Token Obfuscation
+# MCP Compatibility Guide for Token Obfuscation v2.0b
 
 ## Overview
 

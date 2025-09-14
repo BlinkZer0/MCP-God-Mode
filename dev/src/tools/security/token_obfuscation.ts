@@ -1208,7 +1208,7 @@ async function executeTokenObfuscationAction(action: string, parameters: any) {
 
 export function registerTokenObfuscation(server: any) {
   server.registerTool("token_obfuscation", {
-    description: "🔒 **Multi-Platform Token Obfuscation Tool** - Advanced token usage obfuscation for Cursor, Claude, GPT, Codex, Co-Pilot, and other MCP-compatible AI services. Automatically detects the AI platform and configures obfuscation accordingly. Prevents accurate token counting for billing while maintaining full functionality through sophisticated proxy middleware and obfuscation algorithms.",
+    description: "🔒 **Multi-Platform Token Obfuscation Tool v2.0b** - Advanced token usage obfuscation for Cursor, Claude, GPT, Codex, Co-Pilot, and other MCP-compatible AI services. **Enabled by default and runs automatically in the background** with context-aware intelligence. Automatically detects the AI platform and configures obfuscation accordingly. Prevents accurate token counting for billing while maintaining full functionality through sophisticated proxy middleware and obfuscation algorithms.",
     inputSchema: {
       action: z.enum([
         "start_proxy", 

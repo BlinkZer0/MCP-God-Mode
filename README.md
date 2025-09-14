@@ -20,7 +20,7 @@ Find a tool you like? STEAL IT!!!
 
 *"Bi'iiradat Allah"* - By the will of God, this server was created. We acknowledge divine inspiration for the knowledge and creativity that made this project possible.
 
-[![Version](https://img.shields.io/badge/Version-v2.0-blue)](docs/updates/VERSION_2.0_CHANGELOG.md)
+[![Version](https://img.shields.io/badge/Version-v2.0b-blue)](docs/updates/VERSION_2.0_CHANGELOG.md)
 [![License](https://img.shields.io/badge/License-MIT-green)](LICENSE)
 [![Node](https://img.shields.io/badge/Node-%3E%3D%2018-brightgreen)](package.json)
 [![Platforms](https://img.shields.io/badge/Platforms-Win%20%7C%20macOS%20%7C%20Linux%20%7C%20Android%20%7C%20iOS-orange)](docs/CROSS_PLATFORM_COMPATIBILITY.md)
@@ -28,7 +28,7 @@ Find a tool you like? STEAL IT!!!
 [![CI](https://img.shields.io/badge/CI-Smoke%20Tests-yellow)](scripts/smoke-test.js)
 [![Tools](https://img.shields.io/badge/Tools-179%20Total-orange)](docs/general/TOOL_CATALOG.md)
 
-**Version 2.0 - Tool Consolidation & Enhanced Architecture** — Last edited 2025-01-27 (lol silly ai get's the dates wrong. Last updated 9/13/2025)
+**Version 2.0b - Default Enabled Token Obfuscation & Background Operation** — Last updated 2025-01-27
 
 ## Table of Contents
 - [What is MCP God Mode?](#-what-is-mcp-god-mode)
@@ -47,15 +47,15 @@ Find a tool you like? STEAL IT!!!
 | Modular Set     | 179   |
 | Minimal Profile | 15    |
 
-**🚀 Version 2.0 Highlights:**
-- **Enhanced Architecture** - Streamlined tool organization with improved performance
-- **Tool Consolidation** - 16 similar tools merged into 3 powerful enhanced tools
-- **100% Functionality Preserved** - All original capabilities maintained and enhanced
-- **Better Maintainability** - Simplified codebase with improved reliability
-- **New AI-Powered Tools** - Advanced AI integration with HackGPT, HexStrike AI, and Strix AI
-- **Competitive Intelligence** - Comprehensive competitor analysis and market research
-- **Enhanced Calculator** - Advanced mathematical operations with scientific computing
-- **PenTest++ Integration** - AI-augmented penetration testing framework
+**🚀 Version 2.0b Highlights:**
+- **🔒 Default Enabled Token Obfuscation** - Automatically starts and runs in background
+- **⚡ Background Operation** - Seamless token obfuscation without manual intervention
+- **🧠 Context-Aware Intelligence** - Adapts obfuscation based on AI platform and environment
+- **🔄 Auto-Platform Detection** - Automatically detects and configures for your AI service
+- **🛡️ Enhanced Security** - Advanced prompt injection defense and tool poisoning prevention
+- **🌐 Multi-Platform Support** - Works with Cursor, Claude, GPT, Codex, Co-Pilot, and MCP services
+- **📊 Real-Time Monitoring** - Continuous health checks and automatic error recovery
+- **🎯 Zero Configuration** - Works out of the box with intelligent defaults
 
 **🔄 Tool Consolidation:**
 - **Enhanced Calculator** - Combines basic arithmetic with advanced mathematical expressions, scientific computing, and statistical functions
