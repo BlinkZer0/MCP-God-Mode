@@ -4,16 +4,16 @@
 MCP God Mode is an advanced security and network analysis platform. Current counts (v2.0 - Consolidated Architecture):
 
 - **Comprehensive index + enhanced endpoints** exported in code
-- **168 total endpoints** across both servers (includes consolidated tools, MCP Web UI Bridge, and SpecOps tools)
-- **168 documented tools** in the wiki
-- **Configurable modular server** - can load minimal (10 tools), custom categories, or full (168 tools)
+- **176 total endpoints** across both servers (includes consolidated tools, MCP Web UI Bridge, and SpecOps tools)
+- **176 documented tools** in the wiki
+- **Configurable modular server** - can load minimal (10 tools), custom categories, or full (176 tools)
 
 This document provides detailed information about each tool, its capabilities, and use cases.
 
 ## Tool Count Summary
-- **Documented Tools**: 168
-- **Server-Refactored (total endpoints)**: 168
-- **Modular Server (total endpoints)**: 168 (configurable)
+- **Documented Tools**: 176
+- **Server-Refactored (total endpoints)**: 176
+- **Modular Server (total endpoints)**: 176 (configurable)
 - **Server-Minimal**: 15 tools
 - **SpecOps Tools**: 22 (new in v1.8d)
 - **RF Sense Tools**: 7 (new in v1.9 - through-wall detection)
@@ -298,14 +298,14 @@ Humor break: if the AI builds an enterprise integration hub and starts sending c
 
 ## Server Implementations
 
-### Server-Refactored (174 tools)
+### Server-Refactored (176 tools)
 - **Primary server** with all 119 exported tools
 - **11 additional tools** registered separately (5 enhanced + 6 MCP Web UI Bridge)
 - **10 SpecOps tools** for advanced security operations
 - **Full feature set** with legal compliance
 - **Production ready** with comprehensive error handling
 
-### Server-Modular (174 tools)
+### Server-Modular (176 tools)
 - **Modular architecture** with imported tools
 - **119 exported tools** from index
 - **11 additional tools** registered separately (5 enhanced + 6 MCP Web UI Bridge)

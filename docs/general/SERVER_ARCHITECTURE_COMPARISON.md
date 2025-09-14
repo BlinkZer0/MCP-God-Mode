@@ -7,14 +7,14 @@ MCP God Mode provides two distinct server architectures to serve different use c
 ## 🏗️ Server Architectures
 
 ### Monolithic Server (`server-refactored.js`)
-- **Tool Count**: 168 tools
+- **Tool Count**: 176 tools
 - **Architecture**: Single unified server file
 - **Approach**: Comprehensive tools with multiple actions/parameters
 - **File Size**: ~200KB
 - **Use Case**: Production environments, full-featured deployments
 
 ### Modular Server (`server-modular.js`)
-- **Tool Count**: 168 tools (configurable)
+- **Tool Count**: 176 tools (configurable)
 - **Architecture**: Dynamic tool loading from individual modules
 - **Approach**: Granular, specialized tools with configuration-based loading
 - **File Size**: ~3KB (plus individual tool modules)
@@ -22,7 +22,7 @@ MCP God Mode provides two distinct server architectures to serve different use c
 
 ## 🔍 Tool Count Analysis
 
-Both servers now have **identical tool counts (168 tools)**. The modular server adds configurability - it can be set to load minimal tools (10), specific categories, or all tools (168) based on user preference during installation.
+Both servers now have **identical tool counts (176 tools)**. The modular server adds configurability - it can be set to load minimal tools (10), specific categories, or all tools (176) based on user preference during installation.
 
 ### Enhanced Tools (Available in Both Servers)
 Both servers include enhanced tools that provide advanced functionality beyond the standard tools:
@@ -43,7 +43,7 @@ Both servers include enhanced tools that provide advanced functionality beyond t
 
 | Aspect | Monolithic Server | Modular Server |
 |--------|------------------|----------------|
-| **Tool Count** | 168 tools | 168 tools (configurable) |
+| **Tool Count** | 176 tools | 176 tools (configurable) |
 | **File Size** | ~200KB | ~3KB + modules |
 | **Loading Time** | Fast (single file) | Variable (based on configuration) |
 | **Memory Usage** | Higher (all tools loaded) | Configurable (minimal to full) |
@@ -59,7 +59,7 @@ Both servers include enhanced tools that provide advanced functionality beyond t
 
 ### Use Monolithic Server When:
 - ✅ **Production deployment** - Stable, tested environment
-- ✅ **Full functionality needed** - All 174 tools required
+- ✅ **Full functionality needed** - All 176 tools required
 - ✅ **Performance critical** - Fast loading and execution
 - ✅ **Simple deployment** - Single file distribution
 - ✅ **Standard use cases** - No need for customization
@@ -96,7 +96,7 @@ npm run install:modular -- --categories core,network,security
 - **Available Categories**: core, file_system, network, security, mobile, bluetooth, radio, media, email, cloud, forensics, penetration, utilities, web, wireless, system, process, legal, git, discovery, social, virtualization, windows, screenshot, enhanced
 - **Use Case**: Custom deployments, specific use cases
 
-#### 3. **Full Configuration** (174 tools)
+#### 3. **Full Configuration** (176 tools)
 ```bash
 npm run install:full
 ```

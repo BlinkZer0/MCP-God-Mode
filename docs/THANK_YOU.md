@@ -125,7 +125,7 @@ We are deeply grateful to the creators and maintainers of the **Model Context Pr
 
 **[📖 View Complete MCP Acknowledgment](MCP_ACKNOWLEDGMENT.md)** - Detailed recognition of MCP creators and their contributions
 
-The Model Context Protocol has been instrumental in enabling MCP God Mode to provide seamless AI integration across all 174 tools, making advanced cybersecurity and system management capabilities accessible through natural language interfaces.
+The Model Context Protocol has been instrumental in enabling MCP God Mode to provide seamless AI integration across all 176 tools, making advanced cybersecurity and system management capabilities accessible through natural language interfaces.
 
 ---
 
@@ -194,7 +194,7 @@ Special thanks to everyone who contributed to the RF Sense Through-Wall Detectio
 ## 🎉 **Community Achievements**
 
 ### **Project Milestones**
-- **174 Tools** - Comprehensive toolset across all platforms
+- **176 Tools** - Comprehensive toolset across all platforms
 - **Cross-Platform Support** - Windows, Linux, macOS, Android, iOS
 - **100% Open Source** - Transparent and auditable code
 - **Active Community** - Thousands of users worldwide

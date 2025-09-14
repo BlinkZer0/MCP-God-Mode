@@ -2,7 +2,7 @@
 
 Total tool endpoints (server-refactored): 139
 Additional tools in server-refactored.ts: 21
-Total tools: 160
+Total tools: 176
 
 Tool names (as registered):
 

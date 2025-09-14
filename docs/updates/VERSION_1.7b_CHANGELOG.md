@@ -6,15 +6,15 @@ Codename: Perfect Parity Refresh + Flipper Docs
 
 ## Highlights
 
-- Total tools updated to 170 across both primary servers (refactored and modular)
+- Total tools updated to 176 across both primary servers (refactored and modular)
 - Flipper Zero toolkit fully documented (24 tools) with cross-platform guidance
-- README and docs synced: badges, counts, and catalog reflect 174 tools
+- README and docs synced: badges, counts, and catalog reflect 176 tools
 - Fixed Tools badge link to point to `docs/general/TOOL_CATALOG.md`
 - Minor documentation cleanups and consistency improvements
 
 ## Details
 
-- Parity maintained: Refactored and Modular servers both register the same 174 tools
+- Parity maintained: Refactored and Modular servers both register the same 176 tools
 - Count breakdown (practical): 120 exported registrations + runtime suites
   - Flipper Zero tool suite (24 tools) via `dev/src/tools/flipper`
   - MCP Web UI Bridge tools (6 tools) via `mcp-web-ui-bridge`
@@ -31,9 +31,9 @@ Codename: Perfect Parity Refresh + Flipper Docs
 
 ## Documentation Updates
 
-- README updated for 1.7b with 174 tool count, corrected badge link, and Flipper docs link
+- README updated for 1.7b with 176 tool count, corrected badge link, and Flipper docs link
 - Tool Catalog (`docs/general/TOOL_CATALOG.md`) updated with current counts and parity notes
-- Tools overview (`docs/tools-README.md`) counts refreshed (120 exports, 170 endpoints)
+- Tools overview (`docs/tools-README.md`) counts refreshed (120 exports, 176 endpoints)
 - Category Index summary updated for 1.7b and date stamp
 
 ## Notes

@@ -195,7 +195,7 @@ This consolidated tool replaces the following 24 individual tools:
 
 1. **Simplified Interface**: Single tool with action-based parameters instead of 24 separate tools
 2. **Better Organization**: All Flipper Zero operations in one place
-3. **Reduced Tool Count**: Decreased from 174 to 147 total tools
+3. **Reduced Tool Count**: Decreased from 176 to 147 total tools
 4. **Consistent Parameters**: Unified parameter structure across all operations
 5. **Easier Discovery**: Users can see all available Flipper operations in one tool
 6. **Backward Compatibility**: Legacy function names still work for existing integrations
