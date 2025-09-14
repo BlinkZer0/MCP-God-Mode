@@ -1,0 +1,49 @@
+{
+  "platform": "Codex",
+  "description": "Configuration for Codex (GitHub Copilot) AI platform",
+  "proxy": {
+    "http": "http://localhost:8080",
+    "https": "http://localhost:8080"
+  },
+  "headers": {
+    "x-target-url": "https://api.github.com/copilot",
+    "x-obfuscation-enabled": "true",
+    "x-obfuscation-level": "moderate",
+    "github-version": "2023-07-07",
+    "User-Agent": "GitHub-Copilot/1.0 (Token Obfuscation Proxy)"
+  },
+  "environment": {
+    "HTTPS_PROXY": "http://localhost:8080",
+    "HTTP_PROXY": "http://localhost:8080",
+    "NO_PROXY": "localhost,127.0.0.1",
+    "GITHUB_PROXY": "http://localhost:8080"
+  },
+  "config_paths": {
+    "windows": "%USERPROFILE%\\.github\\copilot.json",
+    "macos": "~/.github/copilot.json",
+    "linux": "~/.github/copilot.json"
+  },
+  "environment_vars": [
+    "GITHUB_TOKEN",
+    "COPILOT_TOKEN"
+  ],
+  "endpoints": [
+    "https://api.github.com/copilot",
+    "https://copilot.github.com"
+  ],
+  "user_agent_patterns": [
+    "copilot",
+    "codex",
+    "github"
+  ],
+  "mcp_compatibility": {
+    "supported": true,
+    "mcp_version": "2024-11-05",
+    "features": [
+      "token_obfuscation",
+      "proxy_middleware",
+      "streaming_support",
+      "code_completion"
+    ]
+  }
+}

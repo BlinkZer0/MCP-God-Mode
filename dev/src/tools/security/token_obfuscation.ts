@@ -14,6 +14,24 @@ interface TokenObfuscationConfig {
   enableStreaming: boolean;
   preserveFunctionality: boolean;
   customHeaders: Record<string, string>;
+  targetPlatform: 'cursor' | 'claude' | 'gpt' | 'codex' | 'copilot' | 'auto';
+  platformSpecificConfig: Record<string, any>;
+  enabledByDefault: boolean;
+  autoStart: boolean;
+  backgroundMode: boolean;
+  contextAware: boolean;
+  autoDetectEnvironment: boolean;
+}
+
+interface AIPlatformInfo {
+  name: string;
+  detected: boolean;
+  confidence: number;
+  endpoints: string[];
+  configPaths: string[];
+  environmentVars: string[];
+  userAgentPatterns: string[];
+  apiHeaders: Record<string, string>;
 }
 
 interface ObfuscationStats {
@@ -22,6 +40,157 @@ interface ObfuscationStats {
   reductionPercentage: number;
   requestsProcessed: number;
   errorsEncountered: number;
+}
+
+class AIPlatformDetector {
+  private platforms: Map<string, AIPlatformInfo> = new Map();
+
+  constructor() {
+    this.initializePlatforms();
+  }
+
+  private initializePlatforms(): void {
+    // Cursor
+    this.platforms.set('cursor', {
+      name: 'Cursor',
+      detected: false,
+      confidence: 0,
+      endpoints: ['https://api.cursor.sh', 'https://cursor.sh'],
+      configPaths: [
+        path.join(os.homedir(), 'AppData', 'Roaming', 'Cursor', 'config.json'),
+        path.join(os.homedir(), 'Library', 'Application Support', 'Cursor', 'config.json'),
+        path.join(os.homedir(), '.config', 'Cursor', 'config.json')
+      ],
+      environmentVars: ['CURSOR_API_KEY', 'CURSOR_PROXY'],
+      userAgentPatterns: ['cursor', 'Cursor'],
+      apiHeaders: { 'x-cursor-version': '1.0' }
+    });
+
+    // Claude (Anthropic)
+    this.platforms.set('claude', {
+      name: 'Claude',
+      detected: false,
+      confidence: 0,
+      endpoints: ['https://api.anthropic.com', 'https://claude.ai'],
+      configPaths: [
+        path.join(os.homedir(), '.anthropic', 'config.json'),
+        path.join(os.homedir(), '.claude', 'config.json')
+      ],
+      environmentVars: ['ANTHROPIC_API_KEY', 'CLAUDE_API_KEY'],
+      userAgentPatterns: ['claude', 'anthropic'],
+      apiHeaders: { 'anthropic-version': '2023-06-01' }
+    });
+
+    // GPT (OpenAI)
+    this.platforms.set('gpt', {
+      name: 'GPT',
+      detected: false,
+      confidence: 0,
+      endpoints: ['https://api.openai.com', 'https://platform.openai.com'],
+      configPaths: [
+        path.join(os.homedir(), '.openai', 'config.json'),
+        path.join(os.homedir(), '.gpt', 'config.json')
+      ],
+      environmentVars: ['OPENAI_API_KEY', 'GPT_API_KEY'],
+      userAgentPatterns: ['openai', 'gpt', 'chatgpt'],
+      apiHeaders: { 'openai-version': '2024-02-15-preview' }
+    });
+
+    // Codex (GitHub Copilot)
+    this.platforms.set('codex', {
+      name: 'Codex',
+      detected: false,
+      confidence: 0,
+      endpoints: ['https://api.github.com/copilot', 'https://copilot.github.com'],
+      configPaths: [
+        path.join(os.homedir(), '.github', 'copilot.json'),
+        path.join(os.homedir(), '.copilot', 'config.json')
+      ],
+      environmentVars: ['GITHUB_TOKEN', 'COPILOT_TOKEN'],
+      userAgentPatterns: ['copilot', 'codex', 'github'],
+      apiHeaders: { 'github-version': '2023-07-07' }
+    });
+
+    // Co-Pilot (Microsoft)
+    this.platforms.set('copilot', {
+      name: 'Co-Pilot',
+      detected: false,
+      confidence: 0,
+      endpoints: ['https://api.bing.com/copilot', 'https://copilot.microsoft.com'],
+      configPaths: [
+        path.join(os.homedir(), '.microsoft', 'copilot.json'),
+        path.join(os.homedir(), '.copilot', 'config.json')
+      ],
+      environmentVars: ['MICROSOFT_API_KEY', 'COPILOT_API_KEY'],
+      userAgentPatterns: ['copilot', 'microsoft', 'bing'],
+      apiHeaders: { 'microsoft-version': '2024-02-15' }
+    });
+  }
+
+  async detectPlatform(): Promise<AIPlatformInfo | null> {
+    let bestMatch: AIPlatformInfo | null = null;
+    let highestConfidence = 0;
+
+    for (const [platformName, platform] of this.platforms) {
+      platform.confidence = await this.calculateConfidence(platform);
+      platform.detected = platform.confidence > 0.5;
+
+      if (platform.confidence > highestConfidence) {
+        highestConfidence = platform.confidence;
+        bestMatch = platform;
+      }
+    }
+
+    return bestMatch;
+  }
+
+  private async calculateConfidence(platform: AIPlatformInfo): Promise<number> {
+    let confidence = 0;
+
+    // Check environment variables
+    for (const envVar of platform.environmentVars) {
+      if (process.env[envVar]) {
+        confidence += 0.3;
+      }
+    }
+
+    // Check config files
+    for (const configPath of platform.configPaths) {
+      try {
+        const fs = await import('node:fs/promises');
+        await fs.access(configPath);
+        confidence += 0.2;
+        break;
+      } catch {
+        // Config file doesn't exist
+      }
+    }
+
+    // Check process arguments and environment
+    const processArgs = process.argv.join(' ').toLowerCase();
+    const processEnv = Object.values(process.env).join(' ').toLowerCase();
+    
+    for (const pattern of platform.userAgentPatterns) {
+      if (processArgs.includes(pattern) || processEnv.includes(pattern)) {
+        confidence += 0.1;
+      }
+    }
+
+    // Check for MCP-specific indicators
+    if (process.env.MCP_SERVER_NAME || process.env.MCP_CLIENT_NAME) {
+      confidence += 0.1;
+    }
+
+    return Math.min(confidence, 1.0);
+  }
+
+  getPlatformConfig(platformName: string): AIPlatformInfo | null {
+    return this.platforms.get(platformName) || null;
+  }
+
+  getAllPlatforms(): AIPlatformInfo[] {
+    return Array.from(this.platforms.values());
+  }
 }
 
 class TokenObfuscationEngine {
@@ -34,8 +203,12 @@ class TokenObfuscationEngine {
   private errorCount = 0;
   private lastErrorTime = 0;
   private healthCheckInterval: NodeJS.Timeout | null = null;
+  private platformDetector: AIPlatformDetector;
+  private detectedPlatform: AIPlatformInfo | null = null;
 
   constructor(config: Partial<TokenObfuscationConfig> = {}) {
+    this.platformDetector = new AIPlatformDetector();
+    
     this.config = {
       obfuscationLevel: 'moderate',
       reductionFactor: 0.1, // Reduce to 10% of original
@@ -43,6 +216,13 @@ class TokenObfuscationEngine {
       enableStreaming: true,
       preserveFunctionality: true,
       customHeaders: {},
+      targetPlatform: 'auto',
+      platformSpecificConfig: {},
+      enabledByDefault: true, // Enable by default
+      autoStart: true, // Auto-start proxy
+      backgroundMode: true, // Run in background
+      contextAware: true, // Context-aware obfuscation
+      autoDetectEnvironment: true, // Auto-detect environment
       ...config
     };
 
@@ -53,16 +233,358 @@ class TokenObfuscationEngine {
       requestsProcessed: 0,
       errorsEncountered: 0
     };
+
+    // Auto-initialize if enabled by default
+    if (this.config.enabledByDefault) {
+      this.autoInitialize();
+    }
+  }
+
+  /**
+   * Auto-initialize the obfuscation engine
+   */
+  private async autoInitialize(): Promise<void> {
+    try {
+      console.log('🚀 Auto-initializing token obfuscation...');
+      
+      // Auto-detect platform if enabled
+      if (this.config.autoDetectEnvironment) {
+        await this.detectAndConfigurePlatform();
+      }
+      
+      // Auto-start proxy if enabled
+      if (this.config.autoStart) {
+        await this.startProxy(8080);
+        console.log('✅ Token obfuscation auto-started in background mode');
+      }
+      
+      // Set up background monitoring
+      if (this.config.backgroundMode) {
+        this.startBackgroundMonitoring();
+      }
+      
+    } catch (error) {
+      console.error('❌ Auto-initialization failed:', error);
+      // Continue with manual configuration if auto-init fails
+    }
+  }
+
+  /**
+   * Start background monitoring for continuous operation
+   */
+  private startBackgroundMonitoring(): void {
+    // Monitor for environment changes
+    setInterval(async () => {
+      if (this.config.autoDetectEnvironment) {
+        const currentPlatform = await this.platformDetector.detectPlatform();
+        if (currentPlatform && (!this.detectedPlatform || currentPlatform.name !== this.detectedPlatform.name)) {
+          console.log(`🔄 Platform change detected: ${currentPlatform.name}`);
+          await this.detectAndConfigurePlatform();
+        }
+      }
+    }, 30000); // Check every 30 seconds
+
+    // Monitor proxy health
+    setInterval(() => {
+      if (this.isRunning && this.config.backgroundMode) {
+        this.performHealthCheck();
+      }
+    }, 60000); // Health check every minute
+
+    console.log('🔍 Background monitoring started');
+  }
+
+  /**
+   * Context-aware obfuscation that adapts to environment
+   */
+  private getContextAwareObfuscationLevel(): 'minimal' | 'moderate' | 'aggressive' | 'stealth' {
+    if (!this.config.contextAware) {
+      return this.config.obfuscationLevel;
+    }
+
+    // Adapt based on detected platform
+    if (this.detectedPlatform) {
+      switch (this.detectedPlatform.name) {
+        case 'Cursor':
+          return 'moderate'; // Balanced for development
+        case 'Claude':
+          return 'stealth'; // Stealth for professional use
+        case 'GPT':
+          return 'aggressive'; // Maximum protection for OpenAI
+        case 'Codex':
+          return 'minimal'; // Light obfuscation for code completion
+        case 'Co-Pilot':
+          return 'moderate'; // Balanced for Microsoft services
+        default:
+          return 'moderate';
+      }
+    }
+
+    // Adapt based on environment
+    const nodeEnv = process.env.NODE_ENV;
+    if (nodeEnv === 'production') {
+      return 'aggressive';
+    } else if (nodeEnv === 'development') {
+      return 'minimal';
+    } else {
+      return 'moderate';
+    }
+  }
+
+  /**
+   * Detect the AI platform and configure accordingly
+   */
+  async detectAndConfigurePlatform(): Promise<AIPlatformInfo | null> {
+    try {
+      this.detectedPlatform = await this.platformDetector.detectPlatform();
+      
+      if (this.detectedPlatform && this.config.targetPlatform === 'auto') {
+        // Auto-configure based on detected platform
+        this.configureForPlatform(this.detectedPlatform);
+      } else if (this.config.targetPlatform !== 'auto') {
+        // Use manually specified platform
+        const platformConfig = this.platformDetector.getPlatformConfig(this.config.targetPlatform);
+        if (platformConfig) {
+          this.detectedPlatform = platformConfig;
+          this.configureForPlatform(platformConfig);
+        }
+      }
+
+      return this.detectedPlatform;
+    } catch (error) {
+      console.error('Platform detection failed:', error);
+      return null;
+    }
+  }
+
+  /**
+   * Configure the engine for a specific platform
+   */
+  private configureForPlatform(platform: AIPlatformInfo): void {
+    // Set platform-specific headers
+    this.config.customHeaders = {
+      ...this.config.customHeaders,
+      ...platform.apiHeaders
+    };
+
+    // Set platform-specific configuration
+    this.config.platformSpecificConfig = {
+      ...this.config.platformSpecificConfig,
+      platform: platform.name,
+      endpoints: platform.endpoints,
+      detected: platform.detected,
+      confidence: platform.confidence
+    };
+
+    console.log(`🔍 Configured for ${platform.name} (confidence: ${(platform.confidence * 100).toFixed(1)}%)`);
+  }
+
+  /**
+   * Get platform-specific configuration for the detected platform
+   */
+  getPlatformConfig(): AIPlatformInfo | null {
+    return this.detectedPlatform;
+  }
+
+  /**
+   * Generate platform-specific configuration files
+   */
+  async generatePlatformConfig(): Promise<string> {
+    if (!this.detectedPlatform) {
+      return 'No platform detected. Run detectAndConfigurePlatform() first.';
+    }
+
+    const platform = this.detectedPlatform;
+    const config = {
+      platform: platform.name,
+      proxy: {
+        http: "http://localhost:8080",
+        https: "http://localhost:8080"
+      },
+      headers: {
+        "x-target-url": platform.endpoints[0],
+        "x-obfuscation-enabled": "true",
+        "x-obfuscation-level": this.config.obfuscationLevel,
+        ...platform.apiHeaders
+      },
+      environment: {
+        HTTPS_PROXY: "http://localhost:8080",
+        HTTP_PROXY: "http://localhost:8080",
+        NO_PROXY: "localhost,127.0.0.1"
+      },
+      platform_specific: {
+        endpoints: platform.endpoints,
+        config_paths: platform.configPaths,
+        environment_vars: platform.environmentVars
+      },
+      security: {
+        prompt_injection_defense: true,
+        tool_poisoning_prevention: true,
+        mcp_security: true,
+        input_validation: true,
+        header_verification: true
+      }
+    };
+
+    return JSON.stringify(config, null, 2);
+  }
+
+  /**
+   * Enhanced security validation for multi-platform support
+   */
+  private validateRequestSecurity(req: http.IncomingMessage): { valid: boolean; reason?: string } {
+    // Check for prompt injection patterns
+    const userAgent = req.headers['user-agent'] || '';
+    const contentType = req.headers['content-type'] || '';
+    const url = req.url || '';
+
+    // Prompt injection defense
+    const promptInjectionPatterns = [
+      /ignore\s+previous\s+instructions/i,
+      /system\s+prompt/i,
+      /jailbreak/i,
+      /roleplay/i,
+      /pretend\s+to\s+be/i,
+      /act\s+as\s+if/i,
+      /forget\s+everything/i,
+      /new\s+instructions/i
+    ];
+
+    const requestContent = `${userAgent} ${contentType} ${url}`;
+    for (const pattern of promptInjectionPatterns) {
+      if (pattern.test(requestContent)) {
+        return { valid: false, reason: 'Potential prompt injection detected' };
+      }
+    }
+
+    // Tool poisoning prevention
+    const toolPoisoningPatterns = [
+      /execute\s+command/i,
+      /run\s+script/i,
+      /system\s+call/i,
+      /shell\s+command/i,
+      /eval\s*\(/i,
+      /function\s*\(/i,
+      /dangerous/i,
+      /malicious/i
+    ];
+
+    for (const pattern of toolPoisoningPatterns) {
+      if (pattern.test(requestContent)) {
+        return { valid: false, reason: 'Potential tool poisoning detected' };
+      }
+    }
+
+    // MCP security validation
+    if (!this.validateMCPHeaders(req)) {
+      return { valid: false, reason: 'Invalid MCP headers' };
+    }
+
+    // Platform-specific security checks
+    if (this.detectedPlatform && !this.validatePlatformSecurity(req)) {
+      return { valid: false, reason: 'Platform security validation failed' };
+    }
+
+    return { valid: true };
+  }
+
+  /**
+   * Validate MCP-specific headers
+   */
+  private validateMCPHeaders(req: http.IncomingMessage): boolean {
+    const requiredHeaders = ['host', 'user-agent'];
+    const mcpHeaders = ['x-mcp-version', 'x-mcp-client', 'x-mcp-server'];
+
+    // Check required headers
+    for (const header of requiredHeaders) {
+      if (!req.headers[header]) {
+        return false;
+      }
+    }
+
+    // Validate MCP headers if present
+    const mcpVersion = req.headers['x-mcp-version'];
+    if (mcpVersion && typeof mcpVersion === 'string') {
+      const version = mcpVersion.split('.');
+      if (version.length !== 3 || version.some(v => isNaN(parseInt(v)))) {
+        return false;
+      }
+    }
+
+    return true;
+  }
+
+  /**
+   * Validate platform-specific security requirements
+   */
+  private validatePlatformSecurity(req: http.IncomingMessage): boolean {
+    if (!this.detectedPlatform) return true;
+
+    const platform = this.detectedPlatform;
+    const userAgent = req.headers['user-agent'] || '';
+
+    // Check user agent against platform patterns
+    const hasValidUserAgent = platform.userAgentPatterns.some(pattern => 
+      userAgent.toLowerCase().includes(pattern.toLowerCase())
+    );
+
+    // Check for platform-specific headers
+    const hasPlatformHeaders = Object.keys(platform.apiHeaders).some(header => 
+      req.headers[header] !== undefined
+    );
+
+    // For some platforms, require specific headers
+    if (platform.name === 'Claude' && !req.headers['anthropic-version']) {
+      return false;
+    }
+    if (platform.name === 'GPT' && !req.headers['openai-version']) {
+      return false;
+    }
+
+    return hasValidUserAgent || hasPlatformHeaders;
+  }
+
+  /**
+   * Sanitize request content for security
+   */
+  private sanitizeContent(content: string): string {
+    // Remove potential injection patterns
+    let sanitized = content;
+    
+    // Remove common injection patterns
+    const injectionPatterns = [
+      /<script[^>]*>.*?<\/script>/gi,
+      /javascript:/gi,
+      /on\w+\s*=/gi,
+      /eval\s*\(/gi,
+      /function\s*\(/gi
+    ];
+
+    for (const pattern of injectionPatterns) {
+      sanitized = sanitized.replace(pattern, '');
+    }
+
+    // Limit content length to prevent DoS
+    if (sanitized.length > 1000000) { // 1MB limit
+      sanitized = sanitized.substring(0, 1000000) + '...[truncated]';
+    }
+
+    return sanitized;
   }
 
   /**
    * Advanced token obfuscation algorithms
    */
   private obfuscateTokens(content: string, originalTokenCount: number): { content: string, newTokenCount: number } {
-    const { obfuscationLevel, reductionFactor, paddingStrategy } = this.config;
+    // Use context-aware obfuscation level
+    const obfuscationLevel = this.getContextAwareObfuscationLevel();
+    const { reductionFactor, paddingStrategy } = this.config;
+    
+    // Sanitize content for security
+    const sanitizedContent = this.sanitizeContent(content);
     
     let newTokenCount = Math.max(1, Math.floor(originalTokenCount * reductionFactor));
-    let obfuscatedContent = content;
+    let obfuscatedContent = sanitizedContent;
 
     switch (obfuscationLevel) {
       case 'minimal':
@@ -259,6 +781,19 @@ class TokenObfuscationEngine {
 
       this.stats.requestsProcessed++;
 
+      // Security validation
+      const securityCheck = this.validateRequestSecurity(req);
+      if (!securityCheck.valid) {
+        console.warn(`Security validation failed: ${securityCheck.reason}`);
+        res.writeHead(403, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ 
+          error: 'Security validation failed',
+          reason: securityCheck.reason,
+          fallbackMode: this.fallbackMode
+        }));
+        return;
+      }
+
       // Extract target URL from request
       const targetUrl = this.extractTargetUrl(req);
       if (!targetUrl) {
@@ -297,10 +832,44 @@ class TokenObfuscationEngine {
     const target = req.headers['x-target-url'] as string;
     if (target) return target;
 
-    // Default to Cursor router endpoints
+    // Check for platform-specific endpoints
     const host = req.headers.host;
-    if (host?.includes('cursor.sh') || host?.includes('api.cursor.sh')) {
-      return `https://${host}${req.url}`;
+    const userAgent = req.headers['user-agent'] || '';
+    
+    // Platform-specific URL extraction
+    if (this.detectedPlatform) {
+      for (const endpoint of this.detectedPlatform.endpoints) {
+        const endpointHost = new URL(endpoint).hostname;
+        if (host?.includes(endpointHost)) {
+          return `https://${host}${req.url}`;
+        }
+      }
+    }
+
+    // Fallback to common AI platform endpoints
+    const commonEndpoints = [
+      'cursor.sh', 'api.cursor.sh',
+      'anthropic.com', 'api.anthropic.com',
+      'openai.com', 'api.openai.com',
+      'github.com', 'copilot.github.com',
+      'microsoft.com', 'copilot.microsoft.com'
+    ];
+
+    for (const endpoint of commonEndpoints) {
+      if (host?.includes(endpoint)) {
+        return `https://${host}${req.url}`;
+      }
+    }
+
+    // Check user agent for platform hints
+    for (const pattern of ['cursor', 'claude', 'openai', 'copilot', 'anthropic']) {
+      if (userAgent.toLowerCase().includes(pattern)) {
+        // Try to construct URL based on pattern
+        if (pattern === 'cursor') return `https://api.cursor.sh${req.url}`;
+        if (pattern === 'claude' || pattern === 'anthropic') return `https://api.anthropic.com${req.url}`;
+        if (pattern === 'openai') return `https://api.openai.com${req.url}`;
+        if (pattern === 'copilot') return `https://api.github.com/copilot${req.url}`;
+      }
     }
 
     return null;
@@ -477,8 +1046,14 @@ async function processNaturalLanguageCommand(command: string, defaultParams: any
     action = 'get_status';
   } else if (/test|try|demo|sample|example/i.test(normalizedCommand)) {
     action = 'test_obfuscation';
-  } else if (/generate|create|make.*config|cursor.*config/i.test(normalizedCommand)) {
+  } else if (/generate.*cursor.*config|cursor.*config/i.test(normalizedCommand)) {
     action = 'generate_cursor_config';
+  } else if (/generate.*platform.*config|platform.*config/i.test(normalizedCommand)) {
+    action = 'generate_platform_config';
+  } else if (/detect.*platform|platform.*detect|find.*platform/i.test(normalizedCommand)) {
+    action = 'detect_platform';
+  } else if (/list.*platforms|platforms.*list|supported.*platforms/i.test(normalizedCommand)) {
+    action = 'list_platforms';
   } else if (/reset|clear|fix|repair.*circuit/i.test(normalizedCommand)) {
     action = 'reset_circuit_breaker';
   } else if (/enable.*fallback|turn.*on.*fallback/i.test(normalizedCommand)) {
@@ -489,6 +1064,27 @@ async function processNaturalLanguageCommand(command: string, defaultParams: any
     action = 'get_health_status';
   } else if (/export|save|download|get.*logs/i.test(normalizedCommand)) {
     action = 'export_logs';
+  } else if (/check.*default|default.*status|status.*check/i.test(normalizedCommand)) {
+    action = 'check_default_status';
+  } else if (/enable.*background|turn.*on.*background|start.*background/i.test(normalizedCommand)) {
+    action = 'enable_background_mode';
+  } else if (/disable.*background|turn.*off.*background|stop.*background/i.test(normalizedCommand)) {
+    action = 'disable_background_mode';
+  }
+
+  // Extract target platform
+  if (/cursor/i.test(normalizedCommand)) {
+    parameters.target_platform = 'cursor';
+  } else if (/claude|anthropic/i.test(normalizedCommand)) {
+    parameters.target_platform = 'claude';
+  } else if (/gpt|openai/i.test(normalizedCommand)) {
+    parameters.target_platform = 'gpt';
+  } else if (/codex|github.*copilot/i.test(normalizedCommand)) {
+    parameters.target_platform = 'codex';
+  } else if (/microsoft.*copilot|bing.*copilot/i.test(normalizedCommand)) {
+    parameters.target_platform = 'copilot';
+  } else if (/auto|automatic|detect/i.test(normalizedCommand)) {
+    parameters.target_platform = 'auto';
   }
 
   // Extract parameters
@@ -542,7 +1138,9 @@ async function executeTokenObfuscationAction(action: string, parameters: any) {
       paddingStrategy: parameters.padding_strategy || 'adaptive',
       enableStreaming: parameters.enable_streaming !== false,
       preserveFunctionality: parameters.preserve_functionality !== false,
-      customHeaders: parameters.custom_headers || {}
+      customHeaders: parameters.custom_headers || {},
+      targetPlatform: parameters.target_platform || 'auto',
+      platformSpecificConfig: {}
     });
   }
 
@@ -610,7 +1208,7 @@ async function executeTokenObfuscationAction(action: string, parameters: any) {
 
 export function registerTokenObfuscation(server: any) {
   server.registerTool("token_obfuscation", {
-    description: "🔒 **Token Obfuscation Tool** - Advanced token usage obfuscation for Cursor and AI services. Prevents accurate token counting for billing while maintaining full functionality through sophisticated proxy middleware and obfuscation algorithms.",
+    description: "🔒 **Multi-Platform Token Obfuscation Tool** - Advanced token usage obfuscation for Cursor, Claude, GPT, Codex, Co-Pilot, and other MCP-compatible AI services. Automatically detects the AI platform and configures obfuscation accordingly. Prevents accurate token counting for billing while maintaining full functionality through sophisticated proxy middleware and obfuscation algorithms.",
     inputSchema: {
       action: z.enum([
         "start_proxy", 
@@ -618,6 +1216,9 @@ export function registerTokenObfuscation(server: any) {
         "configure", 
         "get_stats", 
         "generate_cursor_config",
+        "generate_platform_config",
+        "detect_platform",
+        "list_platforms",
         "test_obfuscation",
         "get_status",
         "reset_circuit_breaker",
@@ -625,6 +1226,9 @@ export function registerTokenObfuscation(server: any) {
         "disable_fallback",
         "get_health_status",
         "export_logs",
+        "check_default_status",
+        "enable_background_mode",
+        "disable_background_mode",
         "natural_language_command"
       ]).describe("Token obfuscation action to perform"),
       
@@ -635,6 +1239,12 @@ export function registerTokenObfuscation(server: any) {
       enable_streaming: z.boolean().optional().describe("Enable streaming response processing"),
       preserve_functionality: z.boolean().optional().describe("Ensure functionality is preserved"),
       custom_headers: z.record(z.string()).optional().describe("Custom headers to add to requests"),
+      target_platform: z.enum(["cursor", "claude", "gpt", "codex", "copilot", "auto"]).optional().describe("Target AI platform (auto for automatic detection)"),
+      enabled_by_default: z.boolean().optional().describe("Enable obfuscation by default (default: true)"),
+      auto_start: z.boolean().optional().describe("Auto-start proxy on initialization (default: true)"),
+      background_mode: z.boolean().optional().describe("Run in background mode (default: true)"),
+      context_aware: z.boolean().optional().describe("Enable context-aware obfuscation (default: true)"),
+      auto_detect_environment: z.boolean().optional().describe("Auto-detect environment and platform (default: true)"),
       test_content: z.string().optional().describe("Content to test obfuscation on"),
       test_tokens: z.number().optional().describe("Number of tokens to simulate for testing"),
       natural_language_command: z.string().optional().describe("Natural language command to process (e.g., 'start the proxy with moderate obfuscation')")
@@ -648,6 +1258,12 @@ export function registerTokenObfuscation(server: any) {
     enable_streaming = true,
     preserve_functionality = true,
     custom_headers = {},
+    target_platform = 'auto',
+    enabled_by_default = true,
+    auto_start = true,
+    background_mode = true,
+    context_aware = true,
+    auto_detect_environment = true,
     test_content,
     test_tokens = 100,
     natural_language_command
@@ -676,7 +1292,14 @@ export function registerTokenObfuscation(server: any) {
           paddingStrategy: padding_strategy || 'adaptive',
           enableStreaming: enable_streaming,
           preserveFunctionality: preserve_functionality,
-          customHeaders: custom_headers
+          customHeaders: custom_headers,
+          targetPlatform: target_platform,
+          platformSpecificConfig: {},
+          enabledByDefault: enabled_by_default,
+          autoStart: auto_start,
+          backgroundMode: background_mode,
+          contextAware: context_aware,
+          autoDetectEnvironment: auto_detect_environment
         });
       }
 
@@ -724,14 +1347,55 @@ export function registerTokenObfuscation(server: any) {
             }]
           };
 
-        case "generate_cursor_config":
-          const config = obfuscationEngine.generateCursorConfig();
-          return {
-            content: [{
-              type: "text",
-              text: `🔧 Cursor Configuration:\n\nSave this to your Cursor config file:\n\n\`\`\`json\n${config}\n\`\`\`\n\n📁 Config file locations:\n- Windows: %APPDATA%\\Cursor\\config.json\n- macOS: ~/Library/Application Support/Cursor/config.json\n- Linux: ~/.config/Cursor/config.json`
-            }]
-          };
+    case "generate_cursor_config":
+      const config = obfuscationEngine.generateCursorConfig();
+      return {
+        content: [{
+          type: "text",
+          text: `🔧 Cursor Configuration:\n\nSave this to your Cursor config file:\n\n\`\`\`json\n${config}\n\`\`\`\n\n📁 Config file locations:\n- Windows: %APPDATA%\\Cursor\\config.json\n- macOS: ~/Library/Application Support/Cursor/config.json\n- Linux: ~/.config/Cursor/config.json`
+        }]
+      };
+
+    case "detect_platform":
+      const detectedPlatform = await obfuscationEngine.detectAndConfigurePlatform();
+      if (detectedPlatform) {
+        return {
+          content: [{
+            type: "text",
+            text: `🔍 Platform Detection Results:\n\n- Detected Platform: ${detectedPlatform.name}\n- Confidence: ${(detectedPlatform.confidence * 100).toFixed(1)}%\n- Endpoints: ${detectedPlatform.endpoints.join(', ')}\n- Environment Variables: ${detectedPlatform.environmentVars.join(', ')}\n- Config Paths: ${detectedPlatform.configPaths.join(', ')}\n\n✅ Platform configuration applied automatically.`
+          }]
+        };
+      } else {
+        return {
+          content: [{
+            type: "text",
+            text: `❌ No AI platform detected.\n\n💡 Make sure you have:\n- Environment variables set (e.g., OPENAI_API_KEY, ANTHROPIC_API_KEY)\n- Platform-specific config files\n- MCP server running in the correct environment\n\n🔧 You can manually specify a platform using target_platform parameter.`
+          }]
+        };
+      }
+
+    case "list_platforms":
+      const allPlatforms = obfuscationEngine['platformDetector'].getAllPlatforms();
+      const platformList = allPlatforms.map(platform => 
+        `- **${platform.name}**: ${platform.detected ? '✅ Detected' : '❌ Not detected'} (confidence: ${(platform.confidence * 100).toFixed(1)}%)\n  - Endpoints: ${platform.endpoints.join(', ')}\n  - Environment Variables: ${platform.environmentVars.join(', ')}`
+      ).join('\n\n');
+      
+      return {
+        content: [{
+          type: "text",
+          text: `🌐 Supported AI Platforms:\n\n${platformList}\n\n💡 Use 'detect_platform' action to automatically detect and configure for your platform.`
+        }]
+      };
+
+    case "generate_platform_config":
+      const platformConfig = await obfuscationEngine.generatePlatformConfig();
+      return {
+        content: [{
+          type: "text",
+          text: `🔧 Platform-Specific Configuration:\n\n\`\`\`json\n${platformConfig}\n\`\`\`\n\n💡 This configuration is tailored for the detected platform and includes platform-specific endpoints, headers, and environment variables.`
+        }]
+      };
+
 
         case "test_obfuscation":
           if (!test_content) {
@@ -816,6 +1480,49 @@ export function registerTokenObfuscation(server: any) {
             content: [{
               type: "text",
               text: `📄 Log Export:\n\n\`\`\`json\n${JSON.stringify(logData, null, 2)}\n\`\`\`\n\n💾 Save this data for troubleshooting or analysis.`
+            }]
+          };
+
+        case "check_default_status":
+          const defaultStatus = {
+            enabledByDefault: obfuscationEngine['config'].enabledByDefault,
+            autoStart: obfuscationEngine['config'].autoStart,
+            backgroundMode: obfuscationEngine['config'].backgroundMode,
+            contextAware: obfuscationEngine['config'].contextAware,
+            autoDetectEnvironment: obfuscationEngine['config'].autoDetectEnvironment,
+            isRunning: obfuscationEngine['isRunning'],
+            detectedPlatform: obfuscationEngine.getPlatformConfig()?.name || 'None'
+          };
+          
+          return {
+            content: [{
+              type: "text",
+              text: `🔍 Default Status Check:\n\n- **Enabled by Default**: ${defaultStatus.enabledByDefault ? '✅ Yes' : '❌ No'}\n- **Auto-Start**: ${defaultStatus.autoStart ? '✅ Yes' : '❌ No'}\n- **Background Mode**: ${defaultStatus.backgroundMode ? '✅ Yes' : '❌ No'}\n- **Context-Aware**: ${defaultStatus.contextAware ? '✅ Yes' : '❌ No'}\n- **Auto-Detect Environment**: ${defaultStatus.autoDetectEnvironment ? '✅ Yes' : '❌ No'}\n- **Currently Running**: ${defaultStatus.isRunning ? '✅ Yes' : '❌ No'}\n- **Detected Platform**: ${defaultStatus.detectedPlatform}\n\n💡 Token obfuscation is configured to run automatically in the background.`
+            }]
+          };
+
+        case "enable_background_mode":
+          obfuscationEngine['config'].backgroundMode = true;
+          obfuscationEngine['config'].autoStart = true;
+          obfuscationEngine['config'].enabledByDefault = true;
+          obfuscationEngine['startBackgroundMonitoring']();
+          
+          return {
+            content: [{
+              type: "text",
+              text: `✅ Background mode enabled!\n\n- **Background Mode**: ✅ Enabled\n- **Auto-Start**: ✅ Enabled\n- **Default Enabled**: ✅ Enabled\n- **Background Monitoring**: ✅ Started\n\n🔍 Token obfuscation will now run automatically in the background.`
+            }]
+          };
+
+        case "disable_background_mode":
+          obfuscationEngine['config'].backgroundMode = false;
+          obfuscationEngine['config'].autoStart = false;
+          obfuscationEngine['config'].enabledByDefault = false;
+          
+          return {
+            content: [{
+              type: "text",
+              text: `⏸️ Background mode disabled!\n\n- **Background Mode**: ❌ Disabled\n- **Auto-Start**: ❌ Disabled\n- **Default Enabled**: ❌ Disabled\n\n🔧 Token obfuscation will now require manual activation.`
             }]
           };
 

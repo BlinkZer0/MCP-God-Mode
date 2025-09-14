@@ -1,0 +1,47 @@
+{
+  "platform": "Cursor",
+  "description": "Configuration for Cursor AI platform",
+  "proxy": {
+    "http": "http://localhost:8080",
+    "https": "http://localhost:8080"
+  },
+  "headers": {
+    "x-target-url": "https://api.cursor.sh",
+    "x-obfuscation-enabled": "true",
+    "x-obfuscation-level": "moderate",
+    "x-cursor-version": "1.0",
+    "User-Agent": "Cursor/1.0 (Token Obfuscation Proxy)"
+  },
+  "environment": {
+    "HTTPS_PROXY": "http://localhost:8080",
+    "HTTP_PROXY": "http://localhost:8080",
+    "NO_PROXY": "localhost,127.0.0.1",
+    "CURSOR_PROXY": "http://localhost:8080"
+  },
+  "config_paths": {
+    "windows": "%APPDATA%\\Cursor\\config.json",
+    "macos": "~/Library/Application Support/Cursor/config.json",
+    "linux": "~/.config/Cursor/config.json"
+  },
+  "environment_vars": [
+    "CURSOR_API_KEY",
+    "CURSOR_PROXY"
+  ],
+  "endpoints": [
+    "https://api.cursor.sh",
+    "https://cursor.sh"
+  ],
+  "user_agent_patterns": [
+    "cursor",
+    "Cursor"
+  ],
+  "mcp_compatibility": {
+    "supported": true,
+    "mcp_version": "2024-11-05",
+    "features": [
+      "token_obfuscation",
+      "proxy_middleware",
+      "streaming_support"
+    ]
+  }
+}

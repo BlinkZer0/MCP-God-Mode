@@ -2,7 +2,7 @@
 
 ## Overview
 
-The Token Obfuscation Tool is a sophisticated MCP tool that prevents accurate token counting for billing while maintaining full functionality with AI services. It uses advanced proxy middleware and obfuscation algorithms to intercept and modify token usage data.
+The Token Obfuscation Tool is a sophisticated MCP tool that prevents accurate token counting for billing while maintaining full functionality with AI services. **The tool is enabled by default and runs automatically in the background**, providing seamless token obfuscation without manual intervention. It automatically detects and supports multiple AI platforms including Cursor, Claude, GPT, Codex, Co-Pilot, and other MCP-compatible services. The tool uses advanced proxy middleware and obfuscation algorithms to intercept and modify token usage data across all supported platforms.
 
 ## ⚠️ Important Legal Notice
 
@@ -10,23 +10,60 @@ The Token Obfuscation Tool is a sophisticated MCP tool that prevents accurate to
 
 ## Features
 
-- **Advanced Obfuscation Algorithms**: Multiple levels of token manipulation
-- **Proxy Middleware**: Intercepts Cursor requests transparently
-- **Streaming Support**: Real-time response processing
-- **Configurable Levels**: From minimal to aggressive obfuscation
-- **Statistics Tracking**: Monitor token savings and usage
-- **Cross-Platform**: Works on Windows, macOS, and Linux
+- **🚀 Enabled by Default**: Automatically starts and runs in the background without manual intervention
+- **🔄 Auto-Start**: Automatically detects your AI platform and starts obfuscation
+- **🌐 Multi-Platform Support**: Automatically detects and works with Cursor, Claude, GPT, Codex, Co-Pilot, and other MCP-compatible AI services
+- **🧠 Context-Aware**: Adapts obfuscation level based on detected platform and environment
+- **⚡ Background Operation**: Runs continuously in the background with automatic monitoring
+- **🔒 Advanced Obfuscation Algorithms**: Multiple levels of token manipulation
+- **🌊 Proxy Middleware**: Intercepts AI service requests transparently
+- **📡 Streaming Support**: Real-time response processing
+- **⚙️ Configurable Levels**: From minimal to aggressive obfuscation
+- **📊 Statistics Tracking**: Monitor token savings and usage
+- **🖥️ Cross-Platform**: Works on Windows, macOS, and Linux
+- **🔗 MCP Compatibility**: Full Model Context Protocol support
+- **🛡️ Security Features**: Prompt injection defense, tool poisoning prevention, and input validation
+
+## Default Behavior
+
+**The token obfuscation tool is enabled by default and runs automatically in the background.** When you start MCP God Mode, the tool will:
+
+1. **Auto-detect your AI platform** (Cursor, Claude, GPT, etc.)
+2. **Auto-start the proxy** on port 8080
+3. **Begin obfuscating tokens** in the background
+4. **Monitor for platform changes** and adapt accordingly
+5. **Provide context-aware obfuscation** based on your environment
+
+### Check Default Status
+
+```bash
+# Check if obfuscation is running by default
+mcp_mcp-god-mode_token_obfuscation --action check_default_status
+```
 
 ## Quick Start
 
-### 1. Start the Token Obfuscation Proxy
+### 1. Verify Auto-Detection
 
 ```bash
-# Using MCP God Mode
-mcp_mcp-god-mode_token_obfuscation --action start_proxy --proxy_port 8080
+# Check what platform was detected
+mcp_mcp-god-mode_token_obfuscation --action detect_platform
+
+# List all supported platforms
+mcp_mcp-god-mode_token_obfuscation --action list_platforms
 ```
 
-### 2. Configure Cursor
+### 2. Start the Token Obfuscation Proxy
+
+```bash
+# Using MCP God Mode with auto-detection
+mcp_mcp-god-mode_token_obfuscation --action start_proxy --proxy_port 8080 --target_platform auto
+
+# Or specify a platform manually
+mcp_mcp-god-mode_token_obfuscation --action start_proxy --proxy_port 8080 --target_platform cursor
+```
+
+### 3. Configure Your AI Platform
 
 #### Option A: Environment Variables (Recommended)
 ```bash
@@ -43,11 +80,51 @@ export HTTPS_PROXY=http://localhost:8080
 export HTTP_PROXY=http://localhost:8080
 ```
 
-#### Option B: Cursor Configuration File
+#### Platform-Specific Configuration
 
-**Windows**: `%APPDATA%\Cursor\config.json`
-**macOS**: `~/Library/Application Support/Cursor/config.json`
-**Linux**: `~/.config/Cursor/config.json`
+**Cursor:**
+```bash
+export CURSOR_PROXY=http://localhost:8080
+```
+
+**Claude (Anthropic):**
+```bash
+export ANTHROPIC_PROXY=http://localhost:8080
+```
+
+**GPT (OpenAI):**
+```bash
+export OPENAI_PROXY=http://localhost:8080
+```
+
+**GitHub Copilot:**
+```bash
+export GITHUB_PROXY=http://localhost:8080
+```
+
+**Microsoft Copilot:**
+```bash
+export MICROSOFT_PROXY=http://localhost:8080
+```
+
+#### Option B: Platform Configuration Files
+
+**Cursor:**
+- Windows: `%APPDATA%\Cursor\config.json`
+- macOS: `~/Library/Application Support/Cursor/config.json`
+- Linux: `~/.config/Cursor/config.json`
+
+**Claude (Anthropic):**
+- All platforms: `~/.anthropic/config.json`
+
+**GPT (OpenAI):**
+- All platforms: `~/.openai/config.json`
+
+**GitHub Copilot:**
+- All platforms: `~/.github/copilot.json`
+
+**Microsoft Copilot:**
+- All platforms: `~/.microsoft/copilot.json`
 
 ```json
 {
@@ -61,7 +138,73 @@ export HTTP_PROXY=http://localhost:8080
 }
 ```
 
+## Background Mode Management
+
+### Enable/Disable Background Mode
+
+```bash
+# Enable background mode (default behavior)
+mcp_mcp-god-mode_token_obfuscation --action enable_background_mode
+
+# Disable background mode (manual control)
+mcp_mcp-god-mode_token_obfuscation --action disable_background_mode
+
+# Check current background mode status
+mcp_mcp-god-mode_token_obfuscation --action check_default_status
+```
+
+### Background Mode Features
+
+- **Automatic Platform Detection**: Continuously monitors for platform changes
+- **Health Monitoring**: Regular health checks and error recovery
+- **Context-Aware Adaptation**: Adjusts obfuscation based on environment
+- **Seamless Operation**: Runs without user intervention
+- **Auto-Recovery**: Automatically recovers from errors and restarts
+
+## Natural Language Commands
+
+The tool supports natural language processing for intuitive control across all platforms:
+
+```bash
+# Platform detection
+mcp_mcp-god-mode_token_obfuscation --action natural_language_command --natural_language_command "detect which AI platform I'm using"
+
+# Background mode control
+mcp_mcp-god-mode_token_obfuscation --action natural_language_command --natural_language_command "enable background mode"
+mcp_mcp-god-mode_token_obfuscation --action natural_language_command --natural_language_command "check default status"
+
+# Start proxy with platform-specific commands
+mcp_mcp-god-mode_token_obfuscation --action natural_language_command --natural_language_command "start token obfuscation for Claude with moderate settings"
+
+# Configure with natural language
+mcp_mcp-god-mode_token_obfuscation --action natural_language_command --natural_language_command "configure aggressive obfuscation for GPT with 5% reduction"
+
+# Generate platform-specific configuration
+mcp_mcp-god-mode_token_obfuscation --action natural_language_command --natural_language_command "generate configuration for Cursor platform"
+
+# Test with natural language
+mcp_mcp-god-mode_token_obfuscation --action natural_language_command --natural_language_command "test obfuscation with 100 tokens"
+```
+
 ## Configuration Options
+
+### Context-Aware Obfuscation
+
+The tool automatically adapts obfuscation levels based on your environment:
+
+| Platform | Default Level | Reason |
+|----------|---------------|---------|
+| **Cursor** | Moderate | Balanced for development |
+| **Claude** | Stealth | Professional use |
+| **GPT** | Aggressive | Maximum protection |
+| **Codex** | Minimal | Light for code completion |
+| **Co-Pilot** | Moderate | Balanced for Microsoft services |
+
+### Environment-Based Adaptation
+
+- **Production**: Aggressive obfuscation
+- **Development**: Minimal obfuscation  
+- **Testing**: Moderate obfuscation
 
 ### Obfuscation Levels
 
@@ -116,21 +259,51 @@ mcp_mcp-god-mode_token_obfuscation --action get_status
 mcp_mcp-god-mode_token_obfuscation --action generate_cursor_config
 ```
 
+## MCP Compatibility
+
+### Supported Platforms
+
+| Platform | MCP Support | Auto-Detection | Configuration |
+|----------|-------------|----------------|---------------|
+| Cursor | ✅ Full | ✅ Yes | `cursor.json` |
+| Claude | ✅ Full | ✅ Yes | `claude.json` |
+| GPT | ✅ Full | ✅ Yes | `gpt.json` |
+| Codex | ✅ Full | ✅ Yes | `codex.json` |
+| Co-Pilot | ✅ Full | ✅ Yes | `copilot.json` |
+
+### MCP Security Features
+
+- **Prompt Injection Defense**: Detects and blocks prompt injection attempts
+- **Tool Poisoning Prevention**: Prevents malicious tool descriptions
+- **Input Validation**: Validates all incoming requests
+- **Header Verification**: Ensures proper MCP headers
+- **Content Sanitization**: Removes potentially harmful content
+
 ## Troubleshooting
 
 ### Common Issues
 
-1. **Proxy Not Starting**
+1. **Platform Not Detected**
+   - Check environment variables are set (e.g., `OPENAI_API_KEY`, `ANTHROPIC_API_KEY`)
+   - Verify platform-specific config files exist
+   - Use manual platform selection: `--target_platform cursor`
+
+2. **Proxy Not Starting**
    - Check if port 8080 is available
    - Try a different port: `--proxy_port 8081`
    - Ensure no firewall blocking
 
-2. **Cursor Not Using Proxy**
+3. **AI Service Not Using Proxy**
    - Verify environment variables are set
-   - Check Cursor configuration file
-   - Restart Cursor after configuration changes
+   - Check platform-specific configuration file
+   - Restart AI service after configuration changes
 
-3. **Functionality Issues**
+4. **Security Validation Failed**
+   - Check request headers and content
+   - Verify MCP headers are present
+   - Review security logs for details
+
+5. **Functionality Issues**
    - Enable `preserve_functionality` mode
    - Reduce obfuscation level to `minimal`
    - Check error logs in statistics

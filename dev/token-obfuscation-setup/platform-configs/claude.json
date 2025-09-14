@@ -1,0 +1,48 @@
+{
+  "platform": "Claude",
+  "description": "Configuration for Claude (Anthropic) AI platform",
+  "proxy": {
+    "http": "http://localhost:8080",
+    "https": "http://localhost:8080"
+  },
+  "headers": {
+    "x-target-url": "https://api.anthropic.com",
+    "x-obfuscation-enabled": "true",
+    "x-obfuscation-level": "moderate",
+    "anthropic-version": "2023-06-01",
+    "User-Agent": "Claude/1.0 (Token Obfuscation Proxy)"
+  },
+  "environment": {
+    "HTTPS_PROXY": "http://localhost:8080",
+    "HTTP_PROXY": "http://localhost:8080",
+    "NO_PROXY": "localhost,127.0.0.1",
+    "ANTHROPIC_PROXY": "http://localhost:8080"
+  },
+  "config_paths": {
+    "windows": "%USERPROFILE%\\.anthropic\\config.json",
+    "macos": "~/.anthropic/config.json",
+    "linux": "~/.anthropic/config.json"
+  },
+  "environment_vars": [
+    "ANTHROPIC_API_KEY",
+    "CLAUDE_API_KEY"
+  ],
+  "endpoints": [
+    "https://api.anthropic.com",
+    "https://claude.ai"
+  ],
+  "user_agent_patterns": [
+    "claude",
+    "anthropic"
+  ],
+  "mcp_compatibility": {
+    "supported": true,
+    "mcp_version": "2024-11-05",
+    "features": [
+      "token_obfuscation",
+      "proxy_middleware",
+      "streaming_support",
+      "message_formatting"
+    ]
+  }
+}
