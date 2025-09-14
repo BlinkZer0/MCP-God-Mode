@@ -1,0 +1,75 @@
+{
+  "timestamp": "2025-09-14T23:30:11.340Z",
+  "duration": 430,
+  "summary": {
+    "total": 19,
+    "passed": 8,
+    "failed": 11,
+    "successRate": 42.10526315789473
+  },
+  "errors": [
+    {
+      "test": "Engine Initialization",
+      "message": "Process exited with code 1: node:internal/modules/esm/resolve:274\r\n    throw new ERR_MODULE_NOT_FOUND(\r\n          ^\r\n\r\nError [ERR_MODULE_NOT_FOUND]: Cannot find module 'E:\\GitHub Projects\\MCP-God-Mode\\dev\\tools\\security\\token_obfuscation.js' imported from E:\\GitHub Projects\\MCP-God-Mode\\dev\\temp-test-script.js\r\n    at finalizeResolution (node:internal/modules/esm/resolve:274:11)\r\n    at moduleResolve (node:internal/modules/esm/resolve:859:10)\r\n    at defaultResolve (node:internal/modules/esm/resolve:983:11)\r\n    at ModuleLoader.defaultResolve (node:internal/modules/esm/loader:783:12)\r\n    at #cachedDefaultResolve (node:internal/modules/esm/loader:707:25)\r\n    at ModuleLoader.resolve (node:internal/modules/esm/loader:690:38)\r\n    at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:307:38)\r\n    at ModuleJob._link (node:internal/modules/esm/module_job:183:49) {\r\n  code: 'ERR_MODULE_NOT_FOUND',\r\n  url: 'file:///E:/GitHub%20Projects/MCP-God-Mode/dev/tools/security/token_obfuscation.js'\r\n}\r\n\r\nNode.js v22.18.0\r\n"
+    },
+    {
+      "test": "Platform Detection",
+      "message": "Process exited with code 1: node:internal/modules/esm/resolve:274\r\n    throw new ERR_MODULE_NOT_FOUND(\r\n          ^\r\n\r\nError [ERR_MODULE_NOT_FOUND]: Cannot find module 'E:\\GitHub Projects\\MCP-God-Mode\\dev\\tools\\security\\token_obfuscation.js' imported from E:\\GitHub Projects\\MCP-God-Mode\\dev\\temp-test-script.js\r\n    at finalizeResolution (node:internal/modules/esm/resolve:274:11)\r\n    at moduleResolve (node:internal/modules/esm/resolve:859:10)\r\n    at defaultResolve (node:internal/modules/esm/resolve:983:11)\r\n    at ModuleLoader.defaultResolve (node:internal/modules/esm/loader:783:12)\r\n    at #cachedDefaultResolve (node:internal/modules/esm/loader:707:25)\r\n    at ModuleLoader.resolve (node:internal/modules/esm/loader:690:38)\r\n    at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:307:38)\r\n    at ModuleJob._link (node:internal/modules/esm/module_job:183:49) {\r\n  code: 'ERR_MODULE_NOT_FOUND',\r\n  url: 'file:///E:/GitHub%20Projects/MCP-God-Mode/dev/tools/security/token_obfuscation.js'\r\n}\r\n\r\nNode.js v22.18.0\r\n"
+    },
+    {
+      "test": "Platform Listing",
+      "message": "Process exited with code 1: node:internal/modules/esm/resolve:274\r\n    throw new ERR_MODULE_NOT_FOUND(\r\n          ^\r\n\r\nError [ERR_MODULE_NOT_FOUND]: Cannot find module 'E:\\GitHub Projects\\MCP-God-Mode\\dev\\tools\\security\\token_obfuscation.js' imported from E:\\GitHub Projects\\MCP-God-Mode\\dev\\temp-test-script.js\r\n    at finalizeResolution (node:internal/modules/esm/resolve:274:11)\r\n    at moduleResolve (node:internal/modules/esm/resolve:859:10)\r\n    at defaultResolve (node:internal/modules/esm/resolve:983:11)\r\n    at ModuleLoader.defaultResolve (node:internal/modules/esm/loader:783:12)\r\n    at #cachedDefaultResolve (node:internal/modules/esm/loader:707:25)\r\n    at ModuleLoader.resolve (node:internal/modules/esm/loader:690:38)\r\n    at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:307:38)\r\n    at ModuleJob._link (node:internal/modules/esm/module_job:183:49) {\r\n  code: 'ERR_MODULE_NOT_FOUND',\r\n  url: 'file:///E:/GitHub%20Projects/MCP-God-Mode/dev/tools/security/token_obfuscation.js'\r\n}\r\n\r\nNode.js v22.18.0\r\n"
+    },
+    {
+      "test": "Obfuscation Testing",
+      "message": "Process exited with code 1: node:internal/modules/esm/resolve:274\r\n    throw new ERR_MODULE_NOT_FOUND(\r\n          ^\r\n\r\nError [ERR_MODULE_NOT_FOUND]: Cannot find module 'E:\\GitHub Projects\\MCP-God-Mode\\dev\\tools\\security\\token_obfuscation.js' imported from E:\\GitHub Projects\\MCP-God-Mode\\dev\\temp-test-script.js\r\n    at finalizeResolution (node:internal/modules/esm/resolve:274:11)\r\n    at moduleResolve (node:internal/modules/esm/resolve:859:10)\r\n    at defaultResolve (node:internal/modules/esm/resolve:983:11)\r\n    at ModuleLoader.defaultResolve (node:internal/modules/esm/loader:783:12)\r\n    at #cachedDefaultResolve (node:internal/modules/esm/loader:707:25)\r\n    at ModuleLoader.resolve (node:internal/modules/esm/loader:690:38)\r\n    at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:307:38)\r\n    at ModuleJob._link (node:internal/modules/esm/module_job:183:49) {\r\n  code: 'ERR_MODULE_NOT_FOUND',\r\n  url: 'file:///E:/GitHub%20Projects/MCP-God-Mode/dev/tools/security/token_obfuscation.js'\r\n}\r\n\r\nNode.js v22.18.0\r\n"
+    },
+    {
+      "test": "Configuration Generation",
+      "message": "Process exited with code 1: node:internal/modules/esm/resolve:274\r\n    throw new ERR_MODULE_NOT_FOUND(\r\n          ^\r\n\r\nError [ERR_MODULE_NOT_FOUND]: Cannot find module 'E:\\GitHub Projects\\MCP-God-Mode\\dev\\tools\\security\\token_obfuscation.js' imported from E:\\GitHub Projects\\MCP-God-Mode\\dev\\temp-test-script.js\r\n    at finalizeResolution (node:internal/modules/esm/resolve:274:11)\r\n    at moduleResolve (node:internal/modules/esm/resolve:859:10)\r\n    at defaultResolve (node:internal/modules/esm/resolve:983:11)\r\n    at ModuleLoader.defaultResolve (node:internal/modules/esm/loader:783:12)\r\n    at #cachedDefaultResolve (node:internal/modules/esm/loader:707:25)\r\n    at ModuleLoader.resolve (node:internal/modules/esm/loader:690:38)\r\n    at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:307:38)\r\n    at ModuleJob._link (node:internal/modules/esm/module_job:183:49) {\r\n  code: 'ERR_MODULE_NOT_FOUND',\r\n  url: 'file:///E:/GitHub%20Projects/MCP-God-Mode/dev/tools/security/token_obfuscation.js'\r\n}\r\n\r\nNode.js v22.18.0\r\n"
+    },
+    {
+      "test": "Natural Language Processing",
+      "message": "Process exited with code 1: node:internal/modules/esm/resolve:274\r\n    throw new ERR_MODULE_NOT_FOUND(\r\n          ^\r\n\r\nError [ERR_MODULE_NOT_FOUND]: Cannot find module 'E:\\GitHub Projects\\MCP-God-Mode\\dev\\tools\\security\\token_obfuscation.js' imported from E:\\GitHub Projects\\MCP-God-Mode\\dev\\temp-test-script.js\r\n    at finalizeResolution (node:internal/modules/esm/resolve:274:11)\r\n    at moduleResolve (node:internal/modules/esm/resolve:859:10)\r\n    at defaultResolve (node:internal/modules/esm/resolve:983:11)\r\n    at ModuleLoader.defaultResolve (node:internal/modules/esm/loader:783:12)\r\n    at #cachedDefaultResolve (node:internal/modules/esm/loader:707:25)\r\n    at ModuleLoader.resolve (node:internal/modules/esm/loader:690:38)\r\n    at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:307:38)\r\n    at ModuleJob._link (node:internal/modules/esm/module_job:183:49) {\r\n  code: 'ERR_MODULE_NOT_FOUND',\r\n  url: 'file:///E:/GitHub%20Projects/MCP-God-Mode/dev/tools/security/token_obfuscation.js'\r\n}\r\n\r\nNode.js v22.18.0\r\n"
+    },
+    {
+      "test": "Statistics and Health",
+      "message": "Process exited with code 1: node:internal/modules/esm/resolve:274\r\n    throw new ERR_MODULE_NOT_FOUND(\r\n          ^\r\n\r\nError [ERR_MODULE_NOT_FOUND]: Cannot find module 'E:\\GitHub Projects\\MCP-God-Mode\\dev\\tools\\security\\token_obfuscation.js' imported from E:\\GitHub Projects\\MCP-God-Mode\\dev\\temp-test-script.js\r\n    at finalizeResolution (node:internal/modules/esm/resolve:274:11)\r\n    at moduleResolve (node:internal/modules/esm/resolve:859:10)\r\n    at defaultResolve (node:internal/modules/esm/resolve:983:11)\r\n    at ModuleLoader.defaultResolve (node:internal/modules/esm/loader:783:12)\r\n    at #cachedDefaultResolve (node:internal/modules/esm/loader:707:25)\r\n    at ModuleLoader.resolve (node:internal/modules/esm/loader:690:38)\r\n    at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:307:38)\r\n    at ModuleJob._link (node:internal/modules/esm/module_job:183:49) {\r\n  code: 'ERR_MODULE_NOT_FOUND',\r\n  url: 'file:///E:/GitHub%20Projects/MCP-God-Mode/dev/tools/security/token_obfuscation.js'\r\n}\r\n\r\nNode.js v22.18.0\r\n"
+    },
+    {
+      "test": "Default Status Check",
+      "message": "Process exited with code 1: node:internal/modules/esm/resolve:274\r\n    throw new ERR_MODULE_NOT_FOUND(\r\n          ^\r\n\r\nError [ERR_MODULE_NOT_FOUND]: Cannot find module 'E:\\GitHub Projects\\MCP-God-Mode\\dev\\tools\\security\\token_obfuscation.js' imported from E:\\GitHub Projects\\MCP-God-Mode\\dev\\temp-test-script.js\r\n    at finalizeResolution (node:internal/modules/esm/resolve:274:11)\r\n    at moduleResolve (node:internal/modules/esm/resolve:859:10)\r\n    at defaultResolve (node:internal/modules/esm/resolve:983:11)\r\n    at ModuleLoader.defaultResolve (node:internal/modules/esm/loader:783:12)\r\n    at #cachedDefaultResolve (node:internal/modules/esm/loader:707:25)\r\n    at ModuleLoader.resolve (node:internal/modules/esm/loader:690:38)\r\n    at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:307:38)\r\n    at ModuleJob._link (node:internal/modules/esm/module_job:183:49) {\r\n  code: 'ERR_MODULE_NOT_FOUND',\r\n  url: 'file:///E:/GitHub%20Projects/MCP-God-Mode/dev/tools/security/token_obfuscation.js'\r\n}\r\n\r\nNode.js v22.18.0\r\n"
+    },
+    {
+      "test": "Circuit Breaker and Fallback",
+      "message": "Process exited with code 1: node:internal/modules/esm/resolve:274\r\n    throw new ERR_MODULE_NOT_FOUND(\r\n          ^\r\n\r\nError [ERR_MODULE_NOT_FOUND]: Cannot find module 'E:\\GitHub Projects\\MCP-God-Mode\\dev\\tools\\security\\token_obfuscation.js' imported from E:\\GitHub Projects\\MCP-God-Mode\\dev\\temp-test-script.js\r\n    at finalizeResolution (node:internal/modules/esm/resolve:274:11)\r\n    at moduleResolve (node:internal/modules/esm/resolve:859:10)\r\n    at defaultResolve (node:internal/modules/esm/resolve:983:11)\r\n    at ModuleLoader.defaultResolve (node:internal/modules/esm/loader:783:12)\r\n    at #cachedDefaultResolve (node:internal/modules/esm/loader:707:25)\r\n    at ModuleLoader.resolve (node:internal/modules/esm/loader:690:38)\r\n    at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:307:38)\r\n    at ModuleJob._link (node:internal/modules/esm/module_job:183:49) {\r\n  code: 'ERR_MODULE_NOT_FOUND',\r\n  url: 'file:///E:/GitHub%20Projects/MCP-God-Mode/dev/tools/security/token_obfuscation.js'\r\n}\r\n\r\nNode.js v22.18.0\r\n"
+    },
+    {
+      "test": "Background Mode",
+      "message": "Process exited with code 1: node:internal/modules/esm/resolve:274\r\n    throw new ERR_MODULE_NOT_FOUND(\r\n          ^\r\n\r\nError [ERR_MODULE_NOT_FOUND]: Cannot find module 'E:\\GitHub Projects\\MCP-God-Mode\\dev\\tools\\security\\token_obfuscation.js' imported from E:\\GitHub Projects\\MCP-God-Mode\\dev\\temp-test-script.js\r\n    at finalizeResolution (node:internal/modules/esm/resolve:274:11)\r\n    at moduleResolve (node:internal/modules/esm/resolve:859:10)\r\n    at defaultResolve (node:internal/modules/esm/resolve:983:11)\r\n    at ModuleLoader.defaultResolve (node:internal/modules/esm/loader:783:12)\r\n    at #cachedDefaultResolve (node:internal/modules/esm/loader:707:25)\r\n    at ModuleLoader.resolve (node:internal/modules/esm/loader:690:38)\r\n    at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:307:38)\r\n    at ModuleJob._link (node:internal/modules/esm/module_job:183:49) {\r\n  code: 'ERR_MODULE_NOT_FOUND',\r\n  url: 'file:///E:/GitHub%20Projects/MCP-God-Mode/dev/tools/security/token_obfuscation.js'\r\n}\r\n\r\nNode.js v22.18.0\r\n"
+    },
+    {
+      "test": "Log Export",
+      "message": "Process exited with code 1: node:internal/modules/esm/resolve:274\r\n    throw new ERR_MODULE_NOT_FOUND(\r\n          ^\r\n\r\nError [ERR_MODULE_NOT_FOUND]: Cannot find module 'E:\\GitHub Projects\\MCP-God-Mode\\dev\\tools\\security\\token_obfuscation.js' imported from E:\\GitHub Projects\\MCP-God-Mode\\dev\\temp-test-script.js\r\n    at finalizeResolution (node:internal/modules/esm/resolve:274:11)\r\n    at moduleResolve (node:internal/modules/esm/resolve:859:10)\r\n    at defaultResolve (node:internal/modules/esm/resolve:983:11)\r\n    at ModuleLoader.defaultResolve (node:internal/modules/esm/loader:783:12)\r\n    at #cachedDefaultResolve (node:internal/modules/esm/loader:707:25)\r\n    at ModuleLoader.resolve (node:internal/modules/esm/loader:690:38)\r\n    at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:307:38)\r\n    at ModuleJob._link (node:internal/modules/esm/module_job:183:49) {\r\n  code: 'ERR_MODULE_NOT_FOUND',\r\n  url: 'file:///E:/GitHub%20Projects/MCP-God-Mode/dev/tools/security/token_obfuscation.js'\r\n}\r\n\r\nNode.js v22.18.0\r\n"
+    }
+  ],
+  "config": {
+    "testPort": 8081,
+    "timeout": 30000,
+    "testContent": "This is a comprehensive test message to verify token obfuscation functionality across multiple scenarios.",
+    "testTokens": 150,
+    "platforms": [
+      "cursor",
+      "claude",
+      "gpt",
+      "codex",
+      "copilot"
+    ],
+    "obfuscationLevels": [
+      "minimal",
+      "moderate",
+      "aggressive",
+      "stealth"
+    ]
+  }
+}

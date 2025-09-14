@@ -1,0 +1,17 @@
+{
+  "timestamp": "2025-09-14T23:31:41.311Z",
+  "duration": 12,
+  "summary": {
+    "total": 102,
+    "passed": 101,
+    "failed": 1,
+    "successRate": 99.01960784313727
+  },
+  "errors": [
+    {
+      "test": "Server Integration",
+      "message": "Token obfuscation not found in server"
+    }
+  ],
+  "testType": "simple_smoke_test"
+}
