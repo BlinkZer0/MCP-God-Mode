@@ -26,9 +26,9 @@ Find a tool you like? STEAL IT!!!
 [![Platforms](https://img.shields.io/badge/Platforms-Win%20%7C%20macOS%20%7C%20Linux%20%7C%20Android%20%7C%20iOS-orange)](docs/CROSS_PLATFORM_COMPATIBILITY.md)
 [![GitHub Stars](https://img.shields.io/github/stars/BlinkZer0/MCP-God-Mode?style=social)](https://github.com/BlinkZer0/MCP-God-Mode)
 [![CI](https://img.shields.io/badge/CI-Smoke%20Tests-yellow)](scripts/smoke-test.js)
-[![Tools](https://img.shields.io/badge/Tools-184%20Total-orange)](docs/general/TOOL_CATALOG.md)
+[![Tools](https://img.shields.io/badge/Tools-16%20Total-orange)](docs/TOOL_REFERENCE.md)
 
-**Version 2.0c - Documentation Accuracy & Tool Count Precision** — Last updated 2025-01-27
+**Version 2.0d - Documentation Accuracy & Tool Count Precision** — Last updated 2025-09-15
 
 ## Table of Contents
 - [What is MCP God Mode?](#-what-is-mcp-god-mode)
@@ -91,7 +91,7 @@ https://github.com/user-attachments/assets/932c43e4-159e-4ce2-9c02-4acf23fc47fd
 
 ## 🧪 **TESTING STATUS & NEEDED HELP**
 
-**We need your help to properly test MCP God Mode!** With 184 tools across multiple platforms, we need extensive testing to verify functionality, catch edge cases, and ensure reliability.
+**We need your help to properly test MCP God Mode!** With 16 core tools across multiple platforms, we need extensive testing to verify functionality, catch edge cases, and ensure reliability.
 
 ### **📊 Current Testing Status**
 - ✅ **Confirmed Working**: Enhanced Calculator, Web Search, Root Access, WiFi Security, IoT Security, System Info, Health Check, Git Status, File Operations, Web Scraper, IP Geolocation, Email Operations, Encryption Tools, Dice Rolling, **Chart Generator (Enhanced SVG with Animations)**, **Enhanced Browser Automation**, **CAPTCHA Defeating**, **Token Obfuscation**
@@ -166,9 +166,9 @@ cp .env.example .env   # edit if needed
 npm install
 
 # 3) Launch (choose one)
-npm run start:refactored   # full refactored server (184 tools)
+npm run start:refactored   # full refactored server (16 tools)
 # or
-npm run start:modular      # modular loader (184 tools, grouped)
+npm run start:modular      # modular loader (16 tools, grouped)
 # or minimal
 npm run start:minimal      # minimal profile (15 core tools)
 # or ⚡ LAZY LOADING (EXPERIMENTAL - NOT READY)

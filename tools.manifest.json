@@ -1,0 +1,570 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "MCP God Mode Tools Manifest",
+  "type": "object",
+  "tools": [
+    {
+      "name": "enhanced_legal_compliance",
+      "category": "legal",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "enhanced_legal_compliance",
+      "args": [
+        {
+          "name": "action",
+          "type": "enum[advanced_audit,chain_verification,regulatory_report,compliance_dashboard,evidence_analysis]",
+          "required": true,
+          "description": "Enhanced legal compliance action"
+        },
+        {
+          "name": "scope",
+          "type": "string",
+          "required": false,
+          "description": "Scope of the compliance check"
+        },
+        {
+          "name": "timeframe",
+          "type": "string",
+          "required": false,
+          "description": "Time period for the compliance check"
+        }
+      ],
+      "env_vars": [],
+      "requires_privilege": true,
+      "side_effects": "Logs compliance actions and may generate reports",
+      "safe_mode": true,
+      "tags": ["legal", "compliance", "audit"],
+      "smoke_test": {
+        "cmd": "node",
+        "args": ["-e", "console.log('Smoke test for enhanced_legal_compliance')"],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "advanced_security_assessment",
+      "category": "security",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "advanced_security_assessment",
+      "args": [
+        {
+          "name": "assessment_type",
+          "type": "enum[threat_modeling,risk_analysis,compliance_validation,security_posture,vulnerability_prioritization]",
+          "required": true,
+          "description": "Type of security assessment"
+        },
+        {
+          "name": "target",
+          "type": "string",
+          "required": true,
+          "description": "Target system or component to assess"
+        }
+      ],
+      "env_vars": [],
+      "requires_privilege": true,
+      "side_effects": "May perform security scans and generate reports",
+      "safe_mode": false,
+      "tags": ["security", "assessment", "analysis"],
+      "smoke_test": {
+        "cmd": "node",
+        "args": ["-e", "console.log('Smoke test for advanced_security_assessment')"],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "cross_platform_system_manager",
+      "category": "system",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "cross_platform_system_manager",
+      "args": [
+        {
+          "name": "operation",
+          "type": "enum[system_sync,cross_platform_deploy,unified_monitoring,platform_optimization,integration_testing]",
+          "required": true,
+          "description": "Cross-platform operation"
+        },
+        {
+          "name": "target_platforms",
+          "type": "array[string]",
+          "required": false,
+          "description": "Target platforms for operation"
+        }
+      ],
+      "env_vars": [],
+      "requires_privilege": true,
+      "side_effects": "May modify system configurations and deploy services",
+      "safe_mode": false,
+      "tags": ["system", "management", "deployment"],
+      "smoke_test": {
+        "cmd": "node",
+        "args": ["-e", "console.log('Smoke test for cross_platform_system_manager')"],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "enterprise_integration_hub",
+      "category": "integration",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "enterprise_integration_hub",
+      "args": [
+        {
+          "name": "integration_type",
+          "type": "enum[api_management,workflow_automation,enterprise_security,data_integration,system_orchestration]",
+          "required": true,
+          "description": "Type of enterprise integration"
+        }
+      ],
+      "env_vars": [],
+      "requires_privilege": true,
+      "side_effects": "May configure enterprise systems and integrations",
+      "safe_mode": false,
+      "tags": ["enterprise", "integration", "api"],
+      "smoke_test": {
+        "cmd": "node",
+        "args": ["-e", "console.log('Smoke test for enterprise_integration_hub')"],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "advanced_analytics_engine",
+      "category": "analytics",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "advanced_analytics_engine",
+      "args": [
+        {
+          "name": "analysis_type",
+          "type": "enum[predictive_analytics,real_time_insights,machine_learning,behavioral_analysis,trend_analysis]",
+          "required": true,
+          "description": "Type of advanced analysis"
+        },
+        {
+          "name": "data_source",
+          "type": "string",
+          "required": true,
+          "description": "Data source for analysis"
+        }
+      ],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Processes and analyzes data",
+      "safe_mode": true,
+      "tags": ["analytics", "ai", "data"],
+      "smoke_test": {
+        "cmd": "node",
+        "args": ["-e", "console.log('Smoke test for advanced_analytics_engine')"],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "web_ui_chat",
+      "category": "ai",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "web_ui_chat",
+      "args": [
+        {
+          "name": "provider",
+          "type": "string",
+          "required": true,
+          "description": "Provider ID (e.g., 'chatgpt', 'grok', 'claude', 'huggingface', or custom provider)"
+        },
+        {
+          "name": "prompt",
+          "type": "string",
+          "required": true,
+          "description": "The message to send to the AI service"
+        }
+      ],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Sends requests to external AI services",
+      "safe_mode": true,
+      "tags": ["ai", "chat", "automation"],
+      "smoke_test": {
+        "cmd": "node",
+        "args": ["-e", "console.log('Smoke test for web_ui_chat')"],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "providers_list",
+      "category": "ai",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "providers_list",
+      "args": [
+        {
+          "name": "platform",
+          "type": "enum[desktop,android,ios]",
+          "required": false,
+          "description": "Filter providers by platform"
+        }
+      ],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "None",
+      "safe_mode": true,
+      "tags": ["ai", "providers", "list"],
+      "smoke_test": {
+        "cmd": "node",
+        "args": ["-e", "console.log('Smoke test for providers_list')"],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "provider_wizard",
+      "category": "ai",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "provider_wizard",
+      "args": [
+        {
+          "name": "startUrl",
+          "type": "string",
+          "required": true,
+          "description": "URL of the AI service chat interface"
+        },
+        {
+          "name": "providerName",
+          "type": "string",
+          "required": true,
+          "description": "Name for the new provider"
+        }
+      ],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "May create new provider configurations",
+      "safe_mode": true,
+      "tags": ["ai", "configuration", "wizard"],
+      "smoke_test": {
+        "cmd": "node",
+        "args": ["-e", "console.log('Smoke test for provider_wizard')"],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "macro_record",
+      "category": "automation",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "macro_record",
+      "args": [
+        {
+          "name": "target",
+          "type": "object",
+          "required": true,
+          "description": "Target specification for recording"
+        },
+        {
+          "name": "outputFile",
+          "type": "string",
+          "required": false,
+          "description": "Output file for the recorded macro"
+        }
+      ],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Records user interactions",
+      "safe_mode": true,
+      "tags": ["automation", "recording", "macro"],
+      "smoke_test": {
+        "cmd": "node",
+        "args": ["-e", "console.log('Smoke test for macro_record')"],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "macro_run",
+      "category": "automation",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "macro_run",
+      "args": [
+        {
+          "name": "macroId",
+          "type": "string",
+          "required": true,
+          "description": "ID of the macro to execute"
+        },
+        {
+          "name": "variables",
+          "type": "object",
+          "required": false,
+          "description": "Variables to substitute in the macro"
+        },
+        {
+          "name": "dryRun",
+          "type": "boolean",
+          "required": false,
+          "description": "If true, simulate execution without making changes"
+        }
+      ],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Executes recorded interactions",
+      "safe_mode": true,
+      "tags": ["automation", "playback", "macro"],
+      "smoke_test": {
+        "cmd": "node",
+        "args": ["-e", "console.log('Smoke test for macro_run')"],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "session_management",
+      "category": "security",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "session_management",
+      "args": [
+        {
+          "name": "action",
+          "type": "enum[list,clear,cleanup]",
+          "required": true,
+          "description": "Session management action"
+        },
+        {
+          "name": "sessionId",
+          "type": "string",
+          "required": false,
+          "description": "ID of the session to manage"
+        }
+      ],
+      "env_vars": [],
+      "requires_privilege": true,
+      "side_effects": "Manages user sessions, may terminate active sessions",
+      "safe_mode": false,
+      "tags": ["security", "session", "management"],
+      "smoke_test": {
+        "cmd": "node",
+        "args": ["-e", "console.log('Smoke test for session_management')"],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "advanced_threat_hunting",
+      "category": "security",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "advanced_threat_hunting",
+      "args": [
+        {
+          "name": "action",
+          "type": "enum[hunt_threats,analyze_behavior,track_iocs,correlate_events]",
+          "required": true,
+          "description": "Threat hunting action"
+        },
+        {
+          "name": "target",
+          "type": "string",
+          "required": false,
+          "description": "Target system or network to hunt in"
+        },
+        {
+          "name": "timeframe",
+          "type": "string",
+          "required": false,
+          "description": "Time period to analyze"
+        }
+      ],
+      "env_vars": [],
+      "requires_privilege": true,
+      "side_effects": "Performs security scans and analysis",
+      "safe_mode": false,
+      "tags": ["security", "threat", "hunting"],
+      "smoke_test": {
+        "cmd": "node",
+        "args": ["-e", "console.log('Smoke test for advanced_threat_hunting')"],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "cyber_deception_platform",
+      "category": "security",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "cyber_deception_platform",
+      "args": [
+        {
+          "name": "action",
+          "type": "enum[deploy_honeypot,create_decoy,analyze_attacks,manage_deception]",
+          "required": true,
+          "description": "Deception action"
+        },
+        {
+          "name": "deception_type",
+          "type": "string",
+          "required": false,
+          "description": "Type of deception to deploy"
+        },
+        {
+          "name": "monitoring_level",
+          "type": "string",
+          "required": false,
+          "description": "Level of monitoring to enable"
+        }
+      ],
+      "env_vars": [],
+      "requires_privilege": true,
+      "side_effects": "Deploys deception mechanisms and monitors for interactions",
+      "safe_mode": false,
+      "tags": ["security", "deception", "honeypot"],
+      "smoke_test": {
+        "cmd": "node",
+        "args": ["-e", "console.log('Smoke test for cyber_deception_platform')"],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "zero_trust_architect",
+      "category": "security",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "zero_trust_architect",
+      "args": [
+        {
+          "name": "action",
+          "type": "enum[assess_readiness,implement_policies,continuous_verification,micro_segment]",
+          "required": true,
+          "description": "Zero trust action"
+        },
+        {
+          "name": "scope",
+          "type": "string",
+          "required": false,
+          "description": "Scope of the zero trust implementation"
+        },
+        {
+          "name": "trust_level",
+          "type": "string",
+          "required": false,
+          "description": "Trust level to enforce"
+        }
+      ],
+      "env_vars": [],
+      "requires_privilege": true,
+      "side_effects": "Modifies security policies and configurations",
+      "safe_mode": false,
+      "tags": ["security", "zero-trust", "architecture"],
+      "smoke_test": {
+        "cmd": "node",
+        "args": ["-e", "console.log('Smoke test for zero_trust_architect')"],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "quantum_cryptography_suite",
+      "category": "security",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "quantum_cryptography_suite",
+      "args": [
+        {
+          "name": "action",
+          "type": "enum[generate_quantum_keys,post_quantum_encrypt,quantum_audit,future_proof]",
+          "required": true,
+          "description": "Quantum crypto action"
+        },
+        {
+          "name": "algorithm",
+          "type": "string",
+          "required": false,
+          "description": "Cryptographic algorithm to use"
+        },
+        {
+          "name": "security_level",
+          "type": "string",
+          "required": false,
+          "description": "Desired security level"
+        }
+      ],
+      "env_vars": [],
+      "requires_privilege": true,
+      "side_effects": "Performs cryptographic operations",
+      "safe_mode": true,
+      "tags": ["security", "cryptography", "quantum"],
+      "smoke_test": {
+        "cmd": "node",
+        "args": ["-e", "console.log('Smoke test for quantum_cryptography_suite')"],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "ai_security_orchestrator",
+      "category": "security",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "ai_security_orchestrator",
+      "args": [
+        {
+          "name": "action",
+          "type": "enum[ml_threat_detection,automated_response,intelligent_analysis,ai_correlation]",
+          "required": true,
+          "description": "AI security action"
+        },
+        {
+          "name": "target",
+          "type": "string",
+          "required": false,
+          "description": "Target system or data to analyze"
+        },
+        {
+          "name": "sensitivity",
+          "type": "string",
+          "required": false,
+          "description": "Sensitivity level for detection"
+        }
+      ],
+      "env_vars": [],
+      "requires_privilege": true,
+      "side_effects": "May take automated security actions based on analysis",
+      "safe_mode": false,
+      "tags": ["security", "ai", "orchestration"],
+      "smoke_test": {
+        "cmd": "node",
+        "args": ["-e", "console.log('Smoke test for ai_security_orchestrator')"],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "blockchain_forensics",
+      "category": "forensics",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "blockchain_forensics",
+      "args": [
+        {
+          "name": "action",
+          "type": "enum[analyze_transaction,trace_wallet,investigate_token,cluster_addresses]",
+          "required": true,
+          "description": "Blockchain forensics action"
+        },
+        {
+          "name": "target",
+          "type": "string",
+          "required": true,
+          "description": "Transaction hash, wallet address, or token to analyze"
+        },
+        {
+          "name": "depth",
+          "type": "number",
+          "required": false,
+          "description": "Analysis depth (number of hops)"
+        }
+      ],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Queries blockchain data, no on-chain changes",
+      "safe_mode": true,
+      "tags": ["blockchain", "forensics", "crypto"],
+      "smoke_test": {
+        "cmd": "node",
+        "args": ["-e", "console.log('Smoke test for blockchain_forensics')"],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    }
+  ]
+}
