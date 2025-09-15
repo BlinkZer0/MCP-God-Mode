@@ -48,23 +48,10 @@ Find a tool you like? STEAL IT!!!
 | Minimal Profile | 15    |
 
 **🚀 Version 2.0c Highlights:**
-- **🔒 Default Enabled Token Obfuscation** - Automatically starts and runs in background
-- **⚡ Background Operation** - Seamless token obfuscation without manual intervention
-- **🧠 Context-Aware Intelligence** - Adapts obfuscation based on AI platform and environment
-- **🔄 Auto-Platform Detection** - Automatically detects and configures for your AI service
 - **🛡️ Enhanced Security** - Advanced prompt injection defense and tool poisoning prevention
 - **🌐 Multi-Platform Support** - Works with Cursor, Claude, GPT, Codex, Co-Pilot, and MCP services
 - **📊 Real-Time Monitoring** - Continuous health checks and automatic error recovery
 - **🎯 Zero Configuration** - Works out of the box with intelligent defaults
-
-### 🚨 **Token Obfuscation Setup Requirement**
-
-**⚠️ CRITICAL:** For token obfuscation to work, configure your AI client to use the proxy:
-
-**Cursor:** Settings → Search "proxy" → Set HTTP/HTTPS proxy to `http://localhost:8080`  
-**Other:** Set environment variables `HTTPS_PROXY=http://localhost:8080` and `HTTP_PROXY=http://localhost:8080`
-
-**[📖 Complete Setup Guide](docs/guides/TOKEN_OBFUSCATION_GUIDE.md#-critical-setup-requirement)**
 
 **🔄 Tool Consolidation:**
 - **Enhanced Calculator** - Combines basic arithmetic with advanced mathematical expressions, scientific computing, and statistical functions
@@ -94,7 +81,7 @@ https://github.com/user-attachments/assets/932c43e4-159e-4ce2-9c02-4acf23fc47fd
 **We need your help to properly test MCP God Mode!** With 16 core tools across multiple platforms, we need extensive testing to verify functionality, catch edge cases, and ensure reliability.
 
 ### **📊 Current Testing Status**
-- ✅ **Confirmed Working**: Enhanced Calculator, Web Search, Root Access, WiFi Security, IoT Security, System Info, Health Check, Git Status, File Operations, Web Scraper, IP Geolocation, Email Operations, Encryption Tools, Dice Rolling, **Chart Generator (Enhanced SVG with Animations)**, **Enhanced Browser Automation**, **CAPTCHA Defeating**, **Token Obfuscation**
+- ✅ **Confirmed Working**: Enhanced Calculator, Web Search, Root Access, WiFi Security, IoT Security, System Info, Health Check, Git Status, File Operations, Web Scraper, IP Geolocation, Email Operations, Encryption Tools, Dice Rolling, **Chart Generator (Enhanced SVG with Animations)**, **Enhanced Browser Automation**, **CAPTCHA Defeating**
 - ✅ **Fully Tested**: **Crime Reporter Tool** (100% success rate - September 2025), **Tool_Burglar** (confirmed working - September 2025)
 - ⚠️ **Partially Tested**: Basic functionality confirmed, advanced features need testing
 - ⚠️ **Should Work**: VM Management (needs testing), Flipper Zero (hardware dependent)
@@ -709,8 +696,6 @@ https://github.com/user-attachments/assets/f074039c-1989-40fc-b769-5efa855e854d
 - **Cloud Infrastructure Manager** - Cloud resource management
 - **Exploit Framework** - Vulnerability exploitation
 - **Zero-Day Exploit Researcher** - Research zero-day vulnerabilities, generate PoCs, and conduct ethical security testing ([📖 Full Docs](docs/tool/zero_day_exploiter.md))
-- **Token Obfuscation** - Advanced token usage obfuscation for AI services with proxy middleware ⚠️ **Requires proxy configuration** ([📖 Full Docs](docs/guides/TOKEN_OBFUSCATION_GUIDE.md))
-- **Token Obfuscation Natural Language** - Natural language interface for token obfuscation operations ⚠️ **Requires proxy setup** ([📖 Full Docs](docs/guides/TOKEN_OBFUSCATION_NATURAL_LANGUAGE_GUIDE.md))
 - **Vulnerability Scanner** - Security assessment tools
 - **Password Cracker** - Authentication testing
 - **Threat Intelligence** - Security threat analysis and monitoring
@@ -852,7 +837,7 @@ https://github.com/user-attachments/assets/f074039c-1989-40fc-b769-5efa855e854d
 | **🖥️ Web & Browser** | 4 | Browser automation, web scraping, web automation, webhooks |
 | **📱 Mobile Device** | 13 | Device info, file ops, hardware access, system tools, app tools |
 | **🖥️ Virtualization** | 2 | VM management, Docker orchestration |
-| **🔒 Advanced Security** | 20 | Blockchain, quantum, IoT, forensics, cloud security, zero-day exploit research, token obfuscation |
+| **🔒 Advanced Security** | 18 | Blockchain, quantum, IoT, forensics, cloud security, zero-day exploit research |
 | **⚖️ Legal & Compliance** | 2 | Crime reporting, legal compliance management, audit logging, evidence preservation |
 | **🧮 Utilities** | 12 | Math tools, dice rolling, data analysis, ML, RAG toolkit, encryption |
 | **🔄 System Restore** | 1 | Cross-platform backup and restore |
