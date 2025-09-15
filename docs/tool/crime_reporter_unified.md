@@ -2,11 +2,17 @@
 
 ## 🔍 **Overview**
 
-The Crime Reporter Unified Tool is a comprehensive crime reporting system that consolidates all crime reporting functionality into a single, powerful tool. It provides jurisdiction resolution, case preparation, automated filing, natural language processing, and configuration testing with privacy protection, audit logging, and legal compliance features.
+The Crime Reporter Unified Tool is a comprehensive crime reporting system that consolidates all crime reporting functionality into a single, powerful tool. **Important: This tool does NOT monitor or report on its users.** It provides jurisdiction resolution, case preparation, automated filing, natural language processing, and configuration testing with privacy protection, audit logging, and legal compliance features. The tool is designed to help users report crimes they have witnessed or experienced, not to monitor the users themselves.
 
 ## ⚠️ **IMPORTANT LEGAL NOTICE**
 
 **This tool is for authorized crime reporting only. False reporting is illegal and unethical.**
+
+### **Privacy and User Protection**
+- 🛡️ **Does NOT Report on Users**: This tool does NOT monitor, track, or report on its users
+- 🛡️ **User Privacy Protected**: All user activities remain private and are not reported to authorities
+- 🛡️ **No User Surveillance**: The tool does not collect or transmit information about its users
+- 🛡️ **Local Operation**: All operations are performed locally without external reporting of user activities
 
 ### **Legal Guidelines**
 - ✅ **Authorization Required**: Explicit permission required for all reporting
