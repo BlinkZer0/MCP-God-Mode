@@ -41,6 +41,63 @@ The Token Obfuscation Tool is a sophisticated MCP tool that prevents accurate to
 mcp_mcp-god-mode_token_obfuscation --action check_default_status
 ```
 
+## 🚨 **CRITICAL SETUP REQUIREMENT**
+
+**⚠️ IMPORTANT: For token obfuscation to work, you MUST configure your AI client to use the proxy.**
+
+The token obfuscation tool creates a proxy server that intercepts AI requests. Without proxy configuration, the obfuscation will not function.
+
+### Required Proxy Configuration
+
+**For Cursor:**
+1. Open Cursor Settings (Ctrl+,)
+2. Search for "proxy"
+3. Set HTTP/HTTPS proxy to: `http://localhost:8080`
+
+**For Other Applications:**
+Set environment variables before starting the application:
+```bash
+# Windows
+set HTTPS_PROXY=http://localhost:8080
+set HTTP_PROXY=http://localhost:8080
+
+# Linux/macOS
+export HTTPS_PROXY=http://localhost:8080
+export HTTP_PROXY=http://localhost:8080
+```
+
+**Verification:**
+```bash
+# Test if proxy is working
+mcp_mcp-god-mode_token_obfuscation --action get_status
+```
+
+### 🔧 **Proxy Setup Troubleshooting**
+
+**Problem: "Token obfuscation not working"**
+- ✅ Check if proxy is running: `mcp_mcp-god-mode_token_obfuscation --action get_status`
+- ✅ Verify proxy configuration in your AI client
+- ✅ Ensure port 8080 is not blocked by firewall
+- ✅ Restart your AI client after configuring proxy
+
+**Problem: "Connection refused" or "Proxy error"**
+- ✅ Start the proxy: `mcp_mcp-god-mode_token_obfuscation --action start_proxy`
+- ✅ Check if another service is using port 8080
+- ✅ Try a different port: `--proxy_port 8081`
+
+**Problem: "No token reduction observed"**
+- ✅ Confirm proxy is configured correctly
+- ✅ Check statistics: `mcp_mcp-god-mode_token_obfuscation --action get_stats`
+- ✅ Verify AI client is actually using the proxy
+
+**Quick Verification Test:**
+```bash
+# Complete setup verification
+node dev/reality_check_obfuscation.js
+```
+
+---
+
 ## Quick Start
 
 ### 1. Verify Auto-Detection

@@ -57,6 +57,15 @@ Find a tool you like? STEAL IT!!!
 - **📊 Real-Time Monitoring** - Continuous health checks and automatic error recovery
 - **🎯 Zero Configuration** - Works out of the box with intelligent defaults
 
+### 🚨 **Token Obfuscation Setup Requirement**
+
+**⚠️ CRITICAL:** For token obfuscation to work, configure your AI client to use the proxy:
+
+**Cursor:** Settings → Search "proxy" → Set HTTP/HTTPS proxy to `http://localhost:8080`  
+**Other:** Set environment variables `HTTPS_PROXY=http://localhost:8080` and `HTTP_PROXY=http://localhost:8080`
+
+**[📖 Complete Setup Guide](docs/guides/TOKEN_OBFUSCATION_GUIDE.md#-critical-setup-requirement)**
+
 **🔄 Tool Consolidation:**
 - **Enhanced Calculator** - Combines basic arithmetic with advanced mathematical expressions, scientific computing, and statistical functions
 - **Enhanced Data Analysis** - Unified statistical analysis, visualization, and predictive modeling
@@ -697,8 +706,8 @@ https://github.com/user-attachments/assets/f074039c-1989-40fc-b769-5efa855e854d
 - **Cloud Infrastructure Manager** - Cloud resource management
 - **Exploit Framework** - Vulnerability exploitation
 - **Zero-Day Exploit Researcher** - Research zero-day vulnerabilities, generate PoCs, and conduct ethical security testing ([📖 Full Docs](docs/tool/zero_day_exploiter.md))
-- **Token Obfuscation** - Advanced token usage obfuscation for AI services with proxy middleware ([📖 Full Docs](docs/guides/TOKEN_OBFUSCATION_GUIDE.md))
-- **Token Obfuscation Natural Language** - Natural language interface for token obfuscation operations ([📖 Full Docs](docs/guides/TOKEN_OBFUSCATION_NATURAL_LANGUAGE_GUIDE.md))
+- **Token Obfuscation** - Advanced token usage obfuscation for AI services with proxy middleware ⚠️ **Requires proxy configuration** ([📖 Full Docs](docs/guides/TOKEN_OBFUSCATION_GUIDE.md))
+- **Token Obfuscation Natural Language** - Natural language interface for token obfuscation operations ⚠️ **Requires proxy setup** ([📖 Full Docs](docs/guides/TOKEN_OBFUSCATION_NATURAL_LANGUAGE_GUIDE.md))
 - **Vulnerability Scanner** - Security assessment tools
 - **Password Cracker** - Authentication testing
 - **Threat Intelligence** - Security threat analysis and monitoring
