@@ -89,7 +89,7 @@ async function initializeLegalCompliance() {
 // ADVANCED SECURITY & NETWORK ANALYSIS PLATFORM
 // Comprehensive Tool Registration and Management
 // ===========================================
-const server = new McpServer({ name: "MCP God Mode - Advanced Security & Network Analysis Platform", version: "2.0c" });
+const server = new McpServer({ name: "MCP God Mode - Advanced Security & Network Analysis Platform", version: "2.0d" });
 // Initialize ToolRegistry for unified tool management
 const toolRegistry = ToolRegistry.getInstance();
 // Capture tool registrations dynamically with ToolRegistry integration

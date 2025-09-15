@@ -1,7 +1,7 @@
 # MCP God Mode - Comprehensive Tool Catalog
 
 ## Overview
-MCP God Mode is an advanced security and network analysis platform. Current counts (v2.0c - Consolidated Architecture):
+MCP God Mode is an advanced security and network analysis platform. Current counts (v2.0d - Consolidated Architecture):
 
 - **Comprehensive index + enhanced endpoints** exported in code
 - **184 total endpoints** across both servers (includes consolidated tools, MCP Web UI Bridge, and SpecOps tools)
@@ -357,4 +357,4 @@ Humor break: if the AI builds an enterprise integration hub and starts sending c
 ---
 
 *Last Updated: 1/27/2025*
-*Totals: 184 registered tools across servers (including SpecOps tools and RF Sense tools with full cross-platform support) - v2.0c*
+*Totals: 184 registered tools across servers (including SpecOps tools and RF Sense tools with full cross-platform support) - v2.0d*

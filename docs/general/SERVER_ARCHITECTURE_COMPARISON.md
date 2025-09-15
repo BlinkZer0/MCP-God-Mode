@@ -4,7 +4,7 @@
 
 MCP God Mode provides two distinct server architectures to serve different use cases and preferences. This document explains the differences between the monolithic and modular servers, their tool counts, and when to use each.
 
-**Version 2.0c Update**: All tool counts have been verified and updated to reflect the accurate count of 184 tools across both server implementations.
+**Version 2.0d Update**: All tool counts have been verified and updated to reflect the accurate count of 184 tools across both server implementations.
 
 ## 🏗️ Server Architectures
 
