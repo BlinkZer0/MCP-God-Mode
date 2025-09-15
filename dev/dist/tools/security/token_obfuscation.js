@@ -163,16 +163,16 @@ class TokenObfuscationEngine {
             backgroundMode: true, // Run in background
             contextAware: true, // Context-aware obfuscation
             autoDetectEnvironment: true, // Auto-detect environment
-            // Enhanced stealth configuration
+            // Enhanced stealth configuration - ENABLED BY DEFAULT
             stealthMode: {
-                enabled: true,
-                removeDetectionHeaders: true,
-                dynamicPorts: true,
-                headerSpoofing: true,
-                requestRandomization: true,
-                processHiding: true,
-                timingVariation: true,
-                userAgentRotation: true
+                enabled: true, // STEALTH MODE ENABLED BY DEFAULT
+                removeDetectionHeaders: true, // Remove detection headers by default
+                dynamicPorts: true, // Use dynamic ports by default
+                headerSpoofing: true, // Spoof headers by default
+                requestRandomization: true, // Randomize requests by default
+                processHiding: true, // Hide process by default
+                timingVariation: true, // Use timing variation by default
+                userAgentRotation: true // Rotate user agents by default
             },
             portRange: { min: 8000, max: 9999 },
             userAgents: [
@@ -740,10 +740,11 @@ class TokenObfuscationEngine {
             this.proxyServer.listen(proxyPort, 'localhost', () => {
                 this.isRunning = true;
                 this.startHealthChecks();
-                // Use stealth logging
+                // Use stealth logging (stealth mode enabled by default)
                 if (this.config.stealthMode.enabled) {
-                    console.log(`🔧 Service started on port ${proxyPort}`);
-                    console.log(`📊 Mode: ${this.config.obfuscationLevel}`);
+                    console.log(`🥷 Stealth service started on port ${proxyPort}`);
+                    console.log(`📊 Mode: ${this.config.obfuscationLevel} (STEALTH ACTIVE)`);
+                    console.log(`🔒 Evasion: Dynamic ports, header spoofing, process hiding enabled`);
                 }
                 else {
                     console.log(`🔒 Token obfuscation proxy started on port ${proxyPort}`);
@@ -1344,7 +1345,7 @@ async function executeTokenObfuscationAction(action, parameters) {
             return {
                 content: [{
                         type: "text",
-                        text: `📋 Token Obfuscation Status:\n\n- Proxy Running: ${isRunning ? '✅ Yes' : '❌ No'}\n- Obfuscation Level: ${currentConfig.obfuscationLevel}\n- Reduction Factor: ${currentConfig.reductionFactor}\n- Padding Strategy: ${currentConfig.paddingStrategy}\n- Streaming Enabled: ${currentConfig.enableStreaming}\n- Preserve Functionality: ${currentConfig.preserveFunctionality}\n- Fallback Mode: ${fallbackMode ? '🔄 Active' : '✅ Normal'}\n- Circuit Breaker: ${circuitBreakerOpen ? '🚨 Open' : '✅ Closed'}`
+                        text: `📋 Token Obfuscation Status:\n\n- Proxy Running: ${isRunning ? '✅ Yes' : '❌ No'}\n- Obfuscation Level: ${currentConfig.obfuscationLevel}\n- Reduction Factor: ${currentConfig.reductionFactor}\n- Padding Strategy: ${currentConfig.paddingStrategy}\n- Streaming Enabled: ${currentConfig.enableStreaming}\n- Preserve Functionality: ${currentConfig.preserveFunctionality}\n- 🥷 Stealth Mode: ${currentConfig.stealthMode?.enabled ? '✅ ACTIVE (Default)' : '❌ Disabled'}\n- Fallback Mode: ${fallbackMode ? '🔄 Active' : '✅ Normal'}\n- Circuit Breaker: ${circuitBreakerOpen ? '🚨 Open' : '✅ Closed'}`
                     }]
             };
         case "get_stats":
@@ -1376,7 +1377,7 @@ async function executeTokenObfuscationAction(action, parameters) {
 }
 export function registerTokenObfuscation(server) {
     server.registerTool("token_obfuscation", {
-        description: "🔒 **Multi-Platform Token Obfuscation Tool v2.0b** - Advanced token usage obfuscation for Cursor, Claude, GPT, Codex, Co-Pilot, and other MCP-compatible AI services. **Enabled by default and runs automatically in the background** with context-aware intelligence. Automatically detects the AI platform and configures obfuscation accordingly. Prevents accurate token counting for billing while maintaining full functionality through sophisticated proxy middleware and obfuscation algorithms.",
+        description: "🔒 **Multi-Platform Token Obfuscation Tool v2.0b** - Advanced token usage obfuscation for Cursor, Claude, GPT, Codex, Co-Pilot, and other MCP-compatible AI services. **Enabled by default with STEALTH MODE ACTIVE** and runs automatically in the background with context-aware intelligence. Automatically detects the AI platform and configures obfuscation accordingly. **STEALTH MODE ENABLED BY DEFAULT** - provides maximum detection evasion with dynamic ports, header spoofing, process hiding, and advanced obfuscation techniques. Prevents accurate token counting for billing while maintaining full functionality through sophisticated proxy middleware and obfuscation algorithms.",
         inputSchema: {
             action: z.enum([
                 "start_proxy",
@@ -1560,7 +1561,7 @@ export function registerTokenObfuscation(server) {
                     return {
                         content: [{
                                 type: "text",
-                                text: `📋 Token Obfuscation Status:\n\n- Proxy Running: ${isRunning ? '✅ Yes' : '❌ No'}\n- Obfuscation Level: ${currentConfig.obfuscationLevel}\n- Reduction Factor: ${currentConfig.reductionFactor}\n- Padding Strategy: ${currentConfig.paddingStrategy}\n- Streaming Enabled: ${currentConfig.enableStreaming}\n- Preserve Functionality: ${currentConfig.preserveFunctionality}\n- Fallback Mode: ${fallbackMode ? '🔄 Active' : '✅ Normal'}\n- Circuit Breaker: ${circuitBreakerOpen ? '🚨 Open' : '✅ Closed'}\n\n🔧 Available Actions:\n- start_proxy: Start the obfuscation proxy\n- stop_proxy: Stop the proxy\n- configure: Update settings\n- get_stats: View statistics\n- test_obfuscation: Test obfuscation on sample content\n- reset_circuit_breaker: Reset circuit breaker\n- get_health_status: Get detailed health information`
+                                text: `📋 Token Obfuscation Status:\n\n- Proxy Running: ${isRunning ? '✅ Yes' : '❌ No'}\n- Obfuscation Level: ${currentConfig.obfuscationLevel}\n- Reduction Factor: ${currentConfig.reductionFactor}\n- Padding Strategy: ${currentConfig.paddingStrategy}\n- Streaming Enabled: ${currentConfig.enableStreaming}\n- Preserve Functionality: ${currentConfig.preserveFunctionality}\n- 🥷 Stealth Mode: ${currentConfig.stealthMode?.enabled ? '✅ ACTIVE (Default)' : '❌ Disabled'}\n- Fallback Mode: ${fallbackMode ? '🔄 Active' : '✅ Normal'}\n- Circuit Breaker: ${circuitBreakerOpen ? '🚨 Open' : '✅ Closed'}\n\n🔧 Available Actions:\n- start_proxy: Start the obfuscation proxy\n- stop_proxy: Stop the proxy\n- configure: Update settings\n- get_stats: View statistics\n- test_obfuscation: Test obfuscation on sample content\n- reset_circuit_breaker: Reset circuit breaker\n- get_health_status: Get detailed health information\n- enable_stealth_mode: Activate all stealth features\n- get_stealth_status: Check stealth configuration`
                             }]
                     };
                 case "reset_circuit_breaker":
