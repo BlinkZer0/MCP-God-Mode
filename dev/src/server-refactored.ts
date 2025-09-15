@@ -714,6 +714,26 @@ try {
 }
 
 // ===========================================
+// TOKEN OBFUSCATION TOOL
+// ===========================================
+
+// Register Token Obfuscation Tool
+try {
+  allTools.registerTokenObfuscation(server);
+  console.log("✅ Token Obfuscation Tool registered");
+} catch (error) {
+  console.warn("Warning: Failed to register Token Obfuscation Tool:", error);
+}
+
+// Register Token Obfuscation Natural Language Tool
+try {
+  allTools.registerTokenObfuscationNL(server);
+  console.log("✅ Token Obfuscation Natural Language Tool registered");
+} catch (error) {
+  console.warn("Warning: Failed to register Token Obfuscation Natural Language Tool:", error);
+}
+
+// ===========================================
 // PROCESS MANAGEMENT TOOLS
 // ===========================================
 
@@ -813,12 +833,58 @@ async function initializeExpressServer() {
 }
 
 // ===========================================
+// TOKEN OBFUSCATION AUTO-INITIALIZATION
+// ===========================================
+
+async function initializeTokenObfuscation() {
+  try {
+    // Import the token obfuscation engine
+    const { TokenObfuscationEngine } = await import('./tools/security/token_obfuscation.js');
+    
+    // Create a global instance that auto-starts
+    const tokenObfuscationEngine = new TokenObfuscationEngine({
+      enabledByDefault: true,
+      autoStart: true,
+      backgroundMode: true,
+      contextAware: true,
+      autoDetectEnvironment: true
+    });
+    
+    // Store globally for access by tools
+    (global as any).tokenObfuscationEngine = tokenObfuscationEngine;
+    
+    // Wait a moment for initialization
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    
+    // Check if it's running
+    const status = tokenObfuscationEngine.getComprehensiveStatus();
+    
+    if (status.isRunning) {
+      console.log("🔒 Token Obfuscation Engine started successfully in background");
+      console.log(`   🎯 Stealth Mode: ${status.stealthMode ? '✅ Active' : '❌ Inactive'}`);
+      console.log(`   🔄 Background Mode: ${status.config.backgroundMode ? '✅ Active' : '❌ Inactive'}`);
+      console.log(`   📡 Proxy Port: ${status.currentPort || 'Auto-assigned'}`);
+      console.log(`   🎭 Detected Platform: ${status.detectedPlatform?.name || 'Auto-detecting...'}`);
+    } else {
+      console.warn("⚠️ Token Obfuscation Engine failed to start automatically");
+    }
+    
+  } catch (error) {
+    console.warn("⚠️ Failed to initialize Token Obfuscation Engine:", error);
+    // Don't fail the server if token obfuscation fails
+  }
+}
+
+// ===========================================
 // START THE SERVER
 // ===========================================
 
 async function main() {
   // Initialize legal compliance system first
   await initializeLegalCompliance();
+  
+  // Initialize token obfuscation system automatically
+  await initializeTokenObfuscation();
   
   // Register all tools from comprehensive index
   console.log("🔧 Registering tools from comprehensive index...");

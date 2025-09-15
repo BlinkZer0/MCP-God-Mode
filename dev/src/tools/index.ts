@@ -115,6 +115,8 @@ export { registerUniversalBrowserOperator } from "./web/universal_browser_operat
 export { registerWebSearch } from "./web/web_search.js";
 export { registerFormCompletion } from "./web/form_completion.js";
 export { registerCaptchaDefeating } from "./web/captcha_defeating.js";
+export { registerBrowserControl } from "./web/browser_control.js";
+export { registerWebAutomation } from "./web/web_automation.js";
 
 // Email Tools
 export { registerSendEmail } from "./email/send_email.js";
@@ -143,6 +145,7 @@ export { registerMobileDeviceManagement } from "./mobile/mobile_device_managemen
 export { registerMobileAppUnified } from "./mobileAppUnified.js";
 export { registerMobileNetworkAnalyzer } from "./mobile/mobile_network_analyzer.js";
 export { registerMobileSecurityToolkit } from "./mobile/mobile_security_toolkit.js";
+export { registerEnhancedMobileAppToolkit } from "./mobile/enhanced_mobile_app_toolkit.js";
 
 // Virtualization Tools
 export { registerVmManagement } from "./virtualization/vm_management.js";
@@ -167,6 +170,10 @@ export { registerMachineLearning } from "./utilities/machine_learning.js";
 export { registerChartGenerator } from "./utilities/chart_generator.js";
 export { registerTextProcessor } from "./utilities/text_processor.js";
 export { registerPasswordGenerator } from "./utilities/password_generator.js";
+export { registerCalculator } from "./utilities/calculator.js";
+export { registerMathCalculate } from "./utilities/math_calculate.js";
+export { registerDataAnalysis } from "./utilities/data_analysis.js";
+export { registerDataAnalyzer } from "./utilities/data_analyzer.js";
 
 // Cloud Tools
 export { registerCloudInfrastructureManager } from "./cloud/cloud_infrastructure_manager.js";
@@ -185,6 +192,26 @@ export { registerDroneUnified } from "./droneUnified.js";
 
 // SpecOps Tools - Advanced Security Operations
 export * from "./specops/index.js";
+
+// SpecOps Penetration Tools - Individual exports for direct access
+export { registerMetasploitFramework } from "./specops/penetration/metasploit_framework.js";
+export { registerCobaltStrike } from "./specops/penetration/cobalt_strike.js";
+export { registerEmpirePowershell } from "./specops/penetration/empire_powershell.js";
+export { registerBloodhoundAd } from "./specops/penetration/bloodhound_ad.js";
+export { registerMimikatzCredentials } from "./specops/penetration/mimikatz_credentials.js";
+export { registerMimikatzEnhanced } from "./specops/penetration/mimikatz_enhanced.js";
+export { registerHexStrikeAI } from "./specops/penetration/hexstrike_ai.js";
+export { registerHexStrikeAINaturalLanguage } from "./specops/penetration/hexstrike_ai_natural_language.js";
+
+// SpecOps Network Tools - Individual exports for direct access
+export { registerNmapScanner } from "./specops/network/nmap_scanner.js";
+
+// SpecOps Mobile & IoT Tools - Individual exports for direct access
+export { registerFridaToolkit } from "./specops/mobile_iot/frida_toolkit.js";
+export { registerGhidraReverseEngineering } from "./specops/mobile_iot/ghidra_reverse_engineering.js";
+
+// SpecOps Cloud Security Tools - Individual exports for direct access
+export { registerPacuAwsExploitation } from "./specops/cloud_security/pacu_aws_exploitation.js";
 
 // RF Sense Tools - Comprehensive RF Sensing Toolkit
 export * from "./rf_sense/index.js";

@@ -28,7 +28,9 @@
     "update:installer": "node update-modular-installer.js",
     "discover:tools": "node update-modular-installer.js --discover",
     "smoke:flipper": "node scripts/smoke-flipper.js",
-    "flipper:bridge": "node dist/tools/flipper/bridge-server.js"
+    "flipper:bridge": "node dist/tools/flipper/bridge-server.js",
+    "quickstart": "node quickstart-health.mjs",
+    "health": "node quickstart-health.mjs"
   },
   "dependencies": {
     "@babel/runtime": "^7.28.4",

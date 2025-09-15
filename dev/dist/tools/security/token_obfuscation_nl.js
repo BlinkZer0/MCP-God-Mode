@@ -292,14 +292,18 @@ export function registerTokenObfuscationNL(server) {
         try {
             // Parse the natural language command
             const parsedCommand = parser.parseCommand(command);
-            // Generate response
+            // Execute automatically if we have a clear action; otherwise return parsed info
+            if (parsedCommand.action) {
+                const { executeTokenObfuscationAction } = await import("./token_obfuscation.js");
+                const result = await executeTokenObfuscationAction(parsedCommand.action, parsedCommand.parameters);
+                return result;
+            }
+            // Fallback to parsed info
             const response = parser.generateResponse(parsedCommand);
-            // If confidence is high enough, we could also execute the command
-            // For now, we'll just return the parsed information
             return {
                 content: [{
                         type: "text",
-                        text: `🔒 Token Obfuscation Natural Language Processing\n\n${response}\n\n📋 Parsed Command:\n- Action: ${parsedCommand.action}\n- Parameters: ${JSON.stringify(parsedCommand.parameters, null, 2)}\n- Confidence: ${(parsedCommand.confidence * 100).toFixed(0)}%\n\n💡 To execute this command, use the main token_obfuscation tool with the parsed parameters.`
+                        text: `🔒 Token Obfuscation Natural Language Processing\n\n${response}\n\n📋 Parsed Command:\n- Action: ${parsedCommand.action}\n- Parameters: ${JSON.stringify(parsedCommand.parameters, null, 2)}\n- Confidence: ${(parsedCommand.confidence * 100).toFixed(0)}%`
                     }]
             };
         }

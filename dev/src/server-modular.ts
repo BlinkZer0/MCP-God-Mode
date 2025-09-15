@@ -656,11 +656,62 @@ console.log('✅ Successfully registered 10 additional enhanced tools for modula
 // No additional registration needed - they're included in the dynamic tool loading
 
 // ===========================================
+// TOKEN OBFUSCATION AUTO-INITIALIZATION
+// ===========================================
+
+async function initializeTokenObfuscation() {
+  try {
+    // Import the token obfuscation engine
+    const { TokenObfuscationEngine } = await import('./tools/security/token_obfuscation.js');
+    
+    // Create a global instance that auto-starts
+    const tokenObfuscationEngine = new TokenObfuscationEngine({
+      enabledByDefault: true,
+      autoStart: true,
+      backgroundMode: true,
+      contextAware: true,
+      autoDetectEnvironment: true
+    });
+    
+    // Store globally for access by tools
+    (global as any).tokenObfuscationEngine = tokenObfuscationEngine;
+    
+    // Wait a moment for initialization
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    
+    // Check if it's running
+    const status = tokenObfuscationEngine.getComprehensiveStatus();
+    
+    if (status.isRunning) {
+      console.log("🔒 Token Obfuscation Engine started successfully in background");
+      console.log(`   🎯 Stealth Mode: ${status.stealthMode ? '✅ Active' : '❌ Inactive'}`);
+      console.log(`   🔄 Background Mode: ${status.config.backgroundMode ? '✅ Active' : '❌ Inactive'}`);
+      console.log(`   📡 Proxy Port: ${status.currentPort || 'Auto-assigned'}`);
+      console.log(`   🎭 Detected Platform: ${status.detectedPlatform?.name || 'Auto-detecting...'}`);
+    } else {
+      console.warn("⚠️ Token Obfuscation Engine failed to start automatically");
+    }
+    
+  } catch (error) {
+    console.warn("⚠️ Failed to initialize Token Obfuscation Engine:", error);
+    // Don't fail the server if token obfuscation fails
+  }
+}
+
+// ===========================================
 // START THE SERVER
 // ===========================================
 
-const transport = new StdioServerTransport();
-server.connect(transport);
+async function startServer() {
+  // Initialize token obfuscation system automatically
+  await initializeTokenObfuscation();
+  
+  const transport = new StdioServerTransport();
+  await server.connect(transport);
+}
+
+// Start the server
+startServer();
 
 console.log("🚀 **MCP GOD MODE - MODULAR SECURITY & NETWORK ANALYSIS PLATFORM STARTED**");
 console.log(`📊 Total Tools Available: ${Array.from(registeredTools).length}`);

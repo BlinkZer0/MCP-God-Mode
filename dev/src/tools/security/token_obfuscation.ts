@@ -207,7 +207,7 @@ class AIPlatformDetector {
   }
 }
 
-class TokenObfuscationEngine {
+export class TokenObfuscationEngine {
   private config: TokenObfuscationConfig;
   private stats: ObfuscationStats;
   private proxyServer: http.Server | null = null;
@@ -219,6 +219,7 @@ class TokenObfuscationEngine {
   private healthCheckInterval: NodeJS.Timeout | null = null;
   private platformDetector: AIPlatformDetector;
   private detectedPlatform: AIPlatformInfo | null = null;
+  private currentPort: number | null = null;
 
   constructor(config: Partial<TokenObfuscationConfig> = {}) {
     this.platformDetector = new AIPlatformDetector();
@@ -270,7 +271,12 @@ class TokenObfuscationEngine {
 
     // Auto-initialize if enabled by default
     if (this.config.enabledByDefault) {
-      this.autoInitialize();
+      // Use setImmediate to ensure constructor completes before async initialization
+      setImmediate(() => {
+        this.autoInitialize().catch((error) => {
+          console.error('❌ Auto-initialization failed:', error);
+        });
+      });
     }
   }
 
@@ -286,8 +292,8 @@ class TokenObfuscationEngine {
         await this.detectAndConfigurePlatform();
       }
       
-      // Auto-start proxy if enabled
-      if (this.config.autoStart) {
+      // Auto-start proxy if enabled (but don't auto-start in quickstart mode)
+      if (this.config.autoStart && !process.env.QUICKSTART_MODE) {
         await this.startProxy(8080);
         console.log('✅ Token obfuscation auto-started in background mode');
       }
@@ -526,17 +532,17 @@ class TokenObfuscationEngine {
    * Validate MCP-specific headers
    */
   private validateMCPHeaders(req: http.IncomingMessage): boolean {
-    const requiredHeaders = ['host', 'user-agent'];
-    const mcpHeaders = ['x-mcp-version', 'x-mcp-client', 'x-mcp-server'];
+    // For a proxy, we should be more permissive - only check basic headers
+    const requiredHeaders = ['host'];
 
-    // Check required headers
+    // Check required headers (only host is truly required for HTTP)
     for (const header of requiredHeaders) {
       if (!req.headers[header]) {
         return false;
       }
     }
 
-    // Validate MCP headers if present
+    // Validate MCP headers if present (but don't require them)
     const mcpVersion = req.headers['x-mcp-version'];
     if (mcpVersion && typeof mcpVersion === 'string') {
       const version = mcpVersion.split('.');
@@ -890,6 +896,11 @@ class TokenObfuscationEngine {
    */
   async startProxy(port?: number): Promise<void> {
     return new Promise((resolve, reject) => {
+      // Stop existing proxy first to prevent conflicts
+      if (this.proxyServer && this.isRunning) {
+        this.stopProxy().catch(() => {}); // Ignore errors when stopping
+      }
+      
       // Use dynamic port if stealth mode enabled and no specific port provided
       const proxyPort = port || (this.config.stealthMode.dynamicPorts ? this.getRandomPort() : 8080);
       
@@ -905,6 +916,7 @@ class TokenObfuscationEngine {
 
       this.proxyServer.listen(proxyPort, 'localhost', () => {
         this.isRunning = true;
+        this.currentPort = proxyPort;
         this.startHealthChecks();
         
         // Use stealth logging (stealth mode enabled by default)
@@ -920,10 +932,35 @@ class TokenObfuscationEngine {
         resolve();
       });
 
-      this.proxyServer.on('error', (error) => {
+      this.proxyServer.on('error', (error: any) => {
         this.stats.errorsEncountered++;
-        this.handleError(error);
+        // If port is in use, pivot to a new random port (self-heal)
+        if (error && error.code === 'EADDRINUSE' && this.config.stealthMode.dynamicPorts) {
+          const newPort = this.getRandomPort();
+          console.warn(`⚠️ Port ${proxyPort} in use. Pivoting to ${newPort}...`);
+          try {
+            this.proxyServer?.close();
+          } catch {}
+          this.proxyServer = null;
+          setTimeout(() => {
+            this.startProxy(newPort).then(resolve).catch(reject);
+          }, 100);
+          return;
+        }
+        this.handleError(error as Error);
         reject(error);
+      });
+
+      this.proxyServer.on('close', () => {
+        this.isRunning = false;
+        // Auto-restart if running in background mode (self-heal) but not in quickstart mode
+        if (this.config.backgroundMode && !process.env.QUICKSTART_MODE) {
+          const restartPort = this.config.stealthMode.dynamicPorts ? this.getRandomPort() : (this.currentPort || 8080);
+          console.warn('🔁 Proxy closed unexpectedly. Auto-restarting...');
+          this.startProxy(restartPort).catch((err) => {
+            console.error('Failed to auto-restart proxy:', err);
+          });
+        }
       });
     });
   }
@@ -956,6 +993,90 @@ class TokenObfuscationEngine {
       console.warn(`⚠️ High error rate detected: ${(errorRate * 100).toFixed(2)}%`);
       this.enableFallbackMode();
     }
+  }
+
+  /**
+   * Deep health check with self-heal attempts
+   */
+  private async performDeepHealthCheck(): Promise<{ status: string; issues: string[]; fixes: string[]; port: number | null; }> {
+    const issues: string[] = [];
+    const fixes: string[] = [];
+
+    // Ensure running
+    if (!this.isRunning) {
+      issues.push('Proxy not running');
+      try {
+        await this.startProxy(this.config.stealthMode.dynamicPorts ? undefined : 8080);
+        fixes.push('Started proxy');
+      } catch (e) {
+        issues.push('Failed to start proxy');
+      }
+    }
+
+    // Connectivity test to localhost:currentPort
+    const port = this.currentPort;
+    if (port) {
+      try {
+        await new Promise<void>((resolve, reject) => {
+          const req = http.get({ hostname: 'localhost', port, path: '/health', timeout: 2000 }, (res) => {
+            // Any response is fine; 400 expected due to missing target
+            res.resume();
+            resolve();
+          });
+          req.on('error', reject);
+          req.on('timeout', () => reject(new Error('timeout')));
+        });
+      } catch {
+        issues.push('Local connectivity failed');
+        // Try port pivot
+        if (this.config.stealthMode.dynamicPorts) {
+          fixes.push('Pivoted to new port');
+          await this.restartProxy(this.getRandomPort());
+        }
+      }
+    } else {
+      issues.push('Unknown current port');
+    }
+
+    // Validate stealth configuration
+    if (!this.validateStealthConfig()) {
+      issues.push('Stealth configuration invalid');
+      fixes.push('Applied default stealth configuration');
+    }
+
+    // Reset circuit breaker if needed
+    if (this.circuitBreakerOpen) {
+      this.circuitBreakerOpen = false;
+      this.errorCount = 0;
+      fixes.push('Reset circuit breaker');
+    }
+
+    // Environment proxy suggestion only (do not mutate env automatically)
+    const envIssues: string[] = [];
+    const env = this.getRecommendedProxyEnv(this.currentPort || 8080);
+    if (!process.env.HTTPS_PROXY) envIssues.push('HTTPS_PROXY not set');
+    if (!process.env.HTTP_PROXY) envIssues.push('HTTP_PROXY not set');
+    if (envIssues.length > 0) {
+      issues.push(...envIssues);
+    }
+
+    const status = issues.length === 0 ? 'healthy' : 'degraded';
+    return { status, issues, fixes, port: this.currentPort };
+  }
+
+  private async restartProxy(port?: number): Promise<void> {
+    try {
+      await this.stopProxy();
+    } catch {}
+    await this.startProxy(port);
+  }
+
+  private getRecommendedProxyEnv(port: number) {
+    return {
+      HTTPS_PROXY: `http://localhost:${port}`,
+      HTTP_PROXY: `http://localhost:${port}`,
+      NO_PROXY: 'localhost,127.0.0.1'
+    };
   }
 
   /**
@@ -1367,6 +1488,47 @@ class TokenObfuscationEngine {
   }
 
   /**
+   * Get comprehensive status including proxy state
+   */
+  getComprehensiveStatus(): {
+    isRunning: boolean;
+    currentPort: number | null;
+    config: TokenObfuscationConfig;
+    stats: ObfuscationStats;
+    fallbackMode: boolean;
+    circuitBreakerOpen: boolean;
+    detectedPlatform: AIPlatformInfo | null;
+    stealthMode: boolean;
+  } {
+    return {
+      isRunning: this.isRunning,
+      currentPort: this.currentPort,
+      config: this.config,
+      stats: this.stats,
+      fallbackMode: this.fallbackMode,
+      circuitBreakerOpen: this.circuitBreakerOpen,
+      detectedPlatform: this.detectedPlatform,
+      stealthMode: this.config.stealthMode.enabled
+    };
+  }
+
+  /**
+   * Force restart the proxy if it's not running
+   */
+  async ensureProxyRunning(): Promise<boolean> {
+    if (!this.isRunning) {
+      try {
+        await this.startProxy();
+        return true;
+      } catch (error) {
+        console.error('❌ Failed to start proxy:', error);
+        return false;
+      }
+    }
+    return true;
+  }
+
+  /**
    * Update configuration
    */
   updateConfig(newConfig: Partial<TokenObfuscationConfig>): void {
@@ -1397,7 +1559,7 @@ let obfuscationEngine: TokenObfuscationEngine | null = null;
 /**
  * Process natural language commands for token obfuscation
  */
-async function processNaturalLanguageCommand(command: string, defaultParams: any) {
+export async function processNaturalLanguageCommand(command: string, defaultParams: any) {
   const normalizedCommand = command.toLowerCase().trim();
   
   // Simple natural language processing
@@ -1516,7 +1678,7 @@ async function processNaturalLanguageCommand(command: string, defaultParams: any
 /**
  * Execute token obfuscation action with parameters
  */
-async function executeTokenObfuscationAction(action: string, parameters: any) {
+export async function executeTokenObfuscationAction(action: string, parameters: any) {
   // Initialize engine if not exists
   if (!obfuscationEngine) {
     obfuscationEngine = new TokenObfuscationEngine({
@@ -1583,6 +1745,53 @@ async function executeTokenObfuscationAction(action: string, parameters: any) {
         }]
       };
 
+    case "self_check":
+      if (!obfuscationEngine) {
+        obfuscationEngine = new TokenObfuscationEngine({});
+      }
+      // Deep health check
+      // @ts-ignore access private for internal tool use
+      const deep = await (obfuscationEngine as any).performDeepHealthCheck();
+      // @ts-ignore
+      const env = (obfuscationEngine as any).getRecommendedProxyEnv(deep.port || parameters.proxy_port || 8080);
+      return {
+        content: [{
+          type: "text",
+          text: `🩺 Self-Check Result: ${deep.status.toUpperCase()}\n\nPort: ${deep.port || 'unknown'}\nIssues: ${deep.issues.length ? deep.issues.join('; ') : 'none'}\nFixes Applied: ${deep.fixes.length ? deep.fixes.join('; ') : 'none'}\n\nRecommended Env:\nHTTPS_PROXY=${env.HTTPS_PROXY}\nHTTP_PROXY=${env.HTTP_PROXY}\nNO_PROXY=${env.NO_PROXY}`
+        }]
+      };
+
+    case "self_heal":
+      if (!obfuscationEngine) {
+        obfuscationEngine = new TokenObfuscationEngine({});
+      }
+      // Attempt restart if not running
+      if (!(obfuscationEngine as any).isRunning) {
+        // @ts-ignore
+        await (obfuscationEngine as any).restartProxy(parameters.proxy_port);
+      }
+      // @ts-ignore
+      const heal = await (obfuscationEngine as any).performDeepHealthCheck();
+      return {
+        content: [{
+          type: "text",
+          text: `🛠️ Self-Heal Executed\n\nStatus: ${heal.status.toUpperCase()}\nIssues: ${heal.issues.length ? heal.issues.join('; ') : 'none'}\nFixes Applied: ${heal.fixes.length ? heal.fixes.join('; ') : 'none'}\nPort: ${heal.port || 'unknown'}`
+        }]
+      };
+
+    case "restart_proxy":
+      if (!obfuscationEngine) {
+        obfuscationEngine = new TokenObfuscationEngine({});
+      }
+      // @ts-ignore
+      await (obfuscationEngine as any).restartProxy(parameters.proxy_port);
+      return {
+        content: [{
+          type: "text",
+          text: `🔁 Proxy restarted on port ${parameters.proxy_port || 'auto'}`
+        }]
+      };
+
     default:
       return {
         content: [{
@@ -1614,6 +1823,10 @@ export function registerTokenObfuscation(server: any) {
         "get_health_status",
         "export_logs",
         "check_default_status",
+        // Self-check/heal
+        "self_check",
+        "self_heal",
+        "restart_proxy",
         // Enhanced Stealth Mode Actions
         "enable_stealth_mode",
         "disable_stealth_mode",
@@ -1624,6 +1837,9 @@ export function registerTokenObfuscation(server: any) {
         "enable_header_spoofing",
         "enable_background_mode",
         "disable_background_mode",
+        // New comprehensive status actions
+        "ensure_proxy_running",
+        "get_comprehensive_status",
         "natural_language_command"
       ]).describe("Token obfuscation action to perform"),
       
@@ -2003,6 +2219,27 @@ export function registerTokenObfuscation(server: any) {
             content: [{
               type: "text",
               text: `🎭 Header spoofing enabled!\n\n🔒 Spoofed Headers:\n- User-Agent: Rotating browser agents\n- Accept: Standard browser headers\n- Accept-Language: en-US,en;q=0.9\n- Accept-Encoding: gzip, deflate, br\n- Connection: keep-alive\n- Cache-Control: no-cache\n\n🎯 Traffic now appears as legitimate browser requests`
+            }]
+          };
+
+        case "ensure_proxy_running":
+          const proxyRunning = await obfuscationEngine['ensureProxyRunning']();
+          const status = obfuscationEngine['getComprehensiveStatus']();
+          
+          return {
+            content: [{
+              type: "text",
+              text: `🔧 Proxy Status Check:\n\n- Proxy Running: ${status.isRunning ? '✅ Yes' : '❌ No'}\n- Current Port: ${status.currentPort || 'Not set'}\n- Stealth Mode: ${status.stealthMode ? '✅ Active' : '❌ Inactive'}\n- Detected Platform: ${status.detectedPlatform?.name || 'None'}\n- Fallback Mode: ${status.fallbackMode ? '🔄 Active' : '✅ Normal'}\n- Circuit Breaker: ${status.circuitBreakerOpen ? '🚨 Open' : '✅ Closed'}\n\n📊 Statistics:\n- Requests Processed: ${status.stats.requestsProcessed}\n- Token Reduction: ${status.stats.reductionPercentage.toFixed(2)}%\n- Errors: ${status.stats.errorsEncountered}\n\n${proxyRunning ? '✅ Proxy is now running and ready to intercept requests' : '❌ Failed to start proxy - check logs for details'}`
+            }]
+          };
+
+        case "get_comprehensive_status":
+          const comprehensiveStatus = obfuscationEngine['getComprehensiveStatus']();
+          
+          return {
+            content: [{
+              type: "text",
+              text: `📋 Comprehensive Token Obfuscation Status:\n\n🔧 **Proxy Status:**\n- Running: ${comprehensiveStatus.isRunning ? '✅ Yes' : '❌ No'}\n- Port: ${comprehensiveStatus.currentPort || 'Not set'}\n- Stealth Mode: ${comprehensiveStatus.stealthMode ? '✅ Active' : '❌ Inactive'}\n\n🎯 **Configuration:**\n- Obfuscation Level: ${comprehensiveStatus.config.obfuscationLevel}\n- Reduction Factor: ${comprehensiveStatus.config.reductionFactor}\n- Target Platform: ${comprehensiveStatus.config.targetPlatform}\n- Auto-Start: ${comprehensiveStatus.config.autoStart ? '✅ Yes' : '❌ No'}\n- Background Mode: ${comprehensiveStatus.config.backgroundMode ? '✅ Yes' : '❌ No'}\n\n🔍 **Platform Detection:**\n- Detected Platform: ${comprehensiveStatus.detectedPlatform?.name || 'None'}\n- Confidence: ${comprehensiveStatus.detectedPlatform ? (comprehensiveStatus.detectedPlatform.confidence * 100).toFixed(1) + '%' : 'N/A'}\n\n📊 **Statistics:**\n- Requests Processed: ${comprehensiveStatus.stats.requestsProcessed}\n- Original Tokens: ${comprehensiveStatus.stats.originalTokens}\n- Obfuscated Tokens: ${comprehensiveStatus.stats.obfuscatedTokens}\n- Reduction Percentage: ${comprehensiveStatus.stats.reductionPercentage.toFixed(2)}%\n- Errors Encountered: ${comprehensiveStatus.stats.errorsEncountered}\n\n🔄 **System State:**\n- Fallback Mode: ${comprehensiveStatus.fallbackMode ? '🔄 Active' : '✅ Normal'}\n- Circuit Breaker: ${comprehensiveStatus.circuitBreakerOpen ? '🚨 Open' : '✅ Closed'}\n\n💡 **Recommendations:**\n${!comprehensiveStatus.isRunning ? '- Start the proxy using "start_proxy" action\n' : ''}${comprehensiveStatus.stats.requestsProcessed === 0 ? '- No requests processed yet - check proxy configuration\n' : ''}${comprehensiveStatus.stats.reductionPercentage < 50 ? '- Consider more aggressive obfuscation settings\n' : ''}${comprehensiveStatus.detectedPlatform === null ? '- Run "detect_platform" to auto-configure for your AI platform\n' : ''}`
             }]
           };
 

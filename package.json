@@ -20,6 +20,8 @@
     "dev": "tsc -p . && node dist/server-refactored.js",
     "web": "node dist/web-server.js",
     "smoke": "node scripts/smoke-test.js",
+    "quickstart": "cd dev && node quickstart-health.mjs",
+    "health": "cd dev && node quickstart-health.mjs",
     "test": "echo \"Error: no test specified\" && exit 1",
     "test:elevated": "node test_elevated_permissions.mjs",
     "test:elevated:windows": "cross-env PLATFORM=win32 node test_elevated_permissions.mjs",
