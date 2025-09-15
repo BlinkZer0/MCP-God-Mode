@@ -10,7 +10,8 @@ export const ELEVATED_TOOLS = {
   // System administration tools
   system: [
     "win_services", "win_processes", "system_monitor", "system_backup", 
-    "system_repair", "security_audit", "event_log_analyzer", "disk_management"
+    "system_repair", "security_audit", "event_log_analyzer", "disk_management",
+    "system_restore", "elevated_permissions_manager", "cron_job_manager"
   ],
   
   // Network and security tools
@@ -19,7 +20,28 @@ export const ELEVATED_TOOLS = {
     "bluetooth_security_toolkit", "bluetooth_hacking", "sdr_security_toolkit",
     "radio_security", "signal_analysis", "hack_network", "security_testing",
     "wireless_security", "network_penetration", "port_scanner", "vulnerability_scanner",
-    "password_cracker", "exploit_framework"
+    "password_cracker", "exploit_framework", "network_security", "blockchain_security",
+    "quantum_security", "iot_security", "threat_intelligence", "compliance_assessment",
+    "social_network_ripper", "metadata_extractor", "siem_toolkit", "cloud_security_assessment",
+    "api_security_testing", "email_security_suite", "database_security_toolkit",
+    "hack_gpt", "hack_gpt_natural_language", "strix_ai", "strix_ai_natural_language",
+    "pentest_plus_plus", "pentest_plus_plus_natural_language", "encryption_tool",
+    "malware_analysis", "malware_analysis_toolkit", "advanced_security_assessment",
+    "cross_platform_system_manager", "enterprise_integration_hub", "advanced_analytics_engine"
+  ],
+  
+  // Penetration testing tools
+  penetration: [
+    "network_penetration", "penetration_testing_toolkit", "social_engineering_toolkit",
+    "red_team_toolkit", "metasploit_framework", "cobalt_strike", "empire_powershell",
+    "bloodhound_ad", "mimikatz_credentials", "mimikatz_enhanced", "hexstrike_ai",
+    "hexstrike_ai_natural_language", "nmap_scanner", "frida_toolkit", "ghidra_reverse_engineering",
+    "pacu_aws_exploitation", "exploit_framework", "zero_day_exploiter_unified"
+  ],
+  
+  // Wireless and radio tools
+  wireless: [
+    "wireless_network_scanner", "wifi_disrupt", "cellular_triangulate"
   ],
   
   // Virtualization and container tools
@@ -29,12 +51,37 @@ export const ELEVATED_TOOLS = {
   
   // Mobile system tools
   mobile: [
-    "mobile_system_tools", "mobile_hardware"
+    "mobile_system_tools", "mobile_hardware", "mobile_device_management",
+    "mobile_network_analyzer", "mobile_security_toolkit", "enhanced_mobile_app_toolkit",
+    "mobile_app_unified"
   ],
   
   // File system operations that might need elevation
   filesystem: [
-    "file_ops" // For operations like chmod, chown, system file access
+    "file_ops", "file_watcher" // For operations like chmod, chown, system file access
+  ],
+  
+  // Process management tools
+  process: [
+    "proc_run_elevated", "proc_run_remote" // Tools that specifically need elevated execution
+  ],
+  
+  // AI and advanced tools
+  ai_tools: [
+    "ai_adversarial_prompt", "ai_adversarial_nlp", "ai_adversarial_platform_info"
+  ],
+  
+  // Advanced security operations
+  advanced_security: [
+    "advanced_threat_hunting", "cyber_deception_platform", "zero_trust_architect",
+    "quantum_cryptography_suite", "ai_security_orchestrator", "blockchain_forensics",
+    "supply_chain_security", "privacy_engineering", "incident_commander",
+    "security_metrics_dashboard"
+  ],
+  
+  // Specialized tools
+  specialized: [
+    "flipper_zero", "drone_unified", "rf_sense", "tool_burglar"
   ]
 };
 

@@ -272,7 +272,8 @@ class LazyToolLoader {
             'fs_list',
             'fs_read_text',
             'fs_write_text',
-            'proc_run'
+            'proc_run',
+            'elevated_permissions_manager'
         ];
         console.log('🚀 Preloading essential tools...');
         for (const toolName of essentialTools) {
