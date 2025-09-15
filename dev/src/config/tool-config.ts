@@ -183,6 +183,142 @@ export const TOOL_CATEGORIES = {
       "enterprise_integration_hub",
       "advanced_analytics_engine"
     ]
+  },
+  "mcp_web_ui_bridge": {
+    name: "MCP Web UI Bridge",
+    description: "Chat with AI services through web interfaces without APIs",
+    tools: [
+      "web_ui_chat",
+      "providers_list", 
+      "provider_wizard",
+      "macro_record",
+      "macro_run",
+      "session_management"
+    ]
+  },
+  "unified_tools": {
+    name: "Unified Comprehensive Tools",
+    description: "Comprehensive unified tools combining multiple functionalities",
+    tools: [
+      "crime_reporter_unified",
+      "zero_day_exploiter_unified", 
+      "drone_unified",
+      "rf_sense",
+      "mobile_app_unified"
+    ]
+  },
+  "advanced_security": {
+    name: "Advanced Security Operations",
+    description: "Advanced security tools for threat hunting and incident response",
+    tools: [
+      "advanced_threat_hunting",
+      "cyber_deception_platform",
+      "zero_trust_architect",
+      "quantum_cryptography_suite",
+      "ai_security_orchestrator",
+      "blockchain_forensics",
+      "supply_chain_security",
+      "privacy_engineering",
+      "incident_commander",
+      "security_metrics_dashboard"
+    ]
+  },
+  "ai_tools": {
+    name: "AI-Powered Security Tools",
+    description: "AI-powered security tools and frameworks",
+    tools: [
+      "hack_gpt",
+      "hack_gpt_natural_language",
+      "hexstrike_ai",
+      "hexstrike_ai_natural_language",
+      "strix_ai",
+      "strix_ai_natural_language",
+      "pentest_plus_plus",
+      "pentest_plus_plus_natural_language",
+      "ai_adversarial_prompt",
+      "ai_adversarial_nlp",
+      "ai_adversarial_platform_info"
+    ]
+  },
+  "competitive_intelligence": {
+    name: "Competitive Intelligence",
+    description: "Competitor analysis and market research tools",
+    tools: [
+      "competitive_intelligence",
+      "competitive_intelligence_nl",
+      "competitive_intelligence_test"
+    ]
+  },
+  "specops_tools": {
+    name: "SpecOps Penetration Tools",
+    description: "Advanced penetration testing and red team tools",
+    tools: [
+      "metasploit_framework",
+      "cobalt_strike",
+      "empire_powershell",
+      "bloodhound_ad",
+      "mimikatz_credentials",
+      "mimikatz_enhanced",
+      "hexstrike_ai",
+      "hexstrike_ai_natural_language",
+      "nmap_scanner",
+      "frida_toolkit",
+      "ghidra_reverse_engineering",
+      "pacu_aws_exploitation"
+    ]
+  },
+  "psychology": {
+    name: "Psychology Analysis Tools",
+    description: "Psychological analysis and profiling tools",
+    tools: [
+      "psychology_tool"
+    ]
+  },
+  "form_tools": {
+    name: "Form Automation Tools",
+    description: "Web form detection, completion, and validation",
+    tools: [
+      "form_detection",
+      "form_completion", 
+      "form_validation",
+      "form_pattern_recognition"
+    ]
+  },
+  "captcha_tools": {
+    name: "CAPTCHA Tools",
+    description: "CAPTCHA detection and solving capabilities",
+    tools: [
+      "captcha_defeating"
+    ]
+  },
+  "enhanced_media": {
+    name: "Enhanced Media Tools",
+    description: "Advanced media processing and editing capabilities",
+    tools: [
+      "enhanced_media_editor"
+    ]
+  },
+  "enhanced_mobile": {
+    name: "Enhanced Mobile Tools", 
+    description: "Advanced mobile app development and management",
+    tools: [
+      "enhanced_mobile_app_toolkit"
+    ]
+  },
+  "grep_tools": {
+    name: "Advanced Search Tools",
+    description: "Advanced text search and pattern matching",
+    tools: [
+      "grep",
+      "advanced_grep"
+    ]
+  },
+  "tool_management": {
+    name: "Tool Management",
+    description: "Tool discovery and management utilities",
+    tools: [
+      "tool_burglar"
+    ]
   }
 };
 

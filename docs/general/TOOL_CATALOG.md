@@ -1,19 +1,19 @@
 # MCP God Mode - Comprehensive Tool Catalog
 
 ## Overview
-MCP God Mode is an advanced security and network analysis platform. Current counts (v2.0 - Consolidated Architecture):
+MCP God Mode is an advanced security and network analysis platform. Current counts (v2.0c - Consolidated Architecture):
 
 - **Comprehensive index + enhanced endpoints** exported in code
-- **178 total endpoints** across both servers (includes consolidated tools, MCP Web UI Bridge, and SpecOps tools)
-- **178 documented tools** in the wiki
-- **Configurable modular server** - can load minimal (10 tools), custom categories, or full (178 tools)
+- **184 total endpoints** across both servers (includes consolidated tools, MCP Web UI Bridge, and SpecOps tools)
+- **184 documented tools** in the wiki
+- **Configurable modular server** - can load minimal (10 tools), custom categories, or full (184 tools)
 
 This document provides detailed information about each tool, its capabilities, and use cases.
 
 ## Tool Count Summary
-- **Documented Tools**: 178
-- **Server-Refactored (total endpoints)**: 178
-- **Modular Server (total endpoints)**: 178 (configurable)
+- **Documented Tools**: 184
+- **Server-Refactored (total endpoints)**: 184
+- **Modular Server (total endpoints)**: 184 (configurable)
 - **Server-Minimal**: 15 tools
 - **SpecOps Tools**: 22 (new in v1.8d)
 - **RF Sense Tools**: 7 (new in v1.9 - through-wall detection)
@@ -300,18 +300,18 @@ Humor break: if the AI builds an enterprise integration hub and starts sending c
 
 ## Server Implementations
 
-### Server-Refactored (176 tools)
-- **Primary server** with all 119 exported tools
-- **11 additional tools** registered separately (5 enhanced + 6 MCP Web UI Bridge)
-- **10 SpecOps tools** for advanced security operations
+### Server-Refactored (184 tools)
+- **Primary server** with all exported tools
+- **Additional tools** registered separately (enhanced + MCP Web UI Bridge)
+- **SpecOps tools** for advanced security operations
 - **Full feature set** with legal compliance
 - **Production ready** with comprehensive error handling
 
-### Server-Modular (176 tools)
+### Server-Modular (184 tools)
 - **Modular architecture** with imported tools
-- **119 exported tools** from index
-- **11 additional tools** registered separately (5 enhanced + 6 MCP Web UI Bridge)
-- **10 SpecOps tools** for advanced security operations
+- **All exported tools** from index
+- **Additional tools** registered separately (enhanced + MCP Web UI Bridge)
+- **SpecOps tools** for advanced security operations
 - **Configurable** - can load minimal, custom categories, or full toolset
 - **Development and testing focused**
 
@@ -356,5 +356,5 @@ Humor break: if the AI builds an enterprise integration hub and starts sending c
 
 ---
 
-*Last Updated: 1/10/2025*
-*Totals: 171 registered tools across servers (including 10 new SpecOps tools and 3 new RF Sense tools with full cross-platform support) - v1.9*
+*Last Updated: 1/27/2025*
+*Totals: 184 registered tools across servers (including SpecOps tools and RF Sense tools with full cross-platform support) - v2.0c*

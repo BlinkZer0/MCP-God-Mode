@@ -1,8 +1,8 @@
-# Available Tools (v2.0 - auto-generated snapshot)
+# Available Tools (v2.0c - auto-generated snapshot)
 
 Total tool endpoints (server-refactored): 139
-Additional tools in server-refactored.ts: 21
-Total tools: 176
+Additional tools in server-refactored.ts: 45
+Total tools: 184
 
 Tool names (as registered):
 

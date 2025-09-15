@@ -1,19 +1,16 @@
 {
-  "enabledTools": [
-    "rf_sense_wifi_lab",
-    "rf_sense_mmwave"
-  ],
+  "enabledTools": [],
   "disabledTools": [],
   "toolCategories": {
     "core": {
-      "enabled": false,
+      "enabled": true,
       "tools": [
         "health",
         "system_info"
       ]
     },
     "file_system": {
-      "enabled": false,
+      "enabled": true,
       "tools": [
         "file_ops",
         "file_watcher",
@@ -24,7 +21,7 @@
       ]
     },
     "network": {
-      "enabled": false,
+      "enabled": true,
       "tools": [
         "network_diagnostics",
         "network_discovery",
@@ -45,7 +42,7 @@
       ]
     },
     "security": {
-      "enabled": false,
+      "enabled": true,
       "tools": [
         "api_security_testing",
         "blockchain_security",
@@ -68,7 +65,7 @@
       ]
     },
     "mobile": {
-      "enabled": false,
+      "enabled": true,
       "tools": [
         "mobile_app_analytics_toolkit",
         "mobile_app_deployment_toolkit",
@@ -86,7 +83,7 @@
       ]
     },
     "bluetooth": {
-      "enabled": false,
+      "enabled": true,
       "tools": [
         "bluetooth_device_manager",
         "bluetooth_hacking",
@@ -94,7 +91,7 @@
       ]
     },
     "radio": {
-      "enabled": false,
+      "enabled": true,
       "tools": [
         "radio_security",
         "sdr_security_toolkit",
@@ -102,7 +99,7 @@
       ]
     },
     "media": {
-      "enabled": false,
+      "enabled": true,
       "tools": [
         "audio_editing",
         "image_editing",
@@ -111,7 +108,7 @@
       ]
     },
     "email": {
-      "enabled": false,
+      "enabled": true,
       "tools": [
         "delete_emails",
         "email_utils",
@@ -123,7 +120,7 @@
       ]
     },
     "cloud": {
-      "enabled": false,
+      "enabled": true,
       "tools": [
         "cloud_infrastructure_manager",
         "cloud_security",
@@ -131,7 +128,7 @@
       ]
     },
     "forensics": {
-      "enabled": false,
+      "enabled": true,
       "tools": [
         "forensics_analysis",
         "forensics_toolkit",
@@ -139,7 +136,7 @@
       ]
     },
     "penetration": {
-      "enabled": false,
+      "enabled": true,
       "tools": [
         "hack_network",
         "network_penetration",
@@ -149,7 +146,7 @@
       ]
     },
     "utilities": {
-      "enabled": false,
+      "enabled": true,
       "tools": [
         "calculator",
         "chart_generator",
@@ -165,7 +162,7 @@
       ]
     },
     "web": {
-      "enabled": false,
+      "enabled": true,
       "tools": [
         "browser_control",
         "web_automation",
@@ -175,19 +172,28 @@
       ]
     },
     "wireless": {
-      "enabled": false,
+      "enabled": true,
       "tools": [
         "wifi_hacking",
         "wifi_security_toolkit",
         "wireless_network_scanner",
-        "wireless_security",
+        "wireless_security"
+      ]
+    },
+    "rf_sense": {
+      "enabled": true,
+      "tools": [
+        "rf_sense",
+        "rf_sense_sim",
         "rf_sense_wifi_lab",
         "rf_sense_mmwave",
-        "rf_sense_natural_language"
+        "rf_sense_natural_language",
+        "rf_sense_guardrails",
+        "rf_sense_localize"
       ]
     },
     "system": {
-      "enabled": false,
+      "enabled": true,
       "tools": [
         "cron_job_manager",
         "elevated_permissions_manager",
@@ -196,72 +202,195 @@
       ]
     },
     "process": {
-      "enabled": false,
+      "enabled": true,
       "tools": [
         "proc_run",
         "proc_run_elevated"
       ]
     },
     "legal": {
-      "enabled": false,
+      "enabled": true,
       "tools": [
         "legal_compliance_manager"
       ]
     },
     "git": {
-      "enabled": false,
+      "enabled": true,
       "tools": [
         "git_status"
       ]
     },
     "discovery": {
-      "enabled": false,
+      "enabled": true,
       "tools": [
         "explore_categories",
         "tool_discovery"
       ]
     },
     "social": {
-      "enabled": false,
+      "enabled": true,
       "tools": [
         "social_network_ripper"
       ]
     },
     "drone": {
-      "enabled": false,
+      "enabled": true,
       "tools": [
         "drone_defense",
         "drone_offense"
       ]
     },
     "virtualization": {
-      "enabled": false,
+      "enabled": true,
       "tools": [
         "docker_management",
         "vm_management"
       ]
     },
     "windows": {
-      "enabled": false,
+      "enabled": true,
       "tools": [
         "win_processes",
         "win_services"
       ]
     },
     "screenshot": {
-      "enabled": false,
+      "enabled": true,
       "tools": [
         "screenshot"
       ]
     },
     "enhanced": {
-      "enabled": false,
+      "enabled": true,
       "tools": [
         "enhanced_legal_compliance",
         "advanced_security_assessment",
         "cross_platform_system_manager",
         "enterprise_integration_hub",
         "advanced_analytics_engine"
+      ]
+    },
+    "mcp_web_ui_bridge": {
+      "enabled": true,
+      "tools": [
+        "web_ui_chat",
+        "providers_list",
+        "provider_wizard",
+        "macro_record",
+        "macro_run",
+        "session_management"
+      ]
+    },
+    "unified_tools": {
+      "enabled": true,
+      "tools": [
+        "crime_reporter_unified",
+        "zero_day_exploiter_unified",
+        "drone_unified",
+        "rf_sense",
+        "mobile_app_unified"
+      ]
+    },
+    "advanced_security": {
+      "enabled": true,
+      "tools": [
+        "advanced_threat_hunting",
+        "cyber_deception_platform",
+        "zero_trust_architect",
+        "quantum_cryptography_suite",
+        "ai_security_orchestrator",
+        "blockchain_forensics",
+        "supply_chain_security",
+        "privacy_engineering",
+        "incident_commander",
+        "security_metrics_dashboard"
+      ]
+    },
+    "ai_tools": {
+      "enabled": true,
+      "tools": [
+        "hack_gpt",
+        "hack_gpt_natural_language",
+        "hexstrike_ai",
+        "hexstrike_ai_natural_language",
+        "strix_ai",
+        "strix_ai_natural_language",
+        "pentest_plus_plus",
+        "pentest_plus_plus_natural_language",
+        "ai_adversarial_prompt",
+        "ai_adversarial_nlp",
+        "ai_adversarial_platform_info"
+      ]
+    },
+    "competitive_intelligence": {
+      "enabled": true,
+      "tools": [
+        "competitive_intelligence",
+        "competitive_intelligence_nl",
+        "competitive_intelligence_test"
+      ]
+    },
+    "specops_tools": {
+      "enabled": true,
+      "tools": [
+        "metasploit_framework",
+        "cobalt_strike",
+        "empire_powershell",
+        "bloodhound_ad",
+        "mimikatz_credentials",
+        "mimikatz_enhanced",
+        "hexstrike_ai",
+        "hexstrike_ai_natural_language",
+        "nmap_scanner",
+        "frida_toolkit",
+        "ghidra_reverse_engineering",
+        "pacu_aws_exploitation"
+      ]
+    },
+    "psychology": {
+      "enabled": true,
+      "tools": [
+        "psychology_tool"
+      ]
+    },
+    "form_tools": {
+      "enabled": true,
+      "tools": [
+        "form_detection",
+        "form_completion",
+        "form_validation",
+        "form_pattern_recognition"
+      ]
+    },
+    "captcha_tools": {
+      "enabled": true,
+      "tools": [
+        "captcha_defeating"
+      ]
+    },
+    "enhanced_media": {
+      "enabled": true,
+      "tools": [
+        "enhanced_media_editor"
+      ]
+    },
+    "enhanced_mobile": {
+      "enabled": true,
+      "tools": [
+        "enhanced_mobile_app_toolkit"
+      ]
+    },
+    "grep_tools": {
+      "enabled": true,
+      "tools": [
+        "grep",
+        "advanced_grep"
+      ]
+    },
+    "tool_management": {
+      "enabled": true,
+      "tools": [
+        "tool_burglar"
       ]
     }
   },

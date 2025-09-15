@@ -1,6 +1,6 @@
 {
   "name": "mcp-god-mode",
-  "version": "2.0b",
+  "version": "2.0c",
   "private": true,
   "type": "module",
   "scripts": {
@@ -169,7 +169,7 @@
     "totalTools": 177,
     "lastUpdated": "2025-01-27T15:30:00.000Z",
     "toolCategories": 25,
-    "version": "2.0b",
+    "version": "2.0c",
     "features": [
       "RF Sense Through-Wall Detection",
       "Enhanced Wireless Capabilities",

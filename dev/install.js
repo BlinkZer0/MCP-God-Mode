@@ -23,7 +23,7 @@ import {
 
 // Auto-generated tool categories based on actual tools in src/tools/
 // Generated on: 2025-01-27T15:30:00.000Z
-// Total tools discovered: 168 (including consolidated tools and enhanced features)
+// Total tools discovered: 184 (including consolidated tools and enhanced features)
 
 const TOOL_CATEGORIES = {
   "bluetooth": {
@@ -496,21 +496,36 @@ const SERVER_CONFIGS = {
   'modular': {
     name: 'Modular Server',
     description: 'All available tools in modular architecture',
-    tools: 124,
+    tools: 184,
     categories: Object.keys(TOOL_CATEGORIES),
     features: [
       'Complete tool coverage',
       'Modular architecture',
-      'All 124 tools available',
+      'All 184 tools available',
       'RF Sense through-wall detection',
       'Drone management capabilities',
       'Professional security platform'
     ]
   },
+  'lazy': {
+    name: 'Lazy Loading Server',
+    description: 'All 184 tools with on-demand loading for optimal performance',
+    tools: 184,
+    categories: Object.keys(TOOL_CATEGORIES),
+    features: [
+      'Complete tool coverage (184 tools)',
+      'Lazy loading architecture',
+      'On-demand tool loading',
+      'Faster startup time',
+      'Reduced memory footprint',
+      'Dynamic tool discovery',
+      'Real-time loading statistics'
+    ]
+  },
   'full': {
     name: 'Full Server',
     description: 'Complete server with all tools',
-    tools: 168, // Updated to reflect v2.0 consolidated tool count
+    tools: 184, // Updated to reflect v2.0c consolidated tool count
     categories: Object.keys(TOOL_CATEGORIES),
     features: [
       'Complete tool coverage',
@@ -562,18 +577,20 @@ async function runInstaller() {
   console.log('✅ Installation Options:');
   console.log('');
   console.log('1. Install Minimal Server (15 tools)');
-  console.log('2. Install Modular Server (124 tools)');
-  console.log('3. Install Full Server (124 tools)');
-  console.log('4. Build Custom Server');
-  console.log('5. Show Tool Information');
-  console.log('6. Interactive Installer (NEW in v1.8)');
-  console.log('7. Exit');
+  console.log('2. Install Modular Server (184 tools)');
+  console.log('3. Install Lazy Loading Server (184 tools)');
+  console.log('4. Install Full Server (184 tools)');
+  console.log('5. Build Custom Server');
+  console.log('6. Show Tool Information');
+  console.log('7. Interactive Installer (NEW in v2.0c)');
+  console.log('8. Exit');
   console.log('');
 
   console.log('💡 To install, run one of these commands:');
   console.log('');
   console.log('npm run install:minimal    # Install minimal server');
   console.log('npm run install:modular    # Install modular server');
+  console.log('npm run install:lazy       # Install lazy loading server');
   console.log('npm run install:full       # Install full server');
   console.log('node interactive-installer.js  # Interactive installer (NEW in v1.8)');
   console.log('node build-server.js       # Build custom server');
@@ -631,6 +648,27 @@ async function installModularServer() {
   console.log('');
 }
 
+// Install lazy loading server
+async function installLazyServer() {
+  console.log('🔧 Installing Lazy Loading Server...');
+  console.log('====================================');
+  
+  try {
+    const config = createFullConfig();
+    await saveToolConfig(config);
+    
+    console.log('✅ Lazy loading server configuration created');
+    console.log('📋 All 184 tools available with on-demand loading');
+    console.log('⚡ Faster startup with minimal memory footprint');
+    console.log('🔄 Dynamic tool discovery and loading');
+    console.log('');
+    console.log('💡 Run: npm run build && node dist/server-lazy.js');
+    console.log('🎯 Use tool_discovery to explore and load tools as needed');
+  } catch (error) {
+    console.error('❌ Failed to create lazy server configuration:', error);
+  }
+}
+
 // Install full server
 async function installFullServer() {
   console.log('🔧 Installing Full Server...');
@@ -642,7 +680,7 @@ async function installFullServer() {
     
     console.log('✅ Full server configuration created');
     console.log('📋 All categories enabled (including enhanced tools)');
-    console.log('🔧 Total tools: 168 tools (v2.0 consolidated)');
+    console.log('🔧 Total tools: 184 tools (v2.0c consolidated)');
     console.log('');
     console.log('💡 Run: npm run build && node dist/server-modular.js');
   } catch (error) {
@@ -864,6 +902,8 @@ if (import.meta.url === `file://${process.argv[1]}` || import.meta.url.endsWith(
       } else {
         await installModularServer();
       }
+    } else if (args.includes('--lazy')) {
+      await installLazyServer();
     } else if (args.includes('--full')) {
       await installFullServer();
     } else if (args.includes('--custom') || args.includes('-c')) {
