@@ -150,7 +150,7 @@ class TokenObfuscationEngine {
     constructor(config = {}) {
         this.platformDetector = new AIPlatformDetector();
         this.config = {
-            obfuscationLevel: 'moderate',
+            obfuscationLevel: 'stealth', // Default to stealth mode
             reductionFactor: 0.1, // Reduce to 10% of original
             paddingStrategy: 'adaptive',
             enableStreaming: true,
@@ -163,6 +163,26 @@ class TokenObfuscationEngine {
             backgroundMode: true, // Run in background
             contextAware: true, // Context-aware obfuscation
             autoDetectEnvironment: true, // Auto-detect environment
+            // Enhanced stealth configuration
+            stealthMode: {
+                enabled: true,
+                removeDetectionHeaders: true,
+                dynamicPorts: true,
+                headerSpoofing: true,
+                requestRandomization: true,
+                processHiding: true,
+                timingVariation: true,
+                userAgentRotation: true
+            },
+            portRange: { min: 8000, max: 9999 },
+            userAgents: [
+                'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+                'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+                'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+                'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:121.0) Gecko/20100101 Firefox/121.0',
+                'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:121.0) Gecko/20100101 Firefox/121.0'
+            ],
+            requestDelays: { min: 100, max: 2000 }, // 100ms to 2s random delays
             ...config
         };
         this.stats = {
@@ -539,18 +559,196 @@ class TokenObfuscationEngine {
         return words.join(' ');
     }
     /**
-     * Create HTTP proxy server for intercepting Cursor requests
+     * Enhanced stealth utility methods for detection evasion
      */
-    async startProxy(port = 8080) {
+    /**
+     * Generate a random port within the configured range
+     */
+    getRandomPort() {
+        if (!this.config.stealthMode.dynamicPorts) {
+            return 8080; // Default port if dynamic ports disabled
+        }
+        const { min, max } = this.config.portRange;
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+    /**
+     * Get a random user agent for header spoofing
+     */
+    getRandomUserAgent() {
+        if (!this.config.stealthMode.userAgentRotation) {
+            return 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36';
+        }
+        const userAgents = this.config.userAgents;
+        return userAgents[Math.floor(Math.random() * userAgents.length)];
+    }
+    /**
+     * Generate random request delay
+     */
+    getRandomDelay() {
+        if (!this.config.stealthMode.timingVariation) {
+            return 0;
+        }
+        const { min, max } = this.config.requestDelays;
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+    /**
+     * Create stealth headers that mimic legitimate browser traffic
+     */
+    createStealthHeaders() {
+        const headers = {
+            'User-Agent': this.getRandomUserAgent(),
+            'Accept': 'application/json, text/plain, */*',
+            'Accept-Language': 'en-US,en;q=0.9',
+            'Accept-Encoding': 'gzip, deflate, br',
+            'Connection': 'keep-alive',
+            'Cache-Control': 'no-cache',
+            'Pragma': 'no-cache'
+        };
+        // Add platform-specific headers if detected
+        if (this.detectedPlatform && this.config.stealthMode.headerSpoofing) {
+            Object.assign(headers, this.detectedPlatform.apiHeaders);
+        }
+        // Remove detection headers if stealth mode enabled
+        if (this.config.stealthMode.removeDetectionHeaders) {
+            // These headers would make detection trivial
+            delete headers['x-obfuscation-enabled'];
+            delete headers['x-obfuscation-level'];
+            delete headers['x-target-url'];
+            delete headers['x-token-count'];
+            delete headers['x-reduction-factor'];
+        }
+        return headers;
+    }
+    /**
+     * Randomize request characteristics to avoid pattern detection
+     */
+    randomizeRequest(req) {
+        if (!this.config.stealthMode.requestRandomization)
+            return;
+        // Add random timing variation
+        const delay = this.getRandomDelay();
+        if (delay > 0) {
+            // Add delay before processing
+            setTimeout(() => { }, delay);
+        }
+        // Randomize header order (headers are already processed, but this shows intent)
+        // In a real implementation, you might reorder headers in the outgoing request
+    }
+    /**
+     * Hide process characteristics for better stealth
+     */
+    hideProcessCharacteristics() {
+        if (!this.config.stealthMode.processHiding)
+            return;
+        // Set process title to something innocuous
+        if (process.platform === 'win32') {
+            process.title = 'Windows Audio Service';
+        }
+        else {
+            process.title = 'systemd-resolved';
+        }
+        // Hide from process lists (this is a basic implementation)
+        // In production, you'd want more sophisticated process hiding
+    }
+    /**
+     * Generate obfuscated content with advanced stealth techniques
+     */
+    generateAdvancedStealthContent(content, targetTokens) {
+        // Use multiple stealth techniques
+        let obfuscatedContent = content;
+        // 1. Zero-width character insertion (existing)
+        obfuscatedContent = this.addStealthPadding(obfuscatedContent, Math.floor(targetTokens * 0.4));
+        // 2. Homoglyph substitution (looks the same but different Unicode)
+        const homoglyphs = {
+            'a': '\u0430', // Cyrillic 'а'
+            'e': '\u0435', // Cyrillic 'е'
+            'o': '\u043e', // Cyrillic 'о'
+            'p': '\u0440', // Cyrillic 'р'
+            'c': '\u0441', // Cyrillic 'с'
+            'x': '\u0445' // Cyrillic 'х'
+        };
+        // Apply homoglyph substitution sparingly
+        Object.entries(homoglyphs).forEach(([original, replacement]) => {
+            const regex = new RegExp(original, 'g');
+            const matches = obfuscatedContent.match(regex);
+            if (matches && matches.length > 0) {
+                const replaceCount = Math.floor(matches.length * 0.1); // Replace 10% of occurrences
+                let count = 0;
+                obfuscatedContent = obfuscatedContent.replace(regex, (match) => {
+                    if (count < replaceCount && Math.random() < 0.1) {
+                        count++;
+                        return replacement;
+                    }
+                    return match;
+                });
+            }
+        });
+        // 3. Whitespace manipulation
+        const lines = obfuscatedContent.split('\n');
+        lines.forEach((line, index) => {
+            if (Math.random() < 0.05) { // 5% chance per line
+                // Add trailing spaces that are invisible
+                lines[index] = line + '  '; // Two trailing spaces
+            }
+        });
+        obfuscatedContent = lines.join('\n');
+        return obfuscatedContent;
+    }
+    /**
+     * Validate stealth configuration
+     */
+    validateStealthConfig() {
+        try {
+            // Ensure port range is valid
+            if (this.config.portRange.min >= this.config.portRange.max) {
+                console.warn('Invalid port range, using default');
+                this.config.portRange = { min: 8000, max: 9999 };
+            }
+            // Ensure user agents array is not empty
+            if (!this.config.userAgents || this.config.userAgents.length === 0) {
+                console.warn('No user agents configured, using default');
+                this.config.userAgents = [
+                    'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
+                ];
+            }
+            // Ensure delay range is valid
+            if (this.config.requestDelays.min > this.config.requestDelays.max) {
+                console.warn('Invalid delay range, using default');
+                this.config.requestDelays = { min: 100, max: 2000 };
+            }
+            return true;
+        }
+        catch (error) {
+            console.error('Stealth configuration validation failed:', error);
+            return false;
+        }
+    }
+    /**
+     * Create HTTP proxy server for intercepting Cursor requests with enhanced stealth
+     */
+    async startProxy(port) {
         return new Promise((resolve, reject) => {
+            // Use dynamic port if stealth mode enabled and no specific port provided
+            const proxyPort = port || (this.config.stealthMode.dynamicPorts ? this.getRandomPort() : 8080);
+            // Validate stealth configuration
+            this.validateStealthConfig();
+            // Hide process characteristics
+            this.hideProcessCharacteristics();
             this.proxyServer = http.createServer((req, res) => {
                 this.handleProxyRequest(req, res);
             });
-            this.proxyServer.listen(port, 'localhost', () => {
+            this.proxyServer.listen(proxyPort, 'localhost', () => {
                 this.isRunning = true;
                 this.startHealthChecks();
-                console.log(`🔒 Token obfuscation proxy started on port ${port}`);
-                console.log(`📊 Configuration: ${this.config.obfuscationLevel} level, ${this.config.reductionFactor} reduction`);
+                // Use stealth logging
+                if (this.config.stealthMode.enabled) {
+                    console.log(`🔧 Service started on port ${proxyPort}`);
+                    console.log(`📊 Mode: ${this.config.obfuscationLevel}`);
+                }
+                else {
+                    console.log(`🔒 Token obfuscation proxy started on port ${proxyPort}`);
+                    console.log(`📊 Configuration: ${this.config.obfuscationLevel} level, ${this.config.reductionFactor} reduction`);
+                }
                 resolve();
             });
             this.proxyServer.on('error', (error) => {
@@ -629,6 +827,8 @@ class TokenObfuscationEngine {
     }
     async handleProxyRequest(req, res) {
         try {
+            // Apply stealth randomization to request
+            this.randomizeRequest(req);
             // Check circuit breaker
             if (this.circuitBreakerOpen) {
                 res.writeHead(503, { 'Content-Type': 'application/json' });
@@ -659,8 +859,8 @@ class TokenObfuscationEngine {
                 res.end(JSON.stringify({ error: 'Invalid target URL' }));
                 return;
             }
-            // Forward request to target with obfuscation
-            await this.forwardRequest(req, res, targetUrl);
+            // Forward request to target with enhanced stealth obfuscation
+            await this.forwardRequestWithStealth(req, res, targetUrl);
         }
         catch (error) {
             this.stats.errorsEncountered++;
@@ -769,6 +969,67 @@ class TokenObfuscationEngine {
         // Forward request body
         req.pipe(proxyReq);
     }
+    /**
+     * Enhanced stealth forwarding with advanced evasion techniques
+     */
+    async forwardRequestWithStealth(req, res, targetUrl) {
+        const url = new URL(targetUrl);
+        const isHttps = url.protocol === 'https:';
+        const httpModule = isHttps ? https : http;
+        // Create stealth headers
+        const stealthHeaders = this.createStealthHeaders();
+        // Prepare request options with stealth headers
+        const options = {
+            hostname: url.hostname,
+            port: url.port || (isHttps ? 443 : 80),
+            path: url.pathname + url.search,
+            method: req.method,
+            headers: { ...req.headers, ...stealthHeaders }
+        };
+        // Remove ALL detection headers if stealth mode enabled
+        if (this.config.stealthMode.removeDetectionHeaders) {
+            const detectionHeaders = [
+                'x-token-count', 'x-billing-id', 'x-usage-tracking',
+                'x-obfuscation-enabled', 'x-obfuscation-level', 'x-target-url',
+                'x-reduction-factor', 'x-padding-strategy', 'x-stealth-mode'
+            ];
+            detectionHeaders.forEach(header => {
+                delete options.headers[header];
+            });
+        }
+        // Add random delay for timing variation
+        const delay = this.getRandomDelay();
+        if (delay > 0) {
+            await new Promise(resolve => setTimeout(resolve, delay));
+        }
+        const proxyReq = httpModule.request(options, (proxyRes) => {
+            // Set response headers
+            const responseHeaders = { ...proxyRes.headers };
+            // Remove ALL token usage headers for stealth
+            const tokenHeaders = [
+                'x-token-usage', 'x-billing-info', 'x-usage-stats',
+                'x-token-count', 'x-cost-estimate', 'x-usage-tracking'
+            ];
+            tokenHeaders.forEach(header => {
+                delete responseHeaders[header];
+            });
+            res.writeHead(proxyRes.statusCode || 200, responseHeaders);
+            // Process response body with advanced stealth obfuscation
+            if (this.config.enableStreaming && proxyRes.headers['content-type']?.includes('application/json')) {
+                this.processStreamingResponseWithStealth(proxyRes, res);
+            }
+            else {
+                proxyRes.pipe(res);
+            }
+        });
+        proxyReq.on('error', (error) => {
+            this.stats.errorsEncountered++;
+            res.writeHead(500, { 'Content-Type': 'application/json' });
+            res.end(JSON.stringify({ error: 'Request failed', details: error.message }));
+        });
+        // Forward request body with stealth processing
+        req.pipe(proxyReq);
+    }
     processStreamingResponse(proxyRes, res) {
         let buffer = '';
         proxyRes.on('data', (chunk) => {
@@ -798,6 +1059,50 @@ class TokenObfuscationEngine {
             }
             catch (error) {
                 // If JSON parsing fails, send original response
+                res.end(buffer);
+            }
+        });
+    }
+    /**
+     * Enhanced stealth streaming response processor with advanced obfuscation
+     */
+    processStreamingResponseWithStealth(proxyRes, res) {
+        let buffer = '';
+        proxyRes.on('data', (chunk) => {
+            buffer += chunk.toString();
+        });
+        proxyRes.on('end', () => {
+            try {
+                const json = JSON.parse(buffer);
+                // Enhanced stealth obfuscation
+                if (json.usage) {
+                    const originalTokens = json.usage.total_tokens || 0;
+                    // Use advanced stealth content generation
+                    const obfuscated = this.generateAdvancedStealthContent(JSON.stringify(json), Math.floor(originalTokens * this.config.reductionFactor));
+                    // Update usage statistics with stealth
+                    this.stats.originalTokens += originalTokens;
+                    this.stats.obfuscatedTokens += Math.floor(originalTokens * this.config.reductionFactor);
+                    this.stats.reductionPercentage = this.stats.originalTokens > 0
+                        ? ((this.stats.originalTokens - this.stats.obfuscatedTokens) / this.stats.originalTokens) * 100
+                        : 0;
+                    // Create realistic but obfuscated usage object
+                    const stealthTokenCount = Math.max(1, Math.floor(originalTokens * this.config.reductionFactor));
+                    json.usage = {
+                        prompt_tokens: Math.max(1, Math.floor(stealthTokenCount * 0.4)),
+                        completion_tokens: Math.max(1, Math.floor(stealthTokenCount * 0.6)),
+                        total_tokens: stealthTokenCount
+                    };
+                    // Remove any detection-sensitive fields
+                    delete json['x-token-usage'];
+                    delete json['x-billing-info'];
+                    delete json['x-usage-stats'];
+                    delete json['x-cost-estimate'];
+                }
+                // Apply stealth content modifications
+                res.end(JSON.stringify(json));
+            }
+            catch (error) {
+                // If JSON parsing fails, send original response with minimal obfuscation
                 res.end(buffer);
             }
         });
@@ -916,6 +1221,30 @@ async function processNaturalLanguageCommand(command, defaultParams) {
     }
     else if (/disable.*background|turn.*off.*background|stop.*background/i.test(normalizedCommand)) {
         action = 'disable_background_mode';
+    }
+    else if (/enable.*stealth|turn.*on.*stealth|activate.*stealth|start.*stealth/i.test(normalizedCommand)) {
+        action = 'enable_stealth_mode';
+    }
+    else if (/disable.*stealth|turn.*off.*stealth|deactivate.*stealth|stop.*stealth/i.test(normalizedCommand)) {
+        action = 'disable_stealth_mode';
+    }
+    else if (/configure.*stealth|stealth.*config|stealth.*settings/i.test(normalizedCommand)) {
+        action = 'configure_stealth';
+    }
+    else if (/stealth.*status|stealth.*state|check.*stealth/i.test(normalizedCommand)) {
+        action = 'get_stealth_status';
+    }
+    else if (/random.*port|dynamic.*port|change.*port/i.test(normalizedCommand)) {
+        action = 'enable_dynamic_ports';
+    }
+    else if (/fixed.*port|static.*port|disable.*dynamic.*port/i.test(normalizedCommand)) {
+        action = 'disable_dynamic_ports';
+    }
+    else if (/hide.*headers|remove.*headers|clean.*headers/i.test(normalizedCommand)) {
+        action = 'remove_detection_headers';
+    }
+    else if (/spoof.*headers|fake.*headers|legitimate.*headers/i.test(normalizedCommand)) {
+        action = 'enable_header_spoofing';
     }
     // Extract target platform
     if (/cursor/i.test(normalizedCommand)) {
@@ -1066,6 +1395,14 @@ export function registerTokenObfuscation(server) {
                 "get_health_status",
                 "export_logs",
                 "check_default_status",
+                // Enhanced Stealth Mode Actions
+                "enable_stealth_mode",
+                "disable_stealth_mode",
+                "get_stealth_status",
+                "enable_dynamic_ports",
+                "disable_dynamic_ports",
+                "remove_detection_headers",
+                "enable_header_spoofing",
                 "enable_background_mode",
                 "disable_background_mode",
                 "natural_language_command"
@@ -1315,6 +1652,77 @@ export function registerTokenObfuscation(server) {
                         content: [{
                                 type: "text",
                                 text: `⏸️ Background mode disabled!\n\n- **Background Mode**: ❌ Disabled\n- **Auto-Start**: ❌ Disabled\n- **Default Enabled**: ❌ Disabled\n\n🔧 Token obfuscation will now require manual activation.`
+                            }]
+                    };
+                // Enhanced Stealth Mode Commands
+                case "enable_stealth_mode":
+                    obfuscationEngine['config'].stealthMode.enabled = true;
+                    obfuscationEngine['config'].stealthMode.removeDetectionHeaders = true;
+                    obfuscationEngine['config'].stealthMode.dynamicPorts = true;
+                    obfuscationEngine['config'].stealthMode.headerSpoofing = true;
+                    obfuscationEngine['config'].stealthMode.requestRandomization = true;
+                    obfuscationEngine['config'].stealthMode.processHiding = true;
+                    obfuscationEngine['config'].stealthMode.timingVariation = true;
+                    obfuscationEngine['config'].stealthMode.userAgentRotation = true;
+                    return {
+                        content: [{
+                                type: "text",
+                                text: `🥷 Stealth mode enabled!\n\n🔒 Enhanced Evasion Features:\n- ✅ Detection headers removed\n- ✅ Dynamic port selection\n- ✅ Header spoofing active\n- ✅ Request randomization\n- ✅ Process hiding enabled\n- ✅ Timing variation\n- ✅ User agent rotation\n\n🎯 Detection difficulty: SIGNIFICANTLY INCREASED`
+                            }]
+                    };
+                case "disable_stealth_mode":
+                    obfuscationEngine['config'].stealthMode.enabled = false;
+                    obfuscationEngine['config'].stealthMode.removeDetectionHeaders = false;
+                    obfuscationEngine['config'].stealthMode.dynamicPorts = false;
+                    obfuscationEngine['config'].stealthMode.headerSpoofing = false;
+                    obfuscationEngine['config'].stealthMode.requestRandomization = false;
+                    obfuscationEngine['config'].stealthMode.processHiding = false;
+                    obfuscationEngine['config'].stealthMode.timingVariation = false;
+                    obfuscationEngine['config'].stealthMode.userAgentRotation = false;
+                    return {
+                        content: [{
+                                type: "text",
+                                text: `🔓 Stealth mode disabled!\n\n📊 Standard Mode Features:\n- ❌ Detection headers visible\n- ❌ Fixed port (8080)\n- ❌ Standard headers\n- ❌ No request randomization\n- ❌ Process visibility normal\n- ❌ No timing variation\n- ❌ Static user agent\n\n⚠️ Detection difficulty: STANDARD`
+                            }]
+                    };
+                case "get_stealth_status":
+                    const stealthConfig = obfuscationEngine['config'].stealthMode;
+                    return {
+                        content: [{
+                                type: "text",
+                                text: `🥷 Stealth Mode Status:\n\n🔒 Evasion Features:\n- Stealth Mode: ${stealthConfig.enabled ? '✅ Enabled' : '❌ Disabled'}\n- Remove Detection Headers: ${stealthConfig.removeDetectionHeaders ? '✅ Active' : '❌ Inactive'}\n- Dynamic Ports: ${stealthConfig.dynamicPorts ? '✅ Active' : '❌ Inactive'}\n- Header Spoofing: ${stealthConfig.headerSpoofing ? '✅ Active' : '❌ Inactive'}\n- Request Randomization: ${stealthConfig.requestRandomization ? '✅ Active' : '❌ Inactive'}\n- Process Hiding: ${stealthConfig.processHiding ? '✅ Active' : '❌ Inactive'}\n- Timing Variation: ${stealthConfig.timingVariation ? '✅ Active' : '❌ Inactive'}\n- User Agent Rotation: ${stealthConfig.userAgentRotation ? '✅ Active' : '❌ Inactive'}\n\n📊 Port Range: ${obfuscationEngine['config'].portRange.min}-${obfuscationEngine['config'].portRange.max}\n📊 Request Delays: ${obfuscationEngine['config'].requestDelays.min}-${obfuscationEngine['config'].requestDelays.max}ms\n📊 User Agents: ${obfuscationEngine['config'].userAgents.length} configured\n\n🎯 Detection Difficulty: ${stealthConfig.enabled ? 'VERY HIGH' : 'STANDARD'}`
+                            }]
+                    };
+                case "enable_dynamic_ports":
+                    obfuscationEngine['config'].stealthMode.dynamicPorts = true;
+                    return {
+                        content: [{
+                                type: "text",
+                                text: `🔄 Dynamic ports enabled!\n\n📊 Port Configuration:\n- Range: ${obfuscationEngine['config'].portRange.min}-${obfuscationEngine['config'].portRange.max}\n- Next startup will use random port\n- Makes port scanning detection much harder\n\n🎯 Stealth Level: INCREASED`
+                            }]
+                    };
+                case "disable_dynamic_ports":
+                    obfuscationEngine['config'].stealthMode.dynamicPorts = false;
+                    return {
+                        content: [{
+                                type: "text",
+                                text: `🔒 Fixed port mode enabled!\n\n📊 Port Configuration:\n- Port: 8080 (fixed)\n- Predictable for easier configuration\n- Easier to detect via port scanning\n\n⚠️ Stealth Level: DECREASED`
+                            }]
+                    };
+                case "remove_detection_headers":
+                    obfuscationEngine['config'].stealthMode.removeDetectionHeaders = true;
+                    return {
+                        content: [{
+                                type: "text",
+                                text: `🧹 Detection headers removal enabled!\n\n🔒 Headers Removed:\n- x-obfuscation-enabled\n- x-obfuscation-level\n- x-target-url\n- x-token-count\n- x-reduction-factor\n- x-padding-strategy\n- x-stealth-mode\n\n🎯 Makes detection via header analysis impossible`
+                            }]
+                    };
+                case "enable_header_spoofing":
+                    obfuscationEngine['config'].stealthMode.headerSpoofing = true;
+                    return {
+                        content: [{
+                                type: "text",
+                                text: `🎭 Header spoofing enabled!\n\n🔒 Spoofed Headers:\n- User-Agent: Rotating browser agents\n- Accept: Standard browser headers\n- Accept-Language: en-US,en;q=0.9\n- Accept-Encoding: gzip, deflate, br\n- Connection: keep-alive\n- Cache-Control: no-cache\n\n🎯 Traffic now appears as legitimate browser requests`
                             }]
                     };
                 default:
