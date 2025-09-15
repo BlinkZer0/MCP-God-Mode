@@ -1,0 +1,45 @@
+version: '3.8'
+
+services:
+  malware-sandbox:
+    build: .
+    image: mcp-malware-sandbox:latest
+    container_name: mcp-malware-sandbox
+    # Network isolation - no external network access
+    network_mode: "none"
+    # Resource limits
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 512M
+        reservations:
+          cpus: '0.5'
+          memory: 256M
+    # Security options
+    security_opt:
+      - no-new-privileges:true
+      - seccomp:unconfined
+    # Read-only root filesystem
+    read_only: true
+    # Temporary filesystems for writable areas
+    tmpfs:
+      - /tmp:noexec,nosuid,size=100m
+      - /sandbox:noexec,nosuid,size=200m
+    # Environment variables
+    environment:
+      - SANDBOX_MODE=true
+      - EXECUTION_TIMEOUT=300
+    # Volumes for payloads and output
+    volumes:
+      - ./payloads:/sandbox/payloads:ro
+      - ./output:/sandbox/output:rw
+      - ./logs:/sandbox/logs:rw
+    # Health check
+    healthcheck:
+      test: ["CMD", "echo", "sandbox_ready"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    # Auto-remove container after execution
+    restart: "no"
