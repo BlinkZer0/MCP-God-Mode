@@ -20,7 +20,7 @@ Built on the Model Context Protocol (MCP). Cross-platform. Pluggable. Delightful
 [![License](https://img.shields.io/badge/License-MIT-green)](LICENSE)
 [![Node](https://img.shields.io/badge/Node-%3E%3D%2018-brightgreen)](package.json)
 [![Platforms](https://img.shields.io/badge/Platforms-Win%20%7C%20macOS%20%7C%20Linux%20%7C%20Android%20%7C%20iOS-orange)](docs/general/CROSS_PLATFORM_COMPATIBILITY.md)
-[![Tools](https://img.shields.io/badge/Tools-Catalog-orange)](docs/TOOL_REFERENCE.md)
+[![Tools](https://img.shields.io/badge/Tools-Catalog-orange)](TOOL_REFERENCE.md)
 
 ## What is MCP God Mode?
 
