@@ -4,7 +4,11 @@
 
 # Tool Router
 
-Routes tool calls dynamically based on a JSON catalog. You bring the tools, we bring the routes. It’s not magic—just good path-finding.
+> Status: Experimental/Test Build
+>
+> This router is a new test build for catalog-driven routing and validation. The flagship, production server is `dist/server-refactored.js` (built from `dev/src/server-refactored.ts`). Prefer the flagship for day-to-day use.
+
+Routes tool calls dynamically based on a JSON catalog. You bring the tools, we bring the routes. It's not magic—just good path-finding.
 
 ## TL;DR
 
@@ -116,4 +120,3 @@ export default async function handler(args) {
 - If you raise `MAX_INFLIGHT`, consider isolating heavy handlers.
 
 When in doubt, don’t over-engineer: just take the scenic route.
-

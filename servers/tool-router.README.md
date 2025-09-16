@@ -1,5 +1,7 @@
 # Tool Router Server
 
+> Status: Experimental/Test Build — not the flagship server. For production usage, run the flagship server `dist/server-refactored.js` (built from `dev/src/server-refactored.ts`).
+
 ## Overview
 Dynamic tool routing system that exposes a stable interface while internally managing a hot-reloadable registry of tools.
 

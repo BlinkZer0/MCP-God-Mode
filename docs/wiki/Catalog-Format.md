@@ -6,6 +6,8 @@
 
 The router reads `servers/router-registry/tools.json`. Entries define the shape and location of dynamically callable tools.
 
+> Status: This catalog format is used by the experimental Tool Router (`servers/tool-router.js`). The flagship server (`dist/server-refactored.js`) integrates tools directly and does not require this catalog for core operation.
+
 ## Fields
 
 - `name`: unique identifier like `domain.action`.
@@ -43,4 +45,3 @@ The router reads `servers/router-registry/tools.json`. Entries define the shape 
 - Tags: help clients discover or group tools. Sprinkle generously.
 
 If your catalog gets unruly, don’t worry—we’ve got the tag-nets.
-

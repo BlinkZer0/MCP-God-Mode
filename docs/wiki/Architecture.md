@@ -4,9 +4,11 @@
 
 # Architecture
 
+> Scope note: This page currently describes the experimental Tool Router architecture (`servers/tool-router.js`). The flagship production server is `dist/server-refactored.js` (built from `dev/src/server-refactored.ts`), which provides the full integrated toolset used across wrappers and tests.
+
 ## High-Level Flow
 
-- `servers/tool-router.js` boots an MCP server over stdio.
+- `servers/tool-router.js` boots an MCP server over stdio. (Experimental)
 - On startup, it loads `servers/router-registry/tools.json` into an in-memory registry.
 - Tools exposed by the router (`tool.list_catalog`, `tool.describe`, `tool.call`) operate over that registry.
 - `tool.call` performs dynamic `import()` of the handler, executes it, and returns JSON content.
@@ -31,4 +33,3 @@
 All errors are normalized to JSON error objects to keep client-side logic simple and consistent.
 
 Fewer surprises, more good routes. That’s the archi-texture we’re going for.
-
