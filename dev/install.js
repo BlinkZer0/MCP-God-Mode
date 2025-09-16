@@ -525,7 +525,7 @@ const SERVER_CONFIGS = {
   'full': {
     name: 'Full Server',
     description: 'Complete server with all tools',
-    tools: 184, // Updated to reflect v2.0c consolidated tool count
+    tools: 184,
     categories: Object.keys(TOOL_CATEGORIES),
     features: [
       'Complete tool coverage',
@@ -534,6 +534,18 @@ const SERVER_CONFIGS = {
       'Drone management tools',
       'Legal compliance features',
       'Professional-grade platform'
+    ]
+  },
+  'tool-router': {
+    name: 'Tool Router Server',
+    description: 'Dynamic tool routing with stable interface',
+    tools: 3,
+    categories: [],
+    features: [
+      'Stable three-tool interface',
+      'Dynamic registry with hot-reload',
+      'Schema validation',
+      'Cross-platform support'
     ]
   }
 };
@@ -580,10 +592,11 @@ async function runInstaller() {
   console.log('2. Install Modular Server (184 tools)');
   console.log('3. Install Lazy Loading Server (184 tools)');
   console.log('4. Install Full Server (184 tools)');
-  console.log('5. Build Custom Server');
-  console.log('6. Show Tool Information');
-  console.log('7. Interactive Installer (NEW in v2.0c)');
-  console.log('8. Exit');
+  console.log('5. Install Tool Router Server (3 tools)');
+  console.log('6. Build Custom Server');
+  console.log('7. Show Tool Information');
+  console.log('8. Interactive Installer (NEW in v2.0c)');
+  console.log('9. Exit');
   console.log('');
 
   console.log('💡 To install, run one of these commands:');
@@ -592,13 +605,14 @@ async function runInstaller() {
   console.log('npm run install:modular    # Install modular server');
   console.log('npm run install:lazy       # Install lazy loading server');
   console.log('npm run install:full       # Install full server');
+  console.log('npm run tool-router:dev    # Install tool-router server');
   console.log('node interactive-installer.js  # Interactive installer (NEW in v1.8)');
   console.log('node build-server.js       # Build custom server');
   console.log('');
   console.log('🔧 Advanced Installation Options:');
   console.log('');
   console.log('node install.js --modular --categories core,network,drone  # Install specific categories');
-  console.log('node install.js --modular --tools health,fs_list,drone_defense  # Install individual tools');
+  console.log('node install.js --modular --tools health,system_info,fs_list  # Install individual tools');
   console.log('node install.js --modular --tools port_scanner --auto-deps  # Auto-include dependencies');
   console.log('node install.js --modular --categories core --tools packet_sniffer  # Mixed configuration');
   console.log('node install.js --list-tools                           # List all available tools');
@@ -685,6 +699,24 @@ async function installFullServer() {
     console.log('💡 Run: npm run build && node dist/server-modular.js');
   } catch (error) {
     console.error('❌ Failed to create full server configuration:', error);
+  }
+}
+
+// Install tool-router server
+async function installToolRouter() {
+  console.log('🔧 Installing Tool Router Server...');
+  console.log('================================');
+  
+  try {
+    console.log('✅ Tool router server is ready to use');
+    console.log('📋 Stable interface with 3 tools');
+    console.log('🔄 Dynamic registry with hot-reload');
+    console.log('🔧 Schema validation for all inputs/outputs');
+    console.log('');
+    console.log('💡 Run: npm run tool-router:dev');
+    console.log('📚 Documentation: servers/tool-router.README.md');
+  } catch (error) {
+    console.error('❌ Failed to initialize tool router:', error);
   }
 }
 
@@ -904,6 +936,8 @@ if (import.meta.url === `file://${process.argv[1]}` || import.meta.url.endsWith(
       }
     } else if (args.includes('--lazy')) {
       await installLazyServer();
+    } else if (args.includes('--tool-router')) {
+      await installToolRouter();
     } else if (args.includes('--full')) {
       await installFullServer();
     } else if (args.includes('--custom') || args.includes('-c')) {

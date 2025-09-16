@@ -1,5 +1,0 @@
-[mcp_servers."mcp-god-mode"]
-command = "node"
-args = ['C:\\Users\\Randy\\Desktop\\dev\\dist\\server-refactored.js']
-env = { ALLOWED_ROOT = 'C:\\Users\\Randy\\Desktop', WEB_ALLOWLIST = "", PROC_ALLOWLIST = "", EXTRA_PATH = "" }
-

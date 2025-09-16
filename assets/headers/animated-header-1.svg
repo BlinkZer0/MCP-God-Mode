@@ -1,0 +1,39 @@
+<svg width="1200" height="200" viewBox="0 0 1200 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="MCP God Mode - Animated Header">
+  <defs>
+    <linearGradient id="g1" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#6EE7F9"/>
+      <stop offset="50%" stop-color="#A78BFA"/>
+      <stop offset="100%" stop-color="#F472B6"/>
+    </linearGradient>
+    <style>
+      @keyframes dash {
+        to { stroke-dashoffset: -1800; }
+      }
+      @keyframes float {
+        0% { transform: translateY(0); }
+        50% { transform: translateY(-6px); }
+        100% { transform: translateY(0); }
+      }
+      .wave { stroke: url(#g1); stroke-width: 3; fill: none; stroke-dasharray: 12 10; animation: dash 14s linear infinite; }
+      .title { font: 700 28px/1.2 system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica, Arial; fill: #111827; }
+      .subtitle { font: 400 14px/1.2 system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica, Arial; fill: #374151; }
+      .badge { fill: #EEF2FF; stroke: #A78BFA; stroke-width: 1; rx: 6; }
+      .badge-text { font: 600 12px system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica, Arial; fill: #6D28D9; }
+      .float { animation: float 6s ease-in-out infinite; }
+    </style>
+    <path id="w" d="M0 120 C 150 80, 300 160, 450 120 S 750 80, 900 120 S 1050 160, 1200 120"/>
+  </defs>
+  <rect width="1200" height="200" fill="#FAFAFA"/>
+  <g class="float">
+    <use href="#w" class="wave"/>
+    <use href="#w" class="wave" transform="translate(0,18)" opacity="0.75"/>
+    <use href="#w" class="wave" transform="translate(0,36)" opacity="0.5"/>
+  </g>
+  <g transform="translate(28,32)">
+    <text class="title">MCP God Mode — Documentation</text>
+    <text class="subtitle" y="28">Where tools route, and docs compute.</text>
+    <rect class="badge" x="0" y="48" width="166" height="24"/>
+    <text class="badge-text" x="10" y="64">Wiki Edition • Animated</text>
+  </g>
+</svg>
+

@@ -1,0 +1,21 @@
+{
+  "version": 1,
+  "projectName": "MCP-God-Mode",
+  "rules": [
+    {
+      "name": "mcp-god-mode-rules",
+      "path": ".windsurf/rules/mcp-god-mode.md"
+    }
+  ],
+  "autoApprove": {
+    "rules": [
+      "mcp-god-mode-rules"
+    ]
+  },
+  "ignoredPatterns": [
+    "node_modules/**",
+    ".git/**",
+    "dist/**",
+    "**/*.log"
+  ]
+}

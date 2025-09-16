@@ -1,0 +1,33 @@
+<svg width="1200" height="200" viewBox="0 0 1200 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="MCP God Mode - Animated Header 2">
+  <defs>
+    <linearGradient id="g2" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#34D399"/>
+      <stop offset="50%" stop-color="#60A5FA"/>
+      <stop offset="100%" stop-color="#F59E0B"/>
+    </linearGradient>
+    <style>
+      @keyframes dash { to { stroke-dashoffset: -2200; } }
+      @keyframes bob { 0%{transform:translateY(0)}50%{transform:translateY(-8px)}100%{transform:translateY(0)} }
+      .grid line{ stroke:#E5E7EB; }
+      .orbit{ stroke:url(#g2); stroke-width:2.5; fill:none; stroke-dasharray:10 8; animation:dash 18s linear infinite; }
+      .title{ font:700 26px system-ui,Segoe UI,Roboto; fill:#0F172A }
+      .subtitle{ font:400 14px system-ui,Segoe UI,Roboto; fill:#334155 }
+      .bob{ animation:bob 7s ease-in-out infinite }
+    </style>
+  </defs>
+  <rect width="1200" height="200" fill="#FFFFFF"/>
+  <g class="grid">
+    <line x1="0" x2="1200" y1="60" y2="60"/>
+    <line x1="0" x2="1200" y1="100" y2="100"/>
+    <line x1="0" x2="1200" y1="140" y2="140"/>
+  </g>
+  <g class="bob">
+    <path class="orbit" d="M-200 100 C 100 20, 300 180, 600 100 S 1100 20, 1400 100"/>
+    <path class="orbit" d="M-200 120 C 100 40, 300 200, 600 120 S 1100 40, 1400 120" opacity="0.6"/>
+  </g>
+  <g transform="translate(28,32)">
+    <text class="title">Tooling Wiki</text>
+    <text class="subtitle" y="26">Take a page from our book—literally.</text>
+  </g>
+</svg>
+

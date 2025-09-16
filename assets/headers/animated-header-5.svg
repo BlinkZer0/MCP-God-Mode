@@ -1,0 +1,24 @@
+<svg width="1200" height="200" viewBox="0 0 1200 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Animated Header 5">
+  <defs>
+    <linearGradient id="g5" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#86EFAC"/>
+      <stop offset="100%" stop-color="#93C5FD"/>
+    </linearGradient>
+    <style>
+      @keyframes sweep { 0%{stroke-dashoffset:0} 100%{stroke-dashoffset:-1200} }
+      .bg{ fill:url(#g5) }
+      .sweep{ stroke:#0EA5E9; stroke-width:2; fill:none; stroke-dasharray:6 10; animation:sweep 12s linear infinite }
+      .title{ font:800 26px system-ui,Segoe UI,Roboto; fill:#0B132B }
+      .subtitle{ font:400 14px system-ui,Segoe UI,Roboto; fill:#1F2937 }
+    </style>
+  </defs>
+  <rect class="bg" width="1200" height="200"/>
+  <path class="sweep" d="M-200 150 H1600"/>
+  <path class="sweep" d="M-200 120 H1600" opacity=".6"/>
+  <path class="sweep" d="M-200 90 H1600" opacity=".3"/>
+  <g transform="translate(28,32)">
+    <text class="title">Troubleshooting</text>
+    <text class="subtitle" y="26">If it hurts, we make it pun-derstandable.</text>
+  </g>
+</svg>
+

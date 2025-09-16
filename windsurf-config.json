@@ -1,0 +1,28 @@
+{
+  "version": 1,
+  "projectName": "MCP-God-Mode",
+  "rules": {
+    "typescript": {
+      "enabled": true,
+      "strict": true
+    },
+    "security": {
+      "enabled": true,
+      "checkDependencies": true
+    },
+    "documentation": {
+      "enabled": true,
+      "requireJsdoc": true
+    },
+    "testing": {
+      "enabled": true,
+      "coverageThreshold": 80
+    }
+  },
+  "ignorePatterns": [
+    "node_modules/**",
+    "dist/**",
+    "**/*.test.ts",
+    "**/*.spec.ts"
+  ]
+}

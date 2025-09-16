@@ -1,0 +1,11 @@
+[
+  {
+    "name": "demo.echo",
+    "version": "1.0.0",
+    "summary": "Echo arguments back",
+    "tags": ["demo","utility"],
+    "input_schema": { "type":"object", "properties":{ "text":{"type":"string"} }, "required":["text"] },
+    "output_schema": { "type":"object", "properties":{ "ok":{"type":"boolean"}, "echo":{"type":"object"} }, "required":["ok","echo"] },
+    "handlerPath": "handlers/echo.js"
+  }
+]

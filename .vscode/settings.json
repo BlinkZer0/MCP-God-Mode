@@ -1,3 +1,52 @@
 {
-    "git.ignoreLimitWarning": true
+    "git.ignoreLimitWarning": true,
+    "mcp.enableSchemaValidation": false,
+    "mcp.schema.enable": false,
+    "[mcp]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "json.schemas": [
+        {
+            "fileMatch": ["mcp.json"],
+            "url": "${workspaceFolder}/schemas/mcp-schema.json"
+        },
+        {
+            "fileMatch": ["*.mcp.json"],
+            "url": "${workspaceFolder}/schemas/mcp-schema.json"
+        }
+    ],
+    "json.schemaDownload.enable": true,
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": "explicit"
+    },
+    "typescript.tsdk": "node_modules/typescript/lib",
+    "typescript.enablePromptUseWorkspaceTsdk": true,
+    "eslint.validate": [
+        "javascript",
+        "javascriptreact",
+        "typescript",
+        "typescriptreact"
+    ],
+    "search.exclude": {
+        "**/node_modules": true,
+        "**/dist": true,
+        "**/coverage": true,
+        "**/.git": true
+    },
+    "files.exclude": {
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/CVS": true,
+        "**/.DS_Store": true,
+        "**/node_modules": true,
+        "**/dist": true
+    },
+    "javascript.updateImportsOnFileMove.enabled": "always",
+    "typescript.updateImportsOnFileMove.enabled": "always",
+    "cSpell.words": [
+        "MCP"
+    ]
 }

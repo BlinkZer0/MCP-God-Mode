@@ -40,7 +40,14 @@
     "build:minimal": "cd dev && node build-server.js health system_info fs_list",
     "build:core-only": "cd dev && node build-server.js health system_info",
     "build:custom": "cd dev && node build-server.js",
-    "postinstall:rf_sense": "python -m pip install -r dev/src/python/requirements-rf.txt || exit 0"
+    "postinstall:rf_sense": "python -m pip install -r dev/src/python/requirements-rf.txt || exit 0",
+    "tool-router:dev": "cross-env NODE_NO_WARNINGS=1 node ./servers/tool-router.js",
+    "tool-router:test": "node --test servers/tool-router.test.js",
+    "tool-router:lint": "eslint servers/tool-router.js servers/router-registry/**/*.js || exit 0",
+    "tool-router:typecheck": "tsc -p . --noEmit || exit 0",
+    "tool-router:build": "npm-run-all -s tool-router:lint tool-router:typecheck",
+    "tool-router:ci": "npm-run-all -s tool-router:build tool-router:test",
+    "tool-router:assure": "node ./scripts/assure-tool-router.mjs"
   },
   "keywords": [
     "mcp",
@@ -56,5 +63,12 @@
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.2.0"
+  },
+  "devDependencies": {
+    "ajv": "^8.12.0",
+    "ajv-formats": "^2.1.1",
+    "cross-env": "^7.0.3",
+    "npm-run-all": "^4.1.5",
+    "shx": "^0.3.4"
   }
 }

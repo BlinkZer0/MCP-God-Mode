@@ -1,0 +1,30 @@
+name: Tool Router CI
+
+on:
+  push:
+    paths:
+      - 'servers/tool-router**'
+      - 'servers/router-registry/**'
+      - 'prompts/tool-router/**'
+      - 'scripts/**'
+  pull_request:
+    paths:
+      - 'servers/tool-router**'
+      - 'servers/router-registry/**'
+      - 'prompts/tool-router/**'
+      - 'scripts/**'
+
+jobs:
+  test:
+    name: Test on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+      - run: npm ci
+      - run: npm run tool-router:ci

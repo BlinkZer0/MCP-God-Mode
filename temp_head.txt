@@ -1,0 +1,40 @@
+<picture>
+  <img src="../assets/hero-animated.svg" alt="MCP God Mode banner" width="100%" />
+</picture>
+
+# 📚 MCP God Mode Documentation
+
+Welcome to the comprehensive documentation for MCP God Mode - the ultimate cross-platform security and system management suite.
+
+## Quick Actions
+
+- **Install**: [Windows](./guides/COMPLETE_SETUP_GUIDE.md#windows-setup) • [Linux](./guides/COMPLETE_SETUP_GUIDE.md#linux-setup) • [macOS](./guides/COMPLETE_SETUP_GUIDE.md#macos-setup)
+- **Run**: [Local Agent](./guides/MCP_FRONTEND_INTEGRATION_GUIDE.md#cursor-ai-integration) • [Cursor Agent](./guides/MCP_FRONTEND_INTEGRATION_GUIDE.md#cursor-ai-integration)
+- **Security**: [Permissions](./guides/ELEVATED_PERMISSIONS_GUIDE.md) • [Legal Compliance](./legal/LEGAL_COMPLIANCE.md)
+
+<img src="../assets/wave-divider.svg" alt="" width="100%"/>
+
+## 📖 Documentation Index
+
+### 🚀 Getting Started
+- **[Complete Setup Guide](./guides/COMPLETE_SETUP_GUIDE.md)** - Installation and configuration
+- **[Frontend Integration Guide](./guides/MCP_FRONTEND_INTEGRATION_GUIDE.md)** - Setup for Cursor, LM Studio, Claude, SillyTavern & more
+- **[Examples & Tutorials](./guides/EXAMPLES_AND_TUTORIALS.md)** - Real-world usage examples
+
+### 🛠️ Tool Documentation
+- **[Complete Tool Catalog](./general/TOOL_CATALOG.md)** - Browse all 184 documented tools
+- **[New Tools Documentation](./tool/NEW_TOOLS_DOCUMENTATION.md)** - WiFi Disrupt & Cellular Triangulate tools
+- **[Tool Category Index](./general/TOOL_CATEGORY_INDEX.md)** - Browse tools by category
+- **[Parameter Reference](./general/COMPLETE_PARAMETER_REFERENCE.md)** - Complete parameter documentation
+- **[Individual Tool Docs](./tool/)** - Detailed documentation for each tool
+- **[RF Sense Tools](./tool/rf_sense/)** - ⚠️ **EXPERIMENTAL** RF sensing modules (unified interface available)
+
+### ⚠️ **EXPERIMENTAL TOOLS WARNING**
+- **[RF Sense Tools](./tool/rf_sense/)** - **Experimental and untested** RF sensing capabilities
+- These tools can be **extremely harmful to devices** if misused
+- Use only if you understand RF technology and risks
+- We are building the structure before reaching 100% functionality
+
+### 🔧 Advanced Topics
+- **[Cross-Platform Compatibility](./general/CROSS_PLATFORM_COMPATIBILITY.md)** - Platform-specific details
+- **[Server Architecture Comparison](./general/SERVER_ARCHITECTURE_COMPARISON.md)** - Understanding different server modes

@@ -9,6 +9,10 @@
         "PROC_ALLOWLIST": "",
         "EXTRA_PATH": ""
       }
+    },
+    "tool-router": {
+      "command": "node",
+      "args": ["./servers/tool-router.js"]
     }
   }
 }
