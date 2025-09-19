@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 
 // Path to the manifest file
-const manifestPath = path.join(__dirname, 'tools.manifest.json');
+const manifestPath = path.join(__dirname, '..', 'tools.manifest.json');
 
 // Read and parse the manifest
 const manifest = JSON.parse(fs.readFileSync(manifestPath, 'utf8'));

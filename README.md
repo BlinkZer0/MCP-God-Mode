@@ -16,7 +16,7 @@ One MCP to route them all. Find a tool you like? Route cause located.
 
 Built on the Model Context Protocol (MCP). Cross-platform. Pluggable. Delightfully documented.
 
-[![Version](https://img.shields.io/badge/Version-v2.0c-blue)](docs/updates/VERSION_2.0c_CHANGELOG.md)
+[![Version](https://img.shields.io/badge/Version-v2.0Final-blue)](docs/updates/VERSION_2.0Final_CHANGELOG.md)
 [![License](https://img.shields.io/badge/License-MIT-green)](LICENSE)
 [![Node](https://img.shields.io/badge/Node-%3E%3D%2018-brightgreen)](package.json)
 [![Platforms](https://img.shields.io/badge/Platforms-Win%20%7C%20macOS%20%7C%20Linux%20%7C%20Android%20%7C%20iOS-orange)](docs/general/CROSS_PLATFORM_COMPATIBILITY.md)

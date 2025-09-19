@@ -3,7 +3,7 @@ const path = require('path');
 const { execSync, spawn } = require('child_process');
 
 // Load the manifest
-const manifestPath = path.join(__dirname, 'tools.manifest.json');
+const manifestPath = path.join(__dirname, '..', 'tools.manifest.json');
 const manifest = JSON.parse(fs.readFileSync(manifestPath, 'utf8'));
 
 // Track test results

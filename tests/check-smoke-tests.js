@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 
 // Load the manifest
-const manifestPath = path.join(__dirname, 'tools.manifest.json');
+const manifestPath = path.join(__dirname, '..', 'tools.manifest.json');
 const manifest = JSON.parse(fs.readFileSync(manifestPath, 'utf8'));
 
 console.log('Checking smoke tests for all tools...\n');
