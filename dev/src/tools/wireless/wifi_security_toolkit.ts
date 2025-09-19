@@ -12,14 +12,29 @@ export function registerWifiSecurityToolkit(server: McpServer) {
   server.registerTool("wifi_security_toolkit", {
     description: "Comprehensive Wi-Fi security and penetration testing toolkit with cross-platform support. You can ask me to: scan for Wi-Fi networks, capture handshakes, crack passwords, create evil twin attacks, perform deauthentication attacks, test WPS vulnerabilities, set up rogue access points, sniff packets, monitor clients, and more. Just describe what you want to do in natural language!",
     inputSchema: {
-      action: z.enum(["scan_networks", "capture_handshake", "crack_password", "evil_twin", "deauth_attack", "wps_test", "rogue_ap", "packet_sniff", "monitor_clients", "wifi_jammer", "analyze_traffic", "test_security"]).describe("WiFi security action to perform"),
+      // Accept both documented actions and internal normalized actions
+      action: z.enum([
+        // Implemented base actions
+        "scan_networks", "capture_handshake", "crack_password", "evil_twin", "deauth_attack", "wps_test", "rogue_ap", "packet_sniff", "monitor_clients", "wifi_jammer", "analyze_traffic", "test_security",
+        // Documented synonyms and extended actions (mapped internally)
+        "sniff_packets", "capture_pmkid", "dictionary_attack", "brute_force_attack", "rainbow_table_attack",
+        "create_rogue_ap", "evil_twin_attack", "phishing_capture", "credential_harvest",
+        "wps_attack", "pixie_dust_attack", "fragmentation_attack", "router_scan", "iot_enumeration",
+        "vulnerability_scan", "exploit_router", "analyze_captures", "generate_report", "export_results", "cleanup_traces"
+      ]).describe("WiFi security action to perform"),
       target_ssid: z.string().optional().describe("Target WiFi network SSID"),
       target_bssid: z.string().optional().describe("Target WiFi network BSSID (MAC address)"),
-      wifiInterface: z.string().optional().describe("Wireless wifiInterface to use"),
+      // Primary parameter name used internally
+      wifiInterface: z.string().optional().describe("Wireless interface to use (alias: interface)"),
+      // Aliases and additional documented parameters (accepted but may be advisory)
+      interface: z.string().optional().describe("Alias for wifiInterface" as any),
       wordlist: z.string().optional().describe("Password wordlist file path"),
       channel: z.number().optional().describe("WiFi channel to target"),
       duration: z.number().optional().describe("Attack duration in seconds"),
-      output_file: z.string().optional().describe("Output file path for captured data")
+      output_file: z.string().optional().describe("Output file path for captured data"),
+      max_attempts: z.number().optional().describe("Maximum attempts for certain attacks"),
+      attack_type: z.string().optional().describe("Security protocol or attack subtype to target"),
+      power_level: z.number().optional().describe("Transmit power level (0-100%)")
     },
     outputSchema: {
       success: z.boolean(),
@@ -49,9 +64,28 @@ export function registerWifiSecurityToolkit(server: McpServer) {
       }).optional(),
       error: z.string().optional()
     }
-  }, async ({ action, target_ssid, target_bssid, wifiInterface, wordlist, channel, duration, output_file }) => {
+  }, async (params) => {
     try {
-      const wifiData = await performWifiAction(action, target_ssid, target_bssid, wifiInterface, wordlist, channel, duration, output_file);
+      // Extract and normalize parameters, supporting documented aliases
+      const {
+        action,
+        target_ssid,
+        target_bssid,
+        wifiInterface: wifiInterfaceRaw,
+        interface: interfaceAlias,
+        wordlist,
+        channel,
+        duration,
+        output_file,
+        max_attempts, // accepted but not strictly required in current sim implementation
+        attack_type,  // accepted for compatibility
+        power_level   // accepted for compatibility
+      } = params as any;
+
+      const wifiInterface = (wifiInterfaceRaw || interfaceAlias) as (string | undefined);
+      const normalizedAction = normalizeWifiAction(action as string);
+
+      const wifiData = await performWifiAction(normalizedAction, target_ssid, target_bssid, wifiInterface, wordlist, channel, duration, output_file);
 
       return {
         content: [{
@@ -80,6 +114,32 @@ export function registerWifiSecurityToolkit(server: McpServer) {
 }
 
 // Helper functions
+function normalizeWifiAction(action: string): string {
+  const map: Record<string, string> = {
+    // synonyms -> implemented base actions
+    sniff_packets: "packet_sniff",
+    capture_pmkid: "capture_handshake",
+    dictionary_attack: "crack_password",
+    brute_force_attack: "crack_password",
+    rainbow_table_attack: "crack_password",
+    create_rogue_ap: "rogue_ap",
+    evil_twin_attack: "evil_twin",
+    phishing_capture: "evil_twin",
+    credential_harvest: "evil_twin",
+    wps_attack: "wps_test",
+    pixie_dust_attack: "wps_test",
+    fragmentation_attack: "analyze_traffic",
+    router_scan: "test_security",
+    iot_enumeration: "test_security",
+    vulnerability_scan: "test_security",
+    exploit_router: "test_security",
+    analyze_captures: "analyze_traffic",
+    generate_report: "test_security",
+    export_results: "test_security",
+    cleanup_traces: "test_security"
+  };
+  return map[action] || action;
+}
 async function performWifiAction(action: string, targetSsid?: string, targetBssid?: string, wifiInterface?: string, wordlist?: string, channel?: number, duration?: number, outputFile?: string) {
   const wifiData: any = {
     action

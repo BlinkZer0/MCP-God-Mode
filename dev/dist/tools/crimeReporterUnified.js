@@ -420,7 +420,7 @@ export function registerCrimeReporterUnified(server) {
     if (!server)
         throw new Error('Server is required');
     server.registerTool("crime_reporter_unified", {
-        description: "🚨 **Unified Crime Reporter Tool** - Comprehensive crime reporting with jurisdiction resolution, case preparation, automated filing, natural language processing, and configuration testing. **Does NOT monitor or report on its users.** Includes privacy protection, audit logging, and legal compliance features. Designed to help users report crimes they have witnessed or experienced.",
+        description: "🚨 **Unified Crime Reporter Tool** - Comprehensive crime reporting with jurisdiction resolution, case preparation, automated filing, natural language processing, and configuration testing. Includes privacy protection, audit logging, and legal compliance features.",
         inputSchema: {
             mode: z.enum(["command", "natural_language", "test"]).default("command").describe("Operation mode: 'command' for structured commands, 'natural_language' for conversational interface, 'test' for configuration testing"),
             command: z.string().optional().describe("Crime reporter command: searchJurisdiction, prepareReport, fileReport, previewReport, getStatus, exportCase, testConfiguration"),

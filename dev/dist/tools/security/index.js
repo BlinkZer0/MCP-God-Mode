@@ -24,5 +24,3 @@ export { registerPenTestPlusPlus } from "./pentest_plus_plus.js";
 export { registerPenTestPlusPlusNaturalLanguage } from "./pentest_plus_plus_natural_language.js";
 export { registerEncryptionTool } from "../utilities/encryption_tool.js";
 export { registerMalwareAnalysis } from "./malware_analysis.js";
-export { registerWanMalwareDeployer } from "./wan_malware_deployer.js";
-export { registerWanMalwareDeployerNL } from "./wan_malware_deployer_nl.js";
