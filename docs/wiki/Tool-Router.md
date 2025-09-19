@@ -6,7 +6,7 @@
 
 > Status: Experimental/Test Build
 >
-> This router is a new test build for catalog-driven routing and validation. The flagship, production server is `dist/server-refactored.js` (built from `dev/src/server-refactored.ts`). Prefer the flagship for day-to-day use.
+> This router is a new test build for catalog-driven routing and validation. The flagship, production server is `server.js` → `dev/dist/server-refactored.js` (built from `dev/src/server-refactored.ts`). Prefer the flagship for day-to-day use.
 
 Routes tool calls dynamically based on a JSON catalog. You bring the tools, we bring the routes. It's not magic—just good path-finding.
 

@@ -6,7 +6,7 @@
 
 The router reads `servers/router-registry/tools.json`. Entries define the shape and location of dynamically callable tools.
 
-> Status: This catalog format is used by the experimental Tool Router (`servers/tool-router.js`). The flagship server (`dist/server-refactored.js`) integrates tools directly and does not require this catalog for core operation.
+> Status: This catalog format is used by the experimental Tool Router (`servers/tool-router.js`). The flagship server (`server.js` → `dev/dist/server-refactored.js`) integrates tools directly and does not require this catalog for core operation.
 
 ## Fields
 

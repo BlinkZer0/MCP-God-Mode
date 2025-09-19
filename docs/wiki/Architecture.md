@@ -4,7 +4,7 @@
 
 # Architecture
 
-> Scope note: This page currently describes the experimental Tool Router architecture (`servers/tool-router.js`). The flagship production server is `dist/server-refactored.js` (built from `dev/src/server-refactored.ts`), which provides the full integrated toolset used across wrappers and tests.
+> Scope note: This page currently describes the experimental Tool Router architecture (`servers/tool-router.js`). The flagship production server is `server.js` → `dev/dist/server-refactored.js` (built from `dev/src/server-refactored.ts`), which provides the full integrated toolset used across wrappers and tests.
 
 ## High-Level Flow
 

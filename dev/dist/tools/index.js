@@ -70,8 +70,6 @@ export { registerPenTestPlusPlus } from "./security/pentest_plus_plus.js";
 export { registerPenTestPlusPlusNaturalLanguage } from "./security/pentest_plus_plus_natural_language.js";
 export { registerEncryptionTool } from "./utilities/encryption_tool.js";
 export { registerMalwareAnalysis } from "./security/malware_analysis.js";
-export { registerWanMalwareDeployer } from "./security/wan_malware_deployer.js";
-export { registerWanMalwareDeployerNL } from "./security/wan_malware_deployer_nl.js";
 // Penetration Tools
 export { registerHackNetwork } from "./penetration/hack_network.js";
 export { registerSecurityTesting } from "./penetration/security_testing.js";

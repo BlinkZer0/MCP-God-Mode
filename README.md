@@ -16,11 +16,13 @@ One MCP to route them all. Find a tool you like? Route cause located.
 
 Built on the Model Context Protocol (MCP). Cross-platform. Pluggable. Delightfully documented.
 
-[![Version](https://img.shields.io/badge/Version-v2.0c-blue)](docs/updates/VERSION_2.0c_CHANGELOG.md)
+[![Version](https://img.shields.io/badge/Version-v2.0Final-blue)](docs/updates/VERSION_2.0c_CHANGELOG.md)
 [![License](https://img.shields.io/badge/License-MIT-green)](LICENSE)
 [![Node](https://img.shields.io/badge/Node-%3E%3D%2018-brightgreen)](package.json)
 [![Platforms](https://img.shields.io/badge/Platforms-Win%20%7C%20macOS%20%7C%20Linux%20%7C%20Android%20%7C%20iOS-orange)](docs/general/CROSS_PLATFORM_COMPATIBILITY.md)
-[![Tools](https://img.shields.io/badge/Tools-Catalog-orange)](TOOL_REFERENCE.md)
+[![Tools](https://img.shields.io/badge/Tools-186-orange)](docs/TOOL_REFERENCE.md)
+
+> Version: 2.0Final | Last updated 9/19/2025
 
 ## What is MCP God Mode?
 
@@ -35,11 +37,11 @@ Built on the Model Context Protocol (MCP). Cross-platform. Pluggable. Delightful
 
   - One-shot:
 
-    - `npm run dev` (builds then runs `dist/server-refactored.js`)
+    - `npm run dev` (builds then runs `server.js` → `dev/dist/server-refactored.js`)
 
   - Or just run:
 
-    - `npm start` (runs `dist/server-refactored.js`)
+    - `npm start` (runs `server.js` → `dev/dist/server-refactored.js`)
 
 - Optional (experimental): start the tool-router test server
 
@@ -52,25 +54,32 @@ See: `docs/wiki/Usage-Examples.md`
 ## Documentation (Wiki Style)
 
 - Start here: `docs/wiki/Overview.md`
+- Setup guide: `docs/wiki/Setup-Guide.md`
+- File map: `docs/wiki/Project-Structure.md`
 - Flagship server details: see below
 - Tool router details (experimental): `docs/wiki/Tool-Router.md`
 - Catalog schema and examples: `docs/wiki/Catalog-Format.md`
 
 ## Precision Notes
 
-- Flagship entry: `dist/server-refactored.js` (built from `dev/src/server-refactored.ts`)
+- Flagship entry: `server.js` → `dev/dist/server-refactored.js` (built from `dev/src/server-refactored.ts`)
 - Router code (experimental): `servers/tool-router.js`
 - Catalog path: `servers/router-registry/tools.json`
 - Handlers: `servers/router-registry/handlers/*.js`
 
 P.S. Our docs contain trace amounts of puns. Proceed with route caution.
 
+### Installer Location
+
+- Interactive installer: `dev/interactive-installer.js`
+- Run with: `node dev/interactive-installer.js`
+
 ## Flagship Server
 
 The flagship, production-ready server is `server-refactored`:
 
 - Build: `tsc -p .`
-- Run: `npm start` (runs `dist/server-refactored.js`)
+- Run: `npm start` (runs `server.js` → `dev/dist/server-refactored.js`)
 - Used by wrappers and tests across the repo
 
 Note on tool-router: The tool-router (`servers/tool-router.js`) is an experimental test build used for exploring a catalog-driven routing surface. It is not the primary server and may change rapidly.

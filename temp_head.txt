@@ -1,40 +1,19 @@
-<picture>
-  <img src="../assets/hero-animated.svg" alt="MCP God Mode banner" width="100%" />
-</picture>
+<p align="center">
+  <img src="../../assets/headers/animated-header-1.svg" alt="MCP God Mode — Documentation" />
+</p>
 
-# 📚 MCP God Mode Documentation
+# MCP God Mode - Wiki Overview
 
-Welcome to the comprehensive documentation for MCP God Mode - the ultimate cross-platform security and system management suite.
+Welcome to the wiki-style docs: compact, connected, and a little bit computed. We split the monolithic README into bite-sized, linkable articles so you can route yourself efficiently. After all, why brute force when you can route of the box?
 
-## Quick Actions
+Quick links:
 
-- **Install**: [Windows](./guides/COMPLETE_SETUP_GUIDE.md#windows-setup) • [Linux](./guides/COMPLETE_SETUP_GUIDE.md#linux-setup) • [macOS](./guides/COMPLETE_SETUP_GUIDE.md#macos-setup)
-- **Run**: [Local Agent](./guides/MCP_FRONTEND_INTEGRATION_GUIDE.md#cursor-ai-integration) • [Cursor Agent](./guides/MCP_FRONTEND_INTEGRATION_GUIDE.md#cursor-ai-integration)
-- **Security**: [Permissions](./guides/ELEVATED_PERMISSIONS_GUIDE.md) • [Legal Compliance](./legal/LEGAL_COMPLIANCE.md)
+- Flagship server (production): `dist/server-refactored.js` (built from `dev/src/server-refactored.ts`)
+- Tool Router: the beating route of dynamic tools → [Tool Router](./Tool-Router.md)
+- Catalog format and validation → [Catalog Format](./Catalog-Format.md)
+- How to call and compose tools → [Usage & Examples](./Usage-Examples.md)
+- How it's wired → [Architecture](./Architecture.md)
+- When gremlins appear → [Troubleshooting](./Troubleshooting.md)
+- Contributing to docs → [Contributing to Docs](./Contributing-Docs.md)
 
-<img src="../assets/wave-divider.svg" alt="" width="100%"/>
-
-## 📖 Documentation Index
-
-### 🚀 Getting Started
-- **[Complete Setup Guide](./guides/COMPLETE_SETUP_GUIDE.md)** - Installation and configuration
-- **[Frontend Integration Guide](./guides/MCP_FRONTEND_INTEGRATION_GUIDE.md)** - Setup for Cursor, LM Studio, Claude, SillyTavern & more
-- **[Examples & Tutorials](./guides/EXAMPLES_AND_TUTORIALS.md)** - Real-world usage examples
-
-### 🛠️ Tool Documentation
-- **[Complete Tool Catalog](./general/TOOL_CATALOG.md)** - Browse all 184 documented tools
-- **[New Tools Documentation](./tool/NEW_TOOLS_DOCUMENTATION.md)** - WiFi Disrupt & Cellular Triangulate tools
-- **[Tool Category Index](./general/TOOL_CATEGORY_INDEX.md)** - Browse tools by category
-- **[Parameter Reference](./general/COMPLETE_PARAMETER_REFERENCE.md)** - Complete parameter documentation
-- **[Individual Tool Docs](./tool/)** - Detailed documentation for each tool
-- **[RF Sense Tools](./tool/rf_sense/)** - ⚠️ **EXPERIMENTAL** RF sensing modules (unified interface available)
-
-### ⚠️ **EXPERIMENTAL TOOLS WARNING**
-- **[RF Sense Tools](./tool/rf_sense/)** - **Experimental and untested** RF sensing capabilities
-- These tools can be **extremely harmful to devices** if misused
-- Use only if you understand RF technology and risks
-- We are building the structure before reaching 100% functionality
-
-### 🔧 Advanced Topics
-- **[Cross-Platform Compatibility](./general/CROSS_PLATFORM_COMPATIBILITY.md)** - Platform-specific details
-- **[Server Architecture Comparison](./general/SERVER_ARCHITECTURE_COMPARISON.md)** - Understanding different server modes
+Looking for the giant page? It retired to a farm upstate where all long READMEs go to live out their line breaks.
