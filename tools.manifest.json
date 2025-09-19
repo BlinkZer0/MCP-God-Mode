@@ -32,10 +32,17 @@
       "requires_privilege": true,
       "side_effects": "Logs compliance actions and may generate reports",
       "safe_mode": true,
-      "tags": ["legal", "compliance", "audit"],
+      "tags": [
+        "legal",
+        "compliance",
+        "audit"
+      ],
       "smoke_test": {
         "cmd": "node",
-        "args": ["-e", "console.log('Smoke test for enhanced_legal_compliance')"],
+        "args": [
+          "-e",
+          "console.log('Smoke test for enhanced_legal_compliance')"
+        ],
         "expect_code": 0,
         "timeout_ms": 5000
       }
@@ -63,10 +70,17 @@
       "requires_privilege": true,
       "side_effects": "May perform security scans and generate reports",
       "safe_mode": false,
-      "tags": ["security", "assessment", "analysis"],
+      "tags": [
+        "security",
+        "assessment",
+        "analysis"
+      ],
       "smoke_test": {
         "cmd": "node",
-        "args": ["-e", "console.log('Smoke test for advanced_security_assessment')"],
+        "args": [
+          "-e",
+          "console.log('Smoke test for advanced_security_assessment')"
+        ],
         "expect_code": 0,
         "timeout_ms": 5000
       }
@@ -94,10 +108,17 @@
       "requires_privilege": true,
       "side_effects": "May modify system configurations and deploy services",
       "safe_mode": false,
-      "tags": ["system", "management", "deployment"],
+      "tags": [
+        "system",
+        "management",
+        "deployment"
+      ],
       "smoke_test": {
         "cmd": "node",
-        "args": ["-e", "console.log('Smoke test for cross_platform_system_manager')"],
+        "args": [
+          "-e",
+          "console.log('Smoke test for cross_platform_system_manager')"
+        ],
         "expect_code": 0,
         "timeout_ms": 5000
       }
@@ -119,10 +140,17 @@
       "requires_privilege": true,
       "side_effects": "May configure enterprise systems and integrations",
       "safe_mode": false,
-      "tags": ["enterprise", "integration", "api"],
+      "tags": [
+        "enterprise",
+        "integration",
+        "api"
+      ],
       "smoke_test": {
         "cmd": "node",
-        "args": ["-e", "console.log('Smoke test for enterprise_integration_hub')"],
+        "args": [
+          "-e",
+          "console.log('Smoke test for enterprise_integration_hub')"
+        ],
         "expect_code": 0,
         "timeout_ms": 5000
       }
@@ -150,10 +178,17 @@
       "requires_privilege": false,
       "side_effects": "Processes and analyzes data",
       "safe_mode": true,
-      "tags": ["analytics", "ai", "data"],
+      "tags": [
+        "analytics",
+        "ai",
+        "data"
+      ],
       "smoke_test": {
         "cmd": "node",
-        "args": ["-e", "console.log('Smoke test for advanced_analytics_engine')"],
+        "args": [
+          "-e",
+          "console.log('Smoke test for advanced_analytics_engine')"
+        ],
         "expect_code": 0,
         "timeout_ms": 5000
       }
@@ -181,10 +216,17 @@
       "requires_privilege": false,
       "side_effects": "Sends requests to external AI services",
       "safe_mode": true,
-      "tags": ["ai", "chat", "automation"],
+      "tags": [
+        "ai",
+        "chat",
+        "automation"
+      ],
       "smoke_test": {
         "cmd": "node",
-        "args": ["-e", "console.log('Smoke test for web_ui_chat')"],
+        "args": [
+          "-e",
+          "console.log('Smoke test for web_ui_chat')"
+        ],
         "expect_code": 0,
         "timeout_ms": 5000
       }
@@ -206,10 +248,17 @@
       "requires_privilege": false,
       "side_effects": "None",
       "safe_mode": true,
-      "tags": ["ai", "providers", "list"],
+      "tags": [
+        "ai",
+        "providers",
+        "list"
+      ],
       "smoke_test": {
         "cmd": "node",
-        "args": ["-e", "console.log('Smoke test for providers_list')"],
+        "args": [
+          "-e",
+          "console.log('Smoke test for providers_list')"
+        ],
         "expect_code": 0,
         "timeout_ms": 5000
       }
@@ -237,10 +286,17 @@
       "requires_privilege": false,
       "side_effects": "May create new provider configurations",
       "safe_mode": true,
-      "tags": ["ai", "configuration", "wizard"],
+      "tags": [
+        "ai",
+        "configuration",
+        "wizard"
+      ],
       "smoke_test": {
         "cmd": "node",
-        "args": ["-e", "console.log('Smoke test for provider_wizard')"],
+        "args": [
+          "-e",
+          "console.log('Smoke test for provider_wizard')"
+        ],
         "expect_code": 0,
         "timeout_ms": 5000
       }
@@ -268,10 +324,17 @@
       "requires_privilege": false,
       "side_effects": "Records user interactions",
       "safe_mode": true,
-      "tags": ["automation", "recording", "macro"],
+      "tags": [
+        "automation",
+        "recording",
+        "macro"
+      ],
       "smoke_test": {
         "cmd": "node",
-        "args": ["-e", "console.log('Smoke test for macro_record')"],
+        "args": [
+          "-e",
+          "console.log('Smoke test for macro_record')"
+        ],
         "expect_code": 0,
         "timeout_ms": 5000
       }
@@ -305,10 +368,17 @@
       "requires_privilege": false,
       "side_effects": "Executes recorded interactions",
       "safe_mode": true,
-      "tags": ["automation", "playback", "macro"],
+      "tags": [
+        "automation",
+        "playback",
+        "macro"
+      ],
       "smoke_test": {
         "cmd": "node",
-        "args": ["-e", "console.log('Smoke test for macro_run')"],
+        "args": [
+          "-e",
+          "console.log('Smoke test for macro_run')"
+        ],
         "expect_code": 0,
         "timeout_ms": 5000
       }
@@ -336,10 +406,17 @@
       "requires_privilege": true,
       "side_effects": "Manages user sessions, may terminate active sessions",
       "safe_mode": false,
-      "tags": ["security", "session", "management"],
+      "tags": [
+        "security",
+        "session",
+        "management"
+      ],
       "smoke_test": {
         "cmd": "node",
-        "args": ["-e", "console.log('Smoke test for session_management')"],
+        "args": [
+          "-e",
+          "console.log('Smoke test for session_management')"
+        ],
         "expect_code": 0,
         "timeout_ms": 5000
       }
@@ -373,10 +450,17 @@
       "requires_privilege": true,
       "side_effects": "Performs security scans and analysis",
       "safe_mode": false,
-      "tags": ["security", "threat", "hunting"],
+      "tags": [
+        "security",
+        "threat",
+        "hunting"
+      ],
       "smoke_test": {
         "cmd": "node",
-        "args": ["-e", "console.log('Smoke test for advanced_threat_hunting')"],
+        "args": [
+          "-e",
+          "console.log('Smoke test for advanced_threat_hunting')"
+        ],
         "expect_code": 0,
         "timeout_ms": 5000
       }
@@ -410,10 +494,17 @@
       "requires_privilege": true,
       "side_effects": "Deploys deception mechanisms and monitors for interactions",
       "safe_mode": false,
-      "tags": ["security", "deception", "honeypot"],
+      "tags": [
+        "security",
+        "deception",
+        "honeypot"
+      ],
       "smoke_test": {
         "cmd": "node",
-        "args": ["-e", "console.log('Smoke test for cyber_deception_platform')"],
+        "args": [
+          "-e",
+          "console.log('Smoke test for cyber_deception_platform')"
+        ],
         "expect_code": 0,
         "timeout_ms": 5000
       }
@@ -447,10 +538,17 @@
       "requires_privilege": true,
       "side_effects": "Modifies security policies and configurations",
       "safe_mode": false,
-      "tags": ["security", "zero-trust", "architecture"],
+      "tags": [
+        "security",
+        "zero-trust",
+        "architecture"
+      ],
       "smoke_test": {
         "cmd": "node",
-        "args": ["-e", "console.log('Smoke test for zero_trust_architect')"],
+        "args": [
+          "-e",
+          "console.log('Smoke test for zero_trust_architect')"
+        ],
         "expect_code": 0,
         "timeout_ms": 5000
       }
@@ -484,10 +582,17 @@
       "requires_privilege": true,
       "side_effects": "Performs cryptographic operations",
       "safe_mode": true,
-      "tags": ["security", "cryptography", "quantum"],
+      "tags": [
+        "security",
+        "cryptography",
+        "quantum"
+      ],
       "smoke_test": {
         "cmd": "node",
-        "args": ["-e", "console.log('Smoke test for quantum_cryptography_suite')"],
+        "args": [
+          "-e",
+          "console.log('Smoke test for quantum_cryptography_suite')"
+        ],
         "expect_code": 0,
         "timeout_ms": 5000
       }
@@ -521,10 +626,17 @@
       "requires_privilege": true,
       "side_effects": "May take automated security actions based on analysis",
       "safe_mode": false,
-      "tags": ["security", "ai", "orchestration"],
+      "tags": [
+        "security",
+        "ai",
+        "orchestration"
+      ],
       "smoke_test": {
         "cmd": "node",
-        "args": ["-e", "console.log('Smoke test for ai_security_orchestrator')"],
+        "args": [
+          "-e",
+          "console.log('Smoke test for ai_security_orchestrator')"
+        ],
         "expect_code": 0,
         "timeout_ms": 5000
       }
@@ -558,10 +670,4073 @@
       "requires_privilege": false,
       "side_effects": "Queries blockchain data, no on-chain changes",
       "safe_mode": true,
-      "tags": ["blockchain", "forensics", "crypto"],
+      "tags": [
+        "blockchain",
+        "forensics",
+        "crypto"
+      ],
       "smoke_test": {
         "cmd": "node",
-        "args": ["-e", "console.log('Smoke test for blockchain_forensics')"],
+        "args": [
+          "-e",
+          "console.log('Smoke test for blockchain_forensics')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "drone_unified",
+      "category": "hardware",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "drone_unified",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Unified Drone Management Tool",
+      "safe_mode": true,
+      "tags": [
+        "hardware",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for drone_unified')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "rf_sense",
+      "category": "radio",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "rf_sense",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": true,
+      "side_effects": "Unified RF Sense Tool (experimental)",
+      "safe_mode": false,
+      "tags": [
+        "radio",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for rf_sense')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "rf_sense_guardrails",
+      "category": "radio",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "rf_sense_guardrails",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "RF Sense guardrails",
+      "safe_mode": true,
+      "tags": [
+        "radio",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for rf_sense_guardrails')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "rf_sense_localize",
+      "category": "radio",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "rf_sense_localize",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "RF Sense localization module",
+      "safe_mode": true,
+      "tags": [
+        "radio",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for rf_sense_localize')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "rf_sense_mmwave",
+      "category": "radio",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "rf_sense_mmwave",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": true,
+      "side_effects": "RF Sense mmWave module",
+      "safe_mode": false,
+      "tags": [
+        "radio",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for rf_sense_mmwave')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "rf_sense_natural_language",
+      "category": "radio",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "rf_sense_natural_language",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Natural language interface for RF Sense",
+      "safe_mode": true,
+      "tags": [
+        "radio",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for rf_sense_natural_language')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "rf_sense_sim",
+      "category": "radio",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "rf_sense_sim",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "RF Sense simulation module",
+      "safe_mode": true,
+      "tags": [
+        "radio",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for rf_sense_sim')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "rf_sense_wifi_lab",
+      "category": "wireless",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "rf_sense_wifi_lab",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": true,
+      "side_effects": "RF Sense WiFi CSI lab module",
+      "safe_mode": false,
+      "tags": [
+        "wireless",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for rf_sense_wifi_lab')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "legal_compliance_manager",
+      "category": "legal",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "legal_compliance_manager",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Tool 'legal_compliance_manager' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "legal",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for legal_compliance_manager')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "security_testing",
+      "category": "security",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "security_testing",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Tool 'security_testing' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "security",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for security_testing')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "compliance_assessment",
+      "category": "legal",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "compliance_assessment",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Tool 'compliance_assessment' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "legal",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for compliance_assessment')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "siem_toolkit",
+      "category": "misc",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "siem_toolkit",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Tool 'siem_toolkit' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "misc",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for siem_toolkit')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "threat_intelligence",
+      "category": "misc",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "threat_intelligence",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Tool 'threat_intelligence' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "misc",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for threat_intelligence')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "supply_chain_security",
+      "category": "ai",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "supply_chain_security",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Tool 'supply_chain_security' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "ai",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for supply_chain_security')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "privacy_engineering",
+      "category": "misc",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "privacy_engineering",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Tool 'privacy_engineering' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "misc",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for privacy_engineering')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "incident_commander",
+      "category": "misc",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "incident_commander",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Tool 'incident_commander' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "misc",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for incident_commander')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "security_metrics_dashboard",
+      "category": "security",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "security_metrics_dashboard",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Tool 'security_metrics_dashboard' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "security",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for security_metrics_dashboard')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "forensics_analysis",
+      "category": "forensics",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "forensics_analysis",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Tool 'forensics_analysis' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "forensics",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for forensics_analysis')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "forensics_toolkit",
+      "category": "forensics",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "forensics_toolkit",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Tool 'forensics_toolkit' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "forensics",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for forensics_toolkit')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "malware_analysis_toolkit",
+      "category": "forensics",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "malware_analysis_toolkit",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Tool 'malware_analysis_toolkit' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "forensics",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for malware_analysis_toolkit')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "osint_reconnaissance",
+      "category": "ai",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "osint_reconnaissance",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Tool 'osint_reconnaissance' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "ai",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for osint_reconnaissance')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "crime_reporter_unified",
+      "category": "legal",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "crime_reporter_unified",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Unified crime reporting",
+      "safe_mode": true,
+      "tags": [
+        "legal",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for crime_reporter_unified')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "zero_day_exploiter_unified",
+      "category": "misc",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "zero_day_exploiter_unified",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Unified zero-day exploiter",
+      "safe_mode": true,
+      "tags": [
+        "misc",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for zero_day_exploiter_unified')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "api_security_testing",
+      "category": "security",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "api_security_testing",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Tool 'api_security_testing' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "security",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for api_security_testing')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "cloud_security_assessment",
+      "category": "cloud",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "cloud_security_assessment",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Tool 'cloud_security_assessment' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "cloud",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for cloud_security_assessment')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "cloud_security_toolkit",
+      "category": "cloud",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "cloud_security_toolkit",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Tool 'cloud_security_toolkit' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "cloud",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for cloud_security_toolkit')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "database_security_toolkit",
+      "category": "security",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "database_security_toolkit",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Tool 'database_security_toolkit' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "security",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for database_security_toolkit')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "email_security_suite",
+      "category": "ai",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "email_security_suite",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Tool 'email_security_suite' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "ai",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for email_security_suite')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "ai_adversarial_prompt",
+      "category": "ai",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "ai_adversarial_prompt",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Tool 'ai_adversarial_prompt' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "ai",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for ai_adversarial_prompt')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "ai_adversarial_nlp",
+      "category": "ai",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "ai_adversarial_nlp",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Tool 'ai_adversarial_nlp' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "ai",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for ai_adversarial_nlp')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "ai_adversarial_platform_info",
+      "category": "ai",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "ai_adversarial_platform_info",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Tool 'ai_adversarial_platform_info' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "ai",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for ai_adversarial_platform_info')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "win_processes",
+      "category": "misc",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "win_processes",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Tool 'win_processes' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "misc",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for win_processes')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "win_services",
+      "category": "misc",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "win_services",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Tool 'win_services' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "misc",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for win_services')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "proc_run",
+      "category": "misc",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "proc_run",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Tool 'proc_run' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "misc",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for proc_run')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "proc_run_elevated",
+      "category": "misc",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "proc_run_elevated",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": true,
+      "side_effects": "Tool 'proc_run_elevated' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "misc",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for proc_run_elevated')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "proc_run_remote",
+      "category": "misc",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "proc_run_remote",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Tool 'proc_run_remote' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "misc",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for proc_run_remote')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "system_restore",
+      "category": "misc",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "system_restore",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Tool 'system_restore' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "misc",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for system_restore')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "elevated_permissions_manager",
+      "category": "misc",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "elevated_permissions_manager",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Tool 'elevated_permissions_manager' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "misc",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for elevated_permissions_manager')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "cron_job_manager",
+      "category": "misc",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "cron_job_manager",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Tool 'cron_job_manager' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "misc",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for cron_job_manager')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "system_monitor",
+      "category": "misc",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "system_monitor",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Tool 'system_monitor' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "misc",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for system_monitor')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "git_status",
+      "category": "misc",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "git_status",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Tool 'git_status' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "misc",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for git_status')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "health",
+      "category": "misc",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "health",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Tool 'health' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "misc",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for health')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "system_info",
+      "category": "misc",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "system_info",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Tool 'system_info' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "misc",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for system_info')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "fs_list",
+      "category": "misc",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "fs_list",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Tool 'fs_list' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "misc",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for fs_list')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "fs_read_text",
+      "category": "misc",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "fs_read_text",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Tool 'fs_read_text' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "misc",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for fs_read_text')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "fs_write_text",
+      "category": "misc",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "fs_write_text",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Tool 'fs_write_text' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "misc",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for fs_write_text')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "fs_search",
+      "category": "misc",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "fs_search",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Tool 'fs_search' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "misc",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for fs_search')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "grep",
+      "category": "misc",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "grep",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Tool 'grep' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "misc",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for grep')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "advanced_grep",
+      "category": "misc",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "advanced_grep",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Tool 'advanced_grep' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "misc",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for advanced_grep')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "file_ops",
+      "category": "misc",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "file_ops",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Tool 'file_ops' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "misc",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for file_ops')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "file_watcher",
+      "category": "misc",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "file_watcher",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Tool 'file_watcher' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "misc",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for file_watcher')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "packet_sniffer",
+      "category": "network",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "packet_sniffer",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Tool 'packet_sniffer' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "network",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for packet_sniffer')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "port_scanner",
+      "category": "network",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "port_scanner",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Tool 'port_scanner' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "network",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for port_scanner')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "network_diagnostics",
+      "category": "network",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "network_diagnostics",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Tool 'network_diagnostics' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "network",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for network_diagnostics')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "download_file",
+      "category": "misc",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "download_file",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Tool 'download_file' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "misc",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for download_file')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "network_traffic_analyzer",
+      "category": "network",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "network_traffic_analyzer",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Tool 'network_traffic_analyzer' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "network",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for network_traffic_analyzer')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "ip_geolocation",
+      "category": "misc",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "ip_geolocation",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Tool 'ip_geolocation' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "misc",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for ip_geolocation')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "network_triangulation",
+      "category": "network",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "network_triangulation",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Tool 'network_triangulation' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "network",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for network_triangulation')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "latency_geolocation",
+      "category": "misc",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "latency_geolocation",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Tool 'latency_geolocation' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "misc",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for latency_geolocation')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "network_discovery",
+      "category": "network",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "network_discovery",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Tool 'network_discovery' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "network",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for network_discovery')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "vulnerability_assessment",
+      "category": "misc",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "vulnerability_assessment",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Tool 'vulnerability_assessment' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "misc",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for vulnerability_assessment')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "traffic_analysis",
+      "category": "misc",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "traffic_analysis",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Tool 'traffic_analysis' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "misc",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for traffic_analysis')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "network_utilities",
+      "category": "network",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "network_utilities",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Tool 'network_utilities' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "network",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for network_utilities')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "social_account_ripper_modular",
+      "category": "misc",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "social_account_ripper_modular",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Tool 'social_account_ripper_modular' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "misc",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for social_account_ripper_modular')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "social_network_ripper",
+      "category": "network",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "social_network_ripper",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Tool 'social_network_ripper' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "network",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for social_network_ripper')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "social_engineering_toolkit",
+      "category": "misc",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "social_engineering_toolkit",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Tool 'social_engineering_toolkit' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "misc",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for social_engineering_toolkit')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "vulnerability_scanner",
+      "category": "misc",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "vulnerability_scanner",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Tool 'vulnerability_scanner' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "misc",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for vulnerability_scanner')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "password_cracker",
+      "category": "misc",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "password_cracker",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Tool 'password_cracker' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "misc",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for password_cracker')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "exploit_framework",
+      "category": "misc",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "exploit_framework",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Tool 'exploit_framework' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "misc",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for exploit_framework')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "network_security",
+      "category": "network",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "network_security",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Tool 'network_security' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "network",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for network_security')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "blockchain_security",
+      "category": "ai",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "blockchain_security",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Tool 'blockchain_security' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "ai",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for blockchain_security')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "quantum_security",
+      "category": "security",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "quantum_security",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Tool 'quantum_security' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "security",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for quantum_security')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "iot_security",
+      "category": "security",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "iot_security",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Tool 'iot_security' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "security",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for iot_security')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "hack_network",
+      "category": "network",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "hack_network",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Tool 'hack_network' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "network",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for hack_network')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "penetration_testing_toolkit",
+      "category": "misc",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "penetration_testing_toolkit",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": true,
+      "side_effects": "Tool 'penetration_testing_toolkit' auto-added; side-effects not fully profiled",
+      "safe_mode": false,
+      "tags": [
+        "misc",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for penetration_testing_toolkit')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "red_team_toolkit",
+      "category": "misc",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "red_team_toolkit",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": true,
+      "side_effects": "Tool 'red_team_toolkit' auto-added; side-effects not fully profiled",
+      "safe_mode": false,
+      "tags": [
+        "misc",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for red_team_toolkit')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "encryption_tool",
+      "category": "misc",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "encryption_tool",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Tool 'encryption_tool' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "misc",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for encryption_tool')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "malware_analysis",
+      "category": "forensics",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "malware_analysis",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Tool 'malware_analysis' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "forensics",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for malware_analysis')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "wifi_security_toolkit",
+      "category": "wireless",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "wifi_security_toolkit",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Tool 'wifi_security_toolkit' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "wireless",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for wifi_security_toolkit')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "wifi_hacking",
+      "category": "wireless",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "wifi_hacking",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": true,
+      "side_effects": "Tool 'wifi_hacking' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "wireless",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for wifi_hacking')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "wireless_security",
+      "category": "wireless",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "wireless_security",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": true,
+      "side_effects": "Tool 'wireless_security' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "wireless",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for wireless_security')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "wireless_network_scanner",
+      "category": "wireless",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "wireless_network_scanner",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Tool 'wireless_network_scanner' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "wireless",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for wireless_network_scanner')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "wifi_disrupt",
+      "category": "wireless",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "wifi_disrupt",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": true,
+      "side_effects": "Tool 'wifi_disrupt' auto-added; side-effects not fully profiled",
+      "safe_mode": false,
+      "tags": [
+        "wireless",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for wifi_disrupt')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "cellular_triangulate",
+      "category": "misc",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "cellular_triangulate",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Tool 'cellular_triangulate' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "misc",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for cellular_triangulate')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "bluetooth_security_toolkit",
+      "category": "bluetooth",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "bluetooth_security_toolkit",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Tool 'bluetooth_security_toolkit' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "bluetooth",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for bluetooth_security_toolkit')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "bluetooth_hacking",
+      "category": "bluetooth",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "bluetooth_hacking",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": true,
+      "side_effects": "Tool 'bluetooth_hacking' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "bluetooth",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for bluetooth_hacking')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "bluetooth_device_manager",
+      "category": "bluetooth",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "bluetooth_device_manager",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Tool 'bluetooth_device_manager' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "bluetooth",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for bluetooth_device_manager')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "sdr_security_toolkit",
+      "category": "radio",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "sdr_security_toolkit",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": true,
+      "side_effects": "Tool 'sdr_security_toolkit' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "radio",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for sdr_security_toolkit')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "radio_security",
+      "category": "radio",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "radio_security",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": true,
+      "side_effects": "Tool 'radio_security' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "radio",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for radio_security')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "signal_analysis",
+      "category": "radio",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "signal_analysis",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": true,
+      "side_effects": "Tool 'signal_analysis' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "radio",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for signal_analysis')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "web_scraper",
+      "category": "web",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "web_scraper",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Tool 'web_scraper' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "web",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for web_scraper')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "enhanced_browser_automation",
+      "category": "web",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "enhanced_browser_automation",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Tool 'enhanced_browser_automation' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "web",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for enhanced_browser_automation')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "webhook_manager",
+      "category": "web",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "webhook_manager",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Tool 'webhook_manager' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "web",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for webhook_manager')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "universal_browser_operator",
+      "category": "web",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "universal_browser_operator",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Tool 'universal_browser_operator' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "web",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for universal_browser_operator')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "web_search",
+      "category": "web",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "web_search",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Tool 'web_search' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "web",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for web_search')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "form_completion",
+      "category": "web",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "form_completion",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Tool 'form_completion' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "web",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for form_completion')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "form_detection",
+      "category": "web",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "form_detection",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Tool 'form_detection' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "web",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for form_detection')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "form_validation",
+      "category": "web",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "form_validation",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Tool 'form_validation' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "web",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for form_validation')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "form_pattern_recognition",
+      "category": "web",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "form_pattern_recognition",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Tool 'form_pattern_recognition' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "web",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for form_pattern_recognition')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "captcha_defeating",
+      "category": "web",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "captcha_defeating",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Tool 'captcha_defeating' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "web",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for captcha_defeating')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "browser_control",
+      "category": "web",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "browser_control",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Tool 'browser_control' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "web",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for browser_control')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "web_automation",
+      "category": "web",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "web_automation",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Tool 'web_automation' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "web",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for web_automation')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "send_email",
+      "category": "ai",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "send_email",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Tool 'send_email' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "ai",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for send_email')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "read_emails",
+      "category": "ai",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "read_emails",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Tool 'read_emails' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "ai",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for read_emails')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "parse_email",
+      "category": "ai",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "parse_email",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Tool 'parse_email' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "ai",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for parse_email')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "delete_emails",
+      "category": "ai",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "delete_emails",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Tool 'delete_emails' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "ai",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for delete_emails')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "sort_emails",
+      "category": "ai",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "sort_emails",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Tool 'sort_emails' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "ai",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for sort_emails')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "manage_email_accounts",
+      "category": "ai",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "manage_email_accounts",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Tool 'manage_email_accounts' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "ai",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for manage_email_accounts')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "ocr_tool",
+      "category": "misc",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "ocr_tool",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Tool 'ocr_tool' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "misc",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for ocr_tool')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "multimedia_tool",
+      "category": "misc",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "multimedia_tool",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Tool 'multimedia_tool' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "misc",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for multimedia_tool')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "enhanced_media_editor",
+      "category": "misc",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "enhanced_media_editor",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Tool 'enhanced_media_editor' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "misc",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for enhanced_media_editor')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "screenshot",
+      "category": "misc",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "screenshot",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Tool 'screenshot' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "misc",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for screenshot')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "mobile_device_info",
+      "category": "mobile",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "mobile_device_info",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Tool 'mobile_device_info' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "mobile",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for mobile_device_info')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "mobile_file_ops",
+      "category": "mobile",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "mobile_file_ops",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Tool 'mobile_file_ops' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "mobile",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for mobile_file_ops')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "mobile_system_tools",
+      "category": "mobile",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "mobile_system_tools",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Tool 'mobile_system_tools' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "mobile",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for mobile_system_tools')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "mobile_hardware",
+      "category": "mobile",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "mobile_hardware",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Tool 'mobile_hardware' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "mobile",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for mobile_hardware')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "mobile_device_management",
+      "category": "mobile",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "mobile_device_management",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Tool 'mobile_device_management' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "mobile",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for mobile_device_management')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "mobile_app_unified",
+      "category": "mobile",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "mobile_app_unified",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Tool 'mobile_app_unified' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "mobile",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for mobile_app_unified')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "mobile_network_analyzer",
+      "category": "mobile",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "mobile_network_analyzer",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Tool 'mobile_network_analyzer' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "mobile",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for mobile_network_analyzer')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "mobile_security_toolkit",
+      "category": "mobile",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "mobile_security_toolkit",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Tool 'mobile_security_toolkit' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "mobile",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for mobile_security_toolkit')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "enhanced_mobile_app_toolkit",
+      "category": "mobile",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "enhanced_mobile_app_toolkit",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Tool 'enhanced_mobile_app_toolkit' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "mobile",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for enhanced_mobile_app_toolkit')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "vm_management",
+      "category": "virtualization",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "vm_management",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": true,
+      "side_effects": "Tool 'vm_management' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "virtualization",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for vm_management')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "docker_management",
+      "category": "virtualization",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "docker_management",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": true,
+      "side_effects": "Tool 'docker_management' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "virtualization",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for docker_management')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "rag_toolkit",
+      "category": "ai",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "rag_toolkit",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Tool 'rag_toolkit' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "ai",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for rag_toolkit')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "flipper_zero",
+      "category": "misc",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "flipper_zero",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Flipper Zero consolidated operations",
+      "safe_mode": true,
+      "tags": [
+        "misc",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for flipper_zero')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "enhanced_calculator",
+      "category": "utilities",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "enhanced_calculator",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Tool 'enhanced_calculator' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "utilities",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for enhanced_calculator')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "dice_rolling",
+      "category": "misc",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "dice_rolling",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Tool 'dice_rolling' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "misc",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for dice_rolling')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "enhanced_data_analysis",
+      "category": "misc",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "enhanced_data_analysis",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Tool 'enhanced_data_analysis' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "misc",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for enhanced_data_analysis')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "machine_learning",
+      "category": "misc",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "machine_learning",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Tool 'machine_learning' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "misc",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for machine_learning')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "chart_generator",
+      "category": "utilities",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "chart_generator",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Tool 'chart_generator' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "utilities",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for chart_generator')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "text_processor",
+      "category": "utilities",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "text_processor",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Tool 'text_processor' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "utilities",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for text_processor')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "password_generator",
+      "category": "misc",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "password_generator",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Tool 'password_generator' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "misc",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for password_generator')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "calculator",
+      "category": "utilities",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "calculator",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Tool 'calculator' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "utilities",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for calculator')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "math_calculate",
+      "category": "utilities",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "math_calculate",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Tool 'math_calculate' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "utilities",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for math_calculate')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "data_analysis",
+      "category": "misc",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "data_analysis",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Tool 'data_analysis' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "misc",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for data_analysis')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "data_analyzer",
+      "category": "misc",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "data_analyzer",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Tool 'data_analyzer' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "misc",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for data_analyzer')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "cloud_infrastructure_manager",
+      "category": "cloud",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "cloud_infrastructure_manager",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Tool 'cloud_infrastructure_manager' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "cloud",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for cloud_infrastructure_manager')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "tool_discovery",
+      "category": "misc",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "tool_discovery",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Tool 'tool_discovery' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "misc",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for tool_discovery')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "explore_categories",
+      "category": "misc",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "explore_categories",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Tool 'explore_categories' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "misc",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for explore_categories')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "natural_language_router",
+      "category": "misc",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "natural_language_router",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Tool 'natural_language_router' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "misc",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for natural_language_router')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "metasploit_framework",
+      "category": "security",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "metasploit_framework",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": true,
+      "side_effects": "Tool 'metasploit_framework' auto-added; side-effects not fully profiled",
+      "safe_mode": false,
+      "tags": [
+        "security",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for metasploit_framework')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "cobalt_strike",
+      "category": "security",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "cobalt_strike",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": true,
+      "side_effects": "Tool 'cobalt_strike' auto-added; side-effects not fully profiled",
+      "safe_mode": false,
+      "tags": [
+        "security",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for cobalt_strike')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "empire_powershell",
+      "category": "misc",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "empire_powershell",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": true,
+      "side_effects": "Tool 'empire_powershell' auto-added; side-effects not fully profiled",
+      "safe_mode": false,
+      "tags": [
+        "misc",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for empire_powershell')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "bloodhound_ad",
+      "category": "misc",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "bloodhound_ad",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Tool 'bloodhound_ad' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "misc",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for bloodhound_ad')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "mimikatz_credentials",
+      "category": "security",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "mimikatz_credentials",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": true,
+      "side_effects": "Tool 'mimikatz_credentials' auto-added; side-effects not fully profiled",
+      "safe_mode": false,
+      "tags": [
+        "security",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for mimikatz_credentials')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "mimikatz_enhanced",
+      "category": "security",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "mimikatz_enhanced",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": true,
+      "side_effects": "Tool 'mimikatz_enhanced' auto-added; side-effects not fully profiled",
+      "safe_mode": false,
+      "tags": [
+        "security",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for mimikatz_enhanced')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "hexstrike_ai",
+      "category": "ai",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "hexstrike_ai",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Tool 'hexstrike_ai' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "ai",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for hexstrike_ai')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "hexstrike_ai_natural_language",
+      "category": "ai",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "hexstrike_ai_natural_language",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Tool 'hexstrike_ai_natural_language' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "ai",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for hexstrike_ai_natural_language')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "nmap_scanner",
+      "category": "network",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "nmap_scanner",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Tool 'nmap_scanner' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "network",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for nmap_scanner')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "frida_toolkit",
+      "category": "misc",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "frida_toolkit",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Tool 'frida_toolkit' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "misc",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for frida_toolkit')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "ghidra_reverse_engineering",
+      "category": "misc",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "ghidra_reverse_engineering",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Tool 'ghidra_reverse_engineering' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "misc",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for ghidra_reverse_engineering')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "pacu_aws_exploitation",
+      "category": "misc",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "pacu_aws_exploitation",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Tool 'pacu_aws_exploitation' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "misc",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for pacu_aws_exploitation')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "tool_burglar",
+      "category": "misc",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "tool_burglar",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": true,
+      "side_effects": "Tool 'tool_burglar' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "misc",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for tool_burglar')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "competitive_intelligence",
+      "category": "misc",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "competitive_intelligence",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Tool 'competitive_intelligence' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "misc",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for competitive_intelligence')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "competitive_intelligence_nl",
+      "category": "misc",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "competitive_intelligence_nl",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Tool 'competitive_intelligence_nl' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "misc",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for competitive_intelligence_nl')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "competitive_intelligence_test",
+      "category": "misc",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "competitive_intelligence_test",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Tool 'competitive_intelligence_test' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "misc",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for competitive_intelligence_test')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "psychology",
+      "category": "ai",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "psychology",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Tool 'psychology' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "ai",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for psychology')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "multi_engine_search",
+      "category": "misc",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "multi_engine_search",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Tool 'multi_engine_search' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "misc",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for multi_engine_search')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "search_analysis",
+      "category": "misc",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "search_analysis",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Tool 'search_analysis' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "misc",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for search_analysis')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "wan_malware_deployer",
+      "category": "forensics",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "wan_malware_deployer",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Tool 'wan_malware_deployer' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "forensics",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for wan_malware_deployer')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "wan_malware_deployer_nl",
+      "category": "forensics",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "wan_malware_deployer_nl",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Tool 'wan_malware_deployer_nl' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "forensics",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for wan_malware_deployer_nl')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "hack_gpt",
+      "category": "misc",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "hack_gpt",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Tool 'hack_gpt' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "misc",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for hack_gpt')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "hack_gpt_natural_language",
+      "category": "misc",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "hack_gpt_natural_language",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Tool 'hack_gpt_natural_language' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "misc",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for hack_gpt_natural_language')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "strix_ai",
+      "category": "ai",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "strix_ai",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Tool 'strix_ai' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "ai",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for strix_ai')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "strix_ai_natural_language",
+      "category": "ai",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "strix_ai_natural_language",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Tool 'strix_ai_natural_language' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "ai",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for strix_ai_natural_language')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "pentest_plus_plus",
+      "category": "security",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "pentest_plus_plus",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Tool 'pentest_plus_plus' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "security",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for pentest_plus_plus')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "pentest_plus_plus_natural_language",
+      "category": "security",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "pentest_plus_plus_natural_language",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Tool 'pentest_plus_plus_natural_language' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "security",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for pentest_plus_plus_natural_language')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "metadata_extractor",
+      "category": "misc",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "metadata_extractor",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Tool 'metadata_extractor' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "misc",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for metadata_extractor')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "example_tool",
+      "category": "misc",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "example_tool",
+      "args": [],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Tool 'example_tool' auto-added; side-effects not fully profiled",
+      "safe_mode": true,
+      "tags": [
+        "misc",
+        "auto-added"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for example_tool')"
+        ],
         "expect_code": 0,
         "timeout_ms": 5000
       }
