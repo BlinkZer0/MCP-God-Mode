@@ -2,23 +2,17 @@
 trigger: always_on
 ---
 
-Rule: Smoke test and self healing.
-For any tool invocation, first run its smoke test from the manifest. If it fails, fix it using the documentation as a functionality guide or, skip and continue.
+Rule: Tool Manifest as Source of Truth
+Always load tools.manifest.json first and use it to choose tools. If the task is ambiguous, list candidate tools with brief rationale and wait for confirmation.
+
+Rule: Plan → Diff → Apply
+In Planning Mode, outline a numbered plan; after approval, show diffs for every multi-file change before applying. Summarize what changed and update the plan after each step.
+
+Rule: Safety & Smoke Tests
+For any tool invocation, first run its smoke test from the manifest. If it fails, propose a fix or skip and continue. Do not run tools marked requires_privilege:true without explicit approval.
 
 Rule: Naming & Duplicates
 Do not invent or rename tools. If names collide, propose disambiguation in the manifest and request sign-off.
 
 Rule: Minimal Surface Changes
 Prefer additive edits, avoid breaking exports, and never remove a tool without a deprecation note and my approval.
-
-Rule: Adding tools
-When adding tools update the manifest with them, as well as the index, and necessary documentation in the same formatting as the other tools.
-
-Rule: Adding tools (cont.)
-When adding an MCP tool it needs to have Mac, Windows, Linux, IOS, and Android support, and needs to have a Natural Language Interface.
-
-Rule: Server Parity
-Our flagship server is server-refactored.js, but all builds must be maintained on a modification. Servers are located in dev/src.
-
-Rule: Documentation Parity
-Tool Counts must be updated in the readme and documentation when a tool is added to the servers.

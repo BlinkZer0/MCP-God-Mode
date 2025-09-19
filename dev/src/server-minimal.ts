@@ -39,7 +39,7 @@ logServerStart(PLATFORM);
 // CORE TOOLS
 // ===========================================
 
-const server = new McpServer({ name: "MCP God Mode - Minimal", version: "2.0-Final" });
+const server = new McpServer({ name: "MCP God Mode - Minimal", version: "1.9.0" });
 
 server.registerTool("health", {
   description: "Liveness/readiness probe",

@@ -6,7 +6,7 @@
 
 Sample MCP content payloads for interacting with the Tool Router.
 
-> Note: These examples target the experimental Tool Router (`servers/tool-router.js`). For the production flagship server (`server.js` → `dev/dist/server-refactored.js`), see the README's Flagship Server section for start commands and usage context.
+> Note: These examples target the experimental Tool Router (`servers/tool-router.js`). For the production flagship server (`dist/server-refactored.js`), see the README’s Flagship Server section for start commands and usage context.
 
 ## List Catalog
 
@@ -78,5 +78,3 @@ Version mismatch:
 ```
 
 Copy, paste, and be paste-tive: your tools will thank you.
-
-

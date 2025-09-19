@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 // Comprehensive MCP God Mode Tools Test
-// Tests all 186 installed tools systematically
+// Tests all 69 installed tools systematically
 
 import { spawn } from 'child_process';
 import { fileURLToPath } from 'url';
@@ -461,4 +461,3 @@ setTimeout(() => {
   server.kill();
   process.exit(0);
 }, TEST_CONFIG.timeout);
-

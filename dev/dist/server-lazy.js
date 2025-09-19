@@ -24,7 +24,7 @@ logServerStart(PLATFORM);
 // ===========================================
 // LAZY LOADING SERVER IMPLEMENTATION
 // ===========================================
-const server = new McpServer({ name: "MCP God Mode - Lazy Loading Security & Network Analysis Platform", version: "2.0c" });
+const server = new McpServer({ name: "MCP God Mode - Lazy Loading Security & Network Analysis Platform", version: "2.0d" });
 // Initialize ToolRegistry for unified tool management
 const toolRegistry = ToolRegistry.getInstance();
 // Lazy loading cache for tools

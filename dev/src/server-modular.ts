@@ -64,7 +64,7 @@ if (process.env.MCPGM_FLIPPER_ENABLED === undefined) {
 // MODULAR SERVER: Imported Tools
 // ===========================================
 
-const server = new McpServer({ name: "MCP God Mode - Modular Security & Network Analysis Platform", version: "2.0-Final" });
+const server = new McpServer({ name: "MCP God Mode - Modular Security & Network Analysis Platform", version: "2.0c" });
 
 // Initialize ToolRegistry for unified tool management
 const toolRegistry = ToolRegistry.getInstance();

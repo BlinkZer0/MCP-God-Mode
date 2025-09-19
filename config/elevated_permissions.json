@@ -1,5 +1,5 @@
 {
-  "globalElevatedMode": true,
+  "globalElevatedMode": false,
   "allowedTools": [
     "proc_run_elevated",
     "win_services",

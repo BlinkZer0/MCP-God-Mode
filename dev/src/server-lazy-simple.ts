@@ -12,7 +12,7 @@ import * as fs from "node:fs/promises";
 
 const server = new McpServer({ 
   name: "MCP God Mode - Simple Lazy Loading Server", 
-  version: "2.0-Final" 
+  version: "1.9.0" 
 });
 
 // Track loaded tools

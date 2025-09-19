@@ -2,8 +2,6 @@
 **MCP God Mode Wiki**
 
 - [Overview](Overview.md)
-- [Setup Guide](Setup-Guide.md)
-- [Project Structure](Project-Structure.md)
 - [Tool Router (Experimental)](Tool-Router.md)
 - [Catalog Format](Catalog-Format.md)
 - [Usage & Examples](Usage-Examples.md)
