@@ -690,7 +690,44 @@
       "category": "hardware",
       "entry_file": "dev/dist/server-refactored.js",
       "invoke": "drone_unified",
-      "args": [],
+      "args": [
+        {
+          "name": "action",
+          "type": "enum[status,takeoff,land,move,hover,rotate,set_altitude,get_telemetry,start_mission,stop_mission,return_home,calibrate,arm,disarm]",
+          "required": true,
+          "description": "Drone operation to perform"
+        },
+        {
+          "name": "direction",
+          "type": "enum[forward,backward,left,right,up,down]",
+          "required": false,
+          "description": "Movement direction"
+        },
+        {
+          "name": "distance",
+          "type": "number",
+          "required": false,
+          "description": "Distance to move in meters"
+        },
+        {
+          "name": "altitude",
+          "type": "number",
+          "required": false,
+          "description": "Target altitude in meters"
+        },
+        {
+          "name": "speed",
+          "type": "number",
+          "required": false,
+          "description": "Movement speed (0-100%)"
+        },
+        {
+          "name": "duration",
+          "type": "number",
+          "required": false,
+          "description": "Operation duration in seconds"
+        }
+      ],
       "env_vars": [],
       "requires_privilege": false,
       "side_effects": "Unified Drone Management Tool",
@@ -714,7 +751,38 @@
       "category": "radio",
       "entry_file": "dev/dist/server-refactored.js",
       "invoke": "rf_sense",
-      "args": [],
+      "args": [
+        {
+          "name": "action",
+          "type": "enum[scan,detect,analyze,monitor,calibrate,configure]",
+          "required": true,
+          "description": "RF sensing action to perform"
+        },
+        {
+          "name": "frequency_range",
+          "type": "string",
+          "required": false,
+          "description": "Frequency range to scan (e.g., '2.4-2.5GHz')"
+        },
+        {
+          "name": "duration",
+          "type": "number",
+          "required": false,
+          "description": "Scan duration in seconds"
+        },
+        {
+          "name": "sensitivity",
+          "type": "number",
+          "required": false,
+          "description": "Detection sensitivity (1-10)"
+        },
+        {
+          "name": "output_file",
+          "type": "string",
+          "required": false,
+          "description": "Output file for results"
+        }
+      ],
       "env_vars": [],
       "requires_privilege": true,
       "side_effects": "Unified RF Sense Tool (experimental)",
@@ -738,7 +806,32 @@
       "category": "radio",
       "entry_file": "dev/dist/server-refactored.js",
       "invoke": "rf_sense_guardrails",
-      "args": [],
+      "args": [
+        {
+          "name": "action",
+          "type": "enum[check_compliance,set_limits,validate_operation,get_restrictions]",
+          "required": true,
+          "description": "Guardrail action to perform"
+        },
+        {
+          "name": "frequency",
+          "type": "number",
+          "required": false,
+          "description": "Frequency to check in Hz"
+        },
+        {
+          "name": "power_level",
+          "type": "number",
+          "required": false,
+          "description": "Power level to validate"
+        },
+        {
+          "name": "region",
+          "type": "string",
+          "required": false,
+          "description": "Regulatory region (e.g., 'US', 'EU', 'JP')"
+        }
+      ],
       "env_vars": [],
       "requires_privilege": false,
       "side_effects": "RF Sense guardrails",
@@ -762,7 +855,32 @@
       "category": "radio",
       "entry_file": "dev/dist/server-refactored.js",
       "invoke": "rf_sense_localize",
-      "args": [],
+      "args": [
+        {
+          "name": "action",
+          "type": "enum[triangulate,locate_source,map_signals,calibrate_position]",
+          "required": true,
+          "description": "Localization action to perform"
+        },
+        {
+          "name": "target_frequency",
+          "type": "number",
+          "required": false,
+          "description": "Target signal frequency"
+        },
+        {
+          "name": "reference_points",
+          "type": "array[object]",
+          "required": false,
+          "description": "Reference measurement points"
+        },
+        {
+          "name": "accuracy_threshold",
+          "type": "number",
+          "required": false,
+          "description": "Required accuracy in meters"
+        }
+      ],
       "env_vars": [],
       "requires_privilege": false,
       "side_effects": "RF Sense localization module",
@@ -786,7 +904,32 @@
       "category": "radio",
       "entry_file": "dev/dist/server-refactored.js",
       "invoke": "rf_sense_mmwave",
-      "args": [],
+      "args": [
+        {
+          "name": "action",
+          "type": "enum[scan_mmwave,detect_objects,measure_distance,analyze_doppler]",
+          "required": true,
+          "description": "mmWave radar action"
+        },
+        {
+          "name": "frequency_band",
+          "type": "enum[24GHz,60GHz,77GHz,79GHz]",
+          "required": false,
+          "description": "mmWave frequency band"
+        },
+        {
+          "name": "range_max",
+          "type": "number",
+          "required": false,
+          "description": "Maximum detection range in meters"
+        },
+        {
+          "name": "resolution",
+          "type": "enum[low,medium,high]",
+          "required": false,
+          "description": "Detection resolution"
+        }
+      ],
       "env_vars": [],
       "requires_privilege": true,
       "side_effects": "RF Sense mmWave module",
@@ -810,7 +953,20 @@
       "category": "radio",
       "entry_file": "dev/dist/server-refactored.js",
       "invoke": "rf_sense_natural_language",
-      "args": [],
+      "args": [
+        {
+          "name": "command",
+          "type": "string",
+          "required": true,
+          "description": "Natural language command for RF operations"
+        },
+        {
+          "name": "context",
+          "type": "string",
+          "required": false,
+          "description": "Additional context for the command"
+        }
+      ],
       "env_vars": [],
       "requires_privilege": false,
       "side_effects": "Natural language interface for RF Sense",
@@ -834,7 +990,32 @@
       "category": "radio",
       "entry_file": "dev/dist/server-refactored.js",
       "invoke": "rf_sense_sim",
-      "args": [],
+      "args": [
+        {
+          "name": "action",
+          "type": "enum[create_scenario,run_simulation,analyze_results,export_data]",
+          "required": true,
+          "description": "Simulation action to perform"
+        },
+        {
+          "name": "scenario_type",
+          "type": "enum[indoor,outdoor,urban,rural]",
+          "required": false,
+          "description": "Environment scenario"
+        },
+        {
+          "name": "num_objects",
+          "type": "number",
+          "required": false,
+          "description": "Number of objects to simulate"
+        },
+        {
+          "name": "duration",
+          "type": "number",
+          "required": false,
+          "description": "Simulation duration in seconds"
+        }
+      ],
       "env_vars": [],
       "requires_privilege": false,
       "side_effects": "RF Sense simulation module",
@@ -858,7 +1039,32 @@
       "category": "wireless",
       "entry_file": "dev/dist/server-refactored.js",
       "invoke": "rf_sense_wifi_lab",
-      "args": [],
+      "args": [
+        {
+          "name": "action",
+          "type": "enum[capture_csi,analyze_channel,measure_rssi,detect_motion]",
+          "required": true,
+          "description": "WiFi CSI lab action"
+        },
+        {
+          "name": "channel",
+          "type": "number",
+          "required": false,
+          "description": "WiFi channel to analyze"
+        },
+        {
+          "name": "interface",
+          "type": "string",
+          "required": false,
+          "description": "WiFi interface to use"
+        },
+        {
+          "name": "duration",
+          "type": "number",
+          "required": false,
+          "description": "Capture duration in seconds"
+        }
+      ],
       "env_vars": [],
       "requires_privilege": true,
       "side_effects": "RF Sense WiFi CSI lab module",
@@ -1181,7 +1387,32 @@
       "category": "ai",
       "entry_file": "dev/dist/server-refactored.js",
       "invoke": "supply_chain_security",
-      "args": [],
+      "args": [
+        {
+          "name": "action",
+          "type": "enum[scan_dependencies,analyze_vulnerabilities,check_licenses,audit_supply_chain]",
+          "required": true,
+          "description": "Supply chain security action"
+        },
+        {
+          "name": "project_path",
+          "type": "string",
+          "required": false,
+          "description": "Path to project to analyze"
+        },
+        {
+          "name": "package_manager",
+          "type": "enum[npm,pip,maven,gradle,composer]",
+          "required": false,
+          "description": "Package manager type"
+        },
+        {
+          "name": "output_format",
+          "type": "enum[json,csv,html,pdf]",
+          "required": false,
+          "description": "Output format"
+        }
+      ],
       "env_vars": [],
       "requires_privilege": false,
       "side_effects": "Tool 'supply_chain_security' auto-added; side-effects not fully profiled",
@@ -1205,7 +1436,32 @@
       "category": "misc",
       "entry_file": "dev/dist/server-refactored.js",
       "invoke": "privacy_engineering",
-      "args": [],
+      "args": [
+        {
+          "name": "action",
+          "type": "enum[privacy_audit,data_mapping,consent_analysis,gdpr_compliance]",
+          "required": true,
+          "description": "Privacy engineering action"
+        },
+        {
+          "name": "data_source",
+          "type": "string",
+          "required": false,
+          "description": "Data source to analyze"
+        },
+        {
+          "name": "regulation",
+          "type": "enum[GDPR,CCPA,PIPEDA,LGPD]",
+          "required": false,
+          "description": "Privacy regulation to check against"
+        },
+        {
+          "name": "scope",
+          "type": "string",
+          "required": false,
+          "description": "Scope of privacy analysis"
+        }
+      ],
       "env_vars": [],
       "requires_privilege": false,
       "side_effects": "Tool 'privacy_engineering' auto-added; side-effects not fully profiled",
@@ -1229,7 +1485,38 @@
       "category": "misc",
       "entry_file": "dev/dist/server-refactored.js",
       "invoke": "incident_commander",
-      "args": [],
+      "args": [
+        {
+          "name": "action",
+          "type": "enum[create_incident,update_status,assign_responder,escalate,close_incident,generate_report]",
+          "required": true,
+          "description": "Incident management action"
+        },
+        {
+          "name": "incident_id",
+          "type": "string",
+          "required": false,
+          "description": "Incident identifier"
+        },
+        {
+          "name": "severity",
+          "type": "enum[low,medium,high,critical]",
+          "required": false,
+          "description": "Incident severity"
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "required": false,
+          "description": "Incident description"
+        },
+        {
+          "name": "responder",
+          "type": "string",
+          "required": false,
+          "description": "Assigned responder"
+        }
+      ],
       "env_vars": [],
       "requires_privilege": false,
       "side_effects": "Tool 'incident_commander' auto-added; side-effects not fully profiled",
@@ -1253,7 +1540,32 @@
       "category": "security",
       "entry_file": "dev/dist/server-refactored.js",
       "invoke": "security_metrics_dashboard",
-      "args": [],
+      "args": [
+        {
+          "name": "action",
+          "type": "enum[get_metrics,generate_dashboard,export_data,configure_alerts]",
+          "required": true,
+          "description": "Security metrics action"
+        },
+        {
+          "name": "metric_type",
+          "type": "enum[vulnerabilities,incidents,compliance,risk_score]",
+          "required": false,
+          "description": "Type of metrics to retrieve"
+        },
+        {
+          "name": "time_range",
+          "type": "string",
+          "required": false,
+          "description": "Time range for metrics (e.g., '7d', '30d')"
+        },
+        {
+          "name": "format",
+          "type": "enum[json,csv,dashboard,chart]",
+          "required": false,
+          "description": "Output format"
+        }
+      ],
       "env_vars": [],
       "requires_privilege": false,
       "side_effects": "Tool 'security_metrics_dashboard' auto-added; side-effects not fully profiled",
@@ -1467,7 +1779,32 @@
       "category": "legal",
       "entry_file": "dev/dist/server-refactored.js",
       "invoke": "crime_reporter_unified",
-      "args": [],
+      "args": [
+        {
+          "name": "command",
+          "type": "string",
+          "required": false,
+          "description": "Crime reporter command"
+        },
+        {
+          "name": "mode",
+          "type": "enum[command,natural_language,test]",
+          "required": false,
+          "description": "Operation mode"
+        },
+        {
+          "name": "naturalLanguageCommand",
+          "type": "string",
+          "required": false,
+          "description": "Natural language command for crime reporting"
+        },
+        {
+          "name": "parameters",
+          "type": "object",
+          "required": false,
+          "description": "Command parameters"
+        }
+      ],
       "env_vars": [],
       "requires_privilege": false,
       "side_effects": "Unified crime reporting",
@@ -1491,7 +1828,38 @@
       "category": "misc",
       "entry_file": "dev/dist/server-refactored.js",
       "invoke": "zero_day_exploiter_unified",
-      "args": [],
+      "args": [
+        {
+          "name": "action",
+          "type": "enum[scan,exploit,analyze,report]",
+          "required": true,
+          "description": "Zero-day exploitation action"
+        },
+        {
+          "name": "target",
+          "type": "string",
+          "required": false,
+          "description": "Target system or application"
+        },
+        {
+          "name": "exploit_type",
+          "type": "enum[buffer_overflow,sql_injection,xss,rce,privilege_escalation]",
+          "required": false,
+          "description": "Type of exploit to attempt"
+        },
+        {
+          "name": "payload",
+          "type": "string",
+          "required": false,
+          "description": "Custom payload"
+        },
+        {
+          "name": "safe_mode",
+          "type": "boolean",
+          "required": false,
+          "description": "Run in safe mode (simulation only)"
+        }
+      ],
       "env_vars": [],
       "requires_privilege": false,
       "side_effects": "Unified zero-day exploiter",
@@ -1731,7 +2099,32 @@
       "category": "ai",
       "entry_file": "dev/dist/server-refactored.js",
       "invoke": "ai_adversarial_nlp",
-      "args": [],
+      "args": [
+        {
+          "name": "action",
+          "type": "enum[generate_adversarial,test_robustness,analyze_vulnerabilities,defend_model]",
+          "required": true,
+          "description": "Adversarial NLP action"
+        },
+        {
+          "name": "model_type",
+          "type": "string",
+          "required": false,
+          "description": "Target model type"
+        },
+        {
+          "name": "input_text",
+          "type": "string",
+          "required": false,
+          "description": "Input text for adversarial testing"
+        },
+        {
+          "name": "attack_method",
+          "type": "enum[textfooler,bert_attack,deepwordbug,hotflip]",
+          "required": false,
+          "description": "Adversarial attack method"
+        }
+      ],
       "env_vars": [],
       "requires_privilege": false,
       "side_effects": "Tool 'ai_adversarial_nlp' auto-added; side-effects not fully profiled",
@@ -1755,7 +2148,26 @@
       "category": "ai",
       "entry_file": "dev/dist/server-refactored.js",
       "invoke": "ai_adversarial_platform_info",
-      "args": [],
+      "args": [
+        {
+          "name": "action",
+          "type": "enum[get_info,list_methods,test_defenses,generate_report]",
+          "required": true,
+          "description": "Platform information action"
+        },
+        {
+          "name": "platform",
+          "type": "string",
+          "required": false,
+          "description": "Target AI platform"
+        },
+        {
+          "name": "info_type",
+          "type": "enum[capabilities,vulnerabilities,defenses,metrics]",
+          "required": false,
+          "description": "Type of information to retrieve"
+        }
+      ],
       "env_vars": [],
       "requires_privilege": false,
       "side_effects": "Tool 'ai_adversarial_platform_info' auto-added; side-effects not fully profiled",
@@ -2206,7 +2618,38 @@
       "category": "misc",
       "entry_file": "dev/dist/server-refactored.js",
       "invoke": "cron_job_manager",
-      "args": [],
+      "args": [
+        {
+          "name": "action",
+          "type": "enum[list,add,remove,enable,disable,status]",
+          "required": true,
+          "description": "Cron job management action"
+        },
+        {
+          "name": "job_name",
+          "type": "string",
+          "required": false,
+          "description": "Name of the cron job"
+        },
+        {
+          "name": "schedule",
+          "type": "string",
+          "required": false,
+          "description": "Cron schedule expression"
+        },
+        {
+          "name": "command",
+          "type": "string",
+          "required": false,
+          "description": "Command to execute"
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "required": false,
+          "description": "Job description"
+        }
+      ],
       "env_vars": [],
       "requires_privilege": false,
       "side_effects": "Tool 'cron_job_manager' auto-added; side-effects not fully profiled",
@@ -2334,7 +2777,20 @@
       "category": "misc",
       "entry_file": "dev/dist/server-refactored.js",
       "invoke": "health",
-      "args": [],
+      "args": [
+        {
+          "name": "check_type",
+          "type": "enum[basic,detailed,system,network,security]",
+          "required": false,
+          "description": "Type of health check to perform"
+        },
+        {
+          "name": "include_metrics",
+          "type": "boolean",
+          "required": false,
+          "description": "Include performance metrics"
+        }
+      ],
       "env_vars": [],
       "requires_privilege": false,
       "side_effects": "Tool 'health' auto-added; side-effects not fully profiled",
@@ -2358,7 +2814,20 @@
       "category": "misc",
       "entry_file": "dev/dist/server-refactored.js",
       "invoke": "system_info",
-      "args": [],
+      "args": [
+        {
+          "name": "info_type",
+          "type": "enum[basic,detailed,hardware,software,network]",
+          "required": false,
+          "description": "Type of system information to retrieve"
+        },
+        {
+          "name": "format",
+          "type": "enum[json,text,table]",
+          "required": false,
+          "description": "Output format"
+        }
+      ],
       "env_vars": [],
       "requires_privilege": false,
       "side_effects": "Tool 'system_info' auto-added; side-effects not fully profiled",
@@ -2635,7 +3104,38 @@
       "category": "misc",
       "entry_file": "dev/dist/server-refactored.js",
       "invoke": "file_watcher",
-      "args": [],
+      "args": [
+        {
+          "name": "action",
+          "type": "enum[watch,unwatch,list_watchers,get_events]",
+          "required": true,
+          "description": "File watcher action"
+        },
+        {
+          "name": "path",
+          "type": "string",
+          "required": false,
+          "description": "Path to watch"
+        },
+        {
+          "name": "events",
+          "type": "array[string]",
+          "required": false,
+          "description": "Events to watch for"
+        },
+        {
+          "name": "recursive",
+          "type": "boolean",
+          "required": false,
+          "description": "Watch subdirectories recursively"
+        },
+        {
+          "name": "watcher_id",
+          "type": "string",
+          "required": false,
+          "description": "Watcher ID for management"
+        }
+      ],
       "env_vars": [],
       "requires_privilege": false,
       "side_effects": "Tool 'file_watcher' auto-added; side-effects not fully profiled",
@@ -2867,7 +3367,44 @@
       "category": "network",
       "entry_file": "dev/dist/server-refactored.js",
       "invoke": "network_traffic_analyzer",
-      "args": [],
+      "args": [
+        {
+          "name": "interface",
+          "type": "string",
+          "required": true,
+          "description": "Network interface to analyze"
+        },
+        {
+          "name": "analysis_type",
+          "type": "enum[protocol,bandwidth,security,performance,comprehensive]",
+          "required": true,
+          "description": "Type of traffic analysis"
+        },
+        {
+          "name": "capture_duration",
+          "type": "number",
+          "required": false,
+          "description": "Capture duration in seconds"
+        },
+        {
+          "name": "filter",
+          "type": "string",
+          "required": false,
+          "description": "BPF filter expression"
+        },
+        {
+          "name": "output_file",
+          "type": "string",
+          "required": false,
+          "description": "Output file for captured packets"
+        },
+        {
+          "name": "real_time",
+          "type": "boolean",
+          "required": false,
+          "description": "Enable real-time analysis"
+        }
+      ],
       "env_vars": [],
       "requires_privilege": false,
       "side_effects": "Tool 'network_traffic_analyzer' auto-added; side-effects not fully profiled",
@@ -4559,7 +5096,38 @@
       "category": "bluetooth",
       "entry_file": "dev/dist/server-refactored.js",
       "invoke": "bluetooth_device_manager",
-      "args": [],
+      "args": [
+        {
+          "name": "action",
+          "type": "enum[scan,connect,disconnect,pair,unpair,list,info]",
+          "required": true,
+          "description": "Bluetooth device management action"
+        },
+        {
+          "name": "device_address",
+          "type": "string",
+          "required": false,
+          "description": "Bluetooth device MAC address"
+        },
+        {
+          "name": "device_name",
+          "type": "string",
+          "required": false,
+          "description": "Bluetooth device name"
+        },
+        {
+          "name": "scan_duration",
+          "type": "number",
+          "required": false,
+          "description": "Scan duration in seconds"
+        },
+        {
+          "name": "service_uuid",
+          "type": "string",
+          "required": false,
+          "description": "Service UUID to filter"
+        }
+      ],
       "env_vars": [],
       "requires_privilege": false,
       "side_effects": "Tool 'bluetooth_device_manager' auto-added; side-effects not fully profiled",
@@ -4906,7 +5474,44 @@
       "category": "web",
       "entry_file": "dev/dist/server-refactored.js",
       "invoke": "webhook_manager",
-      "args": [],
+      "args": [
+        {
+          "name": "action",
+          "type": "enum[create,list,delete,update,test,trigger]",
+          "required": true,
+          "description": "Webhook management action"
+        },
+        {
+          "name": "webhook_id",
+          "type": "string",
+          "required": false,
+          "description": "Webhook identifier"
+        },
+        {
+          "name": "url",
+          "type": "string",
+          "required": false,
+          "description": "Webhook URL endpoint"
+        },
+        {
+          "name": "method",
+          "type": "enum[GET,POST,PUT,DELETE,PATCH]",
+          "required": false,
+          "description": "HTTP method"
+        },
+        {
+          "name": "headers",
+          "type": "object",
+          "required": false,
+          "description": "HTTP headers"
+        },
+        {
+          "name": "payload",
+          "type": "object",
+          "required": false,
+          "description": "Webhook payload data"
+        }
+      ],
       "env_vars": [],
       "requires_privilege": false,
       "side_effects": "Tool 'webhook_manager' auto-added; side-effects not fully profiled",
@@ -5059,7 +5664,32 @@
       "category": "web",
       "entry_file": "dev/dist/server-refactored.js",
       "invoke": "form_detection",
-      "args": [],
+      "args": [
+        {
+          "name": "url",
+          "type": "string",
+          "required": true,
+          "description": "URL of the page containing the form"
+        },
+        {
+          "name": "form_selector",
+          "type": "string",
+          "required": false,
+          "description": "CSS selector for specific form"
+        },
+        {
+          "name": "save_screenshot",
+          "type": "boolean",
+          "required": false,
+          "description": "Save screenshot of the form"
+        },
+        {
+          "name": "timeout",
+          "type": "number",
+          "required": false,
+          "description": "Timeout in milliseconds"
+        }
+      ],
       "env_vars": [],
       "requires_privilege": false,
       "side_effects": "Tool 'form_detection' auto-added; side-effects not fully profiled",
@@ -5083,7 +5713,26 @@
       "category": "web",
       "entry_file": "dev/dist/server-refactored.js",
       "invoke": "form_validation",
-      "args": [],
+      "args": [
+        {
+          "name": "form_data",
+          "type": "object",
+          "required": true,
+          "description": "Form data to validate"
+        },
+        {
+          "name": "validation_rules",
+          "type": "object",
+          "required": false,
+          "description": "Custom validation rules for specific fields"
+        },
+        {
+          "name": "strict_mode",
+          "type": "boolean",
+          "required": false,
+          "description": "Use strict validation mode"
+        }
+      ],
       "env_vars": [],
       "requires_privilege": false,
       "side_effects": "Tool 'form_validation' auto-added; side-effects not fully profiled",
@@ -5107,7 +5756,26 @@
       "category": "web",
       "entry_file": "dev/dist/server-refactored.js",
       "invoke": "form_pattern_recognition",
-      "args": [],
+      "args": [
+        {
+          "name": "url",
+          "type": "string",
+          "required": true,
+          "description": "URL of the page containing the form"
+        },
+        {
+          "name": "form_selector",
+          "type": "string",
+          "required": false,
+          "description": "CSS selector for specific form"
+        },
+        {
+          "name": "timeout",
+          "type": "number",
+          "required": false,
+          "description": "Timeout in milliseconds"
+        }
+      ],
       "env_vars": [],
       "requires_privilege": false,
       "side_effects": "Tool 'form_pattern_recognition' auto-added; side-effects not fully profiled",
@@ -5235,7 +5903,62 @@
       "category": "web",
       "entry_file": "dev/dist/server-refactored.js",
       "invoke": "web_automation",
-      "args": [],
+      "args": [
+        {
+          "name": "action",
+          "type": "enum[navigate,click,type,screenshot,extract,wait,scroll,execute_script,form_fill,get_elements]",
+          "required": true,
+          "description": "Web automation action to perform"
+        },
+        {
+          "name": "url",
+          "type": "string",
+          "required": false,
+          "description": "Target URL for web automation operations"
+        },
+        {
+          "name": "selector",
+          "type": "string",
+          "required": false,
+          "description": "CSS selector, XPath, or element identifier"
+        },
+        {
+          "name": "text",
+          "type": "string",
+          "required": false,
+          "description": "Text content to input into form fields"
+        },
+        {
+          "name": "browser",
+          "type": "enum[chrome,firefox,edge,auto]",
+          "required": false,
+          "description": "Browser engine to use"
+        },
+        {
+          "name": "headless",
+          "type": "boolean",
+          "required": false,
+          "description": "Run browser in headless mode"
+        },
+        {
+          "name": "wait_time",
+          "type": "number",
+          "required": false,
+          "description": "Wait duration in milliseconds"
+        },
+        {
+          "name": "output_file",
+          "type": "string",
+          "required": false,
+          "description": "File path for saving screenshots or data"
+        },
+        {
+          "name": "form_data",
+          "type": "object",
+          "required": false,
+          "description": "Key-value pairs for form field data"
+        }
+      ],
       "env_vars": [],
       "requires_privilege": false,
       "side_effects": "Tool 'web_automation' auto-added; side-effects not fully profiled",
@@ -5497,7 +6220,32 @@
       "category": "ai",
       "entry_file": "dev/dist/server-refactored.js",
       "invoke": "sort_emails",
-      "args": [],
+      "args": [
+        {
+          "name": "emails",
+          "type": "array[object]",
+          "required": true,
+          "description": "Array of emails to sort"
+        },
+        {
+          "name": "sort_by",
+          "type": "enum[date,sender,subject,priority,size]",
+          "required": true,
+          "description": "Sorting criteria"
+        },
+        {
+          "name": "order",
+          "type": "enum[asc,desc]",
+          "required": false,
+          "description": "Sorting order"
+        },
+        {
+          "name": "group_by",
+          "type": "string",
+          "required": false,
+          "description": "Group emails by criteria"
+        }
+      ],
       "env_vars": [],
       "requires_privilege": false,
       "side_effects": "Tool 'sort_emails' auto-added; side-effects not fully profiled",
@@ -6023,7 +6771,44 @@
       "category": "mobile",
       "entry_file": "dev/dist/server-refactored.js",
       "invoke": "mobile_app_unified",
-      "args": [],
+      "args": [
+        {
+          "name": "action",
+          "type": "enum[install,uninstall,launch,close,analyze,test,debug,profile]",
+          "required": true,
+          "description": "Mobile app management action"
+        },
+        {
+          "name": "app_package",
+          "type": "string",
+          "required": false,
+          "description": "Application package name"
+        },
+        {
+          "name": "device_id",
+          "type": "string",
+          "required": false,
+          "description": "Target device identifier"
+        },
+        {
+          "name": "platform",
+          "type": "enum[android,ios]",
+          "required": false,
+          "description": "Mobile platform"
+        },
+        {
+          "name": "test_type",
+          "type": "enum[functional,performance,security,compatibility]",
+          "required": false,
+          "description": "Type of testing to perform"
+        },
+        {
+          "name": "output_path",
+          "type": "string",
+          "required": false,
+          "description": "Output path for results"
+        }
+      ],
       "env_vars": [],
       "requires_privilege": false,
       "side_effects": "Tool 'mobile_app_unified' auto-added; side-effects not fully profiled",
@@ -6335,7 +7120,44 @@
       "category": "misc",
       "entry_file": "dev/dist/server-refactored.js",
       "invoke": "flipper_zero",
-      "args": [],
+      "args": [
+        {
+          "name": "action",
+          "type": "enum[scan,transmit,receive,analyze,record,replay]",
+          "required": true,
+          "description": "Flipper Zero action to perform"
+        },
+        {
+          "name": "protocol",
+          "type": "enum[rfid,nfc,infrared,bluetooth,wifi,gpio,uart,spi,i2c]",
+          "required": false,
+          "description": "Communication protocol"
+        },
+        {
+          "name": "frequency",
+          "type": "number",
+          "required": false,
+          "description": "Frequency in Hz"
+        },
+        {
+          "name": "data",
+          "type": "string",
+          "required": false,
+          "description": "Data to transmit or analyze"
+        },
+        {
+          "name": "duration",
+          "type": "number",
+          "required": false,
+          "description": "Operation duration in seconds"
+        },
+        {
+          "name": "output_file",
+          "type": "string",
+          "required": false,
+          "description": "Output file for captured data"
+        }
+      ],
       "env_vars": [],
       "requires_privilege": false,
       "side_effects": "Flipper Zero consolidated operations",
@@ -6899,7 +7721,26 @@
       "category": "misc",
       "entry_file": "dev/dist/server-refactored.js",
       "invoke": "tool_discovery",
-      "args": [],
+      "args": [
+        {
+          "name": "query",
+          "type": "string",
+          "required": true,
+          "description": "Natural language query to find relevant tools"
+        },
+        {
+          "name": "category",
+          "type": "string",
+          "required": false,
+          "description": "Optional tool category to focus on"
+        },
+        {
+          "name": "capability",
+          "type": "string",
+          "required": false,
+          "description": "Specific capability or feature to search for"
+        }
+      ],
       "env_vars": [],
       "requires_privilege": false,
       "side_effects": "Tool 'tool_discovery' auto-added; side-effects not fully profiled",
@@ -6923,7 +7764,14 @@
       "category": "misc",
       "entry_file": "dev/dist/server-refactored.js",
       "invoke": "explore_categories",
-      "args": [],
+      "args": [
+        {
+          "name": "category",
+          "type": "string",
+          "required": false,
+          "description": "Specific category to explore, or leave empty to see all categories"
+        }
+      ],
       "env_vars": [],
       "requires_privilege": false,
       "side_effects": "Tool 'explore_categories' auto-added; side-effects not fully profiled",
@@ -6947,7 +7795,26 @@
       "category": "misc",
       "entry_file": "dev/dist/server-refactored.js",
       "invoke": "natural_language_router",
-      "args": [],
+      "args": [
+        {
+          "name": "query",
+          "type": "string",
+          "required": true,
+          "description": "Natural language query to route to appropriate tools"
+        },
+        {
+          "name": "context",
+          "type": "string",
+          "required": false,
+          "description": "Additional context about the request"
+        },
+        {
+          "name": "user_intent",
+          "type": "string",
+          "required": false,
+          "description": "User's intended goal or objective"
+        }
+      ],
       "env_vars": [],
       "requires_privilege": false,
       "side_effects": "Tool 'natural_language_router' auto-added; side-effects not fully profiled",
@@ -7026,7 +7893,44 @@
       "category": "security",
       "entry_file": "dev/dist/server-refactored.js",
       "invoke": "cobalt_strike",
-      "args": [],
+      "args": [
+        {
+          "name": "action",
+          "type": "enum[generate_payload,start_listener,deploy_beacon,execute_command,lateral_movement,persistence]",
+          "required": true,
+          "description": "Cobalt Strike action to perform"
+        },
+        {
+          "name": "target",
+          "type": "string",
+          "required": false,
+          "description": "Target system or IP address"
+        },
+        {
+          "name": "payload_type",
+          "type": "enum[exe,dll,powershell,hta,macro]",
+          "required": false,
+          "description": "Payload type to generate"
+        },
+        {
+          "name": "listener_port",
+          "type": "number",
+          "required": false,
+          "description": "Listener port number"
+        },
+        {
+          "name": "command",
+          "type": "string",
+          "required": false,
+          "description": "Command to execute on target"
+        },
+        {
+          "name": "output_path",
+          "type": "string",
+          "required": false,
+          "description": "Output path for generated payloads"
+        }
+      ],
       "env_vars": [],
       "requires_privilege": true,
       "side_effects": "Tool 'cobalt_strike' auto-added; side-effects not fully profiled",
@@ -7050,7 +7954,44 @@
       "category": "misc",
       "entry_file": "dev/dist/server-refactored.js",
       "invoke": "empire_powershell",
-      "args": [],
+      "args": [
+        {
+          "name": "action",
+          "type": "enum[create_listener,generate_stager,execute_module,manage_agent,post_exploitation]",
+          "required": true,
+          "description": "Empire PowerShell action"
+        },
+        {
+          "name": "listener_name",
+          "type": "string",
+          "required": false,
+          "description": "Listener name"
+        },
+        {
+          "name": "stager_type",
+          "type": "enum[launcher,macro,ducky,hop]",
+          "required": false,
+          "description": "Stager type"
+        },
+        {
+          "name": "module_name",
+          "type": "string",
+          "required": false,
+          "description": "PowerShell module to execute"
+        },
+        {
+          "name": "agent_name",
+          "type": "string",
+          "required": false,
+          "description": "Agent identifier"
+        },
+        {
+          "name": "parameters",
+          "type": "object",
+          "required": false,
+          "description": "Module parameters"
+        }
+      ],
       "env_vars": [],
       "requires_privilege": true,
       "side_effects": "Tool 'empire_powershell' auto-added; side-effects not fully profiled",
@@ -7074,7 +8015,32 @@
       "category": "misc",
       "entry_file": "dev/dist/server-refactored.js",
       "invoke": "bloodhound_ad",
-      "args": [],
+      "args": [
+        {
+          "name": "action",
+          "type": "enum[collect,analyze,query,visualize,export]",
+          "required": true,
+          "description": "BloodHound AD action"
+        },
+        {
+          "name": "domain",
+          "type": "string",
+          "required": false,
+          "description": "Active Directory domain"
+        },
+        {
+          "name": "collection_method",
+          "type": "enum[all,dconly,group,localadmin,rdp,dcom,psremote]",
+          "required": false,
+          "description": "Data collection method"
+        },
+        {
+          "name": "output_path",
+          "type": "string",
+          "required": false,
+          "description": "Output path for collected data"
+        }
+      ],
       "env_vars": [],
       "requires_privilege": false,
       "side_effects": "Tool 'bloodhound_ad' auto-added; side-effects not fully profiled",
@@ -7098,7 +8064,32 @@
       "category": "security",
       "entry_file": "dev/dist/server-refactored.js",
       "invoke": "mimikatz_credentials",
-      "args": [],
+      "args": [
+        {
+          "name": "action",
+          "type": "enum[sekurlsa,kerberos,crypto,lsadump,vault,dpapi]",
+          "required": true,
+          "description": "Mimikatz credential action"
+        },
+        {
+          "name": "target",
+          "type": "string",
+          "required": false,
+          "description": "Target system or process"
+        },
+        {
+          "name": "output_file",
+          "type": "string",
+          "required": false,
+          "description": "Output file for credentials"
+        },
+        {
+          "name": "elevated",
+          "type": "boolean",
+          "required": false,
+          "description": "Require elevated privileges"
+        }
+      ],
       "env_vars": [],
       "requires_privilege": true,
       "side_effects": "Tool 'mimikatz_credentials' auto-added; side-effects not fully profiled",
@@ -7122,7 +8113,32 @@
       "category": "security",
       "entry_file": "dev/dist/server-refactored.js",
       "invoke": "mimikatz_enhanced",
-      "args": [],
+      "args": [
+        {
+          "name": "action",
+          "type": "enum[sekurlsa,kerberos,crypto,lsadump,vault,dpapi,privilege,process,service,token]",
+          "required": true,
+          "description": "Enhanced Mimikatz action"
+        },
+        {
+          "name": "module",
+          "type": "string",
+          "required": false,
+          "description": "Specific Mimikatz module"
+        },
+        {
+          "name": "parameters",
+          "type": "object",
+          "required": false,
+          "description": "Module-specific parameters"
+        },
+        {
+          "name": "output_format",
+          "type": "enum[text,json,csv]",
+          "required": false,
+          "description": "Output format"
+        }
+      ],
       "env_vars": [],
       "requires_privilege": true,
       "side_effects": "Tool 'mimikatz_enhanced' auto-added; side-effects not fully profiled",
@@ -7146,7 +8162,44 @@
       "category": "ai",
       "entry_file": "dev/dist/server-refactored.js",
       "invoke": "hexstrike_ai",
-      "args": [],
+      "args": [
+        {
+          "name": "action",
+          "type": "enum[analyze_target,generate_exploit,test_payload,automated_attack,report_generation]",
+          "required": true,
+          "description": "HexStrike AI action"
+        },
+        {
+          "name": "target",
+          "type": "string",
+          "required": false,
+          "description": "Target system or application"
+        },
+        {
+          "name": "attack_vector",
+          "type": "enum[web,network,social,physical]",
+          "required": false,
+          "description": "Attack vector to use"
+        },
+        {
+          "name": "payload_type",
+          "type": "string",
+          "required": false,
+          "description": "Type of payload to generate"
+        },
+        {
+          "name": "automation_level",
+          "type": "enum[manual,semi_auto,full_auto]",
+          "required": false,
+          "description": "Level of automation"
+        },
+        {
+          "name": "output_format",
+          "type": "enum[json,html,pdf]",
+          "required": false,
+          "description": "Output format for reports"
+        }
+      ],
       "env_vars": [],
       "requires_privilege": false,
       "side_effects": "Tool 'hexstrike_ai' auto-added; side-effects not fully profiled",
@@ -7170,7 +8223,26 @@
       "category": "ai",
       "entry_file": "dev/dist/server-refactored.js",
       "invoke": "hexstrike_ai_natural_language",
-      "args": [],
+      "args": [
+        {
+          "name": "command",
+          "type": "string",
+          "required": true,
+          "description": "Natural language command for HexStrike AI operations"
+        },
+        {
+          "name": "context",
+          "type": "string",
+          "required": false,
+          "description": "Additional context for the command"
+        },
+        {
+          "name": "target_info",
+          "type": "object",
+          "required": false,
+          "description": "Target system information"
+        }
+      ],
       "env_vars": [],
       "requires_privilege": false,
       "side_effects": "Tool 'hexstrike_ai_natural_language' auto-added; side-effects not fully profiled",
@@ -7267,7 +8339,38 @@
       "category": "misc",
       "entry_file": "dev/dist/server-refactored.js",
       "invoke": "frida_toolkit",
-      "args": [],
+      "args": [
+        {
+          "name": "action",
+          "type": "enum[attach,spawn,inject,hook,trace,dump]",
+          "required": true,
+          "description": "Frida toolkit action"
+        },
+        {
+          "name": "target",
+          "type": "string",
+          "required": false,
+          "description": "Target application or process"
+        },
+        {
+          "name": "script",
+          "type": "string",
+          "required": false,
+          "description": "Frida script to execute"
+        },
+        {
+          "name": "device",
+          "type": "string",
+          "required": false,
+          "description": "Target device identifier"
+        },
+        {
+          "name": "output_file",
+          "type": "string",
+          "required": false,
+          "description": "Output file for results"
+        }
+      ],
       "env_vars": [],
       "requires_privilege": false,
       "side_effects": "Tool 'frida_toolkit' auto-added; side-effects not fully profiled",
@@ -7291,7 +8394,38 @@
       "category": "misc",
       "entry_file": "dev/dist/server-refactored.js",
       "invoke": "ghidra_reverse_engineering",
-      "args": [],
+      "args": [
+        {
+          "name": "action",
+          "type": "enum[analyze,decompile,disassemble,export,import,script]",
+          "required": true,
+          "description": "Ghidra reverse engineering action"
+        },
+        {
+          "name": "binary_path",
+          "type": "string",
+          "required": false,
+          "description": "Path to binary file to analyze"
+        },
+        {
+          "name": "project_name",
+          "type": "string",
+          "required": false,
+          "description": "Ghidra project name"
+        },
+        {
+          "name": "script_path",
+          "type": "string",
+          "required": false,
+          "description": "Path to Ghidra script"
+        },
+        {
+          "name": "output_format",
+          "type": "enum[c,java,xml,json]",
+          "required": false,
+          "description": "Output format for decompiled code"
+        }
+      ],
       "env_vars": [],
       "requires_privilege": false,
       "side_effects": "Tool 'ghidra_reverse_engineering' auto-added; side-effects not fully profiled",
@@ -7315,7 +8449,38 @@
       "category": "misc",
       "entry_file": "dev/dist/server-refactored.js",
       "invoke": "pacu_aws_exploitation",
-      "args": [],
+      "args": [
+        {
+          "name": "action",
+          "type": "enum[enumerate,exploit,escalate,persist,exfiltrate]",
+          "required": true,
+          "description": "Pacu AWS exploitation action"
+        },
+        {
+          "name": "module",
+          "type": "string",
+          "required": false,
+          "description": "Specific Pacu module to run"
+        },
+        {
+          "name": "target_service",
+          "type": "enum[ec2,s3,iam,lambda,rds,cloudtrail]",
+          "required": false,
+          "description": "Target AWS service"
+        },
+        {
+          "name": "region",
+          "type": "string",
+          "required": false,
+          "description": "AWS region"
+        },
+        {
+          "name": "session_name",
+          "type": "string",
+          "required": false,
+          "description": "Pacu session name"
+        }
+      ],
       "env_vars": [],
       "requires_privilege": false,
       "side_effects": "Tool 'pacu_aws_exploitation' auto-added; side-effects not fully profiled",
@@ -7424,7 +8589,44 @@
       "category": "misc",
       "entry_file": "dev/dist/server-refactored.js",
       "invoke": "competitive_intelligence",
-      "args": [],
+      "args": [
+        {
+          "name": "action",
+          "type": "string",
+          "required": true,
+          "description": "Competitive intelligence action"
+        },
+        {
+          "name": "companyName",
+          "type": "string",
+          "required": false,
+          "description": "Company name for the operation"
+        },
+        {
+          "name": "homepageUrl",
+          "type": "string",
+          "required": false,
+          "description": "Homepage URL to scrape"
+        },
+        {
+          "name": "sitemapUrl",
+          "type": "string",
+          "required": false,
+          "description": "Sitemap URL to analyze"
+        },
+        {
+          "name": "categories",
+          "type": "array[string]",
+          "required": false,
+          "description": "Categories to include"
+        },
+        {
+          "name": "keywords",
+          "type": "array[string]",
+          "required": false,
+          "description": "Keywords for sitemap filtering"
+        }
+      ],
       "env_vars": [],
       "requires_privilege": false,
       "side_effects": "Tool 'competitive_intelligence' auto-added; side-effects not fully profiled",
@@ -7448,7 +8650,14 @@
       "category": "misc",
       "entry_file": "dev/dist/server-refactored.js",
       "invoke": "competitive_intelligence_nl",
-      "args": [],
+      "args": [
+        {
+          "name": "command",
+          "type": "string",
+          "required": true,
+          "description": "Natural language command for competitive intelligence"
+        }
+      ],
       "env_vars": [],
       "requires_privilege": false,
       "side_effects": "Tool 'competitive_intelligence_nl' auto-added; side-effects not fully profiled",
@@ -7472,7 +8681,32 @@
       "category": "misc",
       "entry_file": "dev/dist/server-refactored.js",
       "invoke": "competitive_intelligence_test",
-      "args": [],
+      "args": [
+        {
+          "name": "test_type",
+          "type": "enum[unit,integration,performance,security]",
+          "required": true,
+          "description": "Type of test to run"
+        },
+        {
+          "name": "target_company",
+          "type": "string",
+          "required": false,
+          "description": "Company to test intelligence gathering on"
+        },
+        {
+          "name": "test_data",
+          "type": "object",
+          "required": false,
+          "description": "Test data parameters"
+        },
+        {
+          "name": "expected_results",
+          "type": "object",
+          "required": false,
+          "description": "Expected test results"
+        }
+      ],
       "env_vars": [],
       "requires_privilege": false,
       "side_effects": "Tool 'competitive_intelligence_test' auto-added; side-effects not fully profiled",
@@ -7557,7 +8791,38 @@
       "category": "misc",
       "entry_file": "dev/dist/server-refactored.js",
       "invoke": "multi_engine_search",
-      "args": [],
+      "args": [
+        {
+          "name": "query",
+          "type": "string",
+          "required": true,
+          "description": "Search query to execute"
+        },
+        {
+          "name": "engines",
+          "type": "array[string]",
+          "required": true,
+          "description": "Search engines to use"
+        },
+        {
+          "name": "max_results_per_engine",
+          "type": "number",
+          "required": false,
+          "description": "Maximum results per engine"
+        },
+        {
+          "name": "include_snippets",
+          "type": "boolean",
+          "required": false,
+          "description": "Whether to include result snippets"
+        },
+        {
+          "name": "timeout",
+          "type": "number",
+          "required": false,
+          "description": "Timeout in milliseconds"
+        }
+      ],
       "env_vars": [],
       "requires_privilege": false,
       "side_effects": "Tool 'multi_engine_search' auto-added; side-effects not fully profiled",
@@ -7581,7 +8846,26 @@
       "category": "misc",
       "entry_file": "dev/dist/server-refactored.js",
       "invoke": "search_analysis",
-      "args": [],
+      "args": [
+        {
+          "name": "results",
+          "type": "array[object]",
+          "required": true,
+          "description": "Search results to analyze"
+        },
+        {
+          "name": "analysis_type",
+          "type": "enum[trends,domains,keywords,sentiment,comprehensive]",
+          "required": true,
+          "description": "Type of analysis to perform"
+        },
+        {
+          "name": "include_visualization",
+          "type": "boolean",
+          "required": false,
+          "description": "Generate visualization data"
+        }
+      ],
       "env_vars": [],
       "requires_privilege": false,
       "side_effects": "Tool 'search_analysis' auto-added; side-effects not fully profiled",
@@ -8166,7 +9450,32 @@
       "category": "misc",
       "entry_file": "dev/dist/server-refactored.js",
       "invoke": "example_tool",
-      "args": [],
+      "args": [
+        {
+          "name": "action",
+          "type": "enum[demo,test,validate,benchmark]",
+          "required": true,
+          "description": "Example tool action"
+        },
+        {
+          "name": "input_data",
+          "type": "string",
+          "required": false,
+          "description": "Input data for the example"
+        },
+        {
+          "name": "parameters",
+          "type": "object",
+          "required": false,
+          "description": "Example parameters"
+        },
+        {
+          "name": "output_format",
+          "type": "enum[json,text,xml]",
+          "required": false,
+          "description": "Output format"
+        }
+      ],
       "env_vars": [],
       "requires_privilege": false,
       "side_effects": "Tool 'example_tool' auto-added; side-effects not fully profiled",
