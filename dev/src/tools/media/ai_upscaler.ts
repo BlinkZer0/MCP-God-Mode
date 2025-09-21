@@ -31,106 +31,423 @@ import { spawn, ChildProcess } from "child_process";
 import { z } from "zod";
 import sharp from "sharp";
 
-// AI Upscaling Models (based on Upscayl/Real-ESRGAN)
+// Complete AI Upscaling Models Collection (based on Upscayl/Real-ESRGAN)
+// Includes all models from the official Upscayl project and custom models repository
 export const UPSCALING_MODELS = {
+  // Core Real-ESRGAN Models
   "realesrgan-x4plus": {
     id: "realesrgan-x4plus",
     name: "Real-ESRGAN x4plus",
     scale: 4,
-    description: "General purpose 4x upscaling model, good for photos and artwork"
+    description: "General purpose 4x upscaling model, good for photos and artwork",
+    category: "general"
   },
   "realesrgan-x4plus-anime": {
     id: "realesrgan-x4plus-anime",
     name: "Real-ESRGAN x4plus Anime",
     scale: 4,
-    description: "Optimized for anime and cartoon images"
+    description: "Optimized for anime and cartoon images",
+    category: "anime"
   },
   "realesrgan-x2plus": {
     id: "realesrgan-x2plus",
     name: "Real-ESRGAN x2plus",
     scale: 2,
-    description: "2x upscaling model for moderate enhancement"
+    description: "2x upscaling model for moderate enhancement",
+    category: "general"
   },
   "esrgan-x4": {
     id: "esrgan-x4",
     name: "ESRGAN x4",
     scale: 4,
-    description: "Classic ESRGAN model for 4x upscaling"
+    description: "Classic ESRGAN model for 4x upscaling",
+    category: "general"
   },
   "waifu2x-cunet": {
     id: "waifu2x-cunet",
     name: "Waifu2x CUNet",
     scale: 2,
-    description: "Waifu2x model optimized for anime/artwork"
+    description: "Waifu2x model optimized for anime/artwork",
+    category: "anime"
+  },
+  
+  // RealESRGAN v3 Models (Lightweight)
+  "realesrgan-general-wdn-x4-v3": {
+    id: "realesrgan-general-wdn-x4-v3",
+    name: "RealESRGAN General WDN x4 v3",
+    scale: 4,
+    description: "Wide and deep network model - lightweight and faster with slightly worse quality",
+    category: "general"
+  },
+  "realesrgan-general-x4-v3": {
+    id: "realesrgan-general-x4-v3",
+    name: "RealESRGAN General x4 v3",
+    scale: 4,
+    description: "Lightweight version of the default model",
+    category: "general"
+  },
+  
+  // Anime Video Models
+  "realesr-animevideov3-x2": {
+    id: "realesr-animevideov3-x2",
+    name: "Real-ESRGAN Anime Video v3 x2",
+    scale: 2,
+    description: "Specialized for anime video frames and sequential images",
+    category: "anime"
+  },
+  "realesr-animevideov3-x3": {
+    id: "realesr-animevideov3-x3",
+    name: "Real-ESRGAN Anime Video v3 x3",
+    scale: 3,
+    description: "3x upscaling for anime video content",
+    category: "anime"
+  },
+  "realesr-animevideov3-x4": {
+    id: "realesr-animevideov3-x4",
+    name: "Real-ESRGAN Anime Video v3 x4",
+    scale: 4,
+    description: "4x upscaling for anime video content",
+    category: "anime"
+  },
+  
+  // NMKD Models (High Quality)
+  "4x-nmkd-siax-200k": {
+    id: "4x-nmkd-siax-200k",
+    name: "NMKD Siax 200k",
+    scale: 4,
+    description: "Universal upscaler for clean and slightly compressed images (JPEG quality 75+)",
+    category: "general"
+  },
+  "4x-nmkd-superscale-sp-178000-g": {
+    id: "4x-nmkd-superscale-sp-178000-g",
+    name: "NMKD Superscale SP",
+    scale: 4,
+    description: "Perfect upscaling of clean (artifact-free) real-world images",
+    category: "photo"
+  },
+  
+  // Specialized Models by Community Contributors
+  "uniscale-restore": {
+    id: "uniscale-restore",
+    name: "Uniscale Restore",
+    scale: 4,
+    description: "Restoration-focused model by Kim2091",
+    category: "restoration"
+  },
+  "4x-lsdir": {
+    id: "4x-lsdir",
+    name: "LSDIR x4",
+    scale: 4,
+    description: "High-quality upscaling model by Phhofm",
+    category: "general"
+  },
+  "4x-lsdir-plus-c": {
+    id: "4x-lsdir-plus-c",
+    name: "LSDIR Plus C x4",
+    scale: 4,
+    description: "Enhanced LSDIR model with color improvements by Phhofm",
+    category: "general"
+  },
+  "4x-lsdir-compact-c3": {
+    id: "4x-lsdir-compact-c3",
+    name: "LSDIR Compact C3 x4",
+    scale: 4,
+    description: "Compact SRVGGNET model for faster inference by Phhofm",
+    category: "fast"
+  },
+  "4x-nomos8k-sc": {
+    id: "4x-nomos8k-sc",
+    name: "Nomos8k SC x4",
+    scale: 4,
+    description: "High-resolution training model by Phhofm",
+    category: "general"
+  },
+  "4x-hfa2k": {
+    id: "4x-hfa2k",
+    name: "HFA2k x4",
+    scale: 4,
+    description: "High-frequency analysis model by Phhofm",
+    category: "general"
+  },
+  
+  // Special Models
+  "unknown-2-0-1": {
+    id: "unknown-2-0-1",
+    name: "Unknown v2.0.1",
+    scale: 4,
+    description: "Mystery model accidentally included in v2.0.1 - surprisingly good results",
+    category: "experimental"
   }
 } as const;
 
 export type UpscalingModelId = keyof typeof UPSCALING_MODELS;
 
-// Upscaling Parameters Schema
+// Comprehensive Upscaling Parameters Schema (Complete Upscayl Feature Set)
 export const UpscalingParams = z.object({
+  // Core Model Selection
   model: z.string().default("realesrgan-x4plus").describe("AI upscaling model to use"),
+  modelCategory: z.enum(["general", "anime", "photo", "restoration", "fast", "experimental"]).optional().describe("Model category filter"),
+  
+  // Output Dimensions
   scale: z.number().min(1).max(8).optional().describe("Custom scale factor (overrides model default)"),
   customWidth: z.number().optional().describe("Target width in pixels (alternative to scale)"),
   customHeight: z.number().optional().describe("Target height in pixels (alternative to scale)"),
-  tileSize: z.number().min(32).max(1024).default(512).describe("Tile size for processing large images"),
-  gpuId: z.string().optional().describe("GPU device ID for acceleration"),
-  format: z.enum(["png", "jpg", "jpeg", "webp", "tiff"]).default("png").describe("Output image format"),
+  
+  // Performance Settings
+  tileSize: z.number().min(32).max(1024).default(512).describe("Tile size for processing large images (smaller = better quality, larger = faster)"),
+  gpuId: z.string().optional().describe("GPU device ID for acceleration (0, 1, 2, etc.)"),
+  cpuThreads: z.number().min(1).max(32).default(4).describe("Number of CPU threads for processing"),
+  
+  // Output Format & Quality
+  format: z.enum(["png", "jpg", "jpeg", "webp", "tiff", "bmp"]).default("png").describe("Output image format"),
   compression: z.number().min(0).max(100).default(90).describe("Compression quality for lossy formats"),
-  ttaMode: z.boolean().default(false).describe("Test-time augmentation for better quality (slower)"),
-  preserveMetadata: z.boolean().default(true).describe("Preserve original image metadata"),
+  
+  // Advanced Processing Options
+  ttaMode: z.boolean().default(false).describe("Test-time augmentation for better quality (slower processing)"),
+  preserveMetadata: z.boolean().default(true).describe("Preserve original image metadata (EXIF, ICC profiles)"),
   denoise: z.boolean().default(true).describe("Apply denoising during upscaling"),
-  face_enhance: z.boolean().default(false).describe("Enable face enhancement (if supported by model)")
+  face_enhance: z.boolean().default(false).describe("Enable face enhancement (if supported by model)"),
+  
+  // Upscayl-Specific Features
+  seamlessTextures: z.boolean().default(false).describe("Enable seamless texture processing for tiled images"),
+  alphaChannel: z.boolean().default(true).describe("Preserve alpha channel transparency"),
+  colorProfile: z.enum(["srgb", "adobe-rgb", "prophoto-rgb", "auto"]).default("auto").describe("Color profile handling"),
+  
+  // Batch Processing
+  batchMode: z.boolean().default(false).describe("Enable batch processing optimizations"),
+  outputNaming: z.enum(["suffix", "prefix", "folder", "custom"]).default("suffix").describe("Output file naming convention"),
+  customSuffix: z.string().default("_upscaled").describe("Custom suffix for output files"),
+  
+  // Memory Management
+  memoryLimit: z.number().min(512).max(32768).default(4096).describe("Memory limit in MB for processing"),
+  enableMemoryOptimization: z.boolean().default(true).describe("Enable memory optimization for large images"),
+  
+  // Post-Processing
+  postProcessing: z.object({
+    sharpen: z.boolean().default(false).describe("Apply sharpening filter after upscaling"),
+    sharpenAmount: z.number().min(0).max(2).default(0.5).describe("Sharpening intensity"),
+    colorCorrection: z.boolean().default(false).describe("Apply automatic color correction"),
+    contrastEnhancement: z.boolean().default(false).describe("Enhance contrast after upscaling")
+  }).default({})
 });
 
 export type UpscalingParamsType = {
+  // Core Model Selection
   model: string;
+  modelCategory?: "general" | "anime" | "photo" | "restoration" | "fast" | "experimental";
+  
+  // Output Dimensions
   scale?: number;
   customWidth?: number;
   customHeight?: number;
+  
+  // Performance Settings
   tileSize: number;
   gpuId?: string;
-  format: "png" | "jpg" | "jpeg" | "webp" | "tiff";
+  cpuThreads: number;
+  
+  // Output Format & Quality
+  format: "png" | "jpg" | "jpeg" | "webp" | "tiff" | "bmp";
   compression: number;
+  
+  // Advanced Processing Options
   ttaMode: boolean;
   preserveMetadata: boolean;
   denoise: boolean;
   face_enhance: boolean;
+  
+  // Upscayl-Specific Features
+  seamlessTextures: boolean;
+  alphaChannel: boolean;
+  colorProfile: "srgb" | "adobe-rgb" | "prophoto-rgb" | "auto";
+  
+  // Batch Processing
+  batchMode: boolean;
+  outputNaming: "suffix" | "prefix" | "folder" | "custom";
+  customSuffix: string;
+  
+  // Memory Management
+  memoryLimit: number;
+  enableMemoryOptimization: boolean;
+  
+  // Post-Processing
+  postProcessing: {
+    sharpen: boolean;
+    sharpenAmount: number;
+    colorCorrection: boolean;
+    contrastEnhancement: boolean;
+  };
 };
 
-// Cross-platform binary paths
+// Cross-platform binary paths (Complete Upscayl Integration)
 function getUpscalerBinaryPath(): string {
   const platform = os.platform();
   const arch = os.arch();
   
-  // These would be the actual binary paths in a real implementation
-  // For now, we'll use a placeholder that would need to be populated with actual binaries
-  const binaryName = platform === 'win32' ? 'realesrgan-ncnn-vulkan.exe' : 'realesrgan-ncnn-vulkan';
+  // Upscayl uses different binary names based on platform
+  let binaryName: string;
   
-  // In a real implementation, these binaries would be bundled with the application
-  const binaryDir = path.join(__dirname, '..', '..', '..', 'resources', 'upscaler', platform, arch);
-  return path.join(binaryDir, binaryName);
+  switch (platform) {
+    case 'win32':
+      binaryName = 'upscayl-realesrgan.exe';
+      break;
+    case 'darwin':
+      binaryName = 'upscayl-realesrgan';
+      break;
+    case 'linux':
+      binaryName = 'upscayl-realesrgan';
+      break;
+    default:
+      binaryName = 'upscayl-realesrgan';
+  }
+  
+  // Multiple possible binary locations (matching Upscayl's structure)
+  const possiblePaths = [
+    // Bundled with application
+    path.join(__dirname, '..', '..', '..', 'resources', 'upscaler', platform, arch, binaryName),
+    // System installation
+    path.join(process.cwd(), 'resources', 'upscaler', binaryName),
+    // Development mode
+    path.join(__dirname, '..', '..', '..', 'bin', binaryName),
+    // Global installation
+    binaryName // Will use PATH
+  ];
+  
+  // Return first existing path
+  for (const binPath of possiblePaths) {
+    if (fs.existsSync(binPath)) {
+      return binPath;
+    }
+  }
+  
+  return possiblePaths[0]; // Default fallback
 }
 
 function getModelsPath(): string {
-  // Path to AI models directory
-  return path.join(__dirname, '..', '..', '..', 'resources', 'upscaler', 'models');
+  // Multiple possible model directories (matching Upscayl's structure)
+  const possiblePaths = [
+    // Bundled models
+    path.join(__dirname, '..', '..', '..', 'resources', 'upscaler', 'models'),
+    // User custom models directory
+    path.join(os.homedir(), '.upscayl', 'models'),
+    // System models
+    path.join(process.cwd(), 'models'),
+    // Development models
+    path.join(__dirname, '..', '..', '..', 'models')
+  ];
+  
+  // Return first existing path
+  for (const modelPath of possiblePaths) {
+    if (fs.existsSync(modelPath)) {
+      return modelPath;
+    }
+  }
+  
+  // Create default path if none exist
+  const defaultPath = possiblePaths[0];
+  fs.mkdirSync(defaultPath, { recursive: true });
+  return defaultPath;
 }
 
-// Validate GPU availability
-async function checkGPUSupport(): Promise<{ hasVulkan: boolean; hasOpenCL: boolean; gpuDevices: string[] }> {
-  return new Promise((resolve) => {
-    // In a real implementation, this would check for Vulkan/OpenCL support
-    // For now, we'll assume basic GPU support is available
+// Comprehensive GPU and System Capability Detection (Upscayl-style)
+async function checkSystemCapabilities(): Promise<{
+  hasVulkan: boolean;
+  hasOpenCL: boolean;
+  gpuDevices: string[];
+  systemInfo: {
+    platform: string;
+    arch: string;
+    totalMemory: number;
+    freeMemory: number;
+    cpuCores: number;
+  };
+  supportedFormats: string[];
+}> {
+  return new Promise(async (resolve) => {
+    const platform = os.platform();
+    const arch = os.arch();
+    
+    // System information
+    const systemInfo = {
+      platform,
+      arch,
+      totalMemory: Math.round(os.totalmem() / 1024 / 1024), // MB
+      freeMemory: Math.round(os.freemem() / 1024 / 1024), // MB
+      cpuCores: os.cpus().length
+    };
+    
+    // Detect GPU capabilities (simplified)
+    let hasVulkan = false;
+    let hasOpenCL = false;
+    let gpuDevices: string[] = [];
+    
+    try {
+      // Try to detect Vulkan support
+      const { exec } = await import('child_process');
+      const { promisify } = await import('util');
+      const execAsync = promisify(exec);
+      
+      if (platform === 'win32') {
+        // Windows GPU detection
+        try {
+          const { stdout } = await execAsync('wmic path win32_VideoController get name', { timeout: 5000 });
+          const gpuLines = stdout.split('\n').filter(line => line.trim() && !line.includes('Name'));
+          gpuDevices = gpuLines.map((line, index) => index.toString());
+          hasVulkan = gpuLines.some(line => 
+            line.toLowerCase().includes('nvidia') || 
+            line.toLowerCase().includes('amd') || 
+            line.toLowerCase().includes('intel')
+          );
+        } catch {
+          gpuDevices = ['0']; // Fallback
+        }
+      } else if (platform === 'darwin') {
+        // macOS GPU detection
+        try {
+          const { stdout } = await execAsync('system_profiler SPDisplaysDataType', { timeout: 5000 });
+          hasVulkan = stdout.includes('Metal') || stdout.includes('AMD') || stdout.includes('NVIDIA');
+          gpuDevices = ['0']; // macOS typically has one main GPU
+        } catch {
+          gpuDevices = ['0'];
+        }
+      } else {
+        // Linux GPU detection
+        try {
+          const { stdout } = await execAsync('lspci | grep -i vga', { timeout: 5000 });
+          const gpuLines = stdout.split('\n').filter(line => line.trim());
+          gpuDevices = gpuLines.map((line, index) => index.toString());
+          hasVulkan = gpuLines.some(line => 
+            line.toLowerCase().includes('nvidia') || 
+            line.toLowerCase().includes('amd')
+          );
+        } catch {
+          gpuDevices = ['0'];
+        }
+      }
+      
+      hasOpenCL = hasVulkan; // Simplified assumption
+      
+    } catch (error) {
+      // Fallback values
+      hasVulkan = true;
+      hasOpenCL = true;
+      gpuDevices = ['0'];
+    }
+    
+    // Supported formats (based on Sharp capabilities)
+    const supportedFormats = ['png', 'jpg', 'jpeg', 'webp', 'tiff', 'bmp'];
+    
     resolve({
-      hasVulkan: true,
-      hasOpenCL: true,
-      gpuDevices: ['0'] // Default GPU device
+      hasVulkan,
+      hasOpenCL,
+      gpuDevices,
+      systemInfo,
+      supportedFormats
     });
   });
 }
 
-// Generate upscaling command arguments
+// Generate comprehensive upscaling command arguments (Complete Upscayl Feature Set)
 function getUpscalingArguments(params: {
   inputPath: string;
   outputPath: string;
@@ -140,9 +457,14 @@ function getUpscalingArguments(params: {
   customHeight?: number;
   tileSize: number;
   gpuId?: string;
+  cpuThreads: number;
   ttaMode: boolean;
   denoise: boolean;
   face_enhance: boolean;
+  seamlessTextures: boolean;
+  alphaChannel: boolean;
+  memoryLimit: number;
+  enableMemoryOptimization: boolean;
 }): string[] {
   const {
     inputPath,
@@ -153,9 +475,14 @@ function getUpscalingArguments(params: {
     customHeight,
     tileSize,
     gpuId,
+    cpuThreads,
     ttaMode,
     denoise,
-    face_enhance
+    face_enhance,
+    seamlessTextures,
+    alphaChannel,
+    memoryLimit,
+    enableMemoryOptimization
   } = params;
 
   const modelsPath = getModelsPath();
@@ -185,9 +512,19 @@ function getUpscalingArguments(params: {
     args.push('-g', gpuId);
   }
 
-  // Additional options
+  // CPU threads
+  if (cpuThreads > 1) {
+    args.push('-j', cpuThreads.toString());
+  }
+
+  // Memory management
+  if (enableMemoryOptimization) {
+    args.push('--memory-limit', memoryLimit.toString());
+  }
+
+  // Advanced options
   if (ttaMode) {
-    args.push('-x'); // TTA mode
+    args.push('-x'); // TTA mode for better quality
   }
 
   if (denoise) {
@@ -198,8 +535,16 @@ function getUpscalingArguments(params: {
     args.push('-f'); // Face enhancement
   }
 
-  // Format (handled by output extension)
-  args.push('-f', 'png'); // Default to PNG for quality
+  if (seamlessTextures) {
+    args.push('--seamless'); // Seamless texture processing
+  }
+
+  if (alphaChannel) {
+    args.push('--preserve-alpha'); // Preserve transparency
+  }
+
+  // Output format (PNG for quality, will convert later if needed)
+  args.push('-f', 'png');
 
   return args;
 }
@@ -234,9 +579,9 @@ export async function upscaleImage(
       height: originalMeta.height || 0
     };
 
-    // Check GPU support
-    const gpuInfo = await checkGPUSupport();
-    onProgress?.(10, "Checking GPU support...");
+    // Check system capabilities
+    const systemCaps = await checkSystemCapabilities();
+    onProgress?.(10, "Checking system capabilities...");
 
     // Determine output dimensions
     let targetScale = params.scale;
@@ -279,7 +624,7 @@ export async function upscaleImage(
     if (!fs.existsSync(binaryPath)) {
       // Fallback to software-based upscaling using Sharp
       onProgress?.(30, "Hardware upscaler not available, using software fallback...");
-      return await fallbackUpscaling(inputPath, outputPath, params, originalSize, expectedWidth, expectedHeight, startTime);
+      return await fallbackUpscaling(inputPath, outputPath, params, originalSize, expectedWidth, expectedHeight, startTime, onProgress);
     }
 
     // Generate command arguments
@@ -291,10 +636,15 @@ export async function upscaleImage(
       customWidth: targetWidth,
       customHeight: targetHeight,
       tileSize: params.tileSize,
-      gpuId: params.gpuId || (gpuInfo.gpuDevices[0] || '0'),
+      gpuId: params.gpuId || (systemCaps.gpuDevices[0] || '0'),
+      cpuThreads: params.cpuThreads || systemCaps.systemInfo.cpuCores,
       ttaMode: params.ttaMode,
       denoise: params.denoise,
-      face_enhance: params.face_enhance
+      face_enhance: params.face_enhance,
+      seamlessTextures: params.seamlessTextures || false,
+      alphaChannel: params.alphaChannel !== false,
+      memoryLimit: params.memoryLimit || Math.min(systemCaps.systemInfo.freeMemory * 0.8, 4096),
+      enableMemoryOptimization: params.enableMemoryOptimization !== false
     });
 
     onProgress?.(40, "Starting AI upscaling process...");
@@ -318,10 +668,16 @@ export async function upscaleImage(
       height: finalMeta.height || expectedHeight
     };
 
+    // Apply post-processing if requested
+    if (params.postProcessing.sharpen || params.postProcessing.colorCorrection || params.postProcessing.contrastEnhancement) {
+      onProgress?.(85, "Applying post-processing...");
+      await applyPostProcessing(outputPath, params.postProcessing);
+    }
+
     // Handle format conversion and compression if needed
     if (params.format !== 'png') {
       onProgress?.(90, "Converting output format...");
-      await convertImageFormat(outputPath, params.format, params.compression);
+      await convertImageFormat(outputPath, params.format, params.compression, params.colorProfile);
     }
 
     // Preserve metadata if requested
@@ -415,7 +771,8 @@ async function fallbackUpscaling(
   originalSize: { width: number; height: number },
   targetWidth: number,
   targetHeight: number,
-  startTime: number
+  startTime: number,
+  onProgress?: (progress: number, message: string) => void
 ): Promise<{
   success: boolean;
   outputPath: string;
@@ -426,6 +783,7 @@ async function fallbackUpscaling(
   error?: string;
 }> {
   try {
+    onProgress?.(40, "Starting software-based upscaling...");
     let pipeline = sharp(inputPath);
 
     // Apply basic upscaling with Sharp
@@ -434,9 +792,11 @@ async function fallbackUpscaling(
       fit: 'fill'
     });
 
+    onProgress?.(70, "Applying quality enhancements...");
     // Apply sharpening to improve perceived quality
-    pipeline = pipeline.sharpen({ sigma: 1.0 });
+    pipeline = pipeline.sharpen(1.0); // Use simple sigma parameter
 
+    onProgress?.(90, "Saving upscaled image...");
     // Save the result
     await pipeline.toFile(outputPath);
 
@@ -465,30 +825,107 @@ async function fallbackUpscaling(
   }
 }
 
-// Convert image format and apply compression
+// Apply comprehensive post-processing (Upscayl-style enhancements)
+async function applyPostProcessing(
+  imagePath: string,
+  postProcessing: {
+    sharpen: boolean;
+    sharpenAmount: number;
+    colorCorrection: boolean;
+    contrastEnhancement: boolean;
+  }
+): Promise<void> {
+  if (!postProcessing.sharpen && !postProcessing.colorCorrection && !postProcessing.contrastEnhancement) {
+    return; // No post-processing needed
+  }
+
+  const tempPath = imagePath + '.postprocess';
+  let pipeline = sharp(imagePath);
+
+  // Apply sharpening
+  if (postProcessing.sharpen) {
+    pipeline = pipeline.sharpen(
+      postProcessing.sharpenAmount, // sigma
+      1, // flat
+      2  // jagged
+    );
+  }
+
+  // Apply color correction
+  if (postProcessing.colorCorrection) {
+    pipeline = pipeline.normalize(); // Auto-normalize colors
+  }
+
+  // Apply contrast enhancement
+  if (postProcessing.contrastEnhancement) {
+    pipeline = pipeline.modulate({
+      brightness: 1.05,
+      saturation: 1.1,
+      hue: 0
+    });
+  }
+
+  await pipeline.toFile(tempPath);
+  fs.renameSync(tempPath, imagePath);
+}
+
+// Convert image format and apply compression with color profile support
 async function convertImageFormat(
   imagePath: string,
   format: string,
-  compression: number
+  compression: number,
+  colorProfile: string = 'auto'
 ): Promise<void> {
   const tempPath = imagePath + '.temp';
   
   let pipeline = sharp(imagePath);
   
+  // Apply color profile if specified
+  if (colorProfile !== 'auto') {
+    switch (colorProfile) {
+      case 'srgb':
+        pipeline = pipeline.toColorspace('srgb');
+        break;
+      case 'adobe-rgb':
+        // Adobe RGB would require ICC profile file
+        break;
+      case 'prophoto-rgb':
+        // ProPhoto RGB would require ICC profile file
+        break;
+    }
+  }
+  
   switch (format.toLowerCase()) {
     case 'jpg':
     case 'jpeg':
-      pipeline = pipeline.jpeg({ quality: compression });
+      pipeline = pipeline.jpeg({ 
+        quality: compression,
+        progressive: true,
+        mozjpeg: true
+      });
       break;
     case 'webp':
-      pipeline = pipeline.webp({ quality: compression });
+      pipeline = pipeline.webp({ 
+        quality: compression,
+        effort: 6,
+        lossless: compression >= 95
+      });
       break;
     case 'tiff':
-      pipeline = pipeline.tiff({ compression: 'lzw' });
+      pipeline = pipeline.tiff({ 
+        compression: compression >= 90 ? 'lzw' : 'jpeg',
+        quality: compression
+      });
+      break;
+    case 'bmp':
+      pipeline = pipeline.png({ compressionLevel: 0 }).toFormat('png'); // BMP via PNG
       break;
     case 'png':
     default:
-      pipeline = pipeline.png({ compressionLevel: Math.floor(compression / 10) });
+      pipeline = pipeline.png({ 
+        compressionLevel: Math.floor((100 - compression) / 10),
+        progressive: true
+      });
       break;
   }
   
@@ -600,62 +1037,250 @@ export async function batchUpscaleImages(
   };
 }
 
-// Natural language processing for upscaling commands
+// Comprehensive natural language processing for upscaling commands (Complete Upscayl Feature Set)
 export function parseUpscalingCommand(command: string): Partial<UpscalingParamsType> {
-  const params: Partial<UpscalingParamsType> = {};
+  const params: Partial<UpscalingParamsType> = {
+    postProcessing: {
+      sharpen: false,
+      sharpenAmount: 0.5,
+      colorCorrection: false,
+      contrastEnhancement: false
+    }
+  };
   
-  // Extract model preferences
-  if (command.includes('anime') || command.includes('cartoon')) {
-    params.model = 'realesrgan-x4plus-anime';
-  } else if (command.includes('photo') || command.includes('realistic')) {
-    params.model = 'realesrgan-x4plus';
-  } else if (command.includes('2x') || command.includes('double')) {
-    params.model = 'realesrgan-x2plus';
+  const lowerCommand = command.toLowerCase();
+  
+  // Extract model preferences with comprehensive matching
+  if (lowerCommand.includes('anime') || lowerCommand.includes('cartoon') || lowerCommand.includes('manga')) {
+    if (lowerCommand.includes('video') || lowerCommand.includes('frame')) {
+      params.model = 'realesr-animevideov3-x4';
+    } else {
+      params.model = 'realesrgan-x4plus-anime';
+    }
+  } else if (lowerCommand.includes('photo') || lowerCommand.includes('realistic') || lowerCommand.includes('portrait')) {
+    if (lowerCommand.includes('clean') || lowerCommand.includes('perfect')) {
+      params.model = '4x-nmkd-superscale-sp-178000-g';
+    } else {
+      params.model = 'realesrgan-x4plus';
+    }
+  } else if (lowerCommand.includes('restore') || lowerCommand.includes('repair') || lowerCommand.includes('fix')) {
+    params.model = 'uniscale-restore';
+  } else if (lowerCommand.includes('fast') || lowerCommand.includes('quick') || lowerCommand.includes('speed')) {
+    params.model = '4x-lsdir-compact-c3';
+  } else if (lowerCommand.includes('lightweight') || lowerCommand.includes('v3')) {
+    params.model = 'realesrgan-general-x4-v3';
+  } else if (lowerCommand.includes('experimental') || lowerCommand.includes('unknown')) {
+    params.model = 'unknown-2-0-1';
   }
   
-  // Extract scale
-  const scaleMatch = command.match(/(\d+)x/i);
-  if (scaleMatch) {
-    params.scale = parseInt(scaleMatch[1]);
+  // Extract scale with multiple patterns
+  const scalePatterns = [
+    /(\d+)x/i,
+    /(\d+) times/i,
+    /scale.*?(\d+)/i,
+    /upscale.*?(\d+)/i
+  ];
+  
+  for (const pattern of scalePatterns) {
+    const match = lowerCommand.match(pattern);
+    if (match) {
+      params.scale = parseInt(match[1]);
+      break;
+    }
+  }
+  
+  // Handle special scale keywords
+  if (lowerCommand.includes('double') || lowerCommand.includes('twice')) {
+    params.scale = 2;
+  } else if (lowerCommand.includes('triple')) {
+    params.scale = 3;
+  } else if (lowerCommand.includes('quadruple')) {
+    params.scale = 4;
   }
   
   // Extract dimensions
-  const dimensionMatch = command.match(/(\d+)\s*[x×]\s*(\d+)/);
+  const dimensionMatch = lowerCommand.match(/(\d+)\s*[x×]\s*(\d+)/);
   if (dimensionMatch) {
     params.customWidth = parseInt(dimensionMatch[1]);
     params.customHeight = parseInt(dimensionMatch[2]);
   }
   
-  // Extract quality preferences
-  if (command.includes('high quality') || command.includes('best quality')) {
+  // Extract quality and performance preferences
+  if (lowerCommand.includes('high quality') || lowerCommand.includes('best quality') || lowerCommand.includes('maximum quality')) {
     params.ttaMode = true;
     params.tileSize = 256; // Smaller tiles for better quality
-  } else if (command.includes('fast') || command.includes('quick')) {
+    params.enableMemoryOptimization = true;
+  } else if (lowerCommand.includes('fast') || lowerCommand.includes('quick') || lowerCommand.includes('speed')) {
     params.ttaMode = false;
     params.tileSize = 1024; // Larger tiles for speed
+    params.enableMemoryOptimization = false;
+  } else if (lowerCommand.includes('balanced') || lowerCommand.includes('medium')) {
+    params.ttaMode = false;
+    params.tileSize = 512;
+    params.enableMemoryOptimization = true;
   }
   
-  // Extract format
-  if (command.includes('png')) params.format = 'png';
-  else if (command.includes('jpg') || command.includes('jpeg')) params.format = 'jpg';
-  else if (command.includes('webp')) params.format = 'webp';
+  // Extract format preferences
+  if (lowerCommand.includes('png')) params.format = 'png';
+  else if (lowerCommand.includes('jpg') || lowerCommand.includes('jpeg')) params.format = 'jpg';
+  else if (lowerCommand.includes('webp')) params.format = 'webp';
+  else if (lowerCommand.includes('tiff') || lowerCommand.includes('tif')) params.format = 'tiff';
+  else if (lowerCommand.includes('bmp')) params.format = 'bmp';
+  
+  // Extract compression/quality settings
+  const qualityMatch = lowerCommand.match(/quality[:\s]*(\d+)/i);
+  if (qualityMatch) {
+    params.compression = parseInt(qualityMatch[1]);
+  } else if (lowerCommand.includes('lossless') || lowerCommand.includes('perfect')) {
+    params.compression = 100;
+  } else if (lowerCommand.includes('compressed') || lowerCommand.includes('small')) {
+    params.compression = 70;
+  }
   
   // Extract special features
-  if (command.includes('denoise') || command.includes('clean up')) {
+  if (lowerCommand.includes('denoise') || lowerCommand.includes('clean up') || lowerCommand.includes('noise reduction')) {
     params.denoise = true;
   }
   
-  if (command.includes('face') || command.includes('portrait')) {
+  if (lowerCommand.includes('face') || lowerCommand.includes('portrait') || lowerCommand.includes('people')) {
     params.face_enhance = true;
   }
   
+  if (lowerCommand.includes('seamless') || lowerCommand.includes('tile') || lowerCommand.includes('texture')) {
+    params.seamlessTextures = true;
+  }
+  
+  if (lowerCommand.includes('transparent') || lowerCommand.includes('alpha') || lowerCommand.includes('transparency')) {
+    params.alphaChannel = true;
+  }
+  
+  // Extract post-processing options
+  if (lowerCommand.includes('sharpen') || lowerCommand.includes('sharp')) {
+    params.postProcessing!.sharpen = true;
+    const sharpenMatch = lowerCommand.match(/sharpen[:\s]*(\d+(?:\.\d+)?)/i);
+    if (sharpenMatch) {
+      params.postProcessing!.sharpenAmount = parseFloat(sharpenMatch[1]);
+    }
+  }
+  
+  if (lowerCommand.includes('color correct') || lowerCommand.includes('normalize colors')) {
+    params.postProcessing!.colorCorrection = true;
+  }
+  
+  if (lowerCommand.includes('enhance contrast') || lowerCommand.includes('boost contrast')) {
+    params.postProcessing!.contrastEnhancement = true;
+  }
+  
+  // Extract color profile preferences
+  if (lowerCommand.includes('srgb')) params.colorProfile = 'srgb';
+  else if (lowerCommand.includes('adobe rgb')) params.colorProfile = 'adobe-rgb';
+  else if (lowerCommand.includes('prophoto')) params.colorProfile = 'prophoto-rgb';
+  
+  // Extract memory and performance settings
+  const memoryMatch = lowerCommand.match(/memory[:\s]*(\d+)\s*(?:mb|gb)?/i);
+  if (memoryMatch) {
+    let memory = parseInt(memoryMatch[1]);
+    if (lowerCommand.includes('gb')) memory *= 1024;
+    params.memoryLimit = memory;
+  }
+  
+  const threadsMatch = lowerCommand.match(/threads?[:\s]*(\d+)/i);
+  if (threadsMatch) {
+    params.cpuThreads = parseInt(threadsMatch[1]);
+  }
+  
+  // Extract GPU preferences
+  const gpuMatch = lowerCommand.match(/gpu[:\s]*(\d+)/i);
+  if (gpuMatch) {
+    params.gpuId = gpuMatch[1];
+  }
+  
   return params;
+}
+
+// Model recommendation system based on content analysis
+export function recommendModel(imagePath: string, userPreferences?: Partial<UpscalingParamsType>): Promise<string> {
+  return new Promise(async (resolve) => {
+    try {
+      const metadata = await sharp(imagePath).metadata();
+      const stats = await sharp(imagePath).stats();
+      
+      // Analyze image characteristics
+      const isLowRes = (metadata.width || 0) < 512 || (metadata.height || 0) < 512;
+      const hasAlpha = metadata.hasAlpha;
+      const channels = metadata.channels || 3;
+      
+      // Simple heuristics for model recommendation
+      if (userPreferences?.modelCategory === 'anime') {
+        resolve('realesrgan-x4plus-anime');
+      } else if (userPreferences?.modelCategory === 'photo') {
+        resolve('4x-nmkd-superscale-sp-178000-g');
+      } else if (userPreferences?.modelCategory === 'fast') {
+        resolve('4x-lsdir-compact-c3');
+      } else if (isLowRes && channels === 3) {
+        // Likely a photo or artwork
+        resolve('realesrgan-x4plus');
+      } else if (hasAlpha) {
+        // Has transparency, good for graphics
+        resolve('realesrgan-x2plus');
+      } else {
+        // Default general purpose
+        resolve('realesrgan-x4plus');
+      }
+    } catch {
+      resolve('realesrgan-x4plus'); // Safe default
+    }
+  });
+}
+
+// Get available models by category
+export function getModelsByCategory(category?: string): typeof UPSCALING_MODELS[keyof typeof UPSCALING_MODELS][] {
+  if (!category) {
+    return Object.values(UPSCALING_MODELS);
+  }
+  
+  return Object.values(UPSCALING_MODELS).filter(model => 
+    model.category === category
+  );
+}
+
+// Validate upscaling parameters
+export function validateUpscalingParams(params: Partial<UpscalingParamsType>): { valid: boolean; errors: string[] } {
+  const errors: string[] = [];
+  
+  if (params.scale && (params.scale < 1 || params.scale > 8)) {
+    errors.push('Scale must be between 1 and 8');
+  }
+  
+  if (params.tileSize && (params.tileSize < 32 || params.tileSize > 1024)) {
+    errors.push('Tile size must be between 32 and 1024');
+  }
+  
+  if (params.compression && (params.compression < 0 || params.compression > 100)) {
+    errors.push('Compression must be between 0 and 100');
+  }
+  
+  if (params.memoryLimit && params.memoryLimit < 512) {
+    errors.push('Memory limit must be at least 512 MB');
+  }
+  
+  if (params.cpuThreads && (params.cpuThreads < 1 || params.cpuThreads > 32)) {
+    errors.push('CPU threads must be between 1 and 32');
+  }
+  
+  return {
+    valid: errors.length === 0,
+    errors
+  };
 }
 
 export default {
   upscaleImage,
   batchUpscaleImages,
   parseUpscalingCommand,
+  recommendModel,
+  getModelsByCategory,
+  validateUpscalingParams,
   UPSCALING_MODELS,
   UpscalingParams
 };

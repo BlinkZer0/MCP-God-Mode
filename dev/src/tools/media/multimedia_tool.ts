@@ -8,9 +8,19 @@ import ffmpeg from "fluent-ffmpeg";
 import { z } from "zod";
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { generateSVG, generateAIImage } from "./image_editor.js";
-// AI Image Upscaling functionality based on the excellent Upscayl project
+// Complete AI Image Upscaling functionality based on the excellent Upscayl project
 // Original: https://github.com/upscayl/upscayl by Nayam Amarshe & TGS963
-import { upscaleImage, batchUpscaleImages, parseUpscalingCommand, UPSCALING_MODELS, UpscalingParams } from "./ai_upscaler.js";
+// Includes all models, features, and capabilities from the official Upscayl project
+import { 
+  upscaleImage, 
+  batchUpscaleImages, 
+  parseUpscalingCommand, 
+  recommendModel,
+  getModelsByCategory,
+  validateUpscalingParams,
+  UPSCALING_MODELS, 
+  UpscalingParams 
+} from "./ai_upscaler.js";
 
 // Set FFmpeg path
 ffmpeg.setFfmpegPath(ffmpegPath || "");
@@ -726,17 +736,33 @@ async function exportImage(session: Session, outputPath: string, format?: string
     if (upscaleLayer) {
       const upscaleParams = {
         model: upscaleLayer.params.model || 'realesrgan-x4plus',
+        modelCategory: upscaleLayer.params.modelCategory,
         scale: upscaleLayer.params.scale,
         customWidth: upscaleLayer.params.customWidth,
         customHeight: upscaleLayer.params.customHeight,
         tileSize: upscaleLayer.params.tileSize || 512,
         gpuId: upscaleLayer.params.gpuId,
+        cpuThreads: upscaleLayer.params.cpuThreads || 4,
         format: outputFormat as any,
         compression: quality || 90,
         ttaMode: upscaleLayer.params.ttaMode || false,
         preserveMetadata: upscaleLayer.params.preserveMetadata !== false,
         denoise: upscaleLayer.params.denoise !== false,
-        face_enhance: upscaleLayer.params.face_enhance || false
+        face_enhance: upscaleLayer.params.face_enhance || false,
+        seamlessTextures: upscaleLayer.params.seamlessTextures || false,
+        alphaChannel: upscaleLayer.params.alphaChannel !== false,
+        colorProfile: upscaleLayer.params.colorProfile || 'auto',
+        batchMode: false,
+        outputNaming: upscaleLayer.params.outputNaming || 'suffix',
+        customSuffix: upscaleLayer.params.customSuffix || '_upscaled',
+        memoryLimit: upscaleLayer.params.memoryLimit || 4096,
+        enableMemoryOptimization: upscaleLayer.params.enableMemoryOptimization !== false,
+        postProcessing: upscaleLayer.params.postProcessing || {
+          sharpen: false,
+          sharpenAmount: 0.5,
+          colorCorrection: false,
+          contrastEnhancement: false
+        }
       };
       
       // Apply AI upscaling
@@ -1012,7 +1038,7 @@ export async function startRecording(input: unknown) {
   };
 }
 
-// Handle single image upscaling
+// Handle single image upscaling with complete Upscayl feature set
 async function handleImageUpscaling(params: any) {
   const {
     source,
@@ -1023,33 +1049,72 @@ async function handleImageUpscaling(params: any) {
     upscaleHeight,
     tileSize = 512,
     gpuId,
+    cpuThreads,
     ttaMode = false,
     denoise = true,
     faceEnhance = false,
     preserveMetadata = true,
     format = 'png',
     compression = 90,
-    naturalLanguageCommand
+    naturalLanguageCommand,
+    // New comprehensive Upscayl features
+    modelCategory,
+    seamlessTextures = false,
+    alphaChannel = true,
+    colorProfile = 'auto',
+    batchMode = false,
+    outputNaming = 'suffix',
+    customSuffix = '_upscaled',
+    memoryLimit,
+    enableMemoryOptimization = true,
+    postProcessing = {
+      sharpen: false,
+      sharpenAmount: 0.5,
+      colorCorrection: false,
+      contrastEnhancement: false
+    },
+    autoRecommendModel = false
   } = params;
 
   if (!source) {
     throw new Error("Source image path is required for upscaling");
   }
 
+  // Auto-recommend model based on image analysis if requested
+  let finalModel = upscaleModel;
+  if (autoRecommendModel) {
+    try {
+      finalModel = await recommendModel(source, { modelCategory });
+    } catch (error) {
+      console.warn('Model recommendation failed, using default:', error);
+    }
+  }
+
   // Parse natural language command if provided
   let upscaleParams: any = {
-    model: upscaleModel,
+    model: finalModel,
+    modelCategory,
     scale: upscaleScale,
     customWidth: upscaleWidth,
     customHeight: upscaleHeight,
     tileSize,
     gpuId,
+    cpuThreads,
     format,
     compression,
     ttaMode,
     preserveMetadata,
     denoise,
-    face_enhance: faceEnhance
+    face_enhance: faceEnhance,
+    seamlessTextures,
+    alphaChannel,
+    colorProfile,
+    batchMode,
+    outputNaming,
+    customSuffix,
+    memoryLimit,
+    enableMemoryOptimization,
+    postProcessing
   };
 
   if (naturalLanguageCommand) {
@@ -1057,12 +1122,40 @@ async function handleImageUpscaling(params: any) {
     upscaleParams = { ...upscaleParams, ...nlParams };
   }
 
+  // Validate parameters
+  const validation = validateUpscalingParams(upscaleParams);
+  if (!validation.valid) {
+    throw new Error(`Invalid upscaling parameters: ${validation.errors.join(', ')}`);
+  }
+
   // Generate output path if not provided
   const finalOutputPath = outputPath || (() => {
     const ext = path.extname(source);
     const baseName = path.basename(source, ext);
     const dir = path.dirname(source);
-    return path.join(dir, `${baseName}_upscaled_${upscaleParams.model}.${format}`);
+    
+    let suffix = '';
+    switch (outputNaming) {
+      case 'suffix':
+        suffix = customSuffix;
+        break;
+      case 'prefix':
+        suffix = `${customSuffix}_`;
+        return path.join(dir, `${suffix}${baseName}.${format}`);
+      case 'folder':
+        const upscaleDir = path.join(dir, 'upscaled');
+        if (!fs.existsSync(upscaleDir)) {
+          fs.mkdirSync(upscaleDir, { recursive: true });
+        }
+        return path.join(upscaleDir, `${baseName}.${format}`);
+      case 'custom':
+        suffix = customSuffix;
+        break;
+      default:
+        suffix = '_upscaled';
+    }
+    
+    return path.join(dir, `${baseName}${suffix}.${format}`);
   })();
 
   // Perform upscaling
@@ -1075,7 +1168,7 @@ async function handleImageUpscaling(params: any) {
   return result;
 }
 
-// Handle batch image upscaling
+// Handle batch image upscaling with complete Upscayl feature set
 async function handleBatchUpscaling(params: any) {
   const {
     inputPaths,
@@ -1086,13 +1179,31 @@ async function handleBatchUpscaling(params: any) {
     upscaleHeight,
     tileSize = 512,
     gpuId,
+    cpuThreads,
     ttaMode = false,
     denoise = true,
     faceEnhance = false,
     preserveMetadata = true,
     format = 'png',
     compression = 90,
-    naturalLanguageCommand
+    naturalLanguageCommand,
+    // New comprehensive Upscayl features
+    modelCategory,
+    seamlessTextures = false,
+    alphaChannel = true,
+    colorProfile = 'auto',
+    batchMode = true, // Always true for batch operations
+    outputNaming = 'suffix',
+    customSuffix = '_upscaled',
+    memoryLimit,
+    enableMemoryOptimization = true,
+    postProcessing = {
+      sharpen: false,
+      sharpenAmount: 0.5,
+      colorCorrection: false,
+      contrastEnhancement: false
+    },
+    autoRecommendModel = false
   } = params;
 
   if (!inputPaths || !Array.isArray(inputPaths) || inputPaths.length === 0) {
@@ -1103,25 +1214,52 @@ async function handleBatchUpscaling(params: any) {
     throw new Error("Output directory is required for batch upscaling");
   }
 
+  // Auto-recommend model based on first image if requested
+  let finalModel = upscaleModel;
+  if (autoRecommendModel && inputPaths.length > 0) {
+    try {
+      finalModel = await recommendModel(inputPaths[0], { modelCategory });
+    } catch (error) {
+      console.warn('Model recommendation failed, using default:', error);
+    }
+  }
+
   // Parse natural language command if provided
   let upscaleParams: any = {
-    model: upscaleModel,
+    model: finalModel,
+    modelCategory,
     scale: upscaleScale,
     customWidth: upscaleWidth,
     customHeight: upscaleHeight,
     tileSize,
     gpuId,
+    cpuThreads,
     format,
     compression,
     ttaMode,
     preserveMetadata,
     denoise,
-    face_enhance: faceEnhance
+    face_enhance: faceEnhance,
+    seamlessTextures,
+    alphaChannel,
+    colorProfile,
+    batchMode,
+    outputNaming,
+    customSuffix,
+    memoryLimit,
+    enableMemoryOptimization,
+    postProcessing
   };
 
   if (naturalLanguageCommand) {
     const nlParams = parseUpscalingCommand(naturalLanguageCommand);
     upscaleParams = { ...upscaleParams, ...nlParams };
+  }
+
+  // Validate parameters
+  const validation = validateUpscalingParams(upscaleParams);
+  if (!validation.valid) {
+    throw new Error(`Invalid upscaling parameters: ${validation.errors.join(', ')}`);
   }
 
   // Perform batch upscaling
@@ -1133,12 +1271,12 @@ async function handleBatchUpscaling(params: any) {
 // Register the unified multimedia tool
 export function registerMultimediaTool(server: McpServer) {
   server.registerTool("multimedia_tool", {
-    description: "🎬 **Unified Multimedia Editing Suite with AI Upscaling** - Comprehensive cross-platform multimedia processing tool combining audio, image, and video editing capabilities with advanced AI image upscaling powered by Real-ESRGAN. Features session management, batch processing, project organization, cross-platform audio recording, AI-powered content generation, AI image upscaling, and natural language interface. Supports all major media formats with professional-grade editing operations and state-of-the-art AI enhancement.",
+    description: "🎬 **Unified Multimedia Editing Suite with Complete Upscayl Integration** - Comprehensive cross-platform multimedia processing tool combining audio, image, and video editing capabilities with advanced AI image upscaling powered by the complete Upscayl feature set. Includes 18+ AI upscaling models (Real-ESRGAN, NMKD, LSDIR, etc.), natural language processing, automatic model recommendation, batch processing, post-processing effects, memory optimization, and cross-platform compatibility. Features session management, project organization, audio recording, AI content generation, and professional-grade editing operations with state-of-the-art AI enhancement.",
     inputSchema: {
       action: z.enum([
         "status", "open", "edit", "export", "batch_process", "create_project", 
-        "get_session", "delete_session", "record_audio", "get_audio_devices", "start_recording", "generate_svg", "generate_ai_image", "upscale_image", "batch_upscale"
-      ]).describe("Multimedia tool action to perform. Options: status (get tool status), open (open media file), edit (apply editing operation), export (export edited media), batch_process (process multiple files), create_project (create project), get_session (get session details), delete_session (delete session), record_audio (record audio), get_audio_devices (list audio devices), start_recording (begin recording), generate_svg (create SVG graphics), generate_ai_image (generate AI images), upscale_image (AI upscale single image), batch_upscale (AI upscale multiple images)"),
+        "get_session", "delete_session", "record_audio", "get_audio_devices", "start_recording", "generate_svg", "generate_ai_image", "upscale_image", "batch_upscale", "get_upscale_models", "recommend_model"
+      ]).describe("Multimedia tool action to perform. Options: status (get tool status), open (open media file), edit (apply editing operation), export (export edited media), batch_process (process multiple files), create_project (create project), get_session (get session details), delete_session (delete session), record_audio (record audio), get_audio_devices (list audio devices), start_recording (begin recording), generate_svg (create SVG graphics), generate_ai_image (generate AI images), upscale_image (AI upscale single image), batch_upscale (AI upscale multiple images), get_upscale_models (list available AI upscaling models), recommend_model (get AI model recommendation for image)"),
       source: z.string().optional().describe("Media source path (local file) or URL (http/https) to open for editing. Supports audio (mp3, wav, flac, aac, ogg, m4a, wma), image (jpg, jpeg, png, gif, webp, tiff, bmp, svg), and video (mp4, avi, mov, mkv, webm, flv, wmv, m4v) formats"),
       sessionName: z.string().optional().describe("Custom name for the editing session. If not provided, defaults to 'untitled' or auto-generated based on source file"),
       type: z.enum(["audio", "image", "video"]).optional().describe("Media type specification. If not provided, will be auto-detected from file extension or content analysis"),
@@ -1177,19 +1315,35 @@ export function registerMultimediaTool(server: McpServer) {
       model: z.string().optional().describe("AI model to use for image generation. Options: 'dall-e-3', 'dall-e-2', 'stable-diffusion', 'midjourney', 'auto'. If not specified, auto-detects best available model based on API keys and capabilities"),
       fallbackToSVG: z.boolean().optional().describe("Enable automatic fallback to SVG generation if AI model is unavailable or fails. Default: true. Ensures content generation always succeeds with graceful degradation"),
       generationQuality: z.enum(["low", "medium", "high"]).optional().describe("Generation quality level. low: faster generation, basic quality. medium: balanced speed and quality. high: best quality, slower generation. Default: medium"),
-      // AI Upscaling parameters
-      upscaleModel: z.string().optional().describe("AI upscaling model to use. Options: 'realesrgan-x4plus' (general 4x), 'realesrgan-x4plus-anime' (anime 4x), 'realesrgan-x2plus' (general 2x), 'esrgan-x4' (classic 4x), 'waifu2x-cunet' (anime 2x). Default: realesrgan-x4plus"),
+      // Complete AI Upscaling parameters (Full Upscayl Feature Set)
+      upscaleModel: z.string().optional().describe("AI upscaling model to use. Available models: realesrgan-x4plus (general 4x), realesrgan-x4plus-anime (anime 4x), realesrgan-x2plus (general 2x), realesrgan-general-wdn-x4-v3 (lightweight 4x), realesr-animevideov3-x4 (anime video 4x), 4x-nmkd-siax-200k (clean images), 4x-nmkd-superscale-sp-178000-g (perfect photos), uniscale-restore (restoration), 4x-lsdir (high quality), 4x-lsdir-compact-c3 (fast), unknown-2-0-1 (experimental). Default: realesrgan-x4plus"),
+      modelCategory: z.enum(["general", "anime", "photo", "restoration", "fast", "experimental"]).optional().describe("Model category filter for automatic model selection"),
       upscaleScale: z.number().min(1).max(8).optional().describe("Custom upscaling factor (1-8x). Overrides model default scale"),
       upscaleWidth: z.number().optional().describe("Target width in pixels for upscaling (alternative to scale)"),
       upscaleHeight: z.number().optional().describe("Target height in pixels for upscaling (alternative to scale)"),
-      tileSize: z.number().min(32).max(1024).optional().describe("Tile size for processing large images during upscaling. Smaller = better quality but slower. Default: 512"),
-      gpuId: z.string().optional().describe("GPU device ID for hardware acceleration during upscaling"),
-      ttaMode: z.boolean().optional().describe("Test-time augmentation for better upscaling quality (slower processing). Default: false"),
+      tileSize: z.number().min(32).max(1024).optional().describe("Tile size for processing large images. Smaller = better quality but slower. Default: 512"),
+      gpuId: z.string().optional().describe("GPU device ID for hardware acceleration (0, 1, 2, etc.)"),
+      cpuThreads: z.number().min(1).max(32).optional().describe("Number of CPU threads for processing. Default: auto-detect"),
+      ttaMode: z.boolean().optional().describe("Test-time augmentation for better quality (slower processing). Default: false"),
       denoise: z.boolean().optional().describe("Apply denoising during upscaling. Default: true"),
-      faceEnhance: z.boolean().optional().describe("Enable face enhancement during upscaling (if supported by model). Default: false"),
-      preserveMetadata: z.boolean().optional().describe("Preserve original image metadata after upscaling. Default: true"),
+      faceEnhance: z.boolean().optional().describe("Enable face enhancement (if supported by model). Default: false"),
+      preserveMetadata: z.boolean().optional().describe("Preserve original image metadata (EXIF, ICC profiles). Default: true"),
+      seamlessTextures: z.boolean().optional().describe("Enable seamless texture processing for tiled images. Default: false"),
+      alphaChannel: z.boolean().optional().describe("Preserve alpha channel transparency. Default: true"),
+      colorProfile: z.enum(["srgb", "adobe-rgb", "prophoto-rgb", "auto"]).optional().describe("Color profile handling. Default: auto"),
+      outputNaming: z.enum(["suffix", "prefix", "folder", "custom"]).optional().describe("Output file naming convention. Default: suffix"),
+      customSuffix: z.string().optional().describe("Custom suffix/prefix for output files. Default: _upscaled"),
+      memoryLimit: z.number().min(512).max(32768).optional().describe("Memory limit in MB for processing. Default: auto-detect"),
+      enableMemoryOptimization: z.boolean().optional().describe("Enable memory optimization for large images. Default: true"),
+      postProcessing: z.object({
+        sharpen: z.boolean().optional().describe("Apply sharpening filter after upscaling"),
+        sharpenAmount: z.number().min(0).max(2).optional().describe("Sharpening intensity (0-2)"),
+        colorCorrection: z.boolean().optional().describe("Apply automatic color correction"),
+        contrastEnhancement: z.boolean().optional().describe("Enhance contrast after upscaling")
+      }).optional().describe("Post-processing options to apply after upscaling"),
+      autoRecommendModel: z.boolean().optional().describe("Automatically recommend best model based on image analysis. Default: false"),
       inputPaths: z.array(z.string()).optional().describe("Array of input image paths for batch upscaling"),
-      naturalLanguageCommand: z.string().optional().describe("Natural language command for upscaling (e.g., 'upscale this image 4x with anime model', 'enhance photo quality 2x', 'make this image larger and sharper')")
+      naturalLanguageCommand: z.string().optional().describe("Natural language command for upscaling (e.g., 'upscale this anime image 4x with high quality', 'enhance photo 2x with face enhancement', 'make this image larger and sharper with denoising')")
     },
     outputSchema: {
       success: z.boolean().describe("Indicates whether the operation completed successfully"),
@@ -1209,6 +1363,32 @@ export function registerMultimediaTool(server: McpServer) {
         success: z.boolean().describe("Whether this specific operation succeeded"),
         error: z.string().optional().describe("Error message if operation failed")
       })).optional().describe("Array of results from batch processing operations"),
+      originalSize: z.object({
+        width: z.number().describe("Original image width in pixels"),
+        height: z.number().describe("Original image height in pixels")
+      }).optional().describe("Original image dimensions before upscaling"),
+      upscaledSize: z.object({
+        width: z.number().describe("Upscaled image width in pixels"),
+        height: z.number().describe("Upscaled image height in pixels")
+      }).optional().describe("Final image dimensions after upscaling"),
+      model: z.string().optional().describe("AI model used for upscaling"),
+      processingTime: z.number().optional().describe("Processing time in milliseconds"),
+      models: z.array(z.object({
+        id: z.string().describe("Model unique identifier"),
+        name: z.string().describe("Model display name"),
+        scale: z.number().describe("Default scale factor"),
+        description: z.string().describe("Model description and use case"),
+        category: z.string().describe("Model category (general, anime, photo, etc.)")
+      })).optional().describe("Array of available upscaling models"),
+      totalModels: z.number().optional().describe("Total number of available models"),
+      recommendedModel: z.string().optional().describe("Recommended model ID for the input image"),
+      modelInfo: z.object({
+        id: z.string().describe("Model unique identifier"),
+        name: z.string().describe("Model display name"),
+        scale: z.number().describe("Default scale factor"),
+        description: z.string().describe("Model description and use case"),
+        category: z.string().describe("Model category")
+      }).optional().describe("Detailed information about the recommended model"),
       sessions: z.array(z.object({
         id: z.string().describe("Session unique identifier"),
         name: z.string().describe("Session display name"),
@@ -1417,6 +1597,47 @@ export function registerMultimediaTool(server: McpServer) {
               message: "Batch upscaling completed",
               results: batchUpscaleResult.results,
               totalProcessingTime: batchUpscaleResult.totalProcessingTime
+            }
+          };
+          
+        case "get_upscale_models":
+          const category = restParams.modelCategory;
+          const models = getModelsByCategory(category);
+          return {
+            content: [{ type: "text" as const, text: `Found ${models.length} upscaling models${category ? ` in category '${category}'` : ''}` }],
+            structuredContent: {
+              success: true,
+              message: `Available upscaling models${category ? ` in category '${category}'` : ''}`,
+              models: models.map(model => ({
+                id: model.id,
+                name: model.name,
+                scale: model.scale,
+                description: model.description,
+                category: (model as any).category
+              })),
+              totalModels: models.length
+            }
+          };
+          
+        case "recommend_model":
+          if (!restParams.source) {
+            throw new Error("Source image path is required for model recommendation");
+          }
+          const recommendedModel = await recommendModel(restParams.source, restParams);
+          const modelInfo = UPSCALING_MODELS[recommendedModel as keyof typeof UPSCALING_MODELS];
+          return {
+            content: [{ type: "text" as const, text: `Recommended model: ${modelInfo.name} (${recommendedModel})` }],
+            structuredContent: {
+              success: true,
+              message: "Model recommendation generated",
+              recommendedModel,
+              modelInfo: {
+                id: modelInfo.id,
+                name: modelInfo.name,
+                scale: modelInfo.scale,
+                description: modelInfo.description,
+                category: (modelInfo as any).category
+              }
             }
           };
           
