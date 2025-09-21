@@ -155,6 +155,8 @@ export { registerCloudSecurityToolkit } from "./cloud/cloud_security_toolkit.js"
 export { registerForensicsAnalysis } from "./forensics/forensics_analysis.js";
 export { registerForensicsToolkit } from "./forensics/forensics_toolkit.js";
 export { registerMalwareAnalysisToolkit } from "./forensics/malware_analysis_toolkit.js";
+export { registerWanMalwareDeployer } from "./forensics/wan_malware_deployer.js";
+export { registerWanMalwareDeployerNl } from "./forensics/wan_malware_deployer_nl.js";
 // Discovery Tools
 export { registerToolDiscovery, registerExploreCategories, registerNaturalLanguageRouter } from "./discovery/index.js";
 // Unified Drone Tool - All drone functionality in one comprehensive tool

@@ -8,6 +8,9 @@ import ffmpeg from "fluent-ffmpeg";
 import { z } from "zod";
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { generateSVG, generateAIImage } from "./image_editor.js";
+// AI Image Upscaling functionality based on the excellent Upscayl project
+// Original: https://github.com/upscayl/upscayl by Nayam Amarshe & TGS963
+import { upscaleImage, batchUpscaleImages, parseUpscalingCommand, UPSCALING_MODELS, UpscalingParams } from "./ai_upscaler.js";
 
 // Set FFmpeg path
 ffmpeg.setFfmpegPath(ffmpegPath || "");
@@ -37,7 +40,7 @@ export const EditInput = z.object({
     // Audio operations
     "trim", "normalize", "fade", "gain", "reverse", "time_stretch", "pitch_shift",
     // Image operations  
-    "resize", "crop", "rotate", "flip", "filter", "enhance", "adjust", "vignette", "border", "generate_svg", "generate_ai_image",
+    "resize", "crop", "rotate", "flip", "filter", "enhance", "adjust", "vignette", "border", "generate_svg", "generate_ai_image", "upscale",
     // Video operations
     "cut", "merge", "convert", "resize_video", "add_audio", "add_subtitles", "apply_effects",
     // Universal operations
@@ -689,6 +692,9 @@ async function exportImage(session: Session, outputPath: string, format?: string
           });
         }
         break;
+      case "upscale":
+        // AI upscaling is handled separately after the pipeline
+        break;
     }
   }
   
@@ -707,7 +713,48 @@ async function exportImage(session: Session, outputPath: string, format?: string
       break;
   }
   
-  await pipeline.toFile(outputPath);
+  // Check if we need to apply AI upscaling
+  const hasUpscaling = session.layers.some(layer => layer.operation === "upscale");
+  
+  if (hasUpscaling) {
+    // First save the processed image to a temporary file
+    const tempPath = outputPath + '.temp';
+    await pipeline.toFile(tempPath);
+    
+    // Find the upscaling layer
+    const upscaleLayer = session.layers.find(layer => layer.operation === "upscale");
+    if (upscaleLayer) {
+      const upscaleParams = {
+        model: upscaleLayer.params.model || 'realesrgan-x4plus',
+        scale: upscaleLayer.params.scale,
+        customWidth: upscaleLayer.params.customWidth,
+        customHeight: upscaleLayer.params.customHeight,
+        tileSize: upscaleLayer.params.tileSize || 512,
+        gpuId: upscaleLayer.params.gpuId,
+        format: outputFormat as any,
+        compression: quality || 90,
+        ttaMode: upscaleLayer.params.ttaMode || false,
+        preserveMetadata: upscaleLayer.params.preserveMetadata !== false,
+        denoise: upscaleLayer.params.denoise !== false,
+        face_enhance: upscaleLayer.params.face_enhance || false
+      };
+      
+      // Apply AI upscaling
+      const upscaleResult = await upscaleImage(tempPath, outputPath, upscaleParams);
+      
+      // Clean up temporary file
+      if (fs.existsSync(tempPath)) {
+        fs.unlinkSync(tempPath);
+      }
+      
+      if (!upscaleResult.success) {
+        throw new Error(`AI upscaling failed: ${upscaleResult.error}`);
+      }
+    }
+  } else {
+    // No upscaling, just save normally
+    await pipeline.toFile(outputPath);
+  }
 }
 
 // Audio Export
@@ -965,25 +1012,143 @@ export async function startRecording(input: unknown) {
   };
 }
 
+// Handle single image upscaling
+async function handleImageUpscaling(params: any) {
+  const {
+    source,
+    path: outputPath,
+    upscaleModel = 'realesrgan-x4plus',
+    upscaleScale,
+    upscaleWidth,
+    upscaleHeight,
+    tileSize = 512,
+    gpuId,
+    ttaMode = false,
+    denoise = true,
+    faceEnhance = false,
+    preserveMetadata = true,
+    format = 'png',
+    compression = 90,
+    naturalLanguageCommand
+  } = params;
+
+  if (!source) {
+    throw new Error("Source image path is required for upscaling");
+  }
+
+  // Parse natural language command if provided
+  let upscaleParams: any = {
+    model: upscaleModel,
+    scale: upscaleScale,
+    customWidth: upscaleWidth,
+    customHeight: upscaleHeight,
+    tileSize,
+    gpuId,
+    format,
+    compression,
+    ttaMode,
+    preserveMetadata,
+    denoise,
+    face_enhance: faceEnhance
+  };
+
+  if (naturalLanguageCommand) {
+    const nlParams = parseUpscalingCommand(naturalLanguageCommand);
+    upscaleParams = { ...upscaleParams, ...nlParams };
+  }
+
+  // Generate output path if not provided
+  const finalOutputPath = outputPath || (() => {
+    const ext = path.extname(source);
+    const baseName = path.basename(source, ext);
+    const dir = path.dirname(source);
+    return path.join(dir, `${baseName}_upscaled_${upscaleParams.model}.${format}`);
+  })();
+
+  // Perform upscaling
+  const result = await upscaleImage(source, finalOutputPath, upscaleParams);
+  
+  if (!result.success) {
+    throw new Error(result.error || "Upscaling failed");
+  }
+
+  return result;
+}
+
+// Handle batch image upscaling
+async function handleBatchUpscaling(params: any) {
+  const {
+    inputPaths,
+    outputDir,
+    upscaleModel = 'realesrgan-x4plus',
+    upscaleScale,
+    upscaleWidth,
+    upscaleHeight,
+    tileSize = 512,
+    gpuId,
+    ttaMode = false,
+    denoise = true,
+    faceEnhance = false,
+    preserveMetadata = true,
+    format = 'png',
+    compression = 90,
+    naturalLanguageCommand
+  } = params;
+
+  if (!inputPaths || !Array.isArray(inputPaths) || inputPaths.length === 0) {
+    throw new Error("Input paths array is required for batch upscaling");
+  }
+
+  if (!outputDir) {
+    throw new Error("Output directory is required for batch upscaling");
+  }
+
+  // Parse natural language command if provided
+  let upscaleParams: any = {
+    model: upscaleModel,
+    scale: upscaleScale,
+    customWidth: upscaleWidth,
+    customHeight: upscaleHeight,
+    tileSize,
+    gpuId,
+    format,
+    compression,
+    ttaMode,
+    preserveMetadata,
+    denoise,
+    face_enhance: faceEnhance
+  };
+
+  if (naturalLanguageCommand) {
+    const nlParams = parseUpscalingCommand(naturalLanguageCommand);
+    upscaleParams = { ...upscaleParams, ...nlParams };
+  }
+
+  // Perform batch upscaling
+  const result = await batchUpscaleImages(inputPaths, outputDir, upscaleParams);
+  
+  return result;
+}
+
 // Register the unified multimedia tool
 export function registerMultimediaTool(server: McpServer) {
   server.registerTool("multimedia_tool", {
-    description: "🎬 **Unified Multimedia Editing Suite** - Comprehensive cross-platform multimedia processing tool combining audio, image, and video editing capabilities. Features session management, batch processing, project organization, cross-platform audio recording, AI-powered content generation, and natural language interface. Supports all major media formats with professional-grade editing operations.",
+    description: "🎬 **Unified Multimedia Editing Suite with AI Upscaling** - Comprehensive cross-platform multimedia processing tool combining audio, image, and video editing capabilities with advanced AI image upscaling powered by Real-ESRGAN. Features session management, batch processing, project organization, cross-platform audio recording, AI-powered content generation, AI image upscaling, and natural language interface. Supports all major media formats with professional-grade editing operations and state-of-the-art AI enhancement.",
     inputSchema: {
       action: z.enum([
         "status", "open", "edit", "export", "batch_process", "create_project", 
-        "get_session", "delete_session", "record_audio", "get_audio_devices", "start_recording", "generate_svg", "generate_ai_image"
-      ]).describe("Multimedia tool action to perform. Options: status (get tool status), open (open media file), edit (apply editing operation), export (export edited media), batch_process (process multiple files), create_project (create project), get_session (get session details), delete_session (delete session), record_audio (record audio), get_audio_devices (list audio devices), start_recording (begin recording), generate_svg (create SVG graphics), generate_ai_image (generate AI images)"),
+        "get_session", "delete_session", "record_audio", "get_audio_devices", "start_recording", "generate_svg", "generate_ai_image", "upscale_image", "batch_upscale"
+      ]).describe("Multimedia tool action to perform. Options: status (get tool status), open (open media file), edit (apply editing operation), export (export edited media), batch_process (process multiple files), create_project (create project), get_session (get session details), delete_session (delete session), record_audio (record audio), get_audio_devices (list audio devices), start_recording (begin recording), generate_svg (create SVG graphics), generate_ai_image (generate AI images), upscale_image (AI upscale single image), batch_upscale (AI upscale multiple images)"),
       source: z.string().optional().describe("Media source path (local file) or URL (http/https) to open for editing. Supports audio (mp3, wav, flac, aac, ogg, m4a, wma), image (jpg, jpeg, png, gif, webp, tiff, bmp, svg), and video (mp4, avi, mov, mkv, webm, flv, wmv, m4v) formats"),
       sessionName: z.string().optional().describe("Custom name for the editing session. If not provided, defaults to 'untitled' or auto-generated based on source file"),
       type: z.enum(["audio", "image", "video"]).optional().describe("Media type specification. If not provided, will be auto-detected from file extension or content analysis"),
       sessionId: z.string().optional().describe("Unique session identifier for referencing an existing editing session. Required for edit, export, get_session, and delete_session actions"),
       operation: z.enum([
         "trim", "normalize", "fade", "gain", "reverse", "time_stretch", "pitch_shift",
-        "resize", "crop", "rotate", "flip", "filter", "enhance", "adjust", "vignette", "border",
+        "resize", "crop", "rotate", "flip", "filter", "enhance", "adjust", "vignette", "border", "upscale",
         "cut", "merge", "convert", "resize_video", "add_audio", "add_subtitles", "apply_effects",
         "composite", "watermark", "batch_process"
-      ]).optional().describe("Editing operation to apply. Audio: trim, normalize, fade, gain, reverse, time_stretch, pitch_shift. Image: resize, crop, rotate, flip, filter, enhance, adjust, vignette, border. Video: cut, merge, convert, resize_video, add_audio, add_subtitles, apply_effects. Universal: composite, watermark, batch_process"),
+      ]).optional().describe("Editing operation to apply. Audio: trim, normalize, fade, gain, reverse, time_stretch, pitch_shift. Image: resize, crop, rotate, flip, filter, enhance, adjust, vignette, border, upscale (AI upscaling). Video: cut, merge, convert, resize_video, add_audio, add_subtitles, apply_effects. Universal: composite, watermark, batch_process"),
       params: z.object({}).passthrough().optional().describe("Operation-specific parameters object. Structure varies by operation type. Examples: resize: {width: 800, height: 600, fit: 'cover'}, trim: {start: 10, end: 30}, filter: {type: 'blur', radius: 2}"),
       format: z.string().optional().describe("Output format for export operations. Audio: wav, mp3, flac, aac, ogg. Image: jpg, jpeg, png, gif, webp, tiff, bmp, svg. Video: mp4, avi, mov, mkv, webm. If not specified, uses original format"),
       quality: z.number().min(1).max(100).optional().describe("Output quality setting (1-100). Higher values produce better quality but larger file sizes. Default: 80. Applies to compressed formats like jpg, mp3, mp4"),
@@ -1011,7 +1176,20 @@ export function registerMultimediaTool(server: McpServer) {
       elements: z.array(z.string()).optional().describe("Specific visual elements to include in generation. Examples: ['trees', 'mountains', 'buildings', 'people', 'animals']. Helps guide the AI generation process"),
       model: z.string().optional().describe("AI model to use for image generation. Options: 'dall-e-3', 'dall-e-2', 'stable-diffusion', 'midjourney', 'auto'. If not specified, auto-detects best available model based on API keys and capabilities"),
       fallbackToSVG: z.boolean().optional().describe("Enable automatic fallback to SVG generation if AI model is unavailable or fails. Default: true. Ensures content generation always succeeds with graceful degradation"),
-      generationQuality: z.enum(["low", "medium", "high"]).optional().describe("Generation quality level. low: faster generation, basic quality. medium: balanced speed and quality. high: best quality, slower generation. Default: medium")
+      generationQuality: z.enum(["low", "medium", "high"]).optional().describe("Generation quality level. low: faster generation, basic quality. medium: balanced speed and quality. high: best quality, slower generation. Default: medium"),
+      // AI Upscaling parameters
+      upscaleModel: z.string().optional().describe("AI upscaling model to use. Options: 'realesrgan-x4plus' (general 4x), 'realesrgan-x4plus-anime' (anime 4x), 'realesrgan-x2plus' (general 2x), 'esrgan-x4' (classic 4x), 'waifu2x-cunet' (anime 2x). Default: realesrgan-x4plus"),
+      upscaleScale: z.number().min(1).max(8).optional().describe("Custom upscaling factor (1-8x). Overrides model default scale"),
+      upscaleWidth: z.number().optional().describe("Target width in pixels for upscaling (alternative to scale)"),
+      upscaleHeight: z.number().optional().describe("Target height in pixels for upscaling (alternative to scale)"),
+      tileSize: z.number().min(32).max(1024).optional().describe("Tile size for processing large images during upscaling. Smaller = better quality but slower. Default: 512"),
+      gpuId: z.string().optional().describe("GPU device ID for hardware acceleration during upscaling"),
+      ttaMode: z.boolean().optional().describe("Test-time augmentation for better upscaling quality (slower processing). Default: false"),
+      denoise: z.boolean().optional().describe("Apply denoising during upscaling. Default: true"),
+      faceEnhance: z.boolean().optional().describe("Enable face enhancement during upscaling (if supported by model). Default: false"),
+      preserveMetadata: z.boolean().optional().describe("Preserve original image metadata after upscaling. Default: true"),
+      inputPaths: z.array(z.string()).optional().describe("Array of input image paths for batch upscaling"),
+      naturalLanguageCommand: z.string().optional().describe("Natural language command for upscaling (e.g., 'upscale this image 4x with anime model', 'enhance photo quality 2x', 'make this image larger and sharper')")
     },
     outputSchema: {
       success: z.boolean().describe("Indicates whether the operation completed successfully"),
@@ -1212,6 +1390,33 @@ export function registerMultimediaTool(server: McpServer) {
               format: aiResult.format,
               path: aiResult.path,
               model: (aiResult as any).model
+            }
+          };
+          
+        case "upscale_image":
+          const upscaleResult = await handleImageUpscaling(restParams);
+          return {
+            content: [{ type: "text" as const, text: `Image upscaled successfully: ${upscaleResult.outputPath}` }],
+            structuredContent: {
+              success: true,
+              message: "Image upscaled successfully",
+              path: upscaleResult.outputPath,
+              originalSize: upscaleResult.originalSize,
+              upscaledSize: upscaleResult.upscaledSize,
+              model: upscaleResult.model,
+              processingTime: upscaleResult.processingTime
+            }
+          };
+          
+        case "batch_upscale":
+          const batchUpscaleResult = await handleBatchUpscaling(restParams);
+          return {
+            content: [{ type: "text" as const, text: `Batch upscaling completed: ${batchUpscaleResult.results.length} images processed` }],
+            structuredContent: {
+              success: true,
+              message: "Batch upscaling completed",
+              results: batchUpscaleResult.results,
+              totalProcessingTime: batchUpscaleResult.totalProcessingTime
             }
           };
           

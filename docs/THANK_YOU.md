@@ -63,6 +63,31 @@ We are deeply grateful to **Harshit Jain** for creating the original Competitive
 
 **Repository**: https://github.com/qb-harshit/Competitve-Intelligence-CLI
 
+#### **Nayam Amarshe & TGS963 - Upscayl Project**
+*AI Image Upscaling Innovation*
+
+**Original Project**: [Upscayl - Free and Open Source AI Image Upscaler](https://github.com/upscayl/upscayl)
+
+We are deeply grateful to **Nayam Amarshe** ([@NayamAmarshe](https://github.com/NayamAmarshe)) and **TGS963** ([@TGS963](https://github.com/TGS963)) for creating the exceptional Upscayl project that inspired our AI image upscaling integration. Their work has revolutionized accessible AI image enhancement and has been properly credited and enhanced with:
+
+- ✅ Cross-platform MCP server integration
+- ✅ Natural language command processing
+- ✅ Session-based editing workflows
+- ✅ Batch processing capabilities
+- ✅ Enhanced error handling and fallback mechanisms
+- ✅ Full compliance with AGPL-3.0 license
+
+**Key Contributors**:
+- **Nayam Amarshe** - Lead Developer and Project Creator
+- **TGS963** - Core Contributor and Co-maintainer
+
+**Original Description**: "🆙 Upscayl - #1 Free and Open Source AI Image Upscaler for Linux, MacOS and Windows"
+
+**Repository**: https://github.com/upscayl/upscayl
+**License**: AGPL-3.0 (GNU Affero General Public License v3.0)
+
+Their innovative approach to making Real-ESRGAN AI upscaling accessible to everyone has been instrumental in bringing professional-grade image enhancement to the MCP God Mode multimedia tool.
+
 ---
 
 ## 🚀 **Community Support**
