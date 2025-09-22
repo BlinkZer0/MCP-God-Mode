@@ -154,6 +154,8 @@ export { registerDockerManagement } from "./virtualization/docker_management.js"
 // AI Tools
 export { registerRagToolkit } from "./ai/rag_toolkit.js";
 export { registerAiAdversarialPrompt } from "./ai/ai_adversarial_prompt.js";
+export { registerAutonomousCascade } from "./ai/autonomous_cascade.js";
+export { registerAutonomousCascadeNl } from "./ai/autonomous_cascade_nl.js";
 
 // Security Tools
 

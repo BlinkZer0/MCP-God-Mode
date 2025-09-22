@@ -9493,6 +9493,211 @@
         "expect_code": 0,
         "timeout_ms": 5000
       }
+    },
+    {
+      "name": "ai_autonomous_cascade",
+      "category": "ai",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "ai_autonomous_cascade",
+      "args": [
+        {
+          "name": "action",
+          "type": "enum[execute,parse_goal,get_presets,resume]",
+          "required": true,
+          "description": "Action to perform: execute (run autonomous cascade), parse_goal (parse natural language goal), get_presets (get available templates), resume (continue previous run)"
+        },
+        {
+          "name": "goal",
+          "type": "string",
+          "required": false,
+          "description": "The goal to accomplish autonomously (required for execute action)"
+        },
+        {
+          "name": "context_hints",
+          "type": "string",
+          "required": false,
+          "description": "Additional context hints for better planning"
+        },
+        {
+          "name": "max_rounds",
+          "type": "number",
+          "required": false,
+          "description": "Maximum number of planning rounds (1-100, default: 10)"
+        },
+        {
+          "name": "hard_budget_seconds",
+          "type": "number",
+          "required": false,
+          "description": "Maximum time budget in seconds (30-7200, default: 600)"
+        },
+        {
+          "name": "risk",
+          "type": "enum[read_only,write_fs,networked]",
+          "required": false,
+          "description": "Risk level for operations (default: read_only)"
+        },
+        {
+          "name": "allowed_tools",
+          "type": "array",
+          "required": false,
+          "description": "List of allowed tools to use"
+        },
+        {
+          "name": "disallowed_tools",
+          "type": "array",
+          "required": false,
+          "description": "List of tools to avoid using"
+        },
+        {
+          "name": "artifacts_dir",
+          "type": "string",
+          "required": false,
+          "description": "Directory for storing artifacts"
+        },
+        {
+          "name": "safe_mode",
+          "type": "boolean",
+          "required": false,
+          "description": "Enable safe mode (default: true)"
+        },
+        {
+          "name": "dry_run",
+          "type": "boolean",
+          "required": false,
+          "description": "Perform dry run without executing actions (default: false)"
+        },
+        {
+          "name": "input",
+          "type": "string",
+          "required": false,
+          "description": "Natural language goal to parse (required for parse_goal action)"
+        },
+        {
+          "name": "preset",
+          "type": "string",
+          "required": false,
+          "description": "Preset goal template to use (for parse_goal action)"
+        },
+        {
+          "name": "plan_id",
+          "type": "string",
+          "required": false,
+          "description": "UUID of the plan to resume (required for resume action)"
+        }
+      ],
+      "env_vars": [],
+      "requires_privilege": true,
+      "side_effects": "Executes autonomous planning and action loops, may create files and run commands based on risk level and action",
+      "safe_mode": true,
+      "tags": [
+        "ai",
+        "autonomous",
+        "planning",
+        "cascade"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for ai_autonomous_cascade')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "ai_autonomous_cascade_nl",
+      "category": "ai",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "ai_autonomous_cascade_nl",
+      "args": [
+        {
+          "name": "action",
+          "type": "enum[parse_natural_language,build_goal_interactive,match_templates,generate_suggestions]",
+          "required": true,
+          "description": "NL action to perform: parse_natural_language (advanced parsing), build_goal_interactive (guided builder), match_templates (template matching), generate_suggestions (optimization suggestions)"
+        },
+        {
+          "name": "input",
+          "type": "string",
+          "required": false,
+          "description": "Natural language input to parse (required for parse_natural_language and match_templates actions)"
+        },
+        {
+          "name": "include_suggestions",
+          "type": "boolean",
+          "required": false,
+          "description": "Include contextual suggestions (default: true, for parse_natural_language action)"
+        },
+        {
+          "name": "validate_config",
+          "type": "boolean",
+          "required": false,
+          "description": "Validate the parsed configuration (default: true, for parse_natural_language action)"
+        },
+        {
+          "name": "partial_input",
+          "type": "string",
+          "required": false,
+          "description": "Partial input to start with (for build_goal_interactive action)"
+        },
+        {
+          "name": "step",
+          "type": "enum[goal,risk,time,tools,safety,review]",
+          "required": false,
+          "description": "Current step in interactive builder (for build_goal_interactive action)"
+        },
+        {
+          "name": "previous_answers",
+          "type": "object",
+          "required": false,
+          "description": "Previous answers from interactive session (for build_goal_interactive action)"
+        },
+        {
+          "name": "return_all_matches",
+          "type": "boolean",
+          "required": false,
+          "description": "Return all matches instead of top 3 (default: false, for match_templates action)"
+        },
+        {
+          "name": "current_config",
+          "type": "object",
+          "required": false,
+          "description": "Current cascade configuration to analyze (required for generate_suggestions action)"
+        },
+        {
+          "name": "context",
+          "type": "string",
+          "required": false,
+          "description": "Additional context for suggestions (for generate_suggestions action)"
+        },
+        {
+          "name": "focus_area",
+          "type": "enum[performance,safety,completeness,efficiency]",
+          "required": false,
+          "description": "Focus area for suggestions (for generate_suggestions action)"
+        }
+      ],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "None - advanced natural language processing and analysis only",
+      "safe_mode": true,
+      "tags": [
+        "ai",
+        "nlp",
+        "advanced",
+        "cascade",
+        "natural_language"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for ai_autonomous_cascade_nl')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
     }
   ]
 }
