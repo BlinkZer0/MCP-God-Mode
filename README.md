@@ -22,6 +22,10 @@ Built on the Model Context Protocol (MCP). Cross-platform. Pluggable. Delightful
 [![Platforms](https://img.shields.io/badge/Platforms-Win%20%7C%20macOS%20%7C%20Linux%20%7C%20Android%20%7C%20iOS-orange)](docs/general/CROSS_PLATFORM_COMPATIBILITY.md)
 [![Tools](https://img.shields.io/badge/Tools-Catalog-orange)](TOOL_REFERENCE.md)
 
+## Tool Count Proof
+
+[![Proof of 190+ Tools in MCP God Mode](https://img.youtube.com/vi/CX9_DEss6Hk/0.jpg)](https://www.youtube.com/watch?v=CX9_DEss6Hk)
+
 ## What is MCP God Mode?
 
 - A modular MCP server suite with a dynamic tool router, security tooling, and multi-platform support.
