@@ -57,6 +57,8 @@
 - [Email Security Suite](/docs/tool/email_security_suite.md) - Email security tools
 - [Database Security Toolkit](/docs/tool/database_security_toolkit.md) - Database security tools
 - [Malware Analysis](/docs/tool/malware_analysis.md) - Analyze malware
+- [TruffleHog](/docs/tool/trufflehog.md) - Comprehensive secret scanner with 800+ detector types
+- [TruffleHog NL](/docs/tool/trufflehog_nl.md) - Natural language interface for TruffleHog
 - [Forensics Analysis](/docs/tool/forensics_analysis.md) - Digital forensics tools
 
 ## Penetration Testing

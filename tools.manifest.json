@@ -1,5 +1,5 @@
 {
-  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$schema": "https://json-schema.org/draft-07/schema#",
   "title": "MCP God Mode Tools Manifest",
   "type": "object",
   "tools": [
@@ -4065,6 +4065,118 @@
         "args": [
           "-e",
           "console.log('Smoke test for vulnerability_scanner')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "trufflehog",
+      "category": "security",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "trufflehog",
+      "args": [
+        {
+          "name": "action",
+          "type": "enum[scan_git,scan_github,scan_gitlab,scan_docker,scan_s3,scan_gcs,scan_filesystem,scan_jenkins,scan_postman,scan_elasticsearch,scan_stdin,analyze_credential,get_detectors,install_binary,check_status]",
+          "required": true,
+          "description": "TruffleHog action to perform"
+        },
+        {
+          "name": "target",
+          "type": "string",
+          "required": false,
+          "description": "Target to scan (URL, path, etc.)"
+        },
+        {
+          "name": "results",
+          "type": "enum[all,verified,unknown,unverified,filtered_unverified]",
+          "required": false,
+          "description": "Result types to include"
+        },
+        {
+          "name": "outputFormat",
+          "type": "enum[text,json,json-legacy,github-actions]",
+          "required": false,
+          "description": "Output format"
+        },
+        {
+          "name": "verification",
+          "type": "boolean",
+          "required": false,
+          "description": "Enable credential verification"
+        },
+        {
+          "name": "concurrency",
+          "type": "number",
+          "required": false,
+          "description": "Number of concurrent workers"
+        }
+      ],
+      "env_vars": [],
+      "requires_privilege": true,
+      "side_effects": "Downloads and executes TruffleHog binary, scans targets for secrets, may access external services for verification",
+      "safe_mode": false,
+      "tags": [
+        "security",
+        "secrets",
+        "scanning",
+        "credentials",
+        "git",
+        "docker",
+        "cloud"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for trufflehog')"
+        ],
+        "expect_code": 0,
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "name": "trufflehog_nl",
+      "category": "security",
+      "entry_file": "dev/dist/server-refactored.js",
+      "invoke": "trufflehog_nl",
+      "args": [
+        {
+          "name": "query",
+          "type": "string",
+          "required": true,
+          "description": "Natural language command for TruffleHog secret scanning"
+        },
+        {
+          "name": "context",
+          "type": "string",
+          "required": false,
+          "description": "Additional context about the scanning target"
+        },
+        {
+          "name": "outputFormat",
+          "type": "enum[text,json,summary]",
+          "required": false,
+          "description": "Preferred output format"
+        }
+      ],
+      "env_vars": [],
+      "requires_privilege": false,
+      "side_effects": "Parses natural language commands and provides TruffleHog parameter suggestions",
+      "safe_mode": true,
+      "tags": [
+        "security",
+        "natural_language",
+        "secrets",
+        "interface",
+        "parsing"
+      ],
+      "smoke_test": {
+        "cmd": "node",
+        "args": [
+          "-e",
+          "console.log('Smoke test for trufflehog_nl')"
         ],
         "expect_code": 0,
         "timeout_ms": 5000
