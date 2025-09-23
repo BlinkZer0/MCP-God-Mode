@@ -4,6 +4,16 @@
 
 TruffleHog is a comprehensive secret scanning tool that finds, verifies, and analyzes leaked credentials across multiple sources including Git repositories, cloud storage, Docker images, and more. It supports 800+ secret detector types with live credential verification and deep analysis capabilities.
 
+## Acknowledgments
+
+**Special thanks to the Truffle Security team** for creating and maintaining [TruffleHog](https://github.com/trufflesecurity/trufflehog) - the excellent secret scanning tool that powers this MCP God Mode integration.
+
+This integration brings TruffleHog's powerful capabilities to the MCP ecosystem, providing professional-grade secret detection and analysis through both direct API calls and natural language interface. The comprehensive feature set, including 800+ secret detectors, cross-platform support, and live credential verification, makes TruffleHog an invaluable tool for security professionals.
+
+**TruffleHog Repository:** [https://github.com/trufflesecurity/trufflehog](https://github.com/trufflesecurity/trufflehog)
+
+We encourage users to star, contribute to, and support the TruffleHog project as their continued development benefits the entire security community.
+
 ## Features
 
 ### Core Capabilities

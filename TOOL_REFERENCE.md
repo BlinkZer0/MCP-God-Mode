@@ -226,3 +226,44 @@
 - [Pacu AWS Exploitation](/docs/tool/pacu_aws_exploitation.md) - AWS penetration testing
 - [WAN Malware Deployer](/docs/tool/wan_malware_deployer.md) - Malware analysis and deployment
 - [Zero Trust Architect](/docs/tool/zero_trust_architect.md) - Zero trust security design
+
+## Acknowledgments
+
+### TruffleHog
+
+**Special thanks to the Truffle Security team** for creating and maintaining [TruffleHog](https://github.com/trufflesecurity/trufflehog) - the comprehensive secret scanning tool that powers our security scanning capabilities.
+
+**TruffleHog Features Integrated:**
+- 800+ secret detector types covering major cloud providers, services, and platforms
+- Cross-platform binary support (Windows, macOS, Linux, ARM architectures)
+- Live credential verification to confirm if secrets are active
+- Deep analysis of credentials and their associated permissions
+- Multi-source scanning (Git repositories, Docker images, S3 buckets, filesystems, etc.)
+
+The integration of TruffleHog into MCP God Mode enables professional-grade secret detection and analysis, accessible through both direct API calls and our natural language interface. This powerful integration would not be possible without the excellent foundation provided by the Truffle Security team.
+
+**TruffleHog Repository:** [https://github.com/trufflesecurity/trufflehog](https://github.com/trufflesecurity/trufflehog)
+
+### Other Integrated Tools
+
+We would also like to acknowledge the creators and maintainers of all the other exceptional tools that have been integrated into MCP God Mode, including but not limited to:
+
+- **AI and Machine Learning Tools**: Various AI frameworks and security analysis tools
+- **Security Frameworks**: Metasploit, Cobalt Strike, BloodHound, and other penetration testing tools
+- **Cloud Security Tools**: AWS, Azure, and Google Cloud security assessment tools
+- **Network Analysis Tools**: Wireshark, Nmap, and other network security tools
+- **Forensic Tools**: Autopsy, Volatility, and other digital forensics frameworks
+
+Each of these tools brings unique capabilities to the MCP God Mode ecosystem, and we are grateful to their respective communities for their continued development and maintenance.
+
+### Community Contributions
+
+We encourage users to contribute to these open-source projects, report issues, submit feature requests, and help improve the tools that make MCP God Mode possible.
+
+**Supporting Open Source:**
+- Star repositories you find valuable
+- Report bugs and security issues responsibly
+- Contribute code improvements when possible
+- Share your experiences and use cases
+
+The continued development and improvement of these tools benefits the entire cybersecurity and development community.

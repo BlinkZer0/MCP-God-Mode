@@ -1,4 +1,5 @@
 import * as fs from "node:fs/promises";
+import * as fsSync from "node:fs";
 import * as path from "node:path";
 // Default configuration - all tools enabled
 export const DEFAULT_TOOL_CONFIG = {
@@ -520,4 +521,25 @@ export function createMinimalConfig() {
 // Create full configuration (all tools)
 export function createFullConfig() {
     return createConfigFromCategories(Object.keys(TOOL_CATEGORIES));
+}
+// Load tools from manifest for interactive installer
+export function getAllToolsFromManifest() {
+    try {
+        const manifestPath = path.join(process.cwd(), '..', 'tools.manifest.json');
+        const fullPath = path.resolve(manifestPath);
+        if (fsSync.existsSync(fullPath)) {
+            const manifestData = fsSync.readFileSync(fullPath, 'utf-8');
+            const manifest = JSON.parse(manifestData);
+            return manifest.tools.map((tool) => tool.name).sort();
+        }
+    }
+    catch (error) {
+        console.log('⚠️  Could not load tools from manifest, using config categories');
+    }
+    // Fallback to config categories
+    const allTools = new Set();
+    Object.values(TOOL_CATEGORIES).forEach(category => {
+        category.tools.forEach(tool => allTools.add(tool));
+    });
+    return Array.from(allTools).sort();
 }

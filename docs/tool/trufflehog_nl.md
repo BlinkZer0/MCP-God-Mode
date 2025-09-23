@@ -4,6 +4,16 @@
 
 The TruffleHog Natural Language Interface provides an intuitive way to interact with TruffleHog secret scanning through conversational commands. It converts natural language queries into structured TruffleHog parameters, making secret scanning accessible without needing to know the exact API syntax.
 
+## Acknowledgments
+
+**Special thanks to the Truffle Security team** for creating and maintaining [TruffleHog](https://github.com/trufflesecurity/trufflehog) - the powerful secret scanning tool that this natural language interface makes accessible to users who prefer conversational commands over technical APIs.
+
+This natural language interface builds upon TruffleHog's robust foundation, enabling users to leverage its 800+ secret detectors, cross-platform capabilities, and comprehensive analysis features through simple, intuitive commands.
+
+**TruffleHog Repository:** [https://github.com/trufflesecurity/trufflehog](https://github.com/trufflesecurity/trufflehog)
+
+We encourage users to star, contribute to, and support the TruffleHog project as their continued development benefits the entire security community.
+
 ## Features
 
 - **Natural Language Processing**: Parse conversational commands

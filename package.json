@@ -1,6 +1,6 @@
 {
   "name": "mcp-god-mode",
-  "version": "2.0Final",
+  "version": "2.1b",
   "description": "MCP God Mode Server - Advanced AI Agent Toolkit (Built on Model Context Protocol by Anthropic) - Bi'iiradat Allah",
   "main": "start-mcp.js",
   "bin": {
@@ -13,13 +13,13 @@
     "install:lazy": "cd dev && npm run build",
     "install:full": "cd dev && npm run build",
     "install:custom": "cd dev && node build-server.js",
-    "build": "tsc -p .",
+    "build": "cd dev && tsc -p .",
     "start": "node dist/server-refactored.js",
     "start:refactored": "node dist/server-refactored.js",
     "start:modular": "node dist/server-modular.js",
     "start:lazy": "node dist/server-lazy.js",
     "start:minimal": "node dist/server-minimal.js",
-    "dev": "tsc -p . && node dist/server-refactored.js",
+    "dev": "cd dev && tsc -p . && node ../dist/server-refactored.js",
     "web": "node dist/web-server.js",
     "smoke": "node scripts/run-smoke-tests.js",
     "smoke:validate": "node scripts/validate-manifest.js",

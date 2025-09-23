@@ -2,15 +2,14 @@
 
 import fs from 'fs';
 import path from 'path';
-import { execSync } from 'child_process';
 import { createRequire } from 'module';
 const require = createRequire(import.meta.url);
 
 // Import tool configuration system
-import { 
-  createMinimalConfig, 
-  createFullConfig, 
-  createConfigFromCategories, 
+import {
+  createMinimalConfig,
+  createFullConfig,
+  createConfigFromCategories,
   createConfigFromTools,
   createConfigFromMixed,
   validateToolNames,
@@ -18,7 +17,8 @@ import {
   includeToolDependencies,
   getAllAvailableTools,
   saveToolConfig,
-  TOOL_CATEGORIES as CONFIG_TOOL_CATEGORIES 
+  getAllToolsFromManifest,
+  TOOL_CATEGORIES as CONFIG_TOOL_CATEGORIES
 } from './dist/config/tool-config.js';
 
 // Enhanced tool categories with drone tools
@@ -31,6 +31,27 @@ const ENHANCED_TOOL_CATEGORIES = {
   }
 };
 
+// Load tools from manifest
+function getAllToolsFromManifest() {
+  try {
+    // Try to load from manifest first (for latest tools)
+    const manifestPath = path.join(process.cwd(), 'tools.manifest.json');
+    if (fs.existsSync(manifestPath)) {
+      const manifest = JSON.parse(fs.readFileSync(manifestPath, 'utf-8'));
+      return manifest.tools.map(tool => tool.name);
+    }
+  } catch (error) {
+    console.log('⚠️  Could not load tools from manifest, using config categories');
+  }
+
+  // Fallback to config categories
+  const allTools = [];
+  Object.values(ENHANCED_TOOL_CATEGORIES).forEach(category => {
+    allTools.push(...category.tools);
+  });
+  return [...new Set(allTools)]; // Remove duplicates
+}
+
 // Get all available tools
 function getAllTools() {
   const allTools = [];
@@ -42,17 +63,19 @@ function getAllTools() {
 
 // Interactive installer with comprehensive tool selection
 async function runInteractiveInstaller() {
-  console.log('🚀 MCP God Mode v1.8 - Interactive Installer');
+  console.log('🚀 MCP God Mode v2.1b - Interactive Installer');
   console.log('=============================================');
   console.log('');
-  console.log('🎯 Enhanced Features in v1.8:');
-  console.log('   • Drone Management Tools (Defense & Offense)');
-  console.log('   • Comprehensive Tool Selection');
+  console.log('🎯 Enhanced Features in v2.1b:');
+  console.log('   • 190+ Comprehensive Tools Available');
+  console.log('   • Advanced Security & Penetration Testing');
+  console.log('   • AI-Powered Tools & Autonomous Cascade');
+  console.log('   • Cross-Platform Support (Windows, macOS, Linux, Mobile)');
   console.log('   • Interactive Category & Individual Tool Selection');
-  console.log('   • Advanced Security Operations');
   console.log('');
 
-  const allTools = getAllTools();
+  // Try to load tools from manifest first
+  const allTools = getAllToolsFromManifest();
   console.log(`📊 Total Available Tools: ${allTools.length}`);
   console.log(`📁 Total Categories: ${Object.keys(ENHANCED_TOOL_CATEGORIES).length}`);
   console.log('');
@@ -113,7 +136,7 @@ async function quickInstall(rl, question) {
   console.log('2. 🔒 Security Focused (Core + Security + Network tools)');
   console.log('3. 🛸 Drone Operations (Core + Drone + Security tools)');
   console.log('4. 🌐 Full Network Suite (All network and security tools)');
-  console.log('5. 🚀 Complete Platform (All 121 tools)');
+  console.log('5. 🚀 Complete Platform (All 190+ tools)');
   console.log('');
 
   const choice = await question('Select configuration (1-5): ');
@@ -191,7 +214,7 @@ async function individualToolInstall(rl, question) {
   console.log('Available tools by category:');
   console.log('');
 
-  const allTools = getAllTools();
+  const allTools = getAllToolsFromManifest();
   const categories = Object.entries(ENHANCED_TOOL_CATEGORIES);
   
   categories.forEach(([key, category]) => {
@@ -340,7 +363,7 @@ async function installComplete() {
     await saveToolConfig(config);
     console.log('✅ Complete platform configuration created');
     console.log('📋 All categories enabled');
-    console.log('🔧 Total tools: 121 tools (including drone management)');
+    console.log('🔧 Total tools: 190+ tools (all available tools)');
     console.log('');
     console.log('💡 Run: npm run build && node dist/server-modular.js');
   } catch (error) {

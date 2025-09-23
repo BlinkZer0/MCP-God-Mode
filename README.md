@@ -16,7 +16,7 @@ One MCP to route them all. Find a tool you like? Route cause located.
 
 Built on the Model Context Protocol (MCP). Cross-platform. Pluggable. Delightfully documented.
 
-[![Version](https://img.shields.io/badge/Version-v2.0Final-blue)](docs/updates/VERSION_2.0Final_CHANGELOG.md)
+[![Version](https://img.shields.io/badge/Version-v2.1b-blue)](docs/updates/VERSION_2.1b_CHANGELOG.md)
 [![License](https://img.shields.io/badge/License-MIT-green)](LICENSE)
 [![Node](https://img.shields.io/badge/Node-%3E%3D%2018-brightgreen)](package.json)
 [![Platforms](https://img.shields.io/badge/Platforms-Win%20%7C%20macOS%20%7C%20Linux%20%7C%20Android%20%7C%20iOS-orange)](docs/general/CROSS_PLATFORM_COMPATIBILITY.md)
@@ -78,3 +78,24 @@ The flagship, production-ready server is `server-refactored`:
 - Used by wrappers and tests across the repo
 
 Note on tool-router: The tool-router (`servers/tool-router.js`) is an experimental test build used for exploring a catalog-driven routing surface. It is not the primary server and may change rapidly.
+
+## Acknowledgments
+
+We would like to express our sincere gratitude to the creators and maintainers of **TruffleHog** for their exceptional work in developing this powerful secret scanning tool.
+
+### TruffleHog
+
+Special thanks to the Truffle Security team for creating and maintaining [TruffleHog](https://github.com/trufflesecurity/trufflehog) - a comprehensive secret scanning tool that forms the backbone of our security scanning capabilities.
+
+**TruffleHog Features Integrated:**
+- 800+ secret detector types
+- Cross-platform binary support
+- Live credential verification
+- Deep analysis capabilities
+- Multi-source scanning (Git, Docker, S3, etc.)
+
+The integration of TruffleHog into MCP God Mode enables professional-grade secret detection and analysis, making it accessible through our natural language interface. This integration would not be possible without the excellent foundation provided by the Truffle Security team.
+
+**TruffleHog Repository:** [https://github.com/trufflesecurity/trufflehog](https://github.com/trufflesecurity/trufflehog)
+
+We encourage users to star, contribute to, and support the TruffleHog project. Their continued development benefits the entire security community.
