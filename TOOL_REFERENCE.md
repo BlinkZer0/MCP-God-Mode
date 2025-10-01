@@ -132,7 +132,7 @@
 - [Drone Unified](/docs/tool/drone_unified.md) - Drone control and automation
 
 ## Psychology Tools
-- [Psychology Analysis](/docs/tool/ai_adversarial_prompt.md) - Psychological analysis tools
+- [Psychology Analysis](/docs/tool/psychology.md) - Comprehensive psychological analysis and knowledge base system
 
 ## Utility Tools
 - [Encryption Tool](/docs/tool/encryption_tool.md) - Data encryption/decryption
